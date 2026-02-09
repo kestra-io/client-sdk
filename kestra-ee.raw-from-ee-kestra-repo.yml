@@ -13547,26 +13547,6 @@ components:
         - ERROR
         - FINALLY
         - AFTER_EXECUTION
-    AbstractMetricEntry_Object_:
-      required:
-        - name
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: object
-        name:
-          type: string
-        description:
-          type: string
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-        timestamp:
-          type: string
-          format: date-time
     AbstractRetry:
       type: object
     AbstractTrigger:
@@ -13893,24 +13873,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ApiAuth"
-    AppResponse:
-      type: object
-      properties:
-        dispatch:
-          type: string
-        stream:
-          type: string
-        layout:
-          $ref: "#/components/schemas/AppResponse.UILayout"
-    AppResponse.UIBlock:
-      type: object
-    AppResponse.UILayout:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: "#/components/schemas/AppResponse.UIBlock"
     AppsController.ApiApp:
       type: object
       properties:
@@ -14779,34 +14741,6 @@ components:
         type:
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
-    ConversionService:
-      type: object
-    ConversionServiceProvider:
-      required:
-        - conversionService
-      type: object
-      properties:
-        conversionService:
-          $ref: "#/components/schemas/ConversionService"
-    ConvertibleMultiValues_String_:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/ConvertibleValues_List_String__"
-        - $ref: "#/components/schemas/ConversionServiceProvider"
-        - type: object
-          properties:
-            empty:
-              type: boolean
-    ConvertibleValues_List_String__:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/ConversionServiceProvider"
-        - type: object
-          properties:
-            empty:
-              type: boolean
-            conversionService:
-              $ref: "#/components/schemas/ConversionService"
     CreateApiTokenRequest:
       required:
         - name
@@ -15014,19 +14948,6 @@ components:
         primary:
           type: boolean
       description: Scim core schema.
-    Event_AppResponse_:
-      type: object
-      properties:
-        data:
-          $ref: "#/components/schemas/AppResponse"
-        id:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        retry:
-          type: string
     Event_ExecutionStatusEvent_:
       type: object
       properties:
@@ -15045,19 +14966,6 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/Execution"
-        id:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        retry:
-          type: string
-    Event_LogEntry_:
-      type: object
-      properties:
-        data:
-          $ref: "#/components/schemas/LogEntry"
         id:
           type: string
         name:
@@ -15142,59 +15050,6 @@ components:
           nullable: true
           items:
             $ref: "#/components/schemas/Breakpoint"
-    ExecutionController.ApiValidateExecutionInputsResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        namespace:
-          type: string
-        inputs:
-          type: array
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
-        checks:
-          type: array
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure"
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure:
-      type: object
-      properties:
-        message:
-          type: string
-        style:
-          $ref: "#/components/schemas/Check.Style"
-        behavior:
-          $ref: "#/components/schemas/Check.Behavior"
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
-      type: object
-      properties:
-        input:
-          $ref: "#/components/schemas/Input_Object_"
-        value:
-          type: object
-        enabled:
-          type: boolean
-        isDefault:
-          type: boolean
-        errors:
-          type: array
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
-      type: object
-      properties:
-        message:
-          type: string
-    ExecutionController.EvalResult:
-      type: object
-      properties:
-        result:
-          type: string
-        error:
-          type: string
-        stackTrace:
-          type: string
     ExecutionController.ExecutionResponse:
       required:
         - deleted
@@ -15284,11 +15139,6 @@ components:
         originalCreatedDate:
           type: string
           format: date-time
-    ExecutionRepositoryInterface.ChildFilter:
-      type: string
-      enum:
-        - CHILD
-        - MAIN
     ExecutionRepositoryInterface.FlowFilter:
       required:
         - id
@@ -15691,11 +15541,6 @@ components:
       enum:
         - FLOW_TASK
         - FLOW_TRIGGER
-    FlowScope:
-      type: string
-      enum:
-        - USER
-        - SYSTEM
     FlowTopologyGraph:
       type: object
       properties:
@@ -15824,12 +15669,6 @@ components:
         count:
           type: integer
           format: int64
-    HttpParameters:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/ConvertibleMultiValues_String_"
-        - $ref: "#/components/schemas/ConvertibleValues_List_String__"
-        - $ref: "#/components/schemas/ConversionServiceProvider"
     IAMBindingController.ApiBindingDetail:
       type: object
       properties:
@@ -16872,22 +16711,6 @@ components:
         - INFO
         - DEBUG
         - TRACE
-    Listener:
-      required:
-        - tasks
-      type: object
-      properties:
-        description:
-          type: string
-        conditions:
-          type: array
-          items:
-            $ref: "#/components/schemas/Condition"
-        tasks:
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Task"
     LogEntry:
       required:
         - deleted
@@ -17318,16 +17141,6 @@ components:
       properties:
         namespace:
           type: string
-    Namespace.AllowedTrigger:
-      required:
-        - namespace
-      type: object
-      properties:
-        namespace:
-          type: string
-        flowId:
-          type: string
-      deprecated: true
     NamespaceFileRevision:
       type: object
       properties:

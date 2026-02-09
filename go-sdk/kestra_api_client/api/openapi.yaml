@@ -15648,26 +15648,6 @@ components:
       - FINALLY
       - AFTER_EXECUTION
       type: string
-    AbstractMetricEntry_Object_:
-      properties:
-        type:
-          type: string
-        value:
-          type: object
-        name:
-          type: string
-        description:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-        timestamp:
-          format: date-time
-          type: string
-      required:
-      - name
-      type: object
     AbstractRetry:
       type: object
     AbstractTrigger:
@@ -16139,24 +16119,6 @@ components:
               $ref: "#/components/schemas/ApiAuth"
             type: array
         type: object
-      type: object
-    AppResponse:
-      properties:
-        dispatch:
-          type: string
-        stream:
-          type: string
-        layout:
-          $ref: "#/components/schemas/AppResponse.UILayout"
-      type: object
-    AppResponse.UIBlock:
-      type: object
-    AppResponse.UILayout:
-      properties:
-        blocks:
-          items:
-            $ref: "#/components/schemas/AppResponse.UIBlock"
-          type: array
       type: object
     AppsController.ApiApp:
       properties:
@@ -17150,34 +17112,6 @@ components:
       required:
       - type
       type: object
-    ConversionService:
-      type: object
-    ConversionServiceProvider:
-      properties:
-        conversionService:
-          type: object
-      required:
-      - conversionService
-      type: object
-    ConvertibleMultiValues_String_:
-      allOf:
-      - $ref: "#/components/schemas/ConvertibleValues_List_String__"
-      - $ref: "#/components/schemas/ConversionServiceProvider"
-      - properties:
-          empty:
-            type: boolean
-        type: object
-      type: object
-    ConvertibleValues_List_String__:
-      allOf:
-      - $ref: "#/components/schemas/ConversionServiceProvider"
-      - properties:
-          empty:
-            type: boolean
-          conversionService:
-            $ref: "#/components/schemas/ConversionService"
-        type: object
-      type: object
     CreateApiTokenRequest:
       example:
         maxAge: maxAge
@@ -17342,19 +17276,6 @@ components:
         primary:
           type: boolean
       type: object
-    Event_AppResponse_:
-      properties:
-        data:
-          $ref: "#/components/schemas/AppResponse"
-        id:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        retry:
-          type: string
-      type: object
     Event_ExecutionStatusEvent_:
       properties:
         data:
@@ -17372,19 +17293,6 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/Execution"
-        id:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        retry:
-          type: string
-      type: object
-    Event_LogEntry_:
-      properties:
-        data:
-          $ref: "#/components/schemas/LogEntry"
         id:
           type: string
         name:
@@ -17658,59 +17566,6 @@ components:
       - id
       - namespace
       - state
-      type: object
-    ExecutionController.ApiValidateExecutionInputsResponse:
-      properties:
-        id:
-          type: string
-        namespace:
-          type: string
-        inputs:
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
-          type: array
-        checks:
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure"
-          type: array
-      type: object
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure:
-      properties:
-        message:
-          type: string
-        style:
-          $ref: "#/components/schemas/Check.Style"
-        behavior:
-          $ref: "#/components/schemas/Check.Behavior"
-      type: object
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
-      properties:
-        input:
-          $ref: "#/components/schemas/Input_Object_"
-        value:
-          type: object
-        enabled:
-          type: boolean
-        isDefault:
-          type: boolean
-        errors:
-          items:
-            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
-          type: array
-      type: object
-    ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
-      properties:
-        message:
-          type: string
-      type: object
-    ExecutionController.EvalResult:
-      properties:
-        result:
-          type: string
-        error:
-          type: string
-        stackTrace:
-          type: string
       type: object
     ExecutionController.ExecutionResponse:
       allOf:
@@ -18026,11 +17881,6 @@ components:
           format: date-time
           type: string
       type: object
-    ExecutionRepositoryInterface.ChildFilter:
-      enum:
-      - CHILD
-      - MAIN
-      type: string
     ExecutionRepositoryInterface.FlowFilter:
       properties:
         namespace:
@@ -19248,11 +19098,6 @@ components:
       - FLOW_TASK
       - FLOW_TRIGGER
       type: string
-    FlowScope:
-      enum:
-      - USER
-      - SYSTEM
-      type: string
     FlowTopologyGraph:
       example:
         nodes:
@@ -19741,12 +19586,6 @@ components:
         count:
           format: int64
           type: integer
-      type: object
-    HttpParameters:
-      allOf:
-      - $ref: "#/components/schemas/ConvertibleMultiValues_String_"
-      - $ref: "#/components/schemas/ConvertibleValues_List_String__"
-      - $ref: "#/components/schemas/ConversionServiceProvider"
       type: object
     IAMBindingController.ApiBindingDetail:
       properties:
@@ -20922,22 +20761,6 @@ components:
       - DEBUG
       - TRACE
       type: string
-    Listener:
-      properties:
-        description:
-          type: string
-        conditions:
-          items:
-            $ref: "#/components/schemas/Condition"
-          type: array
-        tasks:
-          items:
-            $ref: "#/components/schemas/Task"
-          minItems: 1
-          type: array
-      required:
-      - tasks
-      type: object
     LogEntry:
       properties:
         namespace:
@@ -21406,16 +21229,6 @@ components:
         namespace: namespace
       properties:
         namespace:
-          type: string
-      required:
-      - namespace
-      type: object
-    Namespace.AllowedTrigger:
-      deprecated: true
-      properties:
-        namespace:
-          type: string
-        flowId:
           type: string
       required:
       - namespace
