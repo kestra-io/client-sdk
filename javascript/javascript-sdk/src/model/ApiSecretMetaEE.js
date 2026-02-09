@@ -16,10 +16,10 @@ import ApiSecretTag from './ApiSecretTag';
 
 /**
   * @typedef {Object} IApiSecretMetaEE
+  * @property {String} key
   * @property {String} namespace
   * @property {String} description
   * @property {Array.<module:model/ApiSecretTag>} tags
-  * @property {String} key
   */
 
 /**
@@ -33,10 +33,12 @@ class ApiSecretMetaEE {
      * @alias module:model/ApiSecretMetaEE
      * @implements module:model/ApiSecretMeta
      * @param {String} key - 
+     * @param {String} description - 
+     * @param {Array.<module:model/ApiSecretTag>} tags - 
      */
-    constructor(key) { 
+    constructor(key, description, tags) { 
         ApiSecretMeta.initialize(this, key);
-        ApiSecretMetaEE.initialize(this, key);
+        ApiSecretMetaEE.initialize(this, key, description, tags);
     }
 
     /**
@@ -44,8 +46,10 @@ class ApiSecretMetaEE {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key) {
+    static initialize(obj, key, description, tags) { 
         obj['key'] = key;
+        obj['description'] = description;
+        obj['tags'] = tags;
     }
 
     /**
@@ -60,6 +64,9 @@ class ApiSecretMetaEE {
             obj = obj || new ApiSecretMetaEE();
             ApiSecretMeta.constructFromObject(data, obj);
 
+            if (data.hasOwnProperty('key')) {
+                obj['key'] = ApiClient.convertToType(data['key'], 'String');
+            }
             if (data.hasOwnProperty('namespace')) {
                 obj['namespace'] = ApiClient.convertToType(data['namespace'], 'String');
             }
@@ -68,9 +75,6 @@ class ApiSecretMetaEE {
             }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], [ApiSecretTag]);
-            }
-            if (data.hasOwnProperty('key')) {
-                obj['key'] = ApiClient.convertToType(data['key'], 'String');
             }
         }
         return obj;
@@ -87,6 +91,10 @@ class ApiSecretMetaEE {
             if (!data.hasOwnProperty(property)) {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
+        }
+        // ensure the json data is a string
+        if (data['key'] && !(typeof data['key'] === 'string' || data['key'] instanceof String)) {
+            throw new Error("Expected the field `key` to be a primitive type in the JSON string but got " + data['key']);
         }
         // ensure the json data is a string
         if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
@@ -106,10 +114,6 @@ class ApiSecretMetaEE {
                 ApiSecretTag.validateJSON(item);
             };
         }
-        // ensure the json data is a string
-        if (data['key'] && !(typeof data['key'] === 'string' || data['key'] instanceof String)) {
-            throw new Error("Expected the field `key` to be a primitive type in the JSON string but got " + data['key']);
-        }
 
         return true;
     }
@@ -117,7 +121,12 @@ class ApiSecretMetaEE {
 
 }
 
-ApiSecretMetaEE.RequiredProperties = ["description", "tags", "key"];
+ApiSecretMetaEE.RequiredProperties = ["key", "description", "tags"];
+
+/**
+ * @member {String} key
+ */
+ApiSecretMetaEE.prototype['key'] = undefined;
 
 /**
  * @member {String} namespace
@@ -133,11 +142,6 @@ ApiSecretMetaEE.prototype['description'] = undefined;
  * @member {Array.<module:model/ApiSecretTag>} tags
  */
 ApiSecretMetaEE.prototype['tags'] = undefined;
-
-/**
- * @member {String} key
- */
-ApiSecretMetaEE.prototype['key'] = undefined;
 
 
 // Implement ApiSecretMeta interface:
