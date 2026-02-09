@@ -1637,7 +1637,7 @@ func (a *ExecutionsAPIService) FlowFromExecutionByIdExecute(r ApiFlowFromExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiFollowDependenciesExecutionRequest struct {
+type ApiFollowDependenciesExecutionsRequest struct {
 	ctx             context.Context
 	ApiService      *ExecutionsAPIService
 	tenant          string
@@ -1656,8 +1656,8 @@ This function rely on SSE.
 	@param tenant
 	@return ApiFollowExecutionRequest
 */
-func (a *ExecutionsAPIService) FollowDependenciesExecution(ctx context.Context, executionId string, tenant string) ApiFollowDependenciesExecutionRequest {
-	return ApiFollowDependenciesExecutionRequest{
+func (a *ExecutionsAPIService) FollowDependenciesExecutions(ctx context.Context, executionId string, tenant string) ApiFollowDependenciesExecutionsRequest {
+	return ApiFollowDependenciesExecutionsRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		tenant:      tenant,
@@ -1666,25 +1666,25 @@ func (a *ExecutionsAPIService) FollowDependenciesExecution(ctx context.Context, 
 }
 
 // If true, list only destination dependencies, otherwise list also source dependencies
-func (r ApiFollowDependenciesExecutionRequest) DestinationOnly(destinationOnly bool) ApiFollowDependenciesExecutionRequest {
+func (r ApiFollowDependenciesExecutionsRequest) DestinationOnly(destinationOnly bool) ApiFollowDependenciesExecutionsRequest {
 	r.destinationOnly = &destinationOnly
 	return r
 }
 
 // If true, expand all dependencies recursively
-func (r ApiFollowDependenciesExecutionRequest) ExpandAll(expandAll bool) ApiFollowDependenciesExecutionRequest {
+func (r ApiFollowDependenciesExecutionsRequest) ExpandAll(expandAll bool) ApiFollowDependenciesExecutionsRequest {
 	r.expandAll = &expandAll
 	return r
 }
 
-func (r ApiFollowDependenciesExecutionRequest) Execute() (<-chan *ExecutionStatusEvent, error) {
-	return r.ApiService.FollowDependenciesExecutionExecute(r)
+func (r ApiFollowDependenciesExecutionsRequest) Execute() (<-chan *ExecutionStatusEvent, error) {
+	return r.ApiService.FollowDependenciesExecutionsExecute(r)
 }
 
 /*
 Follows an Execution events and send them to the output channel.
 */
-func (a *ExecutionsAPIService) FollowDependenciesExecutionExecute(r ApiFollowDependenciesExecutionRequest) (<-chan *ExecutionStatusEvent, error) {
+func (a *ExecutionsAPIService) FollowDependenciesExecutionsExecute(r ApiFollowDependenciesExecutionsRequest) (<-chan *ExecutionStatusEvent, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
@@ -1692,7 +1692,7 @@ func (a *ExecutionsAPIService) FollowDependenciesExecutionExecute(r ApiFollowDep
 	)
 	executionEvents := make(chan *ExecutionStatusEvent)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecutions")
 	if err != nil {
 		return executionEvents, &GenericOpenAPIError{error: err.Error()}
 	}
