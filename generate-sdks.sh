@@ -3,7 +3,7 @@ set -euo pipefail
 
 VERSION=$1
 LANGUAGES=$2
-TEMPLATE_FLAG="${3:false}"
+TEMPLATE_FLAG="${3:-}"
 
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
