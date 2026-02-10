@@ -82,5 +82,33 @@ func TestQueryFilters_All(t *testing.T) {
 			"filters[endDate][LESS_THAN_OR_EQUAL_TO]":      "2026-12-17T17:17:17Z",
 		}, parsedFilters)
 	})
+	t.Run("should_parse_valid_query_field_to_q", func(t *testing.T) {
+		parsedFilters, err := kestra_api_client.ParseQueryFilters([]kestra_api_client.QueryFilter{
+			{
+				Field: ptr(kestra_api_client.QUERYFILTERFIELD_QUERY), Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS), Value: "hello",
+			},
+		})
+		require.NoError(t, err)
+		require.Equal(t, map[string]string{"filters[q][EQUALS]": "hello"}, parsedFilters)
+	})
+
+	t.Run("should_parse_valid_map_value_for_any_field", func(t *testing.T) {
+		parsedFilters, err := kestra_api_client.ParseQueryFilters([]kestra_api_client.QueryFilter{
+			{
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_ID),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
+				Value: map[string]string{
+					"a": "b",
+					"c": "d",
+				},
+			},
+		})
+		require.NoError(t, err)
+		require.Equal(t, map[string]string{
+			"filters[id][EQUALS][a]": "b",
+			"filters[id][EQUALS][c]": "d",
+		}, parsedFilters)
+	})
 }
+
 func ptr[T any](v T) *T { return &v }

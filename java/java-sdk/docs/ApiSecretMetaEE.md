@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**key** | **String** |  |  |
 |**namespace** | **String** |  |  [optional] |
-|**description** | **String** |  |  |
+|**description** | **String** |  |  [optional] |
 |**tags** | [**List&lt;ApiSecretTag&gt;**](ApiSecretTag.md) |  |  |
 
 

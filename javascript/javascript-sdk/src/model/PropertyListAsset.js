@@ -11,17 +11,17 @@
  */
 
 import ApiClient from '../ApiClient';
-import AssetsDeclaration from './AssetsDeclaration';
+import Asset from './Asset';
 
 /**
- * The PropertyAssetsDeclaration model module.
- * @module model/PropertyAssetsDeclaration
+ * The PropertyListAsset model module.
+ * @module model/PropertyListAsset
   */
-class PropertyAssetsDeclaration {
+class PropertyListAsset {
     /**
-     * Constructs a new <code>PropertyAssetsDeclaration</code>.
-     * @alias module:model/PropertyAssetsDeclaration
-     * @param {(module:model/Object|module:model/String)} instance The actual instance to initialize PropertyAssetsDeclaration.
+     * Constructs a new <code>PropertyListAsset</code>.
+     * @alias module:model/PropertyListAsset
+     * @param {(module:model/Object|module:model/String)} instance The actual instance to initialize PropertyListAsset.
      */
     constructor(instance = null) {
         if (instance === null) {
@@ -51,10 +51,10 @@ class PropertyAssetsDeclaration {
         }
 
         if (match > 1) {
-            throw new Error("Multiple matches found constructing `PropertyAssetsDeclaration` with oneOf schemas Object, String. Input: " + JSON.stringify(instance));
+            throw new Error("Multiple matches found constructing `PropertyListAsset` with oneOf schemas Object, String. Input: " + JSON.stringify(instance));
         } else if (match === 0) {
             this.actualInstance = null; // clear the actual instance in case there are multiple matches
-            throw new Error("No match found constructing `PropertyAssetsDeclaration` with oneOf schemas Object, String. Details: " +
+            throw new Error("No match found constructing `PropertyListAsset` with oneOf schemas Object, String. Details: " +
                             errorMessages.join(", "));
         } else { // only 1 match
             // the input is valid
@@ -62,14 +62,14 @@ class PropertyAssetsDeclaration {
     }
 
     /**
-     * Constructs a <code>PropertyAssetsDeclaration</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>PropertyListAsset</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/PropertyAssetsDeclaration} obj Optional instance to populate.
-     * @return {module:model/PropertyAssetsDeclaration} The populated <code>PropertyAssetsDeclaration</code> instance.
+     * @param {module:model/PropertyListAsset} obj Optional instance to populate.
+     * @return {module:model/PropertyListAsset} The populated <code>PropertyListAsset</code> instance.
      */
     static constructFromObject(data, obj) {
-        return new PropertyAssetsDeclaration(data);
+        return new PropertyListAsset(data);
     }
 
     /**
@@ -85,7 +85,7 @@ class PropertyAssetsDeclaration {
      * @param {(module:model/Object|module:model/String)} obj The actual instance.
      */
     setActualInstance(obj) {
-       this.actualInstance = PropertyAssetsDeclaration.constructFromObject(obj).getActualInstance();
+       this.actualInstance = PropertyListAsset.constructFromObject(obj).getActualInstance();
     }
 
     /**
@@ -97,27 +97,27 @@ class PropertyAssetsDeclaration {
     }
 
     /**
-     * Create an instance of PropertyAssetsDeclaration from a JSON string.
+     * Create an instance of PropertyListAsset from a JSON string.
      * @param {string} json_string JSON string.
-     * @return {module:model/PropertyAssetsDeclaration} An instance of PropertyAssetsDeclaration.
+     * @return {module:model/PropertyListAsset} An instance of PropertyListAsset.
      */
     static fromJSON = function(json_string){
-        return PropertyAssetsDeclaration.constructFromObject(JSON.parse(json_string));
+        return PropertyListAsset.constructFromObject(JSON.parse(json_string));
     }
 }
 
 /**
  * @member {String} expression
  */
-PropertyAssetsDeclaration.prototype['expression'] = undefined;
+PropertyListAsset.prototype['expression'] = undefined;
 
 /**
- * @member {module:model/AssetsDeclaration} value
+ * @member {Array.<module:model/Asset>} value
  */
-PropertyAssetsDeclaration.prototype['value'] = undefined;
+PropertyListAsset.prototype['value'] = undefined;
 
 
-PropertyAssetsDeclaration.OneOf = ["Object", "String"];
+PropertyListAsset.OneOf = ["Object", "String"];
 
-export default PropertyAssetsDeclaration;
+export default PropertyListAsset;
 

@@ -17,6 +17,6 @@ Name | Type | Description | Notes
 **logToFile** | **Boolean** |  | [optional] 
 **failOnTriggerError** | **Boolean** |  | [optional] 
 **allowConcurrent** | **Boolean** |  | [optional] 
-**assets** | [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
+**assets** | [**AssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
 
 

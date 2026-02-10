@@ -22,19 +22,19 @@ type Task struct {
 	Id   string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
 	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
 	// Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
-	Version              *string                           `json:"version,omitempty"`
-	Description          *string                           `json:"description,omitempty"`
-	Retry                map[string]interface{}            `json:"retry,omitempty"`
-	Timeout              *string                           `json:"timeout,omitempty"`
-	Disabled             *bool                             `json:"disabled,omitempty"`
-	WorkerGroup          *WorkerGroup                      `json:"workerGroup,omitempty"`
-	LogLevel             *Level                            `json:"logLevel,omitempty"`
-	AllowFailure         *bool                             `json:"allowFailure,omitempty"`
-	LogToFile            *bool                             `json:"logToFile,omitempty"`
-	RunIf                *string                           `json:"runIf,omitempty"`
-	AllowWarning         *bool                             `json:"allowWarning,omitempty"`
-	TaskCache            *Cache                            `json:"taskCache,omitempty"`
-	Assets               NullablePropertyAssetsDeclaration `json:"assets,omitempty"`
+	Version              *string                   `json:"version,omitempty"`
+	Description          *string                   `json:"description,omitempty"`
+	Retry                map[string]interface{}    `json:"retry,omitempty"`
+	Timeout              *string                   `json:"timeout,omitempty"`
+	Disabled             *bool                     `json:"disabled,omitempty"`
+	WorkerGroup          *WorkerGroup              `json:"workerGroup,omitempty"`
+	LogLevel             *Level                    `json:"logLevel,omitempty"`
+	AllowFailure         *bool                     `json:"allowFailure,omitempty"`
+	LogToFile            *bool                     `json:"logToFile,omitempty"`
+	RunIf                *string                   `json:"runIf,omitempty"`
+	AllowWarning         *bool                     `json:"allowWarning,omitempty"`
+	TaskCache            *Cache                    `json:"taskCache,omitempty"`
+	Assets               NullableAssetsDeclaration `json:"assets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -492,9 +492,9 @@ func (o *Task) SetTaskCache(v Cache) {
 }
 
 // GetAssets returns the Assets field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetAssets() PropertyAssetsDeclaration {
+func (o *Task) GetAssets() AssetsDeclaration {
 	if o == nil || IsNil(o.Assets.Get()) {
-		var ret PropertyAssetsDeclaration
+		var ret AssetsDeclaration
 		return ret
 	}
 	return *o.Assets.Get()
@@ -503,7 +503,7 @@ func (o *Task) GetAssets() PropertyAssetsDeclaration {
 // GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetAssetsOk() (*PropertyAssetsDeclaration, bool) {
+func (o *Task) GetAssetsOk() (*AssetsDeclaration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -519,8 +519,8 @@ func (o *Task) HasAssets() bool {
 	return false
 }
 
-// SetAssets gets a reference to the given NullablePropertyAssetsDeclaration and assigns it to the Assets field.
-func (o *Task) SetAssets(v PropertyAssetsDeclaration) {
+// SetAssets gets a reference to the given NullableAssetsDeclaration and assigns it to the Assets field.
+func (o *Task) SetAssets(v AssetsDeclaration) {
 	o.Assets.Set(&v)
 }
 

@@ -11,15 +11,14 @@
  */
 
 import ApiClient from '../ApiClient';
-import Asset from './Asset';
-import AssetIdentifier from './AssetIdentifier';
-import AssetsInOut from './AssetsInOut';
+import PropertyListAsset from './PropertyListAsset';
+import PropertyListAssetIdentifier from './PropertyListAssetIdentifier';
 
 /**
   * @typedef {Object} IAssetsDeclaration
-  * @property {Array.<module:model/AssetIdentifier>} inputs
-  * @property {Array.<module:model/Asset>} outputs
-  * @property {Boolean} enableAuto
+  * @property {Object} enableAuto
+  * @property {PropertyListAssetIdentifier} inputs
+  * @property {PropertyListAsset} outputs
   */
 
 /**
@@ -31,10 +30,9 @@ class AssetsDeclaration {
     /**
      * Constructs a new <code>AssetsDeclaration</code>.
      * @alias module:model/AssetsDeclaration
-     * @implements module:model/AssetsInOut
      */
     constructor() { 
-        AssetsInOut.initialize(this);
+        
         AssetsDeclaration.initialize(this);
     }
 
@@ -56,16 +54,15 @@ class AssetsDeclaration {
     static constructFromObject(data, obj) {
         if (data) {
             obj = obj || new AssetsDeclaration();
-            AssetsInOut.constructFromObject(data, obj);
 
+            if (data.hasOwnProperty('enableAuto')) {
+                obj['enableAuto'] = Object.constructFromObject(data['enableAuto']);
+            }
             if (data.hasOwnProperty('inputs')) {
-                obj['inputs'] = ApiClient.convertToType(data['inputs'], [AssetIdentifier]);
+                obj['inputs'] = PropertyListAssetIdentifier.constructFromObject(data['inputs']);
             }
             if (data.hasOwnProperty('outputs')) {
-                obj['outputs'] = ApiClient.convertToType(data['outputs'], [Asset]);
-            }
-            if (data.hasOwnProperty('enableAuto')) {
-                obj['enableAuto'] = ApiClient.convertToType(data['enableAuto'], 'Boolean');
+                obj['outputs'] = PropertyListAsset.constructFromObject(data['outputs']);
             }
         }
         return obj;
@@ -77,25 +74,17 @@ class AssetsDeclaration {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AssetsDeclaration</code>.
      */
     static validateJSON(data) {
-        if (data['inputs']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['inputs'])) {
-                throw new Error("Expected the field `inputs` to be an array in the JSON data but got " + data['inputs']);
-            }
-            // validate the optional field `inputs` (array)
-            for (const item of data['inputs']) {
-                AssetIdentifier.validateJSON(item);
-            };
+        // validate the optional field `enableAuto`
+        if (data['enableAuto']) { // data not null
+          Object.validateJSON(data['enableAuto']);
         }
+        // validate the optional field `inputs`
+        if (data['inputs']) { // data not null
+          PropertyListAssetIdentifier.validateJSON(data['inputs']);
+        }
+        // validate the optional field `outputs`
         if (data['outputs']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['outputs'])) {
-                throw new Error("Expected the field `outputs` to be an array in the JSON data but got " + data['outputs']);
-            }
-            // validate the optional field `outputs` (array)
-            for (const item of data['outputs']) {
-                Asset.validateJSON(item);
-            };
+          PropertyListAsset.validateJSON(data['outputs']);
         }
 
         return true;
@@ -107,30 +96,21 @@ class AssetsDeclaration {
 
 
 /**
- * @member {Array.<module:model/AssetIdentifier>} inputs
+ * @member {Object} enableAuto
+ */
+AssetsDeclaration.prototype['enableAuto'] = undefined;
+
+/**
+ * @member {module:model/PropertyListAssetIdentifier} inputs
  */
 AssetsDeclaration.prototype['inputs'] = undefined;
 
 /**
- * @member {Array.<module:model/Asset>} outputs
+ * @member {module:model/PropertyListAsset} outputs
  */
 AssetsDeclaration.prototype['outputs'] = undefined;
 
-/**
- * @member {Boolean} enableAuto
- */
-AssetsDeclaration.prototype['enableAuto'] = undefined;
 
-
-// Implement AssetsInOut interface:
-/**
- * @member {Array.<module:model/AssetIdentifier>} inputs
- */
-AssetsInOut.prototype['inputs'] = undefined;
-/**
- * @member {Array.<module:model/Asset>} outputs
- */
-AssetsInOut.prototype['outputs'] = undefined;
 
 
 

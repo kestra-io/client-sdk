@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **RunIf** | Pointer to **string** |  | [optional] 
 **AllowWarning** | Pointer to **bool** |  | [optional] 
 **TaskCache** | Pointer to [**Cache**](Cache.md) |  | [optional] 
-**Assets** | Pointer to [**NullablePropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
+**Assets** | Pointer to [**NullableAssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
 
 ## Methods
 
@@ -381,20 +381,20 @@ HasTaskCache returns a boolean if a field has been set.
 
 ### GetAssets
 
-`func (o *Task) GetAssets() PropertyAssetsDeclaration`
+`func (o *Task) GetAssets() AssetsDeclaration`
 
 GetAssets returns the Assets field if non-nil, zero value otherwise.
 
 ### GetAssetsOk
 
-`func (o *Task) GetAssetsOk() (*PropertyAssetsDeclaration, bool)`
+`func (o *Task) GetAssetsOk() (*AssetsDeclaration, bool)`
 
 GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAssets
 
-`func (o *Task) SetAssets(v PropertyAssetsDeclaration)`
+`func (o *Task) SetAssets(v AssetsDeclaration)`
 
 SetAssets sets Assets field to given value.
 

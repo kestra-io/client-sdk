@@ -84,7 +84,7 @@ public class NamespacesApiTest {
         Namespace ns = new Namespace().id(nsId).deleted(false);
         Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        List<PluginDefault> defaults =
+        var defaults =
             kestraClient().namespaces().inheritedPluginDefaults(created.getId(), MAIN_TENANT);
 
         assertNotNull(defaults);

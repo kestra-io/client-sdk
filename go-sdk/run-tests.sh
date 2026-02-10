@@ -13,6 +13,8 @@ else
   KESTRA_VERSION=$(cat ../COMPATIBLE_KESTRA_VERSION.properties)
 fi
 
+export KESTRA_VERSION=$KESTRA_VERSION
+
 #CURRENT_TIMESTAMP=$(date -u "+%Y%m%d%H%M%S" 2>/dev/null || date -u -j "+%Y%m%d%H%M%S")
 
 LOCAL_CI_VERSION_TO_TEST="local-ci-version"
@@ -24,7 +26,6 @@ echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 echo "start Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down
 
-export KESTRA_VERSION=$KESTRA_VERSION
 log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
    echo "db Docker Compose failed. Dumping logs:";
    log_and_run docker compose -f docker-compose-ci.yml logs;

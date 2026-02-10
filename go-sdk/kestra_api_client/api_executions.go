@@ -22,7 +22,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tmaxmax/go-sse"
+	sse "github.com/tmaxmax/go-sse"
 )
 
 // ExecutionsAPIService ExecutionsAPI service

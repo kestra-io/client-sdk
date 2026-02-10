@@ -25,16 +25,17 @@ class ValidateConstraintViolation(BaseModel):
     """
     ValidateConstraintViolation
     """ # noqa: E501
-    flow: Optional[StrictStr] = None
-    namespace: Optional[StrictStr] = None
     index: StrictInt
+    filename: Optional[StrictStr] = None
+    namespace: Optional[StrictStr] = None
+    flow: Optional[StrictStr] = None
     constraints: Optional[StrictStr] = None
     outdated: Optional[StrictBool] = None
     deprecation_paths: Optional[List[StrictStr]] = Field(default=None, alias="deprecationPaths")
     warnings: Optional[List[StrictStr]] = None
     infos: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["flow", "namespace", "index", "constraints", "outdated", "deprecationPaths", "warnings", "infos"]
+    __properties: ClassVar[List[str]] = ["index", "filename", "namespace", "flow", "constraints", "outdated", "deprecationPaths", "warnings", "infos"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,9 +95,10 @@ class ValidateConstraintViolation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "flow": obj.get("flow"),
-            "namespace": obj.get("namespace"),
             "index": obj.get("index"),
+            "filename": obj.get("filename"),
+            "namespace": obj.get("namespace"),
+            "flow": obj.get("flow"),
             "constraints": obj.get("constraints"),
             "outdated": obj.get("outdated"),
             "deprecationPaths": obj.get("deprecationPaths"),

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **String** |  | 
 **namespace** | **String** |  | [optional] 
-**description** | **String** |  | 
+**description** | **String** |  | [optional] 
 **tags** | [**[ApiSecretTag]**](ApiSecretTag.md) |  | 
 
 

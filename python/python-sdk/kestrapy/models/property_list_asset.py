@@ -20,11 +20,11 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-PROPERTYASSETSDECLARATION_ONE_OF_SCHEMAS = ["object", "str"]
+PROPERTYLISTASSET_ONE_OF_SCHEMAS = ["object", "str"]
 
-class PropertyAssetsDeclaration(BaseModel):
+class PropertyListAsset(BaseModel):
     """
-    PropertyAssetsDeclaration
+    PropertyListAsset
     """
     # data type: object
     oneof_schema_1_validator: Optional[Dict[str, Any]] = None
@@ -51,7 +51,7 @@ class PropertyAssetsDeclaration(BaseModel):
 
     @field_validator('actual_instance')
     def actual_instance_must_validate_oneof(cls, v):
-        instance = PropertyAssetsDeclaration.model_construct()
+        instance = PropertyListAsset.model_construct()
         error_messages = []
         match = 0
         # validate data type: object
@@ -68,10 +68,10 @@ class PropertyAssetsDeclaration(BaseModel):
             error_messages.append(str(e))
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in PropertyAssetsDeclaration with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in PropertyListAsset with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in PropertyAssetsDeclaration with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in PropertyListAsset with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -107,10 +107,10 @@ class PropertyAssetsDeclaration(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into PropertyAssetsDeclaration with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into PropertyListAsset with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into PropertyAssetsDeclaration with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into PropertyListAsset with oneOf schemas: object, str. Details: " + ", ".join(error_messages))
         else:
             return instance
 

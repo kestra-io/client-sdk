@@ -16,28 +16,28 @@ import (
 	"gopkg.in/validator.v2"
 )
 
-// PropertyAssetsDeclaration - struct for PropertyAssetsDeclaration
-type PropertyAssetsDeclaration struct {
+// PropertyListAssetIdentifier - struct for PropertyListAssetIdentifier
+type PropertyListAssetIdentifier struct {
 	MapmapOfStringAny *map[string]interface{}
 	String            *string
 }
 
-// map[string]interface{}AsPropertyAssetsDeclaration is a convenience function that returns map[string]interface{} wrapped in PropertyAssetsDeclaration
-func MapmapOfStringAnyAsPropertyAssetsDeclaration(v *map[string]interface{}) PropertyAssetsDeclaration {
-	return PropertyAssetsDeclaration{
+// map[string]interface{}AsPropertyListAssetIdentifier is a convenience function that returns map[string]interface{} wrapped in PropertyListAssetIdentifier
+func MapmapOfStringAnyAsPropertyListAssetIdentifier(v *map[string]interface{}) PropertyListAssetIdentifier {
+	return PropertyListAssetIdentifier{
 		MapmapOfStringAny: v,
 	}
 }
 
-// stringAsPropertyAssetsDeclaration is a convenience function that returns string wrapped in PropertyAssetsDeclaration
-func StringAsPropertyAssetsDeclaration(v *string) PropertyAssetsDeclaration {
-	return PropertyAssetsDeclaration{
+// stringAsPropertyListAssetIdentifier is a convenience function that returns string wrapped in PropertyListAssetIdentifier
+func StringAsPropertyListAssetIdentifier(v *string) PropertyListAssetIdentifier {
+	return PropertyListAssetIdentifier{
 		String: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *PropertyAssetsDeclaration) UnmarshalJSON(data []byte) error {
+func (dst *PropertyListAssetIdentifier) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into MapmapOfStringAny
@@ -79,16 +79,16 @@ func (dst *PropertyAssetsDeclaration) UnmarshalJSON(data []byte) error {
 		dst.MapmapOfStringAny = nil
 		dst.String = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(PropertyAssetsDeclaration)")
+		return fmt.Errorf("data matches more than one schema in oneOf(PropertyListAssetIdentifier)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(PropertyAssetsDeclaration)")
+		return fmt.Errorf("data failed to match schemas in oneOf(PropertyListAssetIdentifier)")
 	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src PropertyAssetsDeclaration) MarshalJSON() ([]byte, error) {
+func (src PropertyListAssetIdentifier) MarshalJSON() ([]byte, error) {
 	if src.MapmapOfStringAny != nil {
 		return json.Marshal(&src.MapmapOfStringAny)
 	}
@@ -101,7 +101,7 @@ func (src PropertyAssetsDeclaration) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *PropertyAssetsDeclaration) GetActualInstance() interface{} {
+func (obj *PropertyListAssetIdentifier) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *PropertyAssetsDeclaration) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj PropertyAssetsDeclaration) GetActualInstanceValue() interface{} {
+func (obj PropertyListAssetIdentifier) GetActualInstanceValue() interface{} {
 	if obj.MapmapOfStringAny != nil {
 		return *obj.MapmapOfStringAny
 	}
@@ -131,38 +131,38 @@ func (obj PropertyAssetsDeclaration) GetActualInstanceValue() interface{} {
 	return nil
 }
 
-type NullablePropertyAssetsDeclaration struct {
-	value *PropertyAssetsDeclaration
+type NullablePropertyListAssetIdentifier struct {
+	value *PropertyListAssetIdentifier
 	isSet bool
 }
 
-func (v NullablePropertyAssetsDeclaration) Get() *PropertyAssetsDeclaration {
+func (v NullablePropertyListAssetIdentifier) Get() *PropertyListAssetIdentifier {
 	return v.value
 }
 
-func (v *NullablePropertyAssetsDeclaration) Set(val *PropertyAssetsDeclaration) {
+func (v *NullablePropertyListAssetIdentifier) Set(val *PropertyListAssetIdentifier) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePropertyAssetsDeclaration) IsSet() bool {
+func (v NullablePropertyListAssetIdentifier) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePropertyAssetsDeclaration) Unset() {
+func (v *NullablePropertyListAssetIdentifier) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePropertyAssetsDeclaration(val *PropertyAssetsDeclaration) *NullablePropertyAssetsDeclaration {
-	return &NullablePropertyAssetsDeclaration{value: val, isSet: true}
+func NewNullablePropertyListAssetIdentifier(val *PropertyListAssetIdentifier) *NullablePropertyListAssetIdentifier {
+	return &NullablePropertyListAssetIdentifier{value: val, isSet: true}
 }
 
-func (v NullablePropertyAssetsDeclaration) MarshalJSON() ([]byte, error) {
+func (v NullablePropertyListAssetIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePropertyAssetsDeclaration) UnmarshalJSON(src []byte) error {
+func (v *NullablePropertyListAssetIdentifier) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

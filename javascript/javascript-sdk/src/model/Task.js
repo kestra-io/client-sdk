@@ -11,9 +11,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import AssetsDeclaration from './AssetsDeclaration';
 import Cache from './Cache';
 import Level from './Level';
-import PropertyAssetsDeclaration from './PropertyAssetsDeclaration';
 import WorkerGroup from './WorkerGroup';
 
 /**
@@ -32,7 +32,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {String} runIf
   * @property {Boolean} allowWarning
   * @property {Cache} taskCache
-  * @property {PropertyAssetsDeclaration} assets
+  * @property {AssetsDeclaration} assets
   */
 
 /**
@@ -116,7 +116,7 @@ class Task {
                 obj['taskCache'] = Cache.constructFromObject(data['taskCache']);
             }
             if (data.hasOwnProperty('assets')) {
-                obj['assets'] = ApiClient.convertToType(data['assets'], PropertyAssetsDeclaration);
+                obj['assets'] = ApiClient.convertToType(data['assets'], AssetsDeclaration);
             }
         }
         return obj;
@@ -168,7 +168,7 @@ class Task {
         }
         // validate the optional field `assets`
         if (data['assets']) { // data not null
-          PropertyAssetsDeclaration.validateJSON(data['assets']);
+          AssetsDeclaration.validateJSON(data['assets']);
         }
 
         return true;
@@ -251,7 +251,7 @@ Task.prototype['allowWarning'] = undefined;
 Task.prototype['taskCache'] = undefined;
 
 /**
- * @member {module:model/PropertyAssetsDeclaration} assets
+ * @member {module:model/AssetsDeclaration} assets
  */
 Task.prototype['assets'] = undefined;
 

@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## keyValue
 
-> KVControllerTypedValue keyValue(namespace, key, tenant)
+> KVControllerKvDetail keyValue(namespace, key, tenant)
 
 Get value for a key
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KVControllerTypedValue**](KVControllerTypedValue.md)
+[**KVControllerKvDetail**](KVControllerKvDetail.md)
 
 ### Authorization
 

@@ -20,29 +20,38 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.KVType;
+import java.time.OffsetDateTime;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * KVControllerTypedValue
+ * KVControllerKvDetail
  */
 @JsonPropertyOrder({
-  KVControllerTypedValue.JSON_PROPERTY_TYPE,
-  KVControllerTypedValue.JSON_PROPERTY_VALUE
+  KVControllerKvDetail.JSON_PROPERTY_TYPE,
+  KVControllerKvDetail.JSON_PROPERTY_VALUE,
+  KVControllerKvDetail.JSON_PROPERTY_REVISION,
+  KVControllerKvDetail.JSON_PROPERTY_UPDATED
 })
-@JsonTypeName("KVController.TypedValue")
+@JsonTypeName("KVController.KvDetail")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class KVControllerTypedValue {
+public class KVControllerKvDetail {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nullable  private KVType type;
 
   public static final String JSON_PROPERTY_VALUE = "value";
   @jakarta.annotation.Nullable  private Object value;
 
-  public KVControllerTypedValue() {
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public KVControllerKvDetail() {
   }
 
-  public KVControllerTypedValue type(@jakarta.annotation.Nullable KVType type) {
+  public KVControllerKvDetail type(@jakarta.annotation.Nullable KVType type) {
     
     this.type = type;
     return this;
@@ -66,7 +75,7 @@ public class KVControllerTypedValue {
     this.type = type;
   }
 
-  public KVControllerTypedValue value(@jakarta.annotation.Nullable Object value) {
+  public KVControllerKvDetail value(@jakarta.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -90,6 +99,54 @@ public class KVControllerTypedValue {
     this.value = value;
   }
 
+  public KVControllerKvDetail revision(@jakarta.annotation.Nullable Integer revision) {
+    
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * @return revision
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getRevision() {
+    return revision;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
+  }
+
+  public KVControllerKvDetail updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * Get updated
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -98,22 +155,26 @@ public class KVControllerTypedValue {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    KVControllerTypedValue kvControllerTypedValue = (KVControllerTypedValue) o;
-    return Objects.equals(this.type, kvControllerTypedValue.type) &&
-        Objects.equals(this.value, kvControllerTypedValue.value);
+    KVControllerKvDetail kvControllerKvDetail = (KVControllerKvDetail) o;
+    return Objects.equals(this.type, kvControllerKvDetail.type) &&
+        Objects.equals(this.value, kvControllerKvDetail.value) &&
+        Objects.equals(this.revision, kvControllerKvDetail.revision) &&
+        Objects.equals(this.updated, kvControllerKvDetail.updated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, value);
+    return Objects.hash(type, value, revision, updated);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class KVControllerTypedValue {\n");
+    sb.append("class KVControllerKvDetail {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -14,9 +14,10 @@ import ApiClient from '../ApiClient';
 
 /**
   * @typedef {Object} IValidateConstraintViolation
-  * @property {String} flow
-  * @property {String} namespace
   * @property {Number} index
+  * @property {String} filename
+  * @property {String} namespace
+  * @property {String} flow
   * @property {String} constraints
   * @property {Boolean} outdated
   * @property {Array.<String>} deprecationPaths
@@ -60,14 +61,17 @@ class ValidateConstraintViolation {
         if (data) {
             obj = obj || new ValidateConstraintViolation();
 
-            if (data.hasOwnProperty('flow')) {
-                obj['flow'] = ApiClient.convertToType(data['flow'], 'String');
+            if (data.hasOwnProperty('index')) {
+                obj['index'] = ApiClient.convertToType(data['index'], 'Number');
+            }
+            if (data.hasOwnProperty('filename')) {
+                obj['filename'] = ApiClient.convertToType(data['filename'], 'String');
             }
             if (data.hasOwnProperty('namespace')) {
                 obj['namespace'] = ApiClient.convertToType(data['namespace'], 'String');
             }
-            if (data.hasOwnProperty('index')) {
-                obj['index'] = ApiClient.convertToType(data['index'], 'Number');
+            if (data.hasOwnProperty('flow')) {
+                obj['flow'] = ApiClient.convertToType(data['flow'], 'String');
             }
             if (data.hasOwnProperty('constraints')) {
                 obj['constraints'] = ApiClient.convertToType(data['constraints'], 'String');
@@ -101,12 +105,16 @@ class ValidateConstraintViolation {
             }
         }
         // ensure the json data is a string
-        if (data['flow'] && !(typeof data['flow'] === 'string' || data['flow'] instanceof String)) {
-            throw new Error("Expected the field `flow` to be a primitive type in the JSON string but got " + data['flow']);
+        if (data['filename'] && !(typeof data['filename'] === 'string' || data['filename'] instanceof String)) {
+            throw new Error("Expected the field `filename` to be a primitive type in the JSON string but got " + data['filename']);
         }
         // ensure the json data is a string
         if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
             throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
+        }
+        // ensure the json data is a string
+        if (data['flow'] && !(typeof data['flow'] === 'string' || data['flow'] instanceof String)) {
+            throw new Error("Expected the field `flow` to be a primitive type in the JSON string but got " + data['flow']);
         }
         // ensure the json data is a string
         if (data['constraints'] && !(typeof data['constraints'] === 'string' || data['constraints'] instanceof String)) {
@@ -134,9 +142,14 @@ class ValidateConstraintViolation {
 ValidateConstraintViolation.RequiredProperties = ["index"];
 
 /**
- * @member {String} flow
+ * @member {Number} index
  */
-ValidateConstraintViolation.prototype['flow'] = undefined;
+ValidateConstraintViolation.prototype['index'] = undefined;
+
+/**
+ * @member {String} filename
+ */
+ValidateConstraintViolation.prototype['filename'] = undefined;
 
 /**
  * @member {String} namespace
@@ -144,9 +157,9 @@ ValidateConstraintViolation.prototype['flow'] = undefined;
 ValidateConstraintViolation.prototype['namespace'] = undefined;
 
 /**
- * @member {Number} index
+ * @member {String} flow
  */
-ValidateConstraintViolation.prototype['index'] = undefined;
+ValidateConstraintViolation.prototype['flow'] = undefined;
 
 /**
  * @member {String} constraints

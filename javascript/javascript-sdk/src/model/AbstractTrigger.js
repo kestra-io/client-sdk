@@ -11,9 +11,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import AssetsDeclaration from './AssetsDeclaration';
 import Condition from './Condition';
 import Level from './Level';
-import PropertyAssetsDeclaration from './PropertyAssetsDeclaration';
 import StateType from './StateType';
 import TheLabelsToPassToTheExecutionCreated from './TheLabelsToPassToTheExecutionCreated';
 import WorkerGroup from './WorkerGroup';
@@ -33,7 +33,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} logToFile
   * @property {Boolean} failOnTriggerError
   * @property {Boolean} allowConcurrent
-  * @property {PropertyAssetsDeclaration} assets
+  * @property {AssetsDeclaration} assets
   */
 
 /**
@@ -115,7 +115,7 @@ class AbstractTrigger {
                 obj['allowConcurrent'] = ApiClient.convertToType(data['allowConcurrent'], 'Boolean');
             }
             if (data.hasOwnProperty('assets')) {
-                obj['assets'] = PropertyAssetsDeclaration.constructFromObject(data['assets']);
+                obj['assets'] = AssetsDeclaration.constructFromObject(data['assets']);
             }
         }
         return obj;
@@ -173,7 +173,7 @@ class AbstractTrigger {
         }
         // validate the optional field `assets`
         if (data['assets']) { // data not null
-          PropertyAssetsDeclaration.validateJSON(data['assets']);
+          AssetsDeclaration.validateJSON(data['assets']);
         }
 
         return true;
@@ -252,7 +252,7 @@ AbstractTrigger.prototype['failOnTriggerError'] = undefined;
 AbstractTrigger.prototype['allowConcurrent'] = undefined;
 
 /**
- * @member {module:model/PropertyAssetsDeclaration} assets
+ * @member {module:model/AssetsDeclaration} assets
  */
 AbstractTrigger.prototype['assets'] = undefined;
 

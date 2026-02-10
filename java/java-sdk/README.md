@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.2.0
+- API version: 1.2.5
 
-- Generator version: 7.18.0
+- Generator version: 7.19.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.8"
+compile "io.kestra:kestra-api-client:1.0.9"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.8.jar`
+- `target/kestra-api-client-1.0.9.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -133,6 +133,14 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
 *AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
 *AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
+*AssetsApi* | [**asset**](docs/AssetsApi.md#asset) | **GET** /api/v1/{tenant}/assets/{id} | Retrieve an asset
+*AssetsApi* | [**assetDependencies**](docs/AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies
+*AssetsApi* | [**createAsset**](docs/AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset
+*AssetsApi* | [**deleteAsset**](docs/AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset
+*AssetsApi* | [**deleteAssetsByIds**](docs/AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids
+*AssetsApi* | [**deleteAssetsByQuery**](docs/AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query
+*AssetsApi* | [**searchAssetUsages**](docs/AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages
+*AssetsApi* | [**searchAssets**](docs/AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
@@ -549,7 +557,7 @@ Class | Method | HTTP request | Description
  - [Isolation](docs/Isolation.md)
  - [KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
- - [KVControllerTypedValue](docs/KVControllerTypedValue.md)
+ - [KVControllerKvDetail](docs/KVControllerKvDetail.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
@@ -629,10 +637,11 @@ Class | Method | HTTP request | Description
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
- - [PropertyAssetsDeclaration](docs/PropertyAssetsDeclaration.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
  - [PropertyDuration](docs/PropertyDuration.md)
+ - [PropertyListAsset](docs/PropertyListAsset.md)
+ - [PropertyListAssetIdentifier](docs/PropertyListAssetIdentifier.md)
  - [PropertyListString](docs/PropertyListString.md)
  - [PropertyObject](docs/PropertyObject.md)
  - [PropertyString](docs/PropertyString.md)

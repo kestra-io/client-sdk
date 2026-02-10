@@ -16,20 +16,23 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.kv_type import KVType
 from typing import Optional, Set
 from typing_extensions import Self
 
-class KVControllerTypedValue(BaseModel):
+class KVControllerKvDetail(BaseModel):
     """
-    KVControllerTypedValue
+    KVControllerKvDetail
     """ # noqa: E501
     type: Optional[KVType] = None
     value: Optional[Any] = None
+    revision: Optional[StrictInt] = None
+    updated: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["type", "value"]
+    __properties: ClassVar[List[str]] = ["type", "value", "revision", "updated"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +52,7 @@ class KVControllerTypedValue(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of KVControllerTypedValue from a JSON string"""
+        """Create an instance of KVControllerKvDetail from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,7 +84,7 @@ class KVControllerTypedValue(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of KVControllerTypedValue from a dict"""
+        """Create an instance of KVControllerKvDetail from a dict"""
         if obj is None:
             return None
 
@@ -90,7 +93,9 @@ class KVControllerTypedValue(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
-            "value": obj.get("value")
+            "value": obj.get("value"),
+            "revision": obj.get("revision"),
+            "updated": obj.get("updated")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -44,7 +44,7 @@ public class ApiSecretMetaEE {
   @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @jakarta.annotation.Nonnull  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nonnull  private List<ApiSecretTag> tags = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ApiSecretMetaEE {
     this.namespace = namespace;
   }
 
-  public ApiSecretMetaEE description(@jakarta.annotation.Nonnull String description) {
+  public ApiSecretMetaEE description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -110,8 +110,8 @@ public class ApiSecretMetaEE {
    * Get description
    * @return description
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -119,8 +119,8 @@ public class ApiSecretMetaEE {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@jakarta.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 

@@ -33,6 +33,9 @@ const (
 	PLUGINSUBGROUPPLUGINCATEGORY_CORE           PluginSubGroupPluginCategory = "CORE"
 	PLUGINSUBGROUPPLUGINCATEGORY_INGESTION      PluginSubGroupPluginCategory = "INGESTION"
 	PLUGINSUBGROUPPLUGINCATEGORY_BI             PluginSubGroupPluginCategory = "BI"
+	PLUGINSUBGROUPPLUGINCATEGORY_BUSINESS       PluginSubGroupPluginCategory = "BUSINESS"
+	PLUGINSUBGROUPPLUGINCATEGORY_DATA           PluginSubGroupPluginCategory = "DATA"
+	PLUGINSUBGROUPPLUGINCATEGORY_INFRASTRUCTURE PluginSubGroupPluginCategory = "INFRASTRUCTURE"
 )
 
 // All allowed values of PluginSubGroupPluginCategory enum
@@ -51,6 +54,9 @@ var AllowedPluginSubGroupPluginCategoryEnumValues = []PluginSubGroupPluginCatego
 	"CORE",
 	"INGESTION",
 	"BI",
+	"BUSINESS",
+	"DATA",
+	"INFRASTRUCTURE",
 }
 
 func (v *PluginSubGroupPluginCategory) UnmarshalJSON(src []byte) error {

@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.2.0
+  version: 1.2.5
 servers:
 - url: /
 tags:
@@ -3636,8 +3636,9 @@ paths:
         content:
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/Asset"
+              type: string
         description: The asset
+        required: true
       responses:
         "200":
           content:
@@ -3651,7 +3652,7 @@ paths:
       summary: Create a new asset
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -3688,7 +3689,7 @@ paths:
       summary: Delete assets by asset ids
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -3726,7 +3727,7 @@ paths:
       summary: Delete assets by query
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/assets/search:
@@ -3796,7 +3797,7 @@ paths:
       summary: Search for assets
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/assets/usages/search:
@@ -3866,7 +3867,7 @@ paths:
       summary: Search for asset usages
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/assets/{id}:
@@ -3897,7 +3898,7 @@ paths:
       summary: Delete an asset
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -3931,7 +3932,7 @@ paths:
       summary: Retrieve an asset
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/assets/{id}/dependencies:
@@ -3985,7 +3986,7 @@ paths:
       summary: Get an asset dependencies
       tags:
       - Assets
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/auditlogs/export:
@@ -8863,7 +8864,10 @@ paths:
           application/x-yaml:
             schema:
               type: string
-        description: A list of flows source code in a single string
+          multipart/form-data:
+            schema:
+              type: object
+        description: Flows as YAML string or multipart files
         required: true
       responses:
         "200":
@@ -9009,14 +9013,15 @@ paths:
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
-      - description: The flow namespace
+      - description: If namespace of all provided flows should be overridden
         explode: false
-        in: path
-        name: namespace
+        in: query
+        name: override
         required: true
         schema:
-          type: string
-        style: simple
+          default: false
+          type: boolean
+        style: form
       - description: If missing flow should be deleted
         explode: false
         in: query
@@ -9026,6 +9031,14 @@ paths:
           default: true
           type: boolean
         style: form
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
       - explode: false
         in: path
         name: tenant
@@ -9373,6 +9386,7 @@ paths:
         schema:
           items:
             format: int32
+            minimum: 1
             type: integer
           minItems: 1
           type: array
@@ -13224,7 +13238,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/KVController.TypedValue"
+                $ref: "#/components/schemas/KVController.KvDetail"
           description: getKeyValue 200 response
       security:
       - bearerAuth: []
@@ -16310,9 +16324,9 @@ components:
         - The_labels_to_pass_to_the_execution_created_
         failOnTriggerError: true
         assets:
-          expression: expression
-          value:
-            outputs:
+          outputs:
+            expression: expression
+            value:
             - metadata:
                 key: "{}"
               displayName: displayName
@@ -16327,12 +16341,16 @@ components:
               description: description
               id: id
               type: type
-            inputs:
+          inputs:
+            expression: expression
+            value:
             - id: id
               type: type
             - id: id
               type: type
-            enableAuto: true
+          enableAuto:
+            expression: expression
+            value: true
         logLevel: null
         disabled: false
         id: id
@@ -16395,7 +16413,7 @@ components:
             if a previous run is still in progress.
           type: boolean
         assets:
-          $ref: "#/components/schemas/Property_AssetsDeclaration_"
+          $ref: "#/components/schemas/AssetsDeclaration"
       required:
       - id
       - type
@@ -16614,7 +16632,6 @@ components:
               $ref: "#/components/schemas/ApiSecretTag"
             type: array
         required:
-        - description
         - tags
         type: object
         example: null
@@ -17094,6 +17111,23 @@ components:
           type: string
       type: object
     AssetTopologyGraph:
+      example:
+        nodes:
+        - uid: uid
+          namespace: namespace
+          id: id
+          type: ASSET
+        - uid: uid
+          namespace: namespace
+          id: id
+          type: ASSET
+        edges:
+        - source: source
+          target: target
+          relation: UPSERT
+        - source: source
+          target: target
+          relation: UPSERT
       properties:
         nodes:
           items:
@@ -17105,6 +17139,10 @@ components:
           type: array
       type: object
     AssetTopologyGraph.Edge:
+      example:
+        source: source
+        target: target
+        relation: UPSERT
       properties:
         source:
           type: string
@@ -17114,6 +17152,11 @@ components:
           $ref: "#/components/schemas/Relation_1"
       type: object
     AssetTopologyGraph.Node:
+      example:
+        uid: uid
+        namespace: namespace
+        id: id
+        type: ASSET
       properties:
         uid:
           type: string
@@ -17132,6 +17175,16 @@ components:
       - FLOW
       type: string
     AssetsController.ApiAsset:
+      example:
+        metadata:
+          key: "{}"
+        displayName: displayName
+        created: 2000-01-23T04:56:07.000+00:00
+        namespace: namespace
+        description: description
+        id: id
+        type: type
+        updated: 2000-01-23T04:56:07.000+00:00
       properties:
         namespace:
           type: string
@@ -17155,6 +17208,15 @@ components:
           type: string
       type: object
     AssetsController.ApiAssetUsage:
+      example:
+        taskRunId: taskRunId
+        executionId: executionId
+        flowRevision: 0
+        assetId: assetId
+        created: 2000-01-23T04:56:07.000+00:00
+        namespace: namespace
+        flowId: flowId
+        taskId: taskId
       properties:
         assetId:
           type: string
@@ -17176,34 +17238,41 @@ components:
           type: string
       type: object
     AssetsDeclaration:
-      allOf:
-      - $ref: "#/components/schemas/AssetsInOut"
-      - properties:
-          enableAuto:
-            type: boolean
-        type: object
       example:
         outputs:
-        - metadata:
-            key: "{}"
-          displayName: displayName
-          namespace: namespace
-          description: description
-          id: id
-          type: type
-        - metadata:
-            key: "{}"
-          displayName: displayName
-          namespace: namespace
-          description: description
-          id: id
-          type: type
+          expression: expression
+          value:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
         inputs:
-        - id: id
-          type: type
-        - id: id
-          type: type
-        enableAuto: true
+          expression: expression
+          value:
+          - id: id
+            type: type
+          - id: id
+            type: type
+        enableAuto:
+          expression: expression
+          value: true
+      properties:
+        enableAuto:
+          $ref: "#/components/schemas/Property_Boolean_"
+        inputs:
+          $ref: "#/components/schemas/Property_List_AssetIdentifier__"
+        outputs:
+          $ref: "#/components/schemas/Property_List_Asset__"
       type: object
     AssetsInOut:
       properties:
@@ -17879,7 +17948,6 @@ components:
       type: string
     Dashboard:
       example:
-        sourceCode: sourceCode
         timeWindow:
           default: default
           max: max
@@ -17904,8 +17972,6 @@ components:
           items:
             $ref: "#/components/schemas/Chart_ChartOption_"
           type: array
-        sourceCode:
-          type: string
       required:
       - title
       type: object
@@ -18969,9 +19035,9 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
           assets:
-            expression: expression
-            value:
-              outputs:
+            outputs:
+              expression: expression
+              value:
               - metadata:
                   key: "{}"
                 displayName: displayName
@@ -18986,12 +19052,16 @@ components:
                 description: description
                 id: id
                 type: type
-              inputs:
+            inputs:
+              expression: expression
+              value:
               - id: id
                 type: type
               - id: id
                 type: type
-              enableAuto: true
+            enableAuto:
+              expression: expression
+              value: true
           logLevel: null
           disabled: false
           id: id
@@ -19014,9 +19084,9 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
           assets:
-            expression: expression
-            value:
-              outputs:
+            outputs:
+              expression: expression
+              value:
               - metadata:
                   key: "{}"
                 displayName: displayName
@@ -19031,12 +19101,16 @@ components:
                 description: description
                 id: id
                 type: type
-              inputs:
+            inputs:
+              expression: expression
+              value:
               - id: id
                 type: type
               - id: id
                 type: type
-              enableAuto: true
+            enableAuto:
+              expression: expression
+              value: true
           logLevel: null
           disabled: false
           id: id
@@ -20014,9 +20088,9 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
           assets:
-            expression: expression
-            value:
-              outputs:
+            outputs:
+              expression: expression
+              value:
               - metadata:
                   key: "{}"
                 displayName: displayName
@@ -20031,12 +20105,16 @@ components:
                 description: description
                 id: id
                 type: type
-              inputs:
+            inputs:
+              expression: expression
+              value:
               - id: id
                 type: type
               - id: id
                 type: type
-              enableAuto: true
+            enableAuto:
+              expression: expression
+              value: true
           logLevel: null
           disabled: false
           id: id
@@ -20059,9 +20137,9 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
           assets:
-            expression: expression
-            value:
-              outputs:
+            outputs:
+              expression: expression
+              value:
               - metadata:
                   key: "{}"
                 displayName: displayName
@@ -20076,12 +20154,16 @@ components:
                 description: description
                 id: id
                 type: type
-              inputs:
+            inputs:
+              expression: expression
+              value:
               - id: id
                 type: type
               - id: id
                 type: type
-              enableAuto: true
+            enableAuto:
+              expression: expression
+              value: true
           logLevel: null
           disabled: false
           id: id
@@ -21320,15 +21402,23 @@ components:
             type: string
           type: array
       type: object
-    KVController.TypedValue:
+    KVController.KvDetail:
       example:
         type: STRING
         value: "{}"
+        updated: 2000-01-23T04:56:07.000+00:00
+        revision: 0
       properties:
         type:
           $ref: "#/components/schemas/KVType"
         value:
           type: object
+        revision:
+          format: int32
+          type: integer
+        updated:
+          format: date-time
+          type: string
       type: object
     KVEntry:
       example:
@@ -22059,6 +22149,25 @@ components:
       - total
       type: object
     PagedResults_AssetsController.ApiAssetUsage_:
+      example:
+        total: 6
+        results:
+        - taskRunId: taskRunId
+          executionId: executionId
+          flowRevision: 0
+          assetId: assetId
+          created: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          flowId: flowId
+          taskId: taskId
+        - taskRunId: taskRunId
+          executionId: executionId
+          flowRevision: 0
+          assetId: assetId
+          created: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          flowId: flowId
+          taskId: taskId
       properties:
         results:
           items:
@@ -22072,6 +22181,27 @@ components:
       - total
       type: object
     PagedResults_AssetsController.ApiAsset_:
+      example:
+        total: 0
+        results:
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          created: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+          updated: 2000-01-23T04:56:07.000+00:00
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          created: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+          updated: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:
@@ -22151,8 +22281,7 @@ components:
       example:
         total: 0
         results:
-        - sourceCode: sourceCode
-          timeWindow:
+        - timeWindow:
             default: default
             max: max
           charts:
@@ -22164,8 +22293,7 @@ components:
             type: type
           description: description
           title: title
-        - sourceCode: sourceCode
-          timeWindow:
+        - timeWindow:
             default: default
             max: max
           charts:
@@ -22722,9 +22850,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -22739,12 +22867,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -22767,9 +22899,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -22784,12 +22916,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -23063,9 +23199,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -23080,12 +23216,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -23108,9 +23248,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -23125,12 +23265,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -23801,9 +23945,9 @@ components:
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
               assets:
-                expression: expression
-                value:
-                  outputs:
+                outputs:
+                  expression: expression
+                  value:
                   - metadata:
                       key: "{}"
                     displayName: displayName
@@ -23818,12 +23962,16 @@ components:
                     description: description
                     id: id
                     type: type
-                  inputs:
+                inputs:
+                  expression: expression
+                  value:
                   - id: id
                     type: type
                   - id: id
                     type: type
-                  enableAuto: true
+                enableAuto:
+                  expression: expression
+                  value: true
               logLevel: null
               disabled: false
               id: id
@@ -23846,9 +23994,9 @@ components:
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
               assets:
-                expression: expression
-                value:
-                  outputs:
+                outputs:
+                  expression: expression
+                  value:
                   - metadata:
                       key: "{}"
                     displayName: displayName
@@ -23863,12 +24011,16 @@ components:
                     description: description
                     id: id
                     type: type
-                  inputs:
+                inputs:
+                  expression: expression
+                  value:
                   - id: id
                     type: type
                   - id: id
                     type: type
-                  enableAuto: true
+                enableAuto:
+                  expression: expression
+                  value: true
               logLevel: null
               disabled: false
               id: id
@@ -24146,9 +24298,9 @@ components:
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
               assets:
-                expression: expression
-                value:
-                  outputs:
+                outputs:
+                  expression: expression
+                  value:
                   - metadata:
                       key: "{}"
                     displayName: displayName
@@ -24163,12 +24315,16 @@ components:
                     description: description
                     id: id
                     type: type
-                  inputs:
+                inputs:
+                  expression: expression
+                  value:
                   - id: id
                     type: type
                   - id: id
                     type: type
-                  enableAuto: true
+                enableAuto:
+                  expression: expression
+                  value: true
               logLevel: null
               disabled: false
               id: id
@@ -24191,9 +24347,9 @@ components:
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
               assets:
-                expression: expression
-                value:
-                  outputs:
+                outputs:
+                  expression: expression
+                  value:
                   - metadata:
                       key: "{}"
                     displayName: displayName
@@ -24208,12 +24364,16 @@ components:
                     description: description
                     id: id
                     type: type
-                  inputs:
+                inputs:
+                  expression: expression
+                  value:
                   - id: id
                     type: type
                   - id: id
                     type: type
-                  enableAuto: true
+                enableAuto:
+                  expression: expression
+                  value: true
               logLevel: null
               disabled: false
               id: id
@@ -25468,9 +25628,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -25485,12 +25645,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -25530,9 +25694,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -25547,12 +25711,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -25877,42 +26045,10 @@ components:
       - CORE
       - INGESTION
       - BI
+      - BUSINESS
+      - DATA
+      - INFRASTRUCTURE
       type: string
-    Property_AssetsDeclaration_:
-      example:
-        expression: expression
-        value:
-          outputs:
-          - metadata:
-              key: "{}"
-            displayName: displayName
-            namespace: namespace
-            description: description
-            id: id
-            type: type
-          - metadata:
-              key: "{}"
-            displayName: displayName
-            namespace: namespace
-            description: description
-            id: id
-            type: type
-          inputs:
-          - id: id
-            type: type
-          - id: id
-            type: type
-          enableAuto: true
-      oneOf:
-      - type: object
-      - type: string
-      properties:
-        expression:
-          type: string
-        value:
-          $ref: "#/components/schemas/AssetsDeclaration"
-      type: object
-      x-one-of-name: PropertyAssetsDeclaration
     Property_Boolean_:
       example:
         expression: expression
@@ -25956,6 +26092,56 @@ components:
           type: string
       type: object
       x-one-of-name: PropertyDuration
+    Property_List_AssetIdentifier__:
+      example:
+        expression: expression
+        value:
+        - id: id
+          type: type
+        - id: id
+          type: type
+      oneOf:
+      - type: object
+      - type: string
+      properties:
+        expression:
+          type: string
+        value:
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+          type: array
+      type: object
+      x-one-of-name: PropertyListAssetIdentifier
+    Property_List_Asset__:
+      example:
+        expression: expression
+        value:
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+      oneOf:
+      - type: object
+      - type: string
+      properties:
+        expression:
+          type: string
+        value:
+          items:
+            $ref: "#/components/schemas/Asset"
+          type: array
+      type: object
+      x-one-of-name: PropertyListAsset
     Property_List_String__:
       example:
         expression: expression
@@ -26659,9 +26845,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -26676,12 +26862,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -26704,9 +26894,9 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
             assets:
-              expression: expression
-              value:
-                outputs:
+              outputs:
+                expression: expression
+                value:
                 - metadata:
                     key: "{}"
                   displayName: displayName
@@ -26721,12 +26911,16 @@ components:
                   description: description
                   id: id
                   type: type
-                inputs:
+              inputs:
+                expression: expression
+                value:
                 - id: id
                   type: type
                 - id: id
                   type: type
-                enableAuto: true
+              enableAuto:
+                expression: expression
+                value: true
             logLevel: null
             disabled: false
             id: id
@@ -27242,7 +27436,7 @@ components:
           $ref: "#/components/schemas/Cache"
         assets:
           allOf:
-          - $ref: "#/components/schemas/Property_AssetsDeclaration_"
+          - $ref: "#/components/schemas/AssetsDeclaration"
           nullable: true
       required:
       - id
@@ -29046,9 +29240,9 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
           assets:
-            expression: expression
-            value:
-              outputs:
+            outputs:
+              expression: expression
+              value:
               - metadata:
                   key: "{}"
                 displayName: displayName
@@ -29063,12 +29257,16 @@ components:
                 description: description
                 id: id
                 type: type
-              inputs:
+            inputs:
+              expression: expression
+              value:
               - id: id
                 type: type
               - id: id
                 type: type
-              enableAuto: true
+            enableAuto:
+              expression: expression
+              value: true
           logLevel: null
           disabled: false
           id: id
@@ -29453,9 +29651,11 @@ components:
       properties:
         username:
           minLength: 1
+          nullable: true
           type: string
         password:
           minLength: 1
+          nullable: true
           type: string
         identity:
           nullable: true
@@ -29469,6 +29669,7 @@ components:
       type: object
     ValidateConstraintViolation:
       example:
+        filename: filename
         outdated: true
         warnings:
         - warnings
@@ -29484,13 +29685,15 @@ components:
         - infos
         - infos
       properties:
-        flow:
-          type: string
-        namespace:
-          type: string
         index:
           format: int32
           type: integer
+        filename:
+          type: string
+        namespace:
+          type: string
+        flow:
+          type: string
         constraints:
           type: string
         outdated:

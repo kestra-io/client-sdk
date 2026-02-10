@@ -208,7 +208,7 @@ docs/Isolation.md
 docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
-docs/KVControllerTypedValue.md
+docs/KVControllerKvDetail.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -289,10 +289,11 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
+docs/PropertyListAsset.md
+docs/PropertyListAssetIdentifier.md
 docs/PropertyListString.md
 docs/PropertyObject.md
 docs/PropertyString.md
@@ -609,7 +610,7 @@ src/model/InvitationInvitationStatus.js
 src/model/Isolation.js
 src/model/KVControllerApiDeleteBulkRequest.js
 src/model/KVControllerApiDeleteBulkResponse.js
-src/model/KVControllerTypedValue.js
+src/model/KVControllerKvDetail.js
 src/model/KVEntry.js
 src/model/KVType.js
 src/model/Label.js
@@ -689,10 +690,11 @@ src/model/PluginIcon.js
 src/model/PluginPluginElementMetadata.js
 src/model/PluginSchema.js
 src/model/PluginSubGroupPluginCategory.js
-src/model/PropertyAssetsDeclaration.js
 src/model/PropertyBoolean.js
 src/model/PropertyDouble.js
 src/model/PropertyDuration.js
+src/model/PropertyListAsset.js
+src/model/PropertyListAssetIdentifier.js
 src/model/PropertyListString.js
 src/model/PropertyObject.js
 src/model/PropertyString.js

@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
 **index** | **int** |  | 
+**filename** | **str** |  | [optional] 
+**namespace** | **str** |  | [optional] 
+**flow** | **str** |  | [optional] 
 **constraints** | **str** |  | [optional] 
 **outdated** | **bool** |  | [optional] 
 **deprecation_paths** | **List[str]** |  | [optional] 

@@ -581,32 +581,20 @@ public class ApiClient extends JavaTimeFormatter {
     if (value.stream().findFirst().get() instanceof QueryFilter) {
         for (Object o : value) {
             if (o instanceof QueryFilter queryFilter) {
-                if (queryFilter.getField().equals(QueryFilterField.LABELS)) {
-                    if (queryFilter.getValue() instanceof Map<?,?> mapValue) {
-                        for (Entry<?, ?> entry : mapValue.entrySet()) {
-                            params.add(new Pair(new StringBuilder()
-                                .append("filters[")
-                                .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
+                String baseFilterQuery = "filters[" +
+                    ("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString())) +
+                    "][" +
+                    queryFilter.getOperation() +
+                    "]";
 
-                                .append("][")
-                                .append(queryFilter.getOperation())
-                                .append("]")
-                                .append("[")
-                                .append(entry.getKey())
-                                .append("]")
-                                .toString(), convertValueToString(entry.getValue())));
-                        }
-                    } else {
-                        throw new ApiException(400, "Filter LABEL value must be instance of Map<String, Object>");
+                if (queryFilter.getValue() instanceof Map<?, ?> mapValue) {
+                    for (Entry<?, ?> entry : mapValue.entrySet()) {
+                        params.add(new Pair(baseFilterQuery + "[" +
+                            entry.getKey() +
+                            "]", convertValueToString(entry.getValue())));
                     }
                 } else {
-                    params.add(new Pair(new StringBuilder()
-                        .append("filters[")
-                        .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
-                        .append("][")
-                        .append(queryFilter.getOperation())
-                        .append("]")
-                        .toString(), convertValueToString(queryFilter.getValue())));
+                    params.add(new Pair(baseFilterQuery, convertValueToString(queryFilter.getValue())));
                 }
             } else {
                 throw new ApiException(400, "Filter parameters must be instance of QueryFilter");

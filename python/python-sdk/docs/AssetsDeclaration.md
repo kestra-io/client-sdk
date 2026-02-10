@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**inputs** | [**List[AssetIdentifier]**](AssetIdentifier.md) |  | [optional] 
-**outputs** | [**List[Asset]**](Asset.md) |  | [optional] 
-**enable_auto** | **bool** |  | [optional] 
+**enable_auto** | [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
+**inputs** | [**PropertyListAssetIdentifier**](PropertyListAssetIdentifier.md) |  | [optional] 
+**outputs** | [**PropertyListAsset**](PropertyListAsset.md) |  | [optional] 
 
 ## Example
 

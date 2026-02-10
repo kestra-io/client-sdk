@@ -33,12 +33,11 @@ class ApiSecretMetaEE {
      * @alias module:model/ApiSecretMetaEE
      * @implements module:model/ApiSecretMeta
      * @param {String} key - 
-     * @param {String} description - 
      * @param {Array.<module:model/ApiSecretTag>} tags - 
      */
-    constructor(key, description, tags) { 
+    constructor(key, tags) { 
         ApiSecretMeta.initialize(this, key);
-        ApiSecretMetaEE.initialize(this, key, description, tags);
+        ApiSecretMetaEE.initialize(this, key, tags);
     }
 
     /**
@@ -46,9 +45,8 @@ class ApiSecretMetaEE {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, description, tags) { 
+    static initialize(obj, key, tags) { 
         obj['key'] = key;
-        obj['description'] = description;
         obj['tags'] = tags;
     }
 
@@ -121,7 +119,7 @@ class ApiSecretMetaEE {
 
 }
 
-ApiSecretMetaEE.RequiredProperties = ["key", "description", "tags"];
+ApiSecretMetaEE.RequiredProperties = ["key", "tags"];
 
 /**
  * @member {String} key

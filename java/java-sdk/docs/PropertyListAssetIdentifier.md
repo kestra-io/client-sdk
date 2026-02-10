@@ -1,6 +1,6 @@
 
 
-# Interface PropertyAssetsDeclaration
+# Interface PropertyListAssetIdentifier
 
 ## Implementing Classes
 

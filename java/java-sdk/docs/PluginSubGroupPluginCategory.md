@@ -33,6 +33,12 @@
 
 * `BI` (value: `"BI"`)
 
+* `BUSINESS` (value: `"BUSINESS"`)
+
+* `DATA` (value: `"DATA"`)
+
+* `INFRASTRUCTURE` (value: `"INFRASTRUCTURE"`)
+
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
 
 

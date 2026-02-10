@@ -46,6 +46,7 @@ docs/AssetTopologyGraph.md
 docs/AssetTopologyGraphEdge.md
 docs/AssetTopologyGraphNode.md
 docs/AssetTopologyGraphNodeNodeType.md
+docs/AssetsApi.md
 docs/AssetsControllerApiAsset.md
 docs/AssetsControllerApiAssetUsage.md
 docs/AssetsDeclaration.md
@@ -212,7 +213,7 @@ docs/InvitationInvitationStatus.md
 docs/Isolation.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
-docs/KVControllerTypedValue.md
+docs/KVControllerKvDetail.md
 docs/KVEntry.md
 docs/KVType.md
 docs/KvApi.md
@@ -295,10 +296,11 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
+docs/PropertyListAsset.md
+docs/PropertyListAssetIdentifier.md
 docs/PropertyListString.md
 docs/PropertyObject.md
 docs/PropertyString.md
@@ -409,6 +411,7 @@ pom.xml
 settings.gradle
 src/main/AndroidManifest.xml
 src/main/java/io/kestra/sdk/api/AppsApi.java
+src/main/java/io/kestra/sdk/api/AssetsApi.java
 src/main/java/io/kestra/sdk/api/DashboardsApi.java
 src/main/java/io/kestra/sdk/api/ExecutionsApi.java
 src/main/java/io/kestra/sdk/api/FilesApi.java
@@ -639,7 +642,7 @@ src/main/java/io/kestra/sdk/model/InvitationInvitationStatus.java
 src/main/java/io/kestra/sdk/model/Isolation.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkRequest.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkResponse.java
-src/main/java/io/kestra/sdk/model/KVControllerTypedValue.java
+src/main/java/io/kestra/sdk/model/KVControllerKvDetail.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java
@@ -719,10 +722,11 @@ src/main/java/io/kestra/sdk/model/PluginIcon.java
 src/main/java/io/kestra/sdk/model/PluginPluginElementMetadata.java
 src/main/java/io/kestra/sdk/model/PluginSchema.java
 src/main/java/io/kestra/sdk/model/PluginSubGroupPluginCategory.java
-src/main/java/io/kestra/sdk/model/PropertyAssetsDeclaration.java
 src/main/java/io/kestra/sdk/model/PropertyBoolean.java
 src/main/java/io/kestra/sdk/model/PropertyDouble.java
 src/main/java/io/kestra/sdk/model/PropertyDuration.java
+src/main/java/io/kestra/sdk/model/PropertyListAsset.java
+src/main/java/io/kestra/sdk/model/PropertyListAssetIdentifier.java
 src/main/java/io/kestra/sdk/model/PropertyListString.java
 src/main/java/io/kestra/sdk/model/PropertyObject.java
 src/main/java/io/kestra/sdk/model/PropertyString.java

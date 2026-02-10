@@ -28,7 +28,7 @@ class ApiSecretMetaEE(BaseModel):
     """ # noqa: E501
     key: StrictStr
     namespace: Optional[StrictStr] = None
-    description: StrictStr
+    description: Optional[StrictStr] = None
     tags: List[ApiSecretTag]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "namespace", "description", "tags"]

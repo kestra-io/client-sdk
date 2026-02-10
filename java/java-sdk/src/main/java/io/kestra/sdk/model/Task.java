@@ -19,9 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Cache;
 import io.kestra.sdk.model.Level;
-import io.kestra.sdk.model.PropertyAssetsDeclaration;
 import io.kestra.sdk.model.PropertyDuration;
 import io.kestra.sdk.model.WorkerGroup;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -96,7 +96,7 @@ public class Task {
   @jakarta.annotation.Nullable  private Cache taskCache;
 
   public static final String JSON_PROPERTY_ASSETS = "assets";
-  @jakarta.annotation.Nullable  private JsonNullable<PropertyAssetsDeclaration> assets = JsonNullable.<PropertyAssetsDeclaration>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<AssetsDeclaration> assets = JsonNullable.<AssetsDeclaration>undefined();
 
   public Task() {
   }
@@ -437,8 +437,8 @@ public class Task {
     this.taskCache = taskCache;
   }
 
-  public Task assets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
-    this.assets = JsonNullable.<PropertyAssetsDeclaration>of(assets);
+  public Task assets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
+    this.assets = JsonNullable.<AssetsDeclaration>of(assets);
     
     return this;
   }
@@ -449,23 +449,23 @@ public class Task {
    */
   @jakarta.annotation.Nullable  @JsonIgnore
 
-  public PropertyAssetsDeclaration getAssets() {
+  public AssetsDeclaration getAssets() {
         return assets.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_ASSETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public JsonNullable<PropertyAssetsDeclaration> getAssets_JsonNullable() {
+  public JsonNullable<AssetsDeclaration> getAssets_JsonNullable() {
     return assets;
   }
   
   @JsonProperty(JSON_PROPERTY_ASSETS)
-  public void setAssets_JsonNullable(JsonNullable<PropertyAssetsDeclaration> assets) {
+  public void setAssets_JsonNullable(JsonNullable<AssetsDeclaration> assets) {
     this.assets = assets;
   }
 
-  public void setAssets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
-    this.assets = JsonNullable.<PropertyAssetsDeclaration>of(assets);
+  public void setAssets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
+    this.assets = JsonNullable.<AssetsDeclaration>of(assets);
   }
 
   @Override

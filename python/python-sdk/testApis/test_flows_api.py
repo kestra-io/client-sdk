@@ -21,7 +21,7 @@ from kestrapy import (
     IdWithNamespace,
     QueryFilter,
     QueryFilterField,
-    QueryFilterOp,
+    QueryFilterOp
 )
 
 class TestFlowsApi(unittest.TestCase):

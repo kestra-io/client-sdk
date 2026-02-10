@@ -26,7 +26,7 @@ from typing import List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
-from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
+from kestrapy.models.kv_controller_kv_detail import KVControllerKvDetail
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.paged_results_kv_entry import PagedResultsKVEntry
 from kestrapy.models.query_filter import QueryFilter
@@ -415,7 +415,7 @@ class KVApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> KVControllerTypedValue:
+    ) -> KVControllerKvDetail:
         """Get value for a key
 
 
@@ -440,7 +440,7 @@ class KVApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "KVControllerTypedValue",
+            '200': "KVControllerKvDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -467,7 +467,7 @@ class KVApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> ApiResponse[KVControllerTypedValue]:
+    ) -> ApiResponse[KVControllerKvDetail]:
         """Get value for a key
 
 
@@ -492,7 +492,7 @@ class KVApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "KVControllerTypedValue",
+            '200': "KVControllerKvDetail",
         }
         response_data = self.api_client.call_api(
             *_param,

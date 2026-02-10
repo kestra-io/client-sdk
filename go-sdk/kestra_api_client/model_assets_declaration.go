@@ -18,9 +18,9 @@ var _ MappedNullable = &AssetsDeclaration{}
 
 // AssetsDeclaration struct for AssetsDeclaration
 type AssetsDeclaration struct {
-	Inputs               []AssetIdentifier `json:"inputs,omitempty"`
-	Outputs              []Asset           `json:"outputs,omitempty"`
-	EnableAuto           *bool             `json:"enableAuto,omitempty"`
+	EnableAuto           *string                      `json:"enableAuto,omitempty"`
+	Inputs               *PropertyListAssetIdentifier `json:"inputs,omitempty"`
+	Outputs              *PropertyListAsset           `json:"outputs,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,74 +43,10 @@ func NewAssetsDeclarationWithDefaults() *AssetsDeclaration {
 	return &this
 }
 
-// GetInputs returns the Inputs field value if set, zero value otherwise.
-func (o *AssetsDeclaration) GetInputs() []AssetIdentifier {
-	if o == nil || IsNil(o.Inputs) {
-		var ret []AssetIdentifier
-		return ret
-	}
-	return o.Inputs
-}
-
-// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AssetsDeclaration) GetInputsOk() ([]AssetIdentifier, bool) {
-	if o == nil || IsNil(o.Inputs) {
-		return nil, false
-	}
-	return o.Inputs, true
-}
-
-// HasInputs returns a boolean if a field has been set.
-func (o *AssetsDeclaration) HasInputs() bool {
-	if o != nil && !IsNil(o.Inputs) {
-		return true
-	}
-
-	return false
-}
-
-// SetInputs gets a reference to the given []AssetIdentifier and assigns it to the Inputs field.
-func (o *AssetsDeclaration) SetInputs(v []AssetIdentifier) {
-	o.Inputs = v
-}
-
-// GetOutputs returns the Outputs field value if set, zero value otherwise.
-func (o *AssetsDeclaration) GetOutputs() []Asset {
-	if o == nil || IsNil(o.Outputs) {
-		var ret []Asset
-		return ret
-	}
-	return o.Outputs
-}
-
-// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AssetsDeclaration) GetOutputsOk() ([]Asset, bool) {
-	if o == nil || IsNil(o.Outputs) {
-		return nil, false
-	}
-	return o.Outputs, true
-}
-
-// HasOutputs returns a boolean if a field has been set.
-func (o *AssetsDeclaration) HasOutputs() bool {
-	if o != nil && !IsNil(o.Outputs) {
-		return true
-	}
-
-	return false
-}
-
-// SetOutputs gets a reference to the given []Asset and assigns it to the Outputs field.
-func (o *AssetsDeclaration) SetOutputs(v []Asset) {
-	o.Outputs = v
-}
-
 // GetEnableAuto returns the EnableAuto field value if set, zero value otherwise.
-func (o *AssetsDeclaration) GetEnableAuto() bool {
+func (o *AssetsDeclaration) GetEnableAuto() string {
 	if o == nil || IsNil(o.EnableAuto) {
-		var ret bool
+		var ret string
 		return ret
 	}
 	return *o.EnableAuto
@@ -118,7 +54,7 @@ func (o *AssetsDeclaration) GetEnableAuto() bool {
 
 // GetEnableAutoOk returns a tuple with the EnableAuto field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AssetsDeclaration) GetEnableAutoOk() (*bool, bool) {
+func (o *AssetsDeclaration) GetEnableAutoOk() (*string, bool) {
 	if o == nil || IsNil(o.EnableAuto) {
 		return nil, false
 	}
@@ -134,9 +70,73 @@ func (o *AssetsDeclaration) HasEnableAuto() bool {
 	return false
 }
 
-// SetEnableAuto gets a reference to the given bool and assigns it to the EnableAuto field.
-func (o *AssetsDeclaration) SetEnableAuto(v bool) {
+// SetEnableAuto gets a reference to the given string and assigns it to the EnableAuto field.
+func (o *AssetsDeclaration) SetEnableAuto(v string) {
 	o.EnableAuto = &v
+}
+
+// GetInputs returns the Inputs field value if set, zero value otherwise.
+func (o *AssetsDeclaration) GetInputs() PropertyListAssetIdentifier {
+	if o == nil || IsNil(o.Inputs) {
+		var ret PropertyListAssetIdentifier
+		return ret
+	}
+	return *o.Inputs
+}
+
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsDeclaration) GetInputsOk() (*PropertyListAssetIdentifier, bool) {
+	if o == nil || IsNil(o.Inputs) {
+		return nil, false
+	}
+	return o.Inputs, true
+}
+
+// HasInputs returns a boolean if a field has been set.
+func (o *AssetsDeclaration) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given PropertyListAssetIdentifier and assigns it to the Inputs field.
+func (o *AssetsDeclaration) SetInputs(v PropertyListAssetIdentifier) {
+	o.Inputs = &v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
+func (o *AssetsDeclaration) GetOutputs() PropertyListAsset {
+	if o == nil || IsNil(o.Outputs) {
+		var ret PropertyListAsset
+		return ret
+	}
+	return *o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsDeclaration) GetOutputsOk() (*PropertyListAsset, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *AssetsDeclaration) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given PropertyListAsset and assigns it to the Outputs field.
+func (o *AssetsDeclaration) SetOutputs(v PropertyListAsset) {
+	o.Outputs = &v
 }
 
 func (o AssetsDeclaration) MarshalJSON() ([]byte, error) {
@@ -149,14 +149,14 @@ func (o AssetsDeclaration) MarshalJSON() ([]byte, error) {
 
 func (o AssetsDeclaration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EnableAuto) {
+		toSerialize["enableAuto"] = o.EnableAuto
+	}
 	if !IsNil(o.Inputs) {
 		toSerialize["inputs"] = o.Inputs
 	}
 	if !IsNil(o.Outputs) {
 		toSerialize["outputs"] = o.Outputs
-	}
-	if !IsNil(o.EnableAuto) {
-		toSerialize["enableAuto"] = o.EnableAuto
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -180,9 +180,9 @@ func (o *AssetsDeclaration) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enableAuto")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")
-		delete(additionalProperties, "enableAuto")
 		o.AdditionalProperties = additionalProperties
 	}
 

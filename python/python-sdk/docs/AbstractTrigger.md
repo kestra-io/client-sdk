@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **log_to_file** | **bool** |  | [optional] 
 **fail_on_trigger_error** | **bool** |  | [optional] 
 **allow_concurrent** | **bool** |  | [optional] 
-**assets** | [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
+**assets** | [**AssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
 
 ## Example
 

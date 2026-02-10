@@ -20,7 +20,6 @@ import TimeWindow from './TimeWindow';
   * @property {String} description
   * @property {TimeWindow} timeWindow
   * @property {Array.<module:model/ChartChartOption>} charts
-  * @property {String} sourceCode
   */
 
 /**
@@ -71,9 +70,6 @@ class Dashboard {
             if (data.hasOwnProperty('charts')) {
                 obj['charts'] = ApiClient.convertToType(data['charts'], [ChartChartOption]);
             }
-            if (data.hasOwnProperty('sourceCode')) {
-                obj['sourceCode'] = ApiClient.convertToType(data['sourceCode'], 'String');
-            }
         }
         return obj;
     }
@@ -112,10 +108,6 @@ class Dashboard {
                 ChartChartOption.validateJSON(item);
             };
         }
-        // ensure the json data is a string
-        if (data['sourceCode'] && !(typeof data['sourceCode'] === 'string' || data['sourceCode'] instanceof String)) {
-            throw new Error("Expected the field `sourceCode` to be a primitive type in the JSON string but got " + data['sourceCode']);
-        }
 
         return true;
     }
@@ -144,11 +136,6 @@ Dashboard.prototype['timeWindow'] = undefined;
  * @member {Array.<module:model/ChartChartOption>} charts
  */
 Dashboard.prototype['charts'] = undefined;
-
-/**
- * @member {String} sourceCode
- */
-Dashboard.prototype['sourceCode'] = undefined;
 
 
 

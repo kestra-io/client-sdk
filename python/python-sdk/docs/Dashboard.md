@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **time_window** | [**TimeWindow**](TimeWindow.md) |  | [optional] 
 **charts** | [**List[ChartChartOption]**](ChartChartOption.md) |  | [optional] 
-**source_code** | **str** |  | [optional] 
 
 ## Example
 

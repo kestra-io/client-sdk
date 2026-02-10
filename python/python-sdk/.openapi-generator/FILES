@@ -208,7 +208,7 @@ docs/Isolation.md
 docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
-docs/KVControllerTypedValue.md
+docs/KVControllerKvDetail.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -290,10 +290,11 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
+docs/PropertyListAsset.md
+docs/PropertyListAssetIdentifier.md
 docs/PropertyListString.md
 docs/PropertyObject.md
 docs/PropertyString.md
@@ -610,7 +611,7 @@ kestrapy/models/invitation_invitation_status.py
 kestrapy/models/isolation.py
 kestrapy/models/kv_controller_api_delete_bulk_request.py
 kestrapy/models/kv_controller_api_delete_bulk_response.py
-kestrapy/models/kv_controller_typed_value.py
+kestrapy/models/kv_controller_kv_detail.py
 kestrapy/models/kv_entry.py
 kestrapy/models/kv_type.py
 kestrapy/models/label.py
@@ -691,10 +692,11 @@ kestrapy/models/plugin_icon.py
 kestrapy/models/plugin_plugin_element_metadata.py
 kestrapy/models/plugin_schema.py
 kestrapy/models/plugin_sub_group_plugin_category.py
-kestrapy/models/property_assets_declaration.py
 kestrapy/models/property_boolean.py
 kestrapy/models/property_double.py
 kestrapy/models/property_duration.py
+kestrapy/models/property_list_asset.py
+kestrapy/models/property_list_asset_identifier.py
 kestrapy/models/property_list_string.py
 kestrapy/models/property_object.py
 kestrapy/models/property_string.py

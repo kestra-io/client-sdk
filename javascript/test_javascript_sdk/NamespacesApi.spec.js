@@ -1,5 +1,6 @@
 // @ts-check
 // testApis/NamespacesApi.spec.js
+// @ts-ignore
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
 

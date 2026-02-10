@@ -1,10 +1,10 @@
-# KestraIoKestraSdk.PropertyAssetsDeclaration
+# KestraIoKestraSdk.PropertyListAsset
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **expression** | **String** |  | [optional] 
-**value** | [**AssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
+**value** | [**[Asset]**](Asset.md) |  | [optional] 
 
 

@@ -1998,7 +1998,7 @@ public class Example {
 
 ## updateFlowsInNamespace
 
-> List&lt;FlowInterface&gt; updateFlowsInNamespace(namespace, delete, tenant, body)
+> List&lt;FlowInterface&gt; updateFlowsInNamespace(override, delete, namespace, tenant, body)
 
 Update a complete namespace from yaml source
 
@@ -2024,12 +2024,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
+        Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         Boolean delete = true; // Boolean | If missing flow should be deleted
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | A list of flows source code
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(namespace, delete, tenant, body);
+            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(override, delete, namespace, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlowsInNamespace");
@@ -2047,8 +2048,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
+| **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false] |
 | **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
 | **body** | **String**| A list of flows source code | |
 
@@ -2175,7 +2177,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        String body = "body_example"; // String | A list of flows source code in a single string
+        String body = "body_example"; // String | Flows as YAML string or multipart files
         try {
             List<ValidateConstraintViolation> result = kestraClient.FlowsApi().validateFlows(tenant, body);
             System.out.println(result);
@@ -2196,7 +2198,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| A list of flows source code in a single string | |
+| **body** | **String**| Flows as YAML string or multipart files | |
 
 ### Return type
 
@@ -2208,7 +2210,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-yaml
+- **Content-Type**: application/x-yaml, multipart/form-data
 - **Accept**: application/json
 
 

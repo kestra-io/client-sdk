@@ -27,8 +27,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("hello-kestra");
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.STRING);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo("hello-kestra");
     }
 
     @Test
@@ -42,8 +42,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.BOOLEAN);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(true);
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.BOOLEAN);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo(true);
     }
 
     @Test
@@ -57,8 +57,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.NUMBER);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(42);
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.NUMBER);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo(42);
     }
 
     @Test
@@ -72,8 +72,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DURATION);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("PT15M");
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.DURATION);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo("PT15M");
     }
 
     @Test
@@ -87,8 +87,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATE);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-13");
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.DATE);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo("2025-10-13");
     }
 
     @Test
@@ -102,8 +102,8 @@ public class KvApiTest {
 
         // get & assert
         var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATETIME);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-14T18:02:08Z");
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.DATETIME);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo("2025-10-14T18:02:08Z");
     }
 
     /**
@@ -117,8 +117,8 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
         var fetched = kestraClient().kv().keyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
-        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
-        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("value-get");
+        assertThat(fetched).extracting(KVControllerKvDetail::getType).isEqualTo(KVType.STRING);
+        assertThat(fetched).extracting(KVControllerKvDetail::getValue).isEqualTo("value-get");
     }
 
     /**

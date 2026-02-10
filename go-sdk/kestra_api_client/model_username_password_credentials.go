@@ -19,8 +19,8 @@ var _ MappedNullable = &UsernamePasswordCredentials{}
 
 // UsernamePasswordCredentials struct for UsernamePasswordCredentials
 type UsernamePasswordCredentials struct {
-	Username             string         `json:"username"`
-	Password             string         `json:"password"`
+	Username             NullableString `json:"username"`
+	Password             NullableString `json:"password"`
 	Identity             NullableString `json:"identity,omitempty"`
 	Secret               NullableString `json:"secret,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -32,7 +32,7 @@ type _UsernamePasswordCredentials UsernamePasswordCredentials
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsernamePasswordCredentials(username string, password string) *UsernamePasswordCredentials {
+func NewUsernamePasswordCredentials(username NullableString, password NullableString) *UsernamePasswordCredentials {
 	this := UsernamePasswordCredentials{}
 	this.Username = username
 	this.Password = password
@@ -48,51 +48,55 @@ func NewUsernamePasswordCredentialsWithDefaults() *UsernamePasswordCredentials {
 }
 
 // GetUsername returns the Username field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsernamePasswordCredentials) GetUsername() string {
-	if o == nil {
+	if o == nil || o.Username.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Username
+	return *o.Username.Get()
 }
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsernamePasswordCredentials) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Username, true
+	return o.Username.Get(), o.Username.IsSet()
 }
 
 // SetUsername sets field value
 func (o *UsernamePasswordCredentials) SetUsername(v string) {
-	o.Username = v
+	o.Username.Set(&v)
 }
 
 // GetPassword returns the Password field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *UsernamePasswordCredentials) GetPassword() string {
-	if o == nil {
+	if o == nil || o.Password.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Password
+	return *o.Password.Get()
 }
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsernamePasswordCredentials) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Password, true
+	return o.Password.Get(), o.Password.IsSet()
 }
 
 // SetPassword sets field value
 func (o *UsernamePasswordCredentials) SetPassword(v string) {
-	o.Password = v
+	o.Password.Set(&v)
 }
 
 // GetIdentity returns the Identity field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -191,8 +195,8 @@ func (o UsernamePasswordCredentials) MarshalJSON() ([]byte, error) {
 
 func (o UsernamePasswordCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["username"] = o.Username
-	toSerialize["password"] = o.Password
+	toSerialize["username"] = o.Username.Get()
+	toSerialize["password"] = o.Password.Get()
 	if o.Identity.IsSet() {
 		toSerialize["identity"] = o.Identity.Get()
 	}

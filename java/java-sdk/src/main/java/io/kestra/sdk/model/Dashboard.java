@@ -34,8 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Dashboard.JSON_PROPERTY_TITLE,
   Dashboard.JSON_PROPERTY_DESCRIPTION,
   Dashboard.JSON_PROPERTY_TIME_WINDOW,
-  Dashboard.JSON_PROPERTY_CHARTS,
-  Dashboard.JSON_PROPERTY_SOURCE_CODE
+  Dashboard.JSON_PROPERTY_CHARTS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Dashboard {
@@ -50,9 +49,6 @@ public class Dashboard {
 
   public static final String JSON_PROPERTY_CHARTS = "charts";
   @jakarta.annotation.Nullable  private List<ChartChartOption> charts = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_SOURCE_CODE = "sourceCode";
-  @jakarta.annotation.Nullable  private String sourceCode;
 
   public Dashboard() {
   }
@@ -161,30 +157,6 @@ public class Dashboard {
     this.charts = charts;
   }
 
-  public Dashboard sourceCode(@jakarta.annotation.Nullable String sourceCode) {
-    
-    this.sourceCode = sourceCode;
-    return this;
-  }
-
-  /**
-   * Get sourceCode
-   * @return sourceCode
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSourceCode() {
-    return sourceCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSourceCode(@jakarta.annotation.Nullable String sourceCode) {
-    this.sourceCode = sourceCode;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -197,13 +169,12 @@ public class Dashboard {
     return Objects.equals(this.title, dashboard.title) &&
         Objects.equals(this.description, dashboard.description) &&
         Objects.equals(this.timeWindow, dashboard.timeWindow) &&
-        Objects.equals(this.charts, dashboard.charts) &&
-        Objects.equals(this.sourceCode, dashboard.sourceCode);
+        Objects.equals(this.charts, dashboard.charts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, description, timeWindow, charts, sourceCode);
+    return Objects.hash(title, description, timeWindow, charts);
   }
 
   @Override
@@ -214,7 +185,6 @@ public class Dashboard {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    timeWindow: ").append(toIndentedString(timeWindow)).append("\n");
     sb.append("    charts: ").append(toIndentedString(charts)).append("\n");
-    sb.append("    sourceCode: ").append(toIndentedString(sourceCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }
