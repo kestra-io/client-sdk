@@ -163,6 +163,14 @@ describe('FlowsApi', () => {
         // const zip = await kestraClient().flowsApi.exportFlowsByQuery(MAIN_TENANT, filters, q, scope, namespace, labels);
     });
 
+    it('export_flows', async () => {
+        const flow = await createSimpleFlow();
+        const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
+
+        // Returns Blob/Buffer depending on runtime; no strict assertion in Java
+        await kestraClient().flowsApi.exportFlows({filters:[]}, MAIN_TENANT);
+    });
+
     // Generate a graph for a flow
     it('generate_flow_graph', async () => {
         const flow = await createSimpleFlow();
