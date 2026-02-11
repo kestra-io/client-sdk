@@ -186,6 +186,12 @@ Class | Method | HTTP request | Description
 *KVAPI* | [**ListKeys**](docs/KVAPI.md#listkeys) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KVAPI* | [**ListKeysWithInheritence**](docs/KVAPI.md#listkeyswithinheritence) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KVAPI* | [**SetKeyValue**](docs/KVAPI.md#setkeyvalue) | **Put** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
+*MiscAPI* | [**Configuration**](docs/MiscAPI.md#configuration) | **Get** /api/v1/configs | Retrieve the instance configuration.
+*MiscAPI* | [**Generate**](docs/MiscAPI.md#generate) | **Get** /api/v1/{tenant}/stats/generate-reports | 
+*MiscAPI* | [**LicenseInfo**](docs/MiscAPI.md#licenseinfo) | **Get** /api/v1/license-info | Retrieve license information
+*MiscAPI* | [**ListActions**](docs/MiscAPI.md#listactions) | **Get** /api/v1/{tenant}/acls/actions | Retrieve list of actions
+*MiscAPI* | [**MainTenantFlows**](docs/MiscAPI.md#maintenantflows) | **Get** /api/v1/main-tenant-flows | Check if flows are present on the main tenant.
+*MiscAPI* | [**SetupConfiguration**](docs/MiscAPI.md#setupconfiguration) | **Get** /api/v1/setup | Retrieve current setup configuration
 *NamespacesAPI* | [**AutocompleteNamespaces**](docs/NamespacesAPI.md#autocompletenamespaces) | **Post** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
 *NamespacesAPI* | [**CreateNamespace**](docs/NamespacesAPI.md#createnamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesAPI* | [**DeleteNamespace**](docs/NamespacesAPI.md#deletenamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
@@ -341,7 +347,6 @@ Class | Method | HTTP request | Description
  - [BaseResourcePatchRequest](docs/BaseResourcePatchRequest.md)
  - [BaseResourceScimResource](docs/BaseResourceScimResource.md)
  - [BaseResourceSearchRequest](docs/BaseResourceSearchRequest.md)
- - [BasicAuthCredentials](docs/BasicAuthCredentials.md)
  - [Binding](docs/Binding.md)
  - [BindingType](docs/BindingType.md)
  - [Blueprint](docs/Blueprint.md)
@@ -374,9 +379,6 @@ Class | Method | HTTP request | Description
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
- - [DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
- - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
@@ -399,7 +401,6 @@ Class | Method | HTTP request | Description
  - [ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
  - [ExecutionStatusEvent](docs/ExecutionStatusEvent.md)
  - [ExecutionTrigger](docs/ExecutionTrigger.md)
- - [ExecutionUsage](docs/ExecutionUsage.md)
  - [FileAttributes](docs/FileAttributes.md)
  - [FileAttributesFileType](docs/FileAttributesFileType.md)
  - [FileMetas](docs/FileMetas.md)
@@ -418,11 +419,9 @@ Class | Method | HTTP request | Description
  - [FlowRelation](docs/FlowRelation.md)
  - [FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
- - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
- - [GroupUsage](docs/GroupUsage.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
  - [IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
@@ -507,7 +506,6 @@ Class | Method | HTTP request | Description
  - [MetricAggregations](docs/MetricAggregations.md)
  - [MetricEntry](docs/MetricEntry.md)
  - [MetricTag](docs/MetricTag.md)
- - [MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
@@ -589,7 +587,6 @@ Class | Method | HTTP request | Description
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
- - [RoleUsage](docs/RoleUsage.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
  - [SLALabels](docs/SLALabels.md)
@@ -624,7 +621,6 @@ Class | Method | HTTP request | Description
  - [ServiceType](docs/ServiceType.md)
  - [SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
- - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
  - [SortRequest](docs/SortRequest.md)
  - [State](docs/State.md)
@@ -640,7 +636,6 @@ Class | Method | HTTP request | Description
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
  - [TenantInterface](docs/TenantInterface.md)
- - [TenantUsage](docs/TenantUsage.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
@@ -662,11 +657,9 @@ Class | Method | HTTP request | Description
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
  - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
- - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)
  - [UserType](docs/UserType.md)
- - [UserUsage](docs/UserUsage.md)
  - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [ValuePathExpression](docs/ValuePathExpression.md)

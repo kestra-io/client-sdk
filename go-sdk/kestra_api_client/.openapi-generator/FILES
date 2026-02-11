@@ -7,6 +7,7 @@ api_files.go
 api_flows.go
 api_groups.go
 api_kv.go
+api_misc.go
 api_namespaces.go
 api_roles.go
 api_service_account.go
@@ -76,7 +77,6 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
-docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -109,9 +109,6 @@ docs/CreateApiTokenResponse.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/DailyExecutionStatistics.md
-docs/DailyExecutionStatisticsDuration.md
-docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DeleteTriggersByQueryRequest.md
@@ -134,7 +131,6 @@ docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
 docs/ExecutionStatusEvent.md
 docs/ExecutionTrigger.md
-docs/ExecutionUsage.md
 docs/ExecutionsAPI.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
@@ -155,12 +151,10 @@ docs/FlowNode.md
 docs/FlowRelation.md
 docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
-docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowsAPI.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
-docs/GroupUsage.md
 docs/GroupsAPI.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
@@ -247,7 +241,7 @@ docs/MetricAggregation.md
 docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
-docs/MiscControllerApiUsage.md
+docs/MiscAPI.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -330,7 +324,6 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
-docs/RoleUsage.md
 docs/RolesAPI.md
 docs/SLA.md
 docs/SLABehavior.md
@@ -367,7 +360,6 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
-docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -383,7 +375,6 @@ docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
-docs/TenantUsage.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -407,11 +398,9 @@ docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UploadVersionedPluginsRequest.md
-docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
 docs/UserType.md
-docs/UserUsage.md
 docs/UsernamePasswordCredentials.md
 docs/UsersAPI.md
 docs/ValidateConstraintViolation.md
@@ -481,7 +470,6 @@ model_base_audit_log.go
 model_base_resource_patch_request_.go
 model_base_resource_scim_resource_.go
 model_base_resource_search_request_.go
-model_basic_auth_credentials.go
 model_binding.go
 model_binding_type.go
 model_blueprint.go
@@ -514,9 +502,6 @@ model_create_api_token_response.go
 model_create_namespace_file_request.go
 model_create_security_integration_request.go
 model_crud_event_type.go
-model_daily_execution_statistics.go
-model_daily_execution_statistics_duration.go
-model_daily_execution_statistics_execution_counts.go
 model_dashboard.go
 model_dashboard_controller_preview_request.go
 model_delete_triggers_by_query_request.go
@@ -539,7 +524,6 @@ model_execution_metadata.go
 model_execution_repository_interface_flow_filter.go
 model_execution_status_event.go
 model_execution_trigger.go
-model_execution_usage.go
 model_file_attributes.go
 model_file_attributes_file_type.go
 model_file_metas.go
@@ -558,11 +542,9 @@ model_flow_node.go
 model_flow_relation.go
 model_flow_topology_graph.go
 model_flow_topology_graph_edge.go
-model_flow_usage.go
 model_flow_with_source.go
 model_group_identifier.go
 model_group_identifier_membership.go
-model_group_usage.go
 model_iam_binding_controller_api_binding_detail.go
 model_iam_binding_controller_api_binding_group.go
 model_iam_binding_controller_api_binding_user.go
@@ -647,7 +629,6 @@ model_metric_aggregation.go
 model_metric_aggregations.go
 model_metric_entry.go
 model_metric_tag.go
-model_misc_controller_api_usage.go
 model_misc_controller_configuration.go
 model_misc_controller_ee_configuration.go
 model_misc_controller_environment.go
@@ -729,7 +710,6 @@ model_resource_type_schema_extension_configuration.go
 model_right_sidebar_configuration.go
 model_right_sidebar_configuration_custom_link.go
 model_role.go
-model_role_usage.go
 model_schema.go
 model_schema_attribute.go
 model_schema_attribute_mutability.go
@@ -760,7 +740,6 @@ model_service_service_state.go
 model_service_type.go
 model_set_apps_catalog_logo_request.go
 model_setup_configuration.go
-model_setup_configuration_setup_data.go
 model_sla.go
 model_sla_behavior.go
 model_sla_labels.go
@@ -780,7 +759,6 @@ model_tenant_app_catalog_config.go
 model_tenant_controller_apps_catalog_config_request.go
 model_tenant_controller_apps_catalog_config_response.go
 model_tenant_interface.go
-model_tenant_usage.go
 model_test_state.go
 model_test_suite.go
 model_test_suite_controller_run_request.go
@@ -802,11 +780,9 @@ model_type.go
 model_unit_test_.go
 model_unit_test_result.go
 model_upload_versioned_plugins_request.go
-model_usage_ee.go
 model_user_group.go
 model_user_group_type.go
 model_user_type.go
-model_user_usage.go
 model_username_password_credentials.go
 model_validate_constraint_violation.go
 model_value_path_expression.go

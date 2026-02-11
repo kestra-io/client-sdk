@@ -405,25 +405,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/basicAuthValidationErrors:
-    get:
-      tags:
-        - Misc
-      summary: Retrieve the instance configuration.
-      description: Global endpoint available to all users.
-      operationId: basicAuthConfigErrors
-      responses:
-        "200":
-          description: getBasicAuthConfigErrors 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/configs:
     get:
       tags:
@@ -1053,19 +1034,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MiscController.LicenseInfo"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/license/refresh:
-    get:
-      tags:
-        - Misc
-      summary: Force the refresh of the license online
-      description: Only for Super Admins.
-      operationId: refreshLicense
-      responses:
-        "200":
-          description: refreshLicense 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1811,28 +1779,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-    post:
-      tags:
-        - Misc
-      summary: Create the first Superadmin user
-      description: Only used during initial instance setup.
-      operationId: setupKestra
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SetupConfiguration.SetupData"
-        required: true
-      responses:
-        "200":
-          description: setupKestra 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiUser"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/tenants:
     post:
       tags:
@@ -2561,33 +2507,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Action"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/acls/permissions:
-    get:
-      tags:
-        - Misc
-      summary: Retrieve list of permissions
-      description: >-
-        Permissions are used to control access to resources within the Kestra platform. Example of permissions are:
-        FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
-      operationId: listPermissions
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listPermissions 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Permission"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -3744,31 +3663,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuditLogController.AuditLogDiff"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/basicAuth:
-    post:
-      tags:
-        - Misc
-      summary: Configure basic authentication for the instance.
-      description: Sets up basic authentication credentials.
-      operationId: createBasicAuth
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/BasicAuthCredentials"
-        required: true
-      responses:
-        "200":
-          description: createBasicAuth 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13386,50 +13280,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/usages:
-    get:
-      tags:
-        - Misc
-      summary: Retrieve usage information for the current tenant
-      operationId: tenantUsage
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: tenantUsage 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UsageEE"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/usages/all:
-    get:
-      tags:
-        - Misc
-      summary: Retrieve instance usage information
-      operationId: usages
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: getUsages 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UsageEE"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/users/{id}/groups:
     put:
       tags:
@@ -14408,15 +14258,6 @@ components:
           type: array
           items:
             type: string
-    BasicAuthCredentials:
-      type: object
-      properties:
-        uid:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
     Binding:
       required:
         - deleted
@@ -14793,93 +14634,6 @@ components:
         - IMPERSONATE
         - LOGIN_FAILURE
         - ACCOUNT_LOCKED
-    DailyExecutionStatistics:
-      required:
-        - duration
-        - startDate
-      type: object
-      properties:
-        startDate:
-          type: string
-          format: date-time
-        duration:
-          $ref: "#/components/schemas/DailyExecutionStatistics.Duration"
-        executionCounts:
-          type: object
-          properties:
-            CREATED:
-              type: integer
-              format: int64
-            SUBMITTED:
-              type: integer
-              format: int64
-            RUNNING:
-              type: integer
-              format: int64
-            PAUSED:
-              type: integer
-              format: int64
-            RESTARTED:
-              type: integer
-              format: int64
-            KILLING:
-              type: integer
-              format: int64
-            SUCCESS:
-              type: integer
-              format: int64
-            WARNING:
-              type: integer
-              format: int64
-            FAILED:
-              type: integer
-              format: int64
-            KILLED:
-              type: integer
-              format: int64
-            CANCELLED:
-              type: integer
-              format: int64
-            QUEUED:
-              type: integer
-              format: int64
-            RETRYING:
-              type: integer
-              format: int64
-            RETRIED:
-              type: integer
-              format: int64
-            SKIPPED:
-              type: integer
-              format: int64
-            BREAKPOINT:
-              type: integer
-              format: int64
-            RESUBMITTED:
-              type: integer
-              format: int64
-        groupBy:
-          type: string
-    DailyExecutionStatistics.Duration:
-      required:
-        - avg
-        - count
-        - max
-        - min
-        - sum
-      type: object
-      properties:
-        min:
-          type: string
-        avg:
-          type: string
-        max:
-          type: string
-        sum:
-          type: string
-        count:
-          type: integer
-          format: int64
     Dashboard:
       required:
         - title
@@ -15178,13 +14932,6 @@ components:
         logFile:
           type: string
           format: uri
-    ExecutionUsage:
-      type: object
-      properties:
-        dailyExecutionsCount:
-          type: array
-          items:
-            $ref: "#/components/schemas/DailyExecutionStatistics"
     FileAttributes:
       type: object
       properties:
@@ -15561,30 +15308,6 @@ components:
           type: string
         relation:
           $ref: "#/components/schemas/FlowRelation"
-    FlowUsage:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int32
-        namespacesCount:
-          type: integer
-          format: int64
-        taskTypeCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-        triggerTypeCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-        taskRunnerTypeCount:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
     FlowWithSource:
       required:
         - deleted
@@ -15663,12 +15386,6 @@ components:
       enum:
         - OWNER
         - MEMBER
-    GroupUsage:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
     IAMBindingController.ApiBindingDetail:
       type: object
       properties:
@@ -16924,13 +16641,6 @@ components:
           nullable: true
           allOf:
             - $ref: "#/components/schemas/ExecutionKind"
-    MiscController.ApiUsage:
-      type: object
-      properties:
-        flows:
-          $ref: "#/components/schemas/FlowUsage"
-        executions:
-          $ref: "#/components/schemas/ExecutionUsage"
     MiscController.Configuration:
       type: object
       properties:
@@ -18170,12 +17880,6 @@ components:
           type: boolean
         deleted:
           type: boolean
-    RoleUsage:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
     SLA:
       required:
         - behavior
@@ -18642,15 +18346,6 @@ components:
           type: string
         haveAuthNotBasic:
           type: boolean
-    SetupConfiguration.SetupData:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        tenant:
-          $ref: "#/components/schemas/Tenant"
     SortOrder:
       type: string
       enum:
@@ -18961,12 +18656,6 @@ components:
       properties:
         tenantId:
           type: string
-    TenantUsage:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
     TestState:
       type: string
       enum:
@@ -19285,19 +18974,6 @@ components:
             $ref: "#/components/schemas/AssertionRunError"
         fixtures:
           $ref: "#/components/schemas/Fixtures"
-    UsageEE:
-      type: object
-      properties:
-        groups:
-          $ref: "#/components/schemas/GroupUsage"
-        users:
-          $ref: "#/components/schemas/UserUsage"
-        roles:
-          $ref: "#/components/schemas/RoleUsage"
-        tenants:
-          $ref: "#/components/schemas/TenantUsage"
-      allOf:
-        - $ref: "#/components/schemas/MiscController.ApiUsage"
     UserGroup:
       type: object
       properties:
@@ -19319,26 +18995,6 @@ components:
       enum:
         - STANDARD
         - SERVICE_ACCOUNT
-    UserUsage:
-      required:
-        - apiKeyCount
-        - basicAuthCount
-        - count
-        - oidcCount
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-        apiKeyCount:
-          type: integer
-          format: int64
-        oidcCount:
-          type: integer
-          format: int64
-        basicAuthCount:
-          type: integer
-          format: int64
     UsernamePasswordCredentials:
       required:
         - password
