@@ -24,7 +24,14 @@
     "previewApp",
     "openApp",
     "logsFromAppExecutionlogsFromAppExecution",
-    "followLogsFromExecution"
+    "followLogsFromExecution",
+    "basicAuthConfigErrors", "# seems not useful",
+    "createBasicAuth", "# cannot be used",
+    "refreshLicense", "# seems not useful",
+    "setupKestra", "# seems not useful",
+    "tenantUsage", "# GO deserialization doesnt work",
+    "usages", "# GO deserialization doesnt work",
+    "listPermissions", "# GO deserialization enum clash with 1.1"
   ],
   "tagsToSkip": [
     "Credentials"

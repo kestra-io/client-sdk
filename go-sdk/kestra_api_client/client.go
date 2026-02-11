@@ -57,6 +57,8 @@ type APIClient struct {
 
 	KVAPI *KVAPIService
 
+	MiscAPI *MiscAPIService
+
 	NamespacesAPI *NamespacesAPIService
 
 	RolesAPI *RolesAPIService
@@ -91,6 +93,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FlowsAPI = (*FlowsAPIService)(&c.common)
 	c.GroupsAPI = (*GroupsAPIService)(&c.common)
 	c.KVAPI = (*KVAPIService)(&c.common)
+	c.MiscAPI = (*MiscAPIService)(&c.common)
 	c.NamespacesAPI = (*NamespacesAPIService)(&c.common)
 	c.RolesAPI = (*RolesAPIService)(&c.common)
 	c.ServiceAccountAPI = (*ServiceAccountAPIService)(&c.common)
