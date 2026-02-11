@@ -165,10 +165,9 @@ describe('FlowsApi', () => {
 
     it('export_flows', async () => {
         const flow = await createSimpleFlow();
-        const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
 
         // Returns Blob/Buffer depending on runtime; no strict assertion in Java
-        await kestraClient().flowsApi.exportFlows([], MAIN_TENANT);
+        await kestraClient().flowsApi.exportFlows([ { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }], MAIN_TENANT);
     });
 
     // Generate a graph for a flow
