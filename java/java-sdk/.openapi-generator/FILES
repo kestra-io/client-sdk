@@ -67,7 +67,6 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
-docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -100,9 +99,6 @@ docs/CreateApiTokenResponse.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/DailyExecutionStatistics.md
-docs/DailyExecutionStatisticsDuration.md
-docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardsApi.md
@@ -126,7 +122,6 @@ docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
 docs/ExecutionStatusEvent.md
 docs/ExecutionTrigger.md
-docs/ExecutionUsage.md
 docs/ExecutionsApi.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
@@ -147,12 +142,10 @@ docs/FlowNode.md
 docs/FlowRelation.md
 docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
-docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
-docs/GroupUsage.md
 docs/GroupsApi.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
@@ -240,7 +233,6 @@ docs/MetricAggregation.md
 docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
-docs/MiscControllerApiUsage.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -323,7 +315,6 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
-docs/RoleUsage.md
 docs/RolesApi.md
 docs/SLA.md
 docs/SLABehavior.md
@@ -360,7 +351,6 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
-docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -376,7 +366,6 @@ docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
-docs/TenantUsage.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -400,11 +389,9 @@ docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UploadVersionedPluginsRequest.md
-docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
 docs/UserType.md
-docs/UserUsage.md
 docs/UsernamePasswordCredentials.md
 docs/UsersApi.md
 docs/ValidateConstraintViolation.md
@@ -512,7 +499,6 @@ src/main/java/io/kestra/sdk/model/BaseAuditLog.java
 src/main/java/io/kestra/sdk/model/BaseResourcePatchRequest.java
 src/main/java/io/kestra/sdk/model/BaseResourceScimResource.java
 src/main/java/io/kestra/sdk/model/BaseResourceSearchRequest.java
-src/main/java/io/kestra/sdk/model/BasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/Binding.java
 src/main/java/io/kestra/sdk/model/BindingType.java
 src/main/java/io/kestra/sdk/model/Blueprint.java
@@ -545,9 +531,6 @@ src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
 src/main/java/io/kestra/sdk/model/CreateNamespaceFileRequest.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
-src/main/java/io/kestra/sdk/model/DailyExecutionStatistics.java
-src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsDuration.java
-src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsExecutionCounts.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
 src/main/java/io/kestra/sdk/model/DeleteTriggersByQueryRequest.java
@@ -570,7 +553,6 @@ src/main/java/io/kestra/sdk/model/ExecutionMetadata.java
 src/main/java/io/kestra/sdk/model/ExecutionRepositoryInterfaceFlowFilter.java
 src/main/java/io/kestra/sdk/model/ExecutionStatusEvent.java
 src/main/java/io/kestra/sdk/model/ExecutionTrigger.java
-src/main/java/io/kestra/sdk/model/ExecutionUsage.java
 src/main/java/io/kestra/sdk/model/FileAttributes.java
 src/main/java/io/kestra/sdk/model/FileAttributesFileType.java
 src/main/java/io/kestra/sdk/model/FileMetas.java
@@ -589,11 +571,9 @@ src/main/java/io/kestra/sdk/model/FlowNode.java
 src/main/java/io/kestra/sdk/model/FlowRelation.java
 src/main/java/io/kestra/sdk/model/FlowTopologyGraph.java
 src/main/java/io/kestra/sdk/model/FlowTopologyGraphEdge.java
-src/main/java/io/kestra/sdk/model/FlowUsage.java
 src/main/java/io/kestra/sdk/model/FlowWithSource.java
 src/main/java/io/kestra/sdk/model/GroupIdentifier.java
 src/main/java/io/kestra/sdk/model/GroupIdentifierMembership.java
-src/main/java/io/kestra/sdk/model/GroupUsage.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingGroup.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingUser.java
@@ -678,7 +658,6 @@ src/main/java/io/kestra/sdk/model/MetricAggregation.java
 src/main/java/io/kestra/sdk/model/MetricAggregations.java
 src/main/java/io/kestra/sdk/model/MetricEntry.java
 src/main/java/io/kestra/sdk/model/MetricTag.java
-src/main/java/io/kestra/sdk/model/MiscControllerApiUsage.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEnvironment.java
@@ -760,7 +739,6 @@ src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java
 src/main/java/io/kestra/sdk/model/Role.java
-src/main/java/io/kestra/sdk/model/RoleUsage.java
 src/main/java/io/kestra/sdk/model/SLA.java
 src/main/java/io/kestra/sdk/model/SLABehavior.java
 src/main/java/io/kestra/sdk/model/SLALabels.java
@@ -795,7 +773,6 @@ src/main/java/io/kestra/sdk/model/ServiceServiceState.java
 src/main/java/io/kestra/sdk/model/ServiceType.java
 src/main/java/io/kestra/sdk/model/SetAppsCatalogLogoRequest.java
 src/main/java/io/kestra/sdk/model/SetupConfiguration.java
-src/main/java/io/kestra/sdk/model/SetupConfigurationSetupData.java
 src/main/java/io/kestra/sdk/model/SortOrder.java
 src/main/java/io/kestra/sdk/model/SortRequest.java
 src/main/java/io/kestra/sdk/model/State.java
@@ -811,7 +788,6 @@ src/main/java/io/kestra/sdk/model/TenantAppCatalogConfig.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigRequest.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigResponse.java
 src/main/java/io/kestra/sdk/model/TenantInterface.java
-src/main/java/io/kestra/sdk/model/TenantUsage.java
 src/main/java/io/kestra/sdk/model/TestState.java
 src/main/java/io/kestra/sdk/model/TestSuite.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerRunRequest.java
@@ -833,11 +809,9 @@ src/main/java/io/kestra/sdk/model/Type.java
 src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
 src/main/java/io/kestra/sdk/model/UploadVersionedPluginsRequest.java
-src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java
 src/main/java/io/kestra/sdk/model/UserType.java
-src/main/java/io/kestra/sdk/model/UserUsage.java
 src/main/java/io/kestra/sdk/model/UsernamePasswordCredentials.java
 src/main/java/io/kestra/sdk/model/ValidateConstraintViolation.java
 src/main/java/io/kestra/sdk/model/ValuePathExpression.java

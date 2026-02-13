@@ -5855,43 +5855,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-  /api/v1/{tenant}/executions/export/by-query/csv:
-    get:
-      operationId: exportExecutions
-      parameters:
-      - description: A list of filters
-        explode: false
-        in: query
-        name: filters
-        required: true
-        schema:
-          items:
-            $ref: "#/components/schemas/QueryFilter"
-          type: array
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            text/csv:
-              schema:
-                items:
-                  type: object
-                type: array
-          description: exportExecutions 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Export all executions as a streamed CSV file
-      tags:
-      - Executions
-      x-internal: false
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
     get:
       operationId: flowFromExecution
@@ -8132,43 +8095,6 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Export flows as a ZIP archive of yaml sources.
-      tags:
-      - Flows
-      x-internal: false
-  /api/v1/{tenant}/flows/export/by-query/csv:
-    get:
-      operationId: exportFlows
-      parameters:
-      - description: A list of filters
-        explode: false
-        in: query
-        name: filters
-        required: true
-        schema:
-          items:
-            $ref: "#/components/schemas/QueryFilter"
-          type: array
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            text/csv:
-              schema:
-                items:
-                  type: object
-                type: array
-          description: exportFlows 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Export all flows as a streamed CSV file
       tags:
       - Flows
       x-internal: false

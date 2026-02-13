@@ -14,7 +14,6 @@ All URIs are relative to *http://localhost*
 | [**disableFlowsByQuery**](FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters. |
 | [**enableFlowsByIds**](FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs. |
 | [**enableFlowsByQuery**](FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters. |
-| [**exportFlows**](FlowsApi.md#exportFlows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file |
 | [**exportFlowsByIds**](FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources. |
 | [**exportFlowsByQuery**](FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources. |
 | [**flow**](FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow |
@@ -751,76 +750,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | enableFlowsByQuery 200 response |  -  |
-
-
-## exportFlows
-
-> List&lt;Object&gt; exportFlows(filters, tenant)
-
-Export all flows as a streamed CSV file
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | A list of filters
-        String tenant = "tenant_example"; // String | 
-        try {
-            List<Object> result = kestraClient.FlowsApi().exportFlows(filters, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#exportFlows");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| A list of filters | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-**List&lt;Object&gt;**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/csv
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | exportFlows 200 response |  -  |
 
 
 ## exportFlowsByIds

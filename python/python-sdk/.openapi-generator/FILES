@@ -64,7 +64,6 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
-docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -97,9 +96,6 @@ docs/CreateApiTokenResponse.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/DailyExecutionStatistics.md
-docs/DailyExecutionStatisticsDuration.md
-docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DeleteTriggersByQueryRequest.md
@@ -122,7 +118,6 @@ docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
 docs/ExecutionStatusEvent.md
 docs/ExecutionTrigger.md
-docs/ExecutionUsage.md
 docs/ExecutionsApi.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
@@ -142,12 +137,10 @@ docs/FlowNode.md
 docs/FlowRelation.md
 docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
-docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
-docs/GroupUsage.md
 docs/GroupsApi.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
@@ -234,7 +227,6 @@ docs/MetricAggregation.md
 docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
-docs/MiscControllerApiUsage.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -318,7 +310,6 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
-docs/RoleUsage.md
 docs/RolesApi.md
 docs/SLA.md
 docs/SLABehavior.md
@@ -354,7 +345,6 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
-docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -370,7 +360,6 @@ docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
-docs/TenantUsage.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -393,11 +382,9 @@ docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UploadVersionedPluginsRequest.md
-docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
 docs/UserType.md
-docs/UserUsage.md
 docs/UsernamePasswordCredentials.md
 docs/UsersApi.md
 docs/ValidateConstraintViolation.md
@@ -483,7 +470,6 @@ kestrapy/models/base_audit_log.py
 kestrapy/models/base_resource_patch_request.py
 kestrapy/models/base_resource_scim_resource.py
 kestrapy/models/base_resource_search_request.py
-kestrapy/models/basic_auth_credentials.py
 kestrapy/models/binding.py
 kestrapy/models/binding_type.py
 kestrapy/models/blueprint.py
@@ -516,9 +502,6 @@ kestrapy/models/create_api_token_response.py
 kestrapy/models/create_namespace_file_request.py
 kestrapy/models/create_security_integration_request.py
 kestrapy/models/crud_event_type.py
-kestrapy/models/daily_execution_statistics.py
-kestrapy/models/daily_execution_statistics_duration.py
-kestrapy/models/daily_execution_statistics_execution_counts.py
 kestrapy/models/dashboard.py
 kestrapy/models/dashboard_controller_preview_request.py
 kestrapy/models/delete_triggers_by_query_request.py
@@ -541,7 +524,6 @@ kestrapy/models/execution_metadata.py
 kestrapy/models/execution_repository_interface_flow_filter.py
 kestrapy/models/execution_status_event.py
 kestrapy/models/execution_trigger.py
-kestrapy/models/execution_usage.py
 kestrapy/models/file_attributes.py
 kestrapy/models/file_attributes_file_type.py
 kestrapy/models/file_metas.py
@@ -560,11 +542,9 @@ kestrapy/models/flow_node.py
 kestrapy/models/flow_relation.py
 kestrapy/models/flow_topology_graph.py
 kestrapy/models/flow_topology_graph_edge.py
-kestrapy/models/flow_usage.py
 kestrapy/models/flow_with_source.py
 kestrapy/models/group_identifier.py
 kestrapy/models/group_identifier_membership.py
-kestrapy/models/group_usage.py
 kestrapy/models/iam_binding_controller_api_binding_detail.py
 kestrapy/models/iam_binding_controller_api_binding_group.py
 kestrapy/models/iam_binding_controller_api_binding_user.py
@@ -649,7 +629,6 @@ kestrapy/models/metric_aggregation.py
 kestrapy/models/metric_aggregations.py
 kestrapy/models/metric_entry.py
 kestrapy/models/metric_tag.py
-kestrapy/models/misc_controller_api_usage.py
 kestrapy/models/misc_controller_configuration.py
 kestrapy/models/misc_controller_ee_configuration.py
 kestrapy/models/misc_controller_environment.py
@@ -732,7 +711,6 @@ kestrapy/models/resource_type_schema_extension_configuration.py
 kestrapy/models/right_sidebar_configuration.py
 kestrapy/models/right_sidebar_configuration_custom_link.py
 kestrapy/models/role.py
-kestrapy/models/role_usage.py
 kestrapy/models/schema_attribute.py
 kestrapy/models/schema_attribute_mutability.py
 kestrapy/models/schema_attribute_returned.py
@@ -762,7 +740,6 @@ kestrapy/models/service_service_state.py
 kestrapy/models/service_type.py
 kestrapy/models/set_apps_catalog_logo_request.py
 kestrapy/models/setup_configuration.py
-kestrapy/models/setup_configuration_setup_data.py
 kestrapy/models/sla.py
 kestrapy/models/sla_behavior.py
 kestrapy/models/sla_labels.py
@@ -782,7 +759,6 @@ kestrapy/models/tenant_app_catalog_config.py
 kestrapy/models/tenant_controller_apps_catalog_config_request.py
 kestrapy/models/tenant_controller_apps_catalog_config_response.py
 kestrapy/models/tenant_interface.py
-kestrapy/models/tenant_usage.py
 kestrapy/models/test_state.py
 kestrapy/models/test_suite.py
 kestrapy/models/test_suite_controller_run_request.py
@@ -804,11 +780,9 @@ kestrapy/models/type.py
 kestrapy/models/unit_test.py
 kestrapy/models/unit_test_result.py
 kestrapy/models/upload_versioned_plugins_request.py
-kestrapy/models/usage_ee.py
 kestrapy/models/user_group.py
 kestrapy/models/user_group_type.py
 kestrapy/models/user_type.py
-kestrapy/models/user_usage.py
 kestrapy/models/username_password_credentials.py
 kestrapy/models/validate_constraint_violation.py
 kestrapy/models/value_path_expression.py

@@ -64,7 +64,6 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
-docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -97,9 +96,6 @@ docs/CreateApiTokenResponse.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/DailyExecutionStatistics.md
-docs/DailyExecutionStatisticsDuration.md
-docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DeleteTriggersByQueryRequest.md
@@ -122,7 +118,6 @@ docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
 docs/ExecutionStatusEvent.md
 docs/ExecutionTrigger.md
-docs/ExecutionUsage.md
 docs/ExecutionsApi.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
@@ -142,12 +137,10 @@ docs/FlowNode.md
 docs/FlowRelation.md
 docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
-docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
-docs/GroupUsage.md
 docs/GroupsApi.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
@@ -234,7 +227,6 @@ docs/MetricAggregation.md
 docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
-docs/MiscControllerApiUsage.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -317,7 +309,6 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
-docs/RoleUsage.md
 docs/RolesApi.md
 docs/SLA.md
 docs/SLABehavior.md
@@ -354,7 +345,6 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
-docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -370,7 +360,6 @@ docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
-docs/TenantUsage.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -394,11 +383,9 @@ docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UploadVersionedPluginsRequest.md
-docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
 docs/UserType.md
-docs/UserUsage.md
 docs/UsernamePasswordCredentials.md
 docs/UsersApi.md
 docs/ValidateConstraintViolation.md
@@ -482,7 +469,6 @@ src/model/BaseAuditLog.js
 src/model/BaseResourcePatchRequest.js
 src/model/BaseResourceScimResource.js
 src/model/BaseResourceSearchRequest.js
-src/model/BasicAuthCredentials.js
 src/model/Binding.js
 src/model/BindingType.js
 src/model/Blueprint.js
@@ -515,9 +501,6 @@ src/model/CreateApiTokenResponse.js
 src/model/CreateNamespaceFileRequest.js
 src/model/CreateSecurityIntegrationRequest.js
 src/model/CrudEventType.js
-src/model/DailyExecutionStatistics.js
-src/model/DailyExecutionStatisticsDuration.js
-src/model/DailyExecutionStatisticsExecutionCounts.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
 src/model/DeleteTriggersByQueryRequest.js
@@ -540,7 +523,6 @@ src/model/ExecutionMetadata.js
 src/model/ExecutionRepositoryInterfaceFlowFilter.js
 src/model/ExecutionStatusEvent.js
 src/model/ExecutionTrigger.js
-src/model/ExecutionUsage.js
 src/model/FileAttributes.js
 src/model/FileAttributesFileType.js
 src/model/FileMetas.js
@@ -559,11 +541,9 @@ src/model/FlowNode.js
 src/model/FlowRelation.js
 src/model/FlowTopologyGraph.js
 src/model/FlowTopologyGraphEdge.js
-src/model/FlowUsage.js
 src/model/FlowWithSource.js
 src/model/GroupIdentifier.js
 src/model/GroupIdentifierMembership.js
-src/model/GroupUsage.js
 src/model/IAMBindingControllerApiBindingDetail.js
 src/model/IAMBindingControllerApiBindingGroup.js
 src/model/IAMBindingControllerApiBindingUser.js
@@ -648,7 +628,6 @@ src/model/MetricAggregation.js
 src/model/MetricAggregations.js
 src/model/MetricEntry.js
 src/model/MetricTag.js
-src/model/MiscControllerApiUsage.js
 src/model/MiscControllerConfiguration.js
 src/model/MiscControllerEEConfiguration.js
 src/model/MiscControllerEnvironment.js
@@ -730,7 +709,6 @@ src/model/ResourceTypeSchemaExtensionConfiguration.js
 src/model/RightSidebarConfiguration.js
 src/model/RightSidebarConfigurationCustomLink.js
 src/model/Role.js
-src/model/RoleUsage.js
 src/model/SLA.js
 src/model/SLABehavior.js
 src/model/SLALabels.js
@@ -765,7 +743,6 @@ src/model/ServiceServiceState.js
 src/model/ServiceType.js
 src/model/SetAppsCatalogLogoRequest.js
 src/model/SetupConfiguration.js
-src/model/SetupConfigurationSetupData.js
 src/model/SortOrder.js
 src/model/SortRequest.js
 src/model/State.js
@@ -781,7 +758,6 @@ src/model/TenantAppCatalogConfig.js
 src/model/TenantControllerAppsCatalogConfigRequest.js
 src/model/TenantControllerAppsCatalogConfigResponse.js
 src/model/TenantInterface.js
-src/model/TenantUsage.js
 src/model/TestState.js
 src/model/TestSuite.js
 src/model/TestSuiteControllerRunRequest.js
@@ -803,11 +779,9 @@ src/model/Type.js
 src/model/UnitTest.js
 src/model/UnitTestResult.js
 src/model/UploadVersionedPluginsRequest.js
-src/model/UsageEE.js
 src/model/UserGroup.js
 src/model/UserGroupType.js
 src/model/UserType.js
-src/model/UserUsage.js
 src/model/UsernamePasswordCredentials.js
 src/model/ValidateConstraintViolation.js
 src/model/ValuePathExpression.js

@@ -14,7 +14,6 @@ Method | HTTP request | Description
 [**disableFlowsByQuery**](FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**enableFlowsByIds**](FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 [**enableFlowsByQuery**](FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-[**exportFlows**](FlowsApi.md#exportFlows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 [**exportFlowsByIds**](FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**exportFlowsByQuery**](FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 [**flow**](FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -580,58 +579,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-
-## exportFlows
-
-> [Object] exportFlows(filters, tenant)
-
-Export all flows as a streamed CSV file
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | A list of filters
-let tenant = "tenant_example"; // String | 
-apiInstance.exportFlows(filters, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filters** | [**[QueryFilter]**](QueryFilter.md)| A list of filters | 
- **tenant** | **String**|  | 
-
-### Return type
-
-**[Object]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/csv
 
 
 ## exportFlowsByIds

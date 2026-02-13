@@ -145,7 +145,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-*KestraIoKestraSdk.ExecutionsApi* | [**exportExecutions**](docs/ExecutionsApi.md#exportExecutions) | **GET** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 *KestraIoKestraSdk.ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**flowFromExecution**](docs/ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -194,7 +193,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 *KestraIoKestraSdk.FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 *KestraIoKestraSdk.FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-*KestraIoKestraSdk.FlowsApi* | [**exportFlows**](docs/FlowsApi.md#exportFlows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 *KestraIoKestraSdk.FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *KestraIoKestraSdk.FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 *KestraIoKestraSdk.FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -390,7 +388,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.BaseResourcePatchRequest](docs/BaseResourcePatchRequest.md)
  - [KestraIoKestraSdk.BaseResourceScimResource](docs/BaseResourceScimResource.md)
  - [KestraIoKestraSdk.BaseResourceSearchRequest](docs/BaseResourceSearchRequest.md)
- - [KestraIoKestraSdk.BasicAuthCredentials](docs/BasicAuthCredentials.md)
  - [KestraIoKestraSdk.Binding](docs/Binding.md)
  - [KestraIoKestraSdk.BindingType](docs/BindingType.md)
  - [KestraIoKestraSdk.Blueprint](docs/Blueprint.md)
@@ -423,9 +420,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [KestraIoKestraSdk.CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [KestraIoKestraSdk.CrudEventType](docs/CrudEventType.md)
- - [KestraIoKestraSdk.DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
- - [KestraIoKestraSdk.DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
- - [KestraIoKestraSdk.DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [KestraIoKestraSdk.Dashboard](docs/Dashboard.md)
  - [KestraIoKestraSdk.DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [KestraIoKestraSdk.DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
@@ -448,7 +442,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
  - [KestraIoKestraSdk.ExecutionStatusEvent](docs/ExecutionStatusEvent.md)
  - [KestraIoKestraSdk.ExecutionTrigger](docs/ExecutionTrigger.md)
- - [KestraIoKestraSdk.ExecutionUsage](docs/ExecutionUsage.md)
  - [KestraIoKestraSdk.FileAttributes](docs/FileAttributes.md)
  - [KestraIoKestraSdk.FileAttributesFileType](docs/FileAttributesFileType.md)
  - [KestraIoKestraSdk.FileMetas](docs/FileMetas.md)
@@ -467,11 +460,9 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.FlowRelation](docs/FlowRelation.md)
  - [KestraIoKestraSdk.FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [KestraIoKestraSdk.FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
- - [KestraIoKestraSdk.FlowUsage](docs/FlowUsage.md)
  - [KestraIoKestraSdk.FlowWithSource](docs/FlowWithSource.md)
  - [KestraIoKestraSdk.GroupIdentifier](docs/GroupIdentifier.md)
  - [KestraIoKestraSdk.GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
- - [KestraIoKestraSdk.GroupUsage](docs/GroupUsage.md)
  - [KestraIoKestraSdk.IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [KestraIoKestraSdk.IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
  - [KestraIoKestraSdk.IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
@@ -556,7 +547,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.MetricAggregations](docs/MetricAggregations.md)
  - [KestraIoKestraSdk.MetricEntry](docs/MetricEntry.md)
  - [KestraIoKestraSdk.MetricTag](docs/MetricTag.md)
- - [KestraIoKestraSdk.MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
  - [KestraIoKestraSdk.MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [KestraIoKestraSdk.MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
  - [KestraIoKestraSdk.MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
@@ -638,7 +628,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [KestraIoKestraSdk.RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [KestraIoKestraSdk.Role](docs/Role.md)
- - [KestraIoKestraSdk.RoleUsage](docs/RoleUsage.md)
  - [KestraIoKestraSdk.SLA](docs/SLA.md)
  - [KestraIoKestraSdk.SLABehavior](docs/SLABehavior.md)
  - [KestraIoKestraSdk.SLALabels](docs/SLALabels.md)
@@ -673,7 +662,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.ServiceType](docs/ServiceType.md)
  - [KestraIoKestraSdk.SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [KestraIoKestraSdk.SetupConfiguration](docs/SetupConfiguration.md)
- - [KestraIoKestraSdk.SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [KestraIoKestraSdk.SortOrder](docs/SortOrder.md)
  - [KestraIoKestraSdk.SortRequest](docs/SortRequest.md)
  - [KestraIoKestraSdk.State](docs/State.md)
@@ -689,7 +677,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [KestraIoKestraSdk.TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
  - [KestraIoKestraSdk.TenantInterface](docs/TenantInterface.md)
- - [KestraIoKestraSdk.TenantUsage](docs/TenantUsage.md)
  - [KestraIoKestraSdk.TestState](docs/TestState.md)
  - [KestraIoKestraSdk.TestSuite](docs/TestSuite.md)
  - [KestraIoKestraSdk.TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
@@ -711,11 +698,9 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.UnitTest](docs/UnitTest.md)
  - [KestraIoKestraSdk.UnitTestResult](docs/UnitTestResult.md)
  - [KestraIoKestraSdk.UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
- - [KestraIoKestraSdk.UsageEE](docs/UsageEE.md)
  - [KestraIoKestraSdk.UserGroup](docs/UserGroup.md)
  - [KestraIoKestraSdk.UserGroupType](docs/UserGroupType.md)
  - [KestraIoKestraSdk.UserType](docs/UserType.md)
- - [KestraIoKestraSdk.UserUsage](docs/UserUsage.md)
  - [KestraIoKestraSdk.UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [KestraIoKestraSdk.ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [KestraIoKestraSdk.ValuePathExpression](docs/ValuePathExpression.md)

@@ -11,7 +11,6 @@ Method | HTTP request | Description
 [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**executionFlowGraph**](ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-[**exportExecutions**](ExecutionsApi.md#exportExecutions) | **GET** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 [**fileMetadatasFromExecution**](ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**flowFromExecution**](ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**flowFromExecutionById**](ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -465,58 +464,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-
-## exportExecutions
-
-> [Object] exportExecutions(filters, tenant)
-
-Export all executions as a streamed CSV file
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | A list of filters
-let tenant = "tenant_example"; // String | 
-apiInstance.exportExecutions(filters, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filters** | [**[QueryFilter]**](QueryFilter.md)| A list of filters | 
- **tenant** | **String**|  | 
-
-### Return type
-
-**[Object]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/csv
 
 
 ## fileMetadatasFromExecution
