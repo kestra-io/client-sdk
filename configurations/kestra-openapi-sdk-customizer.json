@@ -31,7 +31,9 @@
     "setupKestra", "# seems not useful",
     "tenantUsage", "# GO deserialization doesnt work",
     "usages", "# GO deserialization doesnt work",
-    "listPermissions", "# GO deserialization enum clash with 1.1"
+    "listPermissions", "# GO deserialization enum clash with 1.1",
+    "exportFlows", "# csv export mainly aimed for UI not working yet in the SDK",
+    "exportExecutions", "# csv export mainly aimed for UI not working yet in the SDK"
   ],
   "tagsToSkip": [
     "Credentials"

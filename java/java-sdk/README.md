@@ -151,7 +151,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-*ExecutionsApi* | [**exportExecutions**](docs/ExecutionsApi.md#exportExecutions) | **GET** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 *ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 *ExecutionsApi* | [**flowFromExecution**](docs/ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -210,7 +209,6 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 *FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 *FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-*FlowsApi* | [**exportFlows**](docs/FlowsApi.md#exportFlows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 *FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -411,7 +409,6 @@ Class | Method | HTTP request | Description
  - [BaseResourcePatchRequest](docs/BaseResourcePatchRequest.md)
  - [BaseResourceScimResource](docs/BaseResourceScimResource.md)
  - [BaseResourceSearchRequest](docs/BaseResourceSearchRequest.md)
- - [BasicAuthCredentials](docs/BasicAuthCredentials.md)
  - [Binding](docs/Binding.md)
  - [BindingType](docs/BindingType.md)
  - [Blueprint](docs/Blueprint.md)
@@ -444,9 +441,6 @@ Class | Method | HTTP request | Description
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
- - [DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
- - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
@@ -469,7 +463,6 @@ Class | Method | HTTP request | Description
  - [ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
  - [ExecutionStatusEvent](docs/ExecutionStatusEvent.md)
  - [ExecutionTrigger](docs/ExecutionTrigger.md)
- - [ExecutionUsage](docs/ExecutionUsage.md)
  - [FileAttributes](docs/FileAttributes.md)
  - [FileAttributesFileType](docs/FileAttributesFileType.md)
  - [FileMetas](docs/FileMetas.md)
@@ -488,11 +481,9 @@ Class | Method | HTTP request | Description
  - [FlowRelation](docs/FlowRelation.md)
  - [FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
- - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
- - [GroupUsage](docs/GroupUsage.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
  - [IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
@@ -577,7 +568,6 @@ Class | Method | HTTP request | Description
  - [MetricAggregations](docs/MetricAggregations.md)
  - [MetricEntry](docs/MetricEntry.md)
  - [MetricTag](docs/MetricTag.md)
- - [MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
@@ -659,7 +649,6 @@ Class | Method | HTTP request | Description
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
- - [RoleUsage](docs/RoleUsage.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
  - [SLALabels](docs/SLALabels.md)
@@ -694,7 +683,6 @@ Class | Method | HTTP request | Description
  - [ServiceType](docs/ServiceType.md)
  - [SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
- - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
  - [SortRequest](docs/SortRequest.md)
  - [State](docs/State.md)
@@ -710,7 +698,6 @@ Class | Method | HTTP request | Description
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
  - [TenantInterface](docs/TenantInterface.md)
- - [TenantUsage](docs/TenantUsage.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
@@ -732,11 +719,9 @@ Class | Method | HTTP request | Description
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
  - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
- - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)
  - [UserType](docs/UserType.md)
- - [UserUsage](docs/UserUsage.md)
  - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [ValuePathExpression](docs/ValuePathExpression.md)

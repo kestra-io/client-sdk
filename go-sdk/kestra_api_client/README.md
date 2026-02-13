@@ -86,7 +86,6 @@ Class | Method | HTTP request | Description
 *ExecutionsAPI* | [**DownloadFileFromExecution**](docs/ExecutionsAPI.md#downloadfilefromexecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *ExecutionsAPI* | [**Execution**](docs/ExecutionsAPI.md#execution) | **Get** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsAPI* | [**ExecutionFlowGraph**](docs/ExecutionsAPI.md#executionflowgraph) | **Get** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-*ExecutionsAPI* | [**ExportExecutions**](docs/ExecutionsAPI.md#exportexecutions) | **Get** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 *ExecutionsAPI* | [**FileMetadatasFromExecution**](docs/ExecutionsAPI.md#filemetadatasfromexecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 *ExecutionsAPI* | [**FlowFromExecution**](docs/ExecutionsAPI.md#flowfromexecution) | **Get** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsAPI* | [**FlowFromExecutionById**](docs/ExecutionsAPI.md#flowfromexecutionbyid) | **Get** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -145,7 +144,6 @@ Class | Method | HTTP request | Description
 *FlowsAPI* | [**DisableFlowsByQuery**](docs/FlowsAPI.md#disableflowsbyquery) | **Post** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 *FlowsAPI* | [**EnableFlowsByIds**](docs/FlowsAPI.md#enableflowsbyids) | **Post** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 *FlowsAPI* | [**EnableFlowsByQuery**](docs/FlowsAPI.md#enableflowsbyquery) | **Post** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-*FlowsAPI* | [**ExportFlows**](docs/FlowsAPI.md#exportflows) | **Get** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 *FlowsAPI* | [**ExportFlowsByIds**](docs/FlowsAPI.md#exportflowsbyids) | **Post** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsAPI* | [**ExportFlowsByQuery**](docs/FlowsAPI.md#exportflowsbyquery) | **Get** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 *FlowsAPI* | [**Flow**](docs/FlowsAPI.md#flow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow

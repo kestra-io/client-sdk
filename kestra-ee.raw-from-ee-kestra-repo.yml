@@ -2510,33 +2510,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/acls/permissions:
-    get:
-      tags:
-        - Misc
-      summary: Retrieve list of permissions
-      description: >-
-        Permissions are used to control access to resources within the Kestra platform. Example of permissions are:
-        FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
-      operationId: listPermissions
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listPermissions 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Permission"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/ai/generate/flow:
     post:
       tags:
@@ -5162,39 +5135,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/executions/export/by-query/csv:
-    get:
-      tags:
-        - Executions
-      summary: Export all executions as a streamed CSV file
-      operationId: exportExecutions
-      parameters:
-        - name: filters
-          in: query
-          description: A list of filters
-          required: true
-          explode: false
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/QueryFilter"
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: exportExecutions 200 response
-          content:
-            text/csv:
-              schema:
-                type: array
-                items:
-                  type: object
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
     get:
       tags:
@@ -7139,39 +7079,6 @@ paths:
               schema:
                 type: string
                 format: byte
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/flows/export/by-query/csv:
-    get:
-      tags:
-        - Flows
-      summary: Export all flows as a streamed CSV file
-      operationId: exportFlows
-      parameters:
-        - name: filters
-          in: query
-          description: A list of filters
-          required: true
-          explode: false
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/QueryFilter"
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: exportFlows 200 response
-          content:
-            text/csv:
-              schema:
-                type: array
-                items:
-                  type: object
       security:
         - bearerAuth: []
         - basicAuth: []
