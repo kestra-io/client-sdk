@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | **String** |  | [optional] 
-**namespace** | **String** |  | [optional] 
 **index** | **Number** |  | 
+**filename** | **String** |  | [optional] 
+**namespace** | **String** |  | [optional] 
+**flow** | **String** |  | [optional] 
 **constraints** | **String** |  | [optional] 
 **outdated** | **Boolean** |  | [optional] 
 **deprecationPaths** | **[String]** |  | [optional] 

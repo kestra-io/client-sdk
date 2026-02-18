@@ -287,7 +287,7 @@ func (r ApiKeyValueRequest) GetTenant() string {
 	return r.tenant
 }
 
-func (r ApiKeyValueRequest) Execute() (*KVControllerTypedValue, *http.Response, error) {
+func (r ApiKeyValueRequest) Execute() (*KVControllerKvDetail, *http.Response, error) {
 	return r.ApiService.KeyValueExecute(r)
 }
 
@@ -312,13 +312,13 @@ func (a *KVAPIService) KeyValue(ctx context.Context, namespace string, key strin
 
 // Execute executes the request
 //
-//	@return KVControllerTypedValue
-func (a *KVAPIService) KeyValueExecute(r ApiKeyValueRequest) (*KVControllerTypedValue, *http.Response, error) {
+//	@return KVControllerKvDetail
+func (a *KVAPIService) KeyValueExecute(r ApiKeyValueRequest) (*KVControllerKvDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KVControllerTypedValue
+		localVarReturnValue *KVControllerKvDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.KeyValue")

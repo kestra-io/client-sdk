@@ -2555,39 +2555,46 @@ import java.util.StringJoiner;
   /**
    * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param namespace The flow namespace (required)
+   * @param override If namespace of all provided flows should be overridden (required)
    * @param delete If missing flow should be deleted (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param body A list of flows source code (required)
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap());
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlowsInNamespace(override, delete, namespace, tenant, body, Collections.emptyMap());
   }
 
   /**
    * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param namespace The flow namespace (required)
+   * @param override If namespace of all provided flows should be overridden (required)
    * @param delete If missing flow should be deleted (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param body A list of flows source code (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+    // verify the required parameter 'override' is set
+    if (override == null) {
+      throw new ApiException(400, "Missing the required parameter 'override' when calling updateFlowsInNamespace");
     }
     
     // verify the required parameter 'delete' is set
     if (delete == null) {
       throw new ApiException(400, "Missing the required parameter 'delete' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
     }
     
     // verify the required parameter 'tenant' is set
@@ -2612,6 +2619,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("override", override));
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2770,7 +2778,7 @@ import java.util.StringJoiner;
    * Validate a list of flows
    * 
    * @param tenant  (required)
-   * @param body A list of flows source code in a single string (required)
+   * @param body Flows as YAML string or multipart files (required)
    * @return List&lt;ValidateConstraintViolation&gt;
    * @throws ApiException if fails to make API call
    */
@@ -2782,7 +2790,7 @@ import java.util.StringJoiner;
    * Validate a list of flows
    * 
    * @param tenant  (required)
-   * @param body A list of flows source code in a single string (required)
+   * @param body Flows as YAML string or multipart files (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;ValidateConstraintViolation&gt;
    * @throws ApiException if fails to make API call
@@ -2822,7 +2830,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/x-yaml"
+      "application/x-yaml", "multipart/form-data"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

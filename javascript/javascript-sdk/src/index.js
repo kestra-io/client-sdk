@@ -213,7 +213,7 @@ import InvitationInvitationStatus from './model/InvitationInvitationStatus';
 import Isolation from './model/Isolation';
 import KVControllerApiDeleteBulkRequest from './model/KVControllerApiDeleteBulkRequest';
 import KVControllerApiDeleteBulkResponse from './model/KVControllerApiDeleteBulkResponse';
-import KVControllerTypedValue from './model/KVControllerTypedValue';
+import KVControllerKvDetail from './model/KVControllerKvDetail';
 import KVEntry from './model/KVEntry';
 import KVType from './model/KVType';
 import Label from './model/Label';
@@ -293,10 +293,11 @@ import PluginIcon from './model/PluginIcon';
 import PluginPluginElementMetadata from './model/PluginPluginElementMetadata';
 import PluginSchema from './model/PluginSchema';
 import PluginSubGroupPluginCategory from './model/PluginSubGroupPluginCategory';
-import PropertyAssetsDeclaration from './model/PropertyAssetsDeclaration';
 import PropertyBoolean from './model/PropertyBoolean';
 import PropertyDouble from './model/PropertyDouble';
 import PropertyDuration from './model/PropertyDuration';
+import PropertyListAsset from './model/PropertyListAsset';
+import PropertyListAssetIdentifier from './model/PropertyListAssetIdentifier';
 import PropertyListString from './model/PropertyListString';
 import PropertyObject from './model/PropertyObject';
 import PropertyString from './model/PropertyString';
@@ -1648,10 +1649,10 @@ export {
     KVControllerApiDeleteBulkResponse,
 
     /**
-     * The KVControllerTypedValue model constructor.
-     * @property {module:model/KVControllerTypedValue}
+     * The KVControllerKvDetail model constructor.
+     * @property {module:model/KVControllerKvDetail}
      */
-    KVControllerTypedValue,
+    KVControllerKvDetail,
 
     /**
      * The KVEntry model constructor.
@@ -2128,12 +2129,6 @@ export {
     PluginSubGroupPluginCategory,
 
     /**
-     * The PropertyAssetsDeclaration model constructor.
-     * @property {module:model/PropertyAssetsDeclaration}
-     */
-    PropertyAssetsDeclaration,
-
-    /**
      * The PropertyBoolean model constructor.
      * @property {module:model/PropertyBoolean}
      */
@@ -2150,6 +2145,18 @@ export {
      * @property {module:model/PropertyDuration}
      */
     PropertyDuration,
+
+    /**
+     * The PropertyListAsset model constructor.
+     * @property {module:model/PropertyListAsset}
+     */
+    PropertyListAsset,
+
+    /**
+     * The PropertyListAssetIdentifier model constructor.
+     * @property {module:model/PropertyListAssetIdentifier}
+     */
+    PropertyListAssetIdentifier,
 
     /**
      * The PropertyListString model constructor.

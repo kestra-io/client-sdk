@@ -15,7 +15,7 @@ import ApiClient from "../ApiClient";
 import polyfilledEventSource from "@sanity/eventsource"
 import KVControllerApiDeleteBulkRequest from '../model/KVControllerApiDeleteBulkRequest';
 import KVControllerApiDeleteBulkResponse from '../model/KVControllerApiDeleteBulkResponse';
-import KVControllerTypedValue from '../model/KVControllerTypedValue';
+import KVControllerKvDetail from '../model/KVControllerKvDetail';
 import KVEntry from '../model/KVEntry';
 import PagedResultsKVEntry from '../model/PagedResultsKVEntry';
 import QueryFilter from '../model/QueryFilter';
@@ -189,7 +189,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise<KVControllerTypedValue>}
+    * @return {Promise<KVControllerKvDetail>}
     */
     keyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
@@ -221,7 +221,7 @@ export default class KVApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = KVControllerTypedValue;
+      let returnType = KVControllerKvDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -235,7 +235,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise<KVControllerTypedValue>}
+    * @return {Promise<KVControllerKvDetail>}
     */
     keyValue(namespace, key, tenant) {
       return this.keyValueWithHttpInfo(namespace, key, tenant)

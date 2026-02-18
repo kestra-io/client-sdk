@@ -14,24 +14,26 @@ import ApiClient from '../ApiClient';
 import KVType from './KVType';
 
 /**
-  * @typedef {Object} IKVControllerTypedValue
+  * @typedef {Object} IKVControllerKvDetail
   * @property {KVType} type
   * @property {Object} value
+  * @property {Number} revision
+  * @property {Date} updated
   */
 
 /**
- * The KVControllerTypedValue model module.
- * @module model/KVControllerTypedValue
- * @type {IKVControllerTypedValue}
+ * The KVControllerKvDetail model module.
+ * @module model/KVControllerKvDetail
+ * @type {IKVControllerKvDetail}
  */
-class KVControllerTypedValue {
+class KVControllerKvDetail {
     /**
-     * Constructs a new <code>KVControllerTypedValue</code>.
-     * @alias module:model/KVControllerTypedValue
+     * Constructs a new <code>KVControllerKvDetail</code>.
+     * @alias module:model/KVControllerKvDetail
      */
     constructor() { 
         
-        KVControllerTypedValue.initialize(this);
+        KVControllerKvDetail.initialize(this);
     }
 
     /**
@@ -43,15 +45,15 @@ class KVControllerTypedValue {
     }
 
     /**
-     * Constructs a <code>KVControllerTypedValue</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>KVControllerKvDetail</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/KVControllerTypedValue} obj Optional instance to populate.
-     * @return {module:model/KVControllerTypedValue} The populated <code>KVControllerTypedValue</code> instance.
+     * @param {module:model/KVControllerKvDetail} obj Optional instance to populate.
+     * @return {module:model/KVControllerKvDetail} The populated <code>KVControllerKvDetail</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new KVControllerTypedValue();
+            obj = obj || new KVControllerKvDetail();
 
             if (data.hasOwnProperty('type')) {
                 obj['type'] = KVType.constructFromObject(data['type']);
@@ -59,14 +61,20 @@ class KVControllerTypedValue {
             if (data.hasOwnProperty('value')) {
                 obj['value'] = ApiClient.convertToType(data['value'], Object);
             }
+            if (data.hasOwnProperty('revision')) {
+                obj['revision'] = ApiClient.convertToType(data['revision'], 'Number');
+            }
+            if (data.hasOwnProperty('updated')) {
+                obj['updated'] = ApiClient.convertToType(data['updated'], 'Date');
+            }
         }
         return obj;
     }
 
     /**
-     * Validates the JSON data with respect to <code>KVControllerTypedValue</code>.
+     * Validates the JSON data with respect to <code>KVControllerKvDetail</code>.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>KVControllerTypedValue</code>.
+     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>KVControllerKvDetail</code>.
      */
     static validateJSON(data) {
 
@@ -81,17 +89,27 @@ class KVControllerTypedValue {
 /**
  * @member {module:model/KVType} type
  */
-KVControllerTypedValue.prototype['type'] = undefined;
+KVControllerKvDetail.prototype['type'] = undefined;
 
 /**
  * @member {Object} value
  */
-KVControllerTypedValue.prototype['value'] = undefined;
+KVControllerKvDetail.prototype['value'] = undefined;
+
+/**
+ * @member {Number} revision
+ */
+KVControllerKvDetail.prototype['revision'] = undefined;
+
+/**
+ * @member {Date} updated
+ */
+KVControllerKvDetail.prototype['updated'] = undefined;
 
 
 
 
 
 
-export default KVControllerTypedValue;
+export default KVControllerKvDetail;
 

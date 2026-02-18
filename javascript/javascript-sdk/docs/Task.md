@@ -18,6 +18,6 @@ Name | Type | Description | Notes
 **runIf** | **String** |  | [optional] 
 **allowWarning** | **Boolean** |  | [optional] 
 **taskCache** | [**Cache**](Cache.md) |  | [optional] 
-**assets** | [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
+**assets** | [**AssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
 
 

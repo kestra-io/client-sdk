@@ -39,6 +39,9 @@ class PluginSubGroupPluginCategory(str, Enum):
     CORE = 'CORE'
     INGESTION = 'INGESTION'
     BI = 'BI'
+    BUSINESS = 'BUSINESS'
+    DATA = 'DATA'
+    INFRASTRUCTURE = 'INFRASTRUCTURE'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

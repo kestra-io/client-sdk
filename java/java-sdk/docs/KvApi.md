@@ -160,7 +160,7 @@ public class Example {
 
 ## keyValue
 
-> KVControllerTypedValue keyValue(namespace, key, tenant)
+> KVControllerKvDetail keyValue(namespace, key, tenant)
 
 Get value for a key
 
@@ -188,7 +188,7 @@ public class Example {
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         try {
-            KVControllerTypedValue result = kestraClient.KvApi().keyValue(namespace, key, tenant);
+            KVControllerKvDetail result = kestraClient.KvApi().keyValue(namespace, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#keyValue");
@@ -212,7 +212,7 @@ public class Example {
 
 ### Return type
 
-[**KVControllerTypedValue**](KVControllerTypedValue.md)
+[**KVControllerKvDetail**](KVControllerKvDetail.md)
 
 ### Authorization
 

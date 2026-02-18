@@ -213,7 +213,7 @@ from kestrapy.models.invitation_invitation_status import InvitationInvitationSta
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
-from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
+from kestrapy.models.kv_controller_kv_detail import KVControllerKvDetail
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.kv_type import KVType
 from kestrapy.models.label import Label
@@ -294,10 +294,11 @@ from kestrapy.models.plugin_icon import PluginIcon
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata
 from kestrapy.models.plugin_schema import PluginSchema
 from kestrapy.models.plugin_sub_group_plugin_category import PluginSubGroupPluginCategory
-from kestrapy.models.property_assets_declaration import PropertyAssetsDeclaration
 from kestrapy.models.property_boolean import PropertyBoolean
 from kestrapy.models.property_double import PropertyDouble
 from kestrapy.models.property_duration import PropertyDuration
+from kestrapy.models.property_list_asset import PropertyListAsset
+from kestrapy.models.property_list_asset_identifier import PropertyListAssetIdentifier
 from kestrapy.models.property_list_string import PropertyListString
 from kestrapy.models.property_object import PropertyObject
 from kestrapy.models.property_string import PropertyString

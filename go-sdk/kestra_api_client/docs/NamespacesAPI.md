@@ -688,7 +688,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	key := "key_example" // string | The secret key
 	tenant := "tenant_example" // string | 
-	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Key_example", "Description_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}) // ApiSecretMetaEE | 
+	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Key_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}) // ApiSecretMetaEE | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Flow** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
 **Index** | **int32** |  | 
+**Filename** | Pointer to **string** |  | [optional] 
+**Namespace** | Pointer to **string** |  | [optional] 
+**Flow** | Pointer to **string** |  | [optional] 
 **Constraints** | Pointer to **string** |  | [optional] 
 **Outdated** | Pointer to **bool** |  | [optional] 
 **DeprecationPaths** | Pointer to **[]string** |  | [optional] 
@@ -32,30 +33,50 @@ NewValidateConstraintViolationWithDefaults instantiates a new ValidateConstraint
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFlow
+### GetIndex
 
-`func (o *ValidateConstraintViolation) GetFlow() string`
+`func (o *ValidateConstraintViolation) GetIndex() int32`
 
-GetFlow returns the Flow field if non-nil, zero value otherwise.
+GetIndex returns the Index field if non-nil, zero value otherwise.
 
-### GetFlowOk
+### GetIndexOk
 
-`func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool)`
+`func (o *ValidateConstraintViolation) GetIndexOk() (*int32, bool)`
 
-GetFlowOk returns a tuple with the Flow field if it's non-nil, zero value otherwise
+GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFlow
+### SetIndex
 
-`func (o *ValidateConstraintViolation) SetFlow(v string)`
+`func (o *ValidateConstraintViolation) SetIndex(v int32)`
 
-SetFlow sets Flow field to given value.
+SetIndex sets Index field to given value.
 
-### HasFlow
 
-`func (o *ValidateConstraintViolation) HasFlow() bool`
+### GetFilename
 
-HasFlow returns a boolean if a field has been set.
+`func (o *ValidateConstraintViolation) GetFilename() string`
+
+GetFilename returns the Filename field if non-nil, zero value otherwise.
+
+### GetFilenameOk
+
+`func (o *ValidateConstraintViolation) GetFilenameOk() (*string, bool)`
+
+GetFilenameOk returns a tuple with the Filename field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilename
+
+`func (o *ValidateConstraintViolation) SetFilename(v string)`
+
+SetFilename sets Filename field to given value.
+
+### HasFilename
+
+`func (o *ValidateConstraintViolation) HasFilename() bool`
+
+HasFilename returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -82,25 +103,30 @@ SetNamespace sets Namespace field to given value.
 
 HasNamespace returns a boolean if a field has been set.
 
-### GetIndex
+### GetFlow
 
-`func (o *ValidateConstraintViolation) GetIndex() int32`
+`func (o *ValidateConstraintViolation) GetFlow() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetFlow returns the Flow field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetFlowOk
 
-`func (o *ValidateConstraintViolation) GetIndexOk() (*int32, bool)`
+`func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetFlowOk returns a tuple with the Flow field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetFlow
 
-`func (o *ValidateConstraintViolation) SetIndex(v int32)`
+`func (o *ValidateConstraintViolation) SetFlow(v string)`
 
-SetIndex sets Index field to given value.
+SetFlow sets Flow field to given value.
 
+### HasFlow
+
+`func (o *ValidateConstraintViolation) HasFlow() bool`
+
+HasFlow returns a boolean if a field has been set.
 
 ### GetConstraints
 

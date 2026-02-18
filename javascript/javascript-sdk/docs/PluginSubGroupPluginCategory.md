@@ -31,4 +31,10 @@
 
 * `BI` (value: `"BI"`)
 
+* `BUSINESS` (value: `"BUSINESS"`)
+
+* `DATA` (value: `"DATA"`)
+
+* `INFRASTRUCTURE` (value: `"INFRASTRUCTURE"`)
+
 

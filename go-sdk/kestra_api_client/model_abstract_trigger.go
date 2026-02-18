@@ -33,7 +33,7 @@ type AbstractTrigger struct {
 	LogToFile            *bool                                 `json:"logToFile,omitempty"`
 	FailOnTriggerError   *bool                                 `json:"failOnTriggerError,omitempty"`
 	AllowConcurrent      *bool                                 `json:"allowConcurrent,omitempty"`
-	Assets               *PropertyAssetsDeclaration            `json:"assets,omitempty"`
+	Assets               *AssetsDeclaration                    `json:"assets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -463,9 +463,9 @@ func (o *AbstractTrigger) SetAllowConcurrent(v bool) {
 }
 
 // GetAssets returns the Assets field value if set, zero value otherwise.
-func (o *AbstractTrigger) GetAssets() PropertyAssetsDeclaration {
+func (o *AbstractTrigger) GetAssets() AssetsDeclaration {
 	if o == nil || IsNil(o.Assets) {
-		var ret PropertyAssetsDeclaration
+		var ret AssetsDeclaration
 		return ret
 	}
 	return *o.Assets
@@ -473,7 +473,7 @@ func (o *AbstractTrigger) GetAssets() PropertyAssetsDeclaration {
 
 // GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractTrigger) GetAssetsOk() (*PropertyAssetsDeclaration, bool) {
+func (o *AbstractTrigger) GetAssetsOk() (*AssetsDeclaration, bool) {
 	if o == nil || IsNil(o.Assets) {
 		return nil, false
 	}
@@ -489,8 +489,8 @@ func (o *AbstractTrigger) HasAssets() bool {
 	return false
 }
 
-// SetAssets gets a reference to the given PropertyAssetsDeclaration and assigns it to the Assets field.
-func (o *AbstractTrigger) SetAssets(v PropertyAssetsDeclaration) {
+// SetAssets gets a reference to the given AssetsDeclaration and assigns it to the Assets field.
+func (o *AbstractTrigger) SetAssets(v AssetsDeclaration) {
 	o.Assets = &v
 }
 

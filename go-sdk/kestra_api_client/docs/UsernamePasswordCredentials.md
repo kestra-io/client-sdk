@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Username** | **string** |  | 
-**Password** | **string** |  | 
+**Username** | **NullableString** |  | 
+**Password** | **NullableString** |  | 
 **Identity** | Pointer to **NullableString** |  | [optional] 
 **Secret** | Pointer to **NullableString** |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewUsernamePasswordCredentials
 
-`func NewUsernamePasswordCredentials(username string, password string, ) *UsernamePasswordCredentials`
+`func NewUsernamePasswordCredentials(username NullableString, password NullableString, ) *UsernamePasswordCredentials`
 
 NewUsernamePasswordCredentials instantiates a new UsernamePasswordCredentials object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,16 @@ and a boolean to check if the value has been set.
 SetUsername sets Username field to given value.
 
 
+### SetUsernameNil
+
+`func (o *UsernamePasswordCredentials) SetUsernameNil(b bool)`
+
+ SetUsernameNil sets the value for Username to be an explicit nil
+
+### UnsetUsername
+`func (o *UsernamePasswordCredentials) UnsetUsername()`
+
+UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetPassword
 
 `func (o *UsernamePasswordCredentials) GetPassword() string`
@@ -68,6 +78,16 @@ and a boolean to check if the value has been set.
 SetPassword sets Password field to given value.
 
 
+### SetPasswordNil
+
+`func (o *UsernamePasswordCredentials) SetPasswordNil(b bool)`
+
+ SetPasswordNil sets the value for Password to be an explicit nil
+
+### UnsetPassword
+`func (o *UsernamePasswordCredentials) UnsetPassword()`
+
+UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetIdentity
 
 `func (o *UsernamePasswordCredentials) GetIdentity() string`

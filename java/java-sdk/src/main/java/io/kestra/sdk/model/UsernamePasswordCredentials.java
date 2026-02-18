@@ -38,10 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UsernamePasswordCredentials {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @jakarta.annotation.Nonnull  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @jakarta.annotation.Nonnull  private String password;
+  @jakarta.annotation.Nullable  private String password;
 
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @jakarta.annotation.Nullable  private JsonNullable<String> identity = JsonNullable.<String>undefined();
@@ -52,7 +52,7 @@ public class UsernamePasswordCredentials {
   public UsernamePasswordCredentials() {
   }
 
-  public UsernamePasswordCredentials username(@jakarta.annotation.Nonnull String username) {
+  public UsernamePasswordCredentials username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -62,7 +62,7 @@ public class UsernamePasswordCredentials {
    * Get username
    * @return username
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
@@ -72,11 +72,11 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@jakarta.annotation.Nonnull String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public UsernamePasswordCredentials password(@jakarta.annotation.Nonnull String password) {
+  public UsernamePasswordCredentials password(@jakarta.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -86,7 +86,7 @@ public class UsernamePasswordCredentials {
    * Get password
    * @return password
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -96,7 +96,7 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@jakarta.annotation.Nonnull String password) {
+  public void setPassword(@jakarta.annotation.Nullable String password) {
     this.password = password;
   }
 

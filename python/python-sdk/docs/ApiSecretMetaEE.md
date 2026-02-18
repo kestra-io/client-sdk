@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | 
 **namespace** | **str** |  | [optional] 
-**description** | **str** |  | 
+**description** | **str** |  | [optional] 
 **tags** | [**List[ApiSecretTag]**](ApiSecretTag.md) |  | 
 
 ## Example

@@ -19,9 +19,10 @@ var _ MappedNullable = &ValidateConstraintViolation{}
 
 // ValidateConstraintViolation struct for ValidateConstraintViolation
 type ValidateConstraintViolation struct {
-	Flow                 *string  `json:"flow,omitempty"`
-	Namespace            *string  `json:"namespace,omitempty"`
 	Index                int32    `json:"index"`
+	Filename             *string  `json:"filename,omitempty"`
+	Namespace            *string  `json:"namespace,omitempty"`
+	Flow                 *string  `json:"flow,omitempty"`
 	Constraints          *string  `json:"constraints,omitempty"`
 	Outdated             *bool    `json:"outdated,omitempty"`
 	DeprecationPaths     []string `json:"deprecationPaths,omitempty"`
@@ -50,36 +51,60 @@ func NewValidateConstraintViolationWithDefaults() *ValidateConstraintViolation {
 	return &this
 }
 
-// GetFlow returns the Flow field value if set, zero value otherwise.
-func (o *ValidateConstraintViolation) GetFlow() string {
-	if o == nil || IsNil(o.Flow) {
+// GetIndex returns the Index field value
+func (o *ValidateConstraintViolation) GetIndex() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Index
+}
+
+// GetIndexOk returns a tuple with the Index field value
+// and a boolean to check if the value has been set.
+func (o *ValidateConstraintViolation) GetIndexOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Index, true
+}
+
+// SetIndex sets field value
+func (o *ValidateConstraintViolation) SetIndex(v int32) {
+	o.Index = v
+}
+
+// GetFilename returns the Filename field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetFilename() string {
+	if o == nil || IsNil(o.Filename) {
 		var ret string
 		return ret
 	}
-	return *o.Flow
+	return *o.Filename
 }
 
-// GetFlowOk returns a tuple with the Flow field value if set, nil otherwise
+// GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool) {
-	if o == nil || IsNil(o.Flow) {
+func (o *ValidateConstraintViolation) GetFilenameOk() (*string, bool) {
+	if o == nil || IsNil(o.Filename) {
 		return nil, false
 	}
-	return o.Flow, true
+	return o.Filename, true
 }
 
-// HasFlow returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasFlow() bool {
-	if o != nil && !IsNil(o.Flow) {
+// HasFilename returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasFilename() bool {
+	if o != nil && !IsNil(o.Filename) {
 		return true
 	}
 
 	return false
 }
 
-// SetFlow gets a reference to the given string and assigns it to the Flow field.
-func (o *ValidateConstraintViolation) SetFlow(v string) {
-	o.Flow = &v
+// SetFilename gets a reference to the given string and assigns it to the Filename field.
+func (o *ValidateConstraintViolation) SetFilename(v string) {
+	o.Filename = &v
 }
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
@@ -114,28 +139,36 @@ func (o *ValidateConstraintViolation) SetNamespace(v string) {
 	o.Namespace = &v
 }
 
-// GetIndex returns the Index field value
-func (o *ValidateConstraintViolation) GetIndex() int32 {
-	if o == nil {
-		var ret int32
+// GetFlow returns the Flow field value if set, zero value otherwise.
+func (o *ValidateConstraintViolation) GetFlow() string {
+	if o == nil || IsNil(o.Flow) {
+		var ret string
 		return ret
 	}
-
-	return o.Index
+	return *o.Flow
 }
 
-// GetIndexOk returns a tuple with the Index field value
+// GetFlowOk returns a tuple with the Flow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ValidateConstraintViolation) GetIndexOk() (*int32, bool) {
-	if o == nil {
+func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool) {
+	if o == nil || IsNil(o.Flow) {
 		return nil, false
 	}
-	return &o.Index, true
+	return o.Flow, true
 }
 
-// SetIndex sets field value
-func (o *ValidateConstraintViolation) SetIndex(v int32) {
-	o.Index = v
+// HasFlow returns a boolean if a field has been set.
+func (o *ValidateConstraintViolation) HasFlow() bool {
+	if o != nil && !IsNil(o.Flow) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlow gets a reference to the given string and assigns it to the Flow field.
+func (o *ValidateConstraintViolation) SetFlow(v string) {
+	o.Flow = &v
 }
 
 // GetConstraints returns the Constraints field value if set, zero value otherwise.
@@ -308,13 +341,16 @@ func (o ValidateConstraintViolation) MarshalJSON() ([]byte, error) {
 
 func (o ValidateConstraintViolation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Flow) {
-		toSerialize["flow"] = o.Flow
+	toSerialize["index"] = o.Index
+	if !IsNil(o.Filename) {
+		toSerialize["filename"] = o.Filename
 	}
 	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
 	}
-	toSerialize["index"] = o.Index
+	if !IsNil(o.Flow) {
+		toSerialize["flow"] = o.Flow
+	}
 	if !IsNil(o.Constraints) {
 		toSerialize["constraints"] = o.Constraints
 	}
@@ -373,9 +409,10 @@ func (o *ValidateConstraintViolation) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "flow")
-		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "index")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flow")
 		delete(additionalProperties, "constraints")
 		delete(additionalProperties, "outdated")
 		delete(additionalProperties, "deprecationPaths")

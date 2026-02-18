@@ -1980,22 +1980,27 @@ export default class FlowsApi {
     /**
     * Update a complete namespace from yaml source
     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {String} namespace The flow namespace
+    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {Boolean} _delete If missing flow should be deleted
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body) {
+    updateFlowsInNamespaceWithHttpInfo(override, _delete, namespace, tenant, body) {
       let postBody = body;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+      // verify the required parameter 'override' is set
+      if (override === undefined || override === null) {
+        throw new Error("Missing the required parameter 'override' when calling updateFlowsInNamespace");
       }
       // verify the required parameter '_delete' is set
       if (_delete === undefined || _delete === null) {
         throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespace");
+      }
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2011,6 +2016,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
+        'override': override,
         'delete': _delete
       };
       let headerParams = {
@@ -2032,15 +2038,16 @@ export default class FlowsApi {
     /**
     * Update a complete namespace from yaml source
     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {String} namespace The flow namespace
+    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {Boolean} _delete If missing flow should be deleted
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespace(namespace, _delete, tenant, body) {
-      return this.updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body)
+    updateFlowsInNamespace(override, _delete, namespace, tenant, body) {
+      return this.updateFlowsInNamespaceWithHttpInfo(override, _delete, namespace, tenant, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2143,7 +2150,7 @@ export default class FlowsApi {
     /**
     * Validate a list of flows
     * @param {String} tenant 
-    * @param {String} body A list of flows source code in a single string
+    * @param {String} body Flows as YAML string or multipart files
 
     * @return {Promise<Array.<ValidateConstraintViolation>>}
     */
@@ -2169,7 +2176,7 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/x-yaml'];
+      let contentTypes = ['application/x-yaml', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = [ValidateConstraintViolation];
       return this.apiClient.callApi(
@@ -2182,7 +2189,7 @@ export default class FlowsApi {
     /**
     * Validate a list of flows
     * @param {String} tenant 
-    * @param {String} body A list of flows source code in a single string
+    * @param {String} body Flows as YAML string or multipart files
 
     * @return {Promise<Array.<ValidateConstraintViolation>>}
     */

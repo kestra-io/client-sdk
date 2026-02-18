@@ -19,9 +19,9 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from kestrapy.models.assets_declaration import AssetsDeclaration
 from kestrapy.models.cache import Cache
 from kestrapy.models.level import Level
-from kestrapy.models.property_assets_declaration import PropertyAssetsDeclaration
 from kestrapy.models.property_duration import PropertyDuration
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
@@ -45,7 +45,7 @@ class Task(BaseModel):
     run_if: Optional[StrictStr] = Field(default=None, alias="runIf")
     allow_warning: Optional[StrictBool] = Field(default=None, alias="allowWarning")
     task_cache: Optional[Cache] = Field(default=None, alias="taskCache")
-    assets: Optional[PropertyAssetsDeclaration] = None
+    assets: Optional[AssetsDeclaration] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "version", "description", "retry", "timeout", "disabled", "workerGroup", "logLevel", "allowFailure", "logToFile", "runIf", "allowWarning", "taskCache", "assets"]
 
@@ -152,7 +152,7 @@ class Task(BaseModel):
             "runIf": obj.get("runIf"),
             "allowWarning": obj.get("allowWarning"),
             "taskCache": Cache.from_dict(obj["taskCache"]) if obj.get("taskCache") is not None else None,
-            "assets": PropertyAssetsDeclaration.from_dict(obj["assets"]) if obj.get("assets") is not None else None
+            "assets": AssetsDeclaration.from_dict(obj["assets"]) if obj.get("assets") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

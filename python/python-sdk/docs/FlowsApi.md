@@ -1831,7 +1831,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flows_in_namespace**
-> List[FlowInterface] update_flows_in_namespace(namespace, delete, tenant, body)
+> List[FlowInterface] update_flows_in_namespace(override, delete, namespace, tenant, body)
 
 Update a complete namespace from yaml source
 
@@ -1854,14 +1854,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
+    override = False # bool | If namespace of all provided flows should be overridden (default to False)
     delete = True # bool | If missing flow should be deleted (default to True)
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | A list of flows source code
 
     try:
         # Update a complete namespace from yaml source
-        api_response = kestra_client.FlowsApi.update_flows_in_namespace(namespace, delete, tenant, body)
+        api_response = kestra_client.FlowsApi.update_flows_in_namespace(override, delete, namespace, tenant, body)
         print("The response of FlowsApi->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1875,8 +1876,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
+ **override** | **bool**| If namespace of all provided flows should be overridden | [default to False]
  **delete** | **bool**| If missing flow should be deleted | [default to True]
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
  **body** | **str**| A list of flows source code | 
 
@@ -1993,7 +1995,7 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    body = 'body_example' # str | A list of flows source code in a single string
+    body = 'body_example' # str | Flows as YAML string or multipart files
 
     try:
         # Validate a list of flows
@@ -2012,7 +2014,7 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **body** | **str**| A list of flows source code in a single string | 
+ **body** | **str**| Flows as YAML string or multipart files | 
 
 ### Return type
 
@@ -2024,7 +2026,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-yaml
+ - **Content-Type**: application/x-yaml, multipart/form-data
  - **Accept**: application/json
 
 ### HTTP response details

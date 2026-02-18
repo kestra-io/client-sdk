@@ -7,9 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**flow** | **String** |  |  [optional] |
-|**namespace** | **String** |  |  [optional] |
 |**index** | **Integer** |  |  |
+|**filename** | **String** |  |  [optional] |
+|**namespace** | **String** |  |  [optional] |
+|**flow** | **String** |  |  [optional] |
 |**constraints** | **String** |  |  [optional] |
 |**outdated** | **Boolean** |  |  [optional] |
 |**deprecationPaths** | **List&lt;String&gt;** |  |  [optional] |

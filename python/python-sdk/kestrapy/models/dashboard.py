@@ -32,9 +32,8 @@ class Dashboard(BaseModel):
     description: Optional[StrictStr] = None
     time_window: Optional[TimeWindow] = Field(default=None, alias="timeWindow")
     charts: Optional[List[ChartChartOption]] = None
-    source_code: Optional[StrictStr] = Field(default=None, alias="sourceCode")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["title", "description", "timeWindow", "charts", "sourceCode"]
+    __properties: ClassVar[List[str]] = ["title", "description", "timeWindow", "charts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,8 +106,7 @@ class Dashboard(BaseModel):
             "title": obj.get("title"),
             "description": obj.get("description"),
             "timeWindow": TimeWindow.from_dict(obj["timeWindow"]) if obj.get("timeWindow") is not None else None,
-            "charts": [ChartChartOption.from_dict(_item) for _item in obj["charts"]] if obj.get("charts") is not None else None,
-            "sourceCode": obj.get("sourceCode")
+            "charts": [ChartChartOption.from_dict(_item) for _item in obj["charts"]] if obj.get("charts") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

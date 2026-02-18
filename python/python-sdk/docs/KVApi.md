@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **key_value**
-> KVControllerTypedValue key_value(namespace, key, tenant)
+> KVControllerKvDetail key_value(namespace, key, tenant)
 
 Get value for a key
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KVControllerTypedValue**](KVControllerTypedValue.md)
+[**KVControllerKvDetail**](KVControllerKvDetail.md)
 
 ### Authorization
 

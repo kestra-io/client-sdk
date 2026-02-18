@@ -19,11 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.Asset;
-import io.kestra.sdk.model.AssetIdentifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import io.kestra.sdk.model.PropertyBoolean;
+import io.kestra.sdk.model.PropertyListAsset;
+import io.kestra.sdk.model.PropertyListAssetIdentifier;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -31,89 +29,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * AssetsDeclaration
  */
 @JsonPropertyOrder({
+  AssetsDeclaration.JSON_PROPERTY_ENABLE_AUTO,
   AssetsDeclaration.JSON_PROPERTY_INPUTS,
-  AssetsDeclaration.JSON_PROPERTY_OUTPUTS,
-  AssetsDeclaration.JSON_PROPERTY_ENABLE_AUTO
+  AssetsDeclaration.JSON_PROPERTY_OUTPUTS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetsDeclaration {
+  public static final String JSON_PROPERTY_ENABLE_AUTO = "enableAuto";
+  @jakarta.annotation.Nullable  private String enableAuto;
+
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @jakarta.annotation.Nullable  private List<AssetIdentifier> inputs = new ArrayList<>();
+  @jakarta.annotation.Nullable  private PropertyListAssetIdentifier inputs;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @jakarta.annotation.Nullable  private List<Asset> outputs = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_ENABLE_AUTO = "enableAuto";
-  @jakarta.annotation.Nullable  private Boolean enableAuto;
+  @jakarta.annotation.Nullable  private PropertyListAsset outputs;
 
   public AssetsDeclaration() {
   }
 
-  public AssetsDeclaration inputs(@jakarta.annotation.Nullable List<AssetIdentifier> inputs) {
-    
-    this.inputs = inputs;
-    return this;
-  }
-
-  public AssetsDeclaration addInputsItem(AssetIdentifier inputsItem) {
-    if (this.inputs == null) {
-      this.inputs = new ArrayList<>();
-    }
-    this.inputs.add(inputsItem);
-    return this;
-  }
-
-  /**
-   * Get inputs
-   * @return inputs
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<AssetIdentifier> getInputs() {
-    return inputs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@jakarta.annotation.Nullable List<AssetIdentifier> inputs) {
-    this.inputs = inputs;
-  }
-
-  public AssetsDeclaration outputs(@jakarta.annotation.Nullable List<Asset> outputs) {
-    
-    this.outputs = outputs;
-    return this;
-  }
-
-  public AssetsDeclaration addOutputsItem(Asset outputsItem) {
-    if (this.outputs == null) {
-      this.outputs = new ArrayList<>();
-    }
-    this.outputs.add(outputsItem);
-    return this;
-  }
-
-  /**
-   * Get outputs
-   * @return outputs
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Asset> getOutputs() {
-    return outputs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@jakarta.annotation.Nullable List<Asset> outputs) {
-    this.outputs = outputs;
-  }
-
-  public AssetsDeclaration enableAuto(@jakarta.annotation.Nullable Boolean enableAuto) {
+  public AssetsDeclaration enableAuto(@jakarta.annotation.Nullable String enableAuto) {
     
     this.enableAuto = enableAuto;
     return this;
@@ -126,15 +60,63 @@ public class AssetsDeclaration {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENABLE_AUTO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getEnableAuto() {
+  public String getEnableAuto() {
     return enableAuto;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ENABLE_AUTO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnableAuto(@jakarta.annotation.Nullable Boolean enableAuto) {
+  public void setEnableAuto(@jakarta.annotation.Nullable String enableAuto) {
     this.enableAuto = enableAuto;
+  }
+
+  public AssetsDeclaration inputs(@jakarta.annotation.Nullable PropertyListAssetIdentifier inputs) {
+    
+    this.inputs = inputs;
+    return this;
+  }
+
+  /**
+   * Get inputs
+   * @return inputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PropertyListAssetIdentifier getInputs() {
+    return inputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@jakarta.annotation.Nullable PropertyListAssetIdentifier inputs) {
+    this.inputs = inputs;
+  }
+
+  public AssetsDeclaration outputs(@jakarta.annotation.Nullable PropertyListAsset outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  /**
+   * Get outputs
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PropertyListAsset getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable PropertyListAsset outputs) {
+    this.outputs = outputs;
   }
 
   @Override
@@ -146,23 +128,23 @@ public class AssetsDeclaration {
       return false;
     }
     AssetsDeclaration assetsDeclaration = (AssetsDeclaration) o;
-    return Objects.equals(this.inputs, assetsDeclaration.inputs) &&
-        Objects.equals(this.outputs, assetsDeclaration.outputs) &&
-        Objects.equals(this.enableAuto, assetsDeclaration.enableAuto);
+    return Objects.equals(this.enableAuto, assetsDeclaration.enableAuto) &&
+        Objects.equals(this.inputs, assetsDeclaration.inputs) &&
+        Objects.equals(this.outputs, assetsDeclaration.outputs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputs, outputs, enableAuto);
+    return Objects.hash(enableAuto, inputs, outputs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AssetsDeclaration {\n");
+    sb.append("    enableAuto: ").append(toIndentedString(enableAuto)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
-    sb.append("    enableAuto: ").append(toIndentedString(enableAuto)).append("\n");
     sb.append("}");
     return sb.toString();
   }

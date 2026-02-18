@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**inputs** | [**List&lt;AssetIdentifier&gt;**](AssetIdentifier.md) |  |  [optional] |
-|**outputs** | [**List&lt;Asset&gt;**](Asset.md) |  |  [optional] |
-|**enableAuto** | **Boolean** |  |  [optional] |
+|**enableAuto** | [**String**](PropertyBoolean.md) |  |  [optional] |
+|**inputs** | [**PropertyListAssetIdentifier**](PropertyListAssetIdentifier.md) |  |  [optional] |
+|**outputs** | [**PropertyListAsset**](PropertyListAsset.md) |  |  [optional] |
 
 
 

@@ -15,7 +15,7 @@ const (
 	parentNamespace = "test"
 )
 
-func kvValue(typed *kestra_api_client.KVControllerTypedValue) interface{} {
+func kvValue(typed *kestra_api_client.KVControllerKvDetail) interface{} {
 	if typed == nil {
 		return nil
 	}
@@ -53,7 +53,7 @@ func parseKVResponse(t *testing.T, resp *http.Response) (string, interface{}) {
 	return typ, payload["value"]
 }
 
-func assertKVValue(t *testing.T, fetched *kestra_api_client.KVControllerTypedValue, httpResp *http.Response, err error, expectedType kestra_api_client.KVType, expectedValue interface{}) {
+func assertKVValue(t *testing.T, fetched *kestra_api_client.KVControllerKvDetail, httpResp *http.Response, err error, expectedType kestra_api_client.KVType, expectedValue interface{}) {
 	t.Helper()
 	if err != nil {
 		typ, value := parseKVResponse(t, httpResp)

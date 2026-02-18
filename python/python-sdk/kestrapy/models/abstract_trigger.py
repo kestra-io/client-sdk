@@ -19,9 +19,9 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from kestrapy.models.assets_declaration import AssetsDeclaration
 from kestrapy.models.condition import Condition
 from kestrapy.models.level import Level
-from kestrapy.models.property_assets_declaration import PropertyAssetsDeclaration
 from kestrapy.models.state_type import StateType
 from kestrapy.models.the_labels_to_pass_to_the_execution_created import TheLabelsToPassToTheExecutionCreated
 from kestrapy.models.worker_group import WorkerGroup
@@ -45,7 +45,7 @@ class AbstractTrigger(BaseModel):
     log_to_file: Optional[StrictBool] = Field(default=None, alias="logToFile")
     fail_on_trigger_error: Optional[StrictBool] = Field(default=None, alias="failOnTriggerError")
     allow_concurrent: Optional[StrictBool] = Field(default=None, alias="allowConcurrent")
-    assets: Optional[PropertyAssetsDeclaration] = None
+    assets: Optional[AssetsDeclaration] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "version", "description", "conditions", "disabled", "workerGroup", "logLevel", "labels", "stopAfter", "logToFile", "failOnTriggerError", "allowConcurrent", "assets"]
 
@@ -150,7 +150,7 @@ class AbstractTrigger(BaseModel):
             "logToFile": obj.get("logToFile"),
             "failOnTriggerError": obj.get("failOnTriggerError"),
             "allowConcurrent": obj.get("allowConcurrent"),
-            "assets": PropertyAssetsDeclaration.from_dict(obj["assets"]) if obj.get("assets") is not None else None
+            "assets": AssetsDeclaration.from_dict(obj["assets"]) if obj.get("assets") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

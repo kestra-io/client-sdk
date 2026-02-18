@@ -29,9 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * ValidateConstraintViolation
  */
 @JsonPropertyOrder({
-  ValidateConstraintViolation.JSON_PROPERTY_FLOW,
-  ValidateConstraintViolation.JSON_PROPERTY_NAMESPACE,
   ValidateConstraintViolation.JSON_PROPERTY_INDEX,
+  ValidateConstraintViolation.JSON_PROPERTY_FILENAME,
+  ValidateConstraintViolation.JSON_PROPERTY_NAMESPACE,
+  ValidateConstraintViolation.JSON_PROPERTY_FLOW,
   ValidateConstraintViolation.JSON_PROPERTY_CONSTRAINTS,
   ValidateConstraintViolation.JSON_PROPERTY_OUTDATED,
   ValidateConstraintViolation.JSON_PROPERTY_DEPRECATION_PATHS,
@@ -40,14 +41,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ValidateConstraintViolation {
-  public static final String JSON_PROPERTY_FLOW = "flow";
-  @jakarta.annotation.Nullable  private String flow;
+  public static final String JSON_PROPERTY_INDEX = "index";
+  @jakarta.annotation.Nonnull  private Integer index;
+
+  public static final String JSON_PROPERTY_FILENAME = "filename";
+  @jakarta.annotation.Nullable  private String filename;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private String namespace;
 
-  public static final String JSON_PROPERTY_INDEX = "index";
-  @jakarta.annotation.Nonnull  private Integer index;
+  public static final String JSON_PROPERTY_FLOW = "flow";
+  @jakarta.annotation.Nullable  private String flow;
 
   public static final String JSON_PROPERTY_CONSTRAINTS = "constraints";
   @jakarta.annotation.Nullable  private String constraints;
@@ -67,28 +71,52 @@ public class ValidateConstraintViolation {
   public ValidateConstraintViolation() {
   }
 
-  public ValidateConstraintViolation flow(@jakarta.annotation.Nullable String flow) {
+  public ValidateConstraintViolation index(@jakarta.annotation.Nonnull Integer index) {
     
-    this.flow = flow;
+    this.index = index;
     return this;
   }
 
   /**
-   * Get flow
-   * @return flow
+   * Get index
+   * @return index
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getFlow() {
-    return flow;
+  public Integer getIndex() {
+    return index;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIndex(@jakarta.annotation.Nonnull Integer index) {
+    this.index = index;
+  }
+
+  public ValidateConstraintViolation filename(@jakarta.annotation.Nullable String filename) {
+    
+    this.filename = filename;
+    return this;
+  }
+
+  /**
+   * Get filename
+   * @return filename
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlow(@jakarta.annotation.Nullable String flow) {
-    this.flow = flow;
+
+  public String getFilename() {
+    return filename;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FILENAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilename(@jakarta.annotation.Nullable String filename) {
+    this.filename = filename;
   }
 
   public ValidateConstraintViolation namespace(@jakarta.annotation.Nullable String namespace) {
@@ -115,28 +143,28 @@ public class ValidateConstraintViolation {
     this.namespace = namespace;
   }
 
-  public ValidateConstraintViolation index(@jakarta.annotation.Nonnull Integer index) {
+  public ValidateConstraintViolation flow(@jakarta.annotation.Nullable String flow) {
     
-    this.index = index;
+    this.flow = flow;
     return this;
   }
 
   /**
-   * Get index
-   * @return index
+   * Get flow
+   * @return flow
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INDEX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getIndex() {
-    return index;
+  public String getFlow() {
+    return flow;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INDEX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIndex(@jakarta.annotation.Nonnull Integer index) {
-    this.index = index;
+  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlow(@jakarta.annotation.Nullable String flow) {
+    this.flow = flow;
   }
 
   public ValidateConstraintViolation constraints(@jakarta.annotation.Nullable String constraints) {
@@ -292,9 +320,10 @@ public class ValidateConstraintViolation {
       return false;
     }
     ValidateConstraintViolation validateConstraintViolation = (ValidateConstraintViolation) o;
-    return Objects.equals(this.flow, validateConstraintViolation.flow) &&
+    return Objects.equals(this.index, validateConstraintViolation.index) &&
+        Objects.equals(this.filename, validateConstraintViolation.filename) &&
         Objects.equals(this.namespace, validateConstraintViolation.namespace) &&
-        Objects.equals(this.index, validateConstraintViolation.index) &&
+        Objects.equals(this.flow, validateConstraintViolation.flow) &&
         Objects.equals(this.constraints, validateConstraintViolation.constraints) &&
         Objects.equals(this.outdated, validateConstraintViolation.outdated) &&
         Objects.equals(this.deprecationPaths, validateConstraintViolation.deprecationPaths) &&
@@ -304,16 +333,17 @@ public class ValidateConstraintViolation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos);
+    return Objects.hash(index, filename, namespace, flow, constraints, outdated, deprecationPaths, warnings, infos);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidateConstraintViolation {\n");
-    sb.append("    flow: ").append(toIndentedString(flow)).append("\n");
-    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
+    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flow: ").append(toIndentedString(flow)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
     sb.append("    outdated: ").append(toIndentedString(outdated)).append("\n");
     sb.append("    deprecationPaths: ").append(toIndentedString(deprecationPaths)).append("\n");

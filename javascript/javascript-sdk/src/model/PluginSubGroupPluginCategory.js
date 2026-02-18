@@ -14,7 +14,7 @@ import ApiClient from '../ApiClient';
 /**
  * Enum PluginSubGroupPluginCategory
  * @type {{
- *   "DATABASE": "DATABASE","MESSAGING": "MESSAGING","SCRIPT": "SCRIPT","TRANSFORMATION": "TRANSFORMATION","BATCH": "BATCH","ALERTING": "ALERTING","CLOUD": "CLOUD","STORAGE": "STORAGE","OTHER": "OTHER","TOOL": "TOOL","AI": "AI","CORE": "CORE","INGESTION": "INGESTION","BI": "BI",
+ *   "DATABASE": "DATABASE","MESSAGING": "MESSAGING","SCRIPT": "SCRIPT","TRANSFORMATION": "TRANSFORMATION","BATCH": "BATCH","ALERTING": "ALERTING","CLOUD": "CLOUD","STORAGE": "STORAGE","OTHER": "OTHER","TOOL": "TOOL","AI": "AI","CORE": "CORE","INGESTION": "INGESTION","BI": "BI","BUSINESS": "BUSINESS","DATA": "DATA","INFRASTRUCTURE": "INFRASTRUCTURE",
  * }}
  */
 export const PluginSubGroupPluginCategoryStatic = { 
@@ -32,6 +32,9 @@ export const PluginSubGroupPluginCategoryStatic = {
     "CORE": "CORE",
     "INGESTION": "INGESTION",
     "BI": "BI",
+    "BUSINESS": "BUSINESS",
+    "DATA": "DATA",
+    "INFRASTRUCTURE": "INFRASTRUCTURE",
 }
 
 /**
@@ -137,6 +140,27 @@ export default class PluginSubGroupPluginCategory {
          * @const
          */
         "BI" = "BI";
+
+    
+        /**
+         * value: "BUSINESS"
+         * @const
+         */
+        "BUSINESS" = "BUSINESS";
+
+    
+        /**
+         * value: "DATA"
+         * @const
+         */
+        "DATA" = "DATA";
+
+    
+        /**
+         * value: "INFRASTRUCTURE"
+         * @const
+         */
+        "INFRASTRUCTURE" = "INFRASTRUCTURE";
 
     
 

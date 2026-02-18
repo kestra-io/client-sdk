@@ -39,7 +39,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Kestra EE API v1.2.0
+// APIClient manages communication with the Kestra EE API v1.2.5
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -256,26 +256,23 @@ func ParseQueryFilters(param []QueryFilter) (map[string]string, error) {
 			keyField = "q"
 		}
 
-		if strings.EqualFold(fieldStr, "labels") {
-			// Value must be map-like (not nil, not slice)
-			if qf.Value == nil {
-				return nil, fmt.Errorf("Filter LABEL value must be a Map-like object")
-			}
+		// Expand map-like values for ANY field
+		if qf.Value != nil {
 			switch m := qf.Value.(type) {
 			case map[string]interface{}:
 				for k, v := range m {
 					kvpairs[fmt.Sprintf("filters[%s][%s][%s]", keyField, op, k)] = paramToString(v)
 				}
+				continue
 			case map[string]string:
 				for k, v := range m {
 					kvpairs[fmt.Sprintf("filters[%s][%s][%s]", keyField, op, k)] = paramToString(v)
 				}
-			default:
-				return nil, fmt.Errorf("Filter LABEL value must be a Map-like object")
+				continue
 			}
-		} else {
-			kvpairs[fmt.Sprintf("filters[%s][%s]", keyField, op)] = paramToString(qf.Value)
 		}
+
+		kvpairs[fmt.Sprintf("filters[%s][%s]", keyField, op)] = paramToString(qf.Value)
 	}
 	return kvpairs, nil
 }

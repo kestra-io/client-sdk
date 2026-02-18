@@ -2018,7 +2018,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFlowsInNamespace
 
-> []FlowInterface UpdateFlowsInNamespace(ctx, namespace, tenant).Delete(delete).Body(body).Execute()
+> []FlowInterface UpdateFlowsInNamespace(ctx, namespace, tenant).Override(override).Delete(delete).Body(body).Execute()
 
 Update a complete namespace from yaml source
 
@@ -2037,14 +2037,15 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
+	override := true // bool | If namespace of all provided flows should be overridden (default to false)
 	delete := true // bool | If missing flow should be deleted (default to true)
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
 	body := "body_example" // string | A list of flows source code
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespace(context.Background(), namespace, tenant).Delete(delete).Body(body).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespace(context.Background(), namespace, tenant).Override(override).Delete(delete).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlowsInNamespace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2070,8 +2071,9 @@ Other parameters are passed through a pointer to a apiUpdateFlowsInNamespaceRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
+ **override** | **bool** | If namespace of all provided flows should be overridden | [default to false]
  **delete** | **bool** | If missing flow should be deleted | [default to true]
+
 
  **body** | **string** | A list of flows source code | 
 
@@ -2192,7 +2194,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	body := "body_example" // string | A list of flows source code in a single string
+	body := "body_example" // string | Flows as YAML string or multipart files
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2222,7 +2224,7 @@ Other parameters are passed through a pointer to a apiValidateFlowsRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **body** | **string** | A list of flows source code in a single string | 
+ **body** | **string** | Flows as YAML string or multipart files | 
 
 ### Return type
 
@@ -2234,7 +2236,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-yaml
+- **Content-Type**: application/x-yaml, multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

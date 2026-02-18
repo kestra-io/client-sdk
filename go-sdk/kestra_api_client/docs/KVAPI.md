@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## KeyValue
 
-> KVControllerTypedValue KeyValue(ctx, namespace, key, tenant).Execute()
+> KVControllerKvDetail KeyValue(ctx, namespace, key, tenant).Execute()
 
 Get value for a key
 
@@ -191,7 +191,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.KeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `KeyValue`: KVControllerTypedValue
+	// response from `KeyValue`: KVControllerKvDetail
 	fmt.Fprintf(os.Stdout, "Response from `KVAPI.KeyValue`: %v\n", resp)
 }
 ```
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KVControllerTypedValue**](KVControllerTypedValue.md)
+[**KVControllerKvDetail**](KVControllerKvDetail.md)
 
 ### Authorization
 

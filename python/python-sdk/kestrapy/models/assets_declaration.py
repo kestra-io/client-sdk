@@ -16,10 +16,11 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.asset import Asset
-from kestrapy.models.asset_identifier import AssetIdentifier
+from kestrapy.models.property_boolean import PropertyBoolean
+from kestrapy.models.property_list_asset import PropertyListAsset
+from kestrapy.models.property_list_asset_identifier import PropertyListAssetIdentifier
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,11 +28,11 @@ class AssetsDeclaration(BaseModel):
     """
     AssetsDeclaration
     """ # noqa: E501
-    inputs: Optional[List[AssetIdentifier]] = None
-    outputs: Optional[List[Asset]] = None
-    enable_auto: Optional[StrictBool] = Field(default=None, alias="enableAuto")
+    enable_auto: Optional[PropertyBoolean] = Field(default=None, alias="enableAuto")
+    inputs: Optional[PropertyListAssetIdentifier] = None
+    outputs: Optional[PropertyListAsset] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["inputs", "outputs", "enableAuto"]
+    __properties: ClassVar[List[str]] = ["enableAuto", "inputs", "outputs"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,20 +75,15 @@ class AssetsDeclaration(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in inputs (list)
-        _items = []
+        # override the default output from pydantic by calling `to_dict()` of enable_auto
+        if self.enable_auto:
+            _dict['enableAuto'] = self.enable_auto.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of inputs
         if self.inputs:
-            for _item_inputs in self.inputs:
-                if _item_inputs:
-                    _items.append(_item_inputs.to_dict())
-            _dict['inputs'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in outputs (list)
-        _items = []
+            _dict['inputs'] = self.inputs.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of outputs
         if self.outputs:
-            for _item_outputs in self.outputs:
-                if _item_outputs:
-                    _items.append(_item_outputs.to_dict())
-            _dict['outputs'] = _items
+            _dict['outputs'] = self.outputs.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -105,9 +101,9 @@ class AssetsDeclaration(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "inputs": [AssetIdentifier.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
-            "outputs": [Asset.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
-            "enableAuto": obj.get("enableAuto")
+            "enableAuto": PropertyBoolean.from_dict(obj["enableAuto"]) if obj.get("enableAuto") is not None else None,
+            "inputs": PropertyListAssetIdentifier.from_dict(obj["inputs"]) if obj.get("inputs") is not None else None,
+            "outputs": PropertyListAsset.from_dict(obj["outputs"]) if obj.get("outputs") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

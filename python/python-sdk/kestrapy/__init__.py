@@ -13,7 +13,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.8"
+__version__ = "1.0.9"
 
 # Define package exports
 __all__ = [
@@ -235,7 +235,7 @@ __all__ = [
     "Isolation",
     "KVControllerApiDeleteBulkRequest",
     "KVControllerApiDeleteBulkResponse",
-    "KVControllerTypedValue",
+    "KVControllerKvDetail",
     "KVEntry",
     "KVType",
     "Label",
@@ -316,10 +316,11 @@ __all__ = [
     "PluginPluginElementMetadata",
     "PluginSchema",
     "PluginSubGroupPluginCategory",
-    "PropertyAssetsDeclaration",
     "PropertyBoolean",
     "PropertyDouble",
     "PropertyDuration",
+    "PropertyListAsset",
+    "PropertyListAssetIdentifier",
     "PropertyListString",
     "PropertyObject",
     "PropertyString",
@@ -640,7 +641,7 @@ from kestrapy.models.invitation_invitation_status import InvitationInvitationSta
 from kestrapy.models.isolation import Isolation as Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest as KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse as KVControllerApiDeleteBulkResponse
-from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue as KVControllerTypedValue
+from kestrapy.models.kv_controller_kv_detail import KVControllerKvDetail as KVControllerKvDetail
 from kestrapy.models.kv_entry import KVEntry as KVEntry
 from kestrapy.models.kv_type import KVType as KVType
 from kestrapy.models.label import Label as Label
@@ -721,10 +722,11 @@ from kestrapy.models.plugin_icon import PluginIcon as PluginIcon
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata as PluginPluginElementMetadata
 from kestrapy.models.plugin_schema import PluginSchema as PluginSchema
 from kestrapy.models.plugin_sub_group_plugin_category import PluginSubGroupPluginCategory as PluginSubGroupPluginCategory
-from kestrapy.models.property_assets_declaration import PropertyAssetsDeclaration as PropertyAssetsDeclaration
 from kestrapy.models.property_boolean import PropertyBoolean as PropertyBoolean
 from kestrapy.models.property_double import PropertyDouble as PropertyDouble
 from kestrapy.models.property_duration import PropertyDuration as PropertyDuration
+from kestrapy.models.property_list_asset import PropertyListAsset as PropertyListAsset
+from kestrapy.models.property_list_asset_identifier import PropertyListAssetIdentifier as PropertyListAssetIdentifier
 from kestrapy.models.property_list_string import PropertyListString as PropertyListString
 from kestrapy.models.property_object import PropertyObject as PropertyObject
 from kestrapy.models.property_string import PropertyString as PropertyString

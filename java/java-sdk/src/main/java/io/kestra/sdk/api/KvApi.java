@@ -29,7 +29,7 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.KVControllerApiDeleteBulkRequest;
 import io.kestra.sdk.model.KVControllerApiDeleteBulkResponse;
-import io.kestra.sdk.model.KVControllerTypedValue;
+import io.kestra.sdk.model.KVControllerKvDetail;
 import io.kestra.sdk.model.KVEntry;
 import io.kestra.sdk.model.PagedResultsKVEntry;
 import io.kestra.sdk.model.QueryFilter;
@@ -245,10 +245,10 @@ import java.util.StringJoiner;
    * @param namespace The namespace id (required)
    * @param key The key (required)
    * @param tenant  (required)
-   * @return KVControllerTypedValue
+   * @return KVControllerKvDetail
    * @throws ApiException if fails to make API call
    */
-  public KVControllerTypedValue keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.keyValue(namespace, key, tenant, Collections.emptyMap());
   }
 
@@ -259,10 +259,10 @@ import java.util.StringJoiner;
    * @param key The key (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return KVControllerTypedValue
+   * @return KVControllerKvDetail
    * @throws ApiException if fails to make API call
    */
-  public KVControllerTypedValue keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -310,7 +310,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<KVControllerTypedValue> localVarReturnType = new TypeReference<KVControllerTypedValue>() {};
+    TypeReference<KVControllerKvDetail> localVarReturnType = new TypeReference<KVControllerKvDetail>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**inputs** | [**[AssetIdentifier]**](AssetIdentifier.md) |  | [optional] 
-**outputs** | [**[Asset]**](Asset.md) |  | [optional] 
-**enableAuto** | **Boolean** |  | [optional] 
+**enableAuto** | **Object** |  | [optional] 
+**inputs** | [**PropertyListAssetIdentifier**](PropertyListAssetIdentifier.md) |  | [optional] 
+**outputs** | [**PropertyListAsset**](PropertyListAsset.md) |  | [optional] 
 
 

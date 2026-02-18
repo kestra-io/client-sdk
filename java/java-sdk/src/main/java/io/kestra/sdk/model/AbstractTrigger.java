@@ -19,9 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Condition;
 import io.kestra.sdk.model.Level;
-import io.kestra.sdk.model.PropertyAssetsDeclaration;
 import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.TheLabelsToPassToTheExecutionCreated;
 import io.kestra.sdk.model.WorkerGroup;
@@ -92,7 +92,7 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  private Boolean allowConcurrent;
 
   public static final String JSON_PROPERTY_ASSETS = "assets";
-  @jakarta.annotation.Nullable  private PropertyAssetsDeclaration assets;
+  @jakarta.annotation.Nullable  private AssetsDeclaration assets;
 
   public AbstractTrigger() {
   }
@@ -425,7 +425,7 @@ public class AbstractTrigger {
     this.allowConcurrent = allowConcurrent;
   }
 
-  public AbstractTrigger assets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+  public AbstractTrigger assets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
     
     this.assets = assets;
     return this;
@@ -438,14 +438,14 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ASSETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PropertyAssetsDeclaration getAssets() {
+  public AssetsDeclaration getAssets() {
     return assets;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ASSETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAssets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+  public void setAssets(@jakarta.annotation.Nullable AssetsDeclaration assets) {
     this.assets = assets;
   }
 

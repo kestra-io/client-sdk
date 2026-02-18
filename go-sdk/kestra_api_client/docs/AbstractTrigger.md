@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **LogToFile** | Pointer to **bool** |  | [optional] 
 **FailOnTriggerError** | Pointer to **bool** |  | [optional] 
 **AllowConcurrent** | Pointer to **bool** |  | [optional] 
-**Assets** | Pointer to [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
+**Assets** | Pointer to [**AssetsDeclaration**](AssetsDeclaration.md) |  | [optional] 
 
 ## Methods
 
@@ -355,20 +355,20 @@ HasAllowConcurrent returns a boolean if a field has been set.
 
 ### GetAssets
 
-`func (o *AbstractTrigger) GetAssets() PropertyAssetsDeclaration`
+`func (o *AbstractTrigger) GetAssets() AssetsDeclaration`
 
 GetAssets returns the Assets field if non-nil, zero value otherwise.
 
 ### GetAssetsOk
 
-`func (o *AbstractTrigger) GetAssetsOk() (*PropertyAssetsDeclaration, bool)`
+`func (o *AbstractTrigger) GetAssetsOk() (*AssetsDeclaration, bool)`
 
 GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAssets
 
-`func (o *AbstractTrigger) SetAssets(v PropertyAssetsDeclaration)`
+`func (o *AbstractTrigger) SetAssets(v AssetsDeclaration)`
 
 SetAssets sets Assets field to given value.
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &ApiSecretMetaEE{}
 type ApiSecretMetaEE struct {
 	Key                  string         `json:"key"`
 	Namespace            *string        `json:"namespace,omitempty"`
-	Description          string         `json:"description"`
+	Description          *string        `json:"description,omitempty"`
 	Tags                 []ApiSecretTag `json:"tags"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,10 +32,9 @@ type _ApiSecretMetaEE ApiSecretMetaEE
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiSecretMetaEE(key string, description string, tags []ApiSecretTag) *ApiSecretMetaEE {
+func NewApiSecretMetaEE(key string, tags []ApiSecretTag) *ApiSecretMetaEE {
 	this := ApiSecretMetaEE{}
 	this.Key = key
-	this.Description = description
 	this.Tags = tags
 	return &this
 }
@@ -104,28 +103,36 @@ func (o *ApiSecretMetaEE) SetNamespace(v string) {
 	o.Namespace = &v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ApiSecretMetaEE) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiSecretMetaEE) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *ApiSecretMetaEE) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *ApiSecretMetaEE) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
 // GetTags returns the Tags field value
@@ -166,7 +173,9 @@ func (o ApiSecretMetaEE) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
 	}
-	toSerialize["description"] = o.Description
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["tags"] = o.Tags
 
 	for key, value := range o.AdditionalProperties {
@@ -182,7 +191,6 @@ func (o *ApiSecretMetaEE) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"key",
-		"description",
 		"tags",
 	}
 

@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.2.0
+  version: 1.2.5
 tags:
   - name: Flows
     description: Flows api
@@ -3040,7 +3040,8 @@ paths:
         content:
           application/x-yaml:
             schema:
-              $ref: "#/components/schemas/Asset"
+              type: string
+        required: true
       responses:
         "200":
           description: createAsset 200 response
@@ -7308,11 +7309,14 @@ paths:
           schema:
             type: string
       requestBody:
-        description: A list of flows source code in a single string
+        description: Flows as YAML string or multipart files
         content:
           application/x-yaml:
             schema:
               type: string
+          multipart/form-data:
+            schema:
+              type: object
         required: true
       responses:
         "200":
@@ -7434,12 +7438,14 @@ paths:
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
+        - name: override
+          in: query
+          description: If namespace of all provided flows should be overridden
           required: true
+          explode: false
           schema:
-            type: string
+            type: boolean
+            default: false
         - name: delete
           in: query
           description: If missing flow should be deleted
@@ -7448,6 +7454,12 @@ paths:
           schema:
             type: boolean
             default: true
+        - name: namespace
+          in: path
+          description: The flow namespace
+          required: true
+          schema:
+            type: string
         - name: tenant
           in: path
           required: true
@@ -7771,6 +7783,7 @@ paths:
             minItems: 1
             type: array
             items:
+              minimum: 1
               type: integer
               format: int32
         - name: tenant
@@ -10792,7 +10805,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/KVController.TypedValue"
+                $ref: "#/components/schemas/KVController.KvDetail"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13392,7 +13405,7 @@ components:
           title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
         assets:
-          $ref: "#/components/schemas/Property_AssetsDeclaration_"
+          $ref: "#/components/schemas/AssetsDeclaration"
     AbstractTriggerForExecution:
       required:
         - id
@@ -13552,7 +13565,6 @@ components:
           type: string
     ApiSecretMetaEE:
       required:
-        - description
         - tags
       type: object
       properties:
@@ -13944,12 +13956,13 @@ components:
           format: date-time
     AssetsDeclaration:
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AssetsInOut"
-        - type: object
-          properties:
-            enableAuto:
-              type: boolean
+      properties:
+        enableAuto:
+          $ref: "#/components/schemas/Property_Boolean_"
+        inputs:
+          $ref: "#/components/schemas/Property_List_AssetIdentifier__"
+        outputs:
+          $ref: "#/components/schemas/Property_List_Asset__"
     AssetsInOut:
       type: object
       properties:
@@ -14584,8 +14597,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Chart_ChartOption_"
-        sourceCode:
-          type: string
     DashboardController.PreviewRequest:
       required:
         - chart
@@ -16288,13 +16299,19 @@ components:
           type: array
           items:
             type: string
-    KVController.TypedValue:
+    KVController.KvDetail:
       type: object
       properties:
         type:
           $ref: "#/components/schemas/KVType"
         value:
           type: object
+        revision:
+          type: integer
+          format: int32
+        updated:
+          type: string
+          format: date-time
     KVEntry:
       type: object
       properties:
@@ -17506,16 +17523,9 @@ components:
         - CORE
         - INGESTION
         - BI
-    Property_AssetsDeclaration_:
-      type: object
-      properties:
-        expression:
-          type: string
-        value:
-          $ref: "#/components/schemas/AssetsDeclaration"
-      oneOf:
-        - type: object
-        - type: string
+        - BUSINESS
+        - DATA
+        - INFRASTRUCTURE
     Property_Boolean_:
       type: object
       properties:
@@ -17544,6 +17554,30 @@ components:
           type: string
         value:
           type: string
+      oneOf:
+        - type: object
+        - type: string
+    Property_List_AssetIdentifier__:
+      type: object
+      properties:
+        expression:
+          type: string
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+      oneOf:
+        - type: object
+        - type: string
+    Property_List_Asset__:
+      type: object
+      properties:
+        expression:
+          type: string
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/Asset"
       oneOf:
         - type: object
         - type: string
@@ -18400,7 +18434,7 @@ components:
         assets:
           nullable: true
           allOf:
-            - $ref: "#/components/schemas/Property_AssetsDeclaration_"
+            - $ref: "#/components/schemas/AssetsDeclaration"
     TaskFixture:
       required:
         - id
@@ -18938,9 +18972,11 @@ components:
         username:
           minLength: 1
           type: string
+          nullable: true
         password:
           minLength: 1
           type: string
+          nullable: true
         identity:
           type: string
           nullable: true
@@ -18952,13 +18988,15 @@ components:
         - index
       type: object
       properties:
-        flow:
-          type: string
-        namespace:
-          type: string
         index:
           type: integer
           format: int32
+        filename:
+          type: string
+        namespace:
+          type: string
+        flow:
+          type: string
         constraints:
           type: string
         outdated:

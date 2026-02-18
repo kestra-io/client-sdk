@@ -3599,10 +3599,17 @@ func (a *FlowsAPIService) UpdateFlowExecute(r ApiUpdateFlowRequest) (*FlowWithSo
 type ApiUpdateFlowsInNamespaceRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
-	namespace  string
+	override   *bool
 	delete     *bool
+	namespace  string
 	tenant     string
 	body       *string
+}
+
+// If namespace of all provided flows should be overridden
+func (r ApiUpdateFlowsInNamespaceRequest) Override(override bool) ApiUpdateFlowsInNamespaceRequest {
+	r.override = &override
+	return r
 }
 
 // If missing flow should be deleted
@@ -3617,11 +3624,14 @@ func (r ApiUpdateFlowsInNamespaceRequest) Body(body string) ApiUpdateFlowsInName
 	return r
 }
 
-func (r ApiUpdateFlowsInNamespaceRequest) GetNamespace() string {
-	return r.namespace
+func (r ApiUpdateFlowsInNamespaceRequest) GetOverride() *bool {
+	return r.override
 }
 func (r ApiUpdateFlowsInNamespaceRequest) GetDelete() *bool {
 	return r.delete
+}
+func (r ApiUpdateFlowsInNamespaceRequest) GetNamespace() string {
+	return r.namespace
 }
 func (r ApiUpdateFlowsInNamespaceRequest) GetTenant() string {
 	return r.tenant
@@ -3651,6 +3661,7 @@ func (a *FlowsAPIService) UpdateFlowsInNamespace(ctx context.Context, namespace 
 		ctx:        ctx,
 		namespace:  namespace,
 		tenant:     tenant,
+		override:   Ptr(bool(false)),
 		delete:     Ptr(bool(true)),
 	}
 }
@@ -3678,6 +3689,9 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.override == nil {
+		return localVarReturnValue, nil, reportError("override is required and must be specified")
+	}
 	if r.delete == nil {
 		return localVarReturnValue, nil, reportError("delete is required and must be specified")
 	}
@@ -3685,6 +3699,7 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "override", r.override, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-yaml"}
@@ -3895,7 +3910,7 @@ type ApiValidateFlowsRequest struct {
 	body       *string
 }
 
-// A list of flows source code in a single string
+// Flows as YAML string or multipart files
 func (r ApiValidateFlowsRequest) Body(body string) ApiValidateFlowsRequest {
 	r.body = &body
 	return r
@@ -3954,7 +3969,7 @@ func (a *FlowsAPIService) ValidateFlowsExecute(r ApiValidateFlowsRequest) ([]Val
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-yaml"}
+	localVarHTTPContentTypes := []string{"application/x-yaml", "multipart/form-data"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)

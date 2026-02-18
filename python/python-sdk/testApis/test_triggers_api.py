@@ -112,7 +112,7 @@ triggers:
         Delete backfill for given triggers
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        
+
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
         resp = self.kestra_client.triggers.delete_backfill_by_ids(tenant=self.tenant, trigger=[trigger])
@@ -166,7 +166,7 @@ triggers:
         Pause a backfill
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        
+
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
         resp = self.kestra_client.triggers.pause_backfill(tenant=self.tenant, trigger=trigger)
@@ -178,7 +178,7 @@ triggers:
         Pause backfill for given triggers
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        
+
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
         resp = self.kestra_client.triggers.pause_backfill_by_ids(tenant=self.tenant, trigger=[trigger])
@@ -277,7 +277,7 @@ triggers:
         Unpause a backfill
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        
+
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
         resp = self.kestra_client.triggers.unpause_backfill(tenant=self.tenant, trigger=trigger)
@@ -289,7 +289,7 @@ triggers:
         Unpause backfill for given triggers
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        
+
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
         resp = self.kestra_client.triggers.unpause_backfill_by_ids(tenant=self.tenant, trigger=[trigger])

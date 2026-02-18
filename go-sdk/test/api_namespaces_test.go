@@ -176,7 +176,7 @@ func TestNamespacesAPI_All(t *testing.T) {
 			Execute()
 		require.NoError(t, err)
 
-		meta := kestra_api_client.ApiSecretMetaEE{Key: key, Description: "patch secret", Tags: []kestra_api_client.ApiSecretTag{tag}}
+		meta := kestra_api_client.ApiSecretMetaEE{Key: key, Description: strPtr("patch secret"), Tags: []kestra_api_client.ApiSecretTag{tag}}
 		metas, _, err := KestraTestApiClient().NamespacesAPI.PatchSecret(ctx, created.GetId(), key, MAIN_TENANT).ApiSecretMetaEE(meta).Execute()
 		require.NoError(t, err)
 		require.NotNil(t, metas)

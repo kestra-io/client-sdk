@@ -53,6 +53,12 @@ public enum PluginSubGroupPluginCategory {
   
   BI("BI"),
   
+  BUSINESS("BUSINESS"),
+  
+  DATA("DATA"),
+  
+  INFRASTRUCTURE("INFRASTRUCTURE"),
+  
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;

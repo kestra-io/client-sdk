@@ -1525,7 +1525,7 @@ Name | Type | Description  | Notes
 
 ## updateFlowsInNamespace
 
-> [FlowInterface] updateFlowsInNamespace(namespace, _delete, tenant, body)
+> [FlowInterface] updateFlowsInNamespace(override, _delete, namespace, tenant, body)
 
 Update a complete namespace from yaml source
 
@@ -1545,11 +1545,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
+let override = false; // Boolean | If namespace of all provided flows should be overridden
 let _delete = true; // Boolean | If missing flow should be deleted
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | A list of flows source code
-apiInstance.updateFlowsInNamespace(namespace, _delete, tenant, body).then((data) => {
+apiInstance.updateFlowsInNamespace(override, _delete, namespace, tenant, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1562,8 +1563,9 @@ apiInstance.updateFlowsInNamespace(namespace, _delete, tenant, body).then((data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
+ **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false]
  **_delete** | **Boolean**| If missing flow should be deleted | [default to true]
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
  **body** | **String**| A list of flows source code | 
 
@@ -1660,7 +1662,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let body = "body_example"; // String | A list of flows source code in a single string
+let body = "body_example"; // String | Flows as YAML string or multipart files
 apiInstance.validateFlows(tenant, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
@@ -1675,7 +1677,7 @@ apiInstance.validateFlows(tenant, body).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **body** | **String**| A list of flows source code in a single string | 
+ **body** | **String**| Flows as YAML string or multipart files | 
 
 ### Return type
 
@@ -1687,7 +1689,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-yaml
+- **Content-Type**: application/x-yaml, multipart/form-data
 - **Accept**: application/json
 
 

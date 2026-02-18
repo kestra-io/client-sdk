@@ -946,7 +946,7 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
-        revisions: Annotated[List[StrictInt], Field(min_length=1)],
+        revisions: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1)],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -1002,7 +1002,7 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
-        revisions: Annotated[List[StrictInt], Field(min_length=1)],
+        revisions: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1)],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -4924,8 +4924,9 @@ class FlowsApi:
     @validate_call
     def update_flows_in_namespace(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        override: Annotated[StrictBool, Field(description="If namespace of all provided flows should be overridden")],
         delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code")],
         _request_timeout: Union[
@@ -4941,10 +4942,12 @@ class FlowsApi:
 
         All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param override: If namespace of all provided flows should be overridden (required)
+        :type override: bool
                 :param delete: If missing flow should be deleted (required)
         :type delete: bool
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
                 :param body: A list of flows source code (required)
@@ -4958,8 +4961,9 @@ class FlowsApi:
         """ # noqa: E501
 
         _param = self._update_flows_in_namespace_serialize(
-            namespace=namespace,
+            override=override,
             delete=delete,
+            namespace=namespace,
             tenant=tenant,
             body=body,
         )
@@ -4981,8 +4985,9 @@ class FlowsApi:
     @validate_call
     def update_flows_in_namespace_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        override: Annotated[StrictBool, Field(description="If namespace of all provided flows should be overridden")],
         delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code")],
         _request_timeout: Union[
@@ -4998,10 +5003,12 @@ class FlowsApi:
 
         All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param override: If namespace of all provided flows should be overridden (required)
+        :type override: bool
                 :param delete: If missing flow should be deleted (required)
         :type delete: bool
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
                 :param body: A list of flows source code (required)
@@ -5015,8 +5022,9 @@ class FlowsApi:
         """ # noqa: E501
 
         _param = self._update_flows_in_namespace_serialize(
-            namespace=namespace,
+            override=override,
             delete=delete,
+            namespace=namespace,
             tenant=tenant,
             body=body,
         )
@@ -5037,8 +5045,9 @@ class FlowsApi:
 
     def _update_flows_in_namespace_serialize(
         self,
-        namespace,
+        override,
         delete,
+        namespace,
         tenant,
         body,
     ) -> RequestSerialized:
@@ -5063,6 +5072,10 @@ class FlowsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
+        if override is not None:
+            
+            _query_params.append(('override', override))
+            
         if delete is not None:
             
             _query_params.append(('delete', delete))
@@ -5328,7 +5341,7 @@ class FlowsApi:
     def validate_flows(
         self,
         tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="A list of flows source code in a single string")],
+        body: Annotated[StrictStr, Field(description="Flows as YAML string or multipart files")],
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -5343,7 +5356,7 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-                :param body: A list of flows source code in a single string (required)
+                :param body: Flows as YAML string or multipart files (required)
         :type body: str
         ,
         :param _request_timeout: timeout setting for this request. If one
@@ -5376,7 +5389,7 @@ class FlowsApi:
     def validate_flows_with_http_info(
         self,
         tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="A list of flows source code in a single string")],
+        body: Annotated[StrictStr, Field(description="Flows as YAML string or multipart files")],
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -5391,7 +5404,7 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-                :param body: A list of flows source code in a single string (required)
+                :param body: Flows as YAML string or multipart files (required)
         :type body: str
         ,
         :param _request_timeout: timeout setting for this request. If one
@@ -5465,7 +5478,8 @@ class FlowsApi:
         _default_content_type = (
             self.api_client.select_header_content_type(
                 [
-                    'application/x-yaml'
+                    'application/x-yaml', 
+                    'multipart/form-data'
                 ]
             )
         )

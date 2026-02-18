@@ -526,27 +526,23 @@ class ApiClient:
                     else:
                         raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
 
-                    _raw = elem.get('field')
-                    field = 'q' if _raw.lower() == 'query' else _raw
+                    _raw_field = elem_dict.get('field')
                     operation = elem_dict.get('operation')
-                    value = elem_dict.get('value')
-
-                    if field is None or operation is None:
+                    if _raw_field is None or operation is None:
                         raise ApiValueError('Filter elements must contain field and operation')
 
-                    # LABELS: value should be a dict of key->value entries
-                    if field == 'LABELS':
-                        if not isinstance(value, dict):
-                            raise ApiException(status=400, reason="Filter LABEL value must be instance of dict")
+                    field = 'q' if str(_raw_field).lower() == 'query' else str(_raw_field)
+                    value = elem_dict.get('value')
+                    # unwrap common {'value': actual} shape
+                    if isinstance(value, dict) and 'value' in value:
+                        value = value.get('value')
+
+                    # Expand dict/map values for any field
+                    if isinstance(value, dict):
                         for entry_k, entry_v in value.items():
-                            new_params.append((f"filters[{field}][{operation}][{entry_k}]", entry_v))
+                            new_params.append((f"filters[{self._to_camel_case(field)}][{operation}][{entry_k}]", entry_v))
                     else:
-                        # unwrap common {'value': actual} shape
-                        if isinstance(value, dict) and 'value' in value:
-                            actual = value.get('value')
-                        else:
-                            actual = value
-                        new_params.append((f"filters[{field}][{operation}]", actual))
+                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", value))
                 continue
             if k in collection_formats:
                 collection_format = collection_formats[k]
@@ -593,27 +589,31 @@ class ApiClient:
                     raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
 
                 for elem in v:
-                    if not isinstance(elem, dict):
-                        elem = self.sanitize_for_serialization(elem)
-                    _raw = elem.get('field')
-                    field = 'q' if _raw.lower() == 'query' else _raw
-                    operation = elem.get('operation')
-                    value = elem.get('value')
-                    operation = elem.get('operation')
-                    value = elem.get('value')
+                    # allow either model instances or dicts
+                    if isinstance(elem, QueryFilter) or hasattr(elem, 'to_dict'):
+                        elem_dict = self.sanitize_for_serialization(elem)
+                    elif isinstance(elem, dict):
+                        elem_dict = elem
+                    else:
+                        raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
 
-                    if field is None or operation is None:
+                    _raw_field = elem_dict.get('field')
+                    operation = elem_dict.get('operation')
+                    if _raw_field is None or operation is None:
                         raise ApiValueError('Filter elements must contain field and operation')
 
-                    if field == 'LABELS' and isinstance(value, dict):
+                    field = 'q' if str(_raw_field).lower() == 'query' else str(_raw_field)
+                    value = elem_dict.get('value')
+                    # unwrap common {'value': actual} shape
+                    if isinstance(value, dict) and 'value' in value:
+                        value = value.get('value')
+
+                    # Expand dict/map values for any field
+                    if isinstance(value, dict):
                         for entry_k, entry_v in value.items():
-                            new_params.append((f"filters[{field}][{operation}][{entry_k}]", quote(str(entry_v))))
+                            new_params.append((f"filters[{self._to_camel_case(field)}][{operation}][{entry_k}]", quote(str(entry_v))))
                     else:
-                        if isinstance(value, dict) and 'value' in value:
-                            actual = value.get('value')
-                        else:
-                            actual = value
-                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", quote(str(actual))))
+                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", quote(str(value))))
                 continue
             if k in collection_formats:
                 collection_format = collection_formats[k]

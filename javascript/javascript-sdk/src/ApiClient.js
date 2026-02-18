@@ -53,7 +53,7 @@ class ApiClient {
          * @default {}
          */
         this.defaultHeaders = {
-            'User-Agent': 'OpenAPI-Generator/1.0.10/Javascript'
+            'User-Agent': 'OpenAPI-Generator/1.0.11/Javascript'
         };
 
         /**
@@ -297,10 +297,7 @@ class ApiClient {
                 const op = String(qf.operation);
                 const keyField = fieldStr.toLowerCase() === 'query' ? 'q' : toCamel(fieldStr);
 
-                if (fieldStr.toLowerCase() === 'labels') {
-                    if (typeof qf.value !== 'object' || qf.value == null || Array.isArray(qf.value)) {
-                        throw new Error('Filter LABEL value must be a Map-like object');
-                    }
+                if (typeof qf.value === 'object' && qf.value != null && !Array.isArray(qf.value)) {
                     for (const [k, v] of Object.entries(qf.value)) {
                         kvpairs[`filters[${keyField}][${op}][${k}]`] = this.paramToString(v);
                     }

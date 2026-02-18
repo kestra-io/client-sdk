@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | Pointer to [**[]AssetIdentifier**](AssetIdentifier.md) |  | [optional] 
-**Outputs** | Pointer to [**[]Asset**](Asset.md) |  | [optional] 
-**EnableAuto** | Pointer to **bool** |  | [optional] 
+**EnableAuto** | Pointer to [**string**](PropertyBoolean.md) |  | [optional] 
+**Inputs** | Pointer to [**PropertyListAssetIdentifier**](PropertyListAssetIdentifier.md) |  | [optional] 
+**Outputs** | Pointer to [**PropertyListAsset**](PropertyListAsset.md) |  | [optional] 
 
 ## Methods
 
@@ -27,22 +27,47 @@ NewAssetsDeclarationWithDefaults instantiates a new AssetsDeclaration object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetEnableAuto
+
+`func (o *AssetsDeclaration) GetEnableAuto() string`
+
+GetEnableAuto returns the EnableAuto field if non-nil, zero value otherwise.
+
+### GetEnableAutoOk
+
+`func (o *AssetsDeclaration) GetEnableAutoOk() (*string, bool)`
+
+GetEnableAutoOk returns a tuple with the EnableAuto field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableAuto
+
+`func (o *AssetsDeclaration) SetEnableAuto(v string)`
+
+SetEnableAuto sets EnableAuto field to given value.
+
+### HasEnableAuto
+
+`func (o *AssetsDeclaration) HasEnableAuto() bool`
+
+HasEnableAuto returns a boolean if a field has been set.
+
 ### GetInputs
 
-`func (o *AssetsDeclaration) GetInputs() []AssetIdentifier`
+`func (o *AssetsDeclaration) GetInputs() PropertyListAssetIdentifier`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *AssetsDeclaration) GetInputsOk() (*[]AssetIdentifier, bool)`
+`func (o *AssetsDeclaration) GetInputsOk() (*PropertyListAssetIdentifier, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *AssetsDeclaration) SetInputs(v []AssetIdentifier)`
+`func (o *AssetsDeclaration) SetInputs(v PropertyListAssetIdentifier)`
 
 SetInputs sets Inputs field to given value.
 
@@ -54,20 +79,20 @@ HasInputs returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *AssetsDeclaration) GetOutputs() []Asset`
+`func (o *AssetsDeclaration) GetOutputs() PropertyListAsset`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *AssetsDeclaration) GetOutputsOk() (*[]Asset, bool)`
+`func (o *AssetsDeclaration) GetOutputsOk() (*PropertyListAsset, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *AssetsDeclaration) SetOutputs(v []Asset)`
+`func (o *AssetsDeclaration) SetOutputs(v PropertyListAsset)`
 
 SetOutputs sets Outputs field to given value.
 
@@ -76,31 +101,6 @@ SetOutputs sets Outputs field to given value.
 `func (o *AssetsDeclaration) HasOutputs() bool`
 
 HasOutputs returns a boolean if a field has been set.
-
-### GetEnableAuto
-
-`func (o *AssetsDeclaration) GetEnableAuto() bool`
-
-GetEnableAuto returns the EnableAuto field if non-nil, zero value otherwise.
-
-### GetEnableAutoOk
-
-`func (o *AssetsDeclaration) GetEnableAutoOk() (*bool, bool)`
-
-GetEnableAutoOk returns a tuple with the EnableAuto field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableAuto
-
-`func (o *AssetsDeclaration) SetEnableAuto(v bool)`
-
-SetEnableAuto sets EnableAuto field to given value.
-
-### HasEnableAuto
-
-`func (o *AssetsDeclaration) HasEnableAuto() bool`
-
-HasEnableAuto returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

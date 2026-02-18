@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | 
 **Namespace** | Pointer to **string** |  | [optional] 
-**Description** | **string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
 **Tags** | [**[]ApiSecretTag**](ApiSecretTag.md) |  | 
 
 ## Methods
 
 ### NewApiSecretMetaEE
 
-`func NewApiSecretMetaEE(key string, description string, tags []ApiSecretTag, ) *ApiSecretMetaEE`
+`func NewApiSecretMetaEE(key string, tags []ApiSecretTag, ) *ApiSecretMetaEE`
 
 NewApiSecretMetaEE instantiates a new ApiSecretMetaEE object
 This constructor will assign default values to properties that have it defined,
@@ -92,6 +92,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *ApiSecretMetaEE) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetTags
 
