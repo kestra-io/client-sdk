@@ -16,6 +16,9 @@ on:
         required: false
         type: string
         default: "false"
+  push:
+    tags:
+      - 'v*.*.*-python'
 
 jobs:
   pip:
