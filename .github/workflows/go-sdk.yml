@@ -27,7 +27,7 @@ jobs:
         working-directory: ./go-sdk
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-go@v5
 

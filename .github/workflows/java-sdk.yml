@@ -34,7 +34,7 @@ jobs:
       run:
         working-directory: ./java/java-sdk
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Caches
       - name: Gradle cache
