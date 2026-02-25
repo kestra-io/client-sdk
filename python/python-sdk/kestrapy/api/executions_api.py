@@ -33,7 +33,6 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
-from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
 from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter
 from kestrapy.models.file_metas import FileMetas
 from kestrapy.models.flow_for_execution import FlowForExecution
@@ -42,6 +41,7 @@ from kestrapy.models.label import Label
 from kestrapy.models.paged_results_execution import PagedResultsExecution
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.state_type import StateType
+from kestrapy.models.webhook_response import WebhookResponse
 
 from kestrapy.api_client import ApiClient, RequestSerialized
 from kestrapy.api_response import ApiResponse
@@ -1874,7 +1874,7 @@ class ExecutionsApi:
     @validate_call
     def flow_from_execution_by_id(
         self,
-        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
+        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow information")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -1888,7 +1888,7 @@ class ExecutionsApi:
         """Get flow information's for an execution
 
 
-        :param execution_id: The execution that you want flow informations (required)
+        :param execution_id: The execution that you want flow information (required)
         :type execution_id: str
                 :param tenant: (required)
         :type tenant: str
@@ -1922,7 +1922,7 @@ class ExecutionsApi:
     @validate_call
     def flow_from_execution_by_id_with_http_info(
         self,
-        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
+        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow information")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -1936,7 +1936,7 @@ class ExecutionsApi:
         """Get flow information's for an execution
 
 
-        :param execution_id: The execution that you want flow informations (required)
+        :param execution_id: The execution that you want flow information (required)
         :type execution_id: str
                 :param tenant: (required)
         :type tenant: str
@@ -6779,7 +6779,7 @@ class ExecutionsApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> ExecutionControllerWebhookResponse:
+    ) -> WebhookResponse:
         """Trigger a new execution by GET webhook trigger
 
 
@@ -6807,7 +6807,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
+            '200': "WebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6835,7 +6835,7 @@ class ExecutionsApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
+    ) -> ApiResponse[WebhookResponse]:
         """Trigger a new execution by GET webhook trigger
 
 
@@ -6863,7 +6863,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
+            '200': "WebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6932,6 +6932,585 @@ class ExecutionsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def trigger_execution_by_get_webhook_with_path(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> WebhookResponse:
+        """Trigger a new execution by GET webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_get_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def trigger_execution_by_get_webhook_with_path_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[WebhookResponse]:
+        """Trigger a new execution by GET webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_get_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _trigger_execution_by_get_webhook_with_path_serialize(
+        self,
+        namespace,
+        id,
+        key,
+        path,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if key is not None:
+            _path_params['key'] = key
+        if path is not None:
+            _path_params['path'] = path
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def trigger_execution_by_post_webhook_with_path(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> WebhookResponse:
+        """Trigger a new execution by POST webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_post_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def trigger_execution_by_post_webhook_with_path_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[WebhookResponse]:
+        """Trigger a new execution by POST webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_post_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _trigger_execution_by_post_webhook_with_path_serialize(
+        self,
+        namespace,
+        id,
+        key,
+        path,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if key is not None:
+            _path_params['key'] = key
+        if path is not None:
+            _path_params['path'] = path
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def trigger_execution_by_put_webhook_with_path(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> WebhookResponse:
+        """Trigger a new execution by PUT webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_put_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def trigger_execution_by_put_webhook_with_path_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[WebhookResponse]:
+        """Trigger a new execution by PUT webhook trigger
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param key: The webhook trigger uid (required)
+        :type key: str
+                :param path: Optional additional path segments (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._trigger_execution_by_put_webhook_with_path_serialize(
+            namespace=namespace,
+            id=id,
+            key=key,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WebhookResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _trigger_execution_by_put_webhook_with_path_serialize(
+        self,
+        namespace,
+        id,
+        key,
+        path,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if key is not None:
+            _path_params['key'] = key
+        if path is not None:
+            _path_params['path'] = path
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='PUT',
+            resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

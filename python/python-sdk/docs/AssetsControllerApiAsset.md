@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **metadata** | **Dict[str, object]** |  | [optional] 
 **created** | **datetime** |  | [optional] 
 **updated** | **datetime** |  | [optional] 
+**deleted** | **bool** |  | [optional] 
 
 ## Example
 

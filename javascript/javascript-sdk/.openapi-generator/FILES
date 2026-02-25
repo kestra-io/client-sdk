@@ -11,6 +11,7 @@ docs/AbstractTriggerForExecution.md
 docs/AbstractUser.md
 docs/AbstractUserTenantIdentityProvider.md
 docs/Action.md
+docs/AiControllerAiProviderResponse.md
 docs/ApiAuth.md
 docs/ApiAutocomplete.md
 docs/ApiGroupSummary.md
@@ -27,6 +28,7 @@ docs/ApiTenantSummary.md
 docs/ApiToken.md
 docs/ApiTokenList.md
 docs/ApiUser.md
+docs/AppGenerationPrompt.md
 docs/AppsControllerApiApp.md
 docs/AppsControllerApiAppCatalogItem.md
 docs/AppsControllerApiAppSource.md
@@ -44,6 +46,7 @@ docs/AssetTopologyGraphEdge.md
 docs/AssetTopologyGraphNode.md
 docs/AssetTopologyGraphNodeNodeType.md
 docs/AssetsControllerApiAsset.md
+docs/AssetsControllerApiAssetLineageEvent.md
 docs/AssetsControllerApiAssetUsage.md
 docs/AssetsDeclaration.md
 docs/AssetsInOut.md
@@ -98,12 +101,13 @@ docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DashboardGenerationPrompt.md
 docs/DeleteTriggersByQueryRequest.md
-docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
 docs/EditionProviderEdition.md
 docs/Email.md
+docs/EvaluationType.md
 docs/EventExecution.md
 docs/EventExecutionStatusEvent.md
 docs/ExecutableTaskSubflowId.md
@@ -112,7 +116,6 @@ docs/ExecutionControllerExecutionResponse.md
 docs/ExecutionControllerLastExecutionResponse.md
 docs/ExecutionControllerSetLabelsByIdsRequest.md
 docs/ExecutionControllerStateRequest.md
-docs/ExecutionControllerWebhookResponse.md
 docs/ExecutionKind.md
 docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
@@ -182,6 +185,7 @@ docs/IAMUserControllerApiUserSummary.md
 docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md
 docs/IdWithNamespace.md
 docs/IdentityProvider.md
+docs/ImportPluginDefaultsRequest.md
 docs/InputObject.md
 docs/InputType.md
 docs/InstanceControllerApiActiveService.md
@@ -211,6 +215,7 @@ docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerKvDetail.md
 docs/KVEntry.md
 docs/KVType.md
+docs/KillSwitch.md
 docs/Label.md
 docs/LeftSidebarConfiguration.md
 docs/Level.md
@@ -237,6 +242,7 @@ docs/MiscControllerTenantConfigurationInfo.md
 docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
+docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md
 docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
@@ -248,6 +254,7 @@ docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
 docs/PagedResultsAssetsControllerApiAsset.md
+docs/PagedResultsAssetsControllerApiAssetLineageEvent.md
 docs/PagedResultsAssetsControllerApiAssetUsage.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
@@ -311,6 +318,7 @@ docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RolesApi.md
+docs/SDKAuth.md
 docs/SLA.md
 docs/SLABehavior.md
 docs/SLALabels.md
@@ -346,6 +354,7 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
+docs/SoftDeletableFlowInterface.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -368,6 +377,7 @@ docs/TestSuiteControllerSearchTestsLastResult.md
 docs/TestSuiteControllerTestSuiteApiId.md
 docs/TestSuiteControllerTestSuiteBulkRequest.md
 docs/TestSuiteControllerTestsLastResultResponse.md
+docs/TestSuiteGenerationPrompt.md
 docs/TestSuiteRunResult.md
 docs/TestSuiteServiceRunByQueryRequest.md
 docs/TestSuiteServiceTestRunByQueryResult.md
@@ -391,6 +401,7 @@ docs/UsernamePasswordCredentials.md
 docs/UsersApi.md
 docs/ValidateConstraintViolation.md
 docs/ValuePathExpression.md
+docs/WebhookResponse.md
 docs/WorkerGroup.md
 docs/WorkerGroupFallback.md
 docs/WorkerTaskRestartStrategy.md
@@ -417,6 +428,7 @@ src/model/AbstractTriggerForExecution.js
 src/model/AbstractUser.js
 src/model/AbstractUserTenantIdentityProvider.js
 src/model/Action.js
+src/model/AiControllerAiProviderResponse.js
 src/model/ApiAuth.js
 src/model/ApiAutocomplete.js
 src/model/ApiGroupSummary.js
@@ -433,6 +445,7 @@ src/model/ApiTenantSummary.js
 src/model/ApiToken.js
 src/model/ApiTokenList.js
 src/model/ApiUser.js
+src/model/AppGenerationPrompt.js
 src/model/AppsControllerApiApp.js
 src/model/AppsControllerApiAppCatalogItem.js
 src/model/AppsControllerApiAppSource.js
@@ -450,6 +463,7 @@ src/model/AssetTopologyGraphEdge.js
 src/model/AssetTopologyGraphNode.js
 src/model/AssetTopologyGraphNodeNodeType.js
 src/model/AssetsControllerApiAsset.js
+src/model/AssetsControllerApiAssetLineageEvent.js
 src/model/AssetsControllerApiAssetUsage.js
 src/model/AssetsDeclaration.js
 src/model/AssetsInOut.js
@@ -504,12 +518,13 @@ src/model/CreateSecurityIntegrationRequest.js
 src/model/CrudEventType.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
+src/model/DashboardGenerationPrompt.js
 src/model/DeleteTriggersByQueryRequest.js
-src/model/DeletedInterface.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
 src/model/EditionProviderEdition.js
 src/model/Email.js
+src/model/EvaluationType.js
 src/model/EventExecution.js
 src/model/EventExecutionStatusEvent.js
 src/model/ExecutableTaskSubflowId.js
@@ -518,7 +533,6 @@ src/model/ExecutionControllerExecutionResponse.js
 src/model/ExecutionControllerLastExecutionResponse.js
 src/model/ExecutionControllerSetLabelsByIdsRequest.js
 src/model/ExecutionControllerStateRequest.js
-src/model/ExecutionControllerWebhookResponse.js
 src/model/ExecutionKind.js
 src/model/ExecutionMetadata.js
 src/model/ExecutionRepositoryInterfaceFlowFilter.js
@@ -585,6 +599,7 @@ src/model/IAMUserControllerApiUserSummary.js
 src/model/IAMUserGroupControllerApiUpdateUserGroupsRequest.js
 src/model/IdWithNamespace.js
 src/model/IdentityProvider.js
+src/model/ImportPluginDefaultsRequest.js
 src/model/InputObject.js
 src/model/InputType.js
 src/model/InstanceControllerApiActiveService.js
@@ -613,6 +628,7 @@ src/model/KVControllerApiDeleteBulkResponse.js
 src/model/KVControllerKvDetail.js
 src/model/KVEntry.js
 src/model/KVType.js
+src/model/KillSwitch.js
 src/model/Label.js
 src/model/LeftSidebarConfiguration.js
 src/model/Level.js
@@ -639,6 +655,7 @@ src/model/MiscControllerTenantConfigurationInfo.js
 src/model/Name.js
 src/model/Namespace.js
 src/model/NamespaceAllowedNamespace.js
+src/model/NamespaceControllerApiInheritedPluginDefaultFromNamespace.js
 src/model/NamespaceFileRevision.js
 src/model/NamespaceLight.js
 src/model/Output.js
@@ -649,6 +666,7 @@ src/model/PagedResultsApiRoleSummary.js
 src/model/PagedResultsAppsControllerApiApp.js
 src/model/PagedResultsAppsControllerApiAppCatalogItem.js
 src/model/PagedResultsAssetsControllerApiAsset.js
+src/model/PagedResultsAssetsControllerApiAssetLineageEvent.js
 src/model/PagedResultsAssetsControllerApiAssetUsage.js
 src/model/PagedResultsAuditLogControllerApiAuditLogItem.js
 src/model/PagedResultsBlueprint.js
@@ -711,6 +729,7 @@ src/model/ResourceTypeSchemaExtensionConfiguration.js
 src/model/RightSidebarConfiguration.js
 src/model/RightSidebarConfigurationCustomLink.js
 src/model/Role.js
+src/model/SDKAuth.js
 src/model/SLA.js
 src/model/SLABehavior.js
 src/model/SLALabels.js
@@ -745,6 +764,7 @@ src/model/ServiceServiceState.js
 src/model/ServiceType.js
 src/model/SetAppsCatalogLogoRequest.js
 src/model/SetupConfiguration.js
+src/model/SoftDeletableFlowInterface.js
 src/model/SortOrder.js
 src/model/SortRequest.js
 src/model/State.js
@@ -767,6 +787,7 @@ src/model/TestSuiteControllerSearchTestsLastResult.js
 src/model/TestSuiteControllerTestSuiteApiId.js
 src/model/TestSuiteControllerTestSuiteBulkRequest.js
 src/model/TestSuiteControllerTestsLastResultResponse.js
+src/model/TestSuiteGenerationPrompt.js
 src/model/TestSuiteRunResult.js
 src/model/TestSuiteServiceRunByQueryRequest.js
 src/model/TestSuiteServiceTestRunByQueryResult.js
@@ -787,6 +808,7 @@ src/model/UserType.js
 src/model/UsernamePasswordCredentials.js
 src/model/ValidateConstraintViolation.js
 src/model/ValuePathExpression.js
+src/model/WebhookResponse.js
 src/model/WorkerGroup.js
 src/model/WorkerGroupFallback.js
 src/model/WorkerTaskRestartStrategy.js

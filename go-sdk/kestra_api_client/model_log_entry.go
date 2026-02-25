@@ -31,7 +31,6 @@ type LogEntry struct {
 	Level                *Level                `json:"level,omitempty"`
 	Thread               *string               `json:"thread,omitempty"`
 	Message              *string               `json:"message,omitempty"`
-	Deleted              bool                  `json:"deleted"`
 	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -42,11 +41,10 @@ type _LogEntry LogEntry
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLogEntry(namespace string, flowId string, deleted bool) *LogEntry {
+func NewLogEntry(namespace string, flowId string) *LogEntry {
 	this := LogEntry{}
 	this.Namespace = namespace
 	this.FlowId = flowId
-	this.Deleted = deleted
 	return &this
 }
 
@@ -449,30 +447,6 @@ func (o *LogEntry) SetMessage(v string) {
 	o.Message = &v
 }
 
-// GetDeleted returns the Deleted field value
-func (o *LogEntry) GetDeleted() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value
-// and a boolean to check if the value has been set.
-func (o *LogEntry) GetDeletedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deleted, true
-}
-
-// SetDeleted sets field value
-func (o *LogEntry) SetDeleted(v bool) {
-	o.Deleted = v
-}
-
 // GetExecutionKind returns the ExecutionKind field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogEntry) GetExecutionKind() ExecutionKind {
 	if o == nil || IsNil(o.ExecutionKind.Get()) {
@@ -555,7 +529,6 @@ func (o LogEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	toSerialize["deleted"] = o.Deleted
 	if o.ExecutionKind.IsSet() {
 		toSerialize["executionKind"] = o.ExecutionKind.Get()
 	}
@@ -574,7 +547,6 @@ func (o *LogEntry) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"namespace",
 		"flowId",
-		"deleted",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -615,7 +587,6 @@ func (o *LogEntry) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "level")
 		delete(additionalProperties, "thread")
 		delete(additionalProperties, "message")
-		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "executionKind")
 		o.AdditionalProperties = additionalProperties
 	}

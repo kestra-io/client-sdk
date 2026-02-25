@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**create_namespace**](NamespacesApi.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**delete_namespace**](NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**delete_secret**](NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+[**export_plugin_defaults**](NamespacesApi.md#export_plugin_defaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
+[**import_plugin_defaults**](NamespacesApi.md#import_plugin_defaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
 [**inherited_plugin_defaults**](NamespacesApi.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**inherited_secrets**](NamespacesApi.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**inherited_variables**](NamespacesApi.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
@@ -275,8 +277,138 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **export_plugin_defaults**
+> bytearray export_plugin_defaults(id, tenant)
+
+Export this namespace plugin defaults
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The namespace id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Export this namespace plugin defaults
+        api_response = kestra_client.NamespacesApi.export_plugin_defaults(id, tenant)
+        print("The response of NamespacesApi->export_plugin_defaults:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling NamespacesApi->export_plugin_defaults: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The namespace id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**bytearray**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | exportPluginDefaults 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **import_plugin_defaults**
+> List[str] import_plugin_defaults(id, tenant, file_upload=file_upload)
+
+Import plugin defaults in this namespace
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The namespace id
+    tenant = 'tenant_example' # str | 
+    file_upload = None # bytearray |  (optional)
+
+    try:
+        # Import plugin defaults in this namespace
+        api_response = kestra_client.NamespacesApi.import_plugin_defaults(id, tenant, file_upload=file_upload)
+        print("The response of NamespacesApi->import_plugin_defaults:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling NamespacesApi->import_plugin_defaults: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The namespace id | 
+ **tenant** | **str**|  | 
+ **file_upload** | **bytearray**|  | [optional] 
+
+### Return type
+
+**List[str]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | importPluginDefaults 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **inherited_plugin_defaults**
-> List[PluginDefault] inherited_plugin_defaults(id, tenant)
+> List[NamespaceControllerApiInheritedPluginDefaultFromNamespace] inherited_plugin_defaults(id, tenant)
 
 List inherited plugin defaults
 
@@ -320,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[PluginDefault]**](PluginDefault.md)
+[**List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]**](NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
 
 ### Authorization
 

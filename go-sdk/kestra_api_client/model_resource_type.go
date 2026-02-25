@@ -28,6 +28,7 @@ const (
 	RESOURCETYPE_DASHBOARD            ResourceType = "DASHBOARD"
 	RESOURCETYPE_EXECUTION            ResourceType = "EXECUTION"
 	RESOURCETYPE_FLOW                 ResourceType = "FLOW"
+	RESOURCETYPE_KILL_SWITCH          ResourceType = "KILL_SWITCH"
 	RESOURCETYPE_KV_STORE             ResourceType = "KV_STORE"
 	RESOURCETYPE_GROUP                ResourceType = "GROUP"
 	RESOURCETYPE_INVITATION           ResourceType = "INVITATION"
@@ -45,6 +46,7 @@ const (
 	RESOURCETYPE_TESTSUITE_RUN        ResourceType = "TESTSUITE_RUN"
 	RESOURCETYPE_VERSIONED_PLUGIN     ResourceType = "VERSIONED_PLUGIN"
 	RESOURCETYPE_USER                 ResourceType = "USER"
+	RESOURCETYPE_CREDENTIAL           ResourceType = "CREDENTIAL"
 	RESOURCETYPE_WORKER_GROUP         ResourceType = "WORKER_GROUP"
 	RESOURCETYPE_INSTANCE             ResourceType = "INSTANCE"
 	RESOURCETYPE_UNKNOWN              ResourceType = "UNKNOWN"
@@ -61,6 +63,7 @@ var AllowedResourceTypeEnumValues = []ResourceType{
 	"DASHBOARD",
 	"EXECUTION",
 	"FLOW",
+	"KILL_SWITCH",
 	"KV_STORE",
 	"GROUP",
 	"INVITATION",
@@ -78,6 +81,7 @@ var AllowedResourceTypeEnumValues = []ResourceType{
 	"TESTSUITE_RUN",
 	"VERSIONED_PLUGIN",
 	"USER",
+	"CREDENTIAL",
 	"WORKER_GROUP",
 	"INSTANCE",
 	"UNKNOWN",

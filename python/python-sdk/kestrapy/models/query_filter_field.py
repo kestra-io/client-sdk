@@ -40,6 +40,7 @@ class QueryFilterField(str, Enum):
     UPDATED = 'UPDATED'
     START_DATE = 'START_DATE'
     END_DATE = 'END_DATE'
+    EXPIRATION_DATE = 'EXPIRATION_DATE'
     STATE = 'STATE'
     TIME_RANGE = 'TIME_RANGE'
     TRIGGER_EXECUTION_ID = 'TRIGGER_EXECUTION_ID'
@@ -55,6 +56,7 @@ class QueryFilterField(str, Enum):
     PATH = 'PATH'
     PARENT_PATH = 'PARENT_PATH'
     VERSION = 'VERSION'
+    USERNAME = 'USERNAME'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

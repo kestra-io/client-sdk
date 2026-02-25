@@ -13,7 +13,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.9"
+__version__ = "1.0.10"
 
 # Define package exports
 __all__ = [
@@ -42,6 +42,7 @@ __all__ = [
     "AbstractUser",
     "AbstractUserTenantIdentityProvider",
     "Action",
+    "AiControllerAiProviderResponse",
     "ApiAuth",
     "ApiAutocomplete",
     "ApiGroupSummary",
@@ -58,6 +59,7 @@ __all__ = [
     "ApiToken",
     "ApiTokenList",
     "ApiUser",
+    "AppGenerationPrompt",
     "AppsControllerApiApp",
     "AppsControllerApiAppCatalogItem",
     "AppsControllerApiAppSource",
@@ -75,6 +77,7 @@ __all__ = [
     "AssetTopologyGraphNode",
     "AssetTopologyGraphNodeNodeType",
     "AssetsControllerApiAsset",
+    "AssetsControllerApiAssetLineageEvent",
     "AssetsControllerApiAssetUsage",
     "AssetsDeclaration",
     "AssetsInOut",
@@ -129,12 +132,13 @@ __all__ = [
     "CrudEventType",
     "Dashboard",
     "DashboardControllerPreviewRequest",
+    "DashboardGenerationPrompt",
     "DeleteTriggersByQueryRequest",
-    "DeletedInterface",
     "DependsOn",
     "DocumentationWithSchema",
     "EditionProviderEdition",
     "Email",
+    "EvaluationType",
     "EventExecution",
     "EventExecutionStatusEvent",
     "ExecutableTaskSubflowId",
@@ -143,7 +147,6 @@ __all__ = [
     "ExecutionControllerLastExecutionResponse",
     "ExecutionControllerSetLabelsByIdsRequest",
     "ExecutionControllerStateRequest",
-    "ExecutionControllerWebhookResponse",
     "ExecutionKind",
     "ExecutionMetadata",
     "ExecutionRepositoryInterfaceFlowFilter",
@@ -210,6 +213,7 @@ __all__ = [
     "IAMUserGroupControllerApiUpdateUserGroupsRequest",
     "IdWithNamespace",
     "IdentityProvider",
+    "ImportPluginDefaultsRequest",
     "InputObject",
     "InputType",
     "InstanceControllerApiActiveService",
@@ -238,6 +242,7 @@ __all__ = [
     "KVControllerKvDetail",
     "KVEntry",
     "KVType",
+    "KillSwitch",
     "Label",
     "LeftSidebarConfiguration",
     "Level",
@@ -265,6 +270,7 @@ __all__ = [
     "Name",
     "Namespace",
     "NamespaceAllowedNamespace",
+    "NamespaceControllerApiInheritedPluginDefaultFromNamespace",
     "NamespaceFileRevision",
     "NamespaceLight",
     "Output",
@@ -275,6 +281,7 @@ __all__ = [
     "PagedResultsAppsControllerApiApp",
     "PagedResultsAppsControllerApiAppCatalogItem",
     "PagedResultsAssetsControllerApiAsset",
+    "PagedResultsAssetsControllerApiAssetLineageEvent",
     "PagedResultsAssetsControllerApiAssetUsage",
     "PagedResultsAuditLogControllerApiAuditLogItem",
     "PagedResultsBlueprint",
@@ -337,6 +344,7 @@ __all__ = [
     "RightSidebarConfiguration",
     "RightSidebarConfigurationCustomLink",
     "Role",
+    "SDKAuth",
     "SLA",
     "SLABehavior",
     "SLALabels",
@@ -370,6 +378,7 @@ __all__ = [
     "ServiceType",
     "SetAppsCatalogLogoRequest",
     "SetupConfiguration",
+    "SoftDeletableFlowInterface",
     "SortOrder",
     "SortRequest",
     "State",
@@ -392,6 +401,7 @@ __all__ = [
     "TestSuiteControllerTestSuiteApiId",
     "TestSuiteControllerTestSuiteBulkRequest",
     "TestSuiteControllerTestsLastResultResponse",
+    "TestSuiteGenerationPrompt",
     "TestSuiteRunResult",
     "TestSuiteServiceRunByQueryRequest",
     "TestSuiteServiceTestRunByQueryResult",
@@ -412,6 +422,7 @@ __all__ = [
     "UsernamePasswordCredentials",
     "ValidateConstraintViolation",
     "ValuePathExpression",
+    "WebhookResponse",
     "WorkerGroup",
     "WorkerGroupFallback",
     "WorkerTaskRestartStrategy",
@@ -448,6 +459,7 @@ from kestrapy.models.abstract_trigger_for_execution import AbstractTriggerForExe
 from kestrapy.models.abstract_user import AbstractUser as AbstractUser
 from kestrapy.models.abstract_user_tenant_identity_provider import AbstractUserTenantIdentityProvider as AbstractUserTenantIdentityProvider
 from kestrapy.models.action import Action as Action
+from kestrapy.models.ai_controller_ai_provider_response import AiControllerAiProviderResponse as AiControllerAiProviderResponse
 from kestrapy.models.api_auth import ApiAuth as ApiAuth
 from kestrapy.models.api_autocomplete import ApiAutocomplete as ApiAutocomplete
 from kestrapy.models.api_group_summary import ApiGroupSummary as ApiGroupSummary
@@ -464,6 +476,7 @@ from kestrapy.models.api_tenant_summary import ApiTenantSummary as ApiTenantSumm
 from kestrapy.models.api_token import ApiToken as ApiToken
 from kestrapy.models.api_token_list import ApiTokenList as ApiTokenList
 from kestrapy.models.api_user import ApiUser as ApiUser
+from kestrapy.models.app_generation_prompt import AppGenerationPrompt as AppGenerationPrompt
 from kestrapy.models.apps_controller_api_app import AppsControllerApiApp as AppsControllerApiApp
 from kestrapy.models.apps_controller_api_app_catalog_item import AppsControllerApiAppCatalogItem as AppsControllerApiAppCatalogItem
 from kestrapy.models.apps_controller_api_app_source import AppsControllerApiAppSource as AppsControllerApiAppSource
@@ -481,6 +494,7 @@ from kestrapy.models.asset_topology_graph_edge import AssetTopologyGraphEdge as 
 from kestrapy.models.asset_topology_graph_node import AssetTopologyGraphNode as AssetTopologyGraphNode
 from kestrapy.models.asset_topology_graph_node_node_type import AssetTopologyGraphNodeNodeType as AssetTopologyGraphNodeNodeType
 from kestrapy.models.assets_controller_api_asset import AssetsControllerApiAsset as AssetsControllerApiAsset
+from kestrapy.models.assets_controller_api_asset_lineage_event import AssetsControllerApiAssetLineageEvent as AssetsControllerApiAssetLineageEvent
 from kestrapy.models.assets_controller_api_asset_usage import AssetsControllerApiAssetUsage as AssetsControllerApiAssetUsage
 from kestrapy.models.assets_declaration import AssetsDeclaration as AssetsDeclaration
 from kestrapy.models.assets_in_out import AssetsInOut as AssetsInOut
@@ -535,12 +549,13 @@ from kestrapy.models.create_security_integration_request import CreateSecurityIn
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
 from kestrapy.models.dashboard import Dashboard as Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest as DashboardControllerPreviewRequest
+from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt as DashboardGenerationPrompt
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest as DeleteTriggersByQueryRequest
-from kestrapy.models.deleted_interface import DeletedInterface as DeletedInterface
 from kestrapy.models.depends_on import DependsOn as DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
 from kestrapy.models.edition_provider_edition import EditionProviderEdition as EditionProviderEdition
 from kestrapy.models.email import Email as Email
+from kestrapy.models.evaluation_type import EvaluationType as EvaluationType
 from kestrapy.models.event_execution import EventExecution as EventExecution
 from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent as EventExecutionStatusEvent
 from kestrapy.models.executable_task_subflow_id import ExecutableTaskSubflowId as ExecutableTaskSubflowId
@@ -549,7 +564,6 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse as ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest as ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest as ExecutionControllerStateRequest
-from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse as ExecutionControllerWebhookResponse
 from kestrapy.models.execution_kind import ExecutionKind as ExecutionKind
 from kestrapy.models.execution_metadata import ExecutionMetadata as ExecutionMetadata
 from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter as ExecutionRepositoryInterfaceFlowFilter
@@ -616,6 +630,7 @@ from kestrapy.models.iam_user_controller_api_user_summary import IAMUserControll
 from kestrapy.models.iam_user_group_controller_api_update_user_groups_request import IAMUserGroupControllerApiUpdateUserGroupsRequest as IAMUserGroupControllerApiUpdateUserGroupsRequest
 from kestrapy.models.id_with_namespace import IdWithNamespace as IdWithNamespace
 from kestrapy.models.identity_provider import IdentityProvider as IdentityProvider
+from kestrapy.models.import_plugin_defaults_request import ImportPluginDefaultsRequest as ImportPluginDefaultsRequest
 from kestrapy.models.input_object import InputObject as InputObject
 from kestrapy.models.input_type import InputType as InputType
 from kestrapy.models.instance_controller_api_active_service import InstanceControllerApiActiveService as InstanceControllerApiActiveService
@@ -644,6 +659,7 @@ from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerA
 from kestrapy.models.kv_controller_kv_detail import KVControllerKvDetail as KVControllerKvDetail
 from kestrapy.models.kv_entry import KVEntry as KVEntry
 from kestrapy.models.kv_type import KVType as KVType
+from kestrapy.models.kill_switch import KillSwitch as KillSwitch
 from kestrapy.models.label import Label as Label
 from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration as LeftSidebarConfiguration
 from kestrapy.models.level import Level as Level
@@ -671,6 +687,7 @@ from kestrapy.models.model_schema import ModelSchema as ModelSchema
 from kestrapy.models.name import Name as Name
 from kestrapy.models.namespace import Namespace as Namespace
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace as NamespaceAllowedNamespace
+from kestrapy.models.namespace_controller_api_inherited_plugin_default_from_namespace import NamespaceControllerApiInheritedPluginDefaultFromNamespace as NamespaceControllerApiInheritedPluginDefaultFromNamespace
 from kestrapy.models.namespace_file_revision import NamespaceFileRevision as NamespaceFileRevision
 from kestrapy.models.namespace_light import NamespaceLight as NamespaceLight
 from kestrapy.models.output import Output as Output
@@ -681,6 +698,7 @@ from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSu
 from kestrapy.models.paged_results_apps_controller_api_app import PagedResultsAppsControllerApiApp as PagedResultsAppsControllerApiApp
 from kestrapy.models.paged_results_apps_controller_api_app_catalog_item import PagedResultsAppsControllerApiAppCatalogItem as PagedResultsAppsControllerApiAppCatalogItem
 from kestrapy.models.paged_results_assets_controller_api_asset import PagedResultsAssetsControllerApiAsset as PagedResultsAssetsControllerApiAsset
+from kestrapy.models.paged_results_assets_controller_api_asset_lineage_event import PagedResultsAssetsControllerApiAssetLineageEvent as PagedResultsAssetsControllerApiAssetLineageEvent
 from kestrapy.models.paged_results_assets_controller_api_asset_usage import PagedResultsAssetsControllerApiAssetUsage as PagedResultsAssetsControllerApiAssetUsage
 from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem as PagedResultsAuditLogControllerApiAuditLogItem
 from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint as PagedResultsBlueprint
@@ -743,6 +761,7 @@ from kestrapy.models.resource_type_schema_extension_configuration import Resourc
 from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration as RightSidebarConfiguration
 from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink as RightSidebarConfigurationCustomLink
 from kestrapy.models.role import Role as Role
+from kestrapy.models.sdk_auth import SDKAuth as SDKAuth
 from kestrapy.models.sla import SLA as SLA
 from kestrapy.models.sla_behavior import SLABehavior as SLABehavior
 from kestrapy.models.sla_labels import SLALabels as SLALabels
@@ -776,6 +795,7 @@ from kestrapy.models.service_service_state import ServiceServiceState as Service
 from kestrapy.models.service_type import ServiceType as ServiceType
 from kestrapy.models.set_apps_catalog_logo_request import SetAppsCatalogLogoRequest as SetAppsCatalogLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration as SetupConfiguration
+from kestrapy.models.soft_deletable_flow_interface import SoftDeletableFlowInterface as SoftDeletableFlowInterface
 from kestrapy.models.sort_order import SortOrder as SortOrder
 from kestrapy.models.sort_request import SortRequest as SortRequest
 from kestrapy.models.state import State as State
@@ -798,6 +818,7 @@ from kestrapy.models.test_suite_controller_search_tests_last_result import TestS
 from kestrapy.models.test_suite_controller_test_suite_api_id import TestSuiteControllerTestSuiteApiId as TestSuiteControllerTestSuiteApiId
 from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest as TestSuiteControllerTestSuiteBulkRequest
 from kestrapy.models.test_suite_controller_tests_last_result_response import TestSuiteControllerTestsLastResultResponse as TestSuiteControllerTestsLastResultResponse
+from kestrapy.models.test_suite_generation_prompt import TestSuiteGenerationPrompt as TestSuiteGenerationPrompt
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult as TestSuiteRunResult
 from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest as TestSuiteServiceRunByQueryRequest
 from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult as TestSuiteServiceTestRunByQueryResult
@@ -818,6 +839,7 @@ from kestrapy.models.user_type import UserType as UserType
 from kestrapy.models.username_password_credentials import UsernamePasswordCredentials as UsernamePasswordCredentials
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation as ValidateConstraintViolation
 from kestrapy.models.value_path_expression import ValuePathExpression as ValuePathExpression
+from kestrapy.models.webhook_response import WebhookResponse as WebhookResponse
 from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy

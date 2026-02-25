@@ -28,7 +28,6 @@ type AuditLog struct {
 	UserId               string                   `json:"userId"`
 	IpAddress            *string                  `json:"ipAddress,omitempty"`
 	ImpersonatedBy       *string                  `json:"impersonatedBy,omitempty"`
-	Deleted              *bool                    `json:"deleted,omitempty"`
 	AppliedPatch         []map[string]interface{} `json:"appliedPatch,omitempty"`
 	RevertPatch          []map[string]interface{} `json:"revertPatch,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -274,38 +273,6 @@ func (o *AuditLog) SetImpersonatedBy(v string) {
 	o.ImpersonatedBy = &v
 }
 
-// GetDeleted returns the Deleted field value if set, zero value otherwise.
-func (o *AuditLog) GetDeleted() bool {
-	if o == nil || IsNil(o.Deleted) {
-		var ret bool
-		return ret
-	}
-	return *o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLog) GetDeletedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Deleted) {
-		return nil, false
-	}
-	return o.Deleted, true
-}
-
-// HasDeleted returns a boolean if a field has been set.
-func (o *AuditLog) HasDeleted() bool {
-	if o != nil && !IsNil(o.Deleted) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
-func (o *AuditLog) SetDeleted(v bool) {
-	o.Deleted = &v
-}
-
 // GetAppliedPatch returns the AppliedPatch field value if set, zero value otherwise.
 func (o *AuditLog) GetAppliedPatch() []map[string]interface{} {
 	if o == nil || IsNil(o.AppliedPatch) {
@@ -394,9 +361,6 @@ func (o AuditLog) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ImpersonatedBy) {
 		toSerialize["impersonatedBy"] = o.ImpersonatedBy
 	}
-	if !IsNil(o.Deleted) {
-		toSerialize["deleted"] = o.Deleted
-	}
 	if !IsNil(o.AppliedPatch) {
 		toSerialize["appliedPatch"] = o.AppliedPatch
 	}
@@ -458,7 +422,6 @@ func (o *AuditLog) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "ipAddress")
 		delete(additionalProperties, "impersonatedBy")
-		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "appliedPatch")
 		delete(additionalProperties, "revertPatch")
 		o.AdditionalProperties = additionalProperties

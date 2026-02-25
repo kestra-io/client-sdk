@@ -1426,7 +1426,7 @@ func (r ApiFlowFromExecutionByIdRequest) Execute() (*FlowForExecution, *http.Res
 FlowFromExecutionById Get flow information's for an execution
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution that you want flow informations
+	@param executionId The execution that you want flow information
 	@param tenant
 	@return ApiFlowFromExecutionByIdRequest
 */
@@ -5169,7 +5169,7 @@ func (r ApiTriggerExecutionByGetWebhookRequest) GetTenant() string {
 	return r.tenant
 }
 
-func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*ExecutionControllerWebhookResponse, *http.Response, error) {
+func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*WebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByGetWebhookExecute(r)
 }
 
@@ -5196,13 +5196,13 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhook(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ExecutionControllerWebhookResponse
-func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerExecutionByGetWebhookRequest) (*ExecutionControllerWebhookResponse, *http.Response, error) {
+//	@return WebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerExecutionByGetWebhookRequest) (*WebhookResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ExecutionControllerWebhookResponse
+		localVarReturnValue *WebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByGetWebhook")
@@ -5214,6 +5214,408 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerE
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTriggerExecutionByGetWebhookWithPathRequest struct {
+	ctx        context.Context
+	ApiService *ExecutionsAPIService
+	namespace  string
+	id         string
+	key        string
+	path       string
+	tenant     string
+}
+
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetId() string {
+	return r.id
+}
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetKey() string {
+	return r.key
+}
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetPath() string {
+	return r.path
+}
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetTenant() string {
+	return r.tenant
+}
+
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
+	return r.ApiService.TriggerExecutionByGetWebhookWithPathExecute(r)
+}
+
+/*
+TriggerExecutionByGetWebhookWithPath Trigger a new execution by GET webhook trigger
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace The flow namespace
+	@param id The flow id
+	@param key The webhook trigger uid
+	@param path Optional additional path segments
+	@param tenant
+	@return ApiTriggerExecutionByGetWebhookWithPathRequest
+*/
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByGetWebhookWithPathRequest {
+	return ApiTriggerExecutionByGetWebhookWithPathRequest{
+		ApiService: a,
+		ctx:        ctx,
+		namespace:  namespace,
+		id:         id,
+		key:        key,
+		path:       path,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPathExecute(r ApiTriggerExecutionByGetWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebhookResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByGetWebhookWithPath")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTriggerExecutionByPostWebhookWithPathRequest struct {
+	ctx        context.Context
+	ApiService *ExecutionsAPIService
+	namespace  string
+	id         string
+	key        string
+	path       string
+	tenant     string
+}
+
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetId() string {
+	return r.id
+}
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetKey() string {
+	return r.key
+}
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetPath() string {
+	return r.path
+}
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetTenant() string {
+	return r.tenant
+}
+
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
+	return r.ApiService.TriggerExecutionByPostWebhookWithPathExecute(r)
+}
+
+/*
+TriggerExecutionByPostWebhookWithPath Trigger a new execution by POST webhook trigger
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace The flow namespace
+	@param id The flow id
+	@param key The webhook trigger uid
+	@param path Optional additional path segments
+	@param tenant
+	@return ApiTriggerExecutionByPostWebhookWithPathRequest
+*/
+func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByPostWebhookWithPathRequest {
+	return ApiTriggerExecutionByPostWebhookWithPathRequest{
+		ApiService: a,
+		ctx:        ctx,
+		namespace:  namespace,
+		id:         id,
+		key:        key,
+		path:       path,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPathExecute(r ApiTriggerExecutionByPostWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebhookResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPostWebhookWithPath")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTriggerExecutionByPutWebhookWithPathRequest struct {
+	ctx        context.Context
+	ApiService *ExecutionsAPIService
+	namespace  string
+	id         string
+	key        string
+	path       string
+	tenant     string
+}
+
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetId() string {
+	return r.id
+}
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetKey() string {
+	return r.key
+}
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetPath() string {
+	return r.path
+}
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetTenant() string {
+	return r.tenant
+}
+
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
+	return r.ApiService.TriggerExecutionByPutWebhookWithPathExecute(r)
+}
+
+/*
+TriggerExecutionByPutWebhookWithPath Trigger a new execution by PUT webhook trigger
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace The flow namespace
+	@param id The flow id
+	@param key The webhook trigger uid
+	@param path Optional additional path segments
+	@param tenant
+	@return ApiTriggerExecutionByPutWebhookWithPathRequest
+*/
+func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByPutWebhookWithPathRequest {
+	return ApiTriggerExecutionByPutWebhookWithPathRequest{
+		ApiService: a,
+		ctx:        ctx,
+		namespace:  namespace,
+		id:         id,
+		key:        key,
+		path:       path,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPathExecute(r ApiTriggerExecutionByPutWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebhookResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPutWebhookWithPath")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)

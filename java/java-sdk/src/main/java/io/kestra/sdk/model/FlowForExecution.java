@@ -25,6 +25,7 @@ import io.kestra.sdk.model.MapObjectObject;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
 import io.kestra.sdk.model.WorkerGroup;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowForExecution.JSON_PROPERTY_ID,
   FlowForExecution.JSON_PROPERTY_NAMESPACE,
   FlowForExecution.JSON_PROPERTY_REVISION,
+  FlowForExecution.JSON_PROPERTY_UPDATED,
   FlowForExecution.JSON_PROPERTY_DESCRIPTION,
   FlowForExecution.JSON_PROPERTY_INPUTS,
   FlowForExecution.JSON_PROPERTY_OUTPUTS,
@@ -62,6 +64,9 @@ public class FlowForExecution {
 
   public static final String JSON_PROPERTY_REVISION = "revision";
   @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -176,6 +181,30 @@ public class FlowForExecution {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@jakarta.annotation.Nullable Integer revision) {
     this.revision = revision;
+  }
+
+  public FlowForExecution updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * The timestamp when this revision was created or last updated.
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
   }
 
   public FlowForExecution description(@jakarta.annotation.Nullable String description) {
@@ -558,6 +587,7 @@ public class FlowForExecution {
     return Objects.equals(this.id, flowForExecution.id) &&
         Objects.equals(this.namespace, flowForExecution.namespace) &&
         Objects.equals(this.revision, flowForExecution.revision) &&
+        Objects.equals(this.updated, flowForExecution.updated) &&
         Objects.equals(this.description, flowForExecution.description) &&
         Objects.equals(this.inputs, flowForExecution.inputs) &&
         Objects.equals(this.outputs, flowForExecution.outputs) &&
@@ -575,7 +605,7 @@ public class FlowForExecution {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, tasks, errors, _finally, afterExecution, triggers);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, tasks, errors, _finally, afterExecution, triggers);
   }
 
   @Override
@@ -585,6 +615,7 @@ public class FlowForExecution {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");

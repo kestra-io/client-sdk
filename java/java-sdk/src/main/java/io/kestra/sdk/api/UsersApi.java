@@ -41,6 +41,7 @@ import io.kestra.sdk.model.IAMUserGroupControllerApiUpdateUserGroupsRequest;
 import io.kestra.sdk.model.MeControllerApiUpdatePasswordRequest;
 import io.kestra.sdk.model.MeControllerApiUserDetailsRequest;
 import io.kestra.sdk.model.PagedResultsIAMUserControllerApiUserSummary;
+import io.kestra.sdk.model.QueryFilter;
 
 
 import java.util.ArrayList;
@@ -787,13 +788,13 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param q A string filter (optional)
+   * @param filters Filters (required)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listUsers(page, size, q, sort, Collections.emptyMap());
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.listUsers(page, size, filters, sort, Collections.emptyMap());
   }
 
   /**
@@ -801,13 +802,13 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param q A string filter (optional)
+   * @param filters Filters (required)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -820,6 +821,11 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'size' when calling listUsers");
     }
     
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling listUsers");
+    }
+    
     // create path and map variables
     String localVarPath = "/api/v1/users";
 
@@ -830,10 +836,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

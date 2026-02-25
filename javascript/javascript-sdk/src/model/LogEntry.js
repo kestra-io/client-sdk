@@ -27,7 +27,6 @@ import Level from './Level';
   * @property {Level} level
   * @property {String} thread
   * @property {String} message
-  * @property {Boolean} deleted
   * @property {ExecutionKind} executionKind
   */
 
@@ -42,11 +41,10 @@ class LogEntry {
      * @alias module:model/LogEntry
      * @param {String} namespace - 
      * @param {String} flowId - 
-     * @param {Boolean} deleted - 
      */
-    constructor(namespace, flowId, deleted) { 
+    constructor(namespace, flowId) { 
         
-        LogEntry.initialize(this, namespace, flowId, deleted);
+        LogEntry.initialize(this, namespace, flowId);
     }
 
     /**
@@ -54,10 +52,9 @@ class LogEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId, deleted) { 
+    static initialize(obj, namespace, flowId) { 
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
-        obj['deleted'] = deleted;
     }
 
     /**
@@ -103,9 +100,6 @@ class LogEntry {
             }
             if (data.hasOwnProperty('message')) {
                 obj['message'] = ApiClient.convertToType(data['message'], 'String');
-            }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
             if (data.hasOwnProperty('executionKind')) {
                 obj['executionKind'] = ApiClient.convertToType(data['executionKind'], ExecutionKind);
@@ -165,7 +159,7 @@ class LogEntry {
 
 }
 
-LogEntry.RequiredProperties = ["namespace", "flowId", "deleted"];
+LogEntry.RequiredProperties = ["namespace", "flowId"];
 
 /**
  * @member {String} namespace
@@ -221,11 +215,6 @@ LogEntry.prototype['thread'] = undefined;
  * @member {String} message
  */
 LogEntry.prototype['message'] = undefined;
-
-/**
- * @member {Boolean} deleted
- */
-LogEntry.prototype['deleted'] = undefined;
 
 /**
  * @member {module:model/ExecutionKind} executionKind

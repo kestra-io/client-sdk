@@ -16,7 +16,9 @@ import ApiClient from '../ApiClient';
   * @typedef {Object} IFlowGenerationPrompt
   * @property {String} conversationId
   * @property {String} userPrompt
-  * @property {String} flowYaml
+  * @property {String} yaml
+  * @property {String} providerId
+  * @property {String} namespace
   */
 
 /**
@@ -63,8 +65,14 @@ class FlowGenerationPrompt {
             if (data.hasOwnProperty('userPrompt')) {
                 obj['userPrompt'] = ApiClient.convertToType(data['userPrompt'], 'String');
             }
-            if (data.hasOwnProperty('flowYaml')) {
-                obj['flowYaml'] = ApiClient.convertToType(data['flowYaml'], 'String');
+            if (data.hasOwnProperty('yaml')) {
+                obj['yaml'] = ApiClient.convertToType(data['yaml'], 'String');
+            }
+            if (data.hasOwnProperty('providerId')) {
+                obj['providerId'] = ApiClient.convertToType(data['providerId'], 'String');
+            }
+            if (data.hasOwnProperty('namespace')) {
+                obj['namespace'] = ApiClient.convertToType(data['namespace'], 'String');
             }
         }
         return obj;
@@ -91,8 +99,16 @@ class FlowGenerationPrompt {
             throw new Error("Expected the field `userPrompt` to be a primitive type in the JSON string but got " + data['userPrompt']);
         }
         // ensure the json data is a string
-        if (data['flowYaml'] && !(typeof data['flowYaml'] === 'string' || data['flowYaml'] instanceof String)) {
-            throw new Error("Expected the field `flowYaml` to be a primitive type in the JSON string but got " + data['flowYaml']);
+        if (data['yaml'] && !(typeof data['yaml'] === 'string' || data['yaml'] instanceof String)) {
+            throw new Error("Expected the field `yaml` to be a primitive type in the JSON string but got " + data['yaml']);
+        }
+        // ensure the json data is a string
+        if (data['providerId'] && !(typeof data['providerId'] === 'string' || data['providerId'] instanceof String)) {
+            throw new Error("Expected the field `providerId` to be a primitive type in the JSON string but got " + data['providerId']);
+        }
+        // ensure the json data is a string
+        if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
+            throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
         }
 
         return true;
@@ -114,9 +130,19 @@ FlowGenerationPrompt.prototype['conversationId'] = undefined;
 FlowGenerationPrompt.prototype['userPrompt'] = undefined;
 
 /**
- * @member {String} flowYaml
+ * @member {String} yaml
  */
-FlowGenerationPrompt.prototype['flowYaml'] = undefined;
+FlowGenerationPrompt.prototype['yaml'] = undefined;
+
+/**
+ * @member {String} providerId
+ */
+FlowGenerationPrompt.prototype['providerId'] = undefined;
+
+/**
+ * @member {String} namespace
+ */
+FlowGenerationPrompt.prototype['namespace'] = undefined;
 
 
 

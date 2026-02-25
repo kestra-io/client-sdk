@@ -64,7 +64,7 @@ func main() {
 	allowNamespaceChild := true // bool | If namespace child should are allowed to be updated (default to false)
 	tenant := "tenant_example" // string | 
 	namespace := "namespace_example" // string | The namespace where to update flows (optional)
-	body := "body_example" // string | A list of flows source code splitted with \"---\" (optional)
+	body := "body_example" // string | A list of flows source code split with \"---\" (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
  **allowNamespaceChild** | **bool** | If namespace child should are allowed to be updated | [default to false]
 
  **namespace** | **string** | The namespace where to update flows | 
- **body** | **string** | A list of flows source code splitted with \&quot;---\&quot; | 
+ **body** | **string** | A list of flows source code split with \&quot;---\&quot; | 
 
 ### Return type
 
@@ -1866,7 +1866,7 @@ Name | Type | Description  | Notes
 
 ## UpdateConcurrencyLimit
 
-> ConcurrencyLimit UpdateConcurrencyLimit(ctx, flowId, namespace, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
+> ConcurrencyLimit UpdateConcurrencyLimit(ctx, namespace, flowId, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
 
 Update a flow concurrency limit
 
@@ -1883,14 +1883,14 @@ import (
 )
 
 func main() {
-	flowId := "flowId_example" // string | 
 	namespace := "namespace_example" // string | 
+	flowId := "flowId_example" // string | 
 	tenant := "tenant_example" // string | 
 	concurrencyLimit := *openapiclient.NewConcurrencyLimit("TenantId_example", "Namespace_example", "FlowId_example") // ConcurrencyLimit | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateConcurrencyLimit(context.Background(), flowId, namespace, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateConcurrencyLimit(context.Background(), namespace, flowId, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateConcurrencyLimit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1906,8 +1906,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowId** | **string** |  | 
 **namespace** | **string** |  | 
+**flowId** | **string** |  | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2018,7 +2018,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFlowsInNamespace
 
-> []FlowInterface UpdateFlowsInNamespace(ctx, namespace, tenant).Override(override).Delete(delete).Body(body).Execute()
+> []FlowInterface UpdateFlowsInNamespace(ctx, namespace, tenant).Delete(delete).Override(override).Body(body).Execute()
 
 Update a complete namespace from yaml source
 
@@ -2037,15 +2037,15 @@ import (
 )
 
 func main() {
-	override := true // bool | If namespace of all provided flows should be overridden (default to false)
 	delete := true // bool | If missing flow should be deleted (default to true)
 	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
+	override := true // bool | If namespace of all provided flows should be overridden (default to false)
 	body := "body_example" // string | A list of flows source code
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespace(context.Background(), namespace, tenant).Override(override).Delete(delete).Body(body).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespace(context.Background(), namespace, tenant).Delete(delete).Override(override).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlowsInNamespace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2071,10 +2071,10 @@ Other parameters are passed through a pointer to a apiUpdateFlowsInNamespaceRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **override** | **bool** | If namespace of all provided flows should be overridden | [default to false]
  **delete** | **bool** | If missing flow should be deleted | [default to true]
 
 
+ **override** | **bool** | If namespace of all provided flows should be overridden | [default to false]
  **body** | **string** | A list of flows source code | 
 
 ### Return type

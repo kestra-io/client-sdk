@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Deleted** | **bool** |  | 
 **StorageIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
 **SecretIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
+**Deleted** | **bool** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **PluginDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **SecretReadOnly** | Pointer to **bool** |  | [optional] 
 **SecretConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
+**SdkDefaultAuthentication** | Pointer to [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 ## Methods
 
@@ -57,26 +58,6 @@ and a boolean to check if the value has been set.
 `func (o *Namespace) SetId(v string)`
 
 SetId sets Id field to given value.
-
-
-### GetDeleted
-
-`func (o *Namespace) GetDeleted() bool`
-
-GetDeleted returns the Deleted field if non-nil, zero value otherwise.
-
-### GetDeletedOk
-
-`func (o *Namespace) GetDeletedOk() (*bool, bool)`
-
-GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeleted
-
-`func (o *Namespace) SetDeleted(v bool)`
-
-SetDeleted sets Deleted field to given value.
 
 
 ### GetStorageIsolation
@@ -128,6 +109,26 @@ SetSecretIsolation sets SecretIsolation field to given value.
 `func (o *Namespace) HasSecretIsolation() bool`
 
 HasSecretIsolation returns a boolean if a field has been set.
+
+### GetDeleted
+
+`func (o *Namespace) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *Namespace) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *Namespace) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
 
 ### GetDescription
 
@@ -403,6 +404,31 @@ SetOutputsInInternalStorage sets OutputsInInternalStorage field to given value.
 `func (o *Namespace) HasOutputsInInternalStorage() bool`
 
 HasOutputsInInternalStorage returns a boolean if a field has been set.
+
+### GetSdkDefaultAuthentication
+
+`func (o *Namespace) GetSdkDefaultAuthentication() SDKAuth`
+
+GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field if non-nil, zero value otherwise.
+
+### GetSdkDefaultAuthenticationOk
+
+`func (o *Namespace) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool)`
+
+GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSdkDefaultAuthentication
+
+`func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth)`
+
+SetSdkDefaultAuthentication sets SdkDefaultAuthentication field to given value.
+
+### HasSdkDefaultAuthentication
+
+`func (o *Namespace) HasSdkDefaultAuthentication() bool`
+
+HasSdkDefaultAuthentication returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

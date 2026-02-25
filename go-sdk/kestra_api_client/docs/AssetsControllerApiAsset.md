@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Metadata** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Created** | Pointer to **time.Time** |  | [optional] 
 **Updated** | Pointer to **time.Time** |  | [optional] 
+**Deleted** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -231,6 +232,31 @@ SetUpdated sets Updated field to given value.
 `func (o *AssetsControllerApiAsset) HasUpdated() bool`
 
 HasUpdated returns a boolean if a field has been set.
+
+### GetDeleted
+
+`func (o *AssetsControllerApiAsset) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *AssetsControllerApiAsset) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *AssetsControllerApiAsset) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *AssetsControllerApiAsset) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

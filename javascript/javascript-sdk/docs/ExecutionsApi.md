@@ -42,6 +42,9 @@ Method | HTTP request | Description
 [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
 [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
+[**triggerExecutionByGetWebhookWithPath**](ExecutionsApi.md#triggerExecutionByGetWebhookWithPath) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger
+[**triggerExecutionByPostWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPostWebhookWithPath) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger
+[**triggerExecutionByPutWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPutWebhookWithPath) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger
 [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -598,7 +601,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution that you want flow informations
+let executionId = "executionId_example"; // String | The execution that you want flow information
 let tenant = "tenant_example"; // String | 
 apiInstance.flowFromExecutionById(executionId, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -613,7 +616,7 @@ apiInstance.flowFromExecutionById(executionId, tenant).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution that you want flow informations | 
+ **executionId** | **String**| The execution that you want flow information | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2100,7 +2103,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByGetWebhook
 
-> ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2142,7 +2145,181 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## triggerExecutionByGetWebhookWithPath
+
+> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by GET webhook trigger
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let key = "key_example"; // String | The webhook trigger uid
+let path = "path_example"; // String | Optional additional path segments
+let tenant = "tenant_example"; // String | 
+apiInstance.triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **key** | **String**| The webhook trigger uid | 
+ **path** | **String**| Optional additional path segments | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## triggerExecutionByPostWebhookWithPath
+
+> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by POST webhook trigger
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let key = "key_example"; // String | The webhook trigger uid
+let path = "path_example"; // String | Optional additional path segments
+let tenant = "tenant_example"; // String | 
+apiInstance.triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **key** | **String**| The webhook trigger uid | 
+ **path** | **String**| Optional additional path segments | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## triggerExecutionByPutWebhookWithPath
+
+> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by PUT webhook trigger
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let key = "key_example"; // String | The webhook trigger uid
+let path = "path_example"; // String | Optional additional path segments
+let tenant = "tenant_example"; // String | 
+apiInstance.triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **key** | **String**| The webhook trigger uid | 
+ **path** | **String**| Optional additional path segments | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
 
 ### Authorization
 

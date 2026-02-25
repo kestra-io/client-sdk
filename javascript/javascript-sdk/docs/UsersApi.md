@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 
 ## listUsers
 
-> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, opts)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, filters, opts)
 
 Retrieve users
 
@@ -519,11 +519,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
+let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let opts = {
-  'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.listUsers(page, size, opts).then((data) => {
+apiInstance.listUsers(page, size, filters, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -538,7 +538,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **Number**| The current page | [default to 1]
  **size** | **Number**| The current page size | [default to 10]
- **q** | **String**| A string filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

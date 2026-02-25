@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.2.5
+  version: 1.3.0
 servers:
 - url: /
 tags:
@@ -1215,6 +1215,117 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /api/v1/kill-switches:
+    post:
+      description: Superadmin-only. Creates a kill switch.
+      operationId: createKillSwitch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KillSwitch"
+        description: The kill switch to create
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KillSwitch"
+          description: createKillSwitch 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create a kill switch
+      tags:
+      - KillSwitches
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/kill-switches/search:
+    get:
+      description: Superadmin-only. Returns all kill switches.
+      operationId: searchKillSwitches
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/KillSwitch"
+                type: array
+          description: searchKillSwitches 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Retrieve all kill switches
+      tags:
+      - KillSwitches
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/kill-switches/{id}:
+    delete:
+      description: Superadmin-only. Deletes a kill switch by its ID.
+      operationId: deleteKillSwitch
+      parameters:
+      - description: The kill switch id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: deleteKillSwitch 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete a kill switch
+      tags:
+      - KillSwitches
+      x-internal: true
+      x-accepts:
+      - application/json
+    put:
+      description: Superadmin-only. Updates a kill switch by its ID.
+      operationId: updateKillSwitch
+      parameters:
+      - description: The kill switch id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KillSwitch"
+        description: The kill switch to update
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KillSwitch"
+          description: updateKillSwitch 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Update a kill switch
+      tags:
+      - KillSwitches
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /api/v1/license-info:
     get:
       description: "Global endpoint, available to any authenticated user."
@@ -1794,15 +1905,6 @@ paths:
     get:
       operationId: listServiceAccounts
       parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - description: The current page
         explode: false
         in: query
@@ -1832,6 +1934,16 @@ paths:
           items:
             type: string
           nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
           type: array
         style: form
       responses:
@@ -2446,15 +2558,6 @@ paths:
     get:
       operationId: listUsers
       parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - description: The current page
         explode: false
         in: query
@@ -2484,6 +2587,16 @@ paths:
           items:
             type: string
           nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
           type: array
         style: form
       responses:
@@ -3001,6 +3114,70 @@ paths:
       x-internal: true
       x-accepts:
       - application/json
+  /api/v1/{tenant}/ai/generate/app:
+    post:
+      operationId: generateApp
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppGenerationPrompt"
+        description: Prompt and context required for app generation
+        required: true
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: generateApp 200 response
+      summary: Generate or regenerate an app based on a prompt (EE only)
+      tags:
+      - AI
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/yaml
+  /api/v1/{tenant}/ai/generate/dashboard:
+    post:
+      operationId: generateDashboard
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DashboardGenerationPrompt"
+        description: Prompt and context required for dashboard generation
+        required: true
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: generateDashboard 200 response
+      summary: Generate or regenerate a dashboard based on a prompt
+      tags:
+      - AI
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/yaml
   /api/v1/{tenant}/ai/generate/flow:
     post:
       operationId: generateFlow
@@ -3033,6 +3210,64 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/yaml
+  /api/v1/{tenant}/ai/generate/test:
+    post:
+      operationId: generateTestSuite
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteGenerationPrompt"
+        description: Prompt and context required for test suite generation
+        required: true
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: generateTestSuite 200 response
+      summary: Generate or regenerate a test suite based on a prompt (EE only)
+      tags:
+      - AI
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/yaml
+  /api/v1/{tenant}/ai/providers:
+    get:
+      operationId: providers
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/AiController.AiProviderResponse"
+                type: array
+          description: getProviders 200 response
+      summary: List available AI providers
+      tags:
+      - AI
+      x-internal: true
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/apps:
     delete:
       operationId: bulkDeleteApps
@@ -3681,8 +3916,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-          description: deleteAssetsByIds 200 response
+                $ref: "#/components/schemas/BulkResponse"
+          description: Number of deleted assets
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+          description: If any assetId didn't match an existing asset
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -3707,6 +3948,15 @@ paths:
             $ref: "#/components/schemas/QueryFilter"
           type: array
         style: form
+      - description: "If true, will purge instead of soft-delete"
+        explode: false
+        in: query
+        name: purge
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -3719,12 +3969,125 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-          description: deleteAssetsByQuery 200 response
+                $ref: "#/components/schemas/BulkResponse"
+          description: Number of deleted assets
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+          description: If any assetId didn't match an existing asset
       security:
       - bearerAuth: []
       - basicAuth: []
       summary: Delete assets by query
+      tags:
+      - Assets
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/lineage-events/by-query:
+    delete:
+      operationId: deleteAssetLineageEventsByQuery
+      parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+          description: deleteAssetLineageEventsByQuery 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: "Delete asset lineage events by query, hard-delete (purge) only"
+      tags:
+      - Assets
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/lineage-events/search:
+    get:
+      operationId: searchAssetLineageEvents
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AssetsController.ApiAssetLineageEvent_"
+          description: searchAssetLineageEvents 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Search for asset lineage events
       tags:
       - Assets
       x-internal: false
@@ -3795,6 +4158,43 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Search for assets
+      tags:
+      - Assets
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/usages/by-query:
+    delete:
+      operationId: deleteAssetUsagesByQuery
+      parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+          description: deleteAssetUsagesByQuery 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: "Delete asset usages by query, hard-delete (purge) only"
       tags:
       - Assets
       x-internal: false
@@ -3912,6 +4312,15 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Get asset even if soft deleted
+        explode: false
+        in: query
+        name: allowDeleted
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -5417,14 +5826,14 @@ paths:
       parameters:
       - explode: false
         in: path
-        name: flowId
+        name: namespace
         required: true
         schema:
           type: string
         style: simple
       - explode: false
         in: path
-        name: namespace
+        name: flowId
         required: true
         schema:
           type: string
@@ -7131,12 +7540,190 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
+                $ref: "#/components/schemas/WebhookResponse"
           description: On success
       security:
       - bearerAuth: []
       - basicAuth: []
       summary: Trigger a new execution by GET webhook trigger
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}:
+    get:
+      operationId: triggerExecutionByGetWebhookWithPath
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The webhook trigger uid
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Optional additional path segments
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          nullable: true
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookResponse"
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Trigger a new execution by GET webhook trigger
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - application/json
+    post:
+      operationId: triggerExecutionByPostWebhookWithPath
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The webhook trigger uid
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Optional additional path segments
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          nullable: true
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookResponse"
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Trigger a new execution by POST webhook trigger
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - application/json
+    put:
+      operationId: triggerExecutionByPutWebhookWithPath
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The webhook trigger uid
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Optional additional path segments
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          nullable: true
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookResponse"
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Trigger a new execution by PUT webhook trigger
       tags:
       - Executions
       x-internal: false
@@ -7372,7 +7959,7 @@ paths:
     get:
       operationId: flowFromExecutionById
       parameters:
-      - description: The execution that you want flow informations
+      - description: The execution that you want flow information
         explode: false
         in: path
         name: executionId
@@ -8240,7 +8827,7 @@ paths:
             schema:
               nullable: true
               type: string
-        description: A list of flows source code splitted with "---"
+        description: A list of flows source code split with "---"
       responses:
         "200":
           content:
@@ -9013,15 +9600,6 @@ paths:
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
       operationId: updateFlowsInNamespace
       parameters:
-      - description: If namespace of all provided flows should be overridden
-        explode: false
-        in: query
-        name: override
-        required: true
-        schema:
-          default: false
-          type: boolean
-        style: form
       - description: If missing flow should be deleted
         explode: false
         in: query
@@ -9046,6 +9624,15 @@ paths:
         schema:
           type: string
         style: simple
+      - description: If namespace of all provided flows should be overridden
+        explode: false
+        in: query
+        name: override
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/x-yaml:
@@ -9890,15 +10477,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - description: The current page
         explode: false
         in: query
@@ -9928,6 +10506,16 @@ paths:
           items:
             type: string
           nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
           type: array
         style: form
       - explode: false
@@ -12467,7 +13055,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/PluginDefault"
+                  $ref: "#/components/schemas/NamespaceController.ApiInheritedPluginDefaultFromNamespace"
                 type: array
           description: inheritedPluginDefaults 200 response
       security:
@@ -12514,6 +13102,91 @@ paths:
       tags:
       - Namespaces
       x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/namespaces/{id}/plugindefaults/export:
+    post:
+      operationId: exportPluginDefaults
+      parameters:
+      - description: The namespace id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                format: byte
+                type: string
+          description: exportPluginDefaults 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export this namespace plugin defaults
+      tags:
+      - Namespaces
+      x-internal: false
+      x-accepts:
+      - application/octet-stream
+  /api/v1/{tenant}/namespaces/{id}/plugindefaults/import:
+    post:
+      operationId: importPluginDefaults
+      parameters:
+      - description: The namespace id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              fileUpload:
+                contentType: application/octet-stream
+                explode: false
+                style: form
+            schema:
+              $ref: "#/components/schemas/importPluginDefaults_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: importPluginDefaults 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Import plugin defaults in this namespace
+      tags:
+      - Namespaces
+      x-internal: false
+      x-content-type: multipart/form-data
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/dependencies:
@@ -14376,15 +15049,6 @@ paths:
     get:
       operationId: listTenantAccess
       parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - description: The current page
         explode: false
         in: query
@@ -14425,6 +15089,16 @@ paths:
           allOf:
           - $ref: "#/components/schemas/UserType"
           nullable: true
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
         style: form
       - explode: false
         in: path
@@ -16259,6 +16933,10 @@ components:
           format: int32
           minimum: 1
           type: integer
+        updated:
+          description: The timestamp when this revision was created or last updated.
+          format: date-time
+          type: string
         description:
           type: string
         inputs:
@@ -16503,6 +17181,15 @@ components:
       - UPDATE
       - DELETE
       type: string
+    AiController.AiProviderResponse:
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        isDefault:
+          type: boolean
+      type: object
     ApiAuth:
       properties:
         uid:
@@ -16781,6 +17468,17 @@ components:
               $ref: "#/components/schemas/ApiAuth"
             type: array
         type: object
+      type: object
+    AppGenerationPrompt:
+      properties:
+        conversationId:
+          type: string
+        userPrompt:
+          type: string
+        yaml:
+          type: string
+        providerId:
+          type: string
       type: object
     AppsController.ApiApp:
       example:
@@ -17178,6 +17876,7 @@ components:
       example:
         metadata:
           key: "{}"
+        deleted: true
         displayName: displayName
         created: 2000-01-23T04:56:07.000+00:00
         namespace: namespace
@@ -17204,6 +17903,67 @@ components:
           format: date-time
           type: string
         updated:
+          format: date-time
+          type: string
+        deleted:
+          type: boolean
+      type: object
+    AssetsController.ApiAssetLineageEvent:
+      example:
+        outputs:
+        - id: id
+          type: type
+        - id: id
+          type: type
+        endDate: 2000-01-23T04:56:07.000+00:00
+        inputs:
+        - id: id
+          type: type
+        - id: id
+          type: type
+        created: 2000-01-23T04:56:07.000+00:00
+        taskRunId: taskRunId
+        uid: uid
+        executionId: executionId
+        flowRevision: 0
+        namespace: namespace
+        state: state
+        flowId: flowId
+        taskId: taskId
+        startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uid:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          format: int32
+          type: integer
+        executionId:
+          type: string
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        state:
+          type: string
+        inputs:
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+          type: array
+        outputs:
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+          type: array
+        created:
+          format: date-time
+          type: string
+        startDate:
+          format: date-time
+          type: string
+        endDate:
           format: date-time
           type: string
       type: object
@@ -17304,8 +18064,6 @@ components:
       allOf:
       - $ref: "#/components/schemas/BaseAuditLog"
       - properties:
-          deleted:
-            type: boolean
           appliedPatch:
             items:
               type: object
@@ -17483,8 +18241,6 @@ components:
           type: string
         impersonatedBy:
           type: string
-        deleted:
-          type: boolean
       required:
       - date
       - detail
@@ -17959,8 +18715,12 @@ components:
           id: id
           type: type
         description: description
+        id: id
         title: title
       properties:
+        id:
+          minLength: 1
+          type: string
         title:
           minLength: 1
           type: string
@@ -17973,6 +18733,7 @@ components:
             $ref: "#/components/schemas/Chart_ChartOption_"
           type: array
       required:
+      - id
       - title
       type: object
     DashboardController.PreviewRequest:
@@ -17987,10 +18748,19 @@ components:
       required:
       - chart
       type: object
-    DeletedInterface:
+    DashboardGenerationPrompt:
       properties:
-        deleted:
-          type: boolean
+        conversationId:
+          type: string
+        userPrompt:
+          type: string
+        yaml:
+          type: string
+        providerId:
+          type: string
+      required:
+      - conversationId
+      - userPrompt
       type: object
     DependsOn:
       properties:
@@ -18025,6 +18795,13 @@ components:
         primary:
           type: boolean
       type: object
+    EvaluationType:
+      enum:
+      - PASS
+      - KILL
+      - CANCEL
+      - IGNORE
+      type: string
     Event_ExecutionStatusEvent_:
       properties:
         data:
@@ -18552,65 +19329,6 @@ components:
           type: string
         state:
           $ref: "#/components/schemas/State.Type"
-      type: object
-    ExecutionController.WebhookResponse:
-      example:
-        outputs:
-          key: "{}"
-        flowRevision: 0
-        tenantId: tenantId
-        namespace: namespace
-        id: id
-        trigger:
-          variables:
-            key: ""
-          logFile: https://openapi-generator.tech
-          id: id
-          type: type
-        state:
-          duration: duration
-          current: CREATED
-          endDate: 2000-01-23T04:56:07.000+00:00
-          histories:
-          - date: 2000-01-23T04:56:07.000+00:00
-            state: null
-          - date: 2000-01-23T04:56:07.000+00:00
-            state: null
-          startDate: 2000-01-23T04:56:07.000+00:00
-        flowId: flowId
-        url: https://openapi-generator.tech
-        labels:
-        - value: value
-          key: key
-        - value: value
-          key: key
-      properties:
-        tenantId:
-          type: string
-        id:
-          type: string
-        namespace:
-          type: string
-        flowId:
-          type: string
-        flowRevision:
-          format: int32
-          type: integer
-        trigger:
-          $ref: "#/components/schemas/ExecutionTrigger"
-        outputs:
-          additionalProperties:
-            type: object
-          type: object
-        labels:
-          items:
-            $ref: "#/components/schemas/Label"
-          type: array
-        state:
-          $ref: "#/components/schemas/State"
-        url:
-          format: uri
-          type: string
       type: object
     ExecutionKind:
       enum:
@@ -19152,6 +19870,7 @@ components:
         workerGroup:
           fallback: FAIL
           key: key
+        updated: 2000-01-23T04:56:07.000+00:00
         tasks:
         - taskCache:
             ttl: ttl
@@ -19471,6 +20190,7 @@ components:
         workerGroup:
           fallback: FAIL
           key: key
+        updated: 2000-01-23T04:56:07.000+00:00
         tasks:
         - inputs:
           - dependsOn: ""
@@ -19594,7 +20314,11 @@ components:
           type: string
         userPrompt:
           type: string
-        flowYaml:
+        yaml:
+          type: string
+        providerId:
+          type: string
+        namespace:
           type: string
       required:
       - conversationId
@@ -19726,7 +20450,7 @@ components:
     FlowInterface:
       allOf:
       - $ref: "#/components/schemas/FlowId"
-      - $ref: "#/components/schemas/DeletedInterface"
+      - $ref: "#/components/schemas/SoftDeletable_FlowInterface_"
       - $ref: "#/components/schemas/TenantInterface"
       - properties:
           description:
@@ -20205,6 +20929,7 @@ components:
         workerGroup:
           fallback: FAIL
           key: key
+        updated: 2000-01-23T04:56:07.000+00:00
         tasks:
         - taskCache:
             ttl: ttl
@@ -20551,36 +21276,21 @@ components:
           SERVICE_ACCOUNT:
           - SERVICE_ACCOUNT
           - SERVICE_ACCOUNT
+          AI_COPILOT:
+          - AI_COPILOT
+          - AI_COPILOT
           BLUEPRINT:
           - BLUEPRINT
           - BLUEPRINT
-          EXECUTION:
-          - EXECUTION
-          - EXECUTION
-          ASSET:
-          - ASSET
-          - ASSET
-          USER:
-          - USER
-          - USER
           FLOW:
           - FLOW
           - FLOW
-          GROUP_MEMBERSHIP:
-          - GROUP_MEMBERSHIP
-          - GROUP_MEMBERSHIP
           ROLE:
           - ROLE
           - ROLE
-          INVITATION:
-          - INVITATION
-          - INVITATION
           GROUP:
           - GROUP
           - GROUP
-          TEST:
-          - TEST
-          - TEST
           DASHBOARD:
           - DASHBOARD
           - DASHBOARD
@@ -20599,6 +21309,27 @@ components:
           KVSTORE:
           - KVSTORE
           - KVSTORE
+          EXECUTION:
+          - EXECUTION
+          - EXECUTION
+          ASSET:
+          - ASSET
+          - ASSET
+          USER:
+          - USER
+          - USER
+          GROUP_MEMBERSHIP:
+          - GROUP_MEMBERSHIP
+          - GROUP_MEMBERSHIP
+          INVITATION:
+          - INVITATION
+          - INVITATION
+          TEST:
+          - TEST
+          - TEST
+          CREDENTIAL:
+          - CREDENTIAL
+          - CREDENTIAL
           UNKNOWN:
           - UNKNOWN
           - UNKNOWN
@@ -21461,6 +22192,41 @@ components:
       - DURATION
       - JSON
       type: string
+    KillSwitch:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tenantId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        executionIds:
+          items:
+            type: string
+          type: array
+        startDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+        description:
+          type: string
+        evaluationType:
+          $ref: "#/components/schemas/EvaluationType"
+        enabled:
+          type: boolean
+        deleted:
+          type: boolean
+      required:
+      - evaluationType
+      - name
+      - startDate
+      type: object
     Label:
       description: A key/value pair that can be attached to a Flow or Execution. Labels
         are often used to organize and categorize objects.
@@ -21499,15 +22265,14 @@ components:
       type: string
     LogEntry:
       example:
+        taskRunId: taskRunId
         attemptNumber: 0
+        executionId: executionId
         level: ERROR
         triggerId: triggerId
+        namespace: namespace
         thread: thread
         message: message
-        taskRunId: taskRunId
-        executionId: executionId
-        deleted: true
-        namespace: namespace
         flowId: flowId
         executionKind: ""
         taskId: taskId
@@ -21542,14 +22307,11 @@ components:
           type: string
         message:
           type: string
-        deleted:
-          type: boolean
         executionKind:
           allOf:
           - $ref: "#/components/schemas/ExecutionKind"
           nullable: true
       required:
-      - deleted
       - flowId
       - namespace
       type: object
@@ -21711,14 +22473,11 @@ components:
             type: string
           nullable: true
           type: object
-        deleted:
-          type: boolean
         executionKind:
           allOf:
           - $ref: "#/components/schemas/ExecutionKind"
           nullable: true
       required:
-      - deleted
       - flowId
       - name
       - namespace
@@ -21815,6 +22574,10 @@ components:
             items:
               type: string
             type: array
+          killSwitches:
+            items:
+              $ref: "#/components/schemas/KillSwitch"
+            type: array
         type: object
       type: object
     MiscController.Environment:
@@ -21886,12 +22649,12 @@ components:
           id:
             pattern: "^[a-z0-9][a-z0-9._-]*"
             type: string
-          deleted:
-            type: boolean
           storageIsolation:
             $ref: "#/components/schemas/Isolation"
           secretIsolation:
             $ref: "#/components/schemas/Isolation"
+          deleted:
+            type: boolean
           description:
             type: string
           variables:
@@ -21924,6 +22687,8 @@ components:
             type: object
           outputsInInternalStorage:
             type: boolean
+          sdkDefaultAuthentication:
+            $ref: "#/components/schemas/SDK.Auth"
         required:
         - deleted
         - id
@@ -21966,6 +22731,10 @@ components:
           fallback: FAIL
           key: key
         outputsInInternalStorage: true
+        sdkDefaultAuthentication:
+          password: password
+          apiToken: apiToken
+          username: username
       type: object
     Namespace.AllowedNamespace:
       example:
@@ -21975,6 +22744,25 @@ components:
           type: string
       required:
       - namespace
+      type: object
+    NamespaceController.ApiInheritedPluginDefaultFromNamespace:
+      example:
+        forced: true
+        values: "{}"
+        namespace: namespace
+        type: type
+      properties:
+        type:
+          type: string
+        forced:
+          type: boolean
+        values:
+          additionalProperties: false
+          type: object
+        namespace:
+          type: string
+      required:
+      - type
       type: object
     NamespaceFileRevision:
       example:
@@ -21989,10 +22777,7 @@ components:
         id:
           pattern: "^[a-z0-9][a-z0-9._-]*"
           type: string
-        deleted:
-          type: boolean
       required:
-      - deleted
       - id
       type: object
     Output:
@@ -22148,6 +22933,64 @@ components:
       - results
       - total
       type: object
+    PagedResults_AssetsController.ApiAssetLineageEvent_:
+      example:
+        total: 6
+        results:
+        - outputs:
+          - id: id
+            type: type
+          - id: id
+            type: type
+          endDate: 2000-01-23T04:56:07.000+00:00
+          inputs:
+          - id: id
+            type: type
+          - id: id
+            type: type
+          created: 2000-01-23T04:56:07.000+00:00
+          taskRunId: taskRunId
+          uid: uid
+          executionId: executionId
+          flowRevision: 0
+          namespace: namespace
+          state: state
+          flowId: flowId
+          taskId: taskId
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - outputs:
+          - id: id
+            type: type
+          - id: id
+            type: type
+          endDate: 2000-01-23T04:56:07.000+00:00
+          inputs:
+          - id: id
+            type: type
+          - id: id
+            type: type
+          created: 2000-01-23T04:56:07.000+00:00
+          taskRunId: taskRunId
+          uid: uid
+          executionId: executionId
+          flowRevision: 0
+          namespace: namespace
+          state: state
+          flowId: flowId
+          taskId: taskId
+          startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/AssetsController.ApiAssetLineageEvent"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
     PagedResults_AssetsController.ApiAssetUsage_:
       example:
         total: 6
@@ -22186,6 +23029,7 @@ components:
         results:
         - metadata:
             key: "{}"
+          deleted: true
           displayName: displayName
           created: 2000-01-23T04:56:07.000+00:00
           namespace: namespace
@@ -22195,6 +23039,7 @@ components:
           updated: 2000-01-23T04:56:07.000+00:00
         - metadata:
             key: "{}"
+          deleted: true
           displayName: displayName
           created: 2000-01-23T04:56:07.000+00:00
           namespace: namespace
@@ -22292,6 +23137,7 @@ components:
             id: id
             type: type
           description: description
+          id: id
           title: title
         - timeWindow:
             default: default
@@ -22304,6 +23150,7 @@ components:
             id: id
             type: type
           description: description
+          id: id
           title: title
       properties:
         results:
@@ -22967,6 +23814,7 @@ components:
           workerGroup:
             fallback: FAIL
             key: key
+          updated: 2000-01-23T04:56:07.000+00:00
           tasks:
           - taskCache:
               ttl: ttl
@@ -23316,6 +24164,7 @@ components:
           workerGroup:
             fallback: FAIL
             key: key
+          updated: 2000-01-23T04:56:07.000+00:00
           tasks:
           - taskCache:
               ttl: ttl
@@ -23636,28 +24485,26 @@ components:
       example:
         total: 6
         results:
-        - attemptNumber: 0
+        - taskRunId: taskRunId
+          attemptNumber: 0
+          executionId: executionId
           level: ERROR
           triggerId: triggerId
+          namespace: namespace
           thread: thread
           message: message
-          taskRunId: taskRunId
-          executionId: executionId
-          deleted: true
-          namespace: namespace
           flowId: flowId
           executionKind: ""
           taskId: taskId
           timestamp: 2000-01-23T04:56:07.000+00:00
-        - attemptNumber: 0
+        - taskRunId: taskRunId
+          attemptNumber: 0
+          executionId: executionId
           level: ERROR
           triggerId: triggerId
+          namespace: namespace
           thread: thread
           message: message
-          taskRunId: taskRunId
-          executionId: executionId
-          deleted: true
-          namespace: namespace
           flowId: flowId
           executionKind: ""
           taskId: taskId
@@ -23747,6 +24594,10 @@ components:
             fallback: FAIL
             key: key
           outputsInInternalStorage: true
+          sdkDefaultAuthentication:
+            password: password
+            apiToken: apiToken
+            username: username
         - variables:
             key: "{}"
           secretConfiguration:
@@ -23783,6 +24634,10 @@ components:
             fallback: FAIL
             key: key
           outputsInInternalStorage: true
+          sdkDefaultAuthentication:
+            password: password
+            apiToken: apiToken
+            username: username
       properties:
         results:
           items:
@@ -24062,6 +24917,7 @@ components:
             workerGroup:
               fallback: FAIL
               key: key
+            updated: 2000-01-23T04:56:07.000+00:00
             tasks:
             - taskCache:
                 ttl: ttl
@@ -24415,6 +25271,7 @@ components:
             workerGroup:
               fallback: FAIL
               key: key
+            updated: 2000-01-23T04:56:07.000+00:00
             tasks:
             - taskCache:
                 ttl: ttl
@@ -25843,6 +26700,8 @@ components:
       - SERVICE_ACCOUNT
       - INVITATION
       - GROUP_MEMBERSHIP
+      - CREDENTIAL
+      - AI_COPILOT
       - UNKNOWN
       type: string
     Plugin:
@@ -26218,6 +27077,7 @@ components:
       - UPDATED
       - START_DATE
       - END_DATE
+      - EXPIRATION_DATE
       - STATE
       - TIME_RANGE
       - TRIGGER_EXECUTION_ID
@@ -26233,6 +27093,7 @@ components:
       - PATH
       - PARENT_PATH
       - VERSION
+      - USERNAME
       type: string
       x-type: String
     QueryFilter.Op:
@@ -26292,6 +27153,7 @@ components:
       - DASHBOARD
       - EXECUTION
       - FLOW
+      - KILL_SWITCH
       - KV_STORE
       - GROUP
       - INVITATION
@@ -26309,6 +27171,7 @@ components:
       - TESTSUITE_RUN
       - VERSIONED_PLUGIN
       - USER
+      - CREDENTIAL
       - WORKER_GROUP
       - INSTANCE
       - UNKNOWN
@@ -26380,36 +27243,21 @@ components:
           SERVICE_ACCOUNT:
           - SERVICE_ACCOUNT
           - SERVICE_ACCOUNT
+          AI_COPILOT:
+          - AI_COPILOT
+          - AI_COPILOT
           BLUEPRINT:
           - BLUEPRINT
           - BLUEPRINT
-          EXECUTION:
-          - EXECUTION
-          - EXECUTION
-          ASSET:
-          - ASSET
-          - ASSET
-          USER:
-          - USER
-          - USER
           FLOW:
           - FLOW
           - FLOW
-          GROUP_MEMBERSHIP:
-          - GROUP_MEMBERSHIP
-          - GROUP_MEMBERSHIP
           ROLE:
           - ROLE
           - ROLE
-          INVITATION:
-          - INVITATION
-          - INVITATION
           GROUP:
           - GROUP
           - GROUP
-          TEST:
-          - TEST
-          - TEST
           DASHBOARD:
           - DASHBOARD
           - DASHBOARD
@@ -26428,6 +27276,27 @@ components:
           KVSTORE:
           - KVSTORE
           - KVSTORE
+          EXECUTION:
+          - EXECUTION
+          - EXECUTION
+          ASSET:
+          - ASSET
+          - ASSET
+          USER:
+          - USER
+          - USER
+          GROUP_MEMBERSHIP:
+          - GROUP_MEMBERSHIP
+          - GROUP_MEMBERSHIP
+          INVITATION:
+          - INVITATION
+          - INVITATION
+          TEST:
+          - TEST
+          - TEST
+          CREDENTIAL:
+          - CREDENTIAL
+          - CREDENTIAL
           UNKNOWN:
           - UNKNOWN
           - UNKNOWN
@@ -26460,6 +27329,22 @@ components:
       - deleted
       - isManaged
       - name
+      type: object
+    SDK.Auth:
+      example:
+        password: password
+        apiToken: apiToken
+        username: username
+      properties:
+        apiToken:
+          nullable: true
+          type: string
+        username:
+          nullable: true
+          type: string
+        password:
+          nullable: true
+          type: string
       type: object
     SLA:
       example:
@@ -26962,6 +27847,7 @@ components:
           workerGroup:
             fallback: FAIL
             key: key
+          updated: 2000-01-23T04:56:07.000+00:00
           tasks:
           - taskCache:
               ttl: ttl
@@ -27120,6 +28006,13 @@ components:
           items:
             $ref: "#/components/schemas/Metric"
           type: array
+      required:
+      - hostname
+      - id
+      - metrics
+      - props
+      - type
+      - version
       type: object
     ServerInstance.Type:
       enum:
@@ -27284,6 +28177,11 @@ components:
         passwordRegexp:
           type: string
         haveAuthNotBasic:
+          type: boolean
+      type: object
+    SoftDeletable_FlowInterface_:
+      properties:
+        deleted:
           type: boolean
       type: object
     SortOrder:
@@ -27705,6 +28603,8 @@ components:
           type: boolean
         appCatalogConfig:
           $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+        sdkDefaultAuthentication:
+          $ref: "#/components/schemas/SDK.Auth"
       required:
       - deleted
       - id
@@ -28519,6 +29419,20 @@ components:
           items:
             $ref: "#/components/schemas/TestSuiteRunResult"
           type: array
+      type: object
+    TestSuiteGenerationPrompt:
+      properties:
+        conversationId:
+          type: string
+        userPrompt:
+          type: string
+        yaml:
+          type: string
+        providerId:
+          type: string
+      required:
+      - conversationId
+      - userPrompt
       type: object
     TestSuiteRunResult:
       example:
@@ -29720,6 +30634,65 @@ components:
         attributeExpression:
           type: object
       type: object
+    WebhookResponse:
+      example:
+        outputs:
+          key: "{}"
+        flowRevision: 0
+        tenantId: tenantId
+        namespace: namespace
+        id: id
+        trigger:
+          variables:
+            key: ""
+          logFile: https://openapi-generator.tech
+          id: id
+          type: type
+        state:
+          duration: duration
+          current: CREATED
+          endDate: 2000-01-23T04:56:07.000+00:00
+          histories:
+          - date: 2000-01-23T04:56:07.000+00:00
+            state: null
+          - date: 2000-01-23T04:56:07.000+00:00
+            state: null
+          startDate: 2000-01-23T04:56:07.000+00:00
+        flowId: flowId
+        url: https://openapi-generator.tech
+        labels:
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        tenantId:
+          type: string
+        id:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          format: int32
+          type: integer
+        trigger:
+          $ref: "#/components/schemas/ExecutionTrigger"
+        outputs:
+          additionalProperties:
+            type: object
+          type: object
+        labels:
+          items:
+            $ref: "#/components/schemas/Label"
+          type: array
+        state:
+          $ref: "#/components/schemas/State"
+        url:
+          format: uri
+          type: string
+      type: object
     WorkerGroup:
       example:
         fallback: FAIL
@@ -29768,6 +30741,12 @@ components:
           format: binary
           type: string
       type: object
+    importPluginDefaults_request:
+      properties:
+        fileUpload:
+          format: binary
+          type: string
+      type: object
     createNamespaceFile_request:
       properties:
         fileContent:
@@ -29811,36 +30790,21 @@ components:
         SERVICE_ACCOUNT:
         - SERVICE_ACCOUNT
         - SERVICE_ACCOUNT
+        AI_COPILOT:
+        - AI_COPILOT
+        - AI_COPILOT
         BLUEPRINT:
         - BLUEPRINT
         - BLUEPRINT
-        EXECUTION:
-        - EXECUTION
-        - EXECUTION
-        ASSET:
-        - ASSET
-        - ASSET
-        USER:
-        - USER
-        - USER
         FLOW:
         - FLOW
         - FLOW
-        GROUP_MEMBERSHIP:
-        - GROUP_MEMBERSHIP
-        - GROUP_MEMBERSHIP
         ROLE:
         - ROLE
         - ROLE
-        INVITATION:
-        - INVITATION
-        - INVITATION
         GROUP:
         - GROUP
         - GROUP
-        TEST:
-        - TEST
-        - TEST
         DASHBOARD:
         - DASHBOARD
         - DASHBOARD
@@ -29859,6 +30823,27 @@ components:
         KVSTORE:
         - KVSTORE
         - KVSTORE
+        EXECUTION:
+        - EXECUTION
+        - EXECUTION
+        ASSET:
+        - ASSET
+        - ASSET
+        USER:
+        - USER
+        - USER
+        GROUP_MEMBERSHIP:
+        - GROUP_MEMBERSHIP
+        - GROUP_MEMBERSHIP
+        INVITATION:
+        - INVITATION
+        - INVITATION
+        TEST:
+        - TEST
+        - TEST
+        CREDENTIAL:
+        - CREDENTIAL
+        - CREDENTIAL
         UNKNOWN:
         - UNKNOWN
         - UNKNOWN
@@ -29980,6 +30965,16 @@ components:
             type: string
           type: array
         GROUP_MEMBERSHIP:
+          items:
+            description: TODO default missing array inner type to string
+            type: string
+          type: array
+        CREDENTIAL:
+          items:
+            description: TODO default missing array inner type to string
+            type: string
+          type: array
+        AI_COPILOT:
           items:
             description: TODO default missing array inner type to string
             type: string

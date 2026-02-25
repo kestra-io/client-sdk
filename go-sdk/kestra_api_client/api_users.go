@@ -1009,7 +1009,7 @@ type ApiListUsersRequest struct {
 	ApiService *UsersAPIService
 	page       *int32
 	size       *int32
-	q          *string
+	filters    *[]QueryFilter
 	sort       *[]string
 }
 
@@ -1025,9 +1025,9 @@ func (r ApiListUsersRequest) Size(size int32) ApiListUsersRequest {
 	return r
 }
 
-// A string filter
-func (r ApiListUsersRequest) Q(q string) ApiListUsersRequest {
-	r.q = &q
+// Filters
+func (r ApiListUsersRequest) Filters(filters []QueryFilter) ApiListUsersRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -1043,8 +1043,8 @@ func (r ApiListUsersRequest) GetPage() *int32 {
 func (r ApiListUsersRequest) GetSize() *int32 {
 	return r.size
 }
-func (r ApiListUsersRequest) GetQ() *string {
-	return r.q
+func (r ApiListUsersRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 func (r ApiListUsersRequest) GetSort() *[]string {
 	return r.sort
@@ -1096,15 +1096,16 @@ func (a *UsersAPIService) ListUsersExecute(r ApiListUsersRequest) (*PagedResults
 	if r.size == nil {
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.filters == nil {
+		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
+
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **level** | [**Level**](Level.md) |  | [optional] 
 **thread** | **str** |  | [optional] 
 **message** | **str** |  | [optional] 
-**deleted** | **bool** |  | 
 **execution_kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 
 ## Example

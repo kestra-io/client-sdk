@@ -43,27 +43,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServerInstance {
   public static final String JSON_PROPERTY_ID = "id";
-  @jakarta.annotation.Nullable  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @jakarta.annotation.Nullable  private ServerInstanceType type;
+  @jakarta.annotation.Nonnull  private ServerInstanceType type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @jakarta.annotation.Nullable  private String version;
+  @jakarta.annotation.Nonnull  private String version;
 
   public static final String JSON_PROPERTY_HOSTNAME = "hostname";
-  @jakarta.annotation.Nullable  private String hostname;
+  @jakarta.annotation.Nonnull  private String hostname;
 
   public static final String JSON_PROPERTY_PROPS = "props";
-  @jakarta.annotation.Nullable  private Map<String, Object> props = new HashMap<>();
+  @jakarta.annotation.Nonnull  private Map<String, Object> props = new HashMap<>();
 
   public static final String JSON_PROPERTY_METRICS = "metrics";
-  @jakarta.annotation.Nullable  private List<Metric> metrics = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<Metric> metrics = new ArrayList<>();
 
   public ServerInstance() {
   }
 
-  public ServerInstance id(@jakarta.annotation.Nullable String id) {
+  public ServerInstance id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -73,8 +73,8 @@ public class ServerInstance {
    * Get id
    * @return id
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -82,12 +82,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@jakarta.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ServerInstance type(@jakarta.annotation.Nullable ServerInstanceType type) {
+  public ServerInstance type(@jakarta.annotation.Nonnull ServerInstanceType type) {
     
     this.type = type;
     return this;
@@ -97,8 +97,8 @@ public class ServerInstance {
    * Get type
    * @return type
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServerInstanceType getType() {
     return type;
@@ -106,12 +106,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@jakarta.annotation.Nullable ServerInstanceType type) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull ServerInstanceType type) {
     this.type = type;
   }
 
-  public ServerInstance version(@jakarta.annotation.Nullable String version) {
+  public ServerInstance version(@jakarta.annotation.Nonnull String version) {
     
     this.version = version;
     return this;
@@ -121,8 +121,8 @@ public class ServerInstance {
    * Get version
    * @return version
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getVersion() {
     return version;
@@ -130,12 +130,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@jakarta.annotation.Nullable String version) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersion(@jakarta.annotation.Nonnull String version) {
     this.version = version;
   }
 
-  public ServerInstance hostname(@jakarta.annotation.Nullable String hostname) {
+  public ServerInstance hostname(@jakarta.annotation.Nonnull String hostname) {
     
     this.hostname = hostname;
     return this;
@@ -145,8 +145,8 @@ public class ServerInstance {
    * Get hostname
    * @return hostname
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HOSTNAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getHostname() {
     return hostname;
@@ -154,21 +154,18 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHostname(@jakarta.annotation.Nullable String hostname) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHostname(@jakarta.annotation.Nonnull String hostname) {
     this.hostname = hostname;
   }
 
-  public ServerInstance props(@jakarta.annotation.Nullable Map<String, Object> props) {
+  public ServerInstance props(@jakarta.annotation.Nonnull Map<String, Object> props) {
     
     this.props = props;
     return this;
   }
 
   public ServerInstance putPropsItem(String key, Object propsItem) {
-    if (this.props == null) {
-      this.props = new HashMap<>();
-    }
     this.props.put(key, propsItem);
     return this;
   }
@@ -177,8 +174,8 @@ public class ServerInstance {
    * Get props
    * @return props
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getProps() {
     return props;
@@ -186,12 +183,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProps(@jakarta.annotation.Nullable Map<String, Object> props) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setProps(@jakarta.annotation.Nonnull Map<String, Object> props) {
     this.props = props;
   }
 
-  public ServerInstance metrics(@jakarta.annotation.Nullable List<Metric> metrics) {
+  public ServerInstance metrics(@jakarta.annotation.Nonnull List<Metric> metrics) {
     
     this.metrics = metrics;
     return this;
@@ -209,8 +206,8 @@ public class ServerInstance {
    * Get metrics
    * @return metrics
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Metric> getMetrics() {
     return metrics;
@@ -218,8 +215,8 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetrics(@jakarta.annotation.Nullable List<Metric> metrics) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetrics(@jakarta.annotation.Nonnull List<Metric> metrics) {
     this.metrics = metrics;
   }
 

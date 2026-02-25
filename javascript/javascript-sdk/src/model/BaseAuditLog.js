@@ -24,7 +24,6 @@ import CrudEventType from './CrudEventType';
   * @property {String} userId
   * @property {String} ipAddress
   * @property {String} impersonatedBy
-  * @property {Boolean} deleted
   */
 
 /**
@@ -94,9 +93,6 @@ class BaseAuditLog {
             }
             if (data.hasOwnProperty('impersonatedBy')) {
                 obj['impersonatedBy'] = ApiClient.convertToType(data['impersonatedBy'], 'String');
-            }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
         }
         return obj;
@@ -186,11 +182,6 @@ BaseAuditLog.prototype['ipAddress'] = undefined;
  * @member {String} impersonatedBy
  */
 BaseAuditLog.prototype['impersonatedBy'] = undefined;
-
-/**
- * @member {Boolean} deleted
- */
-BaseAuditLog.prototype['deleted'] = undefined;
 
 
 

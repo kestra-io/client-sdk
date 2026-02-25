@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **userId** | **String** |  | 
 **ipAddress** | **String** |  | [optional] 
 **impersonatedBy** | **String** |  | [optional] 
-**deleted** | **Boolean** |  | [optional] 
 **appliedPatch** | **[Object]** |  | [optional] 
 **revertPatch** | **[Object]** |  | [optional] 
 

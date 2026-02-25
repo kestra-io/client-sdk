@@ -52,6 +52,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_I_C_O_P_I_L_O_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
 })
 @JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
@@ -125,6 +127,12 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   public static final String JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P = "GROUP_MEMBERSHIP";
   @jakarta.annotation.Nullable  private List<String> GROUP_MEMBERSHIP = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L = "CREDENTIAL";
+  @jakarta.annotation.Nullable  private List<String> CREDENTIAL = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_I_C_O_P_I_L_O_T = "AI_COPILOT";
+  @jakarta.annotation.Nullable  private List<String> AI_COPILOT = new ArrayList<>();
 
   public static final String JSON_PROPERTY_U_N_K_N_O_W_N = "UNKNOWN";
   @jakarta.annotation.Nullable  private List<String> UNKNOWN = new ArrayList<>();
@@ -868,6 +876,70 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     this.GROUP_MEMBERSHIP = GROUP_MEMBERSHIP;
   }
 
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions CREDENTIAL(@jakarta.annotation.Nullable List<String> CREDENTIAL) {
+    
+    this.CREDENTIAL = CREDENTIAL;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addCREDENTIALItem(String CREDENTIALItem) {
+    if (this.CREDENTIAL == null) {
+      this.CREDENTIAL = new ArrayList<>();
+    }
+    this.CREDENTIAL.add(CREDENTIALItem);
+    return this;
+  }
+
+  /**
+   * Get CREDENTIAL
+   * @return CREDENTIAL
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getCREDENTIAL() {
+    return CREDENTIAL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_C_R_E_D_E_N_T_I_A_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCREDENTIAL(@jakarta.annotation.Nullable List<String> CREDENTIAL) {
+    this.CREDENTIAL = CREDENTIAL;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions AI_COPILOT(@jakarta.annotation.Nullable List<String> AI_COPILOT) {
+    
+    this.AI_COPILOT = AI_COPILOT;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAICOPILOTItem(String AI_COPILOTItem) {
+    if (this.AI_COPILOT == null) {
+      this.AI_COPILOT = new ArrayList<>();
+    }
+    this.AI_COPILOT.add(AI_COPILOTItem);
+    return this;
+  }
+
+  /**
+   * Get AI_COPILOT
+   * @return AI_COPILOT
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_I_C_O_P_I_L_O_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAICOPILOT() {
+    return AI_COPILOT;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_I_C_O_P_I_L_O_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAICOPILOT(@jakarta.annotation.Nullable List<String> AI_COPILOT) {
+    this.AI_COPILOT = AI_COPILOT;
+  }
+
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions UNKNOWN(@jakarta.annotation.Nullable List<String> UNKNOWN) {
     
     this.UNKNOWN = UNKNOWN;
@@ -932,12 +1004,14 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
         Objects.equals(this.SERVICE_ACCOUNT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SERVICE_ACCOUNT) &&
         Objects.equals(this.INVITATION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.INVITATION) &&
         Objects.equals(this.GROUP_MEMBERSHIP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.GROUP_MEMBERSHIP) &&
+        Objects.equals(this.CREDENTIAL, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.CREDENTIAL) &&
+        Objects.equals(this.AI_COPILOT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.AI_COPILOT) &&
         Objects.equals(this.UNKNOWN, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.UNKNOWN);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN);
+    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, CREDENTIAL, AI_COPILOT, UNKNOWN);
   }
 
   @Override
@@ -967,6 +1041,8 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     sb.append("    SERVICE_ACCOUNT: ").append(toIndentedString(SERVICE_ACCOUNT)).append("\n");
     sb.append("    INVITATION: ").append(toIndentedString(INVITATION)).append("\n");
     sb.append("    GROUP_MEMBERSHIP: ").append(toIndentedString(GROUP_MEMBERSHIP)).append("\n");
+    sb.append("    CREDENTIAL: ").append(toIndentedString(CREDENTIAL)).append("\n");
+    sb.append("    AI_COPILOT: ").append(toIndentedString(AI_COPILOT)).append("\n");
     sb.append("    UNKNOWN: ").append(toIndentedString(UNKNOWN)).append("\n");
     sb.append("}");
     return sb.toString();

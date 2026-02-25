@@ -6,7 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConversationId** | **string** |  | 
 **UserPrompt** | **string** |  | 
-**FlowYaml** | Pointer to **string** |  | [optional] 
+**Yaml** | Pointer to **string** |  | [optional] 
+**ProviderId** | Pointer to **string** |  | [optional] 
+**Namespace** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -67,30 +69,80 @@ and a boolean to check if the value has been set.
 SetUserPrompt sets UserPrompt field to given value.
 
 
-### GetFlowYaml
+### GetYaml
 
-`func (o *FlowGenerationPrompt) GetFlowYaml() string`
+`func (o *FlowGenerationPrompt) GetYaml() string`
 
-GetFlowYaml returns the FlowYaml field if non-nil, zero value otherwise.
+GetYaml returns the Yaml field if non-nil, zero value otherwise.
 
-### GetFlowYamlOk
+### GetYamlOk
 
-`func (o *FlowGenerationPrompt) GetFlowYamlOk() (*string, bool)`
+`func (o *FlowGenerationPrompt) GetYamlOk() (*string, bool)`
 
-GetFlowYamlOk returns a tuple with the FlowYaml field if it's non-nil, zero value otherwise
+GetYamlOk returns a tuple with the Yaml field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFlowYaml
+### SetYaml
 
-`func (o *FlowGenerationPrompt) SetFlowYaml(v string)`
+`func (o *FlowGenerationPrompt) SetYaml(v string)`
 
-SetFlowYaml sets FlowYaml field to given value.
+SetYaml sets Yaml field to given value.
 
-### HasFlowYaml
+### HasYaml
 
-`func (o *FlowGenerationPrompt) HasFlowYaml() bool`
+`func (o *FlowGenerationPrompt) HasYaml() bool`
 
-HasFlowYaml returns a boolean if a field has been set.
+HasYaml returns a boolean if a field has been set.
+
+### GetProviderId
+
+`func (o *FlowGenerationPrompt) GetProviderId() string`
+
+GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
+
+### GetProviderIdOk
+
+`func (o *FlowGenerationPrompt) GetProviderIdOk() (*string, bool)`
+
+GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProviderId
+
+`func (o *FlowGenerationPrompt) SetProviderId(v string)`
+
+SetProviderId sets ProviderId field to given value.
+
+### HasProviderId
+
+`func (o *FlowGenerationPrompt) HasProviderId() bool`
+
+HasProviderId returns a boolean if a field has been set.
+
+### GetNamespace
+
+`func (o *FlowGenerationPrompt) GetNamespace() string`
+
+GetNamespace returns the Namespace field if non-nil, zero value otherwise.
+
+### GetNamespaceOk
+
+`func (o *FlowGenerationPrompt) GetNamespaceOk() (*string, bool)`
+
+GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamespace
+
+`func (o *FlowGenerationPrompt) SetNamespace(v string)`
+
+SetNamespace sets Namespace field to given value.
+
+### HasNamespace
+
+`func (o *FlowGenerationPrompt) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

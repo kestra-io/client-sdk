@@ -31,9 +31,10 @@ import io.kestra.sdk.model.ApiAutocomplete;
 import io.kestra.sdk.model.ApiSecretListResponseApiSecretMeta;
 import io.kestra.sdk.model.ApiSecretMetaEE;
 import io.kestra.sdk.model.ApiSecretValue;
+import java.io.File;
 import io.kestra.sdk.model.Namespace;
+import io.kestra.sdk.model.NamespaceControllerApiInheritedPluginDefaultFromNamespace;
 import io.kestra.sdk.model.PagedResultsNamespace;
-import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.QueryFilter;
 
 
@@ -399,14 +400,190 @@ import java.util.StringJoiner;
 
 
   /**
+   * Export this namespace plugin defaults
+   * 
+   * @param id The namespace id (required)
+   * @param tenant  (required)
+   * @return byte[]
+   * @throws ApiException if fails to make API call
+   */
+  public byte[] exportPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.exportPluginDefaults(id, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Export this namespace plugin defaults
+   * 
+   * @param id The namespace id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return byte[]
+   * @throws ApiException if fails to make API call
+   */
+  public byte[] exportPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling exportPluginDefaults");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling exportPluginDefaults");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/namespaces/{id}/plugindefaults/export"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/octet-stream"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<byte[]> localVarReturnType = new TypeReference<byte[]>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Import plugin defaults in this namespace
+   * 
+   * @param id The namespace id (required)
+   * @param tenant  (required)
+   * @param fileUpload  (optional)
+   * @return List&lt;String&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<String> importPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable File fileUpload) throws ApiException {
+    return this.importPluginDefaults(id, tenant, fileUpload, Collections.emptyMap());
+  }
+
+  /**
+   * Import plugin defaults in this namespace
+   * 
+   * @param id The namespace id (required)
+   * @param tenant  (required)
+   * @param fileUpload  (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return List&lt;String&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<String> importPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling importPluginDefaults");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling importPluginDefaults");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/namespaces/{id}/plugindefaults/import"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    if (fileUpload != null)
+      localVarFormParams.put("fileUpload", fileUpload);
+
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "multipart/form-data"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
    * List inherited plugin defaults
    * 
    * @param id The namespace id (required)
    * @param tenant  (required)
-   * @return List&lt;PluginDefault&gt;
+   * @return List&lt;NamespaceControllerApiInheritedPluginDefaultFromNamespace&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<PluginDefault> inheritedPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+  public List<NamespaceControllerApiInheritedPluginDefaultFromNamespace> inheritedPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.inheritedPluginDefaults(id, tenant, Collections.emptyMap());
   }
 
@@ -416,10 +593,10 @@ import java.util.StringJoiner;
    * @param id The namespace id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;PluginDefault&gt;
+   * @return List&lt;NamespaceControllerApiInheritedPluginDefaultFromNamespace&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<PluginDefault> inheritedPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<NamespaceControllerApiInheritedPluginDefaultFromNamespace> inheritedPluginDefaults(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -461,7 +638,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<PluginDefault>> localVarReturnType = new TypeReference<List<PluginDefault>>() {};
+    TypeReference<List<NamespaceControllerApiInheritedPluginDefaultFromNamespace>> localVarReturnType = new TypeReference<List<NamespaceControllerApiInheritedPluginDefaultFromNamespace>>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

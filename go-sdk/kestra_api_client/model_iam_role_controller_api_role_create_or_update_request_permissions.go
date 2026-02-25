@@ -41,6 +41,8 @@ type IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions struct {
 	SERVICE_ACCOUNT      []string `json:"SERVICE_ACCOUNT,omitempty"`
 	INVITATION           []string `json:"INVITATION,omitempty"`
 	GROUP_MEMBERSHIP     []string `json:"GROUP_MEMBERSHIP,omitempty"`
+	CREDENTIAL           []string `json:"CREDENTIAL,omitempty"`
+	AI_COPILOT           []string `json:"AI_COPILOT,omitempty"`
 	UNKNOWN              []string `json:"UNKNOWN,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -800,6 +802,70 @@ func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetGROUP_MEMB
 	o.GROUP_MEMBERSHIP = v
 }
 
+// GetCREDENTIAL returns the CREDENTIAL field value if set, zero value otherwise.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetCREDENTIAL() []string {
+	if o == nil || IsNil(o.CREDENTIAL) {
+		var ret []string
+		return ret
+	}
+	return o.CREDENTIAL
+}
+
+// GetCREDENTIALOk returns a tuple with the CREDENTIAL field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetCREDENTIALOk() ([]string, bool) {
+	if o == nil || IsNil(o.CREDENTIAL) {
+		return nil, false
+	}
+	return o.CREDENTIAL, true
+}
+
+// HasCREDENTIAL returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasCREDENTIAL() bool {
+	if o != nil && !IsNil(o.CREDENTIAL) {
+		return true
+	}
+
+	return false
+}
+
+// SetCREDENTIAL gets a reference to the given []string and assigns it to the CREDENTIAL field.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetCREDENTIAL(v []string) {
+	o.CREDENTIAL = v
+}
+
+// GetAI_COPILOT returns the AI_COPILOT field value if set, zero value otherwise.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetAI_COPILOT() []string {
+	if o == nil || IsNil(o.AI_COPILOT) {
+		var ret []string
+		return ret
+	}
+	return o.AI_COPILOT
+}
+
+// GetAI_COPILOTOk returns a tuple with the AI_COPILOT field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetAI_COPILOTOk() ([]string, bool) {
+	if o == nil || IsNil(o.AI_COPILOT) {
+		return nil, false
+	}
+	return o.AI_COPILOT, true
+}
+
+// HasAI_COPILOT returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasAI_COPILOT() bool {
+	if o != nil && !IsNil(o.AI_COPILOT) {
+		return true
+	}
+
+	return false
+}
+
+// SetAI_COPILOT gets a reference to the given []string and assigns it to the AI_COPILOT field.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetAI_COPILOT(v []string) {
+	o.AI_COPILOT = v
+}
+
 // GetUNKNOWN returns the UNKNOWN field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetUNKNOWN() []string {
 	if o == nil || IsNil(o.UNKNOWN) {
@@ -911,6 +977,12 @@ func (o IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) ToMap() (map[s
 	if !IsNil(o.GROUP_MEMBERSHIP) {
 		toSerialize["GROUP_MEMBERSHIP"] = o.GROUP_MEMBERSHIP
 	}
+	if !IsNil(o.CREDENTIAL) {
+		toSerialize["CREDENTIAL"] = o.CREDENTIAL
+	}
+	if !IsNil(o.AI_COPILOT) {
+		toSerialize["AI_COPILOT"] = o.AI_COPILOT
+	}
 	if !IsNil(o.UNKNOWN) {
 		toSerialize["UNKNOWN"] = o.UNKNOWN
 	}
@@ -959,6 +1031,8 @@ func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) UnmarshalJSON
 		delete(additionalProperties, "SERVICE_ACCOUNT")
 		delete(additionalProperties, "INVITATION")
 		delete(additionalProperties, "GROUP_MEMBERSHIP")
+		delete(additionalProperties, "CREDENTIAL")
+		delete(additionalProperties, "AI_COPILOT")
 		delete(additionalProperties, "UNKNOWN")
 		o.AdditionalProperties = additionalProperties
 	}

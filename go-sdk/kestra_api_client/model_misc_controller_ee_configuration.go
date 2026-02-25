@@ -55,6 +55,7 @@ type MiscControllerEEConfiguration struct {
 	Airgapped                       *bool                                  `json:"airgapped,omitempty"`
 	FeatureGating                   *bool                                  `json:"featureGating,omitempty"`
 	Features                        []string                               `json:"features,omitempty"`
+	KillSwitches                    []KillSwitch                           `json:"killSwitches,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -1229,6 +1230,38 @@ func (o *MiscControllerEEConfiguration) SetFeatures(v []string) {
 	o.Features = v
 }
 
+// GetKillSwitches returns the KillSwitches field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetKillSwitches() []KillSwitch {
+	if o == nil || IsNil(o.KillSwitches) {
+		var ret []KillSwitch
+		return ret
+	}
+	return o.KillSwitches
+}
+
+// GetKillSwitchesOk returns a tuple with the KillSwitches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetKillSwitchesOk() ([]KillSwitch, bool) {
+	if o == nil || IsNil(o.KillSwitches) {
+		return nil, false
+	}
+	return o.KillSwitches, true
+}
+
+// HasKillSwitches returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasKillSwitches() bool {
+	if o != nil && !IsNil(o.KillSwitches) {
+		return true
+	}
+
+	return false
+}
+
+// SetKillSwitches gets a reference to the given []KillSwitch and assigns it to the KillSwitches field.
+func (o *MiscControllerEEConfiguration) SetKillSwitches(v []KillSwitch) {
+	o.KillSwitches = v
+}
+
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -1347,6 +1380,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
+	if !IsNil(o.KillSwitches) {
+		toSerialize["killSwitches"] = o.KillSwitches
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -1405,6 +1441,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "airgapped")
 		delete(additionalProperties, "featureGating")
 		delete(additionalProperties, "features")
+		delete(additionalProperties, "killSwitches")
 		o.AdditionalProperties = additionalProperties
 	}
 

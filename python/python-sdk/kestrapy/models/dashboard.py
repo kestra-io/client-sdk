@@ -28,12 +28,13 @@ class Dashboard(BaseModel):
     """
     Dashboard
     """ # noqa: E501
+    id: Annotated[str, Field(min_length=1, strict=True)]
     title: Annotated[str, Field(min_length=1, strict=True)]
     description: Optional[StrictStr] = None
     time_window: Optional[TimeWindow] = Field(default=None, alias="timeWindow")
     charts: Optional[List[ChartChartOption]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["title", "description", "timeWindow", "charts"]
+    __properties: ClassVar[List[str]] = ["id", "title", "description", "timeWindow", "charts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +104,7 @@ class Dashboard(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "title": obj.get("title"),
             "description": obj.get("description"),
             "timeWindow": TimeWindow.from_dict(obj["timeWindow"]) if obj.get("timeWindow") is not None else None,

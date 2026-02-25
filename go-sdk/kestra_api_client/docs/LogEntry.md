@@ -15,14 +15,13 @@ Name | Type | Description | Notes
 **Level** | Pointer to [**Level**](Level.md) |  | [optional] 
 **Thread** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
-**Deleted** | **bool** |  | 
 **ExecutionKind** | Pointer to [**NullableExecutionKind**](ExecutionKind.md) |  | [optional] 
 
 ## Methods
 
 ### NewLogEntry
 
-`func NewLogEntry(namespace string, flowId string, deleted bool, ) *LogEntry`
+`func NewLogEntry(namespace string, flowId string, ) *LogEntry`
 
 NewLogEntry instantiates a new LogEntry object
 This constructor will assign default values to properties that have it defined,
@@ -351,26 +350,6 @@ SetMessage sets Message field to given value.
 `func (o *LogEntry) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
-
-### GetDeleted
-
-`func (o *LogEntry) GetDeleted() bool`
-
-GetDeleted returns the Deleted field if non-nil, zero value otherwise.
-
-### GetDeletedOk
-
-`func (o *LogEntry) GetDeletedOk() (*bool, bool)`
-
-GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeleted
-
-`func (o *LogEntry) SetDeleted(v bool)`
-
-SetDeleted sets Deleted field to given value.
-
 
 ### GetExecutionKind
 

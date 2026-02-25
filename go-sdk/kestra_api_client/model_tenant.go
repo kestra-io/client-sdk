@@ -33,6 +33,7 @@ type Tenant struct {
 	RequireExistingNamespace *bool                             `json:"requireExistingNamespace,omitempty"`
 	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
 	AppCatalogConfig         *TenantAppCatalogConfig           `json:"appCatalogConfig,omitempty"`
+	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
 	AdditionalProperties     map[string]interface{}
 }
 
@@ -482,6 +483,38 @@ func (o *Tenant) SetAppCatalogConfig(v TenantAppCatalogConfig) {
 	o.AppCatalogConfig = &v
 }
 
+// GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
+func (o *Tenant) GetSdkDefaultAuthentication() SDKAuth {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		var ret SDKAuth
+		return ret
+	}
+	return *o.SdkDefaultAuthentication
+}
+
+// GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool) {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		return nil, false
+	}
+	return o.SdkDefaultAuthentication, true
+}
+
+// HasSdkDefaultAuthentication returns a boolean if a field has been set.
+func (o *Tenant) HasSdkDefaultAuthentication() bool {
+	if o != nil && !IsNil(o.SdkDefaultAuthentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetSdkDefaultAuthentication gets a reference to the given SDKAuth and assigns it to the SdkDefaultAuthentication field.
+func (o *Tenant) SetSdkDefaultAuthentication(v SDKAuth) {
+	o.SdkDefaultAuthentication = &v
+}
+
 func (o Tenant) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -527,6 +560,9 @@ func (o Tenant) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AppCatalogConfig) {
 		toSerialize["appCatalogConfig"] = o.AppCatalogConfig
+	}
+	if !IsNil(o.SdkDefaultAuthentication) {
+		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -587,6 +623,7 @@ func (o *Tenant) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requireExistingNamespace")
 		delete(additionalProperties, "outputsInInternalStorage")
 		delete(additionalProperties, "appCatalogConfig")
+		delete(additionalProperties, "sdkDefaultAuthentication")
 		o.AdditionalProperties = additionalProperties
 	}
 

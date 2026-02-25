@@ -12,6 +12,7 @@
 
 import ApiClient from '../ApiClient';
 import Isolation from './Isolation';
+import SDKAuth from './SDKAuth';
 import Tenant from './Tenant';
 import TenantAppCatalogConfig from './TenantAppCatalogConfig';
 import WorkerGroup from './WorkerGroup';
@@ -32,6 +33,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} requireExistingNamespace
   * @property {Boolean} outputsInInternalStorage
   * @property {TenantAppCatalogConfig} appCatalogConfig
+  * @property {SDKAuth} sdkDefaultAuthentication
   * @property {String} logo
   */
 
@@ -119,6 +121,9 @@ class ApiTenant {
             if (data.hasOwnProperty('appCatalogConfig')) {
                 obj['appCatalogConfig'] = TenantAppCatalogConfig.constructFromObject(data['appCatalogConfig']);
             }
+            if (data.hasOwnProperty('sdkDefaultAuthentication')) {
+                obj['sdkDefaultAuthentication'] = SDKAuth.constructFromObject(data['sdkDefaultAuthentication']);
+            }
             if (data.hasOwnProperty('logo')) {
                 obj['logo'] = ApiClient.convertToType(data['logo'], 'String');
             }
@@ -169,6 +174,10 @@ class ApiTenant {
         // validate the optional field `appCatalogConfig`
         if (data['appCatalogConfig']) { // data not null
           TenantAppCatalogConfig.validateJSON(data['appCatalogConfig']);
+        }
+        // validate the optional field `sdkDefaultAuthentication`
+        if (data['sdkDefaultAuthentication']) { // data not null
+          SDKAuth.validateJSON(data['sdkDefaultAuthentication']);
         }
         // ensure the json data is a string
         if (data['logo'] && !(typeof data['logo'] === 'string' || data['logo'] instanceof String)) {
@@ -254,6 +263,11 @@ ApiTenant.prototype['outputsInInternalStorage'] = undefined;
 ApiTenant.prototype['appCatalogConfig'] = undefined;
 
 /**
+ * @member {module:model/SDKAuth} sdkDefaultAuthentication
+ */
+ApiTenant.prototype['sdkDefaultAuthentication'] = undefined;
+
+/**
  * @member {String} logo
  */
 ApiTenant.prototype['logo'] = undefined;
@@ -316,6 +330,10 @@ Tenant.prototype['outputsInInternalStorage'] = undefined;
  * @member {module:model/TenantAppCatalogConfig} appCatalogConfig
  */
 Tenant.prototype['appCatalogConfig'] = undefined;
+/**
+ * @member {module:model/SDKAuth} sdkDefaultAuthentication
+ */
+Tenant.prototype['sdkDefaultAuthentication'] = undefined;
 
 
 

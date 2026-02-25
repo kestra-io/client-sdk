@@ -71,7 +71,7 @@ public class Example {
         Boolean allowNamespaceChild = false; // Boolean | If namespace child should are allowed to be updated
         String tenant = "tenant_example"; // String | 
         String namespace = "namespace_example"; // String | The namespace where to update flows
-        String body = "body_example"; // String | A list of flows source code splitted with \"---\"
+        String body = "body_example"; // String | A list of flows source code split with \"---\"
         try {
             List<FlowInterface> result = kestraClient.FlowsApi().bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body);
             System.out.println(result);
@@ -95,7 +95,7 @@ public class Example {
 | **allowNamespaceChild** | **Boolean**| If namespace child should are allowed to be updated | [default to false] |
 | **tenant** | **String**|  | |
 | **namespace** | **String**| The namespace where to update flows | [optional] |
-| **body** | **String**| A list of flows source code splitted with \&quot;---\&quot; | [optional] |
+| **body** | **String**| A list of flows source code split with \&quot;---\&quot; | [optional] |
 
 ### Return type
 
@@ -1851,7 +1851,7 @@ public class Example {
 
 ## updateConcurrencyLimit
 
-> ConcurrencyLimit updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit)
+> ConcurrencyLimit updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit)
 
 Update a flow concurrency limit
 
@@ -1874,12 +1874,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String flowId = "flowId_example"; // String | 
         String namespace = "namespace_example"; // String | 
+        String flowId = "flowId_example"; // String | 
         String tenant = "tenant_example"; // String | 
         ConcurrencyLimit concurrencyLimit = new ConcurrencyLimit(); // ConcurrencyLimit | 
         try {
-            ConcurrencyLimit result = kestraClient.FlowsApi().updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit);
+            ConcurrencyLimit result = kestraClient.FlowsApi().updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateConcurrencyLimit");
@@ -1897,8 +1897,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **flowId** | **String**|  | |
 | **namespace** | **String**|  | |
+| **flowId** | **String**|  | |
 | **tenant** | **String**|  | |
 | **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | |
 
@@ -1998,7 +1998,7 @@ public class Example {
 
 ## updateFlowsInNamespace
 
-> List&lt;FlowInterface&gt; updateFlowsInNamespace(override, delete, namespace, tenant, body)
+> List&lt;FlowInterface&gt; updateFlowsInNamespace(delete, namespace, tenant, override, body)
 
 Update a complete namespace from yaml source
 
@@ -2024,13 +2024,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         Boolean delete = true; // Boolean | If missing flow should be deleted
         String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
+        Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         String body = "body_example"; // String | A list of flows source code
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(override, delete, namespace, tenant, body);
+            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(delete, namespace, tenant, override, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlowsInNamespace");
@@ -2048,10 +2048,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false] |
 | **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
 | **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
+| **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false] |
 | **body** | **String**| A list of flows source code | |
 
 ### Return type

@@ -40,6 +40,7 @@ Name | Type | Description | Notes
 **Airgapped** | Pointer to **bool** |  | [optional] 
 **FeatureGating** | Pointer to **bool** |  | [optional] 
 **Features** | Pointer to **[]string** |  | [optional] 
+**KillSwitches** | Pointer to [**[]KillSwitch**](KillSwitch.md) |  | [optional] 
 
 ## Methods
 
@@ -959,6 +960,31 @@ SetFeatures sets Features field to given value.
 `func (o *MiscControllerEEConfiguration) HasFeatures() bool`
 
 HasFeatures returns a boolean if a field has been set.
+
+### GetKillSwitches
+
+`func (o *MiscControllerEEConfiguration) GetKillSwitches() []KillSwitch`
+
+GetKillSwitches returns the KillSwitches field if non-nil, zero value otherwise.
+
+### GetKillSwitchesOk
+
+`func (o *MiscControllerEEConfiguration) GetKillSwitchesOk() (*[]KillSwitch, bool)`
+
+GetKillSwitchesOk returns a tuple with the KillSwitches field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKillSwitches
+
+`func (o *MiscControllerEEConfiguration) SetKillSwitches(v []KillSwitch)`
+
+SetKillSwitches sets KillSwitches field to given value.
+
+### HasKillSwitches
+
+`func (o *MiscControllerEEConfiguration) HasKillSwitches() bool`
+
+HasKillSwitches returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

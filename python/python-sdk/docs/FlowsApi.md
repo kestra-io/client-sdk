@@ -66,7 +66,7 @@ with KestraClient(configuration) as kestra_client:
     allow_namespace_child = False # bool | If namespace child should are allowed to be updated (default to False)
     tenant = 'tenant_example' # str | 
     namespace = 'namespace_example' # str | The namespace where to update flows (optional)
-    body = 'body_example' # str | A list of flows source code splitted with \"---\" (optional)
+    body = 'body_example' # str | A list of flows source code split with \"---\" (optional)
 
     try:
         # Update from multiples yaml sources
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
  **allow_namespace_child** | **bool**| If namespace child should are allowed to be updated | [default to False]
  **tenant** | **str**|  | 
  **namespace** | **str**| The namespace where to update flows | [optional] 
- **body** | **str**| A list of flows source code splitted with \&quot;---\&quot; | [optional] 
+ **body** | **str**| A list of flows source code split with \&quot;---\&quot; | [optional] 
 
 ### Return type
 
@@ -1697,7 +1697,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_concurrency_limit**
-> ConcurrencyLimit update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
+> ConcurrencyLimit update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
 
 Update a flow concurrency limit
 
@@ -1715,14 +1715,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    flow_id = 'flow_id_example' # str | 
     namespace = 'namespace_example' # str | 
+    flow_id = 'flow_id_example' # str | 
     tenant = 'tenant_example' # str | 
     concurrency_limit = kestrapy.ConcurrencyLimit() # ConcurrencyLimit | 
 
     try:
         # Update a flow concurrency limit
-        api_response = kestra_client.FlowsApi.update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
+        api_response = kestra_client.FlowsApi.update_concurrency_limit(namespace, flow_id, tenant, concurrency_limit)
         print("The response of FlowsApi->update_concurrency_limit:\n")
         pprint(api_response)
     except Exception as e:
@@ -1736,8 +1736,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **flow_id** | **str**|  | 
  **namespace** | **str**|  | 
+ **flow_id** | **str**|  | 
  **tenant** | **str**|  | 
  **concurrency_limit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
 
@@ -1831,7 +1831,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flows_in_namespace**
-> List[FlowInterface] update_flows_in_namespace(override, delete, namespace, tenant, body)
+> List[FlowInterface] update_flows_in_namespace(delete, namespace, tenant, override, body)
 
 Update a complete namespace from yaml source
 
@@ -1854,15 +1854,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    override = False # bool | If namespace of all provided flows should be overridden (default to False)
     delete = True # bool | If missing flow should be deleted (default to True)
     namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
+    override = False # bool | If namespace of all provided flows should be overridden (default to False)
     body = 'body_example' # str | A list of flows source code
 
     try:
         # Update a complete namespace from yaml source
-        api_response = kestra_client.FlowsApi.update_flows_in_namespace(override, delete, namespace, tenant, body)
+        api_response = kestra_client.FlowsApi.update_flows_in_namespace(delete, namespace, tenant, override, body)
         print("The response of FlowsApi->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1876,10 +1876,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **override** | **bool**| If namespace of all provided flows should be overridden | [default to False]
  **delete** | **bool**| If missing flow should be deleted | [default to True]
  **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
+ **override** | **bool**| If namespace of all provided flows should be overridden | [default to False]
  **body** | **str**| A list of flows source code | 
 
 ### Return type

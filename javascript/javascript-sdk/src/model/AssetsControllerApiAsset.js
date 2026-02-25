@@ -22,6 +22,7 @@ import ApiClient from '../ApiClient';
   * @property {Object.<String, Object>} metadata
   * @property {Date} created
   * @property {Date} updated
+  * @property {Boolean} deleted
   */
 
 /**
@@ -81,6 +82,9 @@ class AssetsControllerApiAsset {
             }
             if (data.hasOwnProperty('updated')) {
                 obj['updated'] = ApiClient.convertToType(data['updated'], 'Date');
+            }
+            if (data.hasOwnProperty('deleted')) {
+                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
         }
         return obj;
@@ -160,6 +164,11 @@ AssetsControllerApiAsset.prototype['created'] = undefined;
  * @member {Date} updated
  */
 AssetsControllerApiAsset.prototype['updated'] = undefined;
+
+/**
+ * @member {Boolean} deleted
+ */
+AssetsControllerApiAsset.prototype['deleted'] = undefined;
 
 
 

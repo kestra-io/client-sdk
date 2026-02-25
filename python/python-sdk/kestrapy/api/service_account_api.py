@@ -32,6 +32,7 @@ from kestrapy.models.iam_service_account_controller_api_service_account_detail i
 from kestrapy.models.iam_service_account_controller_api_service_account_request import IAMServiceAccountControllerApiServiceAccountRequest
 from kestrapy.models.iam_service_account_controller_api_service_account_response import IAMServiceAccountControllerApiServiceAccountResponse
 from kestrapy.models.paged_results_iam_service_account_controller_api_service_account_detail import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+from kestrapy.models.query_filter import QueryFilter
 
 from kestrapy.api_client import ApiClient, RequestSerialized
 from kestrapy.api_response import ApiResponse
@@ -1684,7 +1685,7 @@ class ServiceAccountApi:
         self,
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1702,8 +1703,8 @@ class ServiceAccountApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
-                :param q: A string filter
-        :type q: str
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1717,7 +1718,7 @@ class ServiceAccountApi:
         _param = self._list_service_accounts_serialize(
             page=page,
             size=size,
-            q=q,
+            filters=filters,
             sort=sort,
         )
 
@@ -1741,7 +1742,7 @@ class ServiceAccountApi:
         self,
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1759,8 +1760,8 @@ class ServiceAccountApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
-                :param q: A string filter
-        :type q: str
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1774,7 +1775,7 @@ class ServiceAccountApi:
         _param = self._list_service_accounts_serialize(
             page=page,
             size=size,
-            q=q,
+            filters=filters,
             sort=sort,
         )
 
@@ -1797,13 +1798,14 @@ class ServiceAccountApi:
         self,
         page,
         size,
-        q,
+        filters,
         sort,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
             'sort': 'csv',
         }
 
@@ -1818,10 +1820,6 @@ class ServiceAccountApi:
 
         # process the path parameters
         # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
         if page is not None:
             
             _query_params.append(('page', page))
@@ -1833,6 +1831,10 @@ class ServiceAccountApi:
         if sort is not None:
             
             _query_params.append(('sort', sort))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters

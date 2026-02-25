@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **conversationId** | **String** |  | 
 **userPrompt** | **String** |  | 
-**flowYaml** | **String** |  | [optional] 
+**yaml** | **String** |  | [optional] 
+**providerId** | **String** |  | [optional] 
+**namespace** | **String** |  | [optional] 
 
 

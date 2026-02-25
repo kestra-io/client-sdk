@@ -37,6 +37,8 @@ import ApiClient from '../ApiClient';
   * @property {Array.<String>} SERVICE_ACCOUNT
   * @property {Array.<String>} INVITATION
   * @property {Array.<String>} GROUP_MEMBERSHIP
+  * @property {Array.<String>} CREDENTIAL
+  * @property {Array.<String>} AI_COPILOT
   * @property {Array.<String>} UNKNOWN
   */
 
@@ -143,6 +145,12 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
             if (data.hasOwnProperty('GROUP_MEMBERSHIP')) {
                 obj['GROUP_MEMBERSHIP'] = ApiClient.convertToType(data['GROUP_MEMBERSHIP'], ['String']);
             }
+            if (data.hasOwnProperty('CREDENTIAL')) {
+                obj['CREDENTIAL'] = ApiClient.convertToType(data['CREDENTIAL'], ['String']);
+            }
+            if (data.hasOwnProperty('AI_COPILOT')) {
+                obj['AI_COPILOT'] = ApiClient.convertToType(data['AI_COPILOT'], ['String']);
+            }
             if (data.hasOwnProperty('UNKNOWN')) {
                 obj['UNKNOWN'] = ApiClient.convertToType(data['UNKNOWN'], ['String']);
             }
@@ -247,6 +255,14 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
         // ensure the json data is an array
         if (!Array.isArray(data['GROUP_MEMBERSHIP'])) {
             throw new Error("Expected the field `GROUP_MEMBERSHIP` to be an array in the JSON data but got " + data['GROUP_MEMBERSHIP']);
+        }
+        // ensure the json data is an array
+        if (!Array.isArray(data['CREDENTIAL'])) {
+            throw new Error("Expected the field `CREDENTIAL` to be an array in the JSON data but got " + data['CREDENTIAL']);
+        }
+        // ensure the json data is an array
+        if (!Array.isArray(data['AI_COPILOT'])) {
+            throw new Error("Expected the field `AI_COPILOT` to be an array in the JSON data but got " + data['AI_COPILOT']);
         }
         // ensure the json data is an array
         if (!Array.isArray(data['UNKNOWN'])) {
@@ -375,6 +391,16 @@ IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['INVITATION']
  * @member {Array.<String>} GROUP_MEMBERSHIP
  */
 IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['GROUP_MEMBERSHIP'] = undefined;
+
+/**
+ * @member {Array.<String>} CREDENTIAL
+ */
+IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['CREDENTIAL'] = undefined;
+
+/**
+ * @member {Array.<String>} AI_COPILOT
+ */
+IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['AI_COPILOT'] = undefined;
 
 /**
  * @member {Array.<String>} UNKNOWN

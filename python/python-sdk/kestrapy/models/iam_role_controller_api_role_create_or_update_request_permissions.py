@@ -48,9 +48,11 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(BaseModel):
     service_account: Optional[List[StrictStr]] = Field(default=None, alias="SERVICE_ACCOUNT")
     invitation: Optional[List[StrictStr]] = Field(default=None, alias="INVITATION")
     group_membership: Optional[List[StrictStr]] = Field(default=None, alias="GROUP_MEMBERSHIP")
+    credential: Optional[List[StrictStr]] = Field(default=None, alias="CREDENTIAL")
+    ai_copilot: Optional[List[StrictStr]] = Field(default=None, alias="AI_COPILOT")
     unknown: Optional[List[StrictStr]] = Field(default=None, alias="UNKNOWN")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["FLOW", "BLUEPRINT", "TEMPLATE", "NAMESPACE", "EXECUTION", "USER", "GROUP", "ROLE", "BINDING", "AUDITLOG", "SECRET", "KVSTORE", "IMPERSONATE", "SETTING", "APP", "ASSET", "APPEXECUTION", "TEST", "DASHBOARD", "TENANT_ACCESS", "SERVICE_ACCOUNT", "INVITATION", "GROUP_MEMBERSHIP", "UNKNOWN"]
+    __properties: ClassVar[List[str]] = ["FLOW", "BLUEPRINT", "TEMPLATE", "NAMESPACE", "EXECUTION", "USER", "GROUP", "ROLE", "BINDING", "AUDITLOG", "SECRET", "KVSTORE", "IMPERSONATE", "SETTING", "APP", "ASSET", "APPEXECUTION", "TEST", "DASHBOARD", "TENANT_ACCESS", "SERVICE_ACCOUNT", "INVITATION", "GROUP_MEMBERSHIP", "CREDENTIAL", "AI_COPILOT", "UNKNOWN"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -133,6 +135,8 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(BaseModel):
             "SERVICE_ACCOUNT": obj.get("SERVICE_ACCOUNT"),
             "INVITATION": obj.get("INVITATION"),
             "GROUP_MEMBERSHIP": obj.get("GROUP_MEMBERSHIP"),
+            "CREDENTIAL": obj.get("CREDENTIAL"),
+            "AI_COPILOT": obj.get("AI_COPILOT"),
             "UNKNOWN": obj.get("UNKNOWN")
         })
         # store additional fields in additional_properties

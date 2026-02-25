@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**CreateNamespace**](NamespacesAPI.md#CreateNamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
 [**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**DeleteSecret**](NamespacesAPI.md#DeleteSecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+[**ExportPluginDefaults**](NamespacesAPI.md#ExportPluginDefaults) | **Post** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
+[**ImportPluginDefaults**](NamespacesAPI.md#ImportPluginDefaults) | **Post** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
 [**InheritedPluginDefaults**](NamespacesAPI.md#InheritedPluginDefaults) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**InheritedSecrets**](NamespacesAPI.md#InheritedSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**InheritedVariables**](NamespacesAPI.md#InheritedVariables) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
@@ -303,9 +305,153 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ExportPluginDefaults
+
+> string ExportPluginDefaults(ctx, id, tenant).Execute()
+
+Export this namespace plugin defaults
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	id := "id_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespacesAPI.ExportPluginDefaults(context.Background(), id, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.ExportPluginDefaults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportPluginDefaults`: string
+	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.ExportPluginDefaults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportPluginDefaultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportPluginDefaults
+
+> []string ImportPluginDefaults(ctx, id, tenant).FileUpload(fileUpload).Execute()
+
+Import plugin defaults in this namespace
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	id := "id_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+	fileUpload := os.NewFile(1234, "some_file") // *os.File |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespacesAPI.ImportPluginDefaults(context.Background(), id, tenant).FileUpload(fileUpload).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.ImportPluginDefaults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ImportPluginDefaults`: []string
+	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.ImportPluginDefaults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportPluginDefaultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **fileUpload** | ***os.File** |  | 
+
+### Return type
+
+**[]string**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## InheritedPluginDefaults
 
-> []PluginDefault InheritedPluginDefaults(ctx, id, tenant).Execute()
+> []NamespaceControllerApiInheritedPluginDefaultFromNamespace InheritedPluginDefaults(ctx, id, tenant).Execute()
 
 List inherited plugin defaults
 
@@ -332,7 +478,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.InheritedPluginDefaults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `InheritedPluginDefaults`: []PluginDefault
+	// response from `InheritedPluginDefaults`: []NamespaceControllerApiInheritedPluginDefaultFromNamespace
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.InheritedPluginDefaults`: %v\n", resp)
 }
 ```
@@ -358,7 +504,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PluginDefault**](PluginDefault.md)
+[**[]NamespaceControllerApiInheritedPluginDefaultFromNamespace**](NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
 
 ### Authorization
 

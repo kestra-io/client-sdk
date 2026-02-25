@@ -29,7 +29,10 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.AssetTopologyGraph;
 import io.kestra.sdk.model.AssetsControllerApiAsset;
+import io.kestra.sdk.model.BulkErrorResponse;
+import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.PagedResultsAssetsControllerApiAsset;
+import io.kestra.sdk.model.PagedResultsAssetsControllerApiAssetLineageEvent;
 import io.kestra.sdk.model.PagedResultsAssetsControllerApiAssetUsage;
 import io.kestra.sdk.model.QueryFilter;
 
@@ -55,29 +58,36 @@ import java.util.StringJoiner;
    * Retrieve an asset
    * 
    * @param id The ID of the asset (required)
+   * @param allowDeleted Get asset even if soft deleted (required)
    * @param tenant  (required)
    * @return AssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.asset(id, tenant, Collections.emptyMap());
+  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.asset(id, allowDeleted, tenant, Collections.emptyMap());
   }
 
   /**
    * Retrieve an asset
    * 
    * @param id The ID of the asset (required)
+   * @param allowDeleted Get asset even if soft deleted (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return AssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling asset");
+    }
+    
+    // verify the required parameter 'allowDeleted' is set
+    if (allowDeleted == null) {
+      throw new ApiException(400, "Missing the required parameter 'allowDeleted' when calling asset");
     }
     
     // verify the required parameter 'tenant' is set
@@ -97,6 +107,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("allowDeleted", allowDeleted));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -408,14 +419,186 @@ import java.util.StringJoiner;
 
 
   /**
+   * Delete asset lineage events by query, hard-delete (purge) only
+   * 
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @return BulkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BulkResponse deleteAssetLineageEventsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.deleteAssetLineageEventsByQuery(filters, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Delete asset lineage events by query, hard-delete (purge) only
+   * 
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return BulkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BulkResponse deleteAssetLineageEventsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteAssetLineageEventsByQuery");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteAssetLineageEventsByQuery");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/assets/lineage-events/by-query"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "DELETE",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Delete asset usages by query, hard-delete (purge) only
+   * 
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @return BulkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BulkResponse deleteAssetUsagesByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.deleteAssetUsagesByQuery(filters, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Delete asset usages by query, hard-delete (purge) only
+   * 
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return BulkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BulkResponse deleteAssetUsagesByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteAssetUsagesByQuery");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteAssetUsagesByQuery");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/assets/usages/by-query"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "DELETE",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
    * Delete assets by asset ids
    * 
    * @param tenant  (required)
    * @param requestBody The asset ids (required)
-   * @return Object
+   * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public Object deleteAssetsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse deleteAssetsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.deleteAssetsByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -425,10 +608,10 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @param requestBody The asset ids (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public Object deleteAssetsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteAssetsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -469,7 +652,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "DELETE",
@@ -496,29 +679,36 @@ import java.util.StringJoiner;
    * Delete assets by query
    * 
    * @param filters Filters (required)
+   * @param purge If true, will purge instead of soft-delete (required)
    * @param tenant  (required)
-   * @return Object
+   * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public Object deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteAssetsByQuery(filters, tenant, Collections.emptyMap());
+  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull Boolean purge, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.deleteAssetsByQuery(filters, purge, tenant, Collections.emptyMap());
   }
 
   /**
    * Delete assets by query
    * 
    * @param filters Filters (required)
+   * @param purge If true, will purge instead of soft-delete (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public Object deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull Boolean purge, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filters' is set
     if (filters == null) {
       throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteAssetsByQuery");
+    }
+    
+    // verify the required parameter 'purge' is set
+    if (purge == null) {
+      throw new ApiException(400, "Missing the required parameter 'purge' when calling deleteAssetsByQuery");
     }
     
     // verify the required parameter 'tenant' is set
@@ -538,6 +728,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarQueryParams.addAll(apiClient.parameterToPair("purge", purge));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -555,10 +746,115 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "DELETE",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Search for asset lineage events
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @param sort The sort of current page (optional)
+   * @return PagedResultsAssetsControllerApiAssetLineageEvent
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchAssetLineageEvents(page, size, filters, tenant, sort, Collections.emptyMap());
+  }
+
+  /**
+   * Search for asset lineage events
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param filters Filters (required)
+   * @param tenant  (required)
+   * @param sort The sort of current page (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsAssetsControllerApiAssetLineageEvent
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAssetLineageEvents");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAssetLineageEvents");
+    }
+    
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling searchAssetLineageEvents");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchAssetLineageEvents");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/assets/lineage-events/search"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<PagedResultsAssetsControllerApiAssetLineageEvent> localVarReturnType = new TypeReference<PagedResultsAssetsControllerApiAssetLineageEvent>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),

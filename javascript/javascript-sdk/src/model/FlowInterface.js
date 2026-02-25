@@ -12,12 +12,12 @@
 
 import ApiClient from '../ApiClient';
 import Concurrency from './Concurrency';
-import DeletedInterface from './DeletedInterface';
 import FlowId from './FlowId';
 import InputObject from './InputObject';
 import Label from './Label';
 import Output from './Output';
 import SLA from './SLA';
+import SoftDeletableFlowInterface from './SoftDeletableFlowInterface';
 import TenantInterface from './TenantInterface';
 import WorkerGroup from './WorkerGroup';
 
@@ -50,11 +50,11 @@ class FlowInterface {
      * Constructs a new <code>FlowInterface</code>.
      * @alias module:model/FlowInterface
      * @implements module:model/FlowId
-     * @implements module:model/DeletedInterface
+     * @implements module:model/SoftDeletableFlowInterface
      * @implements module:model/TenantInterface
      */
     constructor() { 
-        FlowId.initialize(this);DeletedInterface.initialize(this);TenantInterface.initialize(this);
+        FlowId.initialize(this);SoftDeletableFlowInterface.initialize(this);TenantInterface.initialize(this);
         FlowInterface.initialize(this);
     }
 
@@ -77,7 +77,7 @@ class FlowInterface {
         if (data) {
             obj = obj || new FlowInterface();
             FlowId.constructFromObject(data, obj);
-            DeletedInterface.constructFromObject(data, obj);
+            SoftDeletableFlowInterface.constructFromObject(data, obj);
             TenantInterface.constructFromObject(data, obj);
 
             if (data.hasOwnProperty('id')) {
@@ -305,11 +305,11 @@ FlowId.prototype['revision'] = undefined;
  * @member {String} tenantId
  */
 FlowId.prototype['tenantId'] = undefined;
-// Implement DeletedInterface interface:
+// Implement SoftDeletableFlowInterface interface:
 /**
  * @member {Boolean} deleted
  */
-DeletedInterface.prototype['deleted'] = undefined;
+SoftDeletableFlowInterface.prototype['deleted'] = undefined;
 // Implement TenantInterface interface:
 /**
  * @member {String} tenantId

@@ -43,6 +43,8 @@ public enum ResourceType {
   
   FLOW("FLOW"),
   
+  KILL_SWITCH("KILL_SWITCH"),
+  
   KV_STORE("KV_STORE"),
   
   GROUP("GROUP"),
@@ -76,6 +78,8 @@ public enum ResourceType {
   VERSIONED_PLUGIN("VERSIONED_PLUGIN"),
   
   USER("USER"),
+  
+  CREDENTIAL("CREDENTIAL"),
   
   WORKER_GROUP("WORKER_GROUP"),
   

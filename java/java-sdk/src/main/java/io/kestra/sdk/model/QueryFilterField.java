@@ -55,6 +55,8 @@ public enum QueryFilterField {
   
   END_DATE("END_DATE"),
   
+  EXPIRATION_DATE("EXPIRATION_DATE"),
+  
   STATE("STATE"),
   
   TIME_RANGE("TIME_RANGE"),
@@ -84,6 +86,8 @@ public enum QueryFilterField {
   PARENT_PATH("PARENT_PATH"),
   
   VERSION("VERSION"),
+  
+  USERNAME("USERNAME"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 

@@ -22,7 +22,6 @@ import ExecutionControllerExecutionResponse from '../model/ExecutionControllerEx
 import ExecutionControllerLastExecutionResponse from '../model/ExecutionControllerLastExecutionResponse';
 import ExecutionControllerSetLabelsByIdsRequest from '../model/ExecutionControllerSetLabelsByIdsRequest';
 import ExecutionControllerStateRequest from '../model/ExecutionControllerStateRequest';
-import ExecutionControllerWebhookResponse from '../model/ExecutionControllerWebhookResponse';
 import ExecutionKind from '../model/ExecutionKind';
 import ExecutionRepositoryInterfaceFlowFilter from '../model/ExecutionRepositoryInterfaceFlowFilter';
 import FileMetas from '../model/FileMetas';
@@ -32,6 +31,7 @@ import Label from '../model/Label';
 import PagedResultsExecution from '../model/PagedResultsExecution';
 import QueryFilter from '../model/QueryFilter';
 import StateType from '../model/StateType';
+import WebhookResponse from '../model/WebhookResponse';
 
 /**
 * Executions service.
@@ -745,7 +745,7 @@ export default class ExecutionsApi {
 
     /**
     * Get flow information's for an execution
-    * @param {String} executionId The execution that you want flow informations
+    * @param {String} executionId The execution that you want flow information
     * @param {String} tenant 
 
     * @return {Promise<FlowForExecution>}
@@ -785,7 +785,7 @@ export default class ExecutionsApi {
 
     /**
     * Get flow information's for an execution
-    * @param {String} executionId The execution that you want flow informations
+    * @param {String} executionId The execution that you want flow information
     * @param {String} tenant 
 
     * @return {Promise<FlowForExecution>}
@@ -2582,7 +2582,7 @@ export default class ExecutionsApi {
     * @param {String} key The webhook trigger uid
     * @param {String} tenant 
 
-    * @return {Promise<ExecutionControllerWebhookResponse>}
+    * @return {Promise<WebhookResponse>}
     */
     triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant) {
       let postBody = null;
@@ -2619,7 +2619,7 @@ export default class ExecutionsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ExecutionControllerWebhookResponse;
+      let returnType = WebhookResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -2634,10 +2634,265 @@ export default class ExecutionsApi {
     * @param {String} key The webhook trigger uid
     * @param {String} tenant 
 
-    * @return {Promise<ExecutionControllerWebhookResponse>}
+    * @return {Promise<WebhookResponse>}
     */
     triggerExecutionByGetWebhook(namespace, id, key, tenant) {
       return this.triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
+    * Trigger a new execution by GET webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByGetWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+      let postBody = null;
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling triggerExecutionByGetWebhookWithPath");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling triggerExecutionByGetWebhookWithPath");
+      }
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByGetWebhookWithPath");
+      }
+
+      let pathParams = {
+        'namespace': namespace,
+        'id': id,
+        'key': key,
+        'path': path,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = WebhookResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Trigger a new execution by GET webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant) {
+      return this.triggerExecutionByGetWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
+    * Trigger a new execution by POST webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByPostWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+      let postBody = null;
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling triggerExecutionByPostWebhookWithPath");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPostWebhookWithPath");
+      }
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByPostWebhookWithPath");
+      }
+
+      let pathParams = {
+        'namespace': namespace,
+        'id': id,
+        'key': key,
+        'path': path,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = WebhookResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Trigger a new execution by POST webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant) {
+      return this.triggerExecutionByPostWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
+    * Trigger a new execution by PUT webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByPutWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+      let postBody = null;
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling triggerExecutionByPutWebhookWithPath");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPutWebhookWithPath");
+      }
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByPutWebhookWithPath");
+      }
+
+      let pathParams = {
+        'namespace': namespace,
+        'id': id,
+        'key': key,
+        'path': path,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = WebhookResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Trigger a new execution by PUT webhook trigger
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {String} key The webhook trigger uid
+    * @param {String} path Optional additional path segments
+    * @param {String} tenant 
+
+    * @return {Promise<WebhookResponse>}
+    */
+    triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant) {
+      return this.triggerExecutionByPutWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

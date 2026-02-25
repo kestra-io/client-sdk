@@ -8,6 +8,8 @@ All URIs are relative to *http://localhost*
 | [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace |
 | [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace |
 | [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace |
+| [**exportPluginDefaults**](NamespacesApi.md#exportPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults |
+| [**importPluginDefaults**](NamespacesApi.md#importPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace |
 | [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults |
 | [**inheritedSecrets**](NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
 | [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables |
@@ -302,9 +304,151 @@ null (empty response body)
 | **200** | deleteSecret 200 response |  -  |
 
 
+## exportPluginDefaults
+
+> byte[] exportPluginDefaults(id, tenant)
+
+Export this namespace plugin defaults
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.NamespacesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The namespace id
+        String tenant = "tenant_example"; // String | 
+        try {
+            byte[] result = kestraClient.NamespacesApi().exportPluginDefaults(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NamespacesApi#exportPluginDefaults");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The namespace id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | exportPluginDefaults 200 response |  -  |
+
+
+## importPluginDefaults
+
+> List&lt;String&gt; importPluginDefaults(id, tenant, fileUpload)
+
+Import plugin defaults in this namespace
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.NamespacesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The namespace id
+        String tenant = "tenant_example"; // String | 
+        File fileUpload = new File("/path/to/file"); // File | 
+        try {
+            List<String> result = kestraClient.NamespacesApi().importPluginDefaults(id, tenant, fileUpload);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NamespacesApi#importPluginDefaults");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The namespace id | |
+| **tenant** | **String**|  | |
+| **fileUpload** | **File**|  | [optional] |
+
+### Return type
+
+**List&lt;String&gt;**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | importPluginDefaults 200 response |  -  |
+
+
 ## inheritedPluginDefaults
 
-> List&lt;PluginDefault&gt; inheritedPluginDefaults(id, tenant)
+> List&lt;NamespaceControllerApiInheritedPluginDefaultFromNamespace&gt; inheritedPluginDefaults(id, tenant)
 
 List inherited plugin defaults
 
@@ -331,7 +475,7 @@ public class Example {
         String id = "id_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            List<PluginDefault> result = kestraClient.NamespacesApi().inheritedPluginDefaults(id, tenant);
+            List<NamespaceControllerApiInheritedPluginDefaultFromNamespace> result = kestraClient.NamespacesApi().inheritedPluginDefaults(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#inheritedPluginDefaults");
@@ -354,7 +498,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;PluginDefault&gt;**](PluginDefault.md)
+[**List&lt;NamespaceControllerApiInheritedPluginDefaultFromNamespace&gt;**](NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
 
 ### Authorization
 

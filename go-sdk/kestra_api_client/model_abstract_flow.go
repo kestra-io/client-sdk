@@ -12,6 +12,7 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the AbstractFlow type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,11 @@ var _ MappedNullable = &AbstractFlow{}
 
 // AbstractFlow struct for AbstractFlow
 type AbstractFlow struct {
-	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace            string                 `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision             *int32                 `json:"revision,omitempty"`
+	Id        string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision  *int32 `json:"revision,omitempty"`
+	// The timestamp when this revision was created or last updated.
+	Updated              *time.Time             `json:"updated,omitempty"`
 	Description          *string                `json:"description,omitempty"`
 	Inputs               []InputObject          `json:"inputs,omitempty"`
 	Outputs              []Output               `json:"outputs,omitempty"`
@@ -134,6 +137,38 @@ func (o *AbstractFlow) HasRevision() bool {
 // SetRevision gets a reference to the given int32 and assigns it to the Revision field.
 func (o *AbstractFlow) SetRevision(v int32) {
 	o.Revision = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *AbstractFlow) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *AbstractFlow) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *AbstractFlow) SetUpdated(v time.Time) {
+	o.Updated = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -391,6 +426,9 @@ func (o AbstractFlow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Revision) {
 		toSerialize["revision"] = o.Revision
 	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -460,6 +498,7 @@ func (o *AbstractFlow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "revision")
+		delete(additionalProperties, "updated")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")

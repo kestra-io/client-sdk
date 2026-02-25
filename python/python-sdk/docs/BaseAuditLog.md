@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **user_id** | **str** |  | 
 **ip_address** | **str** |  | [optional] 
 **impersonated_by** | **str** |  | [optional] 
-**deleted** | **bool** |  | [optional] 
 
 ## Example
 

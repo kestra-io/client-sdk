@@ -29,6 +29,7 @@ import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SLA;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.WorkerGroup;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Flow.JSON_PROPERTY_ID,
   Flow.JSON_PROPERTY_NAMESPACE,
   Flow.JSON_PROPERTY_REVISION,
+  Flow.JSON_PROPERTY_UPDATED,
   Flow.JSON_PROPERTY_DESCRIPTION,
   Flow.JSON_PROPERTY_INPUTS,
   Flow.JSON_PROPERTY_OUTPUTS,
@@ -72,6 +74,9 @@ public class Flow {
 
   public static final String JSON_PROPERTY_REVISION = "revision";
   @jakarta.annotation.Nullable  private Integer revision;
+
+  public static final String JSON_PROPERTY_UPDATED = "updated";
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -201,6 +206,30 @@ public class Flow {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@jakarta.annotation.Nullable Integer revision) {
     this.revision = revision;
+  }
+
+  public Flow updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    
+    this.updated = updated;
+    return this;
+  }
+
+  /**
+   * The timestamp when this revision was created or last updated.
+   * @return updated
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getUpdated() {
+    return updated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
+    this.updated = updated;
   }
 
   public Flow description(@jakarta.annotation.Nullable String description) {
@@ -735,6 +764,7 @@ public class Flow {
     return Objects.equals(this.id, flow.id) &&
         Objects.equals(this.namespace, flow.namespace) &&
         Objects.equals(this.revision, flow.revision) &&
+        Objects.equals(this.updated, flow.updated) &&
         Objects.equals(this.description, flow.description) &&
         Objects.equals(this.inputs, flow.inputs) &&
         Objects.equals(this.outputs, flow.outputs) &&
@@ -757,7 +787,7 @@ public class Flow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks);
   }
 
   @Override
@@ -767,6 +797,7 @@ public class Flow {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");

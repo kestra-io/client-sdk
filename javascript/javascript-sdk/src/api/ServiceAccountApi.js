@@ -21,6 +21,7 @@ import IAMServiceAccountControllerApiServiceAccountDetail from '../model/IAMServ
 import IAMServiceAccountControllerApiServiceAccountRequest from '../model/IAMServiceAccountControllerApiServiceAccountRequest';
 import IAMServiceAccountControllerApiServiceAccountResponse from '../model/IAMServiceAccountControllerApiServiceAccountResponse';
 import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from '../model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail';
+import QueryFilter from '../model/QueryFilter';
 
 /**
 * ServiceAccount service.
@@ -681,13 +682,13 @@ export default class ServiceAccountApi {
     * List service accounts. Superadmin-only. 
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} opts Optional parameters
-    * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>}
     */
-    listServiceAccountsWithHttpInfo(page, size, opts) {
+    listServiceAccountsWithHttpInfo(page, size, filters, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -698,14 +699,18 @@ export default class ServiceAccountApi {
       if (size === undefined || size === null) {
         throw new Error("Missing the required parameter 'size' when calling listServiceAccounts");
       }
+      // verify the required parameter 'filters' is set
+      if (filters === undefined || filters === null) {
+        throw new Error("Missing the required parameter 'filters' when calling listServiceAccounts");
+      }
 
       let pathParams = {
       };
       let queryParams = {
-        'q': opts['q'],
         'page': page,
         'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
+        'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
       let headerParams = {
       };
@@ -727,14 +732,14 @@ export default class ServiceAccountApi {
     * List service accounts. Superadmin-only. 
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} [opts] Optional parameters
-    * @param {String} [opts.q] A string filter
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>}
     */
-    listServiceAccounts(page, size, opts) {
-      return this.listServiceAccountsWithHttpInfo(page, size, opts)
+    listServiceAccounts(page, size, filters, opts) {
+      return this.listServiceAccountsWithHttpInfo(page, size, filters, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

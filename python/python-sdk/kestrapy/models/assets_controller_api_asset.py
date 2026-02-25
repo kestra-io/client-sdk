@@ -17,7 +17,7 @@ import regex as re
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,8 +34,9 @@ class AssetsControllerApiAsset(BaseModel):
     metadata: Optional[Dict[str, Dict[str, Any]]] = None
     created: Optional[datetime] = None
     updated: Optional[datetime] = None
+    deleted: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "id", "type", "displayName", "description", "metadata", "created", "updated"]
+    __properties: ClassVar[List[str]] = ["namespace", "id", "type", "displayName", "description", "metadata", "created", "updated", "deleted"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,7 +103,8 @@ class AssetsControllerApiAsset(BaseModel):
             "description": obj.get("description"),
             "metadata": obj.get("metadata"),
             "created": obj.get("created"),
-            "updated": obj.get("updated")
+            "updated": obj.get("updated"),
+            "deleted": obj.get("deleted")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

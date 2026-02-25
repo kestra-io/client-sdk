@@ -30,6 +30,8 @@
 |**SERVICE_ACCOUNT** | **List&lt;String&gt;** |  |  [optional] |
 |**INVITATION** | **List&lt;String&gt;** |  |  [optional] |
 |**GROUP_MEMBERSHIP** | **List&lt;String&gt;** |  |  [optional] |
+|**CREDENTIAL** | **List&lt;String&gt;** |  |  [optional] |
+|**AI_COPILOT** | **List&lt;String&gt;** |  |  [optional] |
 |**UNKNOWN** | **List&lt;String&gt;** |  |  [optional] |
 
 

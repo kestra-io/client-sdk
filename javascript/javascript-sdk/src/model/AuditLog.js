@@ -25,7 +25,6 @@ import CrudEventType from './CrudEventType';
   * @property {String} userId
   * @property {String} ipAddress
   * @property {String} impersonatedBy
-  * @property {Boolean} deleted
   * @property {Array.<Object>} appliedPatch
   * @property {Array.<Object>} revertPatch
   */
@@ -99,9 +98,6 @@ class AuditLog {
             }
             if (data.hasOwnProperty('impersonatedBy')) {
                 obj['impersonatedBy'] = ApiClient.convertToType(data['impersonatedBy'], 'String');
-            }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
             if (data.hasOwnProperty('appliedPatch')) {
                 obj['appliedPatch'] = ApiClient.convertToType(data['appliedPatch'], [Object]);
@@ -207,11 +203,6 @@ AuditLog.prototype['ipAddress'] = undefined;
 AuditLog.prototype['impersonatedBy'] = undefined;
 
 /**
- * @member {Boolean} deleted
- */
-AuditLog.prototype['deleted'] = undefined;
-
-/**
  * @member {Array.<Object>} appliedPatch
  */
 AuditLog.prototype['appliedPatch'] = undefined;
@@ -255,10 +246,6 @@ BaseAuditLog.prototype['ipAddress'] = undefined;
  * @member {String} impersonatedBy
  */
 BaseAuditLog.prototype['impersonatedBy'] = undefined;
-/**
- * @member {Boolean} deleted
- */
-BaseAuditLog.prototype['deleted'] = undefined;
 
 
 

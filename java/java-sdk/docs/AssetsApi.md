@@ -8,8 +8,11 @@ All URIs are relative to *http://localhost*
 | [**assetDependencies**](AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies |
 | [**createAsset**](AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset |
 | [**deleteAsset**](AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset |
+| [**deleteAssetLineageEventsByQuery**](AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only |
+| [**deleteAssetUsagesByQuery**](AssetsApi.md#deleteAssetUsagesByQuery) | **DELETE** /api/v1/{tenant}/assets/usages/by-query | Delete asset usages by query, hard-delete (purge) only |
 | [**deleteAssetsByIds**](AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids |
 | [**deleteAssetsByQuery**](AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query |
+| [**searchAssetLineageEvents**](AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events |
 | [**searchAssetUsages**](AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages |
 | [**searchAssets**](AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets |
 
@@ -17,7 +20,7 @@ All URIs are relative to *http://localhost*
 
 ## asset
 
-> AssetsControllerApiAsset asset(id, tenant)
+> AssetsControllerApiAsset asset(id, allowDeleted, tenant)
 
 Retrieve an asset
 
@@ -42,9 +45,10 @@ public class Example {
         .build();
 
         String id = "id_example"; // String | The ID of the asset
+        Boolean allowDeleted = false; // Boolean | Get asset even if soft deleted
         String tenant = "tenant_example"; // String | 
         try {
-            AssetsControllerApiAsset result = kestraClient.AssetsApi().asset(id, tenant);
+            AssetsControllerApiAsset result = kestraClient.AssetsApi().asset(id, allowDeleted, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#asset");
@@ -63,6 +67,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The ID of the asset | |
+| **allowDeleted** | **Boolean**| Get asset even if soft deleted | [default to false] |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -298,9 +303,149 @@ null (empty response body)
 | **200** | deleteAsset 200 response |  -  |
 
 
+## deleteAssetLineageEventsByQuery
+
+> BulkResponse deleteAssetLineageEventsByQuery(filters, tenant)
+
+Delete asset lineage events by query, hard-delete (purge) only
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String tenant = "tenant_example"; // String | 
+        try {
+            BulkResponse result = kestraClient.AssetsApi().deleteAssetLineageEventsByQuery(filters, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#deleteAssetLineageEventsByQuery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | deleteAssetLineageEventsByQuery 200 response |  -  |
+
+
+## deleteAssetUsagesByQuery
+
+> BulkResponse deleteAssetUsagesByQuery(filters, tenant)
+
+Delete asset usages by query, hard-delete (purge) only
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String tenant = "tenant_example"; // String | 
+        try {
+            BulkResponse result = kestraClient.AssetsApi().deleteAssetUsagesByQuery(filters, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#deleteAssetUsagesByQuery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | deleteAssetUsagesByQuery 200 response |  -  |
+
+
 ## deleteAssetsByIds
 
-> Object deleteAssetsByIds(tenant, requestBody)
+> BulkResponse deleteAssetsByIds(tenant, requestBody)
 
 Delete assets by asset ids
 
@@ -327,7 +472,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The asset ids
         try {
-            Object result = kestraClient.AssetsApi().deleteAssetsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetsByIds");
@@ -350,7 +495,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -365,12 +510,13 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | deleteAssetsByIds 200 response |  -  |
+| **200** | Number of deleted assets |  -  |
+| **400** | If any assetId didn&#39;t match an existing asset |  -  |
 
 
 ## deleteAssetsByQuery
 
-> Object deleteAssetsByQuery(filters, tenant)
+> BulkResponse deleteAssetsByQuery(filters, purge, tenant)
 
 Delete assets by query
 
@@ -395,9 +541,10 @@ public class Example {
         .build();
 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        Boolean purge = false; // Boolean | If true, will purge instead of soft-delete
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.AssetsApi().deleteAssetsByQuery(filters, tenant);
+            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByQuery(filters, purge, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetsByQuery");
@@ -416,11 +563,12 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **purge** | **Boolean**| If true, will purge instead of soft-delete | [default to false] |
 | **tenant** | **String**|  | |
 
 ### Return type
 
-**Object**
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -435,7 +583,84 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | deleteAssetsByQuery 200 response |  -  |
+| **200** | Number of deleted assets |  -  |
+| **400** | If any assetId didn&#39;t match an existing asset |  -  |
+
+
+## searchAssetLineageEvents
+
+> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(page, size, filters, tenant, sort)
+
+Search for asset lineage events
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AssetsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String tenant = "tenant_example"; // String | 
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        try {
+            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.AssetsApi().searchAssetLineageEvents(page, size, filters, tenant, sort);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#searchAssetLineageEvents");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **page** | **Integer**| The current page | [default to 1] |
+| **size** | **Integer**| The current page size | [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **tenant** | **String**|  | |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+
+### Return type
+
+[**PagedResultsAssetsControllerApiAssetLineageEvent**](PagedResultsAssetsControllerApiAssetLineageEvent.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | searchAssetLineageEvents 200 response |  -  |
 
 
 ## searchAssetUsages

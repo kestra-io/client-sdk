@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **UserId** | **string** |  | 
 **IpAddress** | Pointer to **string** |  | [optional] 
 **ImpersonatedBy** | Pointer to **string** |  | [optional] 
-**Deleted** | Pointer to **bool** |  | [optional] 
 **AppliedPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **RevertPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
@@ -209,31 +208,6 @@ SetImpersonatedBy sets ImpersonatedBy field to given value.
 `func (o *AuditLog) HasImpersonatedBy() bool`
 
 HasImpersonatedBy returns a boolean if a field has been set.
-
-### GetDeleted
-
-`func (o *AuditLog) GetDeleted() bool`
-
-GetDeleted returns the Deleted field if non-nil, zero value otherwise.
-
-### GetDeletedOk
-
-`func (o *AuditLog) GetDeletedOk() (*bool, bool)`
-
-GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeleted
-
-`func (o *AuditLog) SetDeleted(v bool)`
-
-SetDeleted sets Deleted field to given value.
-
-### HasDeleted
-
-`func (o *AuditLog) HasDeleted() bool`
-
-HasDeleted returns a boolean if a field has been set.
 
 ### GetAppliedPatch
 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**deleted** | **Boolean** |  | 
 **storageIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **secretIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
+**deleted** | **Boolean** |  | 
 **description** | **String** |  | [optional] 
 **variables** | **{String: Object}** |  | [optional] 
 **pluginDefaults** | [**[PluginDefault]**](PluginDefault.md) |  | [optional] 
@@ -19,5 +19,6 @@ Name | Type | Description | Notes
 **secretReadOnly** | **Boolean** |  | [optional] 
 **secretConfiguration** | **{String: Object}** |  | [optional] 
 **outputsInInternalStorage** | **Boolean** |  | [optional] 
+**sdkDefaultAuthentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 

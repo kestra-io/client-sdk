@@ -71,6 +71,10 @@ public enum Permission {
   
   GROUP_MEMBERSHIP("GROUP_MEMBERSHIP"),
   
+  CREDENTIAL("CREDENTIAL"),
+  
+  AI_COPILOT("AI_COPILOT"),
+  
   UNKNOWN("UNKNOWN"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");

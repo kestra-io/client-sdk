@@ -22,6 +22,7 @@ from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace
 from kestrapy.models.plugin_default import PluginDefault
+from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,9 +32,9 @@ class Namespace(BaseModel):
     Namespace
     """ # noqa: E501
     id: Annotated[str, Field(strict=True)]
-    deleted: StrictBool
     storage_isolation: Optional[Isolation] = Field(default=None, alias="storageIsolation")
     secret_isolation: Optional[Isolation] = Field(default=None, alias="secretIsolation")
+    deleted: StrictBool
     description: Optional[StrictStr] = None
     variables: Optional[Dict[str, Dict[str, Any]]] = None
     plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
@@ -45,8 +46,9 @@ class Namespace(BaseModel):
     secret_read_only: Optional[StrictBool] = Field(default=None, alias="secretReadOnly")
     secret_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="secretConfiguration")
     outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
+    sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "deleted", "storageIsolation", "secretIsolation", "description", "variables", "pluginDefaults", "allowedNamespaces", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "outputsInInternalStorage"]
+    __properties: ClassVar[List[str]] = ["id", "storageIsolation", "secretIsolation", "deleted", "description", "variables", "pluginDefaults", "allowedNamespaces", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "outputsInInternalStorage", "sdkDefaultAuthentication"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -119,6 +121,9 @@ class Namespace(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of worker_group
         if self.worker_group:
             _dict['workerGroup'] = self.worker_group.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sdk_default_authentication
+        if self.sdk_default_authentication:
+            _dict['sdkDefaultAuthentication'] = self.sdk_default_authentication.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -137,9 +142,9 @@ class Namespace(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "deleted": obj.get("deleted"),
             "storageIsolation": Isolation.from_dict(obj["storageIsolation"]) if obj.get("storageIsolation") is not None else None,
             "secretIsolation": Isolation.from_dict(obj["secretIsolation"]) if obj.get("secretIsolation") is not None else None,
+            "deleted": obj.get("deleted"),
             "description": obj.get("description"),
             "variables": obj.get("variables"),
             "pluginDefaults": [PluginDefault.from_dict(_item) for _item in obj["pluginDefaults"]] if obj.get("pluginDefaults") is not None else None,
@@ -150,7 +155,8 @@ class Namespace(BaseModel):
             "secretType": obj.get("secretType"),
             "secretReadOnly": obj.get("secretReadOnly"),
             "secretConfiguration": obj.get("secretConfiguration"),
-            "outputsInInternalStorage": obj.get("outputsInInternalStorage")
+            "outputsInInternalStorage": obj.get("outputsInInternalStorage"),
+            "sdkDefaultAuthentication": SDKAuth.from_dict(obj["sdkDefaultAuthentication"]) if obj.get("sdkDefaultAuthentication") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

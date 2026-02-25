@@ -36,7 +36,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetsControllerApiAsset.JSON_PROPERTY_DESCRIPTION,
   AssetsControllerApiAsset.JSON_PROPERTY_METADATA,
   AssetsControllerApiAsset.JSON_PROPERTY_CREATED,
-  AssetsControllerApiAsset.JSON_PROPERTY_UPDATED
+  AssetsControllerApiAsset.JSON_PROPERTY_UPDATED,
+  AssetsControllerApiAsset.JSON_PROPERTY_DELETED
 })
 @JsonTypeName("AssetsController.ApiAsset")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -64,6 +65,9 @@ public class AssetsControllerApiAsset {
 
   public static final String JSON_PROPERTY_UPDATED = "updated";
   @jakarta.annotation.Nullable  private OffsetDateTime updated;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nullable  private Boolean deleted;
 
   public AssetsControllerApiAsset() {
   }
@@ -268,6 +272,30 @@ public class AssetsControllerApiAsset {
     this.updated = updated;
   }
 
+  public AssetsControllerApiAsset deleted(@jakarta.annotation.Nullable Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
+    this.deleted = deleted;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -284,12 +312,13 @@ public class AssetsControllerApiAsset {
         Objects.equals(this.description, assetsControllerApiAsset.description) &&
         Objects.equals(this.metadata, assetsControllerApiAsset.metadata) &&
         Objects.equals(this.created, assetsControllerApiAsset.created) &&
-        Objects.equals(this.updated, assetsControllerApiAsset.updated);
+        Objects.equals(this.updated, assetsControllerApiAsset.updated) &&
+        Objects.equals(this.deleted, assetsControllerApiAsset.deleted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, id, type, displayName, description, metadata, created, updated);
+    return Objects.hash(namespace, id, type, displayName, description, metadata, created, updated, deleted);
   }
 
   @Override
@@ -304,6 +333,7 @@ public class AssetsControllerApiAsset {
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -18,8 +18,8 @@ import ApiSecretListResponseApiSecretMeta from '../model/ApiSecretListResponseAp
 import ApiSecretMetaEE from '../model/ApiSecretMetaEE';
 import ApiSecretValue from '../model/ApiSecretValue';
 import Namespace from '../model/Namespace';
+import NamespaceControllerApiInheritedPluginDefaultFromNamespace from '../model/NamespaceControllerApiInheritedPluginDefaultFromNamespace';
 import PagedResultsNamespace from '../model/PagedResultsNamespace';
-import PluginDefault from '../model/PluginDefault';
 import QueryFilter from '../model/QueryFilter';
 
 /**
@@ -308,11 +308,145 @@ export default class NamespacesApi {
             
 
     /**
+    * Export this namespace plugin defaults
+    * @param {String} id The namespace id
+    * @param {String} tenant 
+
+    * @return {Promise< Blob >}
+    */
+    exportPluginDefaultsWithHttpInfo(id, tenant) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling exportPluginDefaults");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling exportPluginDefaults");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/octet-stream'];
+      let returnType = 'Blob';
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/namespaces/{id}/plugindefaults/export', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Export this namespace plugin defaults
+    * @param {String} id The namespace id
+    * @param {String} tenant 
+
+    * @return {Promise< Blob >}
+    */
+    exportPluginDefaults(id, tenant) {
+      return this.exportPluginDefaultsWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
+    * Import plugin defaults in this namespace
+    * @param {String} id The namespace id
+    * @param {String} tenant 
+    * @param {Object} opts Optional parameters
+    * @param {File} [fileUpload] 
+
+    * @return {Promise< Array.<String> >}
+    */
+    importPluginDefaultsWithHttpInfo(id, tenant, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling importPluginDefaults");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling importPluginDefaults");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+        'fileUpload': opts['fileUpload']
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['application/json'];
+      let returnType = ['String'];
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/namespaces/{id}/plugindefaults/import', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Import plugin defaults in this namespace
+    * @param {String} id The namespace id
+    * @param {String} tenant 
+    * @param {Object} [opts] Optional parameters
+    * @param {File} [opts.fileUpload] 
+
+    * @return {Promise< Array.<String> >}
+    */
+    importPluginDefaults(id, tenant, opts) {
+      return this.importPluginDefaultsWithHttpInfo(id, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
     * List inherited plugin defaults
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise<Array.<PluginDefault>>}
+    * @return {Promise<Array.<NamespaceControllerApiInheritedPluginDefaultFromNamespace>>}
     */
     inheritedPluginDefaultsWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -339,7 +473,7 @@ export default class NamespacesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [PluginDefault];
+      let returnType = [NamespaceControllerApiInheritedPluginDefaultFromNamespace];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -352,7 +486,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise<Array.<PluginDefault>>}
+    * @return {Promise<Array.<NamespaceControllerApiInheritedPluginDefaultFromNamespace>>}
     */
     inheritedPluginDefaults(id, tenant) {
       return this.inheritedPluginDefaultsWithHttpInfo(id, tenant)

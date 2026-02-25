@@ -5,13 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewNamespaceLight
 
-`func NewNamespaceLight(id string, deleted bool, ) *NamespaceLight`
+`func NewNamespaceLight(id string, ) *NamespaceLight`
 
 NewNamespaceLight instantiates a new NamespaceLight object
 This constructor will assign default values to properties that have it defined,
@@ -44,26 +43,6 @@ and a boolean to check if the value has been set.
 `func (o *NamespaceLight) SetId(v string)`
 
 SetId sets Id field to given value.
-
-
-### GetDeleted
-
-`func (o *NamespaceLight) GetDeleted() bool`
-
-GetDeleted returns the Deleted field if non-nil, zero value otherwise.
-
-### GetDeletedOk
-
-`func (o *NamespaceLight) GetDeletedOk() (*bool, bool)`
-
-GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeleted
-
-`func (o *NamespaceLight) SetDeleted(v bool)`
-
-SetDeleted sets Deleted field to given value.
 
 
 

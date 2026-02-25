@@ -13,6 +13,7 @@ docs/AbstractTriggerForExecution.md
 docs/AbstractUser.md
 docs/AbstractUserTenantIdentityProvider.md
 docs/Action.md
+docs/AiControllerAiProviderResponse.md
 docs/ApiAuth.md
 docs/ApiAutocomplete.md
 docs/ApiGroupSummary.md
@@ -29,6 +30,7 @@ docs/ApiTenantSummary.md
 docs/ApiToken.md
 docs/ApiTokenList.md
 docs/ApiUser.md
+docs/AppGenerationPrompt.md
 docs/AppsApi.md
 docs/AppsControllerApiApp.md
 docs/AppsControllerApiAppCatalogItem.md
@@ -48,6 +50,7 @@ docs/AssetTopologyGraphNode.md
 docs/AssetTopologyGraphNodeNodeType.md
 docs/AssetsApi.md
 docs/AssetsControllerApiAsset.md
+docs/AssetsControllerApiAssetLineageEvent.md
 docs/AssetsControllerApiAssetUsage.md
 docs/AssetsDeclaration.md
 docs/AssetsInOut.md
@@ -102,13 +105,14 @@ docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DashboardGenerationPrompt.md
 docs/DashboardsApi.md
 docs/DeleteTriggersByQueryRequest.md
-docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
 docs/EditionProviderEdition.md
 docs/Email.md
+docs/EvaluationType.md
 docs/EventExecution.md
 docs/EventExecutionStatusEvent.md
 docs/ExecutableTaskSubflowId.md
@@ -117,7 +121,6 @@ docs/ExecutionControllerExecutionResponse.md
 docs/ExecutionControllerLastExecutionResponse.md
 docs/ExecutionControllerSetLabelsByIdsRequest.md
 docs/ExecutionControllerStateRequest.md
-docs/ExecutionControllerWebhookResponse.md
 docs/ExecutionKind.md
 docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
@@ -188,6 +191,7 @@ docs/IAMUserControllerApiUserSummary.md
 docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md
 docs/IdWithNamespace.md
 docs/IdentityProvider.md
+docs/ImportPluginDefaultsRequest.md
 docs/InputObject.md
 docs/InputType.md
 docs/InstanceControllerApiActiveService.md
@@ -216,6 +220,7 @@ docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerKvDetail.md
 docs/KVEntry.md
 docs/KVType.md
+docs/KillSwitch.md
 docs/KvApi.md
 docs/Label.md
 docs/LeftSidebarConfiguration.md
@@ -244,6 +249,7 @@ docs/MiscControllerTenantConfigurationInfo.md
 docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
+docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md
 docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
@@ -255,6 +261,7 @@ docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
 docs/PagedResultsAssetsControllerApiAsset.md
+docs/PagedResultsAssetsControllerApiAssetLineageEvent.md
 docs/PagedResultsAssetsControllerApiAssetUsage.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
@@ -318,6 +325,7 @@ docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RolesApi.md
+docs/SDKAuth.md
 docs/SLA.md
 docs/SLABehavior.md
 docs/SLALabels.md
@@ -353,6 +361,7 @@ docs/ServiceServiceState.md
 docs/ServiceType.md
 docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
+docs/SoftDeletableFlowInterface.md
 docs/SortOrder.md
 docs/SortRequest.md
 docs/State.md
@@ -375,6 +384,7 @@ docs/TestSuiteControllerSearchTestsLastResult.md
 docs/TestSuiteControllerTestSuiteApiId.md
 docs/TestSuiteControllerTestSuiteBulkRequest.md
 docs/TestSuiteControllerTestsLastResultResponse.md
+docs/TestSuiteGenerationPrompt.md
 docs/TestSuiteRunResult.md
 docs/TestSuiteServiceRunByQueryRequest.md
 docs/TestSuiteServiceTestRunByQueryResult.md
@@ -398,6 +408,7 @@ docs/UsernamePasswordCredentials.md
 docs/UsersApi.md
 docs/ValidateConstraintViolation.md
 docs/ValuePathExpression.md
+docs/WebhookResponse.md
 docs/WorkerGroup.md
 docs/WorkerGroupFallback.md
 docs/WorkerTaskRestartStrategy.md
@@ -449,6 +460,7 @@ src/main/java/io/kestra/sdk/model/AbstractTriggerForExecution.java
 src/main/java/io/kestra/sdk/model/AbstractUser.java
 src/main/java/io/kestra/sdk/model/AbstractUserTenantIdentityProvider.java
 src/main/java/io/kestra/sdk/model/Action.java
+src/main/java/io/kestra/sdk/model/AiControllerAiProviderResponse.java
 src/main/java/io/kestra/sdk/model/ApiAuth.java
 src/main/java/io/kestra/sdk/model/ApiAutocomplete.java
 src/main/java/io/kestra/sdk/model/ApiGroupSummary.java
@@ -465,6 +477,7 @@ src/main/java/io/kestra/sdk/model/ApiTenantSummary.java
 src/main/java/io/kestra/sdk/model/ApiToken.java
 src/main/java/io/kestra/sdk/model/ApiTokenList.java
 src/main/java/io/kestra/sdk/model/ApiUser.java
+src/main/java/io/kestra/sdk/model/AppGenerationPrompt.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiApp.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiAppCatalogItem.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiAppSource.java
@@ -482,6 +495,7 @@ src/main/java/io/kestra/sdk/model/AssetTopologyGraphEdge.java
 src/main/java/io/kestra/sdk/model/AssetTopologyGraphNode.java
 src/main/java/io/kestra/sdk/model/AssetTopologyGraphNodeNodeType.java
 src/main/java/io/kestra/sdk/model/AssetsControllerApiAsset.java
+src/main/java/io/kestra/sdk/model/AssetsControllerApiAssetLineageEvent.java
 src/main/java/io/kestra/sdk/model/AssetsControllerApiAssetUsage.java
 src/main/java/io/kestra/sdk/model/AssetsDeclaration.java
 src/main/java/io/kestra/sdk/model/AssetsInOut.java
@@ -536,12 +550,13 @@ src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
+src/main/java/io/kestra/sdk/model/DashboardGenerationPrompt.java
 src/main/java/io/kestra/sdk/model/DeleteTriggersByQueryRequest.java
-src/main/java/io/kestra/sdk/model/DeletedInterface.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
 src/main/java/io/kestra/sdk/model/EditionProviderEdition.java
 src/main/java/io/kestra/sdk/model/Email.java
+src/main/java/io/kestra/sdk/model/EvaluationType.java
 src/main/java/io/kestra/sdk/model/EventExecution.java
 src/main/java/io/kestra/sdk/model/EventExecutionStatusEvent.java
 src/main/java/io/kestra/sdk/model/ExecutableTaskSubflowId.java
@@ -550,7 +565,6 @@ src/main/java/io/kestra/sdk/model/ExecutionControllerExecutionResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerLastExecutionResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerSetLabelsByIdsRequest.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerStateRequest.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerWebhookResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionKind.java
 src/main/java/io/kestra/sdk/model/ExecutionMetadata.java
 src/main/java/io/kestra/sdk/model/ExecutionRepositoryInterfaceFlowFilter.java
@@ -617,6 +631,7 @@ src/main/java/io/kestra/sdk/model/IAMUserControllerApiUserSummary.java
 src/main/java/io/kestra/sdk/model/IAMUserGroupControllerApiUpdateUserGroupsRequest.java
 src/main/java/io/kestra/sdk/model/IdWithNamespace.java
 src/main/java/io/kestra/sdk/model/IdentityProvider.java
+src/main/java/io/kestra/sdk/model/ImportPluginDefaultsRequest.java
 src/main/java/io/kestra/sdk/model/InputObject.java
 src/main/java/io/kestra/sdk/model/InputType.java
 src/main/java/io/kestra/sdk/model/InstanceControllerApiActiveService.java
@@ -645,6 +660,7 @@ src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkResponse.java
 src/main/java/io/kestra/sdk/model/KVControllerKvDetail.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
+src/main/java/io/kestra/sdk/model/KillSwitch.java
 src/main/java/io/kestra/sdk/model/Label.java
 src/main/java/io/kestra/sdk/model/LeftSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/Level.java
@@ -671,6 +687,7 @@ src/main/java/io/kestra/sdk/model/MiscControllerTenantConfigurationInfo.java
 src/main/java/io/kestra/sdk/model/Name.java
 src/main/java/io/kestra/sdk/model/Namespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedNamespace.java
+src/main/java/io/kestra/sdk/model/NamespaceControllerApiInheritedPluginDefaultFromNamespace.java
 src/main/java/io/kestra/sdk/model/NamespaceFileRevision.java
 src/main/java/io/kestra/sdk/model/NamespaceLight.java
 src/main/java/io/kestra/sdk/model/Output.java
@@ -681,6 +698,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsApiRoleSummary.java
 src/main/java/io/kestra/sdk/model/PagedResultsAppsControllerApiApp.java
 src/main/java/io/kestra/sdk/model/PagedResultsAppsControllerApiAppCatalogItem.java
 src/main/java/io/kestra/sdk/model/PagedResultsAssetsControllerApiAsset.java
+src/main/java/io/kestra/sdk/model/PagedResultsAssetsControllerApiAssetLineageEvent.java
 src/main/java/io/kestra/sdk/model/PagedResultsAssetsControllerApiAssetUsage.java
 src/main/java/io/kestra/sdk/model/PagedResultsAuditLogControllerApiAuditLogItem.java
 src/main/java/io/kestra/sdk/model/PagedResultsBlueprint.java
@@ -743,6 +761,7 @@ src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java
 src/main/java/io/kestra/sdk/model/Role.java
+src/main/java/io/kestra/sdk/model/SDKAuth.java
 src/main/java/io/kestra/sdk/model/SLA.java
 src/main/java/io/kestra/sdk/model/SLABehavior.java
 src/main/java/io/kestra/sdk/model/SLALabels.java
@@ -777,6 +796,7 @@ src/main/java/io/kestra/sdk/model/ServiceServiceState.java
 src/main/java/io/kestra/sdk/model/ServiceType.java
 src/main/java/io/kestra/sdk/model/SetAppsCatalogLogoRequest.java
 src/main/java/io/kestra/sdk/model/SetupConfiguration.java
+src/main/java/io/kestra/sdk/model/SoftDeletableFlowInterface.java
 src/main/java/io/kestra/sdk/model/SortOrder.java
 src/main/java/io/kestra/sdk/model/SortRequest.java
 src/main/java/io/kestra/sdk/model/State.java
@@ -799,6 +819,7 @@ src/main/java/io/kestra/sdk/model/TestSuiteControllerSearchTestsLastResult.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteApiId.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteBulkRequest.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestsLastResultResponse.java
+src/main/java/io/kestra/sdk/model/TestSuiteGenerationPrompt.java
 src/main/java/io/kestra/sdk/model/TestSuiteRunResult.java
 src/main/java/io/kestra/sdk/model/TestSuiteServiceRunByQueryRequest.java
 src/main/java/io/kestra/sdk/model/TestSuiteServiceTestRunByQueryResult.java
@@ -819,6 +840,7 @@ src/main/java/io/kestra/sdk/model/UserType.java
 src/main/java/io/kestra/sdk/model/UsernamePasswordCredentials.java
 src/main/java/io/kestra/sdk/model/ValidateConstraintViolation.java
 src/main/java/io/kestra/sdk/model/ValuePathExpression.java
+src/main/java/io/kestra/sdk/model/WebhookResponse.java
 src/main/java/io/kestra/sdk/model/WorkerGroup.java
 src/main/java/io/kestra/sdk/model/WorkerGroupFallback.java
 src/main/java/io/kestra/sdk/model/WorkerTaskRestartStrategy.java

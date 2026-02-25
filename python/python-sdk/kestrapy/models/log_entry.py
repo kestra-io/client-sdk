@@ -17,7 +17,7 @@ import regex as re
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.execution_kind import ExecutionKind
 from kestrapy.models.level import Level
@@ -39,10 +39,9 @@ class LogEntry(BaseModel):
     level: Optional[Level] = None
     thread: Optional[StrictStr] = None
     message: Optional[StrictStr] = None
-    deleted: StrictBool
     execution_kind: Optional[ExecutionKind] = Field(default=None, alias="executionKind")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "flowId", "taskId", "executionId", "taskRunId", "attemptNumber", "triggerId", "timestamp", "level", "thread", "message", "deleted", "executionKind"]
+    __properties: ClassVar[List[str]] = ["namespace", "flowId", "taskId", "executionId", "taskRunId", "attemptNumber", "triggerId", "timestamp", "level", "thread", "message", "executionKind"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -143,7 +142,6 @@ class LogEntry(BaseModel):
             "level": obj.get("level"),
             "thread": obj.get("thread"),
             "message": obj.get("message"),
-            "deleted": obj.get("deleted"),
             "executionKind": obj.get("executionKind")
         })
         # store additional fields in additional_properties

@@ -59,7 +59,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [namespace] The namespace where to update flows
-    * @param {String} [body] A list of flows source code splitted with \"---\"
+    * @param {String} [body] A list of flows source code split with \"---\"
 
     * @return {Promise<Array.<FlowInterface>>}
     */
@@ -111,7 +111,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.namespace] The namespace where to update flows
-    * @param {String} [opts.body] A list of flows source code splitted with \"---\"
+    * @param {String} [opts.body] A list of flows source code split with \"---\"
 
     * @return {Promise<Array.<FlowInterface>>}
     */
@@ -1825,22 +1825,22 @@ export default class FlowsApi {
 
     /**
     * Update a flow concurrency limit
-    * @param {String} flowId 
     * @param {String} namespace 
+    * @param {String} flowId 
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
     * @return {Promise<ConcurrencyLimit>}
     */
-    updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit) {
+    updateConcurrencyLimitWithHttpInfo(namespace, flowId, tenant, concurrencyLimit) {
       let postBody = concurrencyLimit;
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling updateConcurrencyLimit");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling updateConcurrencyLimit");
+      }
+      // verify the required parameter 'flowId' is set
+      if (flowId === undefined || flowId === null) {
+        throw new Error("Missing the required parameter 'flowId' when calling updateConcurrencyLimit");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1852,8 +1852,8 @@ export default class FlowsApi {
       }
 
       let pathParams = {
-        'flowId': flowId,
         'namespace': namespace,
+        'flowId': flowId,
         'tenant': tenant
       };
       let queryParams = {
@@ -1876,15 +1876,15 @@ export default class FlowsApi {
 
     /**
     * Update a flow concurrency limit
-    * @param {String} flowId 
     * @param {String} namespace 
+    * @param {String} flowId 
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
     * @return {Promise<ConcurrencyLimit>}
     */
-    updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit) {
-      return this.updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit)
+    updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit) {
+      return this.updateConcurrencyLimitWithHttpInfo(namespace, flowId, tenant, concurrencyLimit)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1980,20 +1980,16 @@ export default class FlowsApi {
     /**
     * Update a complete namespace from yaml source
     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {Boolean} _delete If missing flow should be deleted
     * @param {String} namespace The flow namespace
     * @param {String} tenant 
+    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {String} body A list of flows source code
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespaceWithHttpInfo(override, _delete, namespace, tenant, body) {
+    updateFlowsInNamespaceWithHttpInfo(_delete, namespace, tenant, override, body) {
       let postBody = body;
-      // verify the required parameter 'override' is set
-      if (override === undefined || override === null) {
-        throw new Error("Missing the required parameter 'override' when calling updateFlowsInNamespace");
-      }
       // verify the required parameter '_delete' is set
       if (_delete === undefined || _delete === null) {
         throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespace");
@@ -2006,6 +2002,10 @@ export default class FlowsApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
       }
+      // verify the required parameter 'override' is set
+      if (override === undefined || override === null) {
+        throw new Error("Missing the required parameter 'override' when calling updateFlowsInNamespace");
+      }
       // verify the required parameter 'body' is set
       if (body === undefined || body === null) {
         throw new Error("Missing the required parameter 'body' when calling updateFlowsInNamespace");
@@ -2016,8 +2016,8 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'override': override,
-        'delete': _delete
+        'delete': _delete,
+        'override': override
       };
       let headerParams = {
       };
@@ -2038,16 +2038,16 @@ export default class FlowsApi {
     /**
     * Update a complete namespace from yaml source
     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {Boolean} _delete If missing flow should be deleted
     * @param {String} namespace The flow namespace
     * @param {String} tenant 
+    * @param {Boolean} override If namespace of all provided flows should be overridden
     * @param {String} body A list of flows source code
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespace(override, _delete, namespace, tenant, body) {
-      return this.updateFlowsInNamespaceWithHttpInfo(override, _delete, namespace, tenant, body)
+    updateFlowsInNamespace(_delete, namespace, tenant, override, body) {
+      return this.updateFlowsInNamespaceWithHttpInfo(_delete, namespace, tenant, override, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

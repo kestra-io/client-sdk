@@ -21,16 +21,16 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr
-from typing import Any, Dict, List, Optional
+from pydantic import Field, StrictBool, StrictBytes, StrictInt, StrictStr
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from kestrapy.models.api_autocomplete import ApiAutocomplete
 from kestrapy.models.api_secret_list_response_api_secret_meta import ApiSecretListResponseApiSecretMeta
 from kestrapy.models.api_secret_meta_ee import ApiSecretMetaEE
 from kestrapy.models.api_secret_value import ApiSecretValue
 from kestrapy.models.namespace import Namespace
+from kestrapy.models.namespace_controller_api_inherited_plugin_default_from_namespace import NamespaceControllerApiInheritedPluginDefaultFromNamespace
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace
-from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.query_filter import QueryFilter
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -712,6 +712,348 @@ class NamespacesApi:
 
 
     @validate_call
+    def export_plugin_defaults(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> bytearray:
+        """Export this namespace plugin defaults
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._export_plugin_defaults_serialize(
+            id=id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "bytearray",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def export_plugin_defaults_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[bytearray]:
+        """Export this namespace plugin defaults
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._export_plugin_defaults_serialize(
+            id=id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "bytearray",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _export_plugin_defaults_serialize(
+        self,
+        id,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/octet-stream'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/namespaces/{id}/plugindefaults/export',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def import_plugin_defaults(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        file_upload: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> List[str]:
+        """Import plugin defaults in this namespace
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param file_upload:
+        :type file_upload: bytearray
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._import_plugin_defaults_serialize(
+            id=id,
+            tenant=tenant,
+            file_upload=file_upload,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[str]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def import_plugin_defaults_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        file_upload: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[List[str]]:
+        """Import plugin defaults in this namespace
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param file_upload:
+        :type file_upload: bytearray
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._import_plugin_defaults_serialize(
+            id=id,
+            tenant=tenant,
+            file_upload=file_upload,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[str]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _import_plugin_defaults_serialize(
+        self,
+        id,
+        tenant,
+        file_upload,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        if file_upload is not None:
+            _files['fileUpload'] = file_upload
+                    # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'multipart/form-data'
+                ]
+            )
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/namespaces/{id}/plugindefaults/import',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
     def inherited_plugin_defaults(
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
@@ -724,7 +1066,7 @@ class NamespacesApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> List[PluginDefault]:
+    ) -> List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]:
         """List inherited plugin defaults
 
 
@@ -746,7 +1088,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[PluginDefault]",
+            '200': "List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -772,7 +1114,7 @@ class NamespacesApi:
         Annotated[StrictFloat, Field(gt=0)]
         ]
         ] = None
-    ) -> ApiResponse[List[PluginDefault]]:
+    ) -> ApiResponse[List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]]:
         """List inherited plugin defaults
 
 
@@ -794,7 +1136,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[PluginDefault]",
+            '200': "List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]",
         }
         response_data = self.api_client.call_api(
             *_param,

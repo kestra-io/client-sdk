@@ -16,6 +16,7 @@ import pprint
 import regex as re
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -33,6 +34,7 @@ class AbstractFlow(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
     namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
     revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    updated: Optional[datetime] = Field(default=None, description="The timestamp when this revision was created or last updated.")
     description: Optional[StrictStr] = None
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = None
@@ -42,7 +44,7 @@ class AbstractFlow(BaseModel):
     worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
     deleted: StrictBool
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -143,6 +145,7 @@ class AbstractFlow(BaseModel):
             "id": obj.get("id"),
             "namespace": obj.get("namespace"),
             "revision": obj.get("revision"),
+            "updated": obj.get("updated"),
             "description": obj.get("description"),
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,

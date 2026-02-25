@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ## searchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, tenant, opts)
+> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, filters, tenant, opts)
 
 Search for users in a group
 
@@ -415,12 +415,12 @@ let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
+let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchGroupMembers(id, page, size, tenant, opts).then((data) => {
+apiInstance.searchGroupMembers(id, page, size, filters, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -436,8 +436,8 @@ Name | Type | Description  | Notes
  **id** | **String**| The group id | 
  **page** | **Number**| The current page | [default to 1]
  **size** | **Number**| The current page size | [default to 10]
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

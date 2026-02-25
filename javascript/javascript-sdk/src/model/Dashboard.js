@@ -16,6 +16,7 @@ import TimeWindow from './TimeWindow';
 
 /**
   * @typedef {Object} IDashboard
+  * @property {String} id
   * @property {String} title
   * @property {String} description
   * @property {TimeWindow} timeWindow
@@ -31,11 +32,12 @@ class Dashboard {
     /**
      * Constructs a new <code>Dashboard</code>.
      * @alias module:model/Dashboard
+     * @param {String} id - 
      * @param {String} title - 
      */
-    constructor(title) { 
+    constructor(id, title) { 
         
-        Dashboard.initialize(this, title);
+        Dashboard.initialize(this, id, title);
     }
 
     /**
@@ -43,7 +45,8 @@ class Dashboard {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
+    static initialize(obj, id, title) { 
+        obj['id'] = id;
         obj['title'] = title;
     }
 
@@ -58,6 +61,9 @@ class Dashboard {
         if (data) {
             obj = obj || new Dashboard();
 
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -85,6 +91,10 @@ class Dashboard {
             if (!data.hasOwnProperty(property)) {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
+        }
+        // ensure the json data is a string
+        if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
+            throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
         // ensure the json data is a string
         if (data['title'] && !(typeof data['title'] === 'string' || data['title'] instanceof String)) {
@@ -115,7 +125,12 @@ class Dashboard {
 
 }
 
-Dashboard.RequiredProperties = ["title"];
+Dashboard.RequiredProperties = ["id", "title"];
+
+/**
+ * @member {String} id
+ */
+Dashboard.prototype['id'] = undefined;
 
 /**
  * @member {String} title

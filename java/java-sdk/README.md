@@ -2,7 +2,7 @@
 
 Kestra EE
 
-- API version: 1.2.5
+- API version: 1.3.0
 
 - Generator version: 7.19.0
 
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.9</version>
+  <version>1.0.10</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.9"
+compile "io.kestra:kestra-api-client:1.0.10"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.9.jar`
+- `target/kestra-api-client-1.0.10.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -137,8 +137,11 @@ Class | Method | HTTP request | Description
 *AssetsApi* | [**assetDependencies**](docs/AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies
 *AssetsApi* | [**createAsset**](docs/AssetsApi.md#createAsset) | **POST** /api/v1/{tenant}/assets | Create a new asset
 *AssetsApi* | [**deleteAsset**](docs/AssetsApi.md#deleteAsset) | **DELETE** /api/v1/{tenant}/assets/{id} | Delete an asset
+*AssetsApi* | [**deleteAssetLineageEventsByQuery**](docs/AssetsApi.md#deleteAssetLineageEventsByQuery) | **DELETE** /api/v1/{tenant}/assets/lineage-events/by-query | Delete asset lineage events by query, hard-delete (purge) only
+*AssetsApi* | [**deleteAssetUsagesByQuery**](docs/AssetsApi.md#deleteAssetUsagesByQuery) | **DELETE** /api/v1/{tenant}/assets/usages/by-query | Delete asset usages by query, hard-delete (purge) only
 *AssetsApi* | [**deleteAssetsByIds**](docs/AssetsApi.md#deleteAssetsByIds) | **DELETE** /api/v1/{tenant}/assets/by-ids | Delete assets by asset ids
 *AssetsApi* | [**deleteAssetsByQuery**](docs/AssetsApi.md#deleteAssetsByQuery) | **DELETE** /api/v1/{tenant}/assets/by-query | Delete assets by query
+*AssetsApi* | [**searchAssetLineageEvents**](docs/AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events
 *AssetsApi* | [**searchAssetUsages**](docs/AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages
 *AssetsApi* | [**searchAssets**](docs/AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
@@ -190,6 +193,9 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
 *ExecutionsApi* | [**triggerExecutionByGetWebhook**](docs/ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
+*ExecutionsApi* | [**triggerExecutionByGetWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByGetWebhookWithPath) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger
+*ExecutionsApi* | [**triggerExecutionByPostWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByPostWebhookWithPath) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger
+*ExecutionsApi* | [**triggerExecutionByPutWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByPutWebhookWithPath) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -266,6 +272,8 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+*NamespacesApi* | [**exportPluginDefaults**](docs/NamespacesApi.md#exportPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
+*NamespacesApi* | [**importPluginDefaults**](docs/NamespacesApi.md#importPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
 *NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesApi* | [**inheritedSecrets**](docs/NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
@@ -364,6 +372,7 @@ Class | Method | HTTP request | Description
  - [AbstractUser](docs/AbstractUser.md)
  - [AbstractUserTenantIdentityProvider](docs/AbstractUserTenantIdentityProvider.md)
  - [Action](docs/Action.md)
+ - [AiControllerAiProviderResponse](docs/AiControllerAiProviderResponse.md)
  - [ApiAuth](docs/ApiAuth.md)
  - [ApiAutocomplete](docs/ApiAutocomplete.md)
  - [ApiGroupSummary](docs/ApiGroupSummary.md)
@@ -380,6 +389,7 @@ Class | Method | HTTP request | Description
  - [ApiToken](docs/ApiToken.md)
  - [ApiTokenList](docs/ApiTokenList.md)
  - [ApiUser](docs/ApiUser.md)
+ - [AppGenerationPrompt](docs/AppGenerationPrompt.md)
  - [AppsControllerApiApp](docs/AppsControllerApiApp.md)
  - [AppsControllerApiAppCatalogItem](docs/AppsControllerApiAppCatalogItem.md)
  - [AppsControllerApiAppSource](docs/AppsControllerApiAppSource.md)
@@ -397,6 +407,7 @@ Class | Method | HTTP request | Description
  - [AssetTopologyGraphNode](docs/AssetTopologyGraphNode.md)
  - [AssetTopologyGraphNodeNodeType](docs/AssetTopologyGraphNodeNodeType.md)
  - [AssetsControllerApiAsset](docs/AssetsControllerApiAsset.md)
+ - [AssetsControllerApiAssetLineageEvent](docs/AssetsControllerApiAssetLineageEvent.md)
  - [AssetsControllerApiAssetUsage](docs/AssetsControllerApiAssetUsage.md)
  - [AssetsDeclaration](docs/AssetsDeclaration.md)
  - [AssetsInOut](docs/AssetsInOut.md)
@@ -451,12 +462,13 @@ Class | Method | HTTP request | Description
  - [CrudEventType](docs/CrudEventType.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
+ - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
- - [DeletedInterface](docs/DeletedInterface.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
  - [EditionProviderEdition](docs/EditionProviderEdition.md)
  - [Email](docs/Email.md)
+ - [EvaluationType](docs/EvaluationType.md)
  - [EventExecution](docs/EventExecution.md)
  - [EventExecutionStatusEvent](docs/EventExecutionStatusEvent.md)
  - [ExecutableTaskSubflowId](docs/ExecutableTaskSubflowId.md)
@@ -465,7 +477,6 @@ Class | Method | HTTP request | Description
  - [ExecutionControllerLastExecutionResponse](docs/ExecutionControllerLastExecutionResponse.md)
  - [ExecutionControllerSetLabelsByIdsRequest](docs/ExecutionControllerSetLabelsByIdsRequest.md)
  - [ExecutionControllerStateRequest](docs/ExecutionControllerStateRequest.md)
- - [ExecutionControllerWebhookResponse](docs/ExecutionControllerWebhookResponse.md)
  - [ExecutionKind](docs/ExecutionKind.md)
  - [ExecutionMetadata](docs/ExecutionMetadata.md)
  - [ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
@@ -532,6 +543,7 @@ Class | Method | HTTP request | Description
  - [IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
  - [IdWithNamespace](docs/IdWithNamespace.md)
  - [IdentityProvider](docs/IdentityProvider.md)
+ - [ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
  - [InputObject](docs/InputObject.md)
  - [InputType](docs/InputType.md)
  - [InstanceControllerApiActiveService](docs/InstanceControllerApiActiveService.md)
@@ -560,6 +572,7 @@ Class | Method | HTTP request | Description
  - [KVControllerKvDetail](docs/KVControllerKvDetail.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
+ - [KillSwitch](docs/KillSwitch.md)
  - [Label](docs/Label.md)
  - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
@@ -586,6 +599,7 @@ Class | Method | HTTP request | Description
  - [Name](docs/Name.md)
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
+ - [NamespaceControllerApiInheritedPluginDefaultFromNamespace](docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
@@ -596,6 +610,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsAppsControllerApiApp](docs/PagedResultsAppsControllerApiApp.md)
  - [PagedResultsAppsControllerApiAppCatalogItem](docs/PagedResultsAppsControllerApiAppCatalogItem.md)
  - [PagedResultsAssetsControllerApiAsset](docs/PagedResultsAssetsControllerApiAsset.md)
+ - [PagedResultsAssetsControllerApiAssetLineageEvent](docs/PagedResultsAssetsControllerApiAssetLineageEvent.md)
  - [PagedResultsAssetsControllerApiAssetUsage](docs/PagedResultsAssetsControllerApiAssetUsage.md)
  - [PagedResultsAuditLogControllerApiAuditLogItem](docs/PagedResultsAuditLogControllerApiAuditLogItem.md)
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
@@ -658,6 +673,7 @@ Class | Method | HTTP request | Description
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
+ - [SDKAuth](docs/SDKAuth.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
  - [SLALabels](docs/SLALabels.md)
@@ -692,6 +708,7 @@ Class | Method | HTTP request | Description
  - [ServiceType](docs/ServiceType.md)
  - [SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
+ - [SoftDeletableFlowInterface](docs/SoftDeletableFlowInterface.md)
  - [SortOrder](docs/SortOrder.md)
  - [SortRequest](docs/SortRequest.md)
  - [State](docs/State.md)
@@ -714,6 +731,7 @@ Class | Method | HTTP request | Description
  - [TestSuiteControllerTestSuiteApiId](docs/TestSuiteControllerTestSuiteApiId.md)
  - [TestSuiteControllerTestSuiteBulkRequest](docs/TestSuiteControllerTestSuiteBulkRequest.md)
  - [TestSuiteControllerTestsLastResultResponse](docs/TestSuiteControllerTestsLastResultResponse.md)
+ - [TestSuiteGenerationPrompt](docs/TestSuiteGenerationPrompt.md)
  - [TestSuiteRunResult](docs/TestSuiteRunResult.md)
  - [TestSuiteServiceRunByQueryRequest](docs/TestSuiteServiceRunByQueryRequest.md)
  - [TestSuiteServiceTestRunByQueryResult](docs/TestSuiteServiceTestRunByQueryResult.md)
@@ -734,6 +752,7 @@ Class | Method | HTTP request | Description
  - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [ValuePathExpression](docs/ValuePathExpression.md)
+ - [WebhookResponse](docs/WebhookResponse.md)
  - [WorkerGroup](docs/WorkerGroup.md)
  - [WorkerGroupFallback](docs/WorkerGroupFallback.md)
  - [WorkerTaskRestartStrategy](docs/WorkerTaskRestartStrategy.md)

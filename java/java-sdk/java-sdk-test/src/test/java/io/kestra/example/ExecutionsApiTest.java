@@ -752,7 +752,7 @@ public class ExecutionsApiTest {
         createSimpleFlow(WEBHOOK_FLOW.formatted(id, namespace));
         String key = "a-secret-key";
 
-        ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByGetWebhook(namespace, id, key, MAIN_TENANT);
+        WebhookResponse response = kestraClient().executions().triggerExecutionByGetWebhook(namespace, id, key, MAIN_TENANT);
         assertThat(response).isNotNull();
         awaitExecution(StateType.SUCCESS, response.getId());
     }

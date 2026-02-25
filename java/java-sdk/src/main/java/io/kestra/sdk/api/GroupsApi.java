@@ -37,6 +37,7 @@ import io.kestra.sdk.model.IAMGroupControllerApiGroupMember;
 import io.kestra.sdk.model.IAMGroupControllerApiUpdateGroupRequest;
 import io.kestra.sdk.model.PagedResultsApiGroupSummary;
 import io.kestra.sdk.model.PagedResultsIAMGroupControllerApiGroupMember;
+import io.kestra.sdk.model.QueryFilter;
 
 
 import java.util.ArrayList;
@@ -674,14 +675,14 @@ import java.util.StringJoiner;
    * @param id The group id (required)
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param filters Filters (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchGroupMembers(id, page, size, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchGroupMembers(id, page, size, filters, tenant, sort, Collections.emptyMap());
   }
 
   /**
@@ -690,14 +691,14 @@ import java.util.StringJoiner;
    * @param id The group id (required)
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param filters Filters (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -713,6 +714,11 @@ import java.util.StringJoiner;
     // verify the required parameter 'size' is set
     if (size == null) {
       throw new ApiException(400, "Missing the required parameter 'size' when calling searchGroupMembers");
+    }
+    
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling searchGroupMembers");
     }
     
     // verify the required parameter 'tenant' is set
@@ -732,10 +738,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

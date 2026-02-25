@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Banner;
 import io.kestra.sdk.model.EditionProviderEdition;
+import io.kestra.sdk.model.KillSwitch;
 import io.kestra.sdk.model.LeftSidebarConfiguration;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
@@ -73,7 +74,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORDLESS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_AIRGAPPED,
   MiscControllerEEConfiguration.JSON_PROPERTY_FEATURE_GATING,
-  MiscControllerEEConfiguration.JSON_PROPERTY_FEATURES
+  MiscControllerEEConfiguration.JSON_PROPERTY_FEATURES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_KILL_SWITCHES
 })
 @JsonTypeName("MiscController.EEConfiguration")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -185,6 +187,9 @@ public class MiscControllerEEConfiguration {
 
   public static final String JSON_PROPERTY_FEATURES = "features";
   @jakarta.annotation.Nullable  private List<String> features = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_KILL_SWITCHES = "killSwitches";
+  @jakarta.annotation.Nullable  private List<KillSwitch> killSwitches = new ArrayList<>();
 
   public MiscControllerEEConfiguration() {
   }
@@ -1085,6 +1090,38 @@ public class MiscControllerEEConfiguration {
     this.features = features;
   }
 
+  public MiscControllerEEConfiguration killSwitches(@jakarta.annotation.Nullable List<KillSwitch> killSwitches) {
+    
+    this.killSwitches = killSwitches;
+    return this;
+  }
+
+  public MiscControllerEEConfiguration addKillSwitchesItem(KillSwitch killSwitchesItem) {
+    if (this.killSwitches == null) {
+      this.killSwitches = new ArrayList<>();
+    }
+    this.killSwitches.add(killSwitchesItem);
+    return this;
+  }
+
+  /**
+   * Get killSwitches
+   * @return killSwitches
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KILL_SWITCHES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<KillSwitch> getKillSwitches() {
+    return killSwitches;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KILL_SWITCHES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKillSwitches(@jakarta.annotation.Nullable List<KillSwitch> killSwitches) {
+    this.killSwitches = killSwitches;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -1129,12 +1166,13 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.passwordlessEnabled, miscControllerEEConfiguration.passwordlessEnabled) &&
         Objects.equals(this.airgapped, miscControllerEEConfiguration.airgapped) &&
         Objects.equals(this.featureGating, miscControllerEEConfiguration.featureGating) &&
-        Objects.equals(this.features, miscControllerEEConfiguration.features);
+        Objects.equals(this.features, miscControllerEEConfiguration.features) &&
+        Objects.equals(this.killSwitches, miscControllerEEConfiguration.killSwitches);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features);
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
   }
 
   @Override
@@ -1177,6 +1215,7 @@ public class MiscControllerEEConfiguration {
     sb.append("    airgapped: ").append(toIndentedString(airgapped)).append("\n");
     sb.append("    featureGating: ").append(toIndentedString(featureGating)).append("\n");
     sb.append("    features: ").append(toIndentedString(features)).append("\n");
+    sb.append("    killSwitches: ").append(toIndentedString(killSwitches)).append("\n");
     sb.append("}");
     return sb.toString();
   }

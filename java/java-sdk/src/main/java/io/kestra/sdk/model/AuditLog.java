@@ -40,7 +40,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLog.JSON_PROPERTY_USER_ID,
   AuditLog.JSON_PROPERTY_IP_ADDRESS,
   AuditLog.JSON_PROPERTY_IMPERSONATED_BY,
-  AuditLog.JSON_PROPERTY_DELETED,
   AuditLog.JSON_PROPERTY_APPLIED_PATCH,
   AuditLog.JSON_PROPERTY_REVERT_PATCH
 })
@@ -69,9 +68,6 @@ public class AuditLog {
 
   public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
   @jakarta.annotation.Nullable  private String impersonatedBy;
-
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nullable  private Boolean deleted;
 
   public static final String JSON_PROPERTY_APPLIED_PATCH = "appliedPatch";
   @jakarta.annotation.Nullable  private List<Object> appliedPatch = new ArrayList<>();
@@ -274,30 +270,6 @@ public class AuditLog {
     this.impersonatedBy = impersonatedBy;
   }
 
-  public AuditLog deleted(@jakarta.annotation.Nullable Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
-    this.deleted = deleted;
-  }
-
   public AuditLog appliedPatch(@jakarta.annotation.Nullable List<Object> appliedPatch) {
     
     this.appliedPatch = appliedPatch;
@@ -379,14 +351,13 @@ public class AuditLog {
         Objects.equals(this.userId, auditLog.userId) &&
         Objects.equals(this.ipAddress, auditLog.ipAddress) &&
         Objects.equals(this.impersonatedBy, auditLog.impersonatedBy) &&
-        Objects.equals(this.deleted, auditLog.deleted) &&
         Objects.equals(this.appliedPatch, auditLog.appliedPatch) &&
         Objects.equals(this.revertPatch, auditLog.revertPatch);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch);
+    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, appliedPatch, revertPatch);
   }
 
   @Override
@@ -401,7 +372,6 @@ public class AuditLog {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
     sb.append("    impersonatedBy: ").append(toIndentedString(impersonatedBy)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    appliedPatch: ").append(toIndentedString(appliedPatch)).append("\n");
     sb.append("    revertPatch: ").append(toIndentedString(revertPatch)).append("\n");
     sb.append("}");

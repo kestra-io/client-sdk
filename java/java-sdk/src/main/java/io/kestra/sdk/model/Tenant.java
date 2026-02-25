@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
+import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.TenantAppCatalogConfig;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.HashMap;
@@ -44,7 +45,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_SECRET_CONFIGURATION,
   Tenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
-  Tenant.JSON_PROPERTY_APP_CATALOG_CONFIG
+  Tenant.JSON_PROPERTY_APP_CATALOG_CONFIG,
+  Tenant.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Tenant {
@@ -89,6 +91,9 @@ public class Tenant {
 
   public static final String JSON_PROPERTY_APP_CATALOG_CONFIG = "appCatalogConfig";
   @jakarta.annotation.Nullable  private TenantAppCatalogConfig appCatalogConfig;
+
+  public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
+  @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
 
   public Tenant() {
   }
@@ -445,6 +450,30 @@ public class Tenant {
     this.appCatalogConfig = appCatalogConfig;
   }
 
+  public Tenant sdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+    return this;
+  }
+
+  /**
+   * Get sdkDefaultAuthentication
+   * @return sdkDefaultAuthentication
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SDKAuth getSdkDefaultAuthentication() {
+    return sdkDefaultAuthentication;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -467,12 +496,13 @@ public class Tenant {
         Objects.equals(this.secretConfiguration, tenant.secretConfiguration) &&
         Objects.equals(this.requireExistingNamespace, tenant.requireExistingNamespace) &&
         Objects.equals(this.outputsInInternalStorage, tenant.outputsInInternalStorage) &&
-        Objects.equals(this.appCatalogConfig, tenant.appCatalogConfig);
+        Objects.equals(this.appCatalogConfig, tenant.appCatalogConfig) &&
+        Objects.equals(this.sdkDefaultAuthentication, tenant.sdkDefaultAuthentication);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, sdkDefaultAuthentication);
   }
 
   @Override
@@ -493,6 +523,7 @@ public class Tenant {
     sb.append("    requireExistingNamespace: ").append(toIndentedString(requireExistingNamespace)).append("\n");
     sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
     sb.append("    appCatalogConfig: ").append(toIndentedString(appCatalogConfig)).append("\n");
+    sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
     sb.append("}");
     return sb.toString();
   }

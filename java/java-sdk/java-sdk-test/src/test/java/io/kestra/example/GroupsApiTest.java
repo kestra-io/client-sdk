@@ -4,6 +4,7 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
@@ -162,7 +163,12 @@ public class GroupsApiTest {
 
         PagedResultsIAMGroupControllerApiGroupMember page =
             kestraClient().groups().searchGroupMembers(
-                group.getId(), 1, 10, MAIN_TENANT, user.getEmail(), null);
+                group.getId(),
+                1, 10,
+                List.of(new QueryFilter().field(QueryFilterField.QUERY).operation(QueryFilterOp.EQUALS).value(user.getEmail())),
+                MAIN_TENANT,
+                null
+            );
 
         assertNotNull(page);
         assertNotNull(page.getResults());

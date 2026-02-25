@@ -36,8 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseAuditLog.JSON_PROPERTY_DATE,
   BaseAuditLog.JSON_PROPERTY_USER_ID,
   BaseAuditLog.JSON_PROPERTY_IP_ADDRESS,
-  BaseAuditLog.JSON_PROPERTY_IMPERSONATED_BY,
-  BaseAuditLog.JSON_PROPERTY_DELETED
+  BaseAuditLog.JSON_PROPERTY_IMPERSONATED_BY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BaseAuditLog {
@@ -64,9 +63,6 @@ public class BaseAuditLog {
 
   public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
   @jakarta.annotation.Nullable  private String impersonatedBy;
-
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nullable  private Boolean deleted;
 
   public BaseAuditLog() {
   }
@@ -263,30 +259,6 @@ public class BaseAuditLog {
     this.impersonatedBy = impersonatedBy;
   }
 
-  public BaseAuditLog deleted(@jakarta.annotation.Nullable Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
-    this.deleted = deleted;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -303,13 +275,12 @@ public class BaseAuditLog {
         Objects.equals(this.date, baseAuditLog.date) &&
         Objects.equals(this.userId, baseAuditLog.userId) &&
         Objects.equals(this.ipAddress, baseAuditLog.ipAddress) &&
-        Objects.equals(this.impersonatedBy, baseAuditLog.impersonatedBy) &&
-        Objects.equals(this.deleted, baseAuditLog.deleted);
+        Objects.equals(this.impersonatedBy, baseAuditLog.impersonatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted);
+    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy);
   }
 
   @Override
@@ -324,7 +295,6 @@ public class BaseAuditLog {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
     sb.append("    impersonatedBy: ").append(toIndentedString(impersonatedBy)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -728,7 +728,7 @@ public class Example {
 
 ## listServiceAccounts
 
-> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(page, size, q, sort)
+> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(page, size, filters, sort)
 
 List service accounts. Superadmin-only. 
 
@@ -754,10 +754,10 @@ public class Example {
 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String q = "q_example"; // String | A string filter
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().listServiceAccounts(page, size, q, sort);
+            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.ServiceAccountApi().listServiceAccounts(page, size, filters, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ServiceAccountApi#listServiceAccounts");
@@ -777,7 +777,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
-| **q** | **String**| A string filter | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

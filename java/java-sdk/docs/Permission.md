@@ -51,6 +51,10 @@
 
 * `GROUP_MEMBERSHIP` (value: `"GROUP_MEMBERSHIP"`)
 
+* `CREDENTIAL` (value: `"CREDENTIAL"`)
+
+* `AI_COPILOT` (value: `"AI_COPILOT"`)
+
 * `UNKNOWN` (value: `"UNKNOWN"`)
 
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)

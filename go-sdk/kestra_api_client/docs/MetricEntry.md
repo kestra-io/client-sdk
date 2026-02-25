@@ -14,14 +14,13 @@ Name | Type | Description | Notes
 **Value** | **float64** |  | 
 **Timestamp** | **time.Time** |  | 
 **Tags** | Pointer to **map[string]string** |  | [optional] 
-**Deleted** | **bool** |  | 
 **ExecutionKind** | Pointer to [**NullableExecutionKind**](ExecutionKind.md) |  | [optional] 
 
 ## Methods
 
 ### NewMetricEntry
 
-`func NewMetricEntry(namespace string, flowId string, type_ string, name string, value float64, timestamp time.Time, deleted bool, ) *MetricEntry`
+`func NewMetricEntry(namespace string, flowId string, type_ string, name string, value float64, timestamp time.Time, ) *MetricEntry`
 
 NewMetricEntry instantiates a new MetricEntry object
 This constructor will assign default values to properties that have it defined,
@@ -296,26 +295,6 @@ HasTags returns a boolean if a field has been set.
 `func (o *MetricEntry) UnsetTags()`
 
 UnsetTags ensures that no value is present for Tags, not even an explicit nil
-### GetDeleted
-
-`func (o *MetricEntry) GetDeleted() bool`
-
-GetDeleted returns the Deleted field if non-nil, zero value otherwise.
-
-### GetDeletedOk
-
-`func (o *MetricEntry) GetDeletedOk() (*bool, bool)`
-
-GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeleted
-
-`func (o *MetricEntry) SetDeleted(v bool)`
-
-SetDeleted sets Deleted field to given value.
-
-
 ### GetExecutionKind
 
 `func (o *MetricEntry) GetExecutionKind() ExecutionKind`
