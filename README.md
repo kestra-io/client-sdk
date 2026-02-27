@@ -307,6 +307,16 @@ tasks:
 }
 ```
 
+## How to update the SDK
+- Generate openapi from Kestra-EE: `./gradlew clean build updateOpenapiVersion -xtest`
+- Move `kestra-ee.yml` from `webserver-ee/build/classes/java/main/META-INF/swagger` to the root of the SDK repository
+- If you introduced a new controller with a new kind of entity and it has a new OpenAPI / Swagger tag, you should add it there `java/configuration/java-config.yml` (and for all SDK that must support it) in openapiNormalizer.FILTER (it's an opt-in for each tag)
+- Generate the SDKs using `TMP=$(pwd) && $TMP/generate-sdks.sh 1.0.10 java && $TMP/generate-sdks.sh 1.0.12 javascript && $TMP/generate-sdks.sh 1.0.10 python && $TMP/generate-sdks.sh 1.0.1 go` (change the version to SDK-current-version + 1)
+- Create the tests for the added functionality in each SDK tests folder
+- Run tests of all SDKs: `TMP=~/IdeaProjects/client-sdk && cd $TMP/java/java-sdk && chmod 755 gradlew && ./run-tests.sh develop && cd $TMP/go-sdk && bash ./run-tests.sh develop && cd $TMP/javascript && bash ./run-tests.sh develop && cd $TMP/python/python-sdk && bash ./run-tests.sh develop`
+- ⚠ If an existing test fails, you're probably introducing a breaking change (or someone's prior commit did). If that's the case, make sure it's safe to introduce that before merging
+- Commit and make a PR
+
 ## License
 Apache 2.0 © [Kestra Technologies](https://kestra.io)
 
