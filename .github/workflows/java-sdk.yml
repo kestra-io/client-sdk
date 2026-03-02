@@ -80,7 +80,7 @@ jobs:
 
       - name: Test - Publish Test Results
         uses: dorny/test-reporter@v2
-        if: always()
+        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         with:
           name: Java Tests Report
           reporter: java-junit
