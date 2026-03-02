@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **BaseUnit** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to [**[]MetricTag**](MetricTag.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Value** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Metric) GetValue() map[string]interface{}`
+`func (o *Metric) GetValue() float32`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Metric) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *Metric) GetValueOk() (*float32, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Metric) SetValue(v map[string]interface{})`
+`func (o *Metric) SetValue(v float32)`
 
 SetValue sets Value field to given value.
 

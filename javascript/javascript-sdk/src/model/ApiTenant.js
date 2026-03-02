@@ -15,6 +15,7 @@ import Isolation from './Isolation';
 import SDKAuth from './SDKAuth';
 import Tenant from './Tenant';
 import TenantAppCatalogConfig from './TenantAppCatalogConfig';
+import TenantPreferencesSettings from './TenantPreferencesSettings';
 import WorkerGroup from './WorkerGroup';
 
 /**
@@ -33,6 +34,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} requireExistingNamespace
   * @property {Boolean} outputsInInternalStorage
   * @property {TenantAppCatalogConfig} appCatalogConfig
+  * @property {TenantPreferencesSettings} settings
   * @property {SDKAuth} sdkDefaultAuthentication
   * @property {String} logo
   */
@@ -121,6 +123,9 @@ class ApiTenant {
             if (data.hasOwnProperty('appCatalogConfig')) {
                 obj['appCatalogConfig'] = TenantAppCatalogConfig.constructFromObject(data['appCatalogConfig']);
             }
+            if (data.hasOwnProperty('settings')) {
+                obj['settings'] = TenantPreferencesSettings.constructFromObject(data['settings']);
+            }
             if (data.hasOwnProperty('sdkDefaultAuthentication')) {
                 obj['sdkDefaultAuthentication'] = SDKAuth.constructFromObject(data['sdkDefaultAuthentication']);
             }
@@ -174,6 +179,10 @@ class ApiTenant {
         // validate the optional field `appCatalogConfig`
         if (data['appCatalogConfig']) { // data not null
           TenantAppCatalogConfig.validateJSON(data['appCatalogConfig']);
+        }
+        // validate the optional field `settings`
+        if (data['settings']) { // data not null
+          TenantPreferencesSettings.validateJSON(data['settings']);
         }
         // validate the optional field `sdkDefaultAuthentication`
         if (data['sdkDefaultAuthentication']) { // data not null
@@ -263,6 +272,11 @@ ApiTenant.prototype['outputsInInternalStorage'] = undefined;
 ApiTenant.prototype['appCatalogConfig'] = undefined;
 
 /**
+ * @member {module:model/TenantPreferencesSettings} settings
+ */
+ApiTenant.prototype['settings'] = undefined;
+
+/**
  * @member {module:model/SDKAuth} sdkDefaultAuthentication
  */
 ApiTenant.prototype['sdkDefaultAuthentication'] = undefined;
@@ -330,6 +344,10 @@ Tenant.prototype['outputsInInternalStorage'] = undefined;
  * @member {module:model/TenantAppCatalogConfig} appCatalogConfig
  */
 Tenant.prototype['appCatalogConfig'] = undefined;
+/**
+ * @member {module:model/TenantPreferencesSettings} settings
+ */
+Tenant.prototype['settings'] = undefined;
 /**
  * @member {module:model/SDKAuth} sdkDefaultAuthentication
  */

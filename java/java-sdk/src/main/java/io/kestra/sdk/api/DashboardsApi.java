@@ -30,6 +30,7 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.ChartFiltersOverrides;
 import io.kestra.sdk.model.Dashboard;
 import io.kestra.sdk.model.DashboardControllerPreviewRequest;
+import io.kestra.sdk.model.DashboardSettings;
 import io.kestra.sdk.model.PagedResultsDashboard;
 import io.kestra.sdk.model.PagedResultsMapStringObject;
 import io.kestra.sdk.model.ValidateConstraintViolation;
@@ -305,6 +306,84 @@ import java.util.StringJoiner;
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get default dashboards
+   * 
+   * @param tenant  (required)
+   * @return DashboardSettings
+   * @throws ApiException if fails to make API call
+   */
+  public DashboardSettings defaultDashboards1(@jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.defaultDashboards1(tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Get default dashboards
+   * 
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return DashboardSettings
+   * @throws ApiException if fails to make API call
+   */
+  public DashboardSettings defaultDashboards1(@jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling defaultDashboards1");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/dashboards/settings/default-dashboards"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<DashboardSettings> localVarReturnType = new TypeReference<DashboardSettings>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
