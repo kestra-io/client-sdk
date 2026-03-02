@@ -133,6 +133,7 @@ __all__ = [
     "Dashboard",
     "DashboardControllerPreviewRequest",
     "DashboardGenerationPrompt",
+    "DashboardSettings",
     "DeleteTriggersByQueryRequest",
     "DependsOn",
     "DocumentationWithSchema",
@@ -393,7 +394,9 @@ __all__ = [
     "TenantAppCatalogConfig",
     "TenantControllerAppsCatalogConfigRequest",
     "TenantControllerAppsCatalogConfigResponse",
+    "TenantControllerSetTenantDefaultDashboardsRequest",
     "TenantInterface",
+    "TenantPreferencesSettings",
     "TestState",
     "TestSuite",
     "TestSuiteControllerRunRequest",
@@ -550,6 +553,7 @@ from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
 from kestrapy.models.dashboard import Dashboard as Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest as DashboardControllerPreviewRequest
 from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt as DashboardGenerationPrompt
+from kestrapy.models.dashboard_settings import DashboardSettings as DashboardSettings
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest as DeleteTriggersByQueryRequest
 from kestrapy.models.depends_on import DependsOn as DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
@@ -810,7 +814,9 @@ from kestrapy.models.tenant import Tenant as Tenant
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig as TenantAppCatalogConfig
 from kestrapy.models.tenant_controller_apps_catalog_config_request import TenantControllerAppsCatalogConfigRequest as TenantControllerAppsCatalogConfigRequest
 from kestrapy.models.tenant_controller_apps_catalog_config_response import TenantControllerAppsCatalogConfigResponse as TenantControllerAppsCatalogConfigResponse
+from kestrapy.models.tenant_controller_set_tenant_default_dashboards_request import TenantControllerSetTenantDefaultDashboardsRequest as TenantControllerSetTenantDefaultDashboardsRequest
 from kestrapy.models.tenant_interface import TenantInterface as TenantInterface
+from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings as TenantPreferencesSettings
 from kestrapy.models.test_state import TestState as TestState
 from kestrapy.models.test_suite import TestSuite as TestSuite
 from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest as TestSuiteControllerRunRequest

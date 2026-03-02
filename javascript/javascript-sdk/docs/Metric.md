@@ -9,6 +9,6 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **baseUnit** | **String** |  | [optional] 
 **tags** | [**[MetricTag]**](MetricTag.md) |  | [optional] 
-**value** | **Object** |  | [optional] 
+**value** | **Number** |  | [optional] 
 
 
