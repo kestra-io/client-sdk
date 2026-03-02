@@ -172,7 +172,11 @@ public class UsersApiTest {
             new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
         PagedResultsIAMUserControllerApiUserSummary page =
-            kestraClient().users().listUsers(1, 50, base, null);
+            kestraClient().users().listUsers(
+                1, 50,
+                List.of(new QueryFilter().field(QueryFilterField.QUERY).operation(QueryFilterOp.EQUALS).value(base)),
+                null
+            );
 
         assertNotNull(page);
         assertNotNull(page.getResults());

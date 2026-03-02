@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **namespace** | **String** |  | 
 **revision** | **Number** |  | [optional] 
+**updated** | **Date** | The timestamp when this revision was created or last updated. | [optional] 
 **description** | **String** |  | [optional] 
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 

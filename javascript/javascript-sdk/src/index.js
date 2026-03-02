@@ -20,6 +20,7 @@ import AbstractTriggerForExecution from './model/AbstractTriggerForExecution';
 import AbstractUser from './model/AbstractUser';
 import AbstractUserTenantIdentityProvider from './model/AbstractUserTenantIdentityProvider';
 import Action from './model/Action';
+import AiControllerAiProviderResponse from './model/AiControllerAiProviderResponse';
 import ApiAuth from './model/ApiAuth';
 import ApiAutocomplete from './model/ApiAutocomplete';
 import ApiGroupSummary from './model/ApiGroupSummary';
@@ -36,6 +37,7 @@ import ApiTenantSummary from './model/ApiTenantSummary';
 import ApiToken from './model/ApiToken';
 import ApiTokenList from './model/ApiTokenList';
 import ApiUser from './model/ApiUser';
+import AppGenerationPrompt from './model/AppGenerationPrompt';
 import AppsControllerApiApp from './model/AppsControllerApiApp';
 import AppsControllerApiAppCatalogItem from './model/AppsControllerApiAppCatalogItem';
 import AppsControllerApiAppSource from './model/AppsControllerApiAppSource';
@@ -53,6 +55,7 @@ import AssetTopologyGraphEdge from './model/AssetTopologyGraphEdge';
 import AssetTopologyGraphNode from './model/AssetTopologyGraphNode';
 import AssetTopologyGraphNodeNodeType from './model/AssetTopologyGraphNodeNodeType';
 import AssetsControllerApiAsset from './model/AssetsControllerApiAsset';
+import AssetsControllerApiAssetLineageEvent from './model/AssetsControllerApiAssetLineageEvent';
 import AssetsControllerApiAssetUsage from './model/AssetsControllerApiAssetUsage';
 import AssetsDeclaration from './model/AssetsDeclaration';
 import AssetsInOut from './model/AssetsInOut';
@@ -107,12 +110,13 @@ import CreateSecurityIntegrationRequest from './model/CreateSecurityIntegrationR
 import CrudEventType from './model/CrudEventType';
 import Dashboard from './model/Dashboard';
 import DashboardControllerPreviewRequest from './model/DashboardControllerPreviewRequest';
+import DashboardGenerationPrompt from './model/DashboardGenerationPrompt';
 import DeleteTriggersByQueryRequest from './model/DeleteTriggersByQueryRequest';
-import DeletedInterface from './model/DeletedInterface';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
 import EditionProviderEdition from './model/EditionProviderEdition';
 import Email from './model/Email';
+import EvaluationType from './model/EvaluationType';
 import EventExecution from './model/EventExecution';
 import EventExecutionStatusEvent from './model/EventExecutionStatusEvent';
 import ExecutableTaskSubflowId from './model/ExecutableTaskSubflowId';
@@ -121,7 +125,6 @@ import ExecutionControllerExecutionResponse from './model/ExecutionControllerExe
 import ExecutionControllerLastExecutionResponse from './model/ExecutionControllerLastExecutionResponse';
 import ExecutionControllerSetLabelsByIdsRequest from './model/ExecutionControllerSetLabelsByIdsRequest';
 import ExecutionControllerStateRequest from './model/ExecutionControllerStateRequest';
-import ExecutionControllerWebhookResponse from './model/ExecutionControllerWebhookResponse';
 import ExecutionKind from './model/ExecutionKind';
 import ExecutionMetadata from './model/ExecutionMetadata';
 import ExecutionRepositoryInterfaceFlowFilter from './model/ExecutionRepositoryInterfaceFlowFilter';
@@ -188,6 +191,7 @@ import IAMUserControllerApiUserSummary from './model/IAMUserControllerApiUserSum
 import IAMUserGroupControllerApiUpdateUserGroupsRequest from './model/IAMUserGroupControllerApiUpdateUserGroupsRequest';
 import IdWithNamespace from './model/IdWithNamespace';
 import IdentityProvider from './model/IdentityProvider';
+import ImportPluginDefaultsRequest from './model/ImportPluginDefaultsRequest';
 import InputObject from './model/InputObject';
 import InputType from './model/InputType';
 import InstanceControllerApiActiveService from './model/InstanceControllerApiActiveService';
@@ -216,6 +220,7 @@ import KVControllerApiDeleteBulkResponse from './model/KVControllerApiDeleteBulk
 import KVControllerKvDetail from './model/KVControllerKvDetail';
 import KVEntry from './model/KVEntry';
 import KVType from './model/KVType';
+import KillSwitch from './model/KillSwitch';
 import Label from './model/Label';
 import LeftSidebarConfiguration from './model/LeftSidebarConfiguration';
 import Level from './model/Level';
@@ -242,6 +247,7 @@ import MiscControllerTenantConfigurationInfo from './model/MiscControllerTenantC
 import Name from './model/Name';
 import Namespace from './model/Namespace';
 import NamespaceAllowedNamespace from './model/NamespaceAllowedNamespace';
+import NamespaceControllerApiInheritedPluginDefaultFromNamespace from './model/NamespaceControllerApiInheritedPluginDefaultFromNamespace';
 import NamespaceFileRevision from './model/NamespaceFileRevision';
 import NamespaceLight from './model/NamespaceLight';
 import Output from './model/Output';
@@ -252,6 +258,7 @@ import PagedResultsApiRoleSummary from './model/PagedResultsApiRoleSummary';
 import PagedResultsAppsControllerApiApp from './model/PagedResultsAppsControllerApiApp';
 import PagedResultsAppsControllerApiAppCatalogItem from './model/PagedResultsAppsControllerApiAppCatalogItem';
 import PagedResultsAssetsControllerApiAsset from './model/PagedResultsAssetsControllerApiAsset';
+import PagedResultsAssetsControllerApiAssetLineageEvent from './model/PagedResultsAssetsControllerApiAssetLineageEvent';
 import PagedResultsAssetsControllerApiAssetUsage from './model/PagedResultsAssetsControllerApiAssetUsage';
 import PagedResultsAuditLogControllerApiAuditLogItem from './model/PagedResultsAuditLogControllerApiAuditLogItem';
 import PagedResultsBlueprint from './model/PagedResultsBlueprint';
@@ -314,6 +321,7 @@ import ResourceTypeSchemaExtensionConfiguration from './model/ResourceTypeSchema
 import RightSidebarConfiguration from './model/RightSidebarConfiguration';
 import RightSidebarConfigurationCustomLink from './model/RightSidebarConfigurationCustomLink';
 import Role from './model/Role';
+import SDKAuth from './model/SDKAuth';
 import SLA from './model/SLA';
 import SLABehavior from './model/SLABehavior';
 import SLALabels from './model/SLALabels';
@@ -348,6 +356,7 @@ import ServiceServiceState from './model/ServiceServiceState';
 import ServiceType from './model/ServiceType';
 import SetAppsCatalogLogoRequest from './model/SetAppsCatalogLogoRequest';
 import SetupConfiguration from './model/SetupConfiguration';
+import SoftDeletableFlowInterface from './model/SoftDeletableFlowInterface';
 import SortOrder from './model/SortOrder';
 import SortRequest from './model/SortRequest';
 import State from './model/State';
@@ -370,6 +379,7 @@ import TestSuiteControllerSearchTestsLastResult from './model/TestSuiteControlle
 import TestSuiteControllerTestSuiteApiId from './model/TestSuiteControllerTestSuiteApiId';
 import TestSuiteControllerTestSuiteBulkRequest from './model/TestSuiteControllerTestSuiteBulkRequest';
 import TestSuiteControllerTestsLastResultResponse from './model/TestSuiteControllerTestsLastResultResponse';
+import TestSuiteGenerationPrompt from './model/TestSuiteGenerationPrompt';
 import TestSuiteRunResult from './model/TestSuiteRunResult';
 import TestSuiteServiceRunByQueryRequest from './model/TestSuiteServiceRunByQueryRequest';
 import TestSuiteServiceTestRunByQueryResult from './model/TestSuiteServiceTestRunByQueryResult';
@@ -390,6 +400,7 @@ import UserType from './model/UserType';
 import UsernamePasswordCredentials from './model/UsernamePasswordCredentials';
 import ValidateConstraintViolation from './model/ValidateConstraintViolation';
 import ValuePathExpression from './model/ValuePathExpression';
+import WebhookResponse from './model/WebhookResponse';
 import WorkerGroup from './model/WorkerGroup';
 import WorkerGroupFallback from './model/WorkerGroupFallback';
 import WorkerTaskRestartStrategy from './model/WorkerTaskRestartStrategy';
@@ -491,6 +502,12 @@ export {
     Action,
 
     /**
+     * The AiControllerAiProviderResponse model constructor.
+     * @property {module:model/AiControllerAiProviderResponse}
+     */
+    AiControllerAiProviderResponse,
+
+    /**
      * The ApiAuth model constructor.
      * @property {module:model/ApiAuth}
      */
@@ -585,6 +602,12 @@ export {
      * @property {module:model/ApiUser}
      */
     ApiUser,
+
+    /**
+     * The AppGenerationPrompt model constructor.
+     * @property {module:model/AppGenerationPrompt}
+     */
+    AppGenerationPrompt,
 
     /**
      * The AppsControllerApiApp model constructor.
@@ -687,6 +710,12 @@ export {
      * @property {module:model/AssetsControllerApiAsset}
      */
     AssetsControllerApiAsset,
+
+    /**
+     * The AssetsControllerApiAssetLineageEvent model constructor.
+     * @property {module:model/AssetsControllerApiAssetLineageEvent}
+     */
+    AssetsControllerApiAssetLineageEvent,
 
     /**
      * The AssetsControllerApiAssetUsage model constructor.
@@ -1013,16 +1042,16 @@ export {
     DashboardControllerPreviewRequest,
 
     /**
+     * The DashboardGenerationPrompt model constructor.
+     * @property {module:model/DashboardGenerationPrompt}
+     */
+    DashboardGenerationPrompt,
+
+    /**
      * The DeleteTriggersByQueryRequest model constructor.
      * @property {module:model/DeleteTriggersByQueryRequest}
      */
     DeleteTriggersByQueryRequest,
-
-    /**
-     * The DeletedInterface model constructor.
-     * @property {module:model/DeletedInterface}
-     */
-    DeletedInterface,
 
     /**
      * The DependsOn model constructor.
@@ -1047,6 +1076,12 @@ export {
      * @property {module:model/Email}
      */
     Email,
+
+    /**
+     * The EvaluationType model constructor.
+     * @property {module:model/EvaluationType}
+     */
+    EvaluationType,
 
     /**
      * The EventExecution model constructor.
@@ -1095,12 +1130,6 @@ export {
      * @property {module:model/ExecutionControllerStateRequest}
      */
     ExecutionControllerStateRequest,
-
-    /**
-     * The ExecutionControllerWebhookResponse model constructor.
-     * @property {module:model/ExecutionControllerWebhookResponse}
-     */
-    ExecutionControllerWebhookResponse,
 
     /**
      * The ExecutionKind model constructor.
@@ -1499,6 +1528,12 @@ export {
     IdentityProvider,
 
     /**
+     * The ImportPluginDefaultsRequest model constructor.
+     * @property {module:model/ImportPluginDefaultsRequest}
+     */
+    ImportPluginDefaultsRequest,
+
+    /**
      * The InputObject model constructor.
      * @property {module:model/InputObject}
      */
@@ -1667,6 +1702,12 @@ export {
     KVType,
 
     /**
+     * The KillSwitch model constructor.
+     * @property {module:model/KillSwitch}
+     */
+    KillSwitch,
+
+    /**
      * The Label model constructor.
      * @property {module:model/Label}
      */
@@ -1823,6 +1864,12 @@ export {
     NamespaceAllowedNamespace,
 
     /**
+     * The NamespaceControllerApiInheritedPluginDefaultFromNamespace model constructor.
+     * @property {module:model/NamespaceControllerApiInheritedPluginDefaultFromNamespace}
+     */
+    NamespaceControllerApiInheritedPluginDefaultFromNamespace,
+
+    /**
      * The NamespaceFileRevision model constructor.
      * @property {module:model/NamespaceFileRevision}
      */
@@ -1881,6 +1928,12 @@ export {
      * @property {module:model/PagedResultsAssetsControllerApiAsset}
      */
     PagedResultsAssetsControllerApiAsset,
+
+    /**
+     * The PagedResultsAssetsControllerApiAssetLineageEvent model constructor.
+     * @property {module:model/PagedResultsAssetsControllerApiAssetLineageEvent}
+     */
+    PagedResultsAssetsControllerApiAssetLineageEvent,
 
     /**
      * The PagedResultsAssetsControllerApiAssetUsage model constructor.
@@ -2255,6 +2308,12 @@ export {
     Role,
 
     /**
+     * The SDKAuth model constructor.
+     * @property {module:model/SDKAuth}
+     */
+    SDKAuth,
+
+    /**
      * The SLA model constructor.
      * @property {module:model/SLA}
      */
@@ -2459,6 +2518,12 @@ export {
     SetupConfiguration,
 
     /**
+     * The SoftDeletableFlowInterface model constructor.
+     * @property {module:model/SoftDeletableFlowInterface}
+     */
+    SoftDeletableFlowInterface,
+
+    /**
      * The SortOrder model constructor.
      * @property {module:model/SortOrder}
      */
@@ -2591,6 +2656,12 @@ export {
     TestSuiteControllerTestsLastResultResponse,
 
     /**
+     * The TestSuiteGenerationPrompt model constructor.
+     * @property {module:model/TestSuiteGenerationPrompt}
+     */
+    TestSuiteGenerationPrompt,
+
+    /**
      * The TestSuiteRunResult model constructor.
      * @property {module:model/TestSuiteRunResult}
      */
@@ -2709,6 +2780,12 @@ export {
      * @property {module:model/ValuePathExpression}
      */
     ValuePathExpression,
+
+    /**
+     * The WebhookResponse model constructor.
+     * @property {module:model/WebhookResponse}
+     */
+    WebhookResponse,
 
     /**
      * The WorkerGroup model constructor.

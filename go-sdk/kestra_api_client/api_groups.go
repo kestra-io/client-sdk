@@ -850,8 +850,8 @@ type ApiSearchGroupMembersRequest struct {
 	id         string
 	page       *int32
 	size       *int32
+	filters    *[]QueryFilter
 	tenant     string
-	q          *string
 	sort       *[]string
 }
 
@@ -867,9 +867,9 @@ func (r ApiSearchGroupMembersRequest) Size(size int32) ApiSearchGroupMembersRequ
 	return r
 }
 
-// A string filter
-func (r ApiSearchGroupMembersRequest) Q(q string) ApiSearchGroupMembersRequest {
-	r.q = &q
+// Filters
+func (r ApiSearchGroupMembersRequest) Filters(filters []QueryFilter) ApiSearchGroupMembersRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -888,11 +888,11 @@ func (r ApiSearchGroupMembersRequest) GetPage() *int32 {
 func (r ApiSearchGroupMembersRequest) GetSize() *int32 {
 	return r.size
 }
+func (r ApiSearchGroupMembersRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
 func (r ApiSearchGroupMembersRequest) GetTenant() string {
 	return r.tenant
-}
-func (r ApiSearchGroupMembersRequest) GetQ() *string {
-	return r.q
 }
 func (r ApiSearchGroupMembersRequest) GetSort() *[]string {
 	return r.sort
@@ -950,15 +950,16 @@ func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequ
 	if r.size == nil {
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.filters == nil {
+		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
+
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

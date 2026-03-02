@@ -15,6 +15,7 @@
 |**metadata** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**created** | **OffsetDateTime** |  |  [optional] |
 |**updated** | **OffsetDateTime** |  |  [optional] |
+|**deleted** | **Boolean** |  |  [optional] |
 
 
 

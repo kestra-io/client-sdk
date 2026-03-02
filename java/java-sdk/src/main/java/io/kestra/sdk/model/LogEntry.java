@@ -44,7 +44,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   LogEntry.JSON_PROPERTY_LEVEL,
   LogEntry.JSON_PROPERTY_THREAD,
   LogEntry.JSON_PROPERTY_MESSAGE,
-  LogEntry.JSON_PROPERTY_DELETED,
   LogEntry.JSON_PROPERTY_EXECUTION_KIND
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -81,9 +80,6 @@ public class LogEntry {
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @jakarta.annotation.Nullable  private String message;
-
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_EXECUTION_KIND = "executionKind";
   @jakarta.annotation.Nullable  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
@@ -390,30 +386,6 @@ public class LogEntry {
     this.message = message;
   }
 
-  public LogEntry deleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    this.deleted = deleted;
-  }
-
   public LogEntry executionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
     this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
     
@@ -465,7 +437,6 @@ public class LogEntry {
         Objects.equals(this.level, logEntry.level) &&
         Objects.equals(this.thread, logEntry.thread) &&
         Objects.equals(this.message, logEntry.message) &&
-        Objects.equals(this.deleted, logEntry.deleted) &&
         equalsNullable(this.executionKind, logEntry.executionKind);
   }
 
@@ -475,7 +446,7 @@ public class LogEntry {
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, flowId, hashCodeNullable(taskId), hashCodeNullable(executionId), hashCodeNullable(taskRunId), hashCodeNullable(attemptNumber), hashCodeNullable(triggerId), timestamp, level, thread, message, deleted, hashCodeNullable(executionKind));
+    return Objects.hash(namespace, flowId, hashCodeNullable(taskId), hashCodeNullable(executionId), hashCodeNullable(taskRunId), hashCodeNullable(attemptNumber), hashCodeNullable(triggerId), timestamp, level, thread, message, hashCodeNullable(executionKind));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -500,7 +471,6 @@ public class LogEntry {
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    thread: ").append(toIndentedString(thread)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    executionKind: ").append(toIndentedString(executionKind)).append("\n");
     sb.append("}");
     return sb.toString();

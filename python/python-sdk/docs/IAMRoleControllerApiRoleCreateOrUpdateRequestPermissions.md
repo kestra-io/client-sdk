@@ -28,6 +28,8 @@ Name | Type | Description | Notes
 **service_account** | **List[str]** |  | [optional] 
 **invitation** | **List[str]** |  | [optional] 
 **group_membership** | **List[str]** |  | [optional] 
+**credential** | **List[str]** |  | [optional] 
+**ai_copilot** | **List[str]** |  | [optional] 
 **unknown** | **List[str]** |  | [optional] 
 
 ## Example

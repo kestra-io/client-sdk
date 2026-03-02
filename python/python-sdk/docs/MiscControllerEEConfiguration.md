@@ -41,6 +41,7 @@ Name | Type | Description | Notes
 **airgapped** | **bool** |  | [optional] 
 **feature_gating** | **bool** |  | [optional] 
 **features** | **List[str]** |  | [optional] 
+**kill_switches** | [**List[KillSwitch]**](KillSwitch.md) |  | [optional] 
 
 ## Example
 

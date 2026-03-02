@@ -117,13 +117,13 @@ class TestServiceAccountApi(unittest.TestCase):
     def test_list_service_accounts(self) -> None:
         """Test case for list_service_accounts
 
-        List service accounts. Superadmin-only. 
+        List service accounts. Superadmin-only.
         """
         name = "test-list-service-accounts"
         req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
         created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
 
-        results = self.kestra_client.service_account.list_service_accounts(page=1, size=50)
+        results = self.kestra_client.service_account.list_service_accounts(page=1, size=50, filters=[])
         # results may be a dict or object - try both
         ids = None
         if isinstance(results, dict):

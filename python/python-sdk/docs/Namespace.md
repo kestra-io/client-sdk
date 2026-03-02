@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
-**deleted** | **bool** |  | 
 **storage_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **secret_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
+**deleted** | **bool** |  | 
 **description** | **str** |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
 **plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **secret_read_only** | **bool** |  | [optional] 
 **secret_configuration** | **Dict[str, object]** |  | [optional] 
 **outputs_in_internal_storage** | **bool** |  | [optional] 
+**sdk_default_authentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 ## Example
 

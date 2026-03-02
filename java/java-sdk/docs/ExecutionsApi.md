@@ -42,6 +42,9 @@ All URIs are relative to *http://localhost*
 | [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions |
 | [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters |
 | [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger |
+| [**triggerExecutionByGetWebhookWithPath**](ExecutionsApi.md#triggerExecutionByGetWebhookWithPath) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger |
+| [**triggerExecutionByPostWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPostWebhookWithPath) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger |
+| [**triggerExecutionByPutWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPutWebhookWithPath) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger |
 | [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution |
 | [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions |
 | [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters |
@@ -756,7 +759,7 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String executionId = "executionId_example"; // String | The execution that you want flow informations
+        String executionId = "executionId_example"; // String | The execution that you want flow information
         String tenant = "tenant_example"; // String | 
         try {
             FlowForExecution result = kestraClient.ExecutionsApi().flowFromExecutionById(executionId, tenant);
@@ -777,7 +780,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution that you want flow informations | |
+| **executionId** | **String**| The execution that you want flow information | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -2747,7 +2750,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhook
 
-> ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2776,7 +2779,7 @@ public class Example {
         String key = "key_example"; // String | The webhook trigger uid
         String tenant = "tenant_example"; // String | 
         try {
-            ExecutionControllerWebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhook(namespace, id, key, tenant);
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhook(namespace, id, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhook");
@@ -2801,7 +2804,235 @@ public class Example {
 
 ### Return type
 
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | On success |  -  |
+
+
+## triggerExecutionByGetWebhookWithPath
+
+> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by GET webhook trigger
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        String key = "key_example"; // String | The webhook trigger uid
+        String path = "path_example"; // String | Optional additional path segments
+        String tenant = "tenant_example"; // String | 
+        try {
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhookWithPath");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **key** | **String**| The webhook trigger uid | |
+| **path** | **String**| Optional additional path segments | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | On success |  -  |
+
+
+## triggerExecutionByPostWebhookWithPath
+
+> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by POST webhook trigger
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        String key = "key_example"; // String | The webhook trigger uid
+        String path = "path_example"; // String | Optional additional path segments
+        String tenant = "tenant_example"; // String | 
+        try {
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPostWebhookWithPath");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **key** | **String**| The webhook trigger uid | |
+| **path** | **String**| Optional additional path segments | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | On success |  -  |
+
+
+## triggerExecutionByPutWebhookWithPath
+
+> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+
+Trigger a new execution by PUT webhook trigger
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        String key = "key_example"; // String | The webhook trigger uid
+        String path = "path_example"; // String | Optional additional path segments
+        String tenant = "tenant_example"; // String | 
+        try {
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPutWebhookWithPath");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **key** | **String**| The webhook trigger uid | |
+| **path** | **String**| Optional additional path segments | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
 
 ### Authorization
 

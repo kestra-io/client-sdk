@@ -26,16 +26,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * NamespaceLight
  */
 @JsonPropertyOrder({
-  NamespaceLight.JSON_PROPERTY_ID,
-  NamespaceLight.JSON_PROPERTY_DELETED
+  NamespaceLight.JSON_PROPERTY_ID
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NamespaceLight {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;
-
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public NamespaceLight() {
   }
@@ -64,30 +60,6 @@ public class NamespaceLight {
     this.id = id;
   }
 
-  public NamespaceLight deleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    this.deleted = deleted;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -97,13 +69,12 @@ public class NamespaceLight {
       return false;
     }
     NamespaceLight namespaceLight = (NamespaceLight) o;
-    return Objects.equals(this.id, namespaceLight.id) &&
-        Objects.equals(this.deleted, namespaceLight.deleted);
+    return Objects.equals(this.id, namespaceLight.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, deleted);
+    return Objects.hash(id);
   }
 
   @Override
@@ -111,7 +82,6 @@ public class NamespaceLight {
     StringBuilder sb = new StringBuilder();
     sb.append("class NamespaceLight {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -12,5 +12,6 @@ Name | Type | Description | Notes
 **metadata** | **{String: Object}** |  | [optional] 
 **created** | **Date** |  | [optional] 
 **updated** | **Date** |  | [optional] 
+**deleted** | **Boolean** |  | [optional] 
 
 

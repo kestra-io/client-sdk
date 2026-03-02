@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Dashboard
  */
 @JsonPropertyOrder({
+  Dashboard.JSON_PROPERTY_ID,
   Dashboard.JSON_PROPERTY_TITLE,
   Dashboard.JSON_PROPERTY_DESCRIPTION,
   Dashboard.JSON_PROPERTY_TIME_WINDOW,
@@ -38,6 +39,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Dashboard {
+  public static final String JSON_PROPERTY_ID = "id";
+  @jakarta.annotation.Nonnull  private String id;
+
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull  private String title;
 
@@ -51,6 +55,30 @@ public class Dashboard {
   @jakarta.annotation.Nullable  private List<ChartChartOption> charts = new ArrayList<>();
 
   public Dashboard() {
+  }
+
+  public Dashboard id(@jakarta.annotation.Nonnull String id) {
+    
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
+    this.id = id;
   }
 
   public Dashboard title(@jakarta.annotation.Nonnull String title) {
@@ -166,7 +194,8 @@ public class Dashboard {
       return false;
     }
     Dashboard dashboard = (Dashboard) o;
-    return Objects.equals(this.title, dashboard.title) &&
+    return Objects.equals(this.id, dashboard.id) &&
+        Objects.equals(this.title, dashboard.title) &&
         Objects.equals(this.description, dashboard.description) &&
         Objects.equals(this.timeWindow, dashboard.timeWindow) &&
         Objects.equals(this.charts, dashboard.charts);
@@ -174,13 +203,14 @@ public class Dashboard {
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, description, timeWindow, charts);
+    return Objects.hash(id, title, description, timeWindow, charts);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Dashboard {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    timeWindow: ").append(toIndentedString(timeWindow)).append("\n");

@@ -15,7 +15,6 @@ import ApiClient from '../ApiClient';
 /**
   * @typedef {Object} INamespaceLight
   * @property {String} id
-  * @property {Boolean} deleted
   */
 
 /**
@@ -28,11 +27,10 @@ class NamespaceLight {
      * Constructs a new <code>NamespaceLight</code>.
      * @alias module:model/NamespaceLight
      * @param {String} id - 
-     * @param {Boolean} deleted - 
      */
-    constructor(id, deleted) { 
+    constructor(id) { 
         
-        NamespaceLight.initialize(this, id, deleted);
+        NamespaceLight.initialize(this, id);
     }
 
     /**
@@ -40,9 +38,8 @@ class NamespaceLight {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, deleted) { 
+    static initialize(obj, id) { 
         obj['id'] = id;
-        obj['deleted'] = deleted;
     }
 
     /**
@@ -58,9 +55,6 @@ class NamespaceLight {
 
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
-            }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
         }
         return obj;
@@ -89,17 +83,12 @@ class NamespaceLight {
 
 }
 
-NamespaceLight.RequiredProperties = ["id", "deleted"];
+NamespaceLight.RequiredProperties = ["id"];
 
 /**
  * @member {String} id
  */
 NamespaceLight.prototype['id'] = undefined;
-
-/**
- * @member {Boolean} deleted
- */
-NamespaceLight.prototype['deleted'] = undefined;
 
 
 

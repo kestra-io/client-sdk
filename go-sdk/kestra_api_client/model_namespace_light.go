@@ -20,7 +20,6 @@ var _ MappedNullable = &NamespaceLight{}
 // NamespaceLight struct for NamespaceLight
 type NamespaceLight struct {
 	Id                   string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Deleted              bool   `json:"deleted"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,10 +29,9 @@ type _NamespaceLight NamespaceLight
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNamespaceLight(id string, deleted bool) *NamespaceLight {
+func NewNamespaceLight(id string) *NamespaceLight {
 	this := NamespaceLight{}
 	this.Id = id
-	this.Deleted = deleted
 	return &this
 }
 
@@ -69,30 +67,6 @@ func (o *NamespaceLight) SetId(v string) {
 	o.Id = v
 }
 
-// GetDeleted returns the Deleted field value
-func (o *NamespaceLight) GetDeleted() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value
-// and a boolean to check if the value has been set.
-func (o *NamespaceLight) GetDeletedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deleted, true
-}
-
-// SetDeleted sets field value
-func (o *NamespaceLight) SetDeleted(v bool) {
-	o.Deleted = v
-}
-
 func (o NamespaceLight) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -104,7 +78,6 @@ func (o NamespaceLight) MarshalJSON() ([]byte, error) {
 func (o NamespaceLight) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["deleted"] = o.Deleted
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -119,7 +92,6 @@ func (o *NamespaceLight) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"deleted",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -150,7 +122,6 @@ func (o *NamespaceLight) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "deleted")
 		o.AdditionalProperties = additionalProperties
 	}
 

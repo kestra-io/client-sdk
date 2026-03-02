@@ -35,6 +35,7 @@ import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountDetail;
 import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountRequest;
 import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountResponse;
 import io.kestra.sdk.model.PagedResultsIAMServiceAccountControllerApiServiceAccountDetail;
+import io.kestra.sdk.model.QueryFilter;
 
 
 import java.util.ArrayList;
@@ -901,13 +902,13 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param q A string filter (optional)
+   * @param filters Filters (required)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listServiceAccounts(page, size, q, sort, Collections.emptyMap());
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.listServiceAccounts(page, size, filters, sort, Collections.emptyMap());
   }
 
   /**
@@ -915,13 +916,13 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param q A string filter (optional)
+   * @param filters Filters (required)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -934,6 +935,11 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'size' when calling listServiceAccounts");
     }
     
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling listServiceAccounts");
+    }
+    
     // create path and map variables
     String localVarPath = "/api/v1/service-accounts";
 
@@ -944,10 +950,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

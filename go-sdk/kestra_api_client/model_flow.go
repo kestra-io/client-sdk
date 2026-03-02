@@ -12,6 +12,7 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the Flow type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,11 @@ var _ MappedNullable = &Flow{}
 
 // Flow struct for Flow
 type Flow struct {
-	Id          string        `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace   string        `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision    *int32        `json:"revision,omitempty"`
+	Id        string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision  *int32 `json:"revision,omitempty"`
+	// The timestamp when this revision was created or last updated.
+	Updated     *time.Time    `json:"updated,omitempty"`
 	Description *string       `json:"description,omitempty"`
 	Inputs      []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
@@ -147,6 +150,38 @@ func (o *Flow) HasRevision() bool {
 // SetRevision gets a reference to the given int32 and assigns it to the Revision field.
 func (o *Flow) SetRevision(v int32) {
 	o.Revision = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *Flow) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Flow) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *Flow) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *Flow) SetUpdated(v time.Time) {
+	o.Updated = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -716,6 +751,9 @@ func (o Flow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Revision) {
 		toSerialize["revision"] = o.Revision
 	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -814,6 +852,7 @@ func (o *Flow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "revision")
+		delete(additionalProperties, "updated")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")

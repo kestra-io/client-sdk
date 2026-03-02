@@ -28,7 +28,6 @@ type BaseAuditLog struct {
 	UserId               string         `json:"userId"`
 	IpAddress            *string        `json:"ipAddress,omitempty"`
 	ImpersonatedBy       *string        `json:"impersonatedBy,omitempty"`
-	Deleted              *bool          `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -272,38 +271,6 @@ func (o *BaseAuditLog) SetImpersonatedBy(v string) {
 	o.ImpersonatedBy = &v
 }
 
-// GetDeleted returns the Deleted field value if set, zero value otherwise.
-func (o *BaseAuditLog) GetDeleted() bool {
-	if o == nil || IsNil(o.Deleted) {
-		var ret bool
-		return ret
-	}
-	return *o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseAuditLog) GetDeletedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Deleted) {
-		return nil, false
-	}
-	return o.Deleted, true
-}
-
-// HasDeleted returns a boolean if a field has been set.
-func (o *BaseAuditLog) HasDeleted() bool {
-	if o != nil && !IsNil(o.Deleted) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
-func (o *BaseAuditLog) SetDeleted(v bool) {
-	o.Deleted = &v
-}
-
 func (o BaseAuditLog) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -327,9 +294,6 @@ func (o BaseAuditLog) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ImpersonatedBy) {
 		toSerialize["impersonatedBy"] = o.ImpersonatedBy
-	}
-	if !IsNil(o.Deleted) {
-		toSerialize["deleted"] = o.Deleted
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -386,7 +350,6 @@ func (o *BaseAuditLog) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "ipAddress")
 		delete(additionalProperties, "impersonatedBy")
-		delete(additionalProperties, "deleted")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -27,6 +27,8 @@ Name | Type | Description | Notes
 **SERVICE_ACCOUNT** | **[String]** |  | [optional] 
 **INVITATION** | **[String]** |  | [optional] 
 **GROUP_MEMBERSHIP** | **[String]** |  | [optional] 
+**CREDENTIAL** | **[String]** |  | [optional] 
+**AI_COPILOT** | **[String]** |  | [optional] 
 **UNKNOWN** | **[String]** |  | [optional] 
 
 

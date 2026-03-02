@@ -27,6 +27,7 @@ type AssetsControllerApiAsset struct {
 	Metadata             map[string]map[string]interface{} `json:"metadata,omitempty"`
 	Created              *time.Time                        `json:"created,omitempty"`
 	Updated              *time.Time                        `json:"updated,omitempty"`
+	Deleted              *bool                             `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -305,6 +306,38 @@ func (o *AssetsControllerApiAsset) SetUpdated(v time.Time) {
 	o.Updated = &v
 }
 
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *AssetsControllerApiAsset) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetsControllerApiAsset) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *AssetsControllerApiAsset) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *AssetsControllerApiAsset) SetDeleted(v bool) {
+	o.Deleted = &v
+}
+
 func (o AssetsControllerApiAsset) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -339,6 +372,9 @@ func (o AssetsControllerApiAsset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Updated) {
 		toSerialize["updated"] = o.Updated
 	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -369,6 +405,7 @@ func (o *AssetsControllerApiAsset) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "updated")
+		delete(additionalProperties, "deleted")
 		o.AdditionalProperties = additionalProperties
 	}
 

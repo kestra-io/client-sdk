@@ -28,7 +28,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   FlowGenerationPrompt.JSON_PROPERTY_CONVERSATION_ID,
   FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
-  FlowGenerationPrompt.JSON_PROPERTY_FLOW_YAML
+  FlowGenerationPrompt.JSON_PROPERTY_YAML,
+  FlowGenerationPrompt.JSON_PROPERTY_PROVIDER_ID,
+  FlowGenerationPrompt.JSON_PROPERTY_NAMESPACE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowGenerationPrompt {
@@ -38,8 +40,14 @@ public class FlowGenerationPrompt {
   public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
   @jakarta.annotation.Nonnull  private String userPrompt;
 
-  public static final String JSON_PROPERTY_FLOW_YAML = "flowYaml";
-  @jakarta.annotation.Nullable  private String flowYaml;
+  public static final String JSON_PROPERTY_YAML = "yaml";
+  @jakarta.annotation.Nullable  private String yaml;
+
+  public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
+  @jakarta.annotation.Nullable  private String providerId;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
 
   public FlowGenerationPrompt() {
   }
@@ -92,28 +100,76 @@ public class FlowGenerationPrompt {
     this.userPrompt = userPrompt;
   }
 
-  public FlowGenerationPrompt flowYaml(@jakarta.annotation.Nullable String flowYaml) {
+  public FlowGenerationPrompt yaml(@jakarta.annotation.Nullable String yaml) {
     
-    this.flowYaml = flowYaml;
+    this.yaml = yaml;
     return this;
   }
 
   /**
-   * Get flowYaml
-   * @return flowYaml
+   * Get yaml
+   * @return yaml
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_YAML)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_YAML)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getFlowYaml() {
-    return flowYaml;
+  public String getYaml() {
+    return yaml;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_YAML)
+  @JsonProperty(JSON_PROPERTY_YAML)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowYaml(@jakarta.annotation.Nullable String flowYaml) {
-    this.flowYaml = flowYaml;
+  public void setYaml(@jakarta.annotation.Nullable String yaml) {
+    this.yaml = yaml;
+  }
+
+  public FlowGenerationPrompt providerId(@jakarta.annotation.Nullable String providerId) {
+    
+    this.providerId = providerId;
+    return this;
+  }
+
+  /**
+   * Get providerId
+   * @return providerId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getProviderId() {
+    return providerId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProviderId(@jakarta.annotation.Nullable String providerId) {
+    this.providerId = providerId;
+  }
+
+  public FlowGenerationPrompt namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
   }
 
   @Override
@@ -127,12 +183,14 @@ public class FlowGenerationPrompt {
     FlowGenerationPrompt flowGenerationPrompt = (FlowGenerationPrompt) o;
     return Objects.equals(this.conversationId, flowGenerationPrompt.conversationId) &&
         Objects.equals(this.userPrompt, flowGenerationPrompt.userPrompt) &&
-        Objects.equals(this.flowYaml, flowGenerationPrompt.flowYaml);
+        Objects.equals(this.yaml, flowGenerationPrompt.yaml) &&
+        Objects.equals(this.providerId, flowGenerationPrompt.providerId) &&
+        Objects.equals(this.namespace, flowGenerationPrompt.namespace);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(conversationId, userPrompt, flowYaml);
+    return Objects.hash(conversationId, userPrompt, yaml, providerId, namespace);
   }
 
   @Override
@@ -141,7 +199,9 @@ public class FlowGenerationPrompt {
     sb.append("class FlowGenerationPrompt {\n");
     sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
     sb.append("    userPrompt: ").append(toIndentedString(userPrompt)).append("\n");
-    sb.append("    flowYaml: ").append(toIndentedString(flowYaml)).append("\n");
+    sb.append("    yaml: ").append(toIndentedString(yaml)).append("\n");
+    sb.append("    providerId: ").append(toIndentedString(providerId)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("}");
     return sb.toString();
   }

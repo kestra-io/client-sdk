@@ -67,7 +67,7 @@ describe('ServiceAccountApi', () => {
         const created = await kestraClient().serviceAccountApi.createServiceAccount({name});
 
         // Many SDKs use {page, size}; some use {page: 1, size: 50}, others 0-based.
-        const results = await kestraClient().serviceAccountApi.listServiceAccounts(1, 10000);
+        const results = await kestraClient().serviceAccountApi.listServiceAccounts(1, 10000, []);
 
         // tolerate different result shapes: {results: []} or direct array
         const items = Array.isArray(results) ? results : results?.results ?? [];

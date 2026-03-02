@@ -40,5 +40,6 @@ Name | Type | Description | Notes
 **airgapped** | **Boolean** |  | [optional] 
 **featureGating** | **Boolean** |  | [optional] 
 **features** | **[String]** |  | [optional] 
+**killSwitches** | [**[KillSwitch]**](KillSwitch.md) |  | [optional] 
 
 

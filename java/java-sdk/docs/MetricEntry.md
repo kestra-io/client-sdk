@@ -17,7 +17,6 @@
 |**value** | **Double** |  |  |
 |**timestamp** | **OffsetDateTime** |  |  |
 |**tags** | **Map&lt;String, String&gt;** |  |  [optional] |
-|**deleted** | **Boolean** |  |  |
 |**executionKind** | **ExecutionKind** |  |  [optional] |
 
 

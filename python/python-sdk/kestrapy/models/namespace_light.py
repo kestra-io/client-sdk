@@ -16,7 +16,7 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -27,9 +27,8 @@ class NamespaceLight(BaseModel):
     NamespaceLight
     """ # noqa: E501
     id: Annotated[str, Field(strict=True)]
-    deleted: StrictBool
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "deleted"]
+    __properties: ClassVar[List[str]] = ["id"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -96,8 +95,7 @@ class NamespaceLight(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "deleted": obj.get("deleted")
+            "id": obj.get("id")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

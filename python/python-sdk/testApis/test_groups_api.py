@@ -15,7 +15,8 @@
 import unittest
 from kestrapy import Configuration, KestraClient, IAMGroupControllerApiCreateGroupRequest, ApiIds, \
     IAMUserControllerApiCreateOrUpdateUserRequest, ApiAutocomplete, IAMGroupControllerApiUpdateGroupRequest, \
-    GroupIdentifierMembership
+    GroupIdentifierMembership, QueryFilter, QueryFilterField, QueryFilterOp
+
 
 class TestGroupsApi(unittest.TestCase):
     """GroupsApi unit test stubs"""
@@ -232,10 +233,11 @@ class TestGroupsApi(unittest.TestCase):
             user_id=created_user.id
         )
 
+        qf = QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": created_user.email})
         members = self.kestra_client.groups.search_group_members(
             tenant=self.tenant,
             id=created_group.id,
-            q=created_user.email,
+            filters=[qf],
             page=1,
             size=10
         )

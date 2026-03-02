@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **Revision** | Pointer to **int32** |  | [optional] 
+**Updated** | Pointer to **time.Time** | The timestamp when this revision was created or last updated. | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
@@ -99,6 +100,31 @@ SetRevision sets Revision field to given value.
 `func (o *AbstractFlow) HasRevision() bool`
 
 HasRevision returns a boolean if a field has been set.
+
+### GetUpdated
+
+`func (o *AbstractFlow) GetUpdated() time.Time`
+
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
+
+### GetUpdatedOk
+
+`func (o *AbstractFlow) GetUpdatedOk() (*time.Time, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdated
+
+`func (o *AbstractFlow) SetUpdated(v time.Time)`
+
+SetUpdated sets Updated field to given value.
+
+### HasUpdated
+
+`func (o *AbstractFlow) HasUpdated() bool`
+
+HasUpdated returns a boolean if a field has been set.
 
 ### GetDescription
 

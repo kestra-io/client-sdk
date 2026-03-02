@@ -66,7 +66,7 @@ let allowNamespaceChild = false; // Boolean | If namespace child should are allo
 let tenant = "tenant_example"; // String | 
 let opts = {
   'namespace': "namespace_example", // String | The namespace where to update flows
-  'body': "body_example" // String | A list of flows source code splitted with \"---\"
+  'body': "body_example" // String | A list of flows source code split with \"---\"
 };
 apiInstance.bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
  **allowNamespaceChild** | **Boolean**| If namespace child should are allowed to be updated | [default to false]
  **tenant** | **String**|  | 
  **namespace** | **String**| The namespace where to update flows | [optional] 
- **body** | **String**| A list of flows source code splitted with \&quot;---\&quot; | [optional] 
+ **body** | **String**| A list of flows source code split with \&quot;---\&quot; | [optional] 
 
 ### Return type
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## updateConcurrencyLimit
 
-> ConcurrencyLimit updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit)
+> ConcurrencyLimit updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit)
 
 Update a flow concurrency limit
 
@@ -1431,11 +1431,11 @@ Update a flow concurrency limit
 import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let flowId = "flowId_example"; // String | 
 let namespace = "namespace_example"; // String | 
+let flowId = "flowId_example"; // String | 
 let tenant = "tenant_example"; // String | 
 let concurrencyLimit = new KestraIoKestraSdk.ConcurrencyLimit(); // ConcurrencyLimit | 
-apiInstance.updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit).then((data) => {
+apiInstance.updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1448,8 +1448,8 @@ apiInstance.updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit).
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **flowId** | **String**|  | 
  **namespace** | **String**|  | 
+ **flowId** | **String**|  | 
  **tenant** | **String**|  | 
  **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
 
@@ -1525,7 +1525,7 @@ Name | Type | Description  | Notes
 
 ## updateFlowsInNamespace
 
-> [FlowInterface] updateFlowsInNamespace(override, _delete, namespace, tenant, body)
+> [FlowInterface] updateFlowsInNamespace(_delete, namespace, tenant, override, body)
 
 Update a complete namespace from yaml source
 
@@ -1545,12 +1545,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let override = false; // Boolean | If namespace of all provided flows should be overridden
 let _delete = true; // Boolean | If missing flow should be deleted
 let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
+let override = false; // Boolean | If namespace of all provided flows should be overridden
 let body = "body_example"; // String | A list of flows source code
-apiInstance.updateFlowsInNamespace(override, _delete, namespace, tenant, body).then((data) => {
+apiInstance.updateFlowsInNamespace(_delete, namespace, tenant, override, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1563,10 +1563,10 @@ apiInstance.updateFlowsInNamespace(override, _delete, namespace, tenant, body).t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false]
  **_delete** | **Boolean**| If missing flow should be deleted | [default to true]
  **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
+ **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false]
  **body** | **String**| A list of flows source code | 
 
 ### Return type

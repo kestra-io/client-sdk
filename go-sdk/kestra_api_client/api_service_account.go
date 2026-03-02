@@ -1161,7 +1161,7 @@ type ApiListServiceAccountsRequest struct {
 	ApiService *ServiceAccountAPIService
 	page       *int32
 	size       *int32
-	q          *string
+	filters    *[]QueryFilter
 	sort       *[]string
 }
 
@@ -1177,9 +1177,9 @@ func (r ApiListServiceAccountsRequest) Size(size int32) ApiListServiceAccountsRe
 	return r
 }
 
-// A string filter
-func (r ApiListServiceAccountsRequest) Q(q string) ApiListServiceAccountsRequest {
-	r.q = &q
+// Filters
+func (r ApiListServiceAccountsRequest) Filters(filters []QueryFilter) ApiListServiceAccountsRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -1195,8 +1195,8 @@ func (r ApiListServiceAccountsRequest) GetPage() *int32 {
 func (r ApiListServiceAccountsRequest) GetSize() *int32 {
 	return r.size
 }
-func (r ApiListServiceAccountsRequest) GetQ() *string {
-	return r.q
+func (r ApiListServiceAccountsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 func (r ApiListServiceAccountsRequest) GetSort() *[]string {
 	return r.sort
@@ -1248,15 +1248,16 @@ func (a *ServiceAccountAPIService) ListServiceAccountsExecute(r ApiListServiceAc
 	if r.size == nil {
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.filters == nil {
+		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
+
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

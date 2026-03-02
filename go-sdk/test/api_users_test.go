@@ -226,7 +226,14 @@ func TestUsersAPI_All(t *testing.T) {
 			Execute()
 		require.NoError(t, err)
 
-		page, _, err := KestraTestApiClient().UsersAPI.ListUsers(ctx).Page(1).Size(50).Q(base).Execute()
+		filters := []kestra_api_client.QueryFilter{
+			{
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_QUERY),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
+				Value:     base,
+			},
+		}
+		page, _, err := KestraTestApiClient().UsersAPI.ListUsers(ctx).Page(1).Size(50).Filters(filters).Execute()
 		require.NoError(t, err)
 		require.NotNil(t, page)
 		require.NotNil(t, page.GetResults())

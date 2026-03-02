@@ -44,7 +44,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricEntry.JSON_PROPERTY_VALUE,
   MetricEntry.JSON_PROPERTY_TIMESTAMP,
   MetricEntry.JSON_PROPERTY_TAGS,
-  MetricEntry.JSON_PROPERTY_DELETED,
   MetricEntry.JSON_PROPERTY_EXECUTION_KIND
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -78,9 +77,6 @@ public class MetricEntry {
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nullable  private JsonNullable<Map<String, String>> tags = JsonNullable.<Map<String, String>>undefined();
-
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_EXECUTION_KIND = "executionKind";
   @jakarta.annotation.Nullable  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
@@ -368,30 +364,6 @@ public class MetricEntry {
     this.tags = JsonNullable.<Map<String, String>>of(tags);
   }
 
-  public MetricEntry deleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    this.deleted = deleted;
-  }
-
   public MetricEntry executionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
     this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
     
@@ -442,7 +414,6 @@ public class MetricEntry {
         Objects.equals(this.value, metricEntry.value) &&
         Objects.equals(this.timestamp, metricEntry.timestamp) &&
         equalsNullable(this.tags, metricEntry.tags) &&
-        Objects.equals(this.deleted, metricEntry.deleted) &&
         equalsNullable(this.executionKind, metricEntry.executionKind);
   }
 
@@ -452,7 +423,7 @@ public class MetricEntry {
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, flowId, hashCodeNullable(taskId), hashCodeNullable(executionId), hashCodeNullable(taskRunId), type, name, value, timestamp, hashCodeNullable(tags), deleted, hashCodeNullable(executionKind));
+    return Objects.hash(namespace, flowId, hashCodeNullable(taskId), hashCodeNullable(executionId), hashCodeNullable(taskRunId), type, name, value, timestamp, hashCodeNullable(tags), hashCodeNullable(executionKind));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -476,7 +447,6 @@ public class MetricEntry {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    executionKind: ").append(toIndentedString(executionKind)).append("\n");
     sb.append("}");
     return sb.toString();

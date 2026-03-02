@@ -36,7 +36,6 @@ import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
 import io.kestra.sdk.model.ExecutionControllerStateRequest;
-import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import java.io.File;
@@ -49,6 +48,7 @@ import io.kestra.sdk.model.PagedResultsExecution;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import java.net.URI;
+import io.kestra.sdk.model.WebhookResponse;
 
 
 import java.util.ArrayList;
@@ -933,7 +933,7 @@ import java.util.StringJoiner;
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow informations (required)
+   * @param executionId The execution that you want flow information (required)
    * @param tenant  (required)
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
@@ -945,7 +945,7 @@ import java.util.StringJoiner;
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow informations (required)
+   * @param executionId The execution that you want flow information (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return FlowForExecution
@@ -3438,10 +3438,10 @@ import java.util.StringJoiner;
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
    * @param tenant  (required)
-   * @return ExecutionControllerWebhookResponse
+   * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
   }
 
@@ -3453,10 +3453,10 @@ import java.util.StringJoiner;
    * @param key The webhook trigger uid (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerWebhookResponse
+   * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3510,10 +3510,340 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<ExecutionControllerWebhookResponse> localVarReturnType = new TypeReference<ExecutionControllerWebhookResponse>() {};
+    TypeReference<WebhookResponse> localVarReturnType = new TypeReference<WebhookResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Trigger a new execution by GET webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Trigger a new execution by GET webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecutionByGetWebhookWithPath");
+    }
+    
+    // verify the required parameter 'key' is set
+    if (key == null) {
+      throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByGetWebhookWithPath");
+    }
+    
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByGetWebhookWithPath");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<WebhookResponse> localVarReturnType = new TypeReference<WebhookResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Trigger a new execution by POST webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Trigger a new execution by POST webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecutionByPostWebhookWithPath");
+    }
+    
+    // verify the required parameter 'key' is set
+    if (key == null) {
+      throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPostWebhookWithPath");
+    }
+    
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByPostWebhookWithPath");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<WebhookResponse> localVarReturnType = new TypeReference<WebhookResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Trigger a new execution by PUT webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Trigger a new execution by PUT webhook trigger
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param key The webhook trigger uid (required)
+   * @param path Optional additional path segments (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return WebhookResponse
+   * @throws ApiException if fails to make API call
+   */
+  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecutionByPutWebhookWithPath");
+    }
+    
+    // verify the required parameter 'key' is set
+    if (key == null) {
+      throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPutWebhookWithPath");
+    }
+    
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByPutWebhookWithPath");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<WebhookResponse> localVarReturnType = new TypeReference<WebhookResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "PUT",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),

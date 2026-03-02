@@ -30,7 +30,6 @@ type MetricEntry struct {
 	Value                float64               `json:"value"`
 	Timestamp            time.Time             `json:"timestamp"`
 	Tags                 map[string]string     `json:"tags,omitempty"`
-	Deleted              bool                  `json:"deleted"`
 	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -41,7 +40,7 @@ type _MetricEntry MetricEntry
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricEntry(namespace string, flowId string, type_ string, name string, value float64, timestamp time.Time, deleted bool) *MetricEntry {
+func NewMetricEntry(namespace string, flowId string, type_ string, name string, value float64, timestamp time.Time) *MetricEntry {
 	this := MetricEntry{}
 	this.Namespace = namespace
 	this.FlowId = flowId
@@ -49,7 +48,6 @@ func NewMetricEntry(namespace string, flowId string, type_ string, name string, 
 	this.Name = name
 	this.Value = value
 	this.Timestamp = timestamp
-	this.Deleted = deleted
 	return &this
 }
 
@@ -367,30 +365,6 @@ func (o *MetricEntry) SetTags(v map[string]string) {
 	o.Tags = v
 }
 
-// GetDeleted returns the Deleted field value
-func (o *MetricEntry) GetDeleted() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value
-// and a boolean to check if the value has been set.
-func (o *MetricEntry) GetDeletedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deleted, true
-}
-
-// SetDeleted sets field value
-func (o *MetricEntry) SetDeleted(v bool) {
-	o.Deleted = v
-}
-
 // GetExecutionKind returns the ExecutionKind field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MetricEntry) GetExecutionKind() ExecutionKind {
 	if o == nil || IsNil(o.ExecutionKind.Get()) {
@@ -462,7 +436,6 @@ func (o MetricEntry) ToMap() (map[string]interface{}, error) {
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
-	toSerialize["deleted"] = o.Deleted
 	if o.ExecutionKind.IsSet() {
 		toSerialize["executionKind"] = o.ExecutionKind.Get()
 	}
@@ -485,7 +458,6 @@ func (o *MetricEntry) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"value",
 		"timestamp",
-		"deleted",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -525,7 +497,6 @@ func (o *MetricEntry) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "timestamp")
 		delete(additionalProperties, "tags")
-		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "executionKind")
 		o.AdditionalProperties = additionalProperties
 	}

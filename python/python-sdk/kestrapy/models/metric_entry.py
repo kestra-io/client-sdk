@@ -17,7 +17,7 @@ import regex as re
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from kestrapy.models.execution_kind import ExecutionKind
 from typing import Optional, Set
@@ -37,10 +37,9 @@ class MetricEntry(BaseModel):
     value: Union[StrictFloat, StrictInt]
     timestamp: datetime
     tags: Optional[Dict[str, StrictStr]] = None
-    deleted: StrictBool
     execution_kind: Optional[ExecutionKind] = Field(default=None, alias="executionKind")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["namespace", "flowId", "taskId", "executionId", "taskRunId", "type", "name", "value", "timestamp", "tags", "deleted", "executionKind"]
+    __properties: ClassVar[List[str]] = ["namespace", "flowId", "taskId", "executionId", "taskRunId", "type", "name", "value", "timestamp", "tags", "executionKind"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -135,7 +134,6 @@ class MetricEntry(BaseModel):
             "value": obj.get("value"),
             "timestamp": obj.get("timestamp"),
             "tags": obj.get("tags"),
-            "deleted": obj.get("deleted"),
             "executionKind": obj.get("executionKind")
         })
         # store additional fields in additional_properties

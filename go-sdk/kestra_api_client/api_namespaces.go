@@ -15,6 +15,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
@@ -473,6 +474,256 @@ func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+type ApiExportPluginDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *NamespacesAPIService
+	id         string
+	tenant     string
+}
+
+func (r ApiExportPluginDefaultsRequest) GetId() string {
+	return r.id
+}
+func (r ApiExportPluginDefaultsRequest) GetTenant() string {
+	return r.tenant
+}
+
+func (r ApiExportPluginDefaultsRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.ExportPluginDefaultsExecute(r)
+}
+
+/*
+ExportPluginDefaults Export this namespace plugin defaults
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The namespace id
+	@param tenant
+	@return ApiExportPluginDefaultsRequest
+*/
+func (a *NamespacesAPIService) ExportPluginDefaults(ctx context.Context, id string, tenant string) ApiExportPluginDefaultsRequest {
+	return ApiExportPluginDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return string
+func (a *NamespacesAPIService) ExportPluginDefaultsExecute(r ApiExportPluginDefaultsRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.ExportPluginDefaults")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{id}/plugindefaults/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiImportPluginDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *NamespacesAPIService
+	id         string
+	tenant     string
+	fileUpload *os.File
+}
+
+func (r ApiImportPluginDefaultsRequest) FileUpload(fileUpload *os.File) ApiImportPluginDefaultsRequest {
+	r.fileUpload = fileUpload
+	return r
+}
+
+func (r ApiImportPluginDefaultsRequest) GetId() string {
+	return r.id
+}
+func (r ApiImportPluginDefaultsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiImportPluginDefaultsRequest) GetFileUpload() *os.File {
+	return r.fileUpload
+}
+
+func (r ApiImportPluginDefaultsRequest) Execute() ([]string, *http.Response, error) {
+	return r.ApiService.ImportPluginDefaultsExecute(r)
+}
+
+/*
+ImportPluginDefaults Import plugin defaults in this namespace
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The namespace id
+	@param tenant
+	@return ApiImportPluginDefaultsRequest
+*/
+func (a *NamespacesAPIService) ImportPluginDefaults(ctx context.Context, id string, tenant string) ApiImportPluginDefaultsRequest {
+	return ApiImportPluginDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []string
+func (a *NamespacesAPIService) ImportPluginDefaultsExecute(r ApiImportPluginDefaultsRequest) ([]string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.ImportPluginDefaults")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{id}/plugindefaults/import"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	var fileUploadLocalVarFormFileName string
+	var fileUploadLocalVarFileName string
+	var fileUploadLocalVarFileBytes []byte
+
+	fileUploadLocalVarFormFileName = "fileUpload"
+	fileUploadLocalVarFile := r.fileUpload
+
+	if fileUploadLocalVarFile != nil {
+		fbs, _ := io.ReadAll(fileUploadLocalVarFile)
+
+		fileUploadLocalVarFileBytes = fbs
+		fileUploadLocalVarFileName = fileUploadLocalVarFile.Name()
+		fileUploadLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileUploadLocalVarFileBytes, fileName: fileUploadLocalVarFileName, formFileName: fileUploadLocalVarFormFileName})
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiInheritedPluginDefaultsRequest struct {
 	ctx        context.Context
 	ApiService *NamespacesAPIService
@@ -487,7 +738,7 @@ func (r ApiInheritedPluginDefaultsRequest) GetTenant() string {
 	return r.tenant
 }
 
-func (r ApiInheritedPluginDefaultsRequest) Execute() ([]PluginDefault, *http.Response, error) {
+func (r ApiInheritedPluginDefaultsRequest) Execute() ([]NamespaceControllerApiInheritedPluginDefaultFromNamespace, *http.Response, error) {
 	return r.ApiService.InheritedPluginDefaultsExecute(r)
 }
 
@@ -510,13 +761,13 @@ func (a *NamespacesAPIService) InheritedPluginDefaults(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return []PluginDefault
-func (a *NamespacesAPIService) InheritedPluginDefaultsExecute(r ApiInheritedPluginDefaultsRequest) ([]PluginDefault, *http.Response, error) {
+//	@return []NamespaceControllerApiInheritedPluginDefaultFromNamespace
+func (a *NamespacesAPIService) InheritedPluginDefaultsExecute(r ApiInheritedPluginDefaultsRequest) ([]NamespaceControllerApiInheritedPluginDefaultFromNamespace, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []PluginDefault
+		localVarReturnValue []NamespaceControllerApiInheritedPluginDefaultFromNamespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedPluginDefaults")

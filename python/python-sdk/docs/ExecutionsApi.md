@@ -42,6 +42,9 @@ Method | HTTP request | Description
 [**set_labels_on_terminated_executions_by_ids**](ExecutionsApi.md#set_labels_on_terminated_executions_by_ids) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 [**set_labels_on_terminated_executions_by_query**](ExecutionsApi.md#set_labels_on_terminated_executions_by_query) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
 [**trigger_execution_by_get_webhook**](ExecutionsApi.md#trigger_execution_by_get_webhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
+[**trigger_execution_by_get_webhook_with_path**](ExecutionsApi.md#trigger_execution_by_get_webhook_with_path) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger
+[**trigger_execution_by_post_webhook_with_path**](ExecutionsApi.md#trigger_execution_by_post_webhook_with_path) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger
+[**trigger_execution_by_put_webhook_with_path**](ExecutionsApi.md#trigger_execution_by_put_webhook_with_path) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger
 [**unqueue_execution**](ExecutionsApi.md#unqueue_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 [**unqueue_executions_by_ids**](ExecutionsApi.md#unqueue_executions_by_ids) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 [**unqueue_executions_by_query**](ExecutionsApi.md#unqueue_executions_by_query) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -695,7 +698,7 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    execution_id = 'execution_id_example' # str | The execution that you want flow informations
+    execution_id = 'execution_id_example' # str | The execution that you want flow information
     tenant = 'tenant_example' # str | 
 
     try:
@@ -714,7 +717,7 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution that you want flow informations | 
+ **execution_id** | **str**| The execution that you want flow information | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -2521,7 +2524,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook**
-> ExecutionControllerWebhookResponse trigger_execution_by_get_webhook(namespace, id, key, tenant)
+> WebhookResponse trigger_execution_by_get_webhook(namespace, id, key, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2569,7 +2572,217 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | On success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **trigger_execution_by_get_webhook_with_path**
+> WebhookResponse trigger_execution_by_get_webhook_with_path(namespace, id, key, path, tenant)
+
+Trigger a new execution by GET webhook trigger
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    key = 'key_example' # str | The webhook trigger uid
+    path = 'path_example' # str | Optional additional path segments
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Trigger a new execution by GET webhook trigger
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook_with_path(namespace, id, key, path, tenant)
+        print("The response of ExecutionsApi->trigger_execution_by_get_webhook_with_path:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->trigger_execution_by_get_webhook_with_path: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **key** | **str**| The webhook trigger uid | 
+ **path** | **str**| Optional additional path segments | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | On success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **trigger_execution_by_post_webhook_with_path**
+> WebhookResponse trigger_execution_by_post_webhook_with_path(namespace, id, key, path, tenant)
+
+Trigger a new execution by POST webhook trigger
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    key = 'key_example' # str | The webhook trigger uid
+    path = 'path_example' # str | Optional additional path segments
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Trigger a new execution by POST webhook trigger
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_post_webhook_with_path(namespace, id, key, path, tenant)
+        print("The response of ExecutionsApi->trigger_execution_by_post_webhook_with_path:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->trigger_execution_by_post_webhook_with_path: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **key** | **str**| The webhook trigger uid | 
+ **path** | **str**| Optional additional path segments | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | On success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **trigger_execution_by_put_webhook_with_path**
+> WebhookResponse trigger_execution_by_put_webhook_with_path(namespace, id, key, path, tenant)
+
+Trigger a new execution by PUT webhook trigger
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    key = 'key_example' # str | The webhook trigger uid
+    path = 'path_example' # str | Optional additional path segments
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Trigger a new execution by PUT webhook trigger
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_put_webhook_with_path(namespace, id, key, path, tenant)
+        print("The response of ExecutionsApi->trigger_execution_by_put_webhook_with_path:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->trigger_execution_by_put_webhook_with_path: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **key** | **str**| The webhook trigger uid | 
+ **path** | **str**| Optional additional path segments | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
 
 ### Authorization
 

@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **value** | **float** |  | 
 **timestamp** | **datetime** |  | 
 **tags** | **Dict[str, str]** |  | [optional] 
-**deleted** | **bool** |  | 
 **execution_kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 
 ## Example

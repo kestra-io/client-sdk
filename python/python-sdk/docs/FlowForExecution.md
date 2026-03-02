@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **namespace** | **str** |  | 
 **revision** | **int** |  | [optional] 
+**updated** | **datetime** | The timestamp when this revision was created or last updated. | [optional] 
 **description** | **str** |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 

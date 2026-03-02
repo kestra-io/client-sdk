@@ -8,9 +8,9 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
-|**deleted** | **Boolean** |  |  |
 |**storageIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
 |**secretIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
+|**deleted** | **Boolean** |  |  |
 |**description** | **String** |  |  [optional] |
 |**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  [optional] |
@@ -22,6 +22,7 @@
 |**secretReadOnly** | **Boolean** |  |  [optional] |
 |**secretConfiguration** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**outputsInInternalStorage** | **Boolean** |  |  [optional] |
+|**sdkDefaultAuthentication** | [**SDKAuth**](SDKAuth.md) |  |  [optional] |
 
 
 

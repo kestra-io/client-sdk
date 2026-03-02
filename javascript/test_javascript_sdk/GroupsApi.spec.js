@@ -3,6 +3,14 @@
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
 
+const QF_FIELD = {
+    QUERY: 'QUERY'
+};
+/** @type {Record<string, 'EQUALS'>} */
+const QF_OP = {
+    EQUALS: 'EQUALS'
+};
+
 describe('GroupsApi', () => {
     it('add_user_to_group: Add a user to a group', async () => {
         // create group
@@ -116,11 +124,11 @@ describe('GroupsApi', () => {
 
         await kestraClient().groupsApi.addUserToGroup(group.id, user.id, MAIN_TENANT);
 
-        // signature: (groupId, page, size, tenant, q, sort)
+        const qf = ({ field, operation, value }) => ({ field, operation, value });
+        const filters = [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: user.email })];
+        // signature: (groupId, page, size, filters, tenant, sort)
         const page = await kestraClient().groupsApi.searchGroupMembers(
-            group.id, 1, 10, MAIN_TENANT, {
-                q: user.email
-            }
+            group.id, 1, 10, filters, MAIN_TENANT
         );
 
         const results = page?.results ?? [];

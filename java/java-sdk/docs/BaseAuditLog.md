@@ -15,7 +15,6 @@
 |**userId** | **String** |  |  |
 |**ipAddress** | **String** |  |  [optional] |
 |**impersonatedBy** | **String** |  |  [optional] |
-|**deleted** | **Boolean** |  |  [optional] |
 
 
 

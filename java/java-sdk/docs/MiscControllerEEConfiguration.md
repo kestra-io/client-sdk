@@ -43,6 +43,7 @@
 |**airgapped** | **Boolean** |  |  [optional] |
 |**featureGating** | **Boolean** |  |  [optional] |
 |**features** | **List&lt;String&gt;** |  |  [optional] |
+|**killSwitches** | [**List&lt;KillSwitch&gt;**](KillSwitch.md) |  |  [optional] |
 
 
 

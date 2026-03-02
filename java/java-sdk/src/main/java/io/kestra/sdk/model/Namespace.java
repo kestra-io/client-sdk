@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.NamespaceAllowedNamespace;
 import io.kestra.sdk.model.PluginDefault;
+import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +37,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   Namespace.JSON_PROPERTY_ID,
-  Namespace.JSON_PROPERTY_DELETED,
   Namespace.JSON_PROPERTY_STORAGE_ISOLATION,
   Namespace.JSON_PROPERTY_SECRET_ISOLATION,
+  Namespace.JSON_PROPERTY_DELETED,
   Namespace.JSON_PROPERTY_DESCRIPTION,
   Namespace.JSON_PROPERTY_VARIABLES,
   Namespace.JSON_PROPERTY_PLUGIN_DEFAULTS,
@@ -49,21 +50,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Namespace.JSON_PROPERTY_SECRET_TYPE,
   Namespace.JSON_PROPERTY_SECRET_READ_ONLY,
   Namespace.JSON_PROPERTY_SECRET_CONFIGURATION,
-  Namespace.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE
+  Namespace.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
+  Namespace.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Namespace {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;
 
-  public static final String JSON_PROPERTY_DELETED = "deleted";
-  @jakarta.annotation.Nonnull  private Boolean deleted;
-
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
   @jakarta.annotation.Nullable  private Isolation storageIsolation;
 
   public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
   @jakarta.annotation.Nullable  private Isolation secretIsolation;
+
+  public static final String JSON_PROPERTY_DELETED = "deleted";
+  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -98,6 +100,9 @@ public class Namespace {
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
   @jakarta.annotation.Nullable  private Boolean outputsInInternalStorage;
 
+  public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
+  @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
+
   public Namespace() {
   }
 
@@ -123,30 +128,6 @@ public class Namespace {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
-  }
-
-  public Namespace deleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    
-    this.deleted = deleted;
-    return this;
-  }
-
-  /**
-   * Get deleted
-   * @return deleted
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getDeleted() {
-    return deleted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
-    this.deleted = deleted;
   }
 
   public Namespace storageIsolation(@jakarta.annotation.Nullable Isolation storageIsolation) {
@@ -195,6 +176,30 @@ public class Namespace {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretIsolation(@jakarta.annotation.Nullable Isolation secretIsolation) {
     this.secretIsolation = secretIsolation;
+  }
+
+  public Namespace deleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    
+    this.deleted = deleted;
+    return this;
+  }
+
+  /**
+   * Get deleted
+   * @return deleted
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDeleted() {
+    return deleted;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
+    this.deleted = deleted;
   }
 
   public Namespace description(@jakarta.annotation.Nullable String description) {
@@ -501,6 +506,30 @@ public class Namespace {
     this.outputsInInternalStorage = outputsInInternalStorage;
   }
 
+  public Namespace sdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+    return this;
+  }
+
+  /**
+   * Get sdkDefaultAuthentication
+   * @return sdkDefaultAuthentication
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SDKAuth getSdkDefaultAuthentication() {
+    return sdkDefaultAuthentication;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
+    this.sdkDefaultAuthentication = sdkDefaultAuthentication;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -511,9 +540,9 @@ public class Namespace {
     }
     Namespace namespace = (Namespace) o;
     return Objects.equals(this.id, namespace.id) &&
-        Objects.equals(this.deleted, namespace.deleted) &&
         Objects.equals(this.storageIsolation, namespace.storageIsolation) &&
         Objects.equals(this.secretIsolation, namespace.secretIsolation) &&
+        Objects.equals(this.deleted, namespace.deleted) &&
         Objects.equals(this.description, namespace.description) &&
         Objects.equals(this.variables, namespace.variables) &&
         Objects.equals(this.pluginDefaults, namespace.pluginDefaults) &&
@@ -524,12 +553,13 @@ public class Namespace {
         Objects.equals(this.secretType, namespace.secretType) &&
         Objects.equals(this.secretReadOnly, namespace.secretReadOnly) &&
         Objects.equals(this.secretConfiguration, namespace.secretConfiguration) &&
-        Objects.equals(this.outputsInInternalStorage, namespace.outputsInInternalStorage);
+        Objects.equals(this.outputsInInternalStorage, namespace.outputsInInternalStorage) &&
+        Objects.equals(this.sdkDefaultAuthentication, namespace.sdkDefaultAuthentication);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, deleted, storageIsolation, secretIsolation, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage);
+    return Objects.hash(id, storageIsolation, secretIsolation, deleted, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage, sdkDefaultAuthentication);
   }
 
   @Override
@@ -537,9 +567,9 @@ public class Namespace {
     StringBuilder sb = new StringBuilder();
     sb.append("class Namespace {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    storageIsolation: ").append(toIndentedString(storageIsolation)).append("\n");
     sb.append("    secretIsolation: ").append(toIndentedString(secretIsolation)).append("\n");
+    sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
     sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
@@ -551,6 +581,7 @@ public class Namespace {
     sb.append("    secretReadOnly: ").append(toIndentedString(secretReadOnly)).append("\n");
     sb.append("    secretConfiguration: ").append(toIndentedString(secretConfiguration)).append("\n");
     sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
+    sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
     sb.append("}");
     return sb.toString();
   }

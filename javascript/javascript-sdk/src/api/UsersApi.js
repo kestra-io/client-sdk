@@ -27,6 +27,7 @@ import IAMUserGroupControllerApiUpdateUserGroupsRequest from '../model/IAMUserGr
 import MeControllerApiUpdatePasswordRequest from '../model/MeControllerApiUpdatePasswordRequest';
 import MeControllerApiUserDetailsRequest from '../model/MeControllerApiUserDetailsRequest';
 import PagedResultsIAMUserControllerApiUserSummary from '../model/PagedResultsIAMUserControllerApiUserSummary';
+import QueryFilter from '../model/QueryFilter';
 
 /**
 * Users service.
@@ -606,13 +607,13 @@ export default class UsersApi {
     * Retrieve users
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} opts Optional parameters
-    * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
-    listUsersWithHttpInfo(page, size, opts) {
+    listUsersWithHttpInfo(page, size, filters, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -623,14 +624,18 @@ export default class UsersApi {
       if (size === undefined || size === null) {
         throw new Error("Missing the required parameter 'size' when calling listUsers");
       }
+      // verify the required parameter 'filters' is set
+      if (filters === undefined || filters === null) {
+        throw new Error("Missing the required parameter 'filters' when calling listUsers");
+      }
 
       let pathParams = {
       };
       let queryParams = {
-        'q': opts['q'],
         'page': page,
         'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
+        'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
       let headerParams = {
       };
@@ -652,14 +657,14 @@ export default class UsersApi {
     * Retrieve users
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} [opts] Optional parameters
-    * @param {String} [opts.q] A string filter
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
-    listUsers(page, size, opts) {
-      return this.listUsersWithHttpInfo(page, size, opts)
+    listUsers(page, size, filters, opts) {
+      return this.listUsersWithHttpInfo(page, size, filters, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

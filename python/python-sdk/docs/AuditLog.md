@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **user_id** | **str** |  | 
 **ip_address** | **str** |  | [optional] 
 **impersonated_by** | **str** |  | [optional] 
-**deleted** | **bool** |  | [optional] 
 **applied_patch** | **List[object]** |  | [optional] 
 **revert_patch** | **List[object]** |  | [optional] 
 

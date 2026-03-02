@@ -22,7 +22,7 @@ from kestrapy import (Configuration,
                       IAMUserControllerApiPatchUserPasswordRequest,
                       ApiPatchSuperAdminRequest,
                       IAMUserGroupControllerApiUpdateUserGroupsRequest,
-                      IAMGroupControllerApiCreateGroupRequest
+                      IAMGroupControllerApiCreateGroupRequest, QueryFilter, QueryFilterField, QueryFilterOp
                       )
 
 class TestUsersApi(unittest.TestCase):
@@ -247,7 +247,8 @@ class TestUsersApi(unittest.TestCase):
         )
         created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
-        results = self.kestra_client.users.list_users(page=1, size=50, q=name_base)
+        qf = QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": name_base})
+        results = self.kestra_client.users.list_users(page=1, size=50, filters=[qf])
         assert any(getattr(r, 'id', None) == created_user.id for r in results.results)
 
     def test_list_users_fetch_all_pages(self) -> None:
@@ -264,7 +265,7 @@ class TestUsersApi(unittest.TestCase):
         size = 25
 
         while True:
-            results = self.kestra_client.users.list_users(page=page, size=size)
+            results = self.kestra_client.users.list_users(page=page, size=size, filters=[])
             users.extend(results.results)
             if len(results.results) < size:
                 break

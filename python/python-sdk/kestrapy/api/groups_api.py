@@ -34,6 +34,7 @@ from kestrapy.models.iam_group_controller_api_group_member import IAMGroupContro
 from kestrapy.models.iam_group_controller_api_update_group_request import IAMGroupControllerApiUpdateGroupRequest
 from kestrapy.models.paged_results_api_group_summary import PagedResultsApiGroupSummary
 from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
+from kestrapy.models.query_filter import QueryFilter
 
 from kestrapy.api_client import ApiClient, RequestSerialized
 from kestrapy.api_response import ApiResponse
@@ -1246,8 +1247,8 @@ class GroupsApi:
         id: Annotated[StrictStr, Field(description="The group id")],
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1267,10 +1268,10 @@ class GroupsApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
-                :param q: A string filter
-        :type q: str
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1285,8 +1286,8 @@ class GroupsApi:
             id=id,
             page=page,
             size=size,
+            filters=filters,
             tenant=tenant,
-            q=q,
             sort=sort,
         )
 
@@ -1310,8 +1311,8 @@ class GroupsApi:
         id: Annotated[StrictStr, Field(description="The group id")],
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1331,10 +1332,10 @@ class GroupsApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
-                :param q: A string filter
-        :type q: str
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1349,8 +1350,8 @@ class GroupsApi:
             id=id,
             page=page,
             size=size,
+            filters=filters,
             tenant=tenant,
-            q=q,
             sort=sort,
         )
 
@@ -1373,14 +1374,15 @@ class GroupsApi:
         id,
         page,
         size,
+        filters,
         tenant,
-        q,
         sort,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
             'sort': 'csv',
         }
 
@@ -1399,10 +1401,6 @@ class GroupsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
         if page is not None:
             
             _query_params.append(('page', page))
@@ -1414,6 +1412,10 @@ class GroupsApi:
         if sort is not None:
             
             _query_params.append(('sort', sort))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters

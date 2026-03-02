@@ -35,6 +35,8 @@
 
 * `END_DATE` (value: `"END_DATE"`)
 
+* `EXPIRATION_DATE` (value: `"EXPIRATION_DATE"`)
+
 * `STATE` (value: `"STATE"`)
 
 * `TIME_RANGE` (value: `"TIME_RANGE"`)
@@ -64,6 +66,8 @@
 * `PARENT_PATH` (value: `"PARENT_PATH"`)
 
 * `VERSION` (value: `"VERSION"`)
+
+* `USERNAME` (value: `"USERNAME"`)
 
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
 

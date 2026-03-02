@@ -69,7 +69,7 @@ import java.util.StringJoiner;
    * @param allowNamespaceChild If namespace child should are allowed to be updated (required)
    * @param tenant  (required)
    * @param namespace The namespace where to update flows (optional)
-   * @param body A list of flows source code splitted with \&quot;---\&quot; (optional)
+   * @param body A list of flows source code split with \&quot;---\&quot; (optional)
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
@@ -84,7 +84,7 @@ import java.util.StringJoiner;
    * @param allowNamespaceChild If namespace child should are allowed to be updated (required)
    * @param tenant  (required)
    * @param namespace The namespace where to update flows (optional)
-   * @param body A list of flows source code splitted with \&quot;---\&quot; (optional)
+   * @param body A list of flows source code split with \&quot;---\&quot; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
@@ -2353,39 +2353,39 @@ import java.util.StringJoiner;
   /**
    * Update a flow concurrency limit
    * 
-   * @param flowId  (required)
    * @param namespace  (required)
+   * @param flowId  (required)
    * @param tenant  (required)
    * @param concurrencyLimit  (required)
    * @return ConcurrencyLimit
    * @throws ApiException if fails to make API call
    */
-  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit) throws ApiException {
-    return this.updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit, Collections.emptyMap());
+  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit) throws ApiException {
+    return this.updateConcurrencyLimit(namespace, flowId, tenant, concurrencyLimit, Collections.emptyMap());
   }
 
   /**
    * Update a flow concurrency limit
    * 
-   * @param flowId  (required)
    * @param namespace  (required)
+   * @param flowId  (required)
    * @param tenant  (required)
    * @param concurrencyLimit  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return ConcurrencyLimit
    * @throws ApiException if fails to make API call
    */
-  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit, Map<String, String> additionalHeaders) throws ApiException {
+  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = concurrencyLimit;
-    
-    // verify the required parameter 'flowId' is set
-    if (flowId == null) {
-      throw new ApiException(400, "Missing the required parameter 'flowId' when calling updateConcurrencyLimit");
-    }
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateConcurrencyLimit");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling updateConcurrencyLimit");
     }
     
     // verify the required parameter 'tenant' is set
@@ -2400,8 +2400,8 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}"
-      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -2555,37 +2555,32 @@ import java.util.StringJoiner;
   /**
    * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param override If namespace of all provided flows should be overridden (required)
    * @param delete If missing flow should be deleted (required)
    * @param namespace The flow namespace (required)
    * @param tenant  (required)
+   * @param override If namespace of all provided flows should be overridden (required)
    * @param body A list of flows source code (required)
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlowsInNamespace(override, delete, namespace, tenant, body, Collections.emptyMap());
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlowsInNamespace(delete, namespace, tenant, override, body, Collections.emptyMap());
   }
 
   /**
    * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param override If namespace of all provided flows should be overridden (required)
    * @param delete If missing flow should be deleted (required)
    * @param namespace The flow namespace (required)
    * @param tenant  (required)
+   * @param override If namespace of all provided flows should be overridden (required)
    * @param body A list of flows source code (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Boolean override, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
-    
-    // verify the required parameter 'override' is set
-    if (override == null) {
-      throw new ApiException(400, "Missing the required parameter 'override' when calling updateFlowsInNamespace");
-    }
     
     // verify the required parameter 'delete' is set
     if (delete == null) {
@@ -2600,6 +2595,11 @@ import java.util.StringJoiner;
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'override' is set
+    if (override == null) {
+      throw new ApiException(400, "Missing the required parameter 'override' when calling updateFlowsInNamespace");
     }
     
     // verify the required parameter 'body' is set
@@ -2619,8 +2619,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("override", override));
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
+    localVarQueryParams.addAll(apiClient.parameterToPair("override", override));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

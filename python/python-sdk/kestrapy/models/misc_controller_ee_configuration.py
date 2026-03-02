@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.banner import Banner
 from kestrapy.models.edition_provider_edition import EditionProviderEdition
+from kestrapy.models.kill_switch import KillSwitch
 from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration
 from kestrapy.models.misc_controller_environment import MiscControllerEnvironment
 from kestrapy.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion
@@ -70,8 +71,9 @@ class MiscControllerEEConfiguration(BaseModel):
     airgapped: Optional[StrictBool] = None
     feature_gating: Optional[StrictBool] = Field(default=None, alias="featureGating")
     features: Optional[List[StrictStr]] = None
+    kill_switches: Optional[List[KillSwitch]] = Field(default=None, alias="killSwitches")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp", "passwordlessEnabled", "airgapped", "featureGating", "features"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp", "passwordlessEnabled", "airgapped", "featureGating", "features", "killSwitches"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -146,6 +148,13 @@ class MiscControllerEEConfiguration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of right_sidebar
         if self.right_sidebar:
             _dict['rightSidebar'] = self.right_sidebar.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in kill_switches (list)
+        _items = []
+        if self.kill_switches:
+            for _item_kill_switches in self.kill_switches:
+                if _item_kill_switches:
+                    _items.append(_item_kill_switches.to_dict())
+            _dict['killSwitches'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -198,7 +207,8 @@ class MiscControllerEEConfiguration(BaseModel):
             "passwordlessEnabled": obj.get("passwordlessEnabled"),
             "airgapped": obj.get("airgapped"),
             "featureGating": obj.get("featureGating"),
-            "features": obj.get("features")
+            "features": obj.get("features"),
+            "killSwitches": [KillSwitch.from_dict(_item) for _item in obj["killSwitches"]] if obj.get("killSwitches") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

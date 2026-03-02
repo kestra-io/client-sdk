@@ -21,6 +21,8 @@
 
 * `FLOW` (value: `"FLOW"`)
 
+* `KILL_SWITCH` (value: `"KILL_SWITCH"`)
+
 * `KV_STORE` (value: `"KV_STORE"`)
 
 * `GROUP` (value: `"GROUP"`)
@@ -54,6 +56,8 @@
 * `VERSIONED_PLUGIN` (value: `"VERSIONED_PLUGIN"`)
 
 * `USER` (value: `"USER"`)
+
+* `CREDENTIAL` (value: `"CREDENTIAL"`)
 
 * `WORKER_GROUP` (value: `"WORKER_GROUP"`)
 

@@ -15,14 +15,15 @@ import Isolation from './Isolation';
 import NamespaceAllowedNamespace from './NamespaceAllowedNamespace';
 import NamespaceLight from './NamespaceLight';
 import PluginDefault from './PluginDefault';
+import SDKAuth from './SDKAuth';
 import WorkerGroup from './WorkerGroup';
 
 /**
   * @typedef {Object} INamespace
   * @property {String} id
-  * @property {Boolean} deleted
   * @property {Isolation} storageIsolation
   * @property {Isolation} secretIsolation
+  * @property {Boolean} deleted
   * @property {String} description
   * @property {Object.<String, Object>} variables
   * @property {Array.<module:model/PluginDefault>} pluginDefaults
@@ -34,6 +35,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} secretReadOnly
   * @property {Object.<String, Object>} secretConfiguration
   * @property {Boolean} outputsInInternalStorage
+  * @property {SDKAuth} sdkDefaultAuthentication
   */
 
 /**
@@ -50,7 +52,7 @@ class Namespace {
      * @param {Boolean} deleted - 
      */
     constructor(id, deleted) { 
-        NamespaceLight.initialize(this, id, deleted);
+        NamespaceLight.initialize(this, id);
         Namespace.initialize(this, id, deleted);
     }
 
@@ -79,14 +81,14 @@ class Namespace {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
-            }
             if (data.hasOwnProperty('storageIsolation')) {
                 obj['storageIsolation'] = Isolation.constructFromObject(data['storageIsolation']);
             }
             if (data.hasOwnProperty('secretIsolation')) {
                 obj['secretIsolation'] = Isolation.constructFromObject(data['secretIsolation']);
+            }
+            if (data.hasOwnProperty('deleted')) {
+                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
@@ -120,6 +122,9 @@ class Namespace {
             }
             if (data.hasOwnProperty('outputsInInternalStorage')) {
                 obj['outputsInInternalStorage'] = ApiClient.convertToType(data['outputsInInternalStorage'], 'Boolean');
+            }
+            if (data.hasOwnProperty('sdkDefaultAuthentication')) {
+                obj['sdkDefaultAuthentication'] = SDKAuth.constructFromObject(data['sdkDefaultAuthentication']);
             }
         }
         return obj;
@@ -185,6 +190,10 @@ class Namespace {
         if (data['secretType'] && !(typeof data['secretType'] === 'string' || data['secretType'] instanceof String)) {
             throw new Error("Expected the field `secretType` to be a primitive type in the JSON string but got " + data['secretType']);
         }
+        // validate the optional field `sdkDefaultAuthentication`
+        if (data['sdkDefaultAuthentication']) { // data not null
+          SDKAuth.validateJSON(data['sdkDefaultAuthentication']);
+        }
 
         return true;
     }
@@ -200,11 +209,6 @@ Namespace.RequiredProperties = ["id", "deleted"];
 Namespace.prototype['id'] = undefined;
 
 /**
- * @member {Boolean} deleted
- */
-Namespace.prototype['deleted'] = undefined;
-
-/**
  * @member {module:model/Isolation} storageIsolation
  */
 Namespace.prototype['storageIsolation'] = undefined;
@@ -213,6 +217,11 @@ Namespace.prototype['storageIsolation'] = undefined;
  * @member {module:model/Isolation} secretIsolation
  */
 Namespace.prototype['secretIsolation'] = undefined;
+
+/**
+ * @member {Boolean} deleted
+ */
+Namespace.prototype['deleted'] = undefined;
 
 /**
  * @member {String} description
@@ -269,16 +278,17 @@ Namespace.prototype['secretConfiguration'] = undefined;
  */
 Namespace.prototype['outputsInInternalStorage'] = undefined;
 
+/**
+ * @member {module:model/SDKAuth} sdkDefaultAuthentication
+ */
+Namespace.prototype['sdkDefaultAuthentication'] = undefined;
+
 
 // Implement NamespaceLight interface:
 /**
  * @member {String} id
  */
 NamespaceLight.prototype['id'] = undefined;
-/**
- * @member {Boolean} deleted
- */
-NamespaceLight.prototype['deleted'] = undefined;
 
 
 

@@ -725,7 +725,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceAccounts
 
-> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail ListServiceAccounts(ctx).Page(page).Size(size).Q(q).Sort(sort).Execute()
+> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail ListServiceAccounts(ctx).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 
 List service accounts. Superadmin-only. 
 
@@ -744,12 +744,12 @@ import (
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	q := "q_example" // string | A string filter (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServiceAccountAPI.ListServiceAccounts(context.Background()).Page(page).Size(size).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.ServiceAccountAPI.ListServiceAccounts(context.Background()).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.ListServiceAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -772,7 +772,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
- **q** | **string** | A string filter | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type

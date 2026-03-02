@@ -42,6 +42,9 @@ Method | HTTP request | Description
 [**SetLabelsOnTerminatedExecutionsByIds**](ExecutionsAPI.md#SetLabelsOnTerminatedExecutionsByIds) | **Post** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 [**SetLabelsOnTerminatedExecutionsByQuery**](ExecutionsAPI.md#SetLabelsOnTerminatedExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
 [**TriggerExecutionByGetWebhook**](ExecutionsAPI.md#TriggerExecutionByGetWebhook) | **Get** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
+[**TriggerExecutionByGetWebhookWithPath**](ExecutionsAPI.md#TriggerExecutionByGetWebhookWithPath) | **Get** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger
+[**TriggerExecutionByPostWebhookWithPath**](ExecutionsAPI.md#TriggerExecutionByPostWebhookWithPath) | **Post** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger
+[**TriggerExecutionByPutWebhookWithPath**](ExecutionsAPI.md#TriggerExecutionByPutWebhookWithPath) | **Put** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger
 [**UnqueueExecution**](ExecutionsAPI.md#UnqueueExecution) | **Post** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 [**UnqueueExecutionsByIds**](ExecutionsAPI.md#UnqueueExecutionsByIds) | **Post** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 [**UnqueueExecutionsByQuery**](ExecutionsAPI.md#UnqueueExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -755,7 +758,7 @@ import (
 )
 
 func main() {
-	executionId := "executionId_example" // string | The execution that you want flow informations
+	executionId := "executionId_example" // string | The execution that you want flow information
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -776,7 +779,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**executionId** | **string** | The execution that you want flow informations | 
+**executionId** | **string** | The execution that you want flow information | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2747,7 +2750,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByGetWebhook
 
-> ExecutionControllerWebhookResponse TriggerExecutionByGetWebhook(ctx, namespace, id, key, tenant).Execute()
+> WebhookResponse TriggerExecutionByGetWebhook(ctx, namespace, id, key, tenant).Execute()
 
 Trigger a new execution by GET webhook trigger
 
@@ -2776,7 +2779,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByGetWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TriggerExecutionByGetWebhook`: ExecutionControllerWebhookResponse
+	// response from `TriggerExecutionByGetWebhook`: WebhookResponse
 	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByGetWebhook`: %v\n", resp)
 }
 ```
@@ -2806,7 +2809,247 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TriggerExecutionByGetWebhookWithPath
+
+> WebhookResponse TriggerExecutionByGetWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+
+Trigger a new execution by GET webhook trigger
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	key := "key_example" // string | The webhook trigger uid
+	path := "path_example" // string | Optional additional path segments
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByGetWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByGetWebhookWithPath``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TriggerExecutionByGetWebhookWithPath`: WebhookResponse
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByGetWebhookWithPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**key** | **string** | The webhook trigger uid | 
+**path** | **string** | Optional additional path segments | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTriggerExecutionByGetWebhookWithPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TriggerExecutionByPostWebhookWithPath
+
+> WebhookResponse TriggerExecutionByPostWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+
+Trigger a new execution by POST webhook trigger
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	key := "key_example" // string | The webhook trigger uid
+	path := "path_example" // string | Optional additional path segments
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPostWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPostWebhookWithPath``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TriggerExecutionByPostWebhookWithPath`: WebhookResponse
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByPostWebhookWithPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**key** | **string** | The webhook trigger uid | 
+**path** | **string** | Optional additional path segments | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTriggerExecutionByPostWebhookWithPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TriggerExecutionByPutWebhookWithPath
+
+> WebhookResponse TriggerExecutionByPutWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+
+Trigger a new execution by PUT webhook trigger
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	key := "key_example" // string | The webhook trigger uid
+	path := "path_example" // string | Optional additional path segments
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPutWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPutWebhookWithPath``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TriggerExecutionByPutWebhookWithPath`: WebhookResponse
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByPutWebhookWithPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**key** | **string** | The webhook trigger uid | 
+**path** | **string** | Optional additional path segments | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTriggerExecutionByPutWebhookWithPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+
+### Return type
+
+[**WebhookResponse**](WebhookResponse.md)
 
 ### Authorization
 

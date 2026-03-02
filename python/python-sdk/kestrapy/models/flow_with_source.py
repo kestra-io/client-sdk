@@ -16,6 +16,7 @@ import pprint
 import regex as re
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -39,6 +40,7 @@ class FlowWithSource(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
     namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
     revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    updated: Optional[datetime] = Field(default=None, description="The timestamp when this revision was created or last updated.")
     description: Optional[StrictStr] = None
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
@@ -59,7 +61,7 @@ class FlowWithSource(BaseModel):
     checks: Optional[List[Check]] = Field(default=None, description="A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally.")
     source: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla", "checks", "source"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla", "checks", "source"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -219,6 +221,7 @@ class FlowWithSource(BaseModel):
             "id": obj.get("id"),
             "namespace": obj.get("namespace"),
             "revision": obj.get("revision"),
+            "updated": obj.get("updated"),
             "description": obj.get("description"),
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,

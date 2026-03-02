@@ -3,6 +3,14 @@
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
 
+const QF_FIELD = {
+    QUERY: 'QUERY'
+};
+/** @type {Record<string, 'EQUALS'>} */
+const QF_OP = {
+    EQUALS: 'EQUALS'
+};
+
 describe('UsersApi', () => {
     it('autocomplete_users: List users for autocomplete', async () => {
         const email = `test_autocomplete_users_${randomId()}@kestra.io`;
@@ -136,7 +144,9 @@ describe('UsersApi', () => {
         const base = `test_list_users_${randomId()}`;
         const created = await kestraClient().usersApi.createUser({ email: `${base}@kestra.io` });
 
-        const page = await kestraClient().usersApi.listUsers(1, 50, { q: base });
+        const qf = ({ field, operation, value }) => ({ field, operation, value });
+        const filters = [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: base })];
+        const page = await kestraClient().usersApi.listUsers(1, 50, filters);
         const results = page?.results ?? [];
         expect(results.some(s => s.id === created.id)).toBeTruthy();
 

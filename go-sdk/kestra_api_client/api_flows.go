@@ -50,7 +50,7 @@ func (r ApiBulkUpdateFlowsRequest) Namespace(namespace string) ApiBulkUpdateFlow
 	return r
 }
 
-// A list of flows source code splitted with \&quot;---\&quot;
+// A list of flows source code split with \&quot;---\&quot;
 func (r ApiBulkUpdateFlowsRequest) Body(body string) ApiBulkUpdateFlowsRequest {
 	r.body = &body
 	return r
@@ -3330,8 +3330,8 @@ func (a *FlowsAPIService) TaskFromFlowExecute(r ApiTaskFromFlowRequest) (*Task, 
 type ApiUpdateConcurrencyLimitRequest struct {
 	ctx              context.Context
 	ApiService       *FlowsAPIService
-	flowId           string
 	namespace        string
+	flowId           string
 	tenant           string
 	concurrencyLimit *ConcurrencyLimit
 }
@@ -3341,11 +3341,11 @@ func (r ApiUpdateConcurrencyLimitRequest) ConcurrencyLimit(concurrencyLimit Conc
 	return r
 }
 
-func (r ApiUpdateConcurrencyLimitRequest) GetFlowId() string {
-	return r.flowId
-}
 func (r ApiUpdateConcurrencyLimitRequest) GetNamespace() string {
 	return r.namespace
+}
+func (r ApiUpdateConcurrencyLimitRequest) GetFlowId() string {
+	return r.flowId
 }
 func (r ApiUpdateConcurrencyLimitRequest) GetTenant() string {
 	return r.tenant
@@ -3362,17 +3362,17 @@ func (r ApiUpdateConcurrencyLimitRequest) Execute() (*ConcurrencyLimit, *http.Re
 UpdateConcurrencyLimit Update a flow concurrency limit
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param flowId
 	@param namespace
+	@param flowId
 	@param tenant
 	@return ApiUpdateConcurrencyLimitRequest
 */
-func (a *FlowsAPIService) UpdateConcurrencyLimit(ctx context.Context, flowId string, namespace string, tenant string) ApiUpdateConcurrencyLimitRequest {
+func (a *FlowsAPIService) UpdateConcurrencyLimit(ctx context.Context, namespace string, flowId string, tenant string) ApiUpdateConcurrencyLimitRequest {
 	return ApiUpdateConcurrencyLimitRequest{
 		ApiService: a,
 		ctx:        ctx,
-		flowId:     flowId,
 		namespace:  namespace,
+		flowId:     flowId,
 		tenant:     tenant,
 	}
 }
@@ -3394,8 +3394,8 @@ func (a *FlowsAPIService) UpdateConcurrencyLimitExecute(r ApiUpdateConcurrencyLi
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3599,22 +3599,22 @@ func (a *FlowsAPIService) UpdateFlowExecute(r ApiUpdateFlowRequest) (*FlowWithSo
 type ApiUpdateFlowsInNamespaceRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
-	override   *bool
 	delete     *bool
 	namespace  string
 	tenant     string
+	override   *bool
 	body       *string
-}
-
-// If namespace of all provided flows should be overridden
-func (r ApiUpdateFlowsInNamespaceRequest) Override(override bool) ApiUpdateFlowsInNamespaceRequest {
-	r.override = &override
-	return r
 }
 
 // If missing flow should be deleted
 func (r ApiUpdateFlowsInNamespaceRequest) Delete(delete bool) ApiUpdateFlowsInNamespaceRequest {
 	r.delete = &delete
+	return r
+}
+
+// If namespace of all provided flows should be overridden
+func (r ApiUpdateFlowsInNamespaceRequest) Override(override bool) ApiUpdateFlowsInNamespaceRequest {
+	r.override = &override
 	return r
 }
 
@@ -3624,9 +3624,6 @@ func (r ApiUpdateFlowsInNamespaceRequest) Body(body string) ApiUpdateFlowsInName
 	return r
 }
 
-func (r ApiUpdateFlowsInNamespaceRequest) GetOverride() *bool {
-	return r.override
-}
 func (r ApiUpdateFlowsInNamespaceRequest) GetDelete() *bool {
 	return r.delete
 }
@@ -3635,6 +3632,9 @@ func (r ApiUpdateFlowsInNamespaceRequest) GetNamespace() string {
 }
 func (r ApiUpdateFlowsInNamespaceRequest) GetTenant() string {
 	return r.tenant
+}
+func (r ApiUpdateFlowsInNamespaceRequest) GetOverride() *bool {
+	return r.override
 }
 func (r ApiUpdateFlowsInNamespaceRequest) GetBody() *string {
 	return r.body
@@ -3661,8 +3661,8 @@ func (a *FlowsAPIService) UpdateFlowsInNamespace(ctx context.Context, namespace 
 		ctx:        ctx,
 		namespace:  namespace,
 		tenant:     tenant,
-		override:   Ptr(bool(false)),
 		delete:     Ptr(bool(true)),
+		override:   Ptr(bool(false)),
 	}
 }
 
@@ -3689,18 +3689,18 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.override == nil {
-		return localVarReturnValue, nil, reportError("override is required and must be specified")
-	}
 	if r.delete == nil {
 		return localVarReturnValue, nil, reportError("delete is required and must be specified")
+	}
+	if r.override == nil {
+		return localVarReturnValue, nil, reportError("override is required and must be specified")
 	}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "override", r.override, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "override", r.override, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-yaml"}
 

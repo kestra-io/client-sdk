@@ -20,6 +20,7 @@ from kestrapy.models.abstract_trigger_for_execution import AbstractTriggerForExe
 from kestrapy.models.abstract_user import AbstractUser
 from kestrapy.models.abstract_user_tenant_identity_provider import AbstractUserTenantIdentityProvider
 from kestrapy.models.action import Action
+from kestrapy.models.ai_controller_ai_provider_response import AiControllerAiProviderResponse
 from kestrapy.models.api_auth import ApiAuth
 from kestrapy.models.api_autocomplete import ApiAutocomplete
 from kestrapy.models.api_group_summary import ApiGroupSummary
@@ -36,6 +37,7 @@ from kestrapy.models.api_tenant_summary import ApiTenantSummary
 from kestrapy.models.api_token import ApiToken
 from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.models.api_user import ApiUser
+from kestrapy.models.app_generation_prompt import AppGenerationPrompt
 from kestrapy.models.apps_controller_api_app import AppsControllerApiApp
 from kestrapy.models.apps_controller_api_app_catalog_item import AppsControllerApiAppCatalogItem
 from kestrapy.models.apps_controller_api_app_source import AppsControllerApiAppSource
@@ -53,6 +55,7 @@ from kestrapy.models.asset_topology_graph_edge import AssetTopologyGraphEdge
 from kestrapy.models.asset_topology_graph_node import AssetTopologyGraphNode
 from kestrapy.models.asset_topology_graph_node_node_type import AssetTopologyGraphNodeNodeType
 from kestrapy.models.assets_controller_api_asset import AssetsControllerApiAsset
+from kestrapy.models.assets_controller_api_asset_lineage_event import AssetsControllerApiAssetLineageEvent
 from kestrapy.models.assets_controller_api_asset_usage import AssetsControllerApiAssetUsage
 from kestrapy.models.assets_declaration import AssetsDeclaration
 from kestrapy.models.assets_in_out import AssetsInOut
@@ -107,12 +110,13 @@ from kestrapy.models.create_security_integration_request import CreateSecurityIn
 from kestrapy.models.crud_event_type import CrudEventType
 from kestrapy.models.dashboard import Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
+from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest
-from kestrapy.models.deleted_interface import DeletedInterface
 from kestrapy.models.depends_on import DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
 from kestrapy.models.edition_provider_edition import EditionProviderEdition
 from kestrapy.models.email import Email
+from kestrapy.models.evaluation_type import EvaluationType
 from kestrapy.models.event_execution import EventExecution
 from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent
 from kestrapy.models.executable_task_subflow_id import ExecutableTaskSubflowId
@@ -121,7 +125,6 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
-from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
 from kestrapy.models.execution_kind import ExecutionKind
 from kestrapy.models.execution_metadata import ExecutionMetadata
 from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter
@@ -188,6 +191,7 @@ from kestrapy.models.iam_user_controller_api_user_summary import IAMUserControll
 from kestrapy.models.iam_user_group_controller_api_update_user_groups_request import IAMUserGroupControllerApiUpdateUserGroupsRequest
 from kestrapy.models.id_with_namespace import IdWithNamespace
 from kestrapy.models.identity_provider import IdentityProvider
+from kestrapy.models.import_plugin_defaults_request import ImportPluginDefaultsRequest
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.input_type import InputType
 from kestrapy.models.instance_controller_api_active_service import InstanceControllerApiActiveService
@@ -216,6 +220,7 @@ from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerA
 from kestrapy.models.kv_controller_kv_detail import KVControllerKvDetail
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.kv_type import KVType
+from kestrapy.models.kill_switch import KillSwitch
 from kestrapy.models.label import Label
 from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration
 from kestrapy.models.level import Level
@@ -243,6 +248,7 @@ from kestrapy.models.model_schema import ModelSchema
 from kestrapy.models.name import Name
 from kestrapy.models.namespace import Namespace
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace
+from kestrapy.models.namespace_controller_api_inherited_plugin_default_from_namespace import NamespaceControllerApiInheritedPluginDefaultFromNamespace
 from kestrapy.models.namespace_file_revision import NamespaceFileRevision
 from kestrapy.models.namespace_light import NamespaceLight
 from kestrapy.models.output import Output
@@ -253,6 +259,7 @@ from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSu
 from kestrapy.models.paged_results_apps_controller_api_app import PagedResultsAppsControllerApiApp
 from kestrapy.models.paged_results_apps_controller_api_app_catalog_item import PagedResultsAppsControllerApiAppCatalogItem
 from kestrapy.models.paged_results_assets_controller_api_asset import PagedResultsAssetsControllerApiAsset
+from kestrapy.models.paged_results_assets_controller_api_asset_lineage_event import PagedResultsAssetsControllerApiAssetLineageEvent
 from kestrapy.models.paged_results_assets_controller_api_asset_usage import PagedResultsAssetsControllerApiAssetUsage
 from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
 from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint
@@ -315,6 +322,7 @@ from kestrapy.models.resource_type_schema_extension_configuration import Resourc
 from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration
 from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink
 from kestrapy.models.role import Role
+from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.sla import SLA
 from kestrapy.models.sla_behavior import SLABehavior
 from kestrapy.models.sla_labels import SLALabels
@@ -348,6 +356,7 @@ from kestrapy.models.service_service_state import ServiceServiceState
 from kestrapy.models.service_type import ServiceType
 from kestrapy.models.set_apps_catalog_logo_request import SetAppsCatalogLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration
+from kestrapy.models.soft_deletable_flow_interface import SoftDeletableFlowInterface
 from kestrapy.models.sort_order import SortOrder
 from kestrapy.models.sort_request import SortRequest
 from kestrapy.models.state import State
@@ -370,6 +379,7 @@ from kestrapy.models.test_suite_controller_search_tests_last_result import TestS
 from kestrapy.models.test_suite_controller_test_suite_api_id import TestSuiteControllerTestSuiteApiId
 from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
 from kestrapy.models.test_suite_controller_tests_last_result_response import TestSuiteControllerTestsLastResultResponse
+from kestrapy.models.test_suite_generation_prompt import TestSuiteGenerationPrompt
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult
 from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
 from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
@@ -390,6 +400,7 @@ from kestrapy.models.user_type import UserType
 from kestrapy.models.username_password_credentials import UsernamePasswordCredentials
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 from kestrapy.models.value_path_expression import ValuePathExpression
+from kestrapy.models.webhook_response import WebhookResponse
 from kestrapy.models.worker_group import WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy

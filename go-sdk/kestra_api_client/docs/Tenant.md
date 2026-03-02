@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **RequireExistingNamespace** | Pointer to **bool** |  | [optional] 
 **OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
 **AppCatalogConfig** | Pointer to [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
+**SdkDefaultAuthentication** | Pointer to [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 ## Methods
 
@@ -372,6 +373,31 @@ SetAppCatalogConfig sets AppCatalogConfig field to given value.
 `func (o *Tenant) HasAppCatalogConfig() bool`
 
 HasAppCatalogConfig returns a boolean if a field has been set.
+
+### GetSdkDefaultAuthentication
+
+`func (o *Tenant) GetSdkDefaultAuthentication() SDKAuth`
+
+GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field if non-nil, zero value otherwise.
+
+### GetSdkDefaultAuthenticationOk
+
+`func (o *Tenant) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool)`
+
+GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSdkDefaultAuthentication
+
+`func (o *Tenant) SetSdkDefaultAuthentication(v SDKAuth)`
+
+SetSdkDefaultAuthentication sets SdkDefaultAuthentication field to given value.
+
+### HasSdkDefaultAuthentication
+
+`func (o *Tenant) HasSdkDefaultAuthentication() bool`
+
+HasSdkDefaultAuthentication returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

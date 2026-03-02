@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **value** | **Number** |  | 
 **timestamp** | **Date** |  | 
 **tags** | **{String: String}** |  | [optional] 
-**deleted** | **Boolean** |  | 
 **executionKind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 
 

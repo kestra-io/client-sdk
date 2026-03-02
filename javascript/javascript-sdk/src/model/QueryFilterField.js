@@ -14,7 +14,7 @@ import ApiClient from '../ApiClient';
 /**
  * Enum QueryFilterField
  * @type {{
- *   "QUERY": "QUERY","SCOPE": "SCOPE","NAMESPACE": "NAMESPACE","KIND": "KIND","LABELS": "LABELS","METADATA": "METADATA","FLOW_ID": "FLOW_ID","FLOW_REVISION": "FLOW_REVISION","ID": "ID","ASSET_ID": "ASSET_ID","TYPE": "TYPE","CREATED": "CREATED","UPDATED": "UPDATED","START_DATE": "START_DATE","END_DATE": "END_DATE","STATE": "STATE","TIME_RANGE": "TIME_RANGE","TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID","TRIGGER_ID": "TRIGGER_ID","TRIGGER_STATE": "TRIGGER_STATE","EXECUTION_ID": "EXECUTION_ID","TASK_ID": "TASK_ID","TASK_RUN_ID": "TASK_RUN_ID","CHILD_FILTER": "CHILD_FILTER","WORKER_ID": "WORKER_ID","EXISTING_ONLY": "EXISTING_ONLY","MIN_LEVEL": "MIN_LEVEL","PATH": "PATH","PARENT_PATH": "PARENT_PATH","VERSION": "VERSION",
+ *   "QUERY": "QUERY","SCOPE": "SCOPE","NAMESPACE": "NAMESPACE","KIND": "KIND","LABELS": "LABELS","METADATA": "METADATA","FLOW_ID": "FLOW_ID","FLOW_REVISION": "FLOW_REVISION","ID": "ID","ASSET_ID": "ASSET_ID","TYPE": "TYPE","CREATED": "CREATED","UPDATED": "UPDATED","START_DATE": "START_DATE","END_DATE": "END_DATE","EXPIRATION_DATE": "EXPIRATION_DATE","STATE": "STATE","TIME_RANGE": "TIME_RANGE","TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID","TRIGGER_ID": "TRIGGER_ID","TRIGGER_STATE": "TRIGGER_STATE","EXECUTION_ID": "EXECUTION_ID","TASK_ID": "TASK_ID","TASK_RUN_ID": "TASK_RUN_ID","CHILD_FILTER": "CHILD_FILTER","WORKER_ID": "WORKER_ID","EXISTING_ONLY": "EXISTING_ONLY","MIN_LEVEL": "MIN_LEVEL","PATH": "PATH","PARENT_PATH": "PARENT_PATH","VERSION": "VERSION","USERNAME": "USERNAME",
  * }}
  */
 export const QueryFilterFieldStatic = { 
@@ -33,6 +33,7 @@ export const QueryFilterFieldStatic = {
     "UPDATED": "UPDATED",
     "START_DATE": "START_DATE",
     "END_DATE": "END_DATE",
+    "EXPIRATION_DATE": "EXPIRATION_DATE",
     "STATE": "STATE",
     "TIME_RANGE": "TIME_RANGE",
     "TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID",
@@ -48,6 +49,7 @@ export const QueryFilterFieldStatic = {
     "PATH": "PATH",
     "PARENT_PATH": "PARENT_PATH",
     "VERSION": "VERSION",
+    "USERNAME": "USERNAME",
 }
 
 /**
@@ -163,6 +165,13 @@ export default class QueryFilterField {
 
     
         /**
+         * value: "EXPIRATION_DATE"
+         * @const
+         */
+        "EXPIRATION_DATE" = "EXPIRATION_DATE";
+
+    
+        /**
          * value: "STATE"
          * @const
          */
@@ -265,6 +274,13 @@ export default class QueryFilterField {
          * @const
          */
         "VERSION" = "VERSION";
+
+    
+        /**
+         * value: "USERNAME"
+         * @const
+         */
+        "USERNAME" = "USERNAME";
 
     
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **Revision** | Pointer to **int32** |  | [optional] 
+**Updated** | Pointer to **time.Time** | The timestamp when this revision was created or last updated. | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
@@ -109,6 +110,31 @@ SetRevision sets Revision field to given value.
 `func (o *Flow) HasRevision() bool`
 
 HasRevision returns a boolean if a field has been set.
+
+### GetUpdated
+
+`func (o *Flow) GetUpdated() time.Time`
+
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
+
+### GetUpdatedOk
+
+`func (o *Flow) GetUpdatedOk() (*time.Time, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdated
+
+`func (o *Flow) SetUpdated(v time.Time)`
+
+SetUpdated sets Updated field to given value.
+
+### HasUpdated
+
+`func (o *Flow) HasUpdated() bool`
+
+HasUpdated returns a boolean if a field has been set.
 
 ### GetDescription
 

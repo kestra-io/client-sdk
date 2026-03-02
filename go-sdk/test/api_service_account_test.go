@@ -138,6 +138,7 @@ func TestServiceAccountAPI_All(t *testing.T) {
 		page, _, err := KestraTestApiClient().ServiceAccountAPI.ListServiceAccounts(ctx).
 			Page(1).
 			Size(50).
+			Filters([]kestra_api_client.QueryFilter{}).
 			Execute()
 		require.NoError(t, err)
 		require.NotNil(t, page)

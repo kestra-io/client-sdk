@@ -29,6 +29,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {String} id
   * @property {String} namespace
   * @property {Number} revision
+  * @property {Date} updated - The timestamp when this revision was created or last updated.
   * @property {String} description
   * @property {Array.<module:model/InputObject>} inputs
   * @property {Array.<module:model/Output>} outputs - Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
@@ -106,6 +107,9 @@ class FlowWithSource {
             }
             if (data.hasOwnProperty('revision')) {
                 obj['revision'] = ApiClient.convertToType(data['revision'], 'Number');
+            }
+            if (data.hasOwnProperty('updated')) {
+                obj['updated'] = ApiClient.convertToType(data['updated'], 'Date');
             }
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
@@ -339,6 +343,12 @@ FlowWithSource.prototype['namespace'] = undefined;
 FlowWithSource.prototype['revision'] = undefined;
 
 /**
+ * The timestamp when this revision was created or last updated.
+ * @member {Date} updated
+ */
+FlowWithSource.prototype['updated'] = undefined;
+
+/**
  * @member {String} description
  */
 FlowWithSource.prototype['description'] = undefined;
@@ -450,6 +460,11 @@ Flow.prototype['namespace'] = undefined;
  */
 Flow.prototype['revision'] = undefined;
 /**
+ * The timestamp when this revision was created or last updated.
+ * @member {Date} updated
+ */
+Flow.prototype['updated'] = undefined;
+/**
  * @member {String} description
  */
 Flow.prototype['description'] = undefined;
@@ -536,6 +551,11 @@ AbstractFlow.prototype['namespace'] = undefined;
  * @member {Number} revision
  */
 AbstractFlow.prototype['revision'] = undefined;
+/**
+ * The timestamp when this revision was created or last updated.
+ * @member {Date} updated
+ */
+AbstractFlow.prototype['updated'] = undefined;
 /**
  * @member {String} description
  */

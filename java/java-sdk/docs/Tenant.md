@@ -21,6 +21,7 @@
 |**requireExistingNamespace** | **Boolean** |  |  [optional] |
 |**outputsInInternalStorage** | **Boolean** |  |  [optional] |
 |**appCatalogConfig** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  |  [optional] |
+|**sdkDefaultAuthentication** | [**SDKAuth**](SDKAuth.md) |  |  [optional] |
 
 
 

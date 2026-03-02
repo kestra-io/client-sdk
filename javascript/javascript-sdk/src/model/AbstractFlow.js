@@ -21,6 +21,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {String} id
   * @property {String} namespace
   * @property {Number} revision
+  * @property {Date} updated - The timestamp when this revision was created or last updated.
   * @property {String} description
   * @property {Array.<module:model/InputObject>} inputs
   * @property {Array.<module:model/Output>} outputs
@@ -81,6 +82,9 @@ class AbstractFlow {
             }
             if (data.hasOwnProperty('revision')) {
                 obj['revision'] = ApiClient.convertToType(data['revision'], 'Number');
+            }
+            if (data.hasOwnProperty('updated')) {
+                obj['updated'] = ApiClient.convertToType(data['updated'], 'Date');
             }
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
@@ -191,6 +195,12 @@ AbstractFlow.prototype['namespace'] = undefined;
  * @member {Number} revision
  */
 AbstractFlow.prototype['revision'] = undefined;
+
+/**
+ * The timestamp when this revision was created or last updated.
+ * @member {Date} updated
+ */
+AbstractFlow.prototype['updated'] = undefined;
 
 /**
  * @member {String} description

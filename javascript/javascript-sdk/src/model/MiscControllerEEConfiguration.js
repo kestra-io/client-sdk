@@ -13,6 +13,7 @@
 import ApiClient from '../ApiClient';
 import Banner from './Banner';
 import EditionProviderEdition from './EditionProviderEdition';
+import KillSwitch from './KillSwitch';
 import LeftSidebarConfiguration from './LeftSidebarConfiguration';
 import MiscControllerConfiguration from './MiscControllerConfiguration';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
@@ -59,6 +60,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
   * @property {Boolean} airgapped
   * @property {Boolean} featureGating
   * @property {Array.<String>} features
+  * @property {Array.<module:model/KillSwitch>} killSwitches
   */
 
 /**
@@ -205,6 +207,9 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('features')) {
                 obj['features'] = ApiClient.convertToType(data['features'], ['String']);
             }
+            if (data.hasOwnProperty('killSwitches')) {
+                obj['killSwitches'] = ApiClient.convertToType(data['killSwitches'], [KillSwitch]);
+            }
         }
         return obj;
     }
@@ -294,6 +299,16 @@ class MiscControllerEEConfiguration {
         // ensure the json data is an array
         if (!Array.isArray(data['features'])) {
             throw new Error("Expected the field `features` to be an array in the JSON data but got " + data['features']);
+        }
+        if (data['killSwitches']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['killSwitches'])) {
+                throw new Error("Expected the field `killSwitches` to be an array in the JSON data but got " + data['killSwitches']);
+            }
+            // validate the optional field `killSwitches` (array)
+            for (const item of data['killSwitches']) {
+                KillSwitch.validateJSON(item);
+            };
         }
 
         return true;
@@ -483,6 +498,11 @@ MiscControllerEEConfiguration.prototype['featureGating'] = undefined;
  * @member {Array.<String>} features
  */
 MiscControllerEEConfiguration.prototype['features'] = undefined;
+
+/**
+ * @member {Array.<module:model/KillSwitch>} killSwitches
+ */
+MiscControllerEEConfiguration.prototype['killSwitches'] = undefined;
 
 
 // Implement MiscControllerConfiguration interface:

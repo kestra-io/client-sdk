@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+[**exportPluginDefaults**](NamespacesApi.md#exportPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
+[**importPluginDefaults**](NamespacesApi.md#importPluginDefaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
 [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**inheritedSecrets**](NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
@@ -232,9 +234,117 @@ null (empty response body)
 - **Accept**: Not defined
 
 
+## exportPluginDefaults
+
+> Blob exportPluginDefaults(id, tenant)
+
+Export this namespace plugin defaults
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
+let id = "id_example"; // String | The namespace id
+let tenant = "tenant_example"; // String | 
+apiInstance.exportPluginDefaults(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The namespace id | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+**Blob**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
+
+
+## importPluginDefaults
+
+> [String] importPluginDefaults(id, tenant, opts)
+
+Import plugin defaults in this namespace
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
+let id = "id_example"; // String | The namespace id
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'fileUpload': "/path/to/file" // File | 
+};
+apiInstance.importPluginDefaults(id, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The namespace id | 
+ **tenant** | **String**|  | 
+ **fileUpload** | **File**|  | [optional] 
+
+### Return type
+
+**[String]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+
 ## inheritedPluginDefaults
 
-> [PluginDefault] inheritedPluginDefaults(id, tenant)
+> [NamespaceControllerApiInheritedPluginDefaultFromNamespace] inheritedPluginDefaults(id, tenant)
 
 List inherited plugin defaults
 
@@ -272,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[PluginDefault]**](PluginDefault.md)
+[**[NamespaceControllerApiInheritedPluginDefaultFromNamespace]**](NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
 
 ### Authorization
 

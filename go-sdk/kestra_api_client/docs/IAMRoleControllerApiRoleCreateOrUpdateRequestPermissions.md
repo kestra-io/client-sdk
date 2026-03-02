@@ -27,6 +27,8 @@ Name | Type | Description | Notes
 **SERVICE_ACCOUNT** | Pointer to **[]string** |  | [optional] 
 **INVITATION** | Pointer to **[]string** |  | [optional] 
 **GROUP_MEMBERSHIP** | Pointer to **[]string** |  | [optional] 
+**CREDENTIAL** | Pointer to **[]string** |  | [optional] 
+**AI_COPILOT** | Pointer to **[]string** |  | [optional] 
 **UNKNOWN** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -622,6 +624,56 @@ SetGROUP_MEMBERSHIP sets GROUP_MEMBERSHIP field to given value.
 `func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasGROUP_MEMBERSHIP() bool`
 
 HasGROUP_MEMBERSHIP returns a boolean if a field has been set.
+
+### GetCREDENTIAL
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetCREDENTIAL() []string`
+
+GetCREDENTIAL returns the CREDENTIAL field if non-nil, zero value otherwise.
+
+### GetCREDENTIALOk
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetCREDENTIALOk() (*[]string, bool)`
+
+GetCREDENTIALOk returns a tuple with the CREDENTIAL field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCREDENTIAL
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetCREDENTIAL(v []string)`
+
+SetCREDENTIAL sets CREDENTIAL field to given value.
+
+### HasCREDENTIAL
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasCREDENTIAL() bool`
+
+HasCREDENTIAL returns a boolean if a field has been set.
+
+### GetAI_COPILOT
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetAI_COPILOT() []string`
+
+GetAI_COPILOT returns the AI_COPILOT field if non-nil, zero value otherwise.
+
+### GetAI_COPILOTOk
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetAI_COPILOTOk() (*[]string, bool)`
+
+GetAI_COPILOTOk returns a tuple with the AI_COPILOT field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAI_COPILOT
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetAI_COPILOT(v []string)`
+
+SetAI_COPILOT sets AI_COPILOT field to given value.
+
+### HasAI_COPILOT
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasAI_COPILOT() bool`
+
+HasAI_COPILOT returns a boolean if a field has been set.
 
 ### GetUNKNOWN
 

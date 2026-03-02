@@ -25,7 +25,6 @@ import ExecutionKind from './ExecutionKind';
   * @property {Number} value
   * @property {Date} timestamp
   * @property {Object.<String, String>} tags
-  * @property {Boolean} deleted
   * @property {ExecutionKind} executionKind
   */
 
@@ -44,11 +43,10 @@ class MetricEntry {
      * @param {String} name - 
      * @param {Number} value - 
      * @param {Date} timestamp - 
-     * @param {Boolean} deleted - 
      */
-    constructor(namespace, flowId, type, name, value, timestamp, deleted) { 
+    constructor(namespace, flowId, type, name, value, timestamp) { 
         
-        MetricEntry.initialize(this, namespace, flowId, type, name, value, timestamp, deleted);
+        MetricEntry.initialize(this, namespace, flowId, type, name, value, timestamp);
     }
 
     /**
@@ -56,14 +54,13 @@ class MetricEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId, type, name, value, timestamp, deleted) { 
+    static initialize(obj, namespace, flowId, type, name, value, timestamp) { 
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['type'] = type;
         obj['name'] = name;
         obj['value'] = value;
         obj['timestamp'] = timestamp;
-        obj['deleted'] = deleted;
     }
 
     /**
@@ -106,9 +103,6 @@ class MetricEntry {
             }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], {'String': 'String'});
-            }
-            if (data.hasOwnProperty('deleted')) {
-                obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
             if (data.hasOwnProperty('executionKind')) {
                 obj['executionKind'] = ApiClient.convertToType(data['executionKind'], ExecutionKind);
@@ -164,7 +158,7 @@ class MetricEntry {
 
 }
 
-MetricEntry.RequiredProperties = ["namespace", "flowId", "type", "name", "value", "timestamp", "deleted"];
+MetricEntry.RequiredProperties = ["namespace", "flowId", "type", "name", "value", "timestamp"];
 
 /**
  * @member {String} namespace
@@ -215,11 +209,6 @@ MetricEntry.prototype['timestamp'] = undefined;
  * @member {Object.<String, String>} tags
  */
 MetricEntry.prototype['tags'] = undefined;
-
-/**
- * @member {Boolean} deleted
- */
-MetricEntry.prototype['deleted'] = undefined;
 
 /**
  * @member {module:model/ExecutionKind} executionKind

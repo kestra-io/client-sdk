@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ## SearchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember SearchGroupMembers(ctx, id, tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+> PagedResultsIAMGroupControllerApiGroupMember SearchGroupMembers(ctx, id, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 
 Search for users in a group
 
@@ -544,13 +544,13 @@ func main() {
 	id := "id_example" // string | The group id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.SearchGroupMembers(context.Background(), id, tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.GroupsAPI.SearchGroupMembers(context.Background(), id, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.SearchGroupMembers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -579,8 +579,8 @@ Name | Type | Description  | Notes
 
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
- **q** | **string** | A string filter | 
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type

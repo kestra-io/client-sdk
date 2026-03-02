@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **str** |  | 
 **title** | **str** |  | 
 **description** | **str** |  | [optional] 
 **time_window** | [**TimeWindow**](TimeWindow.md) |  | [optional] 

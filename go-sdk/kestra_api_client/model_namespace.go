@@ -20,9 +20,9 @@ var _ MappedNullable = &Namespace{}
 // Namespace struct for Namespace
 type Namespace struct {
 	Id                       string                            `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Deleted                  bool                              `json:"deleted"`
 	StorageIsolation         *Isolation                        `json:"storageIsolation,omitempty"`
 	SecretIsolation          *Isolation                        `json:"secretIsolation,omitempty"`
+	Deleted                  bool                              `json:"deleted"`
 	Description              *string                           `json:"description,omitempty"`
 	Variables                map[string]map[string]interface{} `json:"variables,omitempty"`
 	PluginDefaults           []PluginDefault                   `json:"pluginDefaults,omitempty"`
@@ -34,6 +34,7 @@ type Namespace struct {
 	SecretReadOnly           *bool                             `json:"secretReadOnly,omitempty"`
 	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
 	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
+	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
 	AdditionalProperties     map[string]interface{}
 }
 
@@ -80,30 +81,6 @@ func (o *Namespace) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *Namespace) SetId(v string) {
 	o.Id = v
-}
-
-// GetDeleted returns the Deleted field value
-func (o *Namespace) GetDeleted() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Deleted
-}
-
-// GetDeletedOk returns a tuple with the Deleted field value
-// and a boolean to check if the value has been set.
-func (o *Namespace) GetDeletedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deleted, true
-}
-
-// SetDeleted sets field value
-func (o *Namespace) SetDeleted(v bool) {
-	o.Deleted = v
 }
 
 // GetStorageIsolation returns the StorageIsolation field value if set, zero value otherwise.
@@ -168,6 +145,30 @@ func (o *Namespace) HasSecretIsolation() bool {
 // SetSecretIsolation gets a reference to the given Isolation and assigns it to the SecretIsolation field.
 func (o *Namespace) SetSecretIsolation(v Isolation) {
 	o.SecretIsolation = &v
+}
+
+// GetDeleted returns the Deleted field value
+func (o *Namespace) GetDeleted() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetDeletedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deleted, true
+}
+
+// SetDeleted sets field value
+func (o *Namespace) SetDeleted(v bool) {
+	o.Deleted = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -522,6 +523,38 @@ func (o *Namespace) SetOutputsInInternalStorage(v bool) {
 	o.OutputsInInternalStorage = &v
 }
 
+// GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
+func (o *Namespace) GetSdkDefaultAuthentication() SDKAuth {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		var ret SDKAuth
+		return ret
+	}
+	return *o.SdkDefaultAuthentication
+}
+
+// GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool) {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		return nil, false
+	}
+	return o.SdkDefaultAuthentication, true
+}
+
+// HasSdkDefaultAuthentication returns a boolean if a field has been set.
+func (o *Namespace) HasSdkDefaultAuthentication() bool {
+	if o != nil && !IsNil(o.SdkDefaultAuthentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetSdkDefaultAuthentication gets a reference to the given SDKAuth and assigns it to the SdkDefaultAuthentication field.
+func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth) {
+	o.SdkDefaultAuthentication = &v
+}
+
 func (o Namespace) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -533,13 +566,13 @@ func (o Namespace) MarshalJSON() ([]byte, error) {
 func (o Namespace) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["deleted"] = o.Deleted
 	if !IsNil(o.StorageIsolation) {
 		toSerialize["storageIsolation"] = o.StorageIsolation
 	}
 	if !IsNil(o.SecretIsolation) {
 		toSerialize["secretIsolation"] = o.SecretIsolation
 	}
+	toSerialize["deleted"] = o.Deleted
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -572,6 +605,9 @@ func (o Namespace) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OutputsInInternalStorage) {
 		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
+	}
+	if !IsNil(o.SdkDefaultAuthentication) {
+		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -618,9 +654,9 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "storageIsolation")
 		delete(additionalProperties, "secretIsolation")
+		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "variables")
 		delete(additionalProperties, "pluginDefaults")
@@ -632,6 +668,7 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "secretReadOnly")
 		delete(additionalProperties, "secretConfiguration")
 		delete(additionalProperties, "outputsInInternalStorage")
+		delete(additionalProperties, "sdkDefaultAuthentication")
 		o.AdditionalProperties = additionalProperties
 	}
 

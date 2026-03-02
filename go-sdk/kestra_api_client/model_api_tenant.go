@@ -33,6 +33,7 @@ type ApiTenant struct {
 	RequireExistingNamespace *bool                             `json:"requireExistingNamespace,omitempty"`
 	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
 	AppCatalogConfig         *TenantAppCatalogConfig           `json:"appCatalogConfig,omitempty"`
+	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
 	Logo                     *string                           `json:"logo,omitempty"`
 	AdditionalProperties     map[string]interface{}
 }
@@ -483,6 +484,38 @@ func (o *ApiTenant) SetAppCatalogConfig(v TenantAppCatalogConfig) {
 	o.AppCatalogConfig = &v
 }
 
+// GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
+func (o *ApiTenant) GetSdkDefaultAuthentication() SDKAuth {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		var ret SDKAuth
+		return ret
+	}
+	return *o.SdkDefaultAuthentication
+}
+
+// GetSdkDefaultAuthenticationOk returns a tuple with the SdkDefaultAuthentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTenant) GetSdkDefaultAuthenticationOk() (*SDKAuth, bool) {
+	if o == nil || IsNil(o.SdkDefaultAuthentication) {
+		return nil, false
+	}
+	return o.SdkDefaultAuthentication, true
+}
+
+// HasSdkDefaultAuthentication returns a boolean if a field has been set.
+func (o *ApiTenant) HasSdkDefaultAuthentication() bool {
+	if o != nil && !IsNil(o.SdkDefaultAuthentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetSdkDefaultAuthentication gets a reference to the given SDKAuth and assigns it to the SdkDefaultAuthentication field.
+func (o *ApiTenant) SetSdkDefaultAuthentication(v SDKAuth) {
+	o.SdkDefaultAuthentication = &v
+}
+
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ApiTenant) GetLogo() string {
 	if o == nil || IsNil(o.Logo) {
@@ -561,6 +594,9 @@ func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AppCatalogConfig) {
 		toSerialize["appCatalogConfig"] = o.AppCatalogConfig
 	}
+	if !IsNil(o.SdkDefaultAuthentication) {
+		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
+	}
 	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
@@ -623,6 +659,7 @@ func (o *ApiTenant) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requireExistingNamespace")
 		delete(additionalProperties, "outputsInInternalStorage")
 		delete(additionalProperties, "appCatalogConfig")
+		delete(additionalProperties, "sdkDefaultAuthentication")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties
 	}

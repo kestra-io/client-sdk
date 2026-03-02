@@ -19,6 +19,7 @@ var _ MappedNullable = &Dashboard{}
 
 // Dashboard struct for Dashboard
 type Dashboard struct {
+	Id                   string             `json:"id"`
 	Title                string             `json:"title"`
 	Description          *string            `json:"description,omitempty"`
 	TimeWindow           *TimeWindow        `json:"timeWindow,omitempty"`
@@ -32,8 +33,9 @@ type _Dashboard Dashboard
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboard(title string) *Dashboard {
+func NewDashboard(id string, title string) *Dashboard {
 	this := Dashboard{}
+	this.Id = id
 	this.Title = title
 	return &this
 }
@@ -44,6 +46,30 @@ func NewDashboard(title string) *Dashboard {
 func NewDashboardWithDefaults() *Dashboard {
 	this := Dashboard{}
 	return &this
+}
+
+// GetId returns the Id field value
+func (o *Dashboard) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Dashboard) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Dashboard) SetId(v string) {
+	o.Id = v
 }
 
 // GetTitle returns the Title field value
@@ -176,6 +202,7 @@ func (o Dashboard) MarshalJSON() ([]byte, error) {
 
 func (o Dashboard) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
 	toSerialize["title"] = o.Title
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
@@ -199,6 +226,7 @@ func (o *Dashboard) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"title",
 	}
 
@@ -229,6 +257,7 @@ func (o *Dashboard) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "timeWindow")

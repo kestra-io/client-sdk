@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
+from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
@@ -43,9 +44,10 @@ class ApiTenant(BaseModel):
     require_existing_namespace: Optional[StrictBool] = Field(default=None, alias="requireExistingNamespace")
     outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
     app_catalog_config: Optional[TenantAppCatalogConfig] = Field(default=None, alias="appCatalogConfig")
+    sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
     logo: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "logo"]
+    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "sdkDefaultAuthentication", "logo"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -107,6 +109,9 @@ class ApiTenant(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of app_catalog_config
         if self.app_catalog_config:
             _dict['appCatalogConfig'] = self.app_catalog_config.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sdk_default_authentication
+        if self.sdk_default_authentication:
+            _dict['sdkDefaultAuthentication'] = self.sdk_default_authentication.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -138,6 +143,7 @@ class ApiTenant(BaseModel):
             "requireExistingNamespace": obj.get("requireExistingNamespace"),
             "outputsInInternalStorage": obj.get("outputsInInternalStorage"),
             "appCatalogConfig": TenantAppCatalogConfig.from_dict(obj["appCatalogConfig"]) if obj.get("appCatalogConfig") is not None else None,
+            "sdkDefaultAuthentication": SDKAuth.from_dict(obj["sdkDefaultAuthentication"]) if obj.get("sdkDefaultAuthentication") is not None else None,
             "logo": obj.get("logo")
         })
         # store additional fields in additional_properties

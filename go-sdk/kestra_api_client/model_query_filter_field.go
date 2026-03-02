@@ -34,6 +34,7 @@ const (
 	QUERYFILTERFIELD_UPDATED              QueryFilterField = "UPDATED"
 	QUERYFILTERFIELD_START_DATE           QueryFilterField = "START_DATE"
 	QUERYFILTERFIELD_END_DATE             QueryFilterField = "END_DATE"
+	QUERYFILTERFIELD_EXPIRATION_DATE      QueryFilterField = "EXPIRATION_DATE"
 	QUERYFILTERFIELD_STATE                QueryFilterField = "STATE"
 	QUERYFILTERFIELD_TIME_RANGE           QueryFilterField = "TIME_RANGE"
 	QUERYFILTERFIELD_TRIGGER_EXECUTION_ID QueryFilterField = "TRIGGER_EXECUTION_ID"
@@ -49,6 +50,7 @@ const (
 	QUERYFILTERFIELD_PATH                 QueryFilterField = "PATH"
 	QUERYFILTERFIELD_PARENT_PATH          QueryFilterField = "PARENT_PATH"
 	QUERYFILTERFIELD_VERSION              QueryFilterField = "VERSION"
+	QUERYFILTERFIELD_USERNAME             QueryFilterField = "USERNAME"
 )
 
 // All allowed values of QueryFilterField enum
@@ -68,6 +70,7 @@ var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
 	"UPDATED",
 	"START_DATE",
 	"END_DATE",
+	"EXPIRATION_DATE",
 	"STATE",
 	"TIME_RANGE",
 	"TRIGGER_EXECUTION_ID",
@@ -83,6 +86,7 @@ var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
 	"PATH",
 	"PARENT_PATH",
 	"VERSION",
+	"USERNAME",
 }
 
 func (v *QueryFilterField) UnmarshalJSON(src []byte) error {

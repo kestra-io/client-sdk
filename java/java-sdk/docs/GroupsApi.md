@@ -526,7 +526,7 @@ public class Example {
 
 ## searchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, tenant, q, sort)
+> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, filters, tenant, sort)
 
 Search for users in a group
 
@@ -553,11 +553,11 @@ public class Example {
         String id = "id_example"; // String | The group id
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
-        String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().searchGroupMembers(id, page, size, tenant, q, sort);
+            PagedResultsIAMGroupControllerApiGroupMember result = kestraClient.GroupsApi().searchGroupMembers(id, page, size, filters, tenant, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#searchGroupMembers");
@@ -578,8 +578,8 @@ public class Example {
 | **id** | **String**| The group id | |
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

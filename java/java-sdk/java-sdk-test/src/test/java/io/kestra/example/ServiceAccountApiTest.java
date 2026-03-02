@@ -4,6 +4,7 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
@@ -113,7 +114,7 @@ public class ServiceAccountApiTest {
                 new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
 
         PagedResultsIAMServiceAccountControllerApiServiceAccountDetail page =
-            kestraClient().serviceAccount().listServiceAccounts(1, 50, null, null);
+            kestraClient().serviceAccount().listServiceAccounts(1, 50, Collections.emptyList(), null);
 
         assertNotNull(page);
         assertNotNull(page.getResults());

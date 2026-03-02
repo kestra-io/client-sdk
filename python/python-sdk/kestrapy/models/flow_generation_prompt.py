@@ -27,9 +27,11 @@ class FlowGenerationPrompt(BaseModel):
     """ # noqa: E501
     conversation_id: StrictStr = Field(alias="conversationId")
     user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: Optional[StrictStr] = Field(default=None, alias="flowYaml")
+    yaml: Optional[StrictStr] = None
+    provider_id: Optional[StrictStr] = Field(default=None, alias="providerId")
+    namespace: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
+    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "yaml", "providerId", "namespace"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +93,9 @@ class FlowGenerationPrompt(BaseModel):
         _obj = cls.model_validate({
             "conversationId": obj.get("conversationId"),
             "userPrompt": obj.get("userPrompt"),
-            "flowYaml": obj.get("flowYaml")
+            "yaml": obj.get("yaml"),
+            "providerId": obj.get("providerId"),
+            "namespace": obj.get("namespace")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

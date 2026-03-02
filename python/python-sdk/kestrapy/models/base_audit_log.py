@@ -17,7 +17,7 @@ import regex as re
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.audit_log_detail import AuditLogDetail
 from kestrapy.models.crud_event_type import CrudEventType
@@ -36,9 +36,8 @@ class BaseAuditLog(BaseModel):
     user_id: StrictStr = Field(alias="userId")
     ip_address: Optional[StrictStr] = Field(default=None, alias="ipAddress")
     impersonated_by: Optional[StrictStr] = Field(default=None, alias="impersonatedBy")
-    deleted: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted"]
+    __properties: ClassVar[List[str]] = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -108,8 +107,7 @@ class BaseAuditLog(BaseModel):
             "date": obj.get("date"),
             "userId": obj.get("userId"),
             "ipAddress": obj.get("ipAddress"),
-            "impersonatedBy": obj.get("impersonatedBy"),
-            "deleted": obj.get("deleted")
+            "impersonatedBy": obj.get("impersonatedBy")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

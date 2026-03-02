@@ -12,6 +12,7 @@
 
 import ApiClient from '../ApiClient';
 import Isolation from './Isolation';
+import SDKAuth from './SDKAuth';
 import TenantAppCatalogConfig from './TenantAppCatalogConfig';
 import WorkerGroup from './WorkerGroup';
 
@@ -31,6 +32,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} requireExistingNamespace
   * @property {Boolean} outputsInInternalStorage
   * @property {TenantAppCatalogConfig} appCatalogConfig
+  * @property {SDKAuth} sdkDefaultAuthentication
   */
 
 /**
@@ -115,6 +117,9 @@ class Tenant {
             if (data.hasOwnProperty('appCatalogConfig')) {
                 obj['appCatalogConfig'] = TenantAppCatalogConfig.constructFromObject(data['appCatalogConfig']);
             }
+            if (data.hasOwnProperty('sdkDefaultAuthentication')) {
+                obj['sdkDefaultAuthentication'] = SDKAuth.constructFromObject(data['sdkDefaultAuthentication']);
+            }
         }
         return obj;
     }
@@ -162,6 +167,10 @@ class Tenant {
         // validate the optional field `appCatalogConfig`
         if (data['appCatalogConfig']) { // data not null
           TenantAppCatalogConfig.validateJSON(data['appCatalogConfig']);
+        }
+        // validate the optional field `sdkDefaultAuthentication`
+        if (data['sdkDefaultAuthentication']) { // data not null
+          SDKAuth.validateJSON(data['sdkDefaultAuthentication']);
         }
 
         return true;
@@ -241,6 +250,11 @@ Tenant.prototype['outputsInInternalStorage'] = undefined;
  * @member {module:model/TenantAppCatalogConfig} appCatalogConfig
  */
 Tenant.prototype['appCatalogConfig'] = undefined;
+
+/**
+ * @member {module:model/SDKAuth} sdkDefaultAuthentication
+ */
+Tenant.prototype['sdkDefaultAuthentication'] = undefined;
 
 
 

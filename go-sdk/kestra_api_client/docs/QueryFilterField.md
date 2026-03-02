@@ -33,6 +33,8 @@
 
 * `END_DATE` (value: `"END_DATE"`)
 
+* `EXPIRATION_DATE` (value: `"EXPIRATION_DATE"`)
+
 * `STATE` (value: `"STATE"`)
 
 * `TIME_RANGE` (value: `"TIME_RANGE"`)
@@ -62,6 +64,8 @@
 * `PARENT_PATH` (value: `"PARENT_PATH"`)
 
 * `VERSION` (value: `"VERSION"`)
+
+* `USERNAME` (value: `"USERNAME"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -33,10 +33,16 @@ class ServerInstance {
     /**
      * Constructs a new <code>ServerInstance</code>.
      * @alias module:model/ServerInstance
+     * @param {String} id - 
+     * @param {module:model/ServerInstanceType} type - 
+     * @param {String} version - 
+     * @param {String} hostname - 
+     * @param {Object.<String, Object>} props - 
+     * @param {Array.<module:model/Metric>} metrics - 
      */
-    constructor() { 
+    constructor(id, type, version, hostname, props, metrics) { 
         
-        ServerInstance.initialize(this);
+        ServerInstance.initialize(this, id, type, version, hostname, props, metrics);
     }
 
     /**
@@ -44,7 +50,13 @@ class ServerInstance {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, type, version, hostname, props, metrics) { 
+        obj['id'] = id;
+        obj['type'] = type;
+        obj['version'] = version;
+        obj['hostname'] = hostname;
+        obj['props'] = props;
+        obj['metrics'] = metrics;
     }
 
     /**
@@ -86,6 +98,12 @@ class ServerInstance {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ServerInstance</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of ServerInstance.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -115,7 +133,7 @@ class ServerInstance {
 
 }
 
-
+ServerInstance.RequiredProperties = ["id", "type", "version", "hostname", "props", "metrics"];
 
 /**
  * @member {String} id

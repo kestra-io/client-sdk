@@ -21,7 +21,9 @@ var _ MappedNullable = &FlowGenerationPrompt{}
 type FlowGenerationPrompt struct {
 	ConversationId       string  `json:"conversationId"`
 	UserPrompt           string  `json:"userPrompt"`
-	FlowYaml             *string `json:"flowYaml,omitempty"`
+	Yaml                 *string `json:"yaml,omitempty"`
+	ProviderId           *string `json:"providerId,omitempty"`
+	Namespace            *string `json:"namespace,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,36 +96,100 @@ func (o *FlowGenerationPrompt) SetUserPrompt(v string) {
 	o.UserPrompt = v
 }
 
-// GetFlowYaml returns the FlowYaml field value if set, zero value otherwise.
-func (o *FlowGenerationPrompt) GetFlowYaml() string {
-	if o == nil || IsNil(o.FlowYaml) {
+// GetYaml returns the Yaml field value if set, zero value otherwise.
+func (o *FlowGenerationPrompt) GetYaml() string {
+	if o == nil || IsNil(o.Yaml) {
 		var ret string
 		return ret
 	}
-	return *o.FlowYaml
+	return *o.Yaml
 }
 
-// GetFlowYamlOk returns a tuple with the FlowYaml field value if set, nil otherwise
+// GetYamlOk returns a tuple with the Yaml field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowGenerationPrompt) GetFlowYamlOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowYaml) {
+func (o *FlowGenerationPrompt) GetYamlOk() (*string, bool) {
+	if o == nil || IsNil(o.Yaml) {
 		return nil, false
 	}
-	return o.FlowYaml, true
+	return o.Yaml, true
 }
 
-// HasFlowYaml returns a boolean if a field has been set.
-func (o *FlowGenerationPrompt) HasFlowYaml() bool {
-	if o != nil && !IsNil(o.FlowYaml) {
+// HasYaml returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasYaml() bool {
+	if o != nil && !IsNil(o.Yaml) {
 		return true
 	}
 
 	return false
 }
 
-// SetFlowYaml gets a reference to the given string and assigns it to the FlowYaml field.
-func (o *FlowGenerationPrompt) SetFlowYaml(v string) {
-	o.FlowYaml = &v
+// SetYaml gets a reference to the given string and assigns it to the Yaml field.
+func (o *FlowGenerationPrompt) SetYaml(v string) {
+	o.Yaml = &v
+}
+
+// GetProviderId returns the ProviderId field value if set, zero value otherwise.
+func (o *FlowGenerationPrompt) GetProviderId() string {
+	if o == nil || IsNil(o.ProviderId) {
+		var ret string
+		return ret
+	}
+	return *o.ProviderId
+}
+
+// GetProviderIdOk returns a tuple with the ProviderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetProviderIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProviderId) {
+		return nil, false
+	}
+	return o.ProviderId, true
+}
+
+// HasProviderId returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasProviderId() bool {
+	if o != nil && !IsNil(o.ProviderId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderId gets a reference to the given string and assigns it to the ProviderId field.
+func (o *FlowGenerationPrompt) SetProviderId(v string) {
+	o.ProviderId = &v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *FlowGenerationPrompt) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *FlowGenerationPrompt) SetNamespace(v string) {
+	o.Namespace = &v
 }
 
 func (o FlowGenerationPrompt) MarshalJSON() ([]byte, error) {
@@ -138,8 +204,14 @@ func (o FlowGenerationPrompt) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["conversationId"] = o.ConversationId
 	toSerialize["userPrompt"] = o.UserPrompt
-	if !IsNil(o.FlowYaml) {
-		toSerialize["flowYaml"] = o.FlowYaml
+	if !IsNil(o.Yaml) {
+		toSerialize["yaml"] = o.Yaml
+	}
+	if !IsNil(o.ProviderId) {
+		toSerialize["providerId"] = o.ProviderId
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -187,7 +259,9 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conversationId")
 		delete(additionalProperties, "userPrompt")
-		delete(additionalProperties, "flowYaml")
+		delete(additionalProperties, "yaml")
+		delete(additionalProperties, "providerId")
+		delete(additionalProperties, "namespace")
 		o.AdditionalProperties = additionalProperties
 	}
 
