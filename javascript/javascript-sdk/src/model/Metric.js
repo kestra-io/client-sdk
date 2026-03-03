@@ -20,7 +20,7 @@ import MetricTag from './MetricTag';
   * @property {String} description
   * @property {String} baseUnit
   * @property {Array.<module:model/MetricTag>} tags
-  * @property {Object} value
+  * @property {Number} value
   */
 
 /**
@@ -73,7 +73,7 @@ class Metric {
                 obj['tags'] = ApiClient.convertToType(data['tags'], [MetricTag]);
             }
             if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], Object);
+                obj['value'] = ApiClient.convertToType(data['value'], 'Number');
             }
         }
         return obj;
@@ -146,7 +146,7 @@ Metric.prototype['baseUnit'] = undefined;
 Metric.prototype['tags'] = undefined;
 
 /**
- * @member {Object} value
+ * @member {Number} value
  */
 Metric.prototype['value'] = undefined;
 

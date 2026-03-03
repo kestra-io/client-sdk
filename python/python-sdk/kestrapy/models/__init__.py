@@ -111,6 +111,7 @@ from kestrapy.models.crud_event_type import CrudEventType
 from kestrapy.models.dashboard import Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
 from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt
+from kestrapy.models.dashboard_settings import DashboardSettings
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest
 from kestrapy.models.depends_on import DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
@@ -371,7 +372,9 @@ from kestrapy.models.tenant import Tenant
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
 from kestrapy.models.tenant_controller_apps_catalog_config_request import TenantControllerAppsCatalogConfigRequest
 from kestrapy.models.tenant_controller_apps_catalog_config_response import TenantControllerAppsCatalogConfigResponse
+from kestrapy.models.tenant_controller_set_tenant_default_dashboards_request import TenantControllerSetTenantDefaultDashboardsRequest
 from kestrapy.models.tenant_interface import TenantInterface
+from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings
 from kestrapy.models.test_state import TestState
 from kestrapy.models.test_suite import TestSuite
 from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest

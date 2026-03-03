@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **RequireExistingNamespace** | Pointer to **bool** |  | [optional] 
 **OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
 **AppCatalogConfig** | Pointer to [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
+**Settings** | Pointer to [**TenantPreferencesSettings**](TenantPreferencesSettings.md) |  | [optional] 
 **SdkDefaultAuthentication** | Pointer to [**SDKAuth**](SDKAuth.md) |  | [optional] 
 **Logo** | Pointer to **string** |  | [optional] 
 
@@ -374,6 +375,31 @@ SetAppCatalogConfig sets AppCatalogConfig field to given value.
 `func (o *ApiTenant) HasAppCatalogConfig() bool`
 
 HasAppCatalogConfig returns a boolean if a field has been set.
+
+### GetSettings
+
+`func (o *ApiTenant) GetSettings() TenantPreferencesSettings`
+
+GetSettings returns the Settings field if non-nil, zero value otherwise.
+
+### GetSettingsOk
+
+`func (o *ApiTenant) GetSettingsOk() (*TenantPreferencesSettings, bool)`
+
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSettings
+
+`func (o *ApiTenant) SetSettings(v TenantPreferencesSettings)`
+
+SetSettings sets Settings field to given value.
+
+### HasSettings
+
+`func (o *ApiTenant) HasSettings() bool`
+
+HasSettings returns a boolean if a field has been set.
 
 ### GetSdkDefaultAuthentication
 
