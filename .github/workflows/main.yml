@@ -49,7 +49,9 @@ jobs:
     secrets:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
+      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
+      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
 
   java:
     if: "needs.file-changes.outputs.java == 'true'"
@@ -59,14 +61,18 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
+      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
+      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
   javascript:
     if: "needs.file-changes.outputs.javascript == 'true'"
     needs: file-changes
     uses: ./.github/workflows/javascript-sdk.yml
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
+      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
+      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   python:
     if: "needs.file-changes.outputs.python == 'true'"
@@ -74,5 +80,7 @@ jobs:
     uses: ./.github/workflows/python-sdk.yml
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
+      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
+      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
