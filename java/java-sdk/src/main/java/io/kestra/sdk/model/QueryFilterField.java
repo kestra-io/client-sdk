@@ -59,6 +59,10 @@ public enum QueryFilterField {
   
   STATE("STATE"),
   
+  STATUS("STATUS"),
+  
+  EMAIL("EMAIL"),
+  
   TIME_RANGE("TIME_RANGE"),
   
   TRIGGER_EXECUTION_ID("TRIGGER_EXECUTION_ID"),
@@ -88,6 +92,8 @@ public enum QueryFilterField {
   VERSION("VERSION"),
   
   USERNAME("USERNAME"),
+  
+  EXPIRED_AT("EXPIRED_AT"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 

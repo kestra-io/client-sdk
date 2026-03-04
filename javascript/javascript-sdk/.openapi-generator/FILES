@@ -102,6 +102,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -369,7 +370,9 @@ docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -519,6 +522,7 @@ src/model/CrudEventType.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
 src/model/DashboardGenerationPrompt.js
+src/model/DashboardSettings.js
 src/model/DeleteTriggersByQueryRequest.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
@@ -779,7 +783,9 @@ src/model/Tenant.js
 src/model/TenantAppCatalogConfig.js
 src/model/TenantControllerAppsCatalogConfigRequest.js
 src/model/TenantControllerAppsCatalogConfigResponse.js
+src/model/TenantControllerSetTenantDefaultDashboardsRequest.js
 src/model/TenantInterface.js
+src/model/TenantPreferencesSettings.js
 src/model/TestState.js
 src/model/TestSuite.js
 src/model/TestSuiteControllerRunRequest.js

@@ -33,6 +33,7 @@ type ApiTenant struct {
 	RequireExistingNamespace *bool                             `json:"requireExistingNamespace,omitempty"`
 	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
 	AppCatalogConfig         *TenantAppCatalogConfig           `json:"appCatalogConfig,omitempty"`
+	Settings                 *TenantPreferencesSettings        `json:"settings,omitempty"`
 	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
 	Logo                     *string                           `json:"logo,omitempty"`
 	AdditionalProperties     map[string]interface{}
@@ -484,6 +485,38 @@ func (o *ApiTenant) SetAppCatalogConfig(v TenantAppCatalogConfig) {
 	o.AppCatalogConfig = &v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *ApiTenant) GetSettings() TenantPreferencesSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret TenantPreferencesSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTenant) GetSettingsOk() (*TenantPreferencesSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *ApiTenant) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given TenantPreferencesSettings and assigns it to the Settings field.
+func (o *ApiTenant) SetSettings(v TenantPreferencesSettings) {
+	o.Settings = &v
+}
+
 // GetSdkDefaultAuthentication returns the SdkDefaultAuthentication field value if set, zero value otherwise.
 func (o *ApiTenant) GetSdkDefaultAuthentication() SDKAuth {
 	if o == nil || IsNil(o.SdkDefaultAuthentication) {
@@ -594,6 +627,9 @@ func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AppCatalogConfig) {
 		toSerialize["appCatalogConfig"] = o.AppCatalogConfig
 	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
+	}
 	if !IsNil(o.SdkDefaultAuthentication) {
 		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
 	}
@@ -659,6 +695,7 @@ func (o *ApiTenant) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requireExistingNamespace")
 		delete(additionalProperties, "outputsInInternalStorage")
 		delete(additionalProperties, "appCatalogConfig")
+		delete(additionalProperties, "settings")
 		delete(additionalProperties, "sdkDefaultAuthentication")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties

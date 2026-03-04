@@ -36,6 +36,8 @@ const (
 	QUERYFILTERFIELD_END_DATE             QueryFilterField = "END_DATE"
 	QUERYFILTERFIELD_EXPIRATION_DATE      QueryFilterField = "EXPIRATION_DATE"
 	QUERYFILTERFIELD_STATE                QueryFilterField = "STATE"
+	QUERYFILTERFIELD_STATUS               QueryFilterField = "STATUS"
+	QUERYFILTERFIELD_EMAIL                QueryFilterField = "EMAIL"
 	QUERYFILTERFIELD_TIME_RANGE           QueryFilterField = "TIME_RANGE"
 	QUERYFILTERFIELD_TRIGGER_EXECUTION_ID QueryFilterField = "TRIGGER_EXECUTION_ID"
 	QUERYFILTERFIELD_TRIGGER_ID           QueryFilterField = "TRIGGER_ID"
@@ -51,6 +53,7 @@ const (
 	QUERYFILTERFIELD_PARENT_PATH          QueryFilterField = "PARENT_PATH"
 	QUERYFILTERFIELD_VERSION              QueryFilterField = "VERSION"
 	QUERYFILTERFIELD_USERNAME             QueryFilterField = "USERNAME"
+	QUERYFILTERFIELD_EXPIRED_AT           QueryFilterField = "EXPIRED_AT"
 )
 
 // All allowed values of QueryFilterField enum
@@ -72,6 +75,8 @@ var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
 	"END_DATE",
 	"EXPIRATION_DATE",
 	"STATE",
+	"STATUS",
+	"EMAIL",
 	"TIME_RANGE",
 	"TRIGGER_EXECUTION_ID",
 	"TRIGGER_ID",
@@ -87,6 +92,7 @@ var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
 	"PARENT_PATH",
 	"VERSION",
 	"USERNAME",
+	"EXPIRED_AT",
 }
 
 func (v *QueryFilterField) UnmarshalJSON(src []byte) error {

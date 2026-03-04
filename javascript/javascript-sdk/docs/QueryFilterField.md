@@ -37,6 +37,10 @@
 
 * `STATE` (value: `"STATE"`)
 
+* `STATUS` (value: `"STATUS"`)
+
+* `EMAIL` (value: `"EMAIL"`)
+
 * `TIME_RANGE` (value: `"TIME_RANGE"`)
 
 * `TRIGGER_EXECUTION_ID` (value: `"TRIGGER_EXECUTION_ID"`)
@@ -66,5 +70,7 @@
 * `VERSION` (value: `"VERSION"`)
 
 * `USERNAME` (value: `"USERNAME"`)
+
+* `EXPIRED_AT` (value: `"EXPIRED_AT"`)
 
 

@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 1.3.1
 
-- Generator version: 7.19.0
+- Generator version: 7.20.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -85,7 +85,7 @@ public class AppsApiExample {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("http://localhost");
-        
+
         // Configure HTTP basic authorization: basicAuth
         HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
         basicAuth.setUsername("YOUR USERNAME");
@@ -97,7 +97,7 @@ public class AppsApiExample {
 
         AppsApi apiInstance = new AppsApi(defaultClient);
         String uid = "uid_example"; // String | The ID of the app
-        String tenant = "tenant_example"; // String | 
+        String tenant = "tenant_example"; // String |
         try {
             AppsControllerApiAppSource result = apiInstance.app(uid, tenant);
             System.out.println(result);
@@ -124,7 +124,7 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**bulkDisableApps**](docs/AppsApi.md#bulkDisableApps) | **POST** /api/v1/{tenant}/apps/disable | Disable existing apps
 *AppsApi* | [**bulkEnableApps**](docs/AppsApi.md#bulkEnableApps) | **POST** /api/v1/{tenant}/apps/enable | Enable existing apps
 *AppsApi* | [**bulkExportApps**](docs/AppsApi.md#bulkExportApps) | **POST** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of YAML sources.
-*AppsApi* | [**bulkImportApps**](docs/AppsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+*AppsApi* | [**bulkImportApps**](docs/AppsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
 *AppsApi* | [**createApp**](docs/AppsApi.md#createApp) | **POST** /api/v1/{tenant}/apps | Create a new app
 *AppsApi* | [**deleteApp**](docs/AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
 *AppsApi* | [**disableApp**](docs/AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
@@ -147,6 +147,7 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
+*DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
 *DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
 *DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
@@ -230,7 +231,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+*FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
@@ -300,7 +301,7 @@ Class | Method | HTTP request | Description
 *ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**listApiTokensForServiceAccount**](docs/ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**listApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-*ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
+*ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.
 *ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 *ServiceAccountApi* | [**serviceAccount**](docs/ServiceAccountApi.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
@@ -463,6 +464,7 @@ Class | Method | HTTP request | Description
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
+ - [DashboardSettings](docs/DashboardSettings.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -723,7 +725,9 @@ Class | Method | HTTP request | Description
  - [TenantAppCatalogConfig](docs/TenantAppCatalogConfig.md)
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
+ - [TenantControllerSetTenantDefaultDashboardsRequest](docs/TenantControllerSetTenantDefaultDashboardsRequest.md)
  - [TenantInterface](docs/TenantInterface.md)
+ - [TenantPreferencesSettings](docs/TenantPreferencesSettings.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)

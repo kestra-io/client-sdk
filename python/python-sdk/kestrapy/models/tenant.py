@@ -22,6 +22,7 @@ from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
+from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
 from typing_extensions import Self
@@ -44,9 +45,10 @@ class Tenant(BaseModel):
     require_existing_namespace: Optional[StrictBool] = Field(default=None, alias="requireExistingNamespace")
     outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
     app_catalog_config: Optional[TenantAppCatalogConfig] = Field(default=None, alias="appCatalogConfig")
+    settings: Optional[TenantPreferencesSettings] = None
     sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "sdkDefaultAuthentication"]
+    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "settings", "sdkDefaultAuthentication"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -108,6 +110,9 @@ class Tenant(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of app_catalog_config
         if self.app_catalog_config:
             _dict['appCatalogConfig'] = self.app_catalog_config.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of settings
+        if self.settings:
+            _dict['settings'] = self.settings.to_dict()
         # override the default output from pydantic by calling `to_dict()` of sdk_default_authentication
         if self.sdk_default_authentication:
             _dict['sdkDefaultAuthentication'] = self.sdk_default_authentication.to_dict()
@@ -142,6 +147,7 @@ class Tenant(BaseModel):
             "requireExistingNamespace": obj.get("requireExistingNamespace"),
             "outputsInInternalStorage": obj.get("outputsInInternalStorage"),
             "appCatalogConfig": TenantAppCatalogConfig.from_dict(obj["appCatalogConfig"]) if obj.get("appCatalogConfig") is not None else None,
+            "settings": TenantPreferencesSettings.from_dict(obj["settings"]) if obj.get("settings") is not None else None,
             "sdkDefaultAuthentication": SDKAuth.from_dict(obj["sdkDefaultAuthentication"]) if obj.get("sdkDefaultAuthentication") is not None else None
         })
         # store additional fields in additional_properties

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **requireExistingNamespace** | **Boolean** |  | [optional] 
 **outputsInInternalStorage** | **Boolean** |  | [optional] 
 **appCatalogConfig** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
+**settings** | [**TenantPreferencesSettings**](TenantPreferencesSettings.md) |  | [optional] 
 **sdkDefaultAuthentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 

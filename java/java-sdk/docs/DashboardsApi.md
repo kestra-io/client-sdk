@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**createDashboard**](DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source |
 | [**dashboard**](DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard |
 | [**dashboardChartData**](DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data |
+| [**defaultDashboards1**](DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
 | [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard |
 | [**exportChartToCsv**](DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV |
 | [**exportDashboardChartDataToCSV**](DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV |
@@ -227,6 +228,73 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | getDashboardChartData 200 response |  -  |
+
+
+## defaultDashboards1
+
+> DashboardSettings defaultDashboards1(tenant)
+
+Get default dashboards
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        try {
+            DashboardSettings result = kestraClient.DashboardsApi().defaultDashboards1(tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#defaultDashboards1");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**DashboardSettings**](DashboardSettings.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getDefaultDashboards_1 200 response |  -  |
 
 
 ## deleteDashboard

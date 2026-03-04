@@ -14,7 +14,7 @@ import ApiClient from '../ApiClient';
 /**
  * Enum QueryFilterField
  * @type {{
- *   "QUERY": "QUERY","SCOPE": "SCOPE","NAMESPACE": "NAMESPACE","KIND": "KIND","LABELS": "LABELS","METADATA": "METADATA","FLOW_ID": "FLOW_ID","FLOW_REVISION": "FLOW_REVISION","ID": "ID","ASSET_ID": "ASSET_ID","TYPE": "TYPE","CREATED": "CREATED","UPDATED": "UPDATED","START_DATE": "START_DATE","END_DATE": "END_DATE","EXPIRATION_DATE": "EXPIRATION_DATE","STATE": "STATE","TIME_RANGE": "TIME_RANGE","TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID","TRIGGER_ID": "TRIGGER_ID","TRIGGER_STATE": "TRIGGER_STATE","EXECUTION_ID": "EXECUTION_ID","TASK_ID": "TASK_ID","TASK_RUN_ID": "TASK_RUN_ID","CHILD_FILTER": "CHILD_FILTER","WORKER_ID": "WORKER_ID","EXISTING_ONLY": "EXISTING_ONLY","MIN_LEVEL": "MIN_LEVEL","PATH": "PATH","PARENT_PATH": "PARENT_PATH","VERSION": "VERSION","USERNAME": "USERNAME",
+ *   "QUERY": "QUERY","SCOPE": "SCOPE","NAMESPACE": "NAMESPACE","KIND": "KIND","LABELS": "LABELS","METADATA": "METADATA","FLOW_ID": "FLOW_ID","FLOW_REVISION": "FLOW_REVISION","ID": "ID","ASSET_ID": "ASSET_ID","TYPE": "TYPE","CREATED": "CREATED","UPDATED": "UPDATED","START_DATE": "START_DATE","END_DATE": "END_DATE","EXPIRATION_DATE": "EXPIRATION_DATE","STATE": "STATE","STATUS": "STATUS","EMAIL": "EMAIL","TIME_RANGE": "TIME_RANGE","TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID","TRIGGER_ID": "TRIGGER_ID","TRIGGER_STATE": "TRIGGER_STATE","EXECUTION_ID": "EXECUTION_ID","TASK_ID": "TASK_ID","TASK_RUN_ID": "TASK_RUN_ID","CHILD_FILTER": "CHILD_FILTER","WORKER_ID": "WORKER_ID","EXISTING_ONLY": "EXISTING_ONLY","MIN_LEVEL": "MIN_LEVEL","PATH": "PATH","PARENT_PATH": "PARENT_PATH","VERSION": "VERSION","USERNAME": "USERNAME","EXPIRED_AT": "EXPIRED_AT",
  * }}
  */
 export const QueryFilterFieldStatic = { 
@@ -35,6 +35,8 @@ export const QueryFilterFieldStatic = {
     "END_DATE": "END_DATE",
     "EXPIRATION_DATE": "EXPIRATION_DATE",
     "STATE": "STATE",
+    "STATUS": "STATUS",
+    "EMAIL": "EMAIL",
     "TIME_RANGE": "TIME_RANGE",
     "TRIGGER_EXECUTION_ID": "TRIGGER_EXECUTION_ID",
     "TRIGGER_ID": "TRIGGER_ID",
@@ -50,6 +52,7 @@ export const QueryFilterFieldStatic = {
     "PARENT_PATH": "PARENT_PATH",
     "VERSION": "VERSION",
     "USERNAME": "USERNAME",
+    "EXPIRED_AT": "EXPIRED_AT",
 }
 
 /**
@@ -179,6 +182,20 @@ export default class QueryFilterField {
 
     
         /**
+         * value: "STATUS"
+         * @const
+         */
+        "STATUS" = "STATUS";
+
+    
+        /**
+         * value: "EMAIL"
+         * @const
+         */
+        "EMAIL" = "EMAIL";
+
+    
+        /**
          * value: "TIME_RANGE"
          * @const
          */
@@ -281,6 +298,13 @@ export default class QueryFilterField {
          * @const
          */
         "USERNAME" = "USERNAME";
+
+    
+        /**
+         * value: "EXPIRED_AT"
+         * @const
+         */
+        "EXPIRED_AT" = "EXPIRED_AT";
 
     
 
