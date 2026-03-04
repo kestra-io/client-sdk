@@ -124,8 +124,12 @@ describe('RolesApi', () => {
         const results = await kestraClient().rolesApi.searchRoles(
             1,
             10000,
+            [{
+                field: 'QUERY',
+                operation: 'EQUALS',
+                value: name,
+            }],
             MAIN_TENANT,
-            {q: name},
         );
 
         // search typically returns { results, total, ... }

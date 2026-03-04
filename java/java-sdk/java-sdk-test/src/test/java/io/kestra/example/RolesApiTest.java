@@ -153,9 +153,15 @@ public class RolesApiTest {
         IAMRoleControllerApiRoleDetail created =
             kestraClient().roles().createRole(MAIN_TENANT, req);
 
-        // page=1, size=10 to mirror Python defaults; adjust if your API is 0- or 1-based
+        List<QueryFilter> filters = List.of(
+            new QueryFilter()
+                .field(QueryFilterField.QUERY)
+                .operation(QueryFilterOp.EQUALS)
+                .value(name)
+        );
+
         PagedResultsApiRoleSummary page =
-            kestraClient().roles().searchRoles(1, 10, MAIN_TENANT, name, null);
+            kestraClient().roles().searchRoles(1, 10, filters, MAIN_TENANT, null);
 
         assertNotNull(page);
         assertNotNull(page.getResults());

@@ -149,7 +149,14 @@ func TestRolesAPI_All(t *testing.T) {
 		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
 		require.NoError(t, err)
 
-		page, _, err := KestraTestApiClient().RolesAPI.SearchRoles(ctx, MAIN_TENANT).Page(1).Size(10).Q(name).Execute()
+		filters := []kestra_api_client.QueryFilter{
+			{
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_QUERY),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
+				Value:     name,
+			},
+		}
+		page, _, err := KestraTestApiClient().RolesAPI.SearchRoles(ctx, MAIN_TENANT).Page(1).Size(10).Filters(filters).Execute()
 		require.NoError(t, err)
 		require.NotNil(t, page)
 		require.NotNil(t, page.GetResults())

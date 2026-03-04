@@ -20,6 +20,9 @@ from kestrapy import (
     IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions,
     ApiAutocomplete,
     ApiIds,
+    QueryFilter,
+    QueryFilterField,
+    QueryFilterOp,
 )
 
 
@@ -184,7 +187,8 @@ class TestRolesApi(unittest.TestCase):
             iam_role_controller_api_role_create_or_update_request=role_req
         )
 
-        results = self.kestra_client.roles.search_roles(page=1, size=10, tenant=self.tenant, q=name)
+        qf = QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": name})
+        results = self.kestra_client.roles.search_roles(page=1, size=10, filters=[qf], tenant=self.tenant)
 
         assert any(getattr(r, 'id', None) == created.id for r in results.results)
 
