@@ -67,4 +67,8 @@
 
 * `USERNAME` (value: `"USERNAME"`)
 
+* `NAME` (value: `"NAME"`)
+
+* `GROUP` (value: `"GROUP"`)
+
 

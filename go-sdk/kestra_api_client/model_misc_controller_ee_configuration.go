@@ -50,7 +50,7 @@ type MiscControllerEEConfiguration struct {
 	LeftSidebar                     *LeftSidebarConfiguration              `json:"leftSidebar,omitempty"`
 	RightSidebar                    *RightSidebarConfiguration             `json:"rightSidebar,omitempty"`
 	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
-	PasswordRegexp                  *string                                `json:"passwordRegexp,omitempty"`
+	PasswordConfiguration           *PasswordConfiguration                 `json:"passwordConfiguration,omitempty"`
 	PasswordlessEnabled             *bool                                  `json:"passwordlessEnabled,omitempty"`
 	Airgapped                       *bool                                  `json:"airgapped,omitempty"`
 	FeatureGating                   *bool                                  `json:"featureGating,omitempty"`
@@ -1070,36 +1070,36 @@ func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool) {
 	o.InMaintenance = &v
 }
 
-// GetPasswordRegexp returns the PasswordRegexp field value if set, zero value otherwise.
-func (o *MiscControllerEEConfiguration) GetPasswordRegexp() string {
-	if o == nil || IsNil(o.PasswordRegexp) {
-		var ret string
+// GetPasswordConfiguration returns the PasswordConfiguration field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPasswordConfiguration() PasswordConfiguration {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		var ret PasswordConfiguration
 		return ret
 	}
-	return *o.PasswordRegexp
+	return *o.PasswordConfiguration
 }
 
-// GetPasswordRegexpOk returns a tuple with the PasswordRegexp field value if set, nil otherwise
+// GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MiscControllerEEConfiguration) GetPasswordRegexpOk() (*string, bool) {
-	if o == nil || IsNil(o.PasswordRegexp) {
+func (o *MiscControllerEEConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool) {
+	if o == nil || IsNil(o.PasswordConfiguration) {
 		return nil, false
 	}
-	return o.PasswordRegexp, true
+	return o.PasswordConfiguration, true
 }
 
-// HasPasswordRegexp returns a boolean if a field has been set.
-func (o *MiscControllerEEConfiguration) HasPasswordRegexp() bool {
-	if o != nil && !IsNil(o.PasswordRegexp) {
+// HasPasswordConfiguration returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPasswordConfiguration() bool {
+	if o != nil && !IsNil(o.PasswordConfiguration) {
 		return true
 	}
 
 	return false
 }
 
-// SetPasswordRegexp gets a reference to the given string and assigns it to the PasswordRegexp field.
-func (o *MiscControllerEEConfiguration) SetPasswordRegexp(v string) {
-	o.PasswordRegexp = &v
+// SetPasswordConfiguration gets a reference to the given PasswordConfiguration and assigns it to the PasswordConfiguration field.
+func (o *MiscControllerEEConfiguration) SetPasswordConfiguration(v PasswordConfiguration) {
+	o.PasswordConfiguration = &v
 }
 
 // GetPasswordlessEnabled returns the PasswordlessEnabled field value if set, zero value otherwise.
@@ -1365,8 +1365,8 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InMaintenance) {
 		toSerialize["inMaintenance"] = o.InMaintenance
 	}
-	if !IsNil(o.PasswordRegexp) {
-		toSerialize["passwordRegexp"] = o.PasswordRegexp
+	if !IsNil(o.PasswordConfiguration) {
+		toSerialize["passwordConfiguration"] = o.PasswordConfiguration
 	}
 	if !IsNil(o.PasswordlessEnabled) {
 		toSerialize["passwordlessEnabled"] = o.PasswordlessEnabled
@@ -1436,7 +1436,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "leftSidebar")
 		delete(additionalProperties, "rightSidebar")
 		delete(additionalProperties, "inMaintenance")
-		delete(additionalProperties, "passwordRegexp")
+		delete(additionalProperties, "passwordConfiguration")
 		delete(additionalProperties, "passwordlessEnabled")
 		delete(additionalProperties, "airgapped")
 		delete(additionalProperties, "featureGating")

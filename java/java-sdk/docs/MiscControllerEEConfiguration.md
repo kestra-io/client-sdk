@@ -38,7 +38,7 @@
 |**leftSidebar** | [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  |  [optional] |
 |**rightSidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  |  [optional] |
 |**inMaintenance** | **Boolean** |  |  [optional] |
-|**passwordRegexp** | **String** |  |  [optional] |
+|**passwordConfiguration** | [**PasswordConfiguration**](PasswordConfiguration.md) |  |  [optional] |
 |**passwordlessEnabled** | **Boolean** |  |  [optional] |
 |**airgapped** | **Boolean** |  |  [optional] |
 |**featureGating** | **Boolean** |  |  [optional] |

@@ -106,6 +106,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DashboardsApi.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
@@ -289,6 +290,9 @@ docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
 docs/PagedResultsTrigger.md
 docs/PagedResultsTriggerControllerTriggers.md
+docs/PasswordConfiguration.md
+docs/PasswordConfigurationPasswordReset.md
+docs/PasswordConfigurationRateLimit.md
 docs/PatchOperation.md
 docs/PatchOperationPath.md
 docs/PatchOperationType.md
@@ -303,6 +307,8 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
+docs/PluginUiManifest.md
+docs/PluginUiModuleWithGroup.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -372,11 +378,14 @@ docs/TaskFixture.md
 docs/TaskForExecution.md
 docs/TaskRun.md
 docs/TaskRunAttempt.md
+docs/TaskWithVersion.md
 docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -551,6 +560,7 @@ src/main/java/io/kestra/sdk/model/CrudEventType.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
 src/main/java/io/kestra/sdk/model/DashboardGenerationPrompt.java
+src/main/java/io/kestra/sdk/model/DashboardSettings.java
 src/main/java/io/kestra/sdk/model/DeleteTriggersByQueryRequest.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
@@ -726,6 +736,9 @@ src/main/java/io/kestra/sdk/model/PagedResultsTestSuite.java
 src/main/java/io/kestra/sdk/model/PagedResultsTestSuiteRunResult.java
 src/main/java/io/kestra/sdk/model/PagedResultsTrigger.java
 src/main/java/io/kestra/sdk/model/PagedResultsTriggerControllerTriggers.java
+src/main/java/io/kestra/sdk/model/PasswordConfiguration.java
+src/main/java/io/kestra/sdk/model/PasswordConfigurationPasswordReset.java
+src/main/java/io/kestra/sdk/model/PasswordConfigurationRateLimit.java
 src/main/java/io/kestra/sdk/model/PatchOperation.java
 src/main/java/io/kestra/sdk/model/PatchOperationPath.java
 src/main/java/io/kestra/sdk/model/PatchOperationType.java
@@ -740,6 +753,8 @@ src/main/java/io/kestra/sdk/model/PluginIcon.java
 src/main/java/io/kestra/sdk/model/PluginPluginElementMetadata.java
 src/main/java/io/kestra/sdk/model/PluginSchema.java
 src/main/java/io/kestra/sdk/model/PluginSubGroupPluginCategory.java
+src/main/java/io/kestra/sdk/model/PluginUiManifest.java
+src/main/java/io/kestra/sdk/model/PluginUiModuleWithGroup.java
 src/main/java/io/kestra/sdk/model/PropertyBoolean.java
 src/main/java/io/kestra/sdk/model/PropertyDouble.java
 src/main/java/io/kestra/sdk/model/PropertyDuration.java
@@ -807,11 +822,14 @@ src/main/java/io/kestra/sdk/model/TaskFixture.java
 src/main/java/io/kestra/sdk/model/TaskForExecution.java
 src/main/java/io/kestra/sdk/model/TaskRun.java
 src/main/java/io/kestra/sdk/model/TaskRunAttempt.java
+src/main/java/io/kestra/sdk/model/TaskWithVersion.java
 src/main/java/io/kestra/sdk/model/Tenant.java
 src/main/java/io/kestra/sdk/model/TenantAppCatalogConfig.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigRequest.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigResponse.java
+src/main/java/io/kestra/sdk/model/TenantControllerSetTenantDefaultDashboardsRequest.java
 src/main/java/io/kestra/sdk/model/TenantInterface.java
+src/main/java/io/kestra/sdk/model/TenantPreferencesSettings.java
 src/main/java/io/kestra/sdk/model/TestState.java
 src/main/java/io/kestra/sdk/model/TestSuite.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerRunRequest.java

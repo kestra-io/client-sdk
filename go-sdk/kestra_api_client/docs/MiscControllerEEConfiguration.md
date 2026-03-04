@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **LeftSidebar** | Pointer to [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  | [optional] 
 **RightSidebar** | Pointer to [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  | [optional] 
 **InMaintenance** | Pointer to **bool** |  | [optional] 
-**PasswordRegexp** | Pointer to **string** |  | [optional] 
+**PasswordConfiguration** | Pointer to [**PasswordConfiguration**](PasswordConfiguration.md) |  | [optional] 
 **PasswordlessEnabled** | Pointer to **bool** |  | [optional] 
 **Airgapped** | Pointer to **bool** |  | [optional] 
 **FeatureGating** | Pointer to **bool** |  | [optional] 
@@ -836,30 +836,30 @@ SetInMaintenance sets InMaintenance field to given value.
 
 HasInMaintenance returns a boolean if a field has been set.
 
-### GetPasswordRegexp
+### GetPasswordConfiguration
 
-`func (o *MiscControllerEEConfiguration) GetPasswordRegexp() string`
+`func (o *MiscControllerEEConfiguration) GetPasswordConfiguration() PasswordConfiguration`
 
-GetPasswordRegexp returns the PasswordRegexp field if non-nil, zero value otherwise.
+GetPasswordConfiguration returns the PasswordConfiguration field if non-nil, zero value otherwise.
 
-### GetPasswordRegexpOk
+### GetPasswordConfigurationOk
 
-`func (o *MiscControllerEEConfiguration) GetPasswordRegexpOk() (*string, bool)`
+`func (o *MiscControllerEEConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool)`
 
-GetPasswordRegexpOk returns a tuple with the PasswordRegexp field if it's non-nil, zero value otherwise
+GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPasswordRegexp
+### SetPasswordConfiguration
 
-`func (o *MiscControllerEEConfiguration) SetPasswordRegexp(v string)`
+`func (o *MiscControllerEEConfiguration) SetPasswordConfiguration(v PasswordConfiguration)`
 
-SetPasswordRegexp sets PasswordRegexp field to given value.
+SetPasswordConfiguration sets PasswordConfiguration field to given value.
 
-### HasPasswordRegexp
+### HasPasswordConfiguration
 
-`func (o *MiscControllerEEConfiguration) HasPasswordRegexp() bool`
+`func (o *MiscControllerEEConfiguration) HasPasswordConfiguration() bool`
 
-HasPasswordRegexp returns a boolean if a field has been set.
+HasPasswordConfiguration returns a boolean if a field has been set.
 
 ### GetPasswordlessEnabled
 

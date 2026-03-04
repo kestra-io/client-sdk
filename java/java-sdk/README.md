@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 1.4.0-SNAPSHOT
 
-- Generator version: 7.19.0
+- Generator version: 7.20.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -147,6 +147,7 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
+*DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
 *DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
 *DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
@@ -463,6 +464,7 @@ Class | Method | HTTP request | Description
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
+ - [DashboardSettings](docs/DashboardSettings.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -638,6 +640,9 @@ Class | Method | HTTP request | Description
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
  - [PagedResultsTrigger](docs/PagedResultsTrigger.md)
  - [PagedResultsTriggerControllerTriggers](docs/PagedResultsTriggerControllerTriggers.md)
+ - [PasswordConfiguration](docs/PasswordConfiguration.md)
+ - [PasswordConfigurationPasswordReset](docs/PasswordConfigurationPasswordReset.md)
+ - [PasswordConfigurationRateLimit](docs/PasswordConfigurationRateLimit.md)
  - [PatchOperation](docs/PatchOperation.md)
  - [PatchOperationPath](docs/PatchOperationPath.md)
  - [PatchOperationType](docs/PatchOperationType.md)
@@ -652,6 +657,8 @@ Class | Method | HTTP request | Description
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
+ - [PluginUiManifest](docs/PluginUiManifest.md)
+ - [PluginUiModuleWithGroup](docs/PluginUiModuleWithGroup.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
  - [PropertyDuration](docs/PropertyDuration.md)
@@ -719,11 +726,14 @@ Class | Method | HTTP request | Description
  - [TaskForExecution](docs/TaskForExecution.md)
  - [TaskRun](docs/TaskRun.md)
  - [TaskRunAttempt](docs/TaskRunAttempt.md)
+ - [TaskWithVersion](docs/TaskWithVersion.md)
  - [Tenant](docs/Tenant.md)
  - [TenantAppCatalogConfig](docs/TenantAppCatalogConfig.md)
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
+ - [TenantControllerSetTenantDefaultDashboardsRequest](docs/TenantControllerSetTenantDefaultDashboardsRequest.md)
  - [TenantInterface](docs/TenantInterface.md)
+ - [TenantPreferencesSettings](docs/TenantPreferencesSettings.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)

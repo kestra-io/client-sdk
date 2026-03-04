@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **left_sidebar** | [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  | [optional] 
 **right_sidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  | [optional] 
 **in_maintenance** | **bool** |  | [optional] 
-**password_regexp** | **str** |  | [optional] 
+**password_configuration** | [**PasswordConfiguration**](PasswordConfiguration.md) |  | [optional] 
 **passwordless_enabled** | **bool** |  | [optional] 
 **airgapped** | **bool** |  | [optional] 
 **feature_gating** | **bool** |  | [optional] 

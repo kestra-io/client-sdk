@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.3.0
+  version: 1.4.0-SNAPSHOT
 servers:
 - url: /
 tags:
@@ -551,6 +551,33 @@ paths:
       tags:
       - Cluster
       - Maintenance
+      x-internal: true
+  /api/v1/instance/metrics/{serviceType}:
+    get:
+      operationId: metrics
+      parameters:
+      - explode: false
+        in: query
+        name: serviceType
+        required: true
+        schema:
+          $ref: "#/components/schemas/ServiceType"
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Metric"
+                type: array
+          description: metrics 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get metrics for running services
+      tags:
+      - Services
       x-internal: true
   /api/v1/instance/services/active:
     get:
@@ -1554,6 +1581,31 @@ paths:
       tags:
       - Plugins
       x-internal: true
+  /api/v1/plugins/pluginUiManifest:
+    post:
+      operationId: pluginUiManifest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "#/components/schemas/TaskWithVersion"
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PluginUiManifest"
+          description: getPluginUiManifest 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get plugins group by subgroups
+      tags:
+      - Plugins
+      x-internal: true
   /api/v1/plugins/properties/{type}:
     get:
       description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
@@ -1722,6 +1774,41 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Get plugin documentation
+      tags:
+      - Plugins
+      x-internal: true
+  /api/v1/plugins/{group}/pluginUi/{path}:
+    get:
+      operationId: pluginUi
+      parameters:
+      - description: The plugin group
+        explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The file path
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: binary
+                type: string
+          description: getPluginUi 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get plugins group by subgroups
       tags:
       - Plugins
       x-internal: true
@@ -2374,6 +2461,57 @@ paths:
       tags:
       - Tenants
       x-internal: true
+  /api/v1/tenants/{id}/settings/default-dashboards:
+    get:
+      operationId: defaultDashboards
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: getDefaultDashboards 200 response
+      summary: Get default dashboards for this tenant
+      tags:
+      - Tenants
+      x-internal: true
+    post:
+      operationId: setTenantDefaultDashboards
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.SetTenantDefaultDashboardsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: setTenantDefaultDashboards 200 response
+      summary: Update default dashboards for the entire tenant
+      tags:
+      - Tenants
+      x-internal: true
   /api/v1/users:
     get:
       operationId: listUsers
@@ -2864,6 +3002,21 @@ paths:
       tags:
       - Users
       x-internal: false
+  /api/v1/validate-password:
+    post:
+      operationId: validatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validatePassword 200 response
+      tags:
+      - Auths
+      x-internal: true
   /api/v1/{tenant}/acls/actions:
     get:
       description: "Actions are used to restrict possible operations for each permission.\
@@ -5650,6 +5803,28 @@ paths:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
           description: previewChart 200 response
       summary: Preview a chart data
+      tags:
+      - Dashboards
+      x-internal: true
+  /api/v1/{tenant}/dashboards/settings/default-dashboards:
+    get:
+      operationId: defaultDashboards_1
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: getDefaultDashboards_1 200 response
+      summary: Get default dashboards
       tags:
       - Dashboards
       x-internal: true
@@ -17698,6 +17873,15 @@ components:
       - conversationId
       - userPrompt
       type: object
+    DashboardSettings:
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
+      type: object
     DependsOn:
       properties:
         inputs:
@@ -21350,7 +21534,7 @@ components:
             $ref: "#/components/schemas/Metric.Tag"
           type: array
         value:
-          type: object
+          type: number
       type: object
     Metric.Tag:
       properties:
@@ -21504,8 +21688,8 @@ components:
             $ref: "#/components/schemas/RightSidebarConfiguration"
           inMaintenance:
             type: boolean
-          passwordRegexp:
-            type: string
+          passwordConfiguration:
+            $ref: "#/components/schemas/PasswordConfiguration"
           passwordlessEnabled:
             type: boolean
           airgapped:
@@ -21602,6 +21786,18 @@ components:
           type: INFO
           startDate: 2000-01-23T04:56:07.000+00:00
         commitId: commitId
+        passwordConfiguration:
+          passwordMinLowerCase: 2
+          passwordMinDigits: 5
+          passwordMinUpperCase: 7
+          passwordReset:
+            rateLimit:
+              maxRequests: 9
+              window: PT1H
+            cooldown: PT5M
+          passwordMinLength: 5
+          passwordRequireSpecial: true
+          passwordAllowedSpecialCharacters: '!@#$%^&*'
         isAnonymousUsageEnabled: true
         version: version
         rightSidebar:
@@ -21609,7 +21805,6 @@ components:
             key:
               title: title
               url: url
-        passwordRegexp: passwordRegexp
         url: url
         commitDate: 2000-01-23T04:56:07.000+00:00
         environment:
@@ -25512,6 +25707,71 @@ components:
       - results
       - total
       type: object
+    PasswordConfiguration:
+      example:
+        passwordMinLowerCase: 2
+        passwordMinDigits: 5
+        passwordMinUpperCase: 7
+        passwordReset:
+          rateLimit:
+            maxRequests: 9
+            window: PT1H
+          cooldown: PT5M
+        passwordMinLength: 5
+        passwordRequireSpecial: true
+        passwordAllowedSpecialCharacters: '!@#$%^&*'
+      properties:
+        passwordMinLength:
+          default: 8
+          format: int32
+          type: integer
+        passwordRequireSpecial:
+          default: true
+          type: boolean
+        passwordMinDigits:
+          default: 1
+          format: int32
+          type: integer
+        passwordMinLowerCase:
+          default: 1
+          format: int32
+          type: integer
+        passwordMinUpperCase:
+          default: 1
+          format: int32
+          type: integer
+        passwordAllowedSpecialCharacters:
+          default: '!@#$%^&*'
+          type: string
+        passwordReset:
+          $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
+      type: object
+    PasswordConfiguration.PasswordReset:
+      example:
+        rateLimit:
+          maxRequests: 9
+          window: PT1H
+        cooldown: PT5M
+      properties:
+        cooldown:
+          default: PT5M
+          type: string
+        rateLimit:
+          $ref: "#/components/schemas/PasswordConfiguration.RateLimit"
+      type: object
+    PasswordConfiguration.RateLimit:
+      example:
+        maxRequests: 9
+        window: PT1H
+      properties:
+        maxRequests:
+          default: 10
+          format: int32
+          type: integer
+        window:
+          default: PT1H
+          type: string
+      type: object
     PatchOperation:
       properties:
         operation:
@@ -25775,6 +26035,30 @@ components:
       - DATA
       - INFRASTRUCTURE
       type: string
+    PluginUiManifest:
+      properties:
+        manifest:
+          additionalProperties:
+            items:
+              $ref: "#/components/schemas/PluginUiModuleWithGroup"
+            type: array
+          type: object
+      type: object
+    PluginUiModuleWithGroup:
+      properties:
+        uiModule:
+          type: string
+        group:
+          type: string
+        staticInfo:
+          additionalProperties:
+            type: object
+          type: object
+        styles:
+          items:
+            type: string
+          type: array
+      type: object
     Property_Boolean_:
       example:
         expression: expression
@@ -25949,6 +26233,8 @@ components:
       - PARENT_PATH
       - VERSION
       - USERNAME
+      - NAME
+      - GROUP
       type: string
       x-type: String
     QueryFilter.Op:
@@ -27032,8 +27318,19 @@ components:
         repositoryType: repositoryType
         queueType: queueType
         storageType: storageType
+        passwordConfiguration:
+          passwordMinLowerCase: 2
+          passwordMinDigits: 5
+          passwordMinUpperCase: 7
+          passwordReset:
+            rateLimit:
+              maxRequests: 9
+              window: PT1H
+            cooldown: PT5M
+          passwordMinLength: 5
+          passwordRequireSpecial: true
+          passwordAllowedSpecialCharacters: '!@#$%^&*'
         done: true
-        passwordRegexp: passwordRegexp
       properties:
         done:
           type: boolean
@@ -27045,8 +27342,8 @@ components:
           type: string
         secretType:
           type: string
-        passwordRegexp:
-          type: string
+        passwordConfiguration:
+          $ref: "#/components/schemas/PasswordConfiguration"
         haveAuthNotBasic:
           type: boolean
       type: object
@@ -27439,6 +27736,13 @@ components:
       required:
       - state
       type: object
+    TaskWithVersion:
+      properties:
+        cls:
+          type: string
+        version:
+          type: string
+      type: object
     Tenant:
       properties:
         storageIsolation:
@@ -27474,6 +27778,8 @@ components:
           type: boolean
         appCatalogConfig:
           $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+        settings:
+          $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
       required:
@@ -27510,10 +27816,24 @@ components:
         logo:
           type: string
       type: object
+    TenantController.SetTenantDefaultDashboardsRequest:
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
+      type: object
     TenantInterface:
       properties:
         tenantId:
           type: string
+      type: object
+    TenantPreferencesSettings:
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardSettings"
       type: object
     TestState:
       enum:

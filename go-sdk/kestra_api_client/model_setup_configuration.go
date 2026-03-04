@@ -18,14 +18,14 @@ var _ MappedNullable = &SetupConfiguration{}
 
 // SetupConfiguration struct for SetupConfiguration
 type SetupConfiguration struct {
-	Done                 *bool   `json:"done,omitempty"`
-	RepositoryType       *string `json:"repositoryType,omitempty"`
-	QueueType            *string `json:"queueType,omitempty"`
-	StorageType          *string `json:"storageType,omitempty"`
-	SecretType           *string `json:"secretType,omitempty"`
-	PasswordRegexp       *string `json:"passwordRegexp,omitempty"`
-	HaveAuthNotBasic     *bool   `json:"haveAuthNotBasic,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Done                  *bool                  `json:"done,omitempty"`
+	RepositoryType        *string                `json:"repositoryType,omitempty"`
+	QueueType             *string                `json:"queueType,omitempty"`
+	StorageType           *string                `json:"storageType,omitempty"`
+	SecretType            *string                `json:"secretType,omitempty"`
+	PasswordConfiguration *PasswordConfiguration `json:"passwordConfiguration,omitempty"`
+	HaveAuthNotBasic      *bool                  `json:"haveAuthNotBasic,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _SetupConfiguration SetupConfiguration
@@ -207,36 +207,36 @@ func (o *SetupConfiguration) SetSecretType(v string) {
 	o.SecretType = &v
 }
 
-// GetPasswordRegexp returns the PasswordRegexp field value if set, zero value otherwise.
-func (o *SetupConfiguration) GetPasswordRegexp() string {
-	if o == nil || IsNil(o.PasswordRegexp) {
-		var ret string
+// GetPasswordConfiguration returns the PasswordConfiguration field value if set, zero value otherwise.
+func (o *SetupConfiguration) GetPasswordConfiguration() PasswordConfiguration {
+	if o == nil || IsNil(o.PasswordConfiguration) {
+		var ret PasswordConfiguration
 		return ret
 	}
-	return *o.PasswordRegexp
+	return *o.PasswordConfiguration
 }
 
-// GetPasswordRegexpOk returns a tuple with the PasswordRegexp field value if set, nil otherwise
+// GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SetupConfiguration) GetPasswordRegexpOk() (*string, bool) {
-	if o == nil || IsNil(o.PasswordRegexp) {
+func (o *SetupConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool) {
+	if o == nil || IsNil(o.PasswordConfiguration) {
 		return nil, false
 	}
-	return o.PasswordRegexp, true
+	return o.PasswordConfiguration, true
 }
 
-// HasPasswordRegexp returns a boolean if a field has been set.
-func (o *SetupConfiguration) HasPasswordRegexp() bool {
-	if o != nil && !IsNil(o.PasswordRegexp) {
+// HasPasswordConfiguration returns a boolean if a field has been set.
+func (o *SetupConfiguration) HasPasswordConfiguration() bool {
+	if o != nil && !IsNil(o.PasswordConfiguration) {
 		return true
 	}
 
 	return false
 }
 
-// SetPasswordRegexp gets a reference to the given string and assigns it to the PasswordRegexp field.
-func (o *SetupConfiguration) SetPasswordRegexp(v string) {
-	o.PasswordRegexp = &v
+// SetPasswordConfiguration gets a reference to the given PasswordConfiguration and assigns it to the PasswordConfiguration field.
+func (o *SetupConfiguration) SetPasswordConfiguration(v PasswordConfiguration) {
+	o.PasswordConfiguration = &v
 }
 
 // GetHaveAuthNotBasic returns the HaveAuthNotBasic field value if set, zero value otherwise.
@@ -296,8 +296,8 @@ func (o SetupConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecretType) {
 		toSerialize["secretType"] = o.SecretType
 	}
-	if !IsNil(o.PasswordRegexp) {
-		toSerialize["passwordRegexp"] = o.PasswordRegexp
+	if !IsNil(o.PasswordConfiguration) {
+		toSerialize["passwordConfiguration"] = o.PasswordConfiguration
 	}
 	if !IsNil(o.HaveAuthNotBasic) {
 		toSerialize["haveAuthNotBasic"] = o.HaveAuthNotBasic
@@ -329,7 +329,7 @@ func (o *SetupConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "queueType")
 		delete(additionalProperties, "storageType")
 		delete(additionalProperties, "secretType")
-		delete(additionalProperties, "passwordRegexp")
+		delete(additionalProperties, "passwordConfiguration")
 		delete(additionalProperties, "haveAuthNotBasic")
 		o.AdditionalProperties = additionalProperties
 	}

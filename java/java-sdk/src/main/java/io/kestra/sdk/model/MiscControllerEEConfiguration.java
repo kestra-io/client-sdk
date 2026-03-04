@@ -27,6 +27,7 @@ import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.MiscControllerTenantConfigurationInfo;
+import io.kestra.sdk.model.PasswordConfiguration;
 import io.kestra.sdk.model.RightSidebarConfiguration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
-  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_CONFIGURATION,
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORDLESS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_AIRGAPPED,
   MiscControllerEEConfiguration.JSON_PROPERTY_FEATURE_GATING,
@@ -173,8 +174,8 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
   @jakarta.annotation.Nullable  private Boolean inMaintenance;
 
-  public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @jakarta.annotation.Nullable  private String passwordRegexp;
+  public static final String JSON_PROPERTY_PASSWORD_CONFIGURATION = "passwordConfiguration";
+  @jakarta.annotation.Nullable  private PasswordConfiguration passwordConfiguration;
 
   public static final String JSON_PROPERTY_PASSWORDLESS_ENABLED = "passwordlessEnabled";
   @jakarta.annotation.Nullable  private Boolean passwordlessEnabled;
@@ -962,28 +963,28 @@ public class MiscControllerEEConfiguration {
     this.inMaintenance = inMaintenance;
   }
 
-  public MiscControllerEEConfiguration passwordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
+  public MiscControllerEEConfiguration passwordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
     
-    this.passwordRegexp = passwordRegexp;
+    this.passwordConfiguration = passwordConfiguration;
     return this;
   }
 
   /**
-   * Get passwordRegexp
-   * @return passwordRegexp
+   * Get passwordConfiguration
+   * @return passwordConfiguration
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getPasswordRegexp() {
-    return passwordRegexp;
+  public PasswordConfiguration getPasswordConfiguration() {
+    return passwordConfiguration;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
-    this.passwordRegexp = passwordRegexp;
+  public void setPasswordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    this.passwordConfiguration = passwordConfiguration;
   }
 
   public MiscControllerEEConfiguration passwordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
@@ -1162,7 +1163,7 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
         Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
         Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
-        Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp) &&
+        Objects.equals(this.passwordConfiguration, miscControllerEEConfiguration.passwordConfiguration) &&
         Objects.equals(this.passwordlessEnabled, miscControllerEEConfiguration.passwordlessEnabled) &&
         Objects.equals(this.airgapped, miscControllerEEConfiguration.airgapped) &&
         Objects.equals(this.featureGating, miscControllerEEConfiguration.featureGating) &&
@@ -1172,7 +1173,7 @@ public class MiscControllerEEConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordConfiguration, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
   }
 
   @Override
@@ -1210,7 +1211,7 @@ public class MiscControllerEEConfiguration {
     sb.append("    leftSidebar: ").append(toIndentedString(leftSidebar)).append("\n");
     sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
     sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
-    sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    passwordConfiguration: ").append(toIndentedString(passwordConfiguration)).append("\n");
     sb.append("    passwordlessEnabled: ").append(toIndentedString(passwordlessEnabled)).append("\n");
     sb.append("    airgapped: ").append(toIndentedString(airgapped)).append("\n");
     sb.append("    featureGating: ").append(toIndentedString(featureGating)).append("\n");

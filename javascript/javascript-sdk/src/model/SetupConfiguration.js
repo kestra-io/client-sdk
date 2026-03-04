@@ -11,6 +11,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import PasswordConfiguration from './PasswordConfiguration';
 
 /**
   * @typedef {Object} ISetupConfiguration
@@ -19,7 +20,7 @@ import ApiClient from '../ApiClient';
   * @property {String} queueType
   * @property {String} storageType
   * @property {String} secretType
-  * @property {String} passwordRegexp
+  * @property {PasswordConfiguration} passwordConfiguration
   * @property {Boolean} haveAuthNotBasic
   */
 
@@ -72,8 +73,8 @@ class SetupConfiguration {
             if (data.hasOwnProperty('secretType')) {
                 obj['secretType'] = ApiClient.convertToType(data['secretType'], 'String');
             }
-            if (data.hasOwnProperty('passwordRegexp')) {
-                obj['passwordRegexp'] = ApiClient.convertToType(data['passwordRegexp'], 'String');
+            if (data.hasOwnProperty('passwordConfiguration')) {
+                obj['passwordConfiguration'] = PasswordConfiguration.constructFromObject(data['passwordConfiguration']);
             }
             if (data.hasOwnProperty('haveAuthNotBasic')) {
                 obj['haveAuthNotBasic'] = ApiClient.convertToType(data['haveAuthNotBasic'], 'Boolean');
@@ -104,9 +105,9 @@ class SetupConfiguration {
         if (data['secretType'] && !(typeof data['secretType'] === 'string' || data['secretType'] instanceof String)) {
             throw new Error("Expected the field `secretType` to be a primitive type in the JSON string but got " + data['secretType']);
         }
-        // ensure the json data is a string
-        if (data['passwordRegexp'] && !(typeof data['passwordRegexp'] === 'string' || data['passwordRegexp'] instanceof String)) {
-            throw new Error("Expected the field `passwordRegexp` to be a primitive type in the JSON string but got " + data['passwordRegexp']);
+        // validate the optional field `passwordConfiguration`
+        if (data['passwordConfiguration']) { // data not null
+          PasswordConfiguration.validateJSON(data['passwordConfiguration']);
         }
 
         return true;
@@ -143,9 +144,9 @@ SetupConfiguration.prototype['storageType'] = undefined;
 SetupConfiguration.prototype['secretType'] = undefined;
 
 /**
- * @member {String} passwordRegexp
+ * @member {module:model/PasswordConfiguration} passwordConfiguration
  */
-SetupConfiguration.prototype['passwordRegexp'] = undefined;
+SetupConfiguration.prototype['passwordConfiguration'] = undefined;
 
 /**
  * @member {Boolean} haveAuthNotBasic

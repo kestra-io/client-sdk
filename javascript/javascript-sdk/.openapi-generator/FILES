@@ -102,6 +102,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -282,6 +283,9 @@ docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
 docs/PagedResultsTrigger.md
 docs/PagedResultsTriggerControllerTriggers.md
+docs/PasswordConfiguration.md
+docs/PasswordConfigurationPasswordReset.md
+docs/PasswordConfigurationRateLimit.md
 docs/PatchOperation.md
 docs/PatchOperationPath.md
 docs/PatchOperationType.md
@@ -296,6 +300,8 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
+docs/PluginUiManifest.md
+docs/PluginUiModuleWithGroup.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -365,11 +371,14 @@ docs/TaskFixture.md
 docs/TaskForExecution.md
 docs/TaskRun.md
 docs/TaskRunAttempt.md
+docs/TaskWithVersion.md
 docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -519,6 +528,7 @@ src/model/CrudEventType.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
 src/model/DashboardGenerationPrompt.js
+src/model/DashboardSettings.js
 src/model/DeleteTriggersByQueryRequest.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
@@ -694,6 +704,9 @@ src/model/PagedResultsTestSuite.js
 src/model/PagedResultsTestSuiteRunResult.js
 src/model/PagedResultsTrigger.js
 src/model/PagedResultsTriggerControllerTriggers.js
+src/model/PasswordConfiguration.js
+src/model/PasswordConfigurationPasswordReset.js
+src/model/PasswordConfigurationRateLimit.js
 src/model/PatchOperation.js
 src/model/PatchOperationPath.js
 src/model/PatchOperationType.js
@@ -708,6 +721,8 @@ src/model/PluginIcon.js
 src/model/PluginPluginElementMetadata.js
 src/model/PluginSchema.js
 src/model/PluginSubGroupPluginCategory.js
+src/model/PluginUiManifest.js
+src/model/PluginUiModuleWithGroup.js
 src/model/PropertyBoolean.js
 src/model/PropertyDouble.js
 src/model/PropertyDuration.js
@@ -775,11 +790,14 @@ src/model/TaskFixture.js
 src/model/TaskForExecution.js
 src/model/TaskRun.js
 src/model/TaskRunAttempt.js
+src/model/TaskWithVersion.js
 src/model/Tenant.js
 src/model/TenantAppCatalogConfig.js
 src/model/TenantControllerAppsCatalogConfigRequest.js
 src/model/TenantControllerAppsCatalogConfigResponse.js
+src/model/TenantControllerSetTenantDefaultDashboardsRequest.js
 src/model/TenantInterface.js
+src/model/TenantPreferencesSettings.js
 src/model/TestState.js
 src/model/TestSuite.js
 src/model/TestSuiteControllerRunRequest.js

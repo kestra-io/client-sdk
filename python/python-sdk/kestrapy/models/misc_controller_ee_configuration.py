@@ -27,6 +27,7 @@ from kestrapy.models.misc_controller_environment import MiscControllerEnvironmen
 from kestrapy.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion
 from kestrapy.models.misc_controller_preview import MiscControllerPreview
 from kestrapy.models.misc_controller_tenant_configuration_info import MiscControllerTenantConfigurationInfo
+from kestrapy.models.password_configuration import PasswordConfiguration
 from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration
 from typing import Optional, Set
 from typing_extensions import Self
@@ -66,14 +67,14 @@ class MiscControllerEEConfiguration(BaseModel):
     left_sidebar: Optional[LeftSidebarConfiguration] = Field(default=None, alias="leftSidebar")
     right_sidebar: Optional[RightSidebarConfiguration] = Field(default=None, alias="rightSidebar")
     in_maintenance: Optional[StrictBool] = Field(default=None, alias="inMaintenance")
-    password_regexp: Optional[StrictStr] = Field(default=None, alias="passwordRegexp")
+    password_configuration: Optional[PasswordConfiguration] = Field(default=None, alias="passwordConfiguration")
     passwordless_enabled: Optional[StrictBool] = Field(default=None, alias="passwordlessEnabled")
     airgapped: Optional[StrictBool] = None
     feature_gating: Optional[StrictBool] = Field(default=None, alias="featureGating")
     features: Optional[List[StrictStr]] = None
     kill_switches: Optional[List[KillSwitch]] = Field(default=None, alias="killSwitches")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp", "passwordlessEnabled", "airgapped", "featureGating", "features", "killSwitches"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordConfiguration", "passwordlessEnabled", "airgapped", "featureGating", "features", "killSwitches"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -148,6 +149,9 @@ class MiscControllerEEConfiguration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of right_sidebar
         if self.right_sidebar:
             _dict['rightSidebar'] = self.right_sidebar.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of password_configuration
+        if self.password_configuration:
+            _dict['passwordConfiguration'] = self.password_configuration.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in kill_switches (list)
         _items = []
         if self.kill_switches:
@@ -203,7 +207,7 @@ class MiscControllerEEConfiguration(BaseModel):
             "leftSidebar": LeftSidebarConfiguration.from_dict(obj["leftSidebar"]) if obj.get("leftSidebar") is not None else None,
             "rightSidebar": RightSidebarConfiguration.from_dict(obj["rightSidebar"]) if obj.get("rightSidebar") is not None else None,
             "inMaintenance": obj.get("inMaintenance"),
-            "passwordRegexp": obj.get("passwordRegexp"),
+            "passwordConfiguration": PasswordConfiguration.from_dict(obj["passwordConfiguration"]) if obj.get("passwordConfiguration") is not None else None,
             "passwordlessEnabled": obj.get("passwordlessEnabled"),
             "airgapped": obj.get("airgapped"),
             "featureGating": obj.get("featureGating"),

@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.3.0
+  version: 1.4.0-SNAPSHOT
 tags:
   - name: Flows
     description: Flows api
@@ -479,6 +479,31 @@ paths:
             application/json:
               schema:
                 type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/metrics/{serviceType}:
+    get:
+      tags:
+        - Services
+      summary: Get metrics for running services
+      operationId: metrics
+      parameters:
+        - name: serviceType
+          in: query
+          required: true
+          explode: false
+          schema:
+            $ref: "#/components/schemas/ServiceType"
+      responses:
+        "200":
+          description: metrics 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Metric"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1403,6 +1428,30 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/plugins/pluginUiManifest:
+    post:
+      tags:
+        - Plugins
+      summary: Get plugins group by subgroups
+      operationId: pluginUiManifest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TaskWithVersion"
+        required: true
+      responses:
+        "200":
+          description: getPluginUiManifest 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PluginUiManifest"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/plugins/properties/{type}:
     get:
       tags:
@@ -1551,6 +1600,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DocumentationWithSchema"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/plugins/{group}/pluginUi/{path}:
+    get:
+      tags:
+        - Plugins
+      summary: Get plugins group by subgroups
+      operationId: pluginUi
+      parameters:
+        - name: group
+          in: path
+          description: The plugin group
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: path
+          description: The file path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getPluginUi 200 response
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2141,6 +2220,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiTenant"
+  /api/v1/tenants/{id}/settings/default-dashboards:
+    get:
+      tags:
+        - Tenants
+      summary: Get default dashboards for this tenant
+      operationId: defaultDashboards
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getDefaultDashboards 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+    post:
+      tags:
+        - Tenants
+      summary: Update default dashboards for the entire tenant
+      operationId: setTenantDefaultDashboards
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.SetTenantDefaultDashboardsRequest"
+        required: true
+      responses:
+        "200":
+          description: setTenantDefaultDashboards 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
   /api/v1/users:
     get:
       tags:
@@ -2579,6 +2703,20 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/validate-password:
+    post:
+      tags:
+        - Auths
+      operationId: validatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validatePassword 200 response
   /api/v1/{tenant}/acls/actions:
     get:
       tags:
@@ -4974,6 +5112,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+  /api/v1/{tenant}/dashboards/settings/default-dashboards:
+    get:
+      tags:
+        - Dashboards
+      summary: Get default dashboards
+      operationId: defaultDashboards_1
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getDefaultDashboards_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
   /api/v1/{tenant}/dashboards/validate:
     post:
       tags:
@@ -15248,6 +15405,15 @@ components:
           type: string
         providerId:
           type: string
+    DashboardSettings:
+      type: object
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
     DependsOn:
       type: object
       properties:
@@ -17169,7 +17335,7 @@ components:
           items:
             $ref: "#/components/schemas/Metric.Tag"
         value:
-          type: object
+          type: number
     Metric.Tag:
       type: object
       properties:
@@ -17324,8 +17490,8 @@ components:
               $ref: "#/components/schemas/RightSidebarConfiguration"
             inMaintenance:
               type: boolean
-            passwordRegexp:
-              type: string
+            passwordConfiguration:
+              $ref: "#/components/schemas/PasswordConfiguration"
             passwordlessEnabled:
               type: boolean
             airgapped:
@@ -17952,6 +18118,51 @@ components:
         total:
           type: integer
           format: int64
+    PasswordConfiguration:
+      type: object
+      properties:
+        passwordMinLength:
+          type: integer
+          format: int32
+          default: 8
+        passwordRequireSpecial:
+          type: boolean
+          default: true
+        passwordMinDigits:
+          type: integer
+          format: int32
+          default: 1
+        passwordMinLowerCase:
+          type: integer
+          format: int32
+          default: 1
+        passwordMinUpperCase:
+          type: integer
+          format: int32
+          default: 1
+        passwordAllowedSpecialCharacters:
+          type: string
+          default: "!@#$%^&*"
+        passwordReset:
+          $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
+    PasswordConfiguration.PasswordReset:
+      type: object
+      properties:
+        cooldown:
+          type: string
+          default: PT5M
+        rateLimit:
+          $ref: "#/components/schemas/PasswordConfiguration.RateLimit"
+    PasswordConfiguration.RateLimit:
+      type: object
+      properties:
+        maxRequests:
+          type: integer
+          format: int32
+          default: 10
+        window:
+          type: string
+          default: PT1H
     PatchOperation:
       type: object
       properties:
@@ -18211,6 +18422,30 @@ components:
         - BUSINESS
         - DATA
         - INFRASTRUCTURE
+    PluginUiManifest:
+      type: object
+      properties:
+        manifest:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/PluginUiModuleWithGroup"
+    PluginUiModuleWithGroup:
+      type: object
+      properties:
+        uiModule:
+          type: string
+        group:
+          type: string
+        staticInfo:
+          type: object
+          additionalProperties:
+            type: object
+        styles:
+          type: array
+          items:
+            type: string
     Property_Boolean_:
       type: object
       properties:
@@ -18342,6 +18577,8 @@ components:
         - PARENT_PATH
         - VERSION
         - USERNAME
+        - NAME
+        - GROUP
       x-type: String
     QueryFilter.Op:
       type: string
@@ -19022,8 +19259,8 @@ components:
           type: string
         secretType:
           type: string
-        passwordRegexp:
-          type: string
+        passwordConfiguration:
+          $ref: "#/components/schemas/PasswordConfiguration"
         haveAuthNotBasic:
           type: boolean
     SoftDeletable_FlowInterface_:
@@ -19267,6 +19504,13 @@ components:
           type: string
           format: uri
           nullable: true
+    TaskWithVersion:
+      type: object
+      properties:
+        cls:
+          type: string
+        version:
+          type: string
     Tenant:
       required:
         - deleted
@@ -19307,6 +19551,8 @@ components:
           type: boolean
         appCatalogConfig:
           $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+        settings:
+          $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
     Tenant.AppCatalogConfig:
@@ -19338,11 +19584,25 @@ components:
           type: string
         logo:
           type: string
+    TenantController.SetTenantDefaultDashboardsRequest:
+      type: object
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
     TenantInterface:
       type: object
       properties:
         tenantId:
           type: string
+    TenantPreferencesSettings:
+      type: object
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardSettings"
     TestState:
       type: string
       enum:

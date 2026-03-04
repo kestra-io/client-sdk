@@ -20,6 +20,7 @@ import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPluginIdAndVersion from './MiscControllerPluginIdAndVersion';
 import MiscControllerPreview from './MiscControllerPreview';
 import MiscControllerTenantConfigurationInfo from './MiscControllerTenantConfigurationInfo';
+import PasswordConfiguration from './PasswordConfiguration';
 import RightSidebarConfiguration from './RightSidebarConfiguration';
 
 /**
@@ -55,7 +56,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
   * @property {LeftSidebarConfiguration} leftSidebar
   * @property {RightSidebarConfiguration} rightSidebar
   * @property {Boolean} inMaintenance
-  * @property {String} passwordRegexp
+  * @property {PasswordConfiguration} passwordConfiguration
   * @property {Boolean} passwordlessEnabled
   * @property {Boolean} airgapped
   * @property {Boolean} featureGating
@@ -192,8 +193,8 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('inMaintenance')) {
                 obj['inMaintenance'] = ApiClient.convertToType(data['inMaintenance'], 'Boolean');
             }
-            if (data.hasOwnProperty('passwordRegexp')) {
-                obj['passwordRegexp'] = ApiClient.convertToType(data['passwordRegexp'], 'String');
+            if (data.hasOwnProperty('passwordConfiguration')) {
+                obj['passwordConfiguration'] = PasswordConfiguration.constructFromObject(data['passwordConfiguration']);
             }
             if (data.hasOwnProperty('passwordlessEnabled')) {
                 obj['passwordlessEnabled'] = ApiClient.convertToType(data['passwordlessEnabled'], 'Boolean');
@@ -292,9 +293,9 @@ class MiscControllerEEConfiguration {
         if (data['rightSidebar']) { // data not null
           RightSidebarConfiguration.validateJSON(data['rightSidebar']);
         }
-        // ensure the json data is a string
-        if (data['passwordRegexp'] && !(typeof data['passwordRegexp'] === 'string' || data['passwordRegexp'] instanceof String)) {
-            throw new Error("Expected the field `passwordRegexp` to be a primitive type in the JSON string but got " + data['passwordRegexp']);
+        // validate the optional field `passwordConfiguration`
+        if (data['passwordConfiguration']) { // data not null
+          PasswordConfiguration.validateJSON(data['passwordConfiguration']);
         }
         // ensure the json data is an array
         if (!Array.isArray(data['features'])) {
@@ -475,9 +476,9 @@ MiscControllerEEConfiguration.prototype['rightSidebar'] = undefined;
 MiscControllerEEConfiguration.prototype['inMaintenance'] = undefined;
 
 /**
- * @member {String} passwordRegexp
+ * @member {module:model/PasswordConfiguration} passwordConfiguration
  */
-MiscControllerEEConfiguration.prototype['passwordRegexp'] = undefined;
+MiscControllerEEConfiguration.prototype['passwordConfiguration'] = undefined;
 
 /**
  * @member {Boolean} passwordlessEnabled

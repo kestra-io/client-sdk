@@ -102,6 +102,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -283,6 +284,9 @@ docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
 docs/PagedResultsTrigger.md
 docs/PagedResultsTriggerControllerTriggers.md
+docs/PasswordConfiguration.md
+docs/PasswordConfigurationPasswordReset.md
+docs/PasswordConfigurationRateLimit.md
 docs/PatchOperation.md
 docs/PatchOperationPath.md
 docs/PatchOperationType.md
@@ -297,6 +301,8 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
+docs/PluginUiManifest.md
+docs/PluginUiModuleWithGroup.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -365,11 +371,14 @@ docs/TaskFixture.md
 docs/TaskForExecution.md
 docs/TaskRun.md
 docs/TaskRunAttempt.md
+docs/TaskWithVersion.md
 docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -520,6 +529,7 @@ kestrapy/models/crud_event_type.py
 kestrapy/models/dashboard.py
 kestrapy/models/dashboard_controller_preview_request.py
 kestrapy/models/dashboard_generation_prompt.py
+kestrapy/models/dashboard_settings.py
 kestrapy/models/delete_triggers_by_query_request.py
 kestrapy/models/depends_on.py
 kestrapy/models/documentation_with_schema.py
@@ -696,6 +706,9 @@ kestrapy/models/paged_results_test_suite.py
 kestrapy/models/paged_results_test_suite_run_result.py
 kestrapy/models/paged_results_trigger.py
 kestrapy/models/paged_results_trigger_controller_triggers.py
+kestrapy/models/password_configuration.py
+kestrapy/models/password_configuration_password_reset.py
+kestrapy/models/password_configuration_rate_limit.py
 kestrapy/models/patch_operation.py
 kestrapy/models/patch_operation_path.py
 kestrapy/models/patch_operation_type.py
@@ -710,6 +723,8 @@ kestrapy/models/plugin_icon.py
 kestrapy/models/plugin_plugin_element_metadata.py
 kestrapy/models/plugin_schema.py
 kestrapy/models/plugin_sub_group_plugin_category.py
+kestrapy/models/plugin_ui_manifest.py
+kestrapy/models/plugin_ui_module_with_group.py
 kestrapy/models/property_boolean.py
 kestrapy/models/property_double.py
 kestrapy/models/property_duration.py
@@ -776,11 +791,14 @@ kestrapy/models/task_fixture.py
 kestrapy/models/task_for_execution.py
 kestrapy/models/task_run.py
 kestrapy/models/task_run_attempt.py
+kestrapy/models/task_with_version.py
 kestrapy/models/tenant.py
 kestrapy/models/tenant_app_catalog_config.py
 kestrapy/models/tenant_controller_apps_catalog_config_request.py
 kestrapy/models/tenant_controller_apps_catalog_config_response.py
+kestrapy/models/tenant_controller_set_tenant_default_dashboards_request.py
 kestrapy/models/tenant_interface.py
+kestrapy/models/tenant_preferences_settings.py
 kestrapy/models/test_state.py
 kestrapy/models/test_suite.py
 kestrapy/models/test_suite_controller_run_request.py

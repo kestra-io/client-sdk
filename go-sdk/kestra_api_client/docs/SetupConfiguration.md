@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **QueueType** | Pointer to **string** |  | [optional] 
 **StorageType** | Pointer to **string** |  | [optional] 
 **SecretType** | Pointer to **string** |  | [optional] 
-**PasswordRegexp** | Pointer to **string** |  | [optional] 
+**PasswordConfiguration** | Pointer to [**PasswordConfiguration**](PasswordConfiguration.md) |  | [optional] 
 **HaveAuthNotBasic** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -156,30 +156,30 @@ SetSecretType sets SecretType field to given value.
 
 HasSecretType returns a boolean if a field has been set.
 
-### GetPasswordRegexp
+### GetPasswordConfiguration
 
-`func (o *SetupConfiguration) GetPasswordRegexp() string`
+`func (o *SetupConfiguration) GetPasswordConfiguration() PasswordConfiguration`
 
-GetPasswordRegexp returns the PasswordRegexp field if non-nil, zero value otherwise.
+GetPasswordConfiguration returns the PasswordConfiguration field if non-nil, zero value otherwise.
 
-### GetPasswordRegexpOk
+### GetPasswordConfigurationOk
 
-`func (o *SetupConfiguration) GetPasswordRegexpOk() (*string, bool)`
+`func (o *SetupConfiguration) GetPasswordConfigurationOk() (*PasswordConfiguration, bool)`
 
-GetPasswordRegexpOk returns a tuple with the PasswordRegexp field if it's non-nil, zero value otherwise
+GetPasswordConfigurationOk returns a tuple with the PasswordConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPasswordRegexp
+### SetPasswordConfiguration
 
-`func (o *SetupConfiguration) SetPasswordRegexp(v string)`
+`func (o *SetupConfiguration) SetPasswordConfiguration(v PasswordConfiguration)`
 
-SetPasswordRegexp sets PasswordRegexp field to given value.
+SetPasswordConfiguration sets PasswordConfiguration field to given value.
 
-### HasPasswordRegexp
+### HasPasswordConfiguration
 
-`func (o *SetupConfiguration) HasPasswordRegexp() bool`
+`func (o *SetupConfiguration) HasPasswordConfiguration() bool`
 
-HasPasswordRegexp returns a boolean if a field has been set.
+HasPasswordConfiguration returns a boolean if a field has been set.
 
 ### GetHaveAuthNotBasic
 

@@ -51,6 +51,8 @@ const (
 	QUERYFILTERFIELD_PARENT_PATH          QueryFilterField = "PARENT_PATH"
 	QUERYFILTERFIELD_VERSION              QueryFilterField = "VERSION"
 	QUERYFILTERFIELD_USERNAME             QueryFilterField = "USERNAME"
+	QUERYFILTERFIELD_NAME                 QueryFilterField = "NAME"
+	QUERYFILTERFIELD_GROUP                QueryFilterField = "GROUP"
 )
 
 // All allowed values of QueryFilterField enum
@@ -87,6 +89,8 @@ var AllowedQueryFilterFieldEnumValues = []QueryFilterField{
 	"PARENT_PATH",
 	"VERSION",
 	"USERNAME",
+	"NAME",
+	"GROUP",
 }
 
 func (v *QueryFilterField) UnmarshalJSON(src []byte) error {

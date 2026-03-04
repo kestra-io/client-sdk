@@ -111,6 +111,7 @@ from kestrapy.models.crud_event_type import CrudEventType
 from kestrapy.models.dashboard import Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
 from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt
+from kestrapy.models.dashboard_settings import DashboardSettings
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest
 from kestrapy.models.depends_on import DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
@@ -287,6 +288,9 @@ from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite
 from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
 from kestrapy.models.paged_results_trigger import PagedResultsTrigger
 from kestrapy.models.paged_results_trigger_controller_triggers import PagedResultsTriggerControllerTriggers
+from kestrapy.models.password_configuration import PasswordConfiguration
+from kestrapy.models.password_configuration_password_reset import PasswordConfigurationPasswordReset
+from kestrapy.models.password_configuration_rate_limit import PasswordConfigurationRateLimit
 from kestrapy.models.patch_operation import PatchOperation
 from kestrapy.models.patch_operation_path import PatchOperationPath
 from kestrapy.models.patch_operation_type import PatchOperationType
@@ -301,6 +305,8 @@ from kestrapy.models.plugin_icon import PluginIcon
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata
 from kestrapy.models.plugin_schema import PluginSchema
 from kestrapy.models.plugin_sub_group_plugin_category import PluginSubGroupPluginCategory
+from kestrapy.models.plugin_ui_manifest import PluginUiManifest
+from kestrapy.models.plugin_ui_module_with_group import PluginUiModuleWithGroup
 from kestrapy.models.property_boolean import PropertyBoolean
 from kestrapy.models.property_double import PropertyDouble
 from kestrapy.models.property_duration import PropertyDuration
@@ -367,11 +373,14 @@ from kestrapy.models.task_fixture import TaskFixture
 from kestrapy.models.task_for_execution import TaskForExecution
 from kestrapy.models.task_run import TaskRun
 from kestrapy.models.task_run_attempt import TaskRunAttempt
+from kestrapy.models.task_with_version import TaskWithVersion
 from kestrapy.models.tenant import Tenant
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
 from kestrapy.models.tenant_controller_apps_catalog_config_request import TenantControllerAppsCatalogConfigRequest
 from kestrapy.models.tenant_controller_apps_catalog_config_response import TenantControllerAppsCatalogConfigResponse
+from kestrapy.models.tenant_controller_set_tenant_default_dashboards_request import TenantControllerSetTenantDefaultDashboardsRequest
 from kestrapy.models.tenant_interface import TenantInterface
+from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings
 from kestrapy.models.test_state import TestState
 from kestrapy.models.test_suite import TestSuite
 from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest

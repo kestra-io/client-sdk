@@ -18,6 +18,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.password_configuration import PasswordConfiguration
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,10 +31,10 @@ class SetupConfiguration(BaseModel):
     queue_type: Optional[StrictStr] = Field(default=None, alias="queueType")
     storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
     secret_type: Optional[StrictStr] = Field(default=None, alias="secretType")
-    password_regexp: Optional[StrictStr] = Field(default=None, alias="passwordRegexp")
+    password_configuration: Optional[PasswordConfiguration] = Field(default=None, alias="passwordConfiguration")
     have_auth_not_basic: Optional[StrictBool] = Field(default=None, alias="haveAuthNotBasic")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["done", "repositoryType", "queueType", "storageType", "secretType", "passwordRegexp", "haveAuthNotBasic"]
+    __properties: ClassVar[List[str]] = ["done", "repositoryType", "queueType", "storageType", "secretType", "passwordConfiguration", "haveAuthNotBasic"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,6 +77,9 @@ class SetupConfiguration(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of password_configuration
+        if self.password_configuration:
+            _dict['passwordConfiguration'] = self.password_configuration.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -98,7 +102,7 @@ class SetupConfiguration(BaseModel):
             "queueType": obj.get("queueType"),
             "storageType": obj.get("storageType"),
             "secretType": obj.get("secretType"),
-            "passwordRegexp": obj.get("passwordRegexp"),
+            "passwordConfiguration": PasswordConfiguration.from_dict(obj["passwordConfiguration"]) if obj.get("passwordConfiguration") is not None else None,
             "haveAuthNotBasic": obj.get("haveAuthNotBasic")
         })
         # store additional fields in additional_properties

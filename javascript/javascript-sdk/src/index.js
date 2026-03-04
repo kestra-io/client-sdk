@@ -111,6 +111,7 @@ import CrudEventType from './model/CrudEventType';
 import Dashboard from './model/Dashboard';
 import DashboardControllerPreviewRequest from './model/DashboardControllerPreviewRequest';
 import DashboardGenerationPrompt from './model/DashboardGenerationPrompt';
+import DashboardSettings from './model/DashboardSettings';
 import DeleteTriggersByQueryRequest from './model/DeleteTriggersByQueryRequest';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
@@ -286,6 +287,9 @@ import PagedResultsTestSuite from './model/PagedResultsTestSuite';
 import PagedResultsTestSuiteRunResult from './model/PagedResultsTestSuiteRunResult';
 import PagedResultsTrigger from './model/PagedResultsTrigger';
 import PagedResultsTriggerControllerTriggers from './model/PagedResultsTriggerControllerTriggers';
+import PasswordConfiguration from './model/PasswordConfiguration';
+import PasswordConfigurationPasswordReset from './model/PasswordConfigurationPasswordReset';
+import PasswordConfigurationRateLimit from './model/PasswordConfigurationRateLimit';
 import PatchOperation from './model/PatchOperation';
 import PatchOperationPath from './model/PatchOperationPath';
 import PatchOperationType from './model/PatchOperationType';
@@ -300,6 +304,8 @@ import PluginIcon from './model/PluginIcon';
 import PluginPluginElementMetadata from './model/PluginPluginElementMetadata';
 import PluginSchema from './model/PluginSchema';
 import PluginSubGroupPluginCategory from './model/PluginSubGroupPluginCategory';
+import PluginUiManifest from './model/PluginUiManifest';
+import PluginUiModuleWithGroup from './model/PluginUiModuleWithGroup';
 import PropertyBoolean from './model/PropertyBoolean';
 import PropertyDouble from './model/PropertyDouble';
 import PropertyDuration from './model/PropertyDuration';
@@ -367,11 +373,14 @@ import TaskFixture from './model/TaskFixture';
 import TaskForExecution from './model/TaskForExecution';
 import TaskRun from './model/TaskRun';
 import TaskRunAttempt from './model/TaskRunAttempt';
+import TaskWithVersion from './model/TaskWithVersion';
 import Tenant from './model/Tenant';
 import TenantAppCatalogConfig from './model/TenantAppCatalogConfig';
 import TenantControllerAppsCatalogConfigRequest from './model/TenantControllerAppsCatalogConfigRequest';
 import TenantControllerAppsCatalogConfigResponse from './model/TenantControllerAppsCatalogConfigResponse';
+import TenantControllerSetTenantDefaultDashboardsRequest from './model/TenantControllerSetTenantDefaultDashboardsRequest';
 import TenantInterface from './model/TenantInterface';
+import TenantPreferencesSettings from './model/TenantPreferencesSettings';
 import TestState from './model/TestState';
 import TestSuite from './model/TestSuite';
 import TestSuiteControllerRunRequest from './model/TestSuiteControllerRunRequest';
@@ -1046,6 +1055,12 @@ export {
      * @property {module:model/DashboardGenerationPrompt}
      */
     DashboardGenerationPrompt,
+
+    /**
+     * The DashboardSettings model constructor.
+     * @property {module:model/DashboardSettings}
+     */
+    DashboardSettings,
 
     /**
      * The DeleteTriggersByQueryRequest model constructor.
@@ -2098,6 +2113,24 @@ export {
     PagedResultsTriggerControllerTriggers,
 
     /**
+     * The PasswordConfiguration model constructor.
+     * @property {module:model/PasswordConfiguration}
+     */
+    PasswordConfiguration,
+
+    /**
+     * The PasswordConfigurationPasswordReset model constructor.
+     * @property {module:model/PasswordConfigurationPasswordReset}
+     */
+    PasswordConfigurationPasswordReset,
+
+    /**
+     * The PasswordConfigurationRateLimit model constructor.
+     * @property {module:model/PasswordConfigurationRateLimit}
+     */
+    PasswordConfigurationRateLimit,
+
+    /**
      * The PatchOperation model constructor.
      * @property {module:model/PatchOperation}
      */
@@ -2180,6 +2213,18 @@ export {
      * @property {module:model/PluginSubGroupPluginCategory}
      */
     PluginSubGroupPluginCategory,
+
+    /**
+     * The PluginUiManifest model constructor.
+     * @property {module:model/PluginUiManifest}
+     */
+    PluginUiManifest,
+
+    /**
+     * The PluginUiModuleWithGroup model constructor.
+     * @property {module:model/PluginUiModuleWithGroup}
+     */
+    PluginUiModuleWithGroup,
 
     /**
      * The PropertyBoolean model constructor.
@@ -2584,6 +2629,12 @@ export {
     TaskRunAttempt,
 
     /**
+     * The TaskWithVersion model constructor.
+     * @property {module:model/TaskWithVersion}
+     */
+    TaskWithVersion,
+
+    /**
      * The Tenant model constructor.
      * @property {module:model/Tenant}
      */
@@ -2608,10 +2659,22 @@ export {
     TenantControllerAppsCatalogConfigResponse,
 
     /**
+     * The TenantControllerSetTenantDefaultDashboardsRequest model constructor.
+     * @property {module:model/TenantControllerSetTenantDefaultDashboardsRequest}
+     */
+    TenantControllerSetTenantDefaultDashboardsRequest,
+
+    /**
      * The TenantInterface model constructor.
      * @property {module:model/TenantInterface}
      */
     TenantInterface,
+
+    /**
+     * The TenantPreferencesSettings model constructor.
+     * @property {module:model/TenantPreferencesSettings}
+     */
+    TenantPreferencesSettings,
 
     /**
      * The TestState model constructor.
