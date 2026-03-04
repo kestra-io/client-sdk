@@ -6,6 +6,7 @@ api_executions.go
 api_files.go
 api_flows.go
 api_groups.go
+api_invitations.go
 api_kv.go
 api_misc.go
 api_namespaces.go
@@ -223,6 +224,7 @@ docs/InstanceControllerApiWorkerGroupItem.md
 docs/InstanceControllerApiWorkerGroupList.md
 docs/Invitation.md
 docs/InvitationInvitationStatus.md
+docs/InvitationsAPI.md
 docs/Isolation.md
 docs/KVAPI.md
 docs/KVControllerApiDeleteBulkRequest.md

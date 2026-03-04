@@ -19,7 +19,7 @@ additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
 
 openapiNormalizer:
-  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount|TestSuites'
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount|TestSuites|Invitations'
 
 typeMappings:
   Property_Object_: Object

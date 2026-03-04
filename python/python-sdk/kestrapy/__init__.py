@@ -20,6 +20,7 @@ __all__ = [
     "ExecutionsApi",
     "FlowsApi",
     "GroupsApi",
+    "InvitationsApi",
     "KVApi",
     "NamespacesApi",
     "RolesApi",
@@ -435,6 +436,7 @@ __all__ = [
 from kestrapy.api.executions_api import ExecutionsApi as ExecutionsApi
 from kestrapy.api.flows_api import FlowsApi as FlowsApi
 from kestrapy.api.groups_api import GroupsApi as GroupsApi
+from kestrapy.api.invitations_api import InvitationsApi as InvitationsApi
 from kestrapy.api.kv_api import KVApi as KVApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.roles_api import RolesApi as RolesApi

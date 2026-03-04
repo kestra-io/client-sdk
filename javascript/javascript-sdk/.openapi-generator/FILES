@@ -209,6 +209,7 @@ docs/InstanceControllerApiWorkerGroupItem.md
 docs/InstanceControllerApiWorkerGroupList.md
 docs/Invitation.md
 docs/InvitationInvitationStatus.md
+docs/InvitationsApi.md
 docs/Isolation.md
 docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
@@ -415,6 +416,7 @@ src/ApiClient.js
 src/api/ExecutionsApi.js
 src/api/FlowsApi.js
 src/api/GroupsApi.js
+src/api/InvitationsApi.js
 src/api/KVApi.js
 src/api/NamespacesApi.js
 src/api/RolesApi.js

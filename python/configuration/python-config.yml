@@ -20,5 +20,5 @@ additionalProperties:
   customDescription: "Kestra Python SDK"
 
 openapiNormalizer:
-  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount|Invitations'
   REFACTOR_ALLOF_WITH_PROPERTIES_ONLY: true

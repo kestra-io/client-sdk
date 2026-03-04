@@ -154,7 +154,7 @@ Class | Method | HTTP request | Description
 *FlowsAPI* | [**FlowDependenciesFromNamespace**](docs/FlowsAPI.md#flowdependenciesfromnamespace) | **Get** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsAPI* | [**GenerateFlowGraph**](docs/FlowsAPI.md#generateflowgraph) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsAPI* | [**GenerateFlowGraphFromSource**](docs/FlowsAPI.md#generateflowgraphfromsource) | **Post** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsAPI* | [**ImportFlows**](docs/FlowsAPI.md#importflows) | **Post** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
+*FlowsAPI* | [**ImportFlows**](docs/FlowsAPI.md#importflows) | **Post** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsAPI* | [**ListDistinctNamespaces**](docs/FlowsAPI.md#listdistinctnamespaces) | **Get** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsAPI* | [**ListFlowRevisions**](docs/FlowsAPI.md#listflowrevisions) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsAPI* | [**ListFlowsByNamespace**](docs/FlowsAPI.md#listflowsbynamespace) | **Get** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
@@ -180,6 +180,12 @@ Class | Method | HTTP request | Description
 *GroupsAPI* | [**SearchGroups**](docs/GroupsAPI.md#searchgroups) | **Get** /api/v1/{tenant}/groups/search | Search for groups
 *GroupsAPI* | [**SetUserMembershipForGroup**](docs/GroupsAPI.md#setusermembershipforgroup) | **Put** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
 *GroupsAPI* | [**UpdateGroup**](docs/GroupsAPI.md#updategroup) | **Put** /api/v1/{tenant}/groups/{id} | Update a group
+*InvitationsAPI* | [**CreateInvitation**](docs/InvitationsAPI.md#createinvitation) | **Post** /api/v1/{tenant}/invitations | Create an invitation
+*InvitationsAPI* | [**DeleteInvitation**](docs/InvitationsAPI.md#deleteinvitation) | **Delete** /api/v1/{tenant}/invitations/{id} | Delete an invitation
+*InvitationsAPI* | [**FindAllInvitationsForCurrentUser**](docs/InvitationsAPI.md#findallinvitationsforcurrentuser) | **Get** /api/v1/me/invitations | List invitations for the authenticated user
+*InvitationsAPI* | [**Invitation**](docs/InvitationsAPI.md#invitation) | **Get** /api/v1/{tenant}/invitations/{id} | Retrieve an invitation
+*InvitationsAPI* | [**ListInvitationsByEmail**](docs/InvitationsAPI.md#listinvitationsbyemail) | **Get** /api/v1/{tenant}/invitations/email/{email} | Retrieve all invitations for a given email
+*InvitationsAPI* | [**SearchInvitations**](docs/InvitationsAPI.md#searchinvitations) | **Get** /api/v1/{tenant}/invitations/search | Search for invitations
 *KVAPI* | [**DeleteKeyValue**](docs/KVAPI.md#deletekeyvalue) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 *KVAPI* | [**DeleteKeyValues**](docs/KVAPI.md#deletekeyvalues) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 *KVAPI* | [**KeyValue**](docs/KVAPI.md#keyvalue) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
@@ -188,7 +194,7 @@ Class | Method | HTTP request | Description
 *KVAPI* | [**ListKeysWithInheritence**](docs/KVAPI.md#listkeyswithinheritence) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KVAPI* | [**SetKeyValue**](docs/KVAPI.md#setkeyvalue) | **Put** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 *MiscAPI* | [**Configuration**](docs/MiscAPI.md#configuration) | **Get** /api/v1/configs | Retrieve the instance configuration.
-*MiscAPI* | [**Generate**](docs/MiscAPI.md#generate) | **Get** /api/v1/{tenant}/stats/generate-reports |
+*MiscAPI* | [**Generate**](docs/MiscAPI.md#generate) | **Get** /api/v1/{tenant}/stats/generate-reports | 
 *MiscAPI* | [**LicenseInfo**](docs/MiscAPI.md#licenseinfo) | **Get** /api/v1/license-info | Retrieve license information
 *MiscAPI* | [**ListActions**](docs/MiscAPI.md#listactions) | **Get** /api/v1/{tenant}/acls/actions | Retrieve list of actions
 *MiscAPI* | [**MainTenantFlows**](docs/MiscAPI.md#maintenantflows) | **Get** /api/v1/main-tenant-flows | Check if flows are present on the main tenant.
@@ -225,7 +231,7 @@ Class | Method | HTTP request | Description
 *ServiceAccountAPI* | [**DeleteServiceAccountForTenant**](docs/ServiceAccountAPI.md#deleteserviceaccountfortenant) | **Delete** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 *ServiceAccountAPI* | [**ListApiTokensForServiceAccount**](docs/ServiceAccountAPI.md#listapitokensforserviceaccount) | **Get** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountAPI* | [**ListApiTokensForServiceAccountWithTenant**](docs/ServiceAccountAPI.md#listapitokensforserviceaccountwithtenant) | **Get** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-*ServiceAccountAPI* | [**ListServiceAccounts**](docs/ServiceAccountAPI.md#listserviceaccounts) | **Get** /api/v1/service-accounts | List service accounts. Superadmin-only.
+*ServiceAccountAPI* | [**ListServiceAccounts**](docs/ServiceAccountAPI.md#listserviceaccounts) | **Get** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *ServiceAccountAPI* | [**PatchServiceAccountDetails**](docs/ServiceAccountAPI.md#patchserviceaccountdetails) | **Patch** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountAPI* | [**PatchServiceAccountSuperAdmin**](docs/ServiceAccountAPI.md#patchserviceaccountsuperadmin) | **Patch** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 *ServiceAccountAPI* | [**ServiceAccount**](docs/ServiceAccountAPI.md#serviceaccount) | **Get** /api/v1/service-accounts/{id} | Get a service account

@@ -209,6 +209,7 @@ docs/InstanceControllerApiWorkerGroupItem.md
 docs/InstanceControllerApiWorkerGroupList.md
 docs/Invitation.md
 docs/InvitationInvitationStatus.md
+docs/InvitationsApi.md
 docs/Isolation.md
 docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
@@ -413,6 +414,7 @@ kestrapy/api/__init__.py
 kestrapy/api/executions_api.py
 kestrapy/api/flows_api.py
 kestrapy/api/groups_api.py
+kestrapy/api/invitations_api.py
 kestrapy/api/kv_api.py
 kestrapy/api/namespaces_api.py
 kestrapy/api/roles_api.py

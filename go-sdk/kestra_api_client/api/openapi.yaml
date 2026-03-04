@@ -1407,7 +1407,7 @@ paths:
       summary: List invitations for the authenticated user
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
   /api/v1/me/password:
     put:
       description: Changes the login password for the authenticated user.
@@ -11201,7 +11201,7 @@ paths:
       summary: Create an invitation
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/invitations/email/{email}:
     get:
       description: Returns all invitations created for a given email address in the
@@ -11238,7 +11238,7 @@ paths:
       summary: Retrieve all invitations for a given email
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/invitations/search:
     get:
       description: "Search and filter invitations by email, status, and pagination."
@@ -11305,7 +11305,7 @@ paths:
       summary: Search for invitations
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/invitations/{id}:
     delete:
       description: Deletes the invitation by its ID.
@@ -11337,7 +11337,7 @@ paths:
       summary: Delete an invitation
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
     get:
       description: "Retrieves the invitation by its ID, including the invitation link."
       operationId: invitation
@@ -11372,7 +11372,7 @@ paths:
       summary: Retrieve an invitation
       tags:
       - Invitations
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/kv:
     get:
       operationId: listAllKeys
@@ -17306,6 +17306,13 @@ components:
           type: array
       type: object
     Binding:
+      example:
+        deleted: true
+        namespaceId: namespaceId
+        roleId: roleId
+        externalId: externalId
+        id: id
+        type: USER
       properties:
         id:
           type: string
@@ -20210,6 +20217,30 @@ components:
       - email
       type: object
     IAMInvitationController.ApiInvitationDetail:
+      example:
+        expiredAt: 2000-01-23T04:56:07.000+00:00
+        roles:
+        - isDefault: true
+          name: name
+          id: id
+          isManaged: true
+        - isDefault: true
+          name: name
+          id: id
+          isManaged: true
+        tenantId: tenantId
+        link: link
+        groups:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        id: id
+        sentAt: 2000-01-23T04:56:07.000+00:00
+        superAdmin: true
+        email: email
+        status: PENDING
+        acceptedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           type: string
@@ -21063,6 +21094,35 @@ components:
           type: array
       type: object
     Invitation:
+      example:
+        bindings:
+        - deleted: true
+          namespaceId: namespaceId
+          roleId: roleId
+          externalId: externalId
+          id: id
+          type: USER
+        - deleted: true
+          namespaceId: namespaceId
+          roleId: roleId
+          externalId: externalId
+          id: id
+          type: USER
+        link: link
+        sentAt: 2000-01-23T04:56:07.000+00:00
+        expiredAt: 2000-01-23T04:56:07.000+00:00
+        deleted: true
+        groupIds:
+        - groupIds
+        - groupIds
+        tenantId: tenantId
+        id: id
+        userType: STANDARD
+        isExpired: true
+        superAdmin: true
+        email: email
+        status: PENDING
+        acceptedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         isExpired:
           type: boolean
@@ -23290,6 +23350,55 @@ components:
       - total
       type: object
     PagedResults_IAMInvitationController.ApiInvitationDetail_:
+      example:
+        total: 0
+        results:
+        - expiredAt: 2000-01-23T04:56:07.000+00:00
+          roles:
+          - isDefault: true
+            name: name
+            id: id
+            isManaged: true
+          - isDefault: true
+            name: name
+            id: id
+            isManaged: true
+          tenantId: tenantId
+          link: link
+          groups:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          id: id
+          sentAt: 2000-01-23T04:56:07.000+00:00
+          superAdmin: true
+          email: email
+          status: PENDING
+          acceptedAt: 2000-01-23T04:56:07.000+00:00
+        - expiredAt: 2000-01-23T04:56:07.000+00:00
+          roles:
+          - isDefault: true
+            name: name
+            id: id
+            isManaged: true
+          - isDefault: true
+            name: name
+            id: id
+            isManaged: true
+          tenantId: tenantId
+          link: link
+          groups:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          id: id
+          sentAt: 2000-01-23T04:56:07.000+00:00
+          superAdmin: true
+          email: email
+          status: PENDING
+          acceptedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:

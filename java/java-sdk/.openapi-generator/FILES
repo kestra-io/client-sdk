@@ -215,6 +215,7 @@ docs/InstanceControllerApiWorkerGroupItem.md
 docs/InstanceControllerApiWorkerGroupList.md
 docs/Invitation.md
 docs/InvitationInvitationStatus.md
+docs/InvitationsApi.md
 docs/Isolation.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
@@ -431,6 +432,7 @@ src/main/java/io/kestra/sdk/api/ExecutionsApi.java
 src/main/java/io/kestra/sdk/api/FilesApi.java
 src/main/java/io/kestra/sdk/api/FlowsApi.java
 src/main/java/io/kestra/sdk/api/GroupsApi.java
+src/main/java/io/kestra/sdk/api/InvitationsApi.java
 src/main/java/io/kestra/sdk/api/KvApi.java
 src/main/java/io/kestra/sdk/api/LogsApi.java
 src/main/java/io/kestra/sdk/api/NamespacesApi.java

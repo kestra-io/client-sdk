@@ -4,6 +4,7 @@
 from kestrapy.api.executions_api import ExecutionsApi
 from kestrapy.api.flows_api import FlowsApi
 from kestrapy.api.groups_api import GroupsApi
+from kestrapy.api.invitations_api import InvitationsApi
 from kestrapy.api.kv_api import KVApi
 from kestrapy.api.namespaces_api import NamespacesApi
 from kestrapy.api.roles_api import RolesApi

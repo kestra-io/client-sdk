@@ -410,6 +410,7 @@ import WorkerTaskRestartStrategy from './model/WorkerTaskRestartStrategy';
 import ExecutionsApi from './api/ExecutionsApi';
 import FlowsApi from './api/FlowsApi';
 import GroupsApi from './api/GroupsApi';
+import InvitationsApi from './api/InvitationsApi';
 import KVApi from './api/KVApi';
 import NamespacesApi from './api/NamespacesApi';
 import RolesApi from './api/RolesApi';
@@ -2843,6 +2844,12 @@ export {
     * @property {module:api/GroupsApi}
     */
     GroupsApi,
+
+    /**
+    * The InvitationsApi service constructor.
+    * @property {module:api/InvitationsApi}
+    */
+    InvitationsApi,
 
     /**
     * The KVApi service constructor.
