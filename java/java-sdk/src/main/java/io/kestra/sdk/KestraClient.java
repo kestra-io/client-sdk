@@ -74,6 +74,10 @@ public class KestraClient {
         return new UsersApi(this.apiClient);
     }
 
+    public InvitationsApi invitations() {
+        return new InvitationsApi(this.apiClient);
+    }
+
     public ServiceAccountApi serviceAccount() { return new ServiceAccountApi(this.apiClient); }
 
     public TestSuitesApi testSuites() { return new TestSuitesApi(this.apiClient); }

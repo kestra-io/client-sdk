@@ -8,6 +8,7 @@ from .api.roles_api import RolesApi
 from .api.service_account_api import ServiceAccountApi
 from .api.triggers_api import TriggersApi
 from .api.users_api import UsersApi
+from .api.invitations_api import InvitationsApi
 
 
 class KestraClient:
@@ -20,6 +21,7 @@ class KestraClient:
     serviceAccount: ServiceAccountApi = None
     triggers: TriggersApi = None
     users: UsersApi = None
+    invitations: InvitationsApi = None
 
     def __init__(self, configuration=None):
         if configuration is None:
@@ -35,3 +37,4 @@ class KestraClient:
         self.service_account = ServiceAccountApi(self.api_client)
         self.triggers = TriggersApi(self.api_client)
         self.users = UsersApi(self.api_client)
+        self.invitations = InvitationsApi(self.api_client)

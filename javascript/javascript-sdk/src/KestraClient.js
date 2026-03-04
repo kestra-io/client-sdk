@@ -9,6 +9,7 @@ import RolesApi from './api/RolesApi';
 import ServicesApi from './api/ServiceAccountApi';
 import TriggersApi from './api/TriggersApi';
 import UsersApi from './api/UsersApi';
+import InvitationsApi from './api/InvitationsApi';
 import {ServiceAccountApi} from "./index";
 import TestSuitesApi from "./api/TestSuitesApi";
 
@@ -48,6 +49,7 @@ class KestraClient {
         this.serviceAccountApi = new ServiceAccountApi(this.apiClient);
         this.triggersApi = new TriggersApi(this.apiClient);
         this.usersApi = new UsersApi(this.apiClient);
+        this.invitationsApi = new InvitationsApi(this.apiClient);
         this.testSuitesApi = new TestSuitesApi(this.apiClient);
 
     }
