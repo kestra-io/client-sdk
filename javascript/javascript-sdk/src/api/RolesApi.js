@@ -19,6 +19,7 @@ import ApiRoleSummary from '../model/ApiRoleSummary';
 import IAMRoleControllerApiRoleCreateOrUpdateRequest from '../model/IAMRoleControllerApiRoleCreateOrUpdateRequest';
 import IAMRoleControllerApiRoleDetail from '../model/IAMRoleControllerApiRoleDetail';
 import PagedResultsApiRoleSummary from '../model/PagedResultsApiRoleSummary';
+import QueryFilter from '../model/QueryFilter';
 import Role from '../model/Role';
 
 /**
@@ -364,14 +365,14 @@ export default class RolesApi {
     * Search for roles
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsApiRoleSummary>}
     */
-    searchRolesWithHttpInfo(page, size, tenant, opts) {
+    searchRolesWithHttpInfo(page, size, filters, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -382,6 +383,10 @@ export default class RolesApi {
       if (size === undefined || size === null) {
         throw new Error("Missing the required parameter 'size' when calling searchRoles");
       }
+      // verify the required parameter 'filters' is set
+      if (filters === undefined || filters === null) {
+        throw new Error("Missing the required parameter 'filters' when calling searchRoles");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchRoles");
@@ -391,10 +396,10 @@ export default class RolesApi {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
         'page': page,
         'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
+        'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
       let headerParams = {
       };
@@ -416,15 +421,15 @@ export default class RolesApi {
     * Search for roles
     * @param {Number} page The current page
     * @param {Number} size The current page size
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {String} [opts.q] A string filter
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsApiRoleSummary>}
     */
-    searchRoles(page, size, tenant, opts) {
-      return this.searchRolesWithHttpInfo(page, size, tenant, opts)
+    searchRoles(page, size, filters, tenant, opts) {
+      return this.searchRolesWithHttpInfo(page, size, filters, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

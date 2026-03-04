@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 1.4.0-SNAPSHOT
 
-- Generator version: 7.19.0
+- Generator version: 7.20.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.

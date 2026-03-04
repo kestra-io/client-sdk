@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ## SearchRoles
 
-> PagedResultsApiRoleSummary SearchRoles(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+> PagedResultsApiRoleSummary SearchRoles(ctx, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 
 Search for roles
 
@@ -385,13 +385,13 @@ import (
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.SearchRoles(context.Background(), tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.RolesAPI.SearchRoles(context.Background(), tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.SearchRoles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -418,8 +418,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
- **q** | **string** | A string filter | 
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type

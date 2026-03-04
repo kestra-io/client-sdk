@@ -367,7 +367,7 @@ public class Example {
 
 ## searchRoles
 
-> PagedResultsApiRoleSummary searchRoles(page, size, tenant, q, sort)
+> PagedResultsApiRoleSummary searchRoles(page, size, filters, tenant, sort)
 
 Search for roles
 
@@ -393,11 +393,11 @@ public class Example {
 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
-        String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsApiRoleSummary result = kestraClient.RolesApi().searchRoles(page, size, tenant, q, sort);
+            PagedResultsApiRoleSummary result = kestraClient.RolesApi().searchRoles(page, size, filters, tenant, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling RolesApi#searchRoles");
@@ -417,8 +417,8 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

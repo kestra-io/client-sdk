@@ -39,7 +39,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Kestra EE API v1.3.0
+// APIClient manages communication with the Kestra EE API v1.4.0-SNAPSHOT
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

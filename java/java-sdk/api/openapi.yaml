@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.3.0
+  version: 1.4.0-SNAPSHOT
 servers:
 - url: /
 tags:
@@ -14292,15 +14292,6 @@ paths:
     get:
       operationId: searchRoles
       parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - description: The current page
         explode: false
         in: query
@@ -14330,6 +14321,16 @@ paths:
           items:
             type: string
           nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
           type: array
         style: form
       - explode: false
@@ -27094,6 +27095,7 @@ components:
       - PARENT_PATH
       - VERSION
       - USERNAME
+      - NAME
       type: string
       x-type: String
     QueryFilter.Op:

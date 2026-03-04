@@ -33,6 +33,7 @@ import io.kestra.sdk.model.ApiRoleSummary;
 import io.kestra.sdk.model.IAMRoleControllerApiRoleCreateOrUpdateRequest;
 import io.kestra.sdk.model.IAMRoleControllerApiRoleDetail;
 import io.kestra.sdk.model.PagedResultsApiRoleSummary;
+import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Role;
 
 
@@ -482,14 +483,14 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param filters Filters (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchRoles(page, size, filters, tenant, sort, Collections.emptyMap());
   }
 
   /**
@@ -497,14 +498,14 @@ import java.util.StringJoiner;
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param filters Filters (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -515,6 +516,11 @@ import java.util.StringJoiner;
     // verify the required parameter 'size' is set
     if (size == null) {
       throw new ApiException(400, "Missing the required parameter 'size' when calling searchRoles");
+    }
+    
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling searchRoles");
     }
     
     // verify the required parameter 'tenant' is set
@@ -533,10 +539,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

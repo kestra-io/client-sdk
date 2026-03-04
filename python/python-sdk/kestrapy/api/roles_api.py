@@ -30,6 +30,7 @@ from kestrapy.models.api_role_summary import ApiRoleSummary
 from kestrapy.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
 from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
 from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSummary
+from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.role import Role
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -884,8 +885,8 @@ class RolesApi:
         self,
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -903,10 +904,10 @@ class RolesApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
-                :param q: A string filter
-        :type q: str
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -920,8 +921,8 @@ class RolesApi:
         _param = self._search_roles_serialize(
             page=page,
             size=size,
+            filters=filters,
             tenant=tenant,
-            q=q,
             sort=sort,
         )
 
@@ -944,8 +945,8 @@ class RolesApi:
         self,
         page: Annotated[StrictInt, Field(description="The current page")],
         size: Annotated[StrictInt, Field(description="The current page size")],
+        filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -963,10 +964,10 @@ class RolesApi:
         :type page: int
                 :param size: The current page size (required)
         :type size: int
+                :param filters: Filters (required)
+        :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
-                :param q: A string filter
-        :type q: str
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -980,8 +981,8 @@ class RolesApi:
         _param = self._search_roles_serialize(
             page=page,
             size=size,
+            filters=filters,
             tenant=tenant,
-            q=q,
             sort=sort,
         )
 
@@ -1003,14 +1004,15 @@ class RolesApi:
         self,
         page,
         size,
+        filters,
         tenant,
-        q,
         sort,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
             'sort': 'csv',
         }
 
@@ -1027,10 +1029,6 @@ class RolesApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
         if page is not None:
             
             _query_params.append(('page', page))
@@ -1042,6 +1040,10 @@ class RolesApi:
         if sort is not None:
             
             _query_params.append(('sort', sort))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters

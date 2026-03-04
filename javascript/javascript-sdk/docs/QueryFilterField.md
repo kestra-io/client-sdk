@@ -67,4 +67,6 @@
 
 * `USERNAME` (value: `"USERNAME"`)
 
+* `NAME` (value: `"NAME"`)
+
 

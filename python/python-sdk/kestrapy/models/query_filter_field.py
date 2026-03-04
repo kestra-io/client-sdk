@@ -57,6 +57,7 @@ class QueryFilterField(str, Enum):
     PARENT_PATH = 'PARENT_PATH'
     VERSION = 'VERSION'
     USERNAME = 'USERNAME'
+    NAME = 'NAME'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

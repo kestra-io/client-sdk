@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.3.0
+  version: 1.4.0-SNAPSHOT
 tags:
   - name: Flows
     description: Flows api
@@ -11708,13 +11708,6 @@ paths:
       summary: Search for roles
       operationId: searchRoles
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
@@ -11742,6 +11735,15 @@ paths:
             nullable: true
             items:
               type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -18342,6 +18344,7 @@ components:
         - PARENT_PATH
         - VERSION
         - USERNAME
+        - NAME
       x-type: String
     QueryFilter.Op:
       type: string

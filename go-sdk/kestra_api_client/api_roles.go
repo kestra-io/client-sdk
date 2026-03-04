@@ -602,8 +602,8 @@ type ApiSearchRolesRequest struct {
 	ApiService *RolesAPIService
 	page       *int32
 	size       *int32
+	filters    *[]QueryFilter
 	tenant     string
-	q          *string
 	sort       *[]string
 }
 
@@ -619,9 +619,9 @@ func (r ApiSearchRolesRequest) Size(size int32) ApiSearchRolesRequest {
 	return r
 }
 
-// A string filter
-func (r ApiSearchRolesRequest) Q(q string) ApiSearchRolesRequest {
-	r.q = &q
+// Filters
+func (r ApiSearchRolesRequest) Filters(filters []QueryFilter) ApiSearchRolesRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -637,11 +637,11 @@ func (r ApiSearchRolesRequest) GetPage() *int32 {
 func (r ApiSearchRolesRequest) GetSize() *int32 {
 	return r.size
 }
+func (r ApiSearchRolesRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
 func (r ApiSearchRolesRequest) GetTenant() string {
 	return r.tenant
-}
-func (r ApiSearchRolesRequest) GetQ() *string {
-	return r.q
 }
 func (r ApiSearchRolesRequest) GetSort() *[]string {
 	return r.sort
@@ -696,15 +696,16 @@ func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedRes
 	if r.size == nil {
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.filters == nil {
+		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
+
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
