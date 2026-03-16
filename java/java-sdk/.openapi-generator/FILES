@@ -106,6 +106,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DashboardsApi.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
@@ -376,7 +377,9 @@ docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -551,6 +554,7 @@ src/main/java/io/kestra/sdk/model/CrudEventType.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
 src/main/java/io/kestra/sdk/model/DashboardGenerationPrompt.java
+src/main/java/io/kestra/sdk/model/DashboardSettings.java
 src/main/java/io/kestra/sdk/model/DeleteTriggersByQueryRequest.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
@@ -811,7 +815,9 @@ src/main/java/io/kestra/sdk/model/Tenant.java
 src/main/java/io/kestra/sdk/model/TenantAppCatalogConfig.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigRequest.java
 src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigResponse.java
+src/main/java/io/kestra/sdk/model/TenantControllerSetTenantDefaultDashboardsRequest.java
 src/main/java/io/kestra/sdk/model/TenantInterface.java
+src/main/java/io/kestra/sdk/model/TenantPreferencesSettings.java
 src/main/java/io/kestra/sdk/model/TestState.java
 src/main/java/io/kestra/sdk/model/TestSuite.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerRunRequest.java

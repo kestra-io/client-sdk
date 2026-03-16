@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.3.0
+  version: 1.3.1
 servers:
 - url: /
 tags:
@@ -551,6 +551,33 @@ paths:
       tags:
       - Cluster
       - Maintenance
+      x-internal: true
+  /api/v1/instance/metrics/{serviceType}:
+    get:
+      operationId: metrics
+      parameters:
+      - explode: false
+        in: query
+        name: serviceType
+        required: true
+        schema:
+          $ref: "#/components/schemas/ServiceType"
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Metric"
+                type: array
+          description: metrics 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get metrics for running services
+      tags:
+      - Services
       x-internal: true
   /api/v1/instance/services/active:
     get:
@@ -2371,6 +2398,57 @@ paths:
                 $ref: "#/components/schemas/ApiTenant"
           description: setLogo 200 response
       summary: Set a tenant logo
+      tags:
+      - Tenants
+      x-internal: true
+  /api/v1/tenants/{id}/settings/default-dashboards:
+    get:
+      operationId: defaultDashboards
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: getDefaultDashboards 200 response
+      summary: Get default dashboards for this tenant
+      tags:
+      - Tenants
+      x-internal: true
+    post:
+      operationId: setTenantDefaultDashboards
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.SetTenantDefaultDashboardsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: setTenantDefaultDashboards 200 response
+      summary: Update default dashboards for the entire tenant
       tags:
       - Tenants
       x-internal: true
@@ -5650,6 +5728,28 @@ paths:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
           description: previewChart 200 response
       summary: Preview a chart data
+      tags:
+      - Dashboards
+      x-internal: true
+  /api/v1/{tenant}/dashboards/settings/default-dashboards:
+    get:
+      operationId: defaultDashboards_1
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+          description: getDefaultDashboards_1 200 response
+      summary: Get default dashboards
       tags:
       - Dashboards
       x-internal: true
@@ -17698,6 +17798,15 @@ components:
       - conversationId
       - userPrompt
       type: object
+    DashboardSettings:
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
+      type: object
     DependsOn:
       properties:
         inputs:
@@ -21350,7 +21459,7 @@ components:
             $ref: "#/components/schemas/Metric.Tag"
           type: array
         value:
-          type: object
+          type: number
       type: object
     Metric.Tag:
       properties:
@@ -27474,6 +27583,8 @@ components:
           type: boolean
         appCatalogConfig:
           $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+        settings:
+          $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
       required:
@@ -27510,10 +27621,24 @@ components:
         logo:
           type: string
       type: object
+    TenantController.SetTenantDefaultDashboardsRequest:
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
+      type: object
     TenantInterface:
       properties:
         tenantId:
           type: string
+      type: object
+    TenantPreferencesSettings:
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardSettings"
       type: object
     TestState:
       enum:

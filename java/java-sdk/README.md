@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 1.3.1
 
-- Generator version: 7.19.0
+- Generator version: 7.20.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -147,6 +147,7 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
+*DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
 *DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
 *DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
@@ -463,6 +464,7 @@ Class | Method | HTTP request | Description
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
+ - [DashboardSettings](docs/DashboardSettings.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -723,7 +725,9 @@ Class | Method | HTTP request | Description
  - [TenantAppCatalogConfig](docs/TenantAppCatalogConfig.md)
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
+ - [TenantControllerSetTenantDefaultDashboardsRequest](docs/TenantControllerSetTenantDefaultDashboardsRequest.md)
  - [TenantInterface](docs/TenantInterface.md)
+ - [TenantPreferencesSettings](docs/TenantPreferencesSettings.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)

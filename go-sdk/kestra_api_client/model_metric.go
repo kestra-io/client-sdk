@@ -18,12 +18,12 @@ var _ MappedNullable = &Metric{}
 
 // Metric struct for Metric
 type Metric struct {
-	Name                 *string                `json:"name,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	BaseUnit             *string                `json:"baseUnit,omitempty"`
-	Tags                 []MetricTag            `json:"tags,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Type                 *string     `json:"type,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	BaseUnit             *string     `json:"baseUnit,omitempty"`
+	Tags                 []MetricTag `json:"tags,omitempty"`
+	Value                *float32    `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,19 +207,19 @@ func (o *Metric) SetTags(v []MetricTag) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *Metric) GetValue() map[string]interface{} {
+func (o *Metric) GetValue() float32 {
 	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+		var ret float32
 		return ret
 	}
-	return o.Value
+	return *o.Value
 }
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metric) GetValueOk() (map[string]interface{}, bool) {
+func (o *Metric) GetValueOk() (*float32, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Value, true
 }
@@ -233,9 +233,9 @@ func (o *Metric) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *Metric) SetValue(v map[string]interface{}) {
-	o.Value = v
+// SetValue gets a reference to the given float32 and assigns it to the Value field.
+func (o *Metric) SetValue(v float32) {
+	o.Value = &v
 }
 
 func (o Metric) MarshalJSON() ([]byte, error) {

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **require_existing_namespace** | **bool** |  | [optional] 
 **outputs_in_internal_storage** | **bool** |  | [optional] 
 **app_catalog_config** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
+**settings** | [**TenantPreferencesSettings**](TenantPreferencesSettings.md) |  | [optional] 
 **sdk_default_authentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
 
 ## Example

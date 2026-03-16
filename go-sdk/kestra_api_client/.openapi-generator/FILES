@@ -115,6 +115,7 @@ docs/CrudEventType.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
 docs/DashboardGenerationPrompt.md
+docs/DashboardSettings.md
 docs/DeleteTriggersByQueryRequest.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -384,7 +385,9 @@ docs/Tenant.md
 docs/TenantAppCatalogConfig.md
 docs/TenantControllerAppsCatalogConfigRequest.md
 docs/TenantControllerAppsCatalogConfigResponse.md
+docs/TenantControllerSetTenantDefaultDashboardsRequest.md
 docs/TenantInterface.md
+docs/TenantPreferencesSettings.md
 docs/TestState.md
 docs/TestSuite.md
 docs/TestSuiteControllerRunRequest.md
@@ -520,6 +523,7 @@ model_crud_event_type.go
 model_dashboard.go
 model_dashboard_controller_preview_request.go
 model_dashboard_generation_prompt.go
+model_dashboard_settings.go
 model_delete_triggers_by_query_request.go
 model_depends_on.go
 model_documentation_with_schema.go
@@ -780,7 +784,9 @@ model_tenant.go
 model_tenant_app_catalog_config.go
 model_tenant_controller_apps_catalog_config_request.go
 model_tenant_controller_apps_catalog_config_response.go
+model_tenant_controller_set_tenant_default_dashboards_request.go
 model_tenant_interface.go
+model_tenant_preferences_settings.go
 model_test_state.go
 model_test_suite.go
 model_test_suite_controller_run_request.go

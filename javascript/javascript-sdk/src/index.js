@@ -111,6 +111,7 @@ import CrudEventType from './model/CrudEventType';
 import Dashboard from './model/Dashboard';
 import DashboardControllerPreviewRequest from './model/DashboardControllerPreviewRequest';
 import DashboardGenerationPrompt from './model/DashboardGenerationPrompt';
+import DashboardSettings from './model/DashboardSettings';
 import DeleteTriggersByQueryRequest from './model/DeleteTriggersByQueryRequest';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
@@ -371,7 +372,9 @@ import Tenant from './model/Tenant';
 import TenantAppCatalogConfig from './model/TenantAppCatalogConfig';
 import TenantControllerAppsCatalogConfigRequest from './model/TenantControllerAppsCatalogConfigRequest';
 import TenantControllerAppsCatalogConfigResponse from './model/TenantControllerAppsCatalogConfigResponse';
+import TenantControllerSetTenantDefaultDashboardsRequest from './model/TenantControllerSetTenantDefaultDashboardsRequest';
 import TenantInterface from './model/TenantInterface';
+import TenantPreferencesSettings from './model/TenantPreferencesSettings';
 import TestState from './model/TestState';
 import TestSuite from './model/TestSuite';
 import TestSuiteControllerRunRequest from './model/TestSuiteControllerRunRequest';
@@ -1046,6 +1049,12 @@ export {
      * @property {module:model/DashboardGenerationPrompt}
      */
     DashboardGenerationPrompt,
+
+    /**
+     * The DashboardSettings model constructor.
+     * @property {module:model/DashboardSettings}
+     */
+    DashboardSettings,
 
     /**
      * The DeleteTriggersByQueryRequest model constructor.
@@ -2608,10 +2617,22 @@ export {
     TenantControllerAppsCatalogConfigResponse,
 
     /**
+     * The TenantControllerSetTenantDefaultDashboardsRequest model constructor.
+     * @property {module:model/TenantControllerSetTenantDefaultDashboardsRequest}
+     */
+    TenantControllerSetTenantDefaultDashboardsRequest,
+
+    /**
      * The TenantInterface model constructor.
      * @property {module:model/TenantInterface}
      */
     TenantInterface,
+
+    /**
+     * The TenantPreferencesSettings model constructor.
+     * @property {module:model/TenantPreferencesSettings}
+     */
+    TenantPreferencesSettings,
 
     /**
      * The TestState model constructor.

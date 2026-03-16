@@ -16,8 +16,8 @@ import pprint
 import regex as re
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from kestrapy.models.metric_tag import MetricTag
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,7 +31,7 @@ class Metric(BaseModel):
     description: Optional[StrictStr] = None
     base_unit: Optional[StrictStr] = Field(default=None, alias="baseUnit")
     tags: Optional[List[MetricTag]] = None
-    value: Optional[Dict[str, Any]] = None
+    value: Optional[Union[StrictFloat, StrictInt]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "description", "baseUnit", "tags", "value"]
 
