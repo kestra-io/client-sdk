@@ -5131,7 +5131,7 @@ paths:
       summary: List all blueprints
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/blueprints/community/{kind}/tags:
@@ -5217,7 +5217,7 @@ paths:
       summary: Retrieve a blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph:
@@ -5261,7 +5261,7 @@ paths:
       summary: Retrieve a blueprint graph
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/blueprints/community/{kind}/{id}/source:
@@ -5302,7 +5302,7 @@ paths:
       summary: Retrieve a blueprint source code
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/yaml
   /api/v1/{tenant}/blueprints/custom:
@@ -5377,7 +5377,7 @@ paths:
       summary: List all internal blueprints
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     post:
@@ -5410,7 +5410,7 @@ paths:
       summary: Create a new internal blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5479,7 +5479,7 @@ paths:
       summary: Delete an internal blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -5512,7 +5512,7 @@ paths:
       summary: Retrieve an internal blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     put:
@@ -5553,7 +5553,7 @@ paths:
       summary: Update an internal blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5588,7 +5588,7 @@ paths:
       summary: Retrieve an internal blueprint source code
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/yaml
   /api/v1/{tenant}/blueprints/flow/{id}:
@@ -5622,7 +5622,7 @@ paths:
       summary: Retrieve an flow blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/blueprints/flows:
@@ -5652,7 +5652,7 @@ paths:
       summary: Create a Flow Blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5683,7 +5683,7 @@ paths:
       summary: Delete an Flow Blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -5716,7 +5716,7 @@ paths:
       summary: Retrieve an flow blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     put:
@@ -5753,7 +5753,7 @@ paths:
       summary: Update a Flow Blueprint
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5792,7 +5792,7 @@ paths:
       summary: Use a Flow Blueprint template to generate a Flow source
       tags:
       - Blueprints
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -18298,6 +18298,30 @@ components:
       - GROUP
       type: string
     Blueprint:
+      example:
+        template:
+          templateArguments:
+            key:
+              dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+          source: source
+        includedTasks:
+        - includedTasks
+        - includedTasks
+        deleted: true
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: id
+        title: title
+        tags:
+        - tags
+        - tags
       properties:
         id:
           type: string
@@ -18327,6 +18351,17 @@ components:
       - title
       type: object
     BlueprintController.ApiBlueprintItem:
+      example:
+        includedTasks:
+        - includedTasks
+        - includedTasks
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: id
+        title: title
+        tags:
+        - tags
+        - tags
       properties:
         id:
           type: string
@@ -18355,6 +18390,19 @@ components:
           kind:
             $ref: "#/components/schemas/BlueprintController.Kind"
         type: object
+      example:
+        includedTasks:
+        - includedTasks
+        - includedTasks
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        kind: APP
+        description: description
+        id: id
+        source: source
+        title: title
+        tags:
+        - tags
+        - tags
       type: object
     BlueprintController.ApiBlueprintTagItem:
       properties:
@@ -18367,6 +18415,30 @@ components:
           type: string
       type: object
     BlueprintController.ApiFlowBlueprint:
+      example:
+        template:
+          templateArguments:
+            key:
+              dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+          source: source
+        includedTasks:
+        - includedTasks
+        - includedTasks
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: id
+        source: source
+        title: title
+        tags:
+        - tags
+        - tags
       properties:
         id:
           type: string
@@ -18422,11 +18494,25 @@ components:
           type: object
       type: object
     BlueprintController.UseBlueprintTemplateResponse:
+      example:
+        generatedFlowSource: generatedFlowSource
       properties:
         generatedFlowSource:
           type: string
       type: object
     BlueprintTemplate:
+      example:
+        templateArguments:
+          key:
+            dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+        source: source
       properties:
         source:
           minLength: 1
@@ -18448,6 +18534,31 @@ components:
             minLength: 1
             type: string
         type: object
+      example:
+        template:
+          templateArguments:
+            key:
+              dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+          source: source
+        includedTasks:
+        - includedTasks
+        - includedTasks
+        deleted: true
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: id
+        title: title
+        flow: flow
+        tags:
+        - tags
+        - tags
       required:
       - deleted
       - flow
@@ -23073,6 +23184,29 @@ components:
       - total
       type: object
     PagedResults_BlueprintController.ApiBlueprintItem_:
+      example:
+        total: 0
+        results:
+        - includedTasks:
+          - includedTasks
+          - includedTasks
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id: id
+          title: title
+          tags:
+          - tags
+          - tags
+        - includedTasks:
+          - includedTasks
+          - includedTasks
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id: id
+          title: title
+          tags:
+          - tags
+          - tags
       properties:
         results:
           items:
@@ -23086,6 +23220,55 @@ components:
       - total
       type: object
     PagedResults_Blueprint_:
+      example:
+        total: 0
+        results:
+        - template:
+            templateArguments:
+              key:
+                dependsOn: ""
+                defaults: ""
+                displayName: displayName
+                prefill: ""
+                description: description
+                id: id
+                type: ""
+                required: true
+            source: source
+          includedTasks:
+          - includedTasks
+          - includedTasks
+          deleted: true
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id: id
+          title: title
+          tags:
+          - tags
+          - tags
+        - template:
+            templateArguments:
+              key:
+                dependsOn: ""
+                defaults: ""
+                displayName: displayName
+                prefill: ""
+                description: description
+                id: id
+                type: ""
+                required: true
+            source: source
+          includedTasks:
+          - includedTasks
+          - includedTasks
+          deleted: true
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id: id
+          title: title
+          tags:
+          - tags
+          - tags
       properties:
         results:
           items:
