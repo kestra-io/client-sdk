@@ -71,6 +71,10 @@ public class BlueprintsApiTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getDescription()).isEqualTo("Updated description");
+
+        BlueprintControllerApiFlowBlueprint fetched = kestraClient().blueprints().flowBlueprintById(created.getId(), MAIN_TENANT);
+        assertThat(fetched.getDescription()).isEqualTo("Updated description");
+        assertThat(fetched.getTitle()).isEqualTo(id);
     }
 
     /**
@@ -92,10 +96,18 @@ public class BlueprintsApiTest {
      */
     @Test
     public void searchInternalBlueprintsTest() throws ApiException {
-        PagedResultsBlueprint response = kestraClient().blueprints().searchInternalBlueprints(1, 100, MAIN_TENANT, null, null, null);
+        String id = randomId();
+        BlueprintControllerApiBlueprintItemWithSource internalBlueprint = new BlueprintControllerApiBlueprintItemWithSource()
+                .title(id)
+                .description("Internal blueprint " + id)
+                .source(getFlowSource());
+        kestraClient().blueprints().createInternalBlueprints(MAIN_TENANT, internalBlueprint);
+
+        PagedResultsBlueprint response = kestraClient().blueprints().searchInternalBlueprints(1, 100, MAIN_TENANT, id, null, null);
 
         assertThat(response).isNotNull();
-        assertThat(response.getResults()).isNotNull();
+        assertThat(response.getResults()).isNotEmpty();
+        assertThat(response.getResults().stream().map(Blueprint::getTitle)).contains(id);
     }
 
     /**
@@ -103,16 +115,20 @@ public class BlueprintsApiTest {
      */
     @Test
     public void searchBlueprintsTest() throws ApiException {
-        PagedResultsBlueprintControllerApiBlueprintItem response = kestraClient().blueprints().searchBlueprints(1, 10, BlueprintControllerKind.FLOW, MAIN_TENANT, null, null, null);
+        String id = randomId();
+        kestraClient().blueprints().createFlowBlueprint(MAIN_TENANT, getBlueprintCreateOrUpdate(id));
+
+        PagedResultsBlueprintControllerApiBlueprintItem response = kestraClient().blueprints().searchBlueprints(1, 100, BlueprintControllerKind.FLOW, MAIN_TENANT, id, null, null);
 
         assertThat(response).isNotNull();
-        assertThat(response.getResults()).isNotNull();
+        assertThat(response.getResults()).isNotEmpty();
+        assertThat(response.getResults().stream().map(BlueprintControllerApiBlueprintItem::getTitle)).contains(id);
     }
 
-    private static BlueprintControllerFlowBlueprintCreateOrUpdate getBlueprintCreateOrUpdate(String title) {
+    private static String getFlowSource() {
         String flowId = randomId();
         String namespace = randomId();
-        String source = String.format("""
+        return String.format("""
             id: %s
             namespace: %s
             tasks:
@@ -120,10 +136,12 @@ public class BlueprintsApiTest {
                 type: io.kestra.plugin.core.log.Log
                 message: Hello from blueprint
             """, flowId, namespace);
+    }
 
+    private static BlueprintControllerFlowBlueprintCreateOrUpdate getBlueprintCreateOrUpdate(String title) {
         return new BlueprintControllerFlowBlueprintCreateOrUpdate()
                 .title(title)
-                .source(source)
+                .source(getFlowSource())
                 .description("Test blueprint " + title)
                 .tags(List.of("test"));
     }
