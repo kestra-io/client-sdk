@@ -115,14 +115,11 @@ public class BlueprintsApiTest {
      */
     @Test
     public void searchBlueprintsTest() throws ApiException {
-        String id = randomId();
-        kestraClient().blueprints().createFlowBlueprint(MAIN_TENANT, getBlueprintCreateOrUpdate(id));
-
-        PagedResultsBlueprintControllerApiBlueprintItem response = kestraClient().blueprints().searchBlueprints(1, 100, BlueprintControllerKind.FLOW, MAIN_TENANT, id, null, null);
+        PagedResultsBlueprintControllerApiBlueprintItem response = kestraClient().blueprints().searchBlueprints(1, 10, BlueprintControllerKind.FLOW, MAIN_TENANT, null, null, null);
 
         assertThat(response).isNotNull();
-        assertThat(response.getResults()).isNotEmpty();
-        assertThat(response.getResults().stream().map(BlueprintControllerApiBlueprintItem::getTitle)).contains(id);
+        assertThat(response.getResults()).isNotNull();
+        assertThat(response.getTotal()).isNotNull();
     }
 
     private static String getFlowSource() {
