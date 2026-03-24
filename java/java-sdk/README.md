@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: 1.3.0
 
-- Generator version: 7.19.0
+- Generator version: 7.21.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.10"
+compile "io.kestra:kestra-api-client:1.0.11"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.10.jar`
+- `target/kestra-api-client-1.0.11.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -144,6 +144,22 @@ Class | Method | HTTP request | Description
 *AssetsApi* | [**searchAssetLineageEvents**](docs/AssetsApi.md#searchAssetLineageEvents) | **GET** /api/v1/{tenant}/assets/lineage-events/search | Search for asset lineage events
 *AssetsApi* | [**searchAssetUsages**](docs/AssetsApi.md#searchAssetUsages) | **GET** /api/v1/{tenant}/assets/usages/search | Search for asset usages
 *AssetsApi* | [**searchAssets**](docs/AssetsApi.md#searchAssets) | **GET** /api/v1/{tenant}/assets/search | Search for assets
+*BlueprintsApi* | [**blueprint**](docs/BlueprintsApi.md#blueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
+*BlueprintsApi* | [**blueprintGraph**](docs/BlueprintsApi.md#blueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
+*BlueprintsApi* | [**blueprintSource**](docs/BlueprintsApi.md#blueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code
+*BlueprintsApi* | [**createFlowBlueprint**](docs/BlueprintsApi.md#createFlowBlueprint) | **POST** /api/v1/{tenant}/blueprints/flows | Create a Flow Blueprint
+*BlueprintsApi* | [**createInternalBlueprints**](docs/BlueprintsApi.md#createInternalBlueprints) | **POST** /api/v1/{tenant}/blueprints/custom | Create a new internal blueprint
+*BlueprintsApi* | [**deleteFlowBlueprints**](docs/BlueprintsApi.md#deleteFlowBlueprints) | **DELETE** /api/v1/{tenant}/blueprints/flows/{id} | Delete an Flow Blueprint
+*BlueprintsApi* | [**deleteInternalBlueprints**](docs/BlueprintsApi.md#deleteInternalBlueprints) | **DELETE** /api/v1/{tenant}/blueprints/custom/{id} | Delete an internal blueprint
+*BlueprintsApi* | [**flowBlueprint**](docs/BlueprintsApi.md#flowBlueprint) | **GET** /api/v1/{tenant}/blueprints/flow/{id} | Retrieve an flow blueprint
+*BlueprintsApi* | [**flowBlueprintById**](docs/BlueprintsApi.md#flowBlueprintById) | **GET** /api/v1/{tenant}/blueprints/flows/{id} | Retrieve an flow blueprint
+*BlueprintsApi* | [**internalBlueprint**](docs/BlueprintsApi.md#internalBlueprint) | **GET** /api/v1/{tenant}/blueprints/custom/{id} | Retrieve an internal blueprint
+*BlueprintsApi* | [**internalBlueprintFlow**](docs/BlueprintsApi.md#internalBlueprintFlow) | **GET** /api/v1/{tenant}/blueprints/custom/{id}/source | Retrieve an internal blueprint source code
+*BlueprintsApi* | [**searchBlueprints**](docs/BlueprintsApi.md#searchBlueprints) | **GET** /api/v1/{tenant}/blueprints/community/{kind} | List all blueprints
+*BlueprintsApi* | [**searchInternalBlueprints**](docs/BlueprintsApi.md#searchInternalBlueprints) | **GET** /api/v1/{tenant}/blueprints/custom | List all internal blueprints
+*BlueprintsApi* | [**updateFlowBlueprint**](docs/BlueprintsApi.md#updateFlowBlueprint) | **PUT** /api/v1/{tenant}/blueprints/flows/{id} | Update a Flow Blueprint
+*BlueprintsApi* | [**updateInternalBlueprints**](docs/BlueprintsApi.md#updateInternalBlueprints) | **PUT** /api/v1/{tenant}/blueprints/custom/{id} | Update an internal blueprint
+*BlueprintsApi* | [**useBlueprintTemplate**](docs/BlueprintsApi.md#useBlueprintTemplate) | **POST** /api/v1/{tenant}/blueprints/flows/{id}/use-template | Use a Flow Blueprint template to generate a Flow source
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data

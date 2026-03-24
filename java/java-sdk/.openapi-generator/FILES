@@ -84,6 +84,7 @@ docs/BlueprintControllerUseBlueprintTemplateRequest.md
 docs/BlueprintControllerUseBlueprintTemplateResponse.md
 docs/BlueprintTemplate.md
 docs/BlueprintWithFlowEntity.md
+docs/BlueprintsApi.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
@@ -423,6 +424,7 @@ settings.gradle
 src/main/AndroidManifest.xml
 src/main/java/io/kestra/sdk/api/AppsApi.java
 src/main/java/io/kestra/sdk/api/AssetsApi.java
+src/main/java/io/kestra/sdk/api/BlueprintsApi.java
 src/main/java/io/kestra/sdk/api/DashboardsApi.java
 src/main/java/io/kestra/sdk/api/ExecutionsApi.java
 src/main/java/io/kestra/sdk/api/FilesApi.java
