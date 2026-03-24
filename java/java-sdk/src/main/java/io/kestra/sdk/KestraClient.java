@@ -84,8 +84,6 @@ public class KestraClient {
 
     public AppsApi apps() { return new AppsApi(this.apiClient); }
 
-    public BlueprintsApi blueprints() { return new BlueprintsApi(this.apiClient); }
-
     public AssetsApi assets() { return new AssetsApi(this.apiClient); }
 
     public LogsApi logs() { return new LogsApi(this.apiClient); }
