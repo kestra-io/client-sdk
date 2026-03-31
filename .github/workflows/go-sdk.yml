@@ -18,6 +18,18 @@ on:
         default: "false"
 
 jobs:
+  e2e-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.matrix.outputs.versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build matrix from compatible versions
+        id: matrix
+        run: |
+          versions=$(awk 'NF { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); printf "%s\"%s\"", sep, $0; sep="," } END { print "" }' COMPATIBLE_KESTRA_VERSION.properties)
+          echo "versions=[${versions}]" >> "$GITHUB_OUTPUT"
   build:
     runs-on: ubuntu-latest
     env:
@@ -25,7 +37,11 @@ jobs:
     defaults:
       run:
         working-directory: ./go-sdk
-
+    needs: e2e-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        kestra_version: ${{ fromJSON(needs.e2e-matrix.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -45,6 +61,8 @@ jobs:
 
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        env:
+          KESTRA_VERSION: ${{ matrix.kestra_version }}
         run: |
           echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh

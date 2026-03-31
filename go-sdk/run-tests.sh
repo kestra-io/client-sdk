@@ -20,7 +20,7 @@ export KESTRA_VERSION=$KESTRA_VERSION
 LOCAL_CI_VERSION_TO_TEST="local-ci-version"
 
 echo "/n------------------------------------------------"
-echo "Build local SDK and test it in an example project"
+echo "Build local SDK and test it in an example project "
 echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 
 echo "start Kestra container"
