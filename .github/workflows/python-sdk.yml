@@ -60,19 +60,21 @@ jobs:
       - name: configure docker access to GCP registry for EE image
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
-      - name: Set license file based on version
+      - name: Select license file
+        id: license
         uses: ./.github/actions/set-license-file
         with:
           kestra_version: ${{ matrix.kestra_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
-          output_path: ../../test-utils/docker-setup/application-secrets.yml
 
       - name: Test with pytest
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         env:
           KESTRA_VERSION: ${{ matrix.kestra_version }}
-        run: sh run-tests.sh $KESTRA_VERSION
+        run: |
+          echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
+          sh run-tests.sh $KESTRA_VERSION
 
   publish:
     name: Publish to Pip

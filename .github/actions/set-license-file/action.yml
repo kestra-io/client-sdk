@@ -11,21 +11,23 @@ inputs:
   license_legacy_file:
     description: The legacy license file secret for versions < v1.2
     required: true
-  output_path:
-    description: Path where to write the decoded license file
-    required: true
+
+outputs:
+  license:
+    description: The selected license file content
+    value: ${{ steps.select.outputs.license }}
 
 runs:
   using: composite
   steps:
-    - name: Select and decode license file
+    - name: Select license based on version
+      id: select
       shell: bash
       env:
         KESTRA_VERSION: ${{ inputs.kestra_version }}
         LICENSE_FILE: ${{ inputs.license_file }}
         LICENSE_LEGACY_FILE: ${{ inputs.license_legacy_file }}
       run: |
-        # Determine which license to use based on version
         if [[ "$KESTRA_VERSION" =~ ^v([0-9]+)\.([0-9]+) ]]; then
           MAJOR="${BASH_REMATCH[1]}"
           MINOR="${BASH_REMATCH[2]}"
@@ -38,4 +40,4 @@ runs:
           LICENSE="$LICENSE_FILE"
         fi
 
-        echo "$LICENSE" | base64 -d > ${{ inputs.output_path }}
+        echo "license=$LICENSE" >> $GITHUB_OUTPUT
