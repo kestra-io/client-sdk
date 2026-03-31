@@ -86,7 +86,7 @@ with kestrapy.ApiClient(configuration) as api_client:
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     wait = False # bool | If the server will wait the end of the execution (default to False)
-    tenant = 'tenant_example' # str |
+    tenant = 'tenant_example' # str | 
     labels = ['labels_example'] # List[str] | The labels as a list of 'key:value' (optional)
     revision = 56 # int | The flow revision or latest if null (optional)
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
@@ -174,7 +174,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**flow_dependencies_from_namespace**](docs/FlowsApi.md#flow_dependencies_from_namespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generate_flow_graph**](docs/FlowsApi.md#generate_flow_graph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generate_flow_graph_from_source**](docs/FlowsApi.md#generate_flow_graph_from_source) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsApi* | [**import_flows**](docs/FlowsApi.md#import_flows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
+*FlowsApi* | [**import_flows**](docs/FlowsApi.md#import_flows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**list_distinct_namespaces**](docs/FlowsApi.md#list_distinct_namespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**list_flow_revisions**](docs/FlowsApi.md#list_flow_revisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**list_flows_by_namespace**](docs/FlowsApi.md#list_flows_by_namespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
@@ -239,7 +239,7 @@ Class | Method | HTTP request | Description
 *ServiceAccountApi* | [**delete_service_account_for_tenant**](docs/ServiceAccountApi.md#delete_service_account_for_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**list_api_tokens_for_service_account**](docs/ServiceAccountApi.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**list_api_tokens_for_service_account_with_tenant**](docs/ServiceAccountApi.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-*ServiceAccountApi* | [**list_service_accounts**](docs/ServiceAccountApi.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.
+*ServiceAccountApi* | [**list_service_accounts**](docs/ServiceAccountApi.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *ServiceAccountApi* | [**patch_service_account_details**](docs/ServiceAccountApi.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountApi* | [**patch_service_account_super_admin**](docs/ServiceAccountApi.md#patch_service_account_super_admin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 *ServiceAccountApi* | [**service_account**](docs/ServiceAccountApi.md#service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
@@ -700,6 +700,7 @@ Authentication schemes defined for the API:
 
 
 ## Author
+
 
 
 

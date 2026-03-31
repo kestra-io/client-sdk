@@ -115,7 +115,7 @@ var api = new KestraIoKestraSdk.ExecutionsApi()
 var namespace = "namespace_example"; // {String} The flow namespace
 var id = "id_example"; // {String} The flow id
 var wait = false; // {Boolean} If the server will wait the end of the execution
-var tenant = "tenant_example"; // {String}
+var tenant = "tenant_example"; // {String} 
 var opts = {
   'labels': ["null"], // {[String]} The labels as a list of 'key:value'
   'revision': 56, // {Number} The flow revision or latest if null
@@ -203,7 +203,7 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *KestraIoKestraSdk.FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *KestraIoKestraSdk.FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*KestraIoKestraSdk.FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
+*KestraIoKestraSdk.FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *KestraIoKestraSdk.FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *KestraIoKestraSdk.FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *KestraIoKestraSdk.FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
@@ -268,7 +268,7 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 *KestraIoKestraSdk.ServiceAccountApi* | [**listApiTokensForServiceAccount**](docs/ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *KestraIoKestraSdk.ServiceAccountApi* | [**listApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-*KestraIoKestraSdk.ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.
+*KestraIoKestraSdk.ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *KestraIoKestraSdk.ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *KestraIoKestraSdk.ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 *KestraIoKestraSdk.ServiceAccountApi* | [**serviceAccount**](docs/ServiceAccountApi.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
@@ -737,3 +737,4 @@ Authentication schemes defined for the API:
 ### bearerAuth
 
 - **Type**: Bearer authentication (Bearer)
+
