@@ -30,7 +30,7 @@ jobs:
         run: |
           versions=$(awk 'NF { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); printf "%s\"%s\"", sep, $0; sep="," } END { print "" }' COMPATIBLE_KESTRA_VERSION.properties)
           echo "versions=[${versions}]" >> "$GITHUB_OUTPUT"
-  build:
+  test:
     runs-on: ubuntu-latest
     env:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
@@ -65,4 +65,4 @@ jobs:
           KESTRA_VERSION: ${{ matrix.kestra_version }}
         run: |
           echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh
+          sh run-tests.sh $KESTRA_VERSION

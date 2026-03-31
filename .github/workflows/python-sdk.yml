@@ -76,7 +76,7 @@ jobs:
           KESTRA_VERSION: ${{ matrix.kestra_version }}
         run: |
           echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh
+          sh run-tests.sh $KESTRA_VERSION
 
   publish:
     name: Publish to Pip
