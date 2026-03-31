@@ -24,15 +24,32 @@ on:
       - 'v*.*.*-java'
 
 jobs:
-  check:
-    name: Check & Publish Java SDK
+  list-compatible-kestra-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.list_versions.outputs.versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build matrix from compatible versions
+        id: list_versions
+        run: |
+          versions=$(awk 'NF { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); printf "%s\"%s\"", sep, $0; sep="," } END { print "" }' COMPATIBLE_KESTRA_VERSION.properties)
+          echo "versions=[${versions}]" >> "$GITHUB_OUTPUT"
+
+  test:
+    name: Test Java SDK
     runs-on: ubuntu-latest
     env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
         working-directory: ./java/java-sdk
+    needs: list-compatible-kestra-versions
+    strategy:
+      fail-fast: false
+      matrix:
+        kestra_version: ${{ fromJSON(needs.list-compatible-kestra-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -72,6 +89,8 @@ jobs:
 
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        env:
+          KESTRA_VERSION: ${{ matrix.kestra_version }}
         run: |
           echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh
@@ -80,7 +99,7 @@ jobs:
         uses: dorny/test-reporter@v2
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         with:
-          name: Java Tests Report
+          name: Java Tests Report (${{ matrix.kestra_version }})
           reporter: java-junit
           path: '**/build/test-results/test/TEST-*.xml'
           list-suites: 'all'
@@ -88,45 +107,43 @@ jobs:
           fail-on-error: 'false'
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Allure check
-      - name: Auth to Google Cloud
-        id: auth
-        if: ${{ always() && env.GOOGLE_SERVICE_ACCOUNT != 0 }}
-        uses: 'google-github-actions/auth@v2'
+  publish:
+    name: Publish Java SDK
+    runs-on: ubuntu-latest
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+    defaults:
+      run:
+        working-directory: ./java/java-sdk
+    steps:
+      - uses: actions/checkout@v5
+
+      # Caches
+      - name: Gradle cache
+        uses: actions/cache@v4
         with:
-          credentials_json: '${{ secrets.GOOGLE_SERVICE_ACCOUNT }}'
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle*.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-      - uses: rlespinasse/github-slug-action@v5
-
-      - name: Publish allure report
-        uses: andrcuns/allure-publish-action@v2.8.0
-        if: ${{ always() && env.GOOGLE_SERVICE_ACCOUNT != 0 && (github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '') }}
-        env:
-          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JAVA_HOME: /usr/lib/jvm/default-jvm/
+      # JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v5
         with:
-          storageType: gcs
-          resultsGlob: build/allure-results
-          bucket: internal-kestra-host
-          baseUrl: "https://internal.kestra.io"
-          prefix: ${{ format('{0}/{1}', github.repository, 'allure/java') }}
-          copyLatest: true
-          ignoreMissingResults: true
+          distribution: 'temurin'
+          java-version: 21
 
-      # Jacoco
-      - name: 'Set up Cloud SDK'
-        if: ${{ env.GOOGLE_SERVICE_ACCOUNT != 0 }}
-        uses: 'google-github-actions/setup-gcloud@v2'
-
-      # Disabled as no tests are run yet
-#      - name: 'Copy jacoco files'
-#        if: ${{ env.GOOGLE_SERVICE_ACCOUNT != 0 }}
-#        run: |
-#          gsutil -m rsync -d -r  build/reports/jacoco/test/ gs://internal-kestra-host/${{ format('{0}/{1}', github.repository, 'jacoco') }}
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
 
       # Publish
       - name: Publish - Release package to Maven Central
-        if: startsWith(github.ref, 'refs/tags/v')
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USER }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
@@ -137,15 +154,13 @@ jobs:
           mkdir -p ~/.gradle/
           echo "signing.keyId=${SONATYPE_GPG_KEYID}" > ~/.gradle/gradle.properties
           echo "signing.password=${SONATYPE_GPG_PASSWORD}" >> ~/.gradle/gradle.properties
-          echo "signing.secretKeyRingFile=${HOME}/.gradle/secring.gpg" >> ~/.gradle/gradle.properties
+          echo "signing.secretKeyRingFile=${HOME}/.gradle/secring.gpg" >> ~/.gradle/secring.gpg
           echo ${SONATYPE_GPG_FILE} | base64 -d > ~/.gradle/secring.gpg
           ./gradlew publishToMavenCentral
-
 
       # GitHub Release
       - name: Create GitHub release
         uses: "marvinpinto/action-automatic-releases@latest"
-        if: startsWith(github.ref, 'refs/tags/v')
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
@@ -158,7 +173,7 @@ jobs:
         if: ${{ always() && env.SLACK_WEBHOOK_URL != 0 }}
         with:
           status: ${{ job.status }}
-          job_name: Check & Publish
+          job_name: Publish
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           username: GitHub Actions
           icon_emoji: ':github-actions:'
