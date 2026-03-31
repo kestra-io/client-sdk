@@ -11,6 +11,8 @@ on:
         required: true
       KESTRA_EE_UNIT_TEST_LICENSE_FILE:
         required: false
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE:
+        required: false
   workflow_dispatch:
     inputs:
       skip-test:
