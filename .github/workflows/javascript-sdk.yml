@@ -83,7 +83,7 @@ jobs:
       - name: Test with vitest
         if: inputs.skip-test != 'true'
         run: |
-          echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
+          echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh
 
       # Trusted publishing need npm 11.+
