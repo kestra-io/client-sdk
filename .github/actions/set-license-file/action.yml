@@ -1,0 +1,41 @@
+name: Select License File Based on Version
+description: Selects the appropriate Kestra EE license file based on the version
+
+inputs:
+  kestra_version:
+    description: The Kestra version to check
+    required: true
+  license_file:
+    description: The current license file secret
+    required: true
+  license_legacy_file:
+    description: The legacy license file secret for versions < v1.2
+    required: true
+  output_path:
+    description: Path where to write the decoded license file
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Select and decode license file
+      shell: bash
+      env:
+        KESTRA_VERSION: ${{ inputs.kestra_version }}
+        LICENSE_FILE: ${{ inputs.license_file }}
+        LICENSE_LEGACY_FILE: ${{ inputs.license_legacy_file }}
+      run: |
+        # Determine which license to use based on version
+        if [[ "$KESTRA_VERSION" =~ ^v([0-9]+)\.([0-9]+) ]]; then
+          MAJOR="${BASH_REMATCH[1]}"
+          MINOR="${BASH_REMATCH[2]}"
+          if [[ $MAJOR -lt 1 ]] || ([[ $MAJOR -eq 1 ]] && [[ $MINOR -lt 2 ]]); then
+            LICENSE="$LICENSE_LEGACY_FILE"
+          else
+            LICENSE="$LICENSE_FILE"
+          fi
+        else
+          LICENSE="$LICENSE_FILE"
+        fi
+
+        echo "$LICENSE" | base64 -d > ${{ inputs.output_path }}

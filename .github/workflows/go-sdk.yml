@@ -18,18 +18,9 @@ on:
         default: "false"
 
 jobs:
-  list-compatible-kestra-versions:
-    runs-on: ubuntu-latest
-    outputs:
-      versions: ${{ steps.list_versions.outputs.versions }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build matrix from compatible versions
-        id: list_versions
-        run: |
-          versions=$(awk 'NF { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); printf "%s\"%s\"", sep, $0; sep="," } END { print "" }' COMPATIBLE_KESTRA_VERSION.properties)
-          echo "versions=[${versions}]" >> "$GITHUB_OUTPUT"
+  list-versions:
+    uses: ./.github/workflows/list-versions.yml
+
   test:
     runs-on: ubuntu-latest
     env:
@@ -37,11 +28,11 @@ jobs:
     defaults:
       run:
         working-directory: ./go-sdk
-    needs: list-compatible-kestra-versions
+    needs: list-versions
     strategy:
       fail-fast: false
       matrix:
-        kestra_version: ${{ fromJSON(needs.list-compatible-kestra-versions.outputs.versions) }}
+        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -59,10 +50,16 @@ jobs:
       - name: configure docker access to GCP registry for EE image
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
+      - name: Set license file based on version
+        uses: ./.github/actions/set-license-file
+        with:
+          kestra_version: ${{ matrix.kestra_version }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+          output_path: ../test-utils/docker-setup/application-secrets.yml
+
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         env:
           KESTRA_VERSION: ${{ matrix.kestra_version }}
-        run: |
-          echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh $KESTRA_VERSION
+        run: sh run-tests.sh $KESTRA_VERSION
