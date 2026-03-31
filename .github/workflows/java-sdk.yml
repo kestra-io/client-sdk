@@ -9,11 +9,7 @@ on:
         required: true
       GCP_SERVICE_ACCOUNT:
         required: true
-      KESTRA_EE_LICENSE_ID:
-        required: false
-      KESTRA_EE_LICENSE_KEY:
-        required: false
-      KESTRA_EE_LICENSE_FINGERPRINT:
+      KESTRA_EE_UNIT_TEST_LICENSE_FILE:
         required: false
   workflow_dispatch:
     inputs:
@@ -77,15 +73,7 @@ jobs:
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         run: |
-          {
-            printf "kestra.ee.license.id: ";
-            echo "${{ secrets.KESTRA_EE_LICENSE_ID }}" | base64 -d;
-            printf "\nkestra.ee.license.key: ";
-            echo "${{ secrets.KESTRA_EE_LICENSE_KEY }}" | base64 -d;
-            printf "\nkestra.ee.license.fingerprint: ";
-            echo "${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}" | base64 -d;
-            printf "\n";
-          } > ../../test-utils/docker-setup/application-secrets.yml
+          echo "${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh
 
       - name: Test - Publish Test Results
