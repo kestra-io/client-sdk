@@ -10,9 +10,9 @@ on:
       GCP_SERVICE_ACCOUNT:
         required: true
       KESTRA_EE_UNIT_TEST_LICENSE_FILE:
-        required: false
+        required: true
       KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE:
-        required: false
+        required: true
   workflow_dispatch:
     inputs:
       skip-test:
