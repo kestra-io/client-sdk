@@ -50,6 +50,7 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
   java:
     if: "needs.file-changes.outputs.java == 'true'"
@@ -60,6 +61,7 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
   javascript:
     if: "needs.file-changes.outputs.javascript == 'true'"
     needs: file-changes
@@ -67,6 +69,7 @@ jobs:
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   python:
     if: "needs.file-changes.outputs.python == 'true'"
@@ -75,4 +78,5 @@ jobs:
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
