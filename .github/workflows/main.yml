@@ -49,9 +49,8 @@ jobs:
     secrets:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
-      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
-      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
+      KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
   java:
     if: "needs.file-changes.outputs.java == 'true'"
@@ -61,18 +60,16 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
-      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
-      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
+      KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
   javascript:
     if: "needs.file-changes.outputs.javascript == 'true'"
     needs: file-changes
     uses: ./.github/workflows/javascript-sdk.yml
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
-      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
-      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
+      KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   python:
     if: "needs.file-changes.outputs.python == 'true'"
@@ -80,7 +77,6 @@ jobs:
     uses: ./.github/workflows/python-sdk.yml
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      KESTRA_EE_LICENSE_ID: ${{ secrets.KESTRA_EE_LICENSE_ID }}
-      KESTRA_EE_LICENSE_KEY: ${{ secrets.KESTRA_EE_LICENSE_KEY }}
-      KESTRA_EE_LICENSE_FINGERPRINT: ${{ secrets.KESTRA_EE_LICENSE_FINGERPRINT }}
+      KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
