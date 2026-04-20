@@ -2,9 +2,9 @@
   "name": "kestra-client-javascript",
   "private": true,
   "scripts": {
-    "build": "cd javascript-sdk && npm run build",
-    "test": "cd test && npm run test",
-    "test:typecheck": "cd test && npm run typecheck"
+    "build": "npm run build -w javascript-sdk",
+    "test": "npm run test -w test",
+    "test:typecheck": "npm run typecheck -w test"
   },
   "workspaces": [
     "javascript-sdk",

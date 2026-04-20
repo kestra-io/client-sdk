@@ -1,22 +1,19 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["es2023", "dom"],
+    "lib": ["es2023"],
     "moduleDetection": "force",
     "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "types": ["node"],
     "strict": true,
     "noUnusedLocals": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "composite": true
   },
-  "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["tsdown.config.ts", "openapi-ts.config.ts", "heyapi-sdk-plugin/**/*.ts"]
 }

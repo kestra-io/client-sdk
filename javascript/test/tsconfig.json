@@ -5,10 +5,11 @@
     // normally they are ignored as source files
     "allowJs": true,
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "target": "ES2020",
-    "module": "ES2020",
+    "module": "node16",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "types": ["node"]
   }
 }
