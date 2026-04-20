@@ -7,7 +7,7 @@ describe('ServiceAccountApi', () => {
     it('create_service_account', async () => {
         const name = randomIdWith('test-create-service-account');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({
+        const created = await kestraClient().ServiceAccount.createServiceAccount({
             name,
             description: 'service account created by tests',
         });
@@ -18,7 +18,7 @@ describe('ServiceAccountApi', () => {
     it('create_service_account_for_tenant', async () => {
         const name = randomIdWith('test-create-service-account-for-main');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccountForTenant(MAIN_TENANT, {
+        const created = await kestraClient().ServiceAccount.createServiceAccountForTenant({
             name,
             description: 'service account for MAIN_TENANT',
         });
@@ -29,25 +29,25 @@ describe('ServiceAccountApi', () => {
     it('delete_service_account', async () => {
         const name = randomIdWith('test-delete-service-account');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name });
-        await kestraClient().serviceAccountApi.deleteServiceAccount(created.id);
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name });
+        await kestraClient().ServiceAccount.deleteServiceAccount(created.id);
 
         // Optional: ensure it is gone (if API returns 404)
-        // await expect(kestraClient().serviceAccountApi.getServiceAccount(created.id)).rejects.toBeDefined();
+        // await expect(kestraClient().ServiceAccount.getServiceAccount(created.id)).rejects.toBeDefined();
     });
 
     it('delete_service_account_for_tenant', async () => {
         const name = randomIdWith('test-delete-service-account-for-main');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccountForTenant(MAIN_TENANT, { name });
-        await kestraClient().serviceAccountApi.deleteServiceAccountForTenant(created.id, MAIN_TENANT);
+        const created = await kestraClient().ServiceAccount.createServiceAccountForTenant({ name });
+        await kestraClient().ServiceAccount.deleteServiceAccountForTenant(created.id,);
     });
 
     it('get_service_account', async () => {
         const name = randomIdWith('test-get-service-account');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name });
-        const fetched = await kestraClient().serviceAccountApi.serviceAccount(created.id);
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name });
+        const fetched = await kestraClient().ServiceAccount.serviceAccount(created.id);
 
         expect(fetched?.id).toBe(created.id);
     });
@@ -55,18 +55,18 @@ describe('ServiceAccountApi', () => {
     it('get_service_account_for_tenant', async () => {
         const name = randomIdWith('test-get-service-account-for-main');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccountForTenant(MAIN_TENANT, { name });
-        const fetched = await kestraClient().serviceAccountApi.serviceAccountForTenant(created.id, MAIN_TENANT);
+        const created = await kestraClient().ServiceAccount.createServiceAccountForTenant({ name });
+        const fetched = await kestraClient().ServiceAccount.serviceAccountForTenant(created.id);
 
         expect(fetched?.id).toBe(created.id);
     });
 
     it('list_service_accounts (superadmin only)', async () => {
         const name = randomIdWith('test-list-service-accounts');
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name });
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name });
 
         // Many SDKs use {page, size}; some use {page: 1, size: 50}, others 0-based.
-        const results = await kestraClient().serviceAccountApi.listServiceAccounts(1, 10000);
+        const results = await kestraClient().ServiceAccount.listServiceAccounts(1, 10000);
 
         // tolerate different result shapes: {results: []} or direct array
         const items = Array.isArray(results) ? results : results?.results ?? [];
@@ -78,8 +78,8 @@ describe('ServiceAccountApi', () => {
     it('patch_service_account_details', async () => {
         const name = randomIdWith('test-patch-service-account-details');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name, description: 'old' });
-        const patched = await kestraClient().serviceAccountApi.patchServiceAccountDetails(created.id, {
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name, description: 'old' });
+        const patched = await kestraClient().ServiceAccount.patchServiceAccountDetails(created.id, {
             name,
             description: 'new',
         });
@@ -91,12 +91,12 @@ describe('ServiceAccountApi', () => {
     it('patch_service_account_super_admin', async () => {
         const name = randomIdWith('test-patch-service-account-super-admin');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name });
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name });
 
         // In Python you had a small typo in the method name; fixed here.
-        await kestraClient().serviceAccountApi.patchServiceAccountSuperAdmin(created.id, { superAdmin: true });
+        await kestraClient().ServiceAccount.patchServiceAccountSuperAdmin(created.id, { superAdmin: true });
 
-        const fetched = await kestraClient().serviceAccountApi.serviceAccount(created.id);
+        const fetched = await kestraClient().ServiceAccount.serviceAccount(created.id);
         // Depending on the SDK, the property could be super_admin or superAdmin
         expect(fetched.superAdmin).toBe(true);
     });
@@ -104,10 +104,10 @@ describe('ServiceAccountApi', () => {
     it('update_service_account', async () => {
         const name = randomIdWith('test-update-service-account');
 
-        const created = await kestraClient().serviceAccountApi.createServiceAccount({ name, description: 'Before' });
+        const created = await kestraClient().ServiceAccount.createServiceAccount({ name, description: 'Before' });
 
         // Some SDKs require the "MAIN_TENANT" argument in update; keeping parity with Python.
-        const updated = await kestraClient().serviceAccountApi.updateServiceAccount(created.id, MAIN_TENANT, {
+        const updated = await kestraClient().ServiceAccount.updateServiceAccount(created.id, {
             name: created.name ?? name,
             description: 'After',
         });

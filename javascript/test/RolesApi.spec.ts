@@ -1,9 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import ApiAutocomplete from "../javascript-sdk/src/model/ApiAutocomplete";
-import IAMRoleControllerApiRoleCreateOrUpdateRequest from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequest";
-import ApiIds from "../javascript-sdk/src/model/ApiIds";
-import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
-    from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 
 describe('RolesApi', () => {
@@ -13,21 +8,19 @@ describe('RolesApi', () => {
         const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
         perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, `${prefix}_complete_roles`);
+        const roleReq = new IamRoleControllerApiRoleCreateOrUpdateRequest(perms, `${prefix}_complete_roles`);
         roleReq.description = 'An example role';
 
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
+        const created = await kestraClient().Roles.createRole({
+            iamRoleControllerApiRoleCreateOrUpdateRequest: roleReq,
+        });
 
-        const auto = new ApiAutocomplete();
+        const auto = await kestraClient()
         auto.q = prefix;
 
-        const results = await kestraClient().rolesApi.autocompleteRoles(
-            MAIN_TENANT,
-            auto,
-        );
+        const results = await kestraClient().Roles.autocompleteRoles({
+            apiAutocomplete: auto,
+        });
 
         expect(
             results.some(
