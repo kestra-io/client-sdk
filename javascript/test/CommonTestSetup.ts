@@ -1,4 +1,3 @@
-// @ts-check
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as Ai from "@kestra-io/kestra-sdk/ai";
 import * as Apps from "@kestra-io/kestra-sdk/apps";
@@ -99,12 +98,7 @@ export function randomId() {
     return Math.random().toString(36).substring(2, 10);
 }
 
-/**
- *
- * @param {string} str
- * @returns
- */
-export function randomIdWith(str) {
+export function randomIdWith(str: string) {
     return Math.random().toString(36).substring(2, 10) + str;
 }
 
@@ -114,12 +108,7 @@ export function randomEmail() {
 
 export const TEST_DATA_PATH = "../../test-utils";
 
-/**
- *
- * @param {string} filePath
- * @returns
- */
-export function get(filePath) {
+export function get(filePath: string) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
         : path.resolve(process.cwd(), filePath);
