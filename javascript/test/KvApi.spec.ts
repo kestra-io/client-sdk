@@ -1,7 +1,6 @@
-// @ts-check
 // testApis/test_kv_api_typed.test.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 const CHILD_NAMESPACE = 'test.namespace';
 const PARENT_NAMESPACE = 'test';

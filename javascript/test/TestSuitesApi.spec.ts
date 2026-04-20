@@ -1,8 +1,7 @@
-// @ts-check
 // TestSuitesApi.spec.js
 
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -78,9 +77,9 @@ outputs:
 
 function getTestSuiteYaml(template, testSuiteId, namespace, flowId) {
     return template
-    .replace('%testSuiteId%', testSuiteId)
-    .replace('%namespace%', namespace)
-    .replace('%flowId%', flowId);
+        .replace('%testSuiteId%', testSuiteId)
+        .replace('%namespace%', namespace)
+        .replace('%flowId%', flowId);
 }
 
 async function createSimpleFlow(flowId, namespace) {
@@ -191,8 +190,8 @@ describe('TestSuitesApiTest', () => {
         await assertTestSuiteExists(created);
 
         yaml = yaml
-        .replace('assert flow is returning the input value as output', 'updated testsuite description')
-        .replace('test_case_1 description', 'updated testcase description');
+            .replace('assert flow is returning the input value as output', 'updated testsuite description')
+            .replace('test_case_1 description', 'updated testcase description');
 
         await kestraClient().testSuitesApi.updateTestSuite(namespace, testSuiteId, MAIN_TENANT, yaml);
         const fetched = await kestraClient().testSuitesApi.testSuite(namespace, testSuiteId, MAIN_TENANT);
@@ -233,9 +232,9 @@ describe('TestSuitesApiTest', () => {
         const constraints = Array.isArray(constraintsRaw)
             ? constraintsRaw
             : String(constraintsRaw)
-            .split(/\r?\n/)
-            .map(s => s.trim())
-            .filter(Boolean);
+                .split(/\r?\n/)
+                .map(s => s.trim())
+                .filter(Boolean);
 
         // Assert only that these messages are present (order/extra lines ignored)
         expect(constraints).toEqual(
@@ -385,7 +384,7 @@ describe('TestSuitesApiTest', () => {
         {
             const flowIdToSearch = flowAAA.id;
             const res = await kestraClient().testSuitesApi.searchTestSuites(
-                page, size, includeChildNamespaces, MAIN_TENANT, {sort:sort, flowId:flowIdToSearch}
+                page, size, includeChildNamespaces, MAIN_TENANT, { sort: sort, flowId: flowIdToSearch }
             );
             const gotIds = (res?.results ?? []).map((r) => r.id).sort();
             expect(gotIds).toEqual([ts1.id, ts2.id].sort());
@@ -395,7 +394,7 @@ describe('TestSuitesApiTest', () => {
         {
             const namespaceToSearch = namespaceYYY;
             const res = await kestraClient().testSuitesApi.searchTestSuites(
-                page, size, includeChildNamespaces, MAIN_TENANT, {sort:sort, namespace:namespaceToSearch}
+                page, size, includeChildNamespaces, MAIN_TENANT, { sort: sort, namespace: namespaceToSearch }
             );
             const gotIds = (res?.results ?? []).map((r) => r.id).sort();
             expect(gotIds).toEqual([ts4.id].sort());
@@ -517,7 +516,7 @@ describe('TestSuitesApiTest', () => {
         // by testSuiteId
         {
             const res = await kestraClient().testSuitesApi.searchTestSuitesResults(
-                page, size, MAIN_TENANT, {sort:sort, testSuiteId:ts1.id}
+                page, size, MAIN_TENANT, { sort: sort, testSuiteId: ts1.id }
             );
             const results = res?.results ?? [];
             expect(results.every((r) => r.testSuiteId === ts1.id)).toBe(true);
@@ -527,7 +526,7 @@ describe('TestSuitesApiTest', () => {
         // by flowId
         {
             const res = await kestraClient().testSuitesApi.searchTestSuitesResults(
-                page, size, MAIN_TENANT, {sort:sort, flowId:flowAAA.id}
+                page, size, MAIN_TENANT, { sort: sort, flowId: flowAAA.id }
             );
             const results = res?.results ?? [];
             expect(results.every((r) => r.flowId === flowAAA.id)).toBe(true);
@@ -538,7 +537,7 @@ describe('TestSuitesApiTest', () => {
         // by namespace
         {
             const res = await kestraClient().testSuitesApi.searchTestSuitesResults(
-                page, size, MAIN_TENANT, {sort:sort, namespace:namespaceYYY}
+                page, size, MAIN_TENANT, { sort: sort, namespace: namespaceYYY }
             );
             const results = res?.results ?? [];
             expect(results.every((r) => r.namespace === namespaceYYY)).toBe(true);

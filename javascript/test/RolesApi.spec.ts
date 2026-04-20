@@ -1,11 +1,10 @@
-// @ts-check
-import {describe, expect, it} from 'vitest';
+import { describe, expect, it } from 'vitest';
 import ApiAutocomplete from "../javascript-sdk/src/model/ApiAutocomplete";
 import IAMRoleControllerApiRoleCreateOrUpdateRequest from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequest";
 import ApiIds from "../javascript-sdk/src/model/ApiIds";
 import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
     from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions";
-import {kestraClient, MAIN_TENANT, randomId} from "./CommonTestSetup";
+import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 
 describe('RolesApi', () => {
 
@@ -125,11 +124,11 @@ describe('RolesApi', () => {
             1,
             10000,
             MAIN_TENANT,
-            {q: name},
+            { q: name },
         );
 
         // search typically returns { results, total, ... }
-        expect(results.results.map(x=>x.id)).toContain(created.id)
+        expect(results.results.map(x => x.id)).toContain(created.id)
     });
 
     it('update_role — updates a role', async () => {

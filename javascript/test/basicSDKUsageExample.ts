@@ -1,4 +1,3 @@
-// @ts-check
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
 

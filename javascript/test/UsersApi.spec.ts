@@ -1,27 +1,28 @@
-// @ts-check
 // testApis/test_users_api.test.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 describe('UsersApi', () => {
     it('autocomplete_users: List users for autocomplete', async () => {
         const email = `test_autocomplete_users_${randomId()}@kestra.io`;
 
         // create user
-        const createdUser = await kestraClient().usersApi.createUser({
-            email,
+        const createdUser = await kestraClient().Users.createUser({
+            iamUserControllerApiCreateOrUpdateUserRequest: {
+                email,
+            }
         });
 
         // create group to grant tenant access, then add user to group
-        const group = await kestraClient().groupsApi.createGroup(MAIN_TENANT, {
+        const group = await kestraClient().Groups.createGroup({
             name: `test_add_user_to_group_${randomId()}`,
             description: 'An example group',
         });
 
-        await kestraClient().groupsApi.addUserToGroup(group.id, createdUser.id, MAIN_TENANT);
+        await kestraClient().Groups.addUserToGroup(group.id, createdUser.id, MAIN_TENANT);
 
         // autocomplete by email
-        const results = await kestraClient().usersApi.autocompleteUsers(MAIN_TENANT, { q: email });
+        const results = await kestraClient().Users.autocompleteUsers({ q: email });
 
         // results is usually an array of tenant-access summaries
         expect(results.some(r => r.username === email)).toBeTruthy();
@@ -92,7 +93,7 @@ describe('UsersApi', () => {
         await kestraClient().usersApi.deleteUser(user.id);
 
         await expect(kestraClient().usersApi.user?.(user.id))
-        .rejects.toThrow();
+            .rejects.toThrow();
     });
 
     it('delete_user_auth_method: Remove a user auth method', async () => {

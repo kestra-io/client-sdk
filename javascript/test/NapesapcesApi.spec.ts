@@ -1,7 +1,6 @@
-// @ts-check
 // testApis/NamespacesApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 describe('NamespacesApi', () => {
     it('autocomplete_namespaces: List namespaces for autocomplete', async () => {
@@ -106,7 +105,7 @@ describe('NamespacesApi', () => {
         await kestraClient().namespacesApi.putSecrets(ns.id, MAIN_TENANT, { key, value: 'secretValue' });
 
         // Patch metadata (depends what your API supports; we at least pass the key)
-        const meta = { key: key, tags: []};
+        const meta = { key: key, tags: [] };
         const metas =
             await kestraClient().namespacesApi.patchSecret(ns.id, key, MAIN_TENANT, meta);
 
@@ -131,7 +130,7 @@ describe('NamespacesApi', () => {
         const ns = await kestraClient().namespacesApi.createNamespace(MAIN_TENANT, { id: nsId, deleted: false });
 
         // Java sig was (page, size, existing, tenant, q, sort)
-        const page = await kestraClient().namespacesApi.searchNamespaces(1, 10, false, MAIN_TENANT, {q: nsId});
+        const page = await kestraClient().namespacesApi.searchNamespaces(1, 10, false, MAIN_TENANT, { q: nsId });
         const results = page?.results ?? [];
 
         expect(results.some(r => r.id === ns.id)).toBeTruthy();

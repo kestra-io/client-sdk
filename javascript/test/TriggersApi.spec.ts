@@ -1,9 +1,8 @@
-// @ts-check
 // TriggersApi.spec.js
 /* eslint-disable jest/no-standalone-expect */
 
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 // --- helpers ---------------------------------------------------------------
 
@@ -112,7 +111,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().triggersApi.deleteBackfillByQuery(MAIN_TENANT, {filters:[{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId }]});
+        const resp = await kestraClient().triggersApi.deleteBackfillByQuery(MAIN_TENANT, { filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId }] });
         expect(resp).toBeTruthy();
     });
 
@@ -137,7 +136,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const resp = await kestraClient().triggersApi.disabledTriggersByQuery(true, MAIN_TENANT, {
-            filters:[{
+            filters: [{
                 field: 'TRIGGER_ID',
                 operation: 'CONTAINS',
                 value: flowId
@@ -181,7 +180,7 @@ describe('TriggersApiTest', () => {
 
         const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
         const resp = await kestraClient().triggersApi.pauseBackfillByQuery(MAIN_TENANT, {
-            filters:[{
+            filters: [{
                 field: 'TRIGGER_ID',
                 operation: 'CONTAINS',
                 value: flowId
@@ -208,7 +207,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const page = await kestraClient().triggersApi.searchTriggers(1, 10, MAIN_TENANT, {
-            filters:[{
+            filters: [{
                 field: 'NAMESPACE',
                 operation: 'EQUALS',
                 value: namespace

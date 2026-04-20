@@ -1,7 +1,6 @@
-// @ts-check
 // testApis/GroupsApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
 
 describe('GroupsApi', () => {
     it('add_user_to_group: Add a user to a group', async () => {
@@ -119,8 +118,8 @@ describe('GroupsApi', () => {
         // signature: (groupId, page, size, tenant, q, sort)
         const page = await kestraClient().groupsApi.searchGroupMembers(
             group.id, 1, 10, MAIN_TENANT, {
-                q: user.email
-            }
+            q: user.email
+        }
         );
 
         const results = page?.results ?? [];
@@ -134,7 +133,7 @@ describe('GroupsApi', () => {
             description: 'An example group',
         });
 
-        const resultsPage = await kestraClient().groupsApi.searchGroups(1, 10, MAIN_TENANT, {q: name});
+        const resultsPage = await kestraClient().groupsApi.searchGroups(1, 10, MAIN_TENANT, { q: name });
         const results = resultsPage?.results ?? [];
 
         expect(results.some(r => r.id === created.id)).toBeTruthy();

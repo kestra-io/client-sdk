@@ -1,4 +1,5 @@
 import { client } from "@kestra-io/kestra-sdk/client";
+import { setSelectedTenant } from "@kestra-io/kestra-sdk/shared";
 import * as Ai from "@kestra-io/kestra-sdk/ai";
 import * as Apps from "@kestra-io/kestra-sdk/apps";
 import * as AuditLogs from "@kestra-io/kestra-sdk/audit-logs";
@@ -53,6 +54,8 @@ export function kestraClient() {
                 Buffer.from(username + ":" + password).toString("base64"),
         },
     });
+
+    setSelectedTenant(MAIN_TENANT);
 
     return {
         Ai,

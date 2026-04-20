@@ -1,4 +1,3 @@
-// @ts-check
 // ExecutionsApi.spec.js
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
@@ -1352,6 +1351,6 @@ tasks:
     message: Good Bye! 👋
 `;
 
-    it.skip("follow_execution (SSE/WebSocket required)", async () => {});
-    it.skip("follow_dependencies_execution (SSE/WebSocket required)", async () => {});
+    it.skip("follow_execution (SSE/WebSocket required)", async () => { });
+    it.skip("follow_dependencies_execution (SSE/WebSocket required)", async () => { });
 });

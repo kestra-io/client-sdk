@@ -1,11 +1,10 @@
-// @ts-check
 // FlowsApi.spec.js
 import {
     MAIN_TENANT,
     kestraClient,
     getSimpleFlow,
     getCompleteFlow
-} from './CommonTestSetup';
+} from './CommonTestSetup.js';
 import { describe, it, expect } from 'vitest';
 
 // ----- Helpers (mirror Java helpers) -----
@@ -52,7 +51,7 @@ describe('FlowsApi', () => {
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
         // Java: bulkUpdateFlows(false, false, MAIN_TENANT, namespace, body)
-        const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, {namespace: namespace, body:updatedBody});
+        const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, { namespace: namespace, body: updatedBody });
 
         // resp is a list; check first description updated
         const first = resp[0];
@@ -96,9 +95,11 @@ describe('FlowsApi', () => {
     it('delete_flows_by_query', async () => {
         const flow = await createSimpleFlow();
 
-        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {filters:[
-            { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }
-        ]});
+        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {
+            filters: [
+                { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }
+            ]
+        });
 
         await assertFlowDoesNotExist(flow);
     });
@@ -170,7 +171,7 @@ describe('FlowsApi', () => {
 
         const revision = null;
         const subflows = null;
-        await kestraClient().flowsApi.generateFlowGraph(namespace, id, MAIN_TENANT, {revision, subflows});
+        await kestraClient().flowsApi.generateFlowGraph(namespace, id, MAIN_TENANT, { revision, subflows });
     });
 
     // Generate a graph for a flow source
@@ -270,7 +271,7 @@ describe('FlowsApi', () => {
         const q = flow.id;
         const namespace = flow.namespace;
 
-        const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(page, size, MAIN_TENANT, {sort, q, namespace});
+        const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(page, size, MAIN_TENANT, { sort, q, namespace });
         const ids = (resp?.results ?? []).map(x => x?.model?.id);
         expect(ids).toContain(flow.id);
     });
