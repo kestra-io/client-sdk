@@ -1,2 +1,2 @@
-export {defineKestraHeyConfig} from "./config";
-export type {KestraSdkPlugin} from "./types";
+export { defineConfigKestraHeyOptionalTenant } from "./config";
+export type { KestraSdkPlugin } from "./types";

@@ -1,7 +1,7 @@
 import type { UserConfig } from "@hey-api/openapi-ts";
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { defineKestraHeyConfig } from "./heyapi-sdk-plugin";
+import { defineConfigKestraHeyOptionalTenant } from "./heyapi-sdk-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +34,6 @@ export default {
                 },
             }
         },
-        defineKestraHeyConfig()
+        defineConfigKestraHeyOptionalTenant()
     ],
 } satisfies UserConfig
