@@ -1,7 +1,7 @@
 // ExecutionsApi.spec.ts
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
-import type { Execution, Flow, FlowWithSource, QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
+import type { QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -81,14 +81,18 @@ triggers:
 // ---------- helpers ----------
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
+function getDataOrThrow<T>(resp: { data?: T }, message?: string): T {
+    if (!resp.data) throw new Error(message ?? "Data not found");
+    return resp.data;
+}
+
 async function createFlow(flowYaml: string) {
-    const created = await kestraClient().Flows.createFlow({
+    const flow = getDataOrThrow(await kestraClient().Flows.createFlow({
         tenant: MAIN_TENANT,
         body: flowYaml,
-    });
+    }), "Failed to create flow");
     await sleep(200);
-    if (!created.data) throw new Error("Failed to create flow");
-    return created.data;
+    return flow;
 }
 
 async function createSimpleFlow(flowId: string, ns: string, tmpl: (id: string, ns: string) => string = LOG_FLOW) {
@@ -97,26 +101,22 @@ async function createSimpleFlow(flowId: string, ns: string, tmpl: (id: string, n
 
 async function createFlowWithExecution(flowId: string, ns: string) {
     await createSimpleFlow(flowId, ns);
-    const { data: resp } = await kestraClient().Executions.createExecution({
+    return getDataOrThrow(await kestraClient().Executions.createExecution({
         namespace: ns,
         id: flowId,
         wait: false,
         tenant: MAIN_TENANT,
-    })
-    if (!resp) throw new Error("Failed to create execution");
-    return resp
+    }), "Failed to create execution");
 }
 
 async function createFlowWithExecutionFromYaml(flowYaml: string) {
     const f = await createFlow(flowYaml);
-    const { data: resp } = await kestraClient().Executions.createExecution({
+    return getDataOrThrow(await kestraClient().Executions.createExecution({
         namespace: f.namespace,
         id: f.id,
         wait: false,
         tenant: MAIN_TENANT,
-    })
-    if (!resp) throw new Error("Failed to create execution with Yaml");
-    return resp;
+    }), "Failed to create execution with Yaml");
 }
 
 async function awaitExecution(
@@ -128,14 +128,14 @@ async function awaitExecution(
     const start = Date.now();
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        const { data: last } = await kestraClient().Executions.execution({
+        const last = getDataOrThrow(await kestraClient().Executions.execution({
             executionId,
             tenant: MAIN_TENANT,
-        });
-        if (last?.state?.current === desiredState) return last;
+        }), "Failed to fetch execution while awaiting execution");
+        if (last.state.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
             if (!last) throw new Error("Execution not found within timeout");
-            return last
+            return last;
         };
         await sleep(pollMs);
     }
@@ -159,12 +159,6 @@ const QF_OP: Record<string, QueryFilterOp> = {
     EQUALS: "EQUALS",
     IN: "IN",
 };
-
-function getDataOrThrow<T>(resp: { data?: T }, message?: string): T {
-    if (!resp.data) throw new Error(message ?? "Data not found");
-    return resp.data;
-}
-
 
 // ---------- tests ----------
 describe("ExecutionsApi", () => {
@@ -773,7 +767,7 @@ describe("ExecutionsApi", () => {
         const e2 = await createdExecution(FAILED_FLOW, "FAILED");
         const bulk = getDataOrThrow(await kestraClient().Executions.restartExecutionsByIds(
             { body: [e1.id, e2.id] },
-        );
+        ));
         expect(bulk.count).toBe(2);
     });
 
@@ -797,7 +791,10 @@ describe("ExecutionsApi", () => {
     // --- resume execution (single) ---
     it("resume_execution", async () => {
         const e = await createdExecution(PAUSE_FLOW, "PAUSED");
-        await kestraClient().Executions.resumeExecution(e.id, MAIN_TENANT);
+        await kestraClient().Executions.resumeExecution({
+            executionId: e.id,
+            body: [],
+        });
         const done = await awaitExecution(e.id, "SUCCESS", 2000, 100);
         expect(done.state.current).toBe("SUCCESS");
     });
