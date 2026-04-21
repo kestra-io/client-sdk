@@ -27,7 +27,9 @@ export default defineConfig({
         // which resolves axios to index.d.ts (ESM, named exports) instead of
         // index.d.cts (CJS, export = axios), avoiding IMPORT_IS_UNDEFINED warnings.
         resolver: "tsc",
+        sourcemap: true,
     },
+    sourcemap: "hidden",
     exports: true,
     clean: true,
 })

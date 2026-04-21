@@ -55,17 +55,6 @@ const isEmptyBody = (data: unknown): boolean => {
     return false
 }
 
-const requestInterceptor = (config: AxiosRequestConfig) => {
-    initProgress()
-    // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
-    // the Content-Type header. Replace that empty sentinel with a real empty
-    // FormData so the server receives a well-formed empty multipart body.
-    if (String(config.headers?.["Content-Type"]).startsWith("multipart/form-data") && isEmptyBody(config.data)) {
-        config.data = new FormData()
-    }
-    return config
-}
-
 const responseInterceptor = (response: AxiosResponse): AxiosResponse => {
     increaseProgress()
     return response
@@ -116,7 +105,16 @@ const createAxios = (
         onUploadProgress: progressInterceptor
     })
 
-    instance.interceptors.request.use(requestInterceptor)
+    instance.interceptors.request.use((config) => {
+        initProgress()
+        // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
+        // the Content-Type header. Replace that empty sentinel with a real empty
+        // FormData so the server receives a well-formed empty multipart body.
+        if (String(config.headers?.["Content-Type"]).startsWith("multipart/form-data") && isEmptyBody(config.data)) {
+            config.data = new FormData()
+        }
+        return config
+    })
 
     instance.interceptors.response.use(responseInterceptor, errorResponseInterceptor)
 
@@ -306,7 +304,19 @@ const createAxios = (
         }
     })
 
-    client.setConfig({ axios: instance })
+    client.setConfig({
+        axios: instance,
+        querySerializer: {
+            array: {
+                style: "form",
+                explode: true
+            },
+            object: {
+                style: "deepObject",
+                explode: true
+            },
+        }
+    })
 
     return instance;
 };
