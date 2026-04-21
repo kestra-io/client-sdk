@@ -24,6 +24,7 @@ export default {
     plugins: [
         {
             name: "@hey-api/client-axios",
+            throwOnError: true,
         },
         {
             name: "@hey-api/sdk",
