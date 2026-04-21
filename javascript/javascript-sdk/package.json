@@ -48,6 +48,7 @@
   },
   "scripts": {
     "build": "tsdown",
+    "dev": "openapi-ts --watch & tsdown --watch",
     "typecheck": "vue-tsc --noEmit",
     "generate:openapi": "openapi-ts",
     "postinstall": "openapi-ts",

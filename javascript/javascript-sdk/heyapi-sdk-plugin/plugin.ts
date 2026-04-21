@@ -61,14 +61,17 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     plugin.node($.const(setGlobalTenantSymbol).export().assign(setTenantFunctionNode));
 
+    const optionsId = "options";
+    const paramId = "parameters";
+
     const addTenantToParametersNode = $.func().generic("TParams")
         .params(
-            $.param("parameters").type($.type("TParams"))
+            $.param(paramId).type($.type("TParams"))
         ).returns($.type.and($.type("TParams"), $.type.object().prop("tenant", (p) => p.type("string"))))
         .do(
             $.return($.object()
                 .prop("tenant", $(globalTenantSymbol))
-                .spread($.id("parameters"))
+                .spread($.id(paramId))
             )
         )
 
@@ -91,8 +94,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     const operationsDict: Record<string, { symbol: ReturnType<typeof plugin.symbol>, methodName: string }[]> = {}
 
-    const optionsId = "options";
-    const paramId = "parameters";
+
 
     plugin.forEach(
         "operation",
@@ -131,16 +133,38 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             // Check if we should simplify the body parameter
             const bodySimplification = detectBodySimplification(operation, (filter) => plugin.querySymbol(filter as any));
 
-            if (!hasTenant) {
-                if (!bodySimplification) {
-                    // No tenant, no body simplification — re-export as-is
-                    plugin.node(
-                        $.const(funcSymbol)
-                            .assign(originalOperationSymbol)
-                            .export()
+            const isMultipart = operation.body?.mediaType === "multipart/form-data";
+
+            if (!hasTenant && !bodySimplification && !isMultipart) {
+                // No tenant, no body simplification — re-export as-is
+                plugin.node(
+                    $.const(funcSymbol)
+                        .assign(originalOperationSymbol)
+                        .export()
+                );
+                return;
+            }
+
+            if (isMultipart && !hasTenant && !bodySimplification) {
+                // Multipart but no tenant and no body simplification
+                // Re-export with body added to spread of parameters
+                // with value empty object
+                const functionNode = $.func()
+                    .params(
+                        $.param(paramId).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
+                        $.param(optionsId).required(false).type(
+                            $.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(1)
+                        )
+                    )
+                    .do(
+                        $.return(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
                     );
-                    return;
-                }
+
+                plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
+                return;
+            }
+
+            if (bodySimplification && !hasTenant) {
 
                 // No tenant, but body simplification applies
                 const { paramName, typeSymbol } = bodySimplification;
@@ -156,7 +180,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 if (!hasOtherParams) {
                     // Only body: parameters: BodyType
                     paramsType = $.type(typeSymbol);
-                    callArgs = $.object().prop(paramName, $("parameters"));
+                    callArgs = $.object().prop(paramName, $(paramId));
                 } else {
                     // Mixed: parameters: Omit<OriginalParams, 'bodyParamName'> & BodyType
                     paramsType = $.type.and(
@@ -167,7 +191,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.type(typeSymbol)
                     );
                     // { ...parameters, bodyParamName: parameters }
-                    callArgs = $.object().spread($("parameters")).prop(paramName, $("parameters"));
+                    callArgs = $.object().spread($(paramId)).prop(paramName, $(paramId));
                 }
 
                 const functionNode = $.func()
@@ -189,6 +213,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
             // Has tenant path param
             const isTenantOnlyRequiredParam = Object.values(pathParams).filter((p: any) => p.name !== "tenant" && p.required).length === 0;
+
+            const parametersArguments = isMultipart ? $.object()
+                .prop("body", $.array())
+                .spread($(paramId)) : $(paramId);
 
             if (!bodySimplification) {
                 // Tenant but no body simplification — existing behavior
@@ -212,11 +240,11 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                     .do(
                         isTenantOnlyRequiredParam ?
                             $.return(originalOperationSymbol.call(
-                                $(addTenantToParametersSymbol).call($(paramId)),
+                                $(addTenantToParametersSymbol).call(parametersArguments),
                                 optionsId,
                             ))
                             : $.return(originalOperationSymbol.call(
-                                $(addTenantToParametersSymbol).call(paramId),
+                                $(addTenantToParametersSymbol).call(parametersArguments),
                                 optionsId,
                             ))
                     );

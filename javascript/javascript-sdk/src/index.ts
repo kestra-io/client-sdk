@@ -1,7 +1,7 @@
 import axios from "axios"
-import type {AxiosRequestConfig, AxiosResponse, AxiosError, AxiosProgressEvent, AxiosInstance} from "axios"
+import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosProgressEvent, AxiosInstance } from "axios"
 import NProgress from "nprogress"
-import {client} from "./openapi/client.gen"
+import { client } from "./openapi/client.gen"
 
 export * from "./openapi/index"
 
@@ -48,8 +48,21 @@ const increaseProgress = () => {
     }, latencyThreshold + 50)
 }
 
-const requestInterceptor = (config: any) => {
+const isEmptyBody = (data: unknown): boolean => {
+    if (data == null) return true
+    if (data instanceof FormData) return [...data.keys()].length === 0
+    if (typeof data === "object") return Object.keys(data as object).length === 0
+    return false
+}
+
+const requestInterceptor = (config: AxiosRequestConfig) => {
     initProgress()
+    // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
+    // the Content-Type header. Replace that empty sentinel with a real empty
+    // FormData so the server receives a well-formed empty multipart body.
+    if (String(config.headers?.["Content-Type"]).startsWith("multipart/form-data") && isEmptyBody(config.data)) {
+        config.data = new FormData()
+    }
     return config
 }
 
@@ -77,7 +90,7 @@ interface QueueItem {
 const createAxios = (
     oss: boolean,
     router?: {
-        push: (location: {name: string, query?: Record<string, string>}) => void;
+        push: (location: { name: string, query?: Record<string, string> }) => void;
         beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
         afterEach: (callback: () => void) => void;
     },
@@ -97,13 +110,13 @@ const createAxios = (
 ): AxiosInstance => {
     const instance = axios.create({
         timeout: 15000,
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         withCredentials: true,
         onDownloadProgress: progressInterceptor,
         onUploadProgress: progressInterceptor
     })
 
-    instance.interceptors.request.use(config => requestInterceptor(config))
+    instance.interceptors.request.use(requestInterceptor)
 
     instance.interceptors.response.use(responseInterceptor, errorResponseInterceptor)
 
@@ -179,7 +192,7 @@ const createAxios = (
 
                     router?.push({
                         name: "login",
-                        query: (isLoginPath ? {} : {from: currentPath})
+                        query: (isLoginPath ? {} : { from: currentPath })
                     })
 
                     return Promise.reject(errorResponse)
@@ -197,12 +210,12 @@ const createAxios = (
 
                     try {
                         await instance.post("/oauth/access_token?grant_type=refresh_token", null, {
-                            headers: {"Content-Type": "application/json"},
+                            headers: { "Content-Type": "application/json" },
                             timeout: 5000
                         })
 
                         // Process queued requests
-                        const queuePromises = toRefreshQueue.map(({config, resolve}) =>
+                        const queuePromises = toRefreshQueue.map(({ config, resolve }) =>
                             instance.request(config).then(resolve).catch(error => {
                                 console.warn("Queued request failed after token refresh:", error)
                                 throw error
@@ -233,7 +246,7 @@ const createAxios = (
 
                         router?.push({
                             name: "login",
-                            query: (isLoginPath ? {} : {from: currentPath})
+                            query: (isLoginPath ? {} : { from: currentPath })
                         })
 
                         return Promise.reject(errorResponse)
@@ -293,7 +306,7 @@ const createAxios = (
         }
     })
 
-    client.setConfig({axios: instance})
+    client.setConfig({ axios: instance })
 
     return instance;
 };
