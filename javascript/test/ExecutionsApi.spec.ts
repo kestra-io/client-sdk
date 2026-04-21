@@ -82,13 +82,14 @@ triggers:
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
 function getDataOrThrow<T>(resp: { data?: T }, message?: string): T {
-    if (!resp.data) throw new Error(message ?? "Data not found");
+    if (!resp.data) {
+        throw new Error(message ?? "Data not found");
+    }
     return resp.data;
 }
 
 async function createFlow(flowYaml: string) {
     const flow = getDataOrThrow(await kestraClient().Flows.createFlow({
-        tenant: MAIN_TENANT,
         body: flowYaml,
     }), "Failed to create flow");
     await sleep(200);
@@ -105,7 +106,6 @@ async function createFlowWithExecution(flowId: string, ns: string) {
         namespace: ns,
         id: flowId,
         wait: false,
-        tenant: MAIN_TENANT,
     }), "Failed to create execution");
 }
 
@@ -115,7 +115,6 @@ async function createFlowWithExecutionFromYaml(flowYaml: string) {
         namespace: f.namespace,
         id: f.id,
         wait: false,
-        tenant: MAIN_TENANT,
     }), "Failed to create execution with Yaml");
 }
 
@@ -130,7 +129,6 @@ async function awaitExecution(
     while (true) {
         const last = getDataOrThrow(await kestraClient().Executions.execution({
             executionId,
-            tenant: MAIN_TENANT,
         }), "Failed to fetch execution while awaiting execution");
         if (last.state.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
@@ -174,7 +172,6 @@ describe("ExecutionsApi", () => {
             namespace: ns,
             id: flowId,
             wait: false,
-            tenant: MAIN_TENANT,
             labels,
             kind: "NORMAL",
             body: [inputs],

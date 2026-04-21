@@ -8,12 +8,10 @@ const tenantId = "main";
 
 export async function searchAndCreateFlowsExample() {
     client.setConfig({
-        baseURL,
-        headers: {
-            Authorization:
-                "Basic " +
-                Buffer.from(username + ":" + password).toString("base64"),
+        auth: () => {
+            return username + ":" + password;
         },
+        baseURL,
     });
 
     const searchRes = await Flows.searchFlows({
