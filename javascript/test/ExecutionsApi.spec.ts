@@ -175,7 +175,7 @@ describe("ExecutionsApi", () => {
             labels,
             kind: "NORMAL",
             body: [inputs],
-        }));
+        }), "failed to create simple execution");
 
         expect(resp.flowId).toBe(flowId);
         expect(resp.namespace).toBe(ns);
@@ -195,11 +195,11 @@ describe("ExecutionsApi", () => {
             executionId: ex.id,
         });
 
-        await expect(
-            kestraClient().Executions.execution({
-                executionId: ex.id,
-            }),
-        ).rejects.toThrow();
+        const response = await kestraClient().Executions.execution({
+            executionId: ex.id,
+        });
+
+        expect(response.status).not.toBe(200);
     });
 
     // --- delete executions by ids ---

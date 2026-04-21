@@ -45,8 +45,6 @@ export const username = "root@root.com";
 export const password = "Root!1234";
 export const MAIN_TENANT = "main";
 
-const token = Buffer.from(username + ":" + password).toString("base64");
-
 export function kestraClient() {
     client.setConfig({
         auth: (auth) => {
