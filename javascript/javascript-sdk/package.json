@@ -18,7 +18,10 @@
     "url": "git+https://github.com/kestra-io/client-sdk.git"
   },
   "exports": {
-    ".": "./dist/KestraClient.mjs",
+    ".": {
+      "types": "./dist/KestraClient.d.ts",
+      "default": "./dist/KestraClient.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/KestraClient.mjs",
