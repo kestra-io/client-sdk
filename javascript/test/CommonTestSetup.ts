@@ -61,8 +61,6 @@ beforeAll(async () => {
     });
 
     instance.interceptors.response.use((response) => {
-        //log the response status and url for debugging purposes
-        console.log(`[${response.status}] ${response.config.url}`);
         return response;
     }, (error) => {
         if (error.response) {
