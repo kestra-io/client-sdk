@@ -127,10 +127,10 @@ async function awaitExecution(
     const start = Date.now();
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        const last = getDataOrThrow(await kestraClient().Executions.execution({
+        const last = getDataOrThrow(await kestraClient().Executions.getExecution({
             executionId,
         }), "Failed to fetch execution while awaiting execution");
-        if (last.state.current === desiredState) return last;
+        if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
             if (!last) throw new Error("Execution not found within timeout");
             return last;
@@ -196,7 +196,7 @@ describe("ExecutionsApi", () => {
         });
 
         await expect(
-            kestraClient().Executions.execution({
+            kestraClient().Executions.getExecution({
                 executionId: ex.id,
             }),
         ).rejects.toThrow();
@@ -232,19 +232,19 @@ describe("ExecutionsApi", () => {
         expect(resp.count).toBe(2);
 
         await expect(
-            kestraClient().Executions.execution({
+            kestraClient().Executions.getExecution({
                 executionId: e1.id,
                 tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         await expect(
-            kestraClient().Executions.execution({
+            kestraClient().Executions.getExecution({
                 executionId: e3.id,
                 tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         expect(
-            await kestraClient().Executions.execution({
+            await kestraClient().Executions.getExecution({
                 executionId: e2.id,
                 tenant: MAIN_TENANT,
             }),
@@ -283,12 +283,12 @@ describe("ExecutionsApi", () => {
         expect(resp.count).toBe(2);
 
         await expect(
-            kestraClient().Executions.execution({
+            kestraClient().Executions.getExecution({
                 executionId: a.id,
             }),
         ).rejects.toThrow();
         await expect(
-            kestraClient().Executions.execution({
+            kestraClient().Executions.getExecution({
                 executionId: b.id,
             }),
         ).rejects.toThrow();
@@ -415,7 +415,7 @@ describe("ExecutionsApi", () => {
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        const fetched = getDataOrThrow(await kestraClient().Executions.execution({
+        const fetched = getDataOrThrow(await kestraClient().Executions.getExecution({
             executionId: ex.id,
         }));
         expect(fetched.id).toBe(ex.id);
