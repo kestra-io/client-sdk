@@ -304,8 +304,18 @@ export const configureAxios = (
     return instance;
 };
 
+function canBeJsonified(str: any): boolean {
+    if (typeof str !== "string" && typeof str !== "object") return false;
+    try {
+        const type = str.toString();
+        return type === "[object Object]" || type === "[object Array]";
+    } catch (err) {
+        return false;
+    }
+}
+
 function serializeQueryValue(val: unknown) {
-    if (typeof val === "object") {
+    if (canBeJsonified(val)) {
         return JSON.stringify(val);
     }
     return val?.toString();
