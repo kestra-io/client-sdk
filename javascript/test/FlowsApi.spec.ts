@@ -1,39 +1,41 @@
-// FlowsApi.spec.js
-import {
-    MAIN_TENANT,
-    kestraClient,
-    getSimpleFlow,
-    getCompleteFlow
-} from './CommonTestSetup.js';
+// FlowsApi.spec.ts
 import { describe, it, expect } from 'vitest';
+import { kestraClient, getSimpleFlow, getCompleteFlow, getSimpleFlowAndId } from './CommonTestSetup.js';
+import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 
-// ----- Helpers (mirror Java helpers) -----
+// ---------- helpers ----------
+
+function getDataOrThrow<T>(resp: { data?: T }, message?: string): T {
+    if (!resp.data) {
+        throw new Error(message ?? 'Data not found');
+    }
+    return resp.data;
+}
+
 async function createSimpleFlow() {
     const body = getSimpleFlow();
-    const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
+    const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create flow');
     await assertFlowExist(flow);
     return flow;
 }
 
-async function assertFlowExist(flow) {
-    await expect(
-        kestraClient().flowsApi.flow(
-            flow.namespace,
-            flow.id,
-            false, // source
-            false, // allowDeleted
-            MAIN_TENANT,
-            null   // revision
-        )
-    ).resolves.toBeDefined();
+async function assertFlowExist(flow: { namespace: string; id: string }) {
+    const result = await kestraClient().Flows.flow({
+        namespace: flow.namespace,
+        id: flow.id,
+    });
+    expect(result.data).toBeDefined();
 }
 
-async function assertFlowDoesNotExist(flow) {
+async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
     try {
-        await kestraClient().flowsApi.flow(flow.namespace, flow.id, false, false, MAIN_TENANT, {});
+        await kestraClient().Flows.flow({
+            namespace: flow.namespace,
+            id: flow.id,
+        });
         throw new Error('Expected a 404 Not Found, but the call succeeded.');
-    } catch (err) {
-        const status = err?.status ?? err?.code ?? err?.response?.status;
+    } catch (err: unknown) {
+        const status = (err as any)?.status ?? (err as any)?.code ?? (err as any)?.response?.status;
         expect(status).toBe(404);
     }
 }
@@ -41,34 +43,38 @@ async function assertFlowDoesNotExist(flow) {
 describe('FlowsApi', () => {
     // Update from multiples yaml sources
     it('bulk_update_flows: Update from multiple yaml sources', async () => {
-        const flowBody = getSimpleFlow();
-        const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowBody);
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body: flowBody }), 'Failed to create flow for bulk update');
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
-        const id = flow.id;
-        const namespace = flow.namespace;
+        const namespace = flowNamespace;
+        const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        // Java: bulkUpdateFlows(false, false, MAIN_TENANT, namespace, body)
-        const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, { namespace: namespace, body: updatedBody });
+        const resp = getDataOrThrow(await kestraClient().Flows.bulkUpdateFlows({
+            delete: false,
+            allowNamespaceChild: false,
+            namespace,
+            body: updatedBody,
+        }), 'Failed to bulk update flows');
 
-        // resp is a list; check first description updated
-        const first = resp[0];
+        const first = Array.isArray(resp) ? resp[0] : (resp as any)?.[0];
         expect(first?.description).toBe('simple_flow_description_updated');
+        void id;
     });
 
     // Create a flow from yaml source (simple)
     it('create_flow: simple', async () => {
         const body = getSimpleFlow();
-        const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
+        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create simple flow');
         await assertFlowExist(flow);
     });
 
     // Create a flow from yaml source (full)
     it('create_flow: full', async () => {
         const body = getCompleteFlow();
-        const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
+        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create complete flow');
         await assertFlowExist(flow);
     });
 
@@ -76,7 +82,7 @@ describe('FlowsApi', () => {
     it('delete_flow', async () => {
         const flow = await createSimpleFlow();
 
-        await kestraClient().flowsApi.deleteFlow(flow.namespace, flow.id, MAIN_TENANT);
+        await kestraClient().Flows.deleteFlow({ namespace: flow.namespace, id: flow.id });
 
         await assertFlowDoesNotExist(flow);
     });
@@ -86,7 +92,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
 
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().flowsApi.deleteFlowsByIds(MAIN_TENANT, idWithNamespace);
+        await kestraClient().Flows.deleteFlowsByIds({ body: idWithNamespace });
 
         await assertFlowDoesNotExist(flow);
     });
@@ -95,10 +101,10 @@ describe('FlowsApi', () => {
     it('delete_flows_by_query', async () => {
         const flow = await createSimpleFlow();
 
-        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {
+        await kestraClient().Flows.deleteFlowsByQuery({
             filters: [
-                { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }
-            ]
+                { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any },
+            ],
         });
 
         await assertFlowDoesNotExist(flow);
@@ -108,60 +114,43 @@ describe('FlowsApi', () => {
     it('disable_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().flowsApi.disableFlowsByIds(MAIN_TENANT, idWithNamespace);
+        await kestraClient().Flows.disableFlowsByIds({ body: idWithNamespace });
     });
 
     // Disable flows returned by the query parameters (placeholder like Java)
     it('disable_flows_by_query', async () => {
         const flow = await createSimpleFlow();
-        const q = null;
-        const scope = null;
-        const namespace = null;
-        const labels = null;
-        void q; void scope; void namespace; void labels;
+        void flow;
         // TODO when endpoint signature is available:
-        // await kestraClient().flowsApi.disableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+        // await kestraClient().Flows.disableFlowsByQuery({ filters: [...] });
     });
 
     // Enable flows by their IDs
     it('enable_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().flowsApi.enableFlowsByIds(MAIN_TENANT, idWithNamespace);
+        await kestraClient().Flows.enableFlowsByIds({ body: idWithNamespace });
     });
 
     // Enable flows returned by the query parameters (placeholder like Java)
     it('enable_flows_by_query', async () => {
-        // Keeping the shape; Java TODO
-        const q = null;
-        const scope = null;
-        const namespace = null;
-        const labels = null;
-        void q; void scope; void namespace; void labels;
         // TODO when endpoint signature is available:
-        // const resp = await kestraClient().flowsApi.enableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+        // await kestraClient().Flows.enableFlowsByQuery({ filters: [...] });
     });
 
     // Export flows as ZIP by IDs
     it('export_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-
-        // Returns Blob/Buffer depending on runtime; no strict assertion in Java
-        await kestraClient().flowsApi.exportFlowsByIds(MAIN_TENANT, idWithNamespace);
+        await kestraClient().Flows.exportFlowsByIds({ body: idWithNamespace });
     });
 
     // Export flows as ZIP by query (placeholder like Java)
     it('export_flows_by_query', async () => {
         const flow = await createSimpleFlow();
-        const filters = null;
-        const q = null;
-        const scope = null;
-        const namespace = flow.namespace;
-        const labels = null;
-        void filters; void q; void scope; void namespace; void labels;
+        void flow;
         // TODO when endpoint signature is available:
-        // const zip = await kestraClient().flowsApi.exportFlowsByQuery(MAIN_TENANT, filters, q, scope, namespace, labels);
+        // await kestraClient().Flows.exportFlowsByQuery({ filters: [...] });
     });
 
     // Generate a graph for a flow
@@ -169,27 +158,21 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        const revision = null;
-        const subflows = null;
-        await kestraClient().flowsApi.generateFlowGraph(namespace, id, MAIN_TENANT, { revision, subflows });
+        await kestraClient().Flows.generateFlowGraph({ namespace, id });
     });
 
     // Generate a graph for a flow source
     it('generate_flow_graph_from_source', async () => {
         const body = getSimpleFlow();
-        const subflows = null;
-        await kestraClient().flowsApi.generateFlowGraphFromSource(MAIN_TENANT, body, subflows);
+        await kestraClient().Flows.generateFlowGraphFromSource({ body });
     });
 
     // Get a flow
     it('get_flow', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const source = false;
-        const allowDeleted = false;
-        const revision = null;
 
-        const resp = await kestraClient().flowsApi.flow(namespace, id, source, allowDeleted, MAIN_TENANT, revision);
+        const resp = getDataOrThrow(await kestraClient().Flows.flow({ namespace, id }), 'Failed to get flow');
         expect(resp.id).toBe(id);
     });
 
@@ -197,36 +180,31 @@ describe('FlowsApi', () => {
     it('get_flow_dependencies', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const destinationOnly = true;
-        const expandAll = false;
 
-        await kestraClient().flowsApi.flowDependencies(namespace, id, destinationOnly, expandAll, MAIN_TENANT);
+        await kestraClient().Flows.flowDependencies({ namespace, id, destinationOnly: true, expandAll: false });
     });
 
     // Retrieve flow dependencies for a namespace
     it('get_flow_dependencies_from_namespace', async () => {
         const flow = await createSimpleFlow();
         const { namespace } = flow;
-        const destinationOnly = true;
 
-        await kestraClient().flowsApi.flowDependenciesFromNamespace(namespace, destinationOnly, MAIN_TENANT);
+        await kestraClient().Flows.flowDependenciesFromNamespace({ namespace, destinationOnly: true });
     });
 
     // Get a flow task
     it('get_task_from_flow', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const taskId = flow.tasks?.[0]?.id;
-        const revision = null;
+        const taskId = (flow as any).tasks?.[0]?.id;
 
-        await kestraClient().flowsApi.taskFromFlow(namespace, id, taskId, MAIN_TENANT, revision);
+        await kestraClient().Flows.taskFromFlow({ namespace, id, taskId });
     });
 
     // List all distinct namespaces
     it('list_distinct_namespaces', async () => {
         await createSimpleFlow();
-        const q = null;
-        const resp = await kestraClient().flowsApi.listDistinctNamespaces(MAIN_TENANT, q);
+        const resp = getDataOrThrow(await kestraClient().Flows.listDistinctNamespaces({}), 'Failed to list distinct namespaces');
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -234,7 +212,7 @@ describe('FlowsApi', () => {
     it('list_flow_revisions', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const resp = await kestraClient().flowsApi.listFlowRevisions(namespace, id, MAIN_TENANT);
+        const resp = getDataOrThrow(await kestraClient().Flows.listFlowRevisions({ namespace, id }), 'Failed to list flow revisions');
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -242,98 +220,89 @@ describe('FlowsApi', () => {
     it('list_flows_by_namespace', async () => {
         const flow = await createSimpleFlow();
         const { namespace } = flow;
-        const resp = await kestraClient().flowsApi.listFlowsByNamespace(namespace, MAIN_TENANT);
+        const resp = getDataOrThrow(await kestraClient().Flows.listFlowsByNamespace({ namespace }), 'Failed to list flows by namespace');
         expect(Array.isArray(resp)).toBe(true);
     });
 
     // Search for flows (placeholder like Java)
     it('search_flows', async () => {
         const flow = await createSimpleFlow();
-        const page = null;
-        const size = null;
-        const sort = null;
-        const filters = null;
-        const q = null;
-        const scope = null;
-        const namespace = flow.namespace;
-        const labels = null;
-        void page; void size; void sort; void filters; void q; void scope; void namespace; void labels;
+        void flow;
         // TODO when endpoint/signature ready:
-        // const resp = await kestraClient().flowsApi.searchFlows(page, size, MAIN_TENANT, sort, filters, q, scope, namespace, labels);
+        // const resp = getDataOrThrow(await kestraClient().Flows.searchFlows({ page: 1, size: 10, namespace: flow.namespace }));
     });
 
     // Search for flows source code
     it('search_flows_by_source_code', async () => {
         const flow = await createSimpleFlow();
-        const page = 1;
-        const size = 10000;
-        const sort = null;
-        const q = flow.id;
-        const namespace = flow.namespace;
-
-        const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(page, size, MAIN_TENANT, { sort, q, namespace });
-        const ids = (resp?.results ?? []).map(x => x?.model?.id);
+        const resp = getDataOrThrow(await kestraClient().Flows.searchFlowsBySourceCode({
+            page: 1,
+            size: 10000,
+            q: flow.id,
+            namespace: flow.namespace,
+        }), 'Failed to search flows by source code');
+        const ids = ((resp as any)?.results ?? []).map((x: any) => x?.model?.id);
         expect(ids).toContain(flow.id);
     });
 
     // Update a flow
     it('update_flow', async () => {
-        const flowBody = getSimpleFlow();
-        const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowBody);
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body: flowBody }), 'Failed to create flow for update');
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
-        const id = flow.id;
-        const namespace = flow.namespace;
+        const namespace = flowNamespace;
+        const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        const resp = await kestraClient().flowsApi.updateFlow(namespace, id, MAIN_TENANT, updatedBody);
+        const resp = getDataOrThrow(await kestraClient().Flows.updateFlow({ namespace, id, body: updatedBody }), 'Failed to update flow');
         expect(resp.description).toBe('simple_flow_description_updated');
     });
 
     // Validate flows (simple)
     it('validate_flows_simple', async () => {
         const body = getSimpleFlow();
-        await kestraClient().flowsApi.validateFlows(MAIN_TENANT, body);
+        await kestraClient().Flows.validateFlows({ body });
     });
 
     // Validate flows (complete)
     it('validate_flows_complete', async () => {
         const body = getCompleteFlow();
-        await kestraClient().flowsApi.validateFlows(MAIN_TENANT, body);
+        await kestraClient().Flows.validateFlows({ body });
     });
 
     // Validate a task
     it('validate_task', async () => {
-        const section = 'TASKS'; // enum value
+        const section: FlowControllerTaskValidationType = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.Log',
             message: 'strange---string',
         };
 
-        const resp = await kestraClient().flowsApi.validateTask(section, MAIN_TENANT, taskObj);
-        expect(resp.constraints ?? []).toHaveLength(0);
-        expect(resp.warnings ?? []).toHaveLength(0);
+        const resp = getDataOrThrow(await kestraClient().Flows.validateTask({ section, body: taskObj }), 'Failed to validate task');
+        expect((resp as any).constraints ?? []).toHaveLength(0);
+        expect((resp as any).warnings ?? []).toHaveLength(0);
     });
 
     // Validate a task (invalid)
     it('validate_task_invalid', async () => {
-        const section = 'TASKS';
+        const section: FlowControllerTaskValidationType = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.InvalidTask',
             message: 'strange---string',
         };
 
-        const resp = await kestraClient().flowsApi.validateTask(section, MAIN_TENANT, taskObj);
-        const raw = resp?.constraints ?? [];
+        const resp = getDataOrThrow(await kestraClient().Flows.validateTask({ section, body: taskObj }), 'Failed to validate invalid task');
+        const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
             ? raw
             : typeof raw === 'string'
                 ? [raw]
-                : Object.values(raw || {}).flatMap(v => Array.isArray(v) ? v : [String(v)]);
+                : Object.values(raw || {}).flatMap((v: unknown) => Array.isArray(v) ? v : [String(v)]);
 
         expect(constraints.join(' ')).toMatch(/Invalid type: io\.kestra\.plugin\.core\.log\.InvalidTask/);
     });
@@ -345,9 +314,9 @@ describe('FlowsApi', () => {
             type: 'io.kestra.plugin.core.trigger.Schedule',
             cron: '0 9 1 * *',
         };
-        const resp = await kestraClient().flowsApi.validateTrigger(MAIN_TENANT, triggerObj);
-        expect(resp.constraints ?? []).toHaveLength(0);
-        expect(resp.warnings ?? []).toHaveLength(0);
+        const resp = getDataOrThrow(await kestraClient().Flows.validateTrigger({ body: triggerObj }), 'Failed to validate trigger');
+        expect((resp as any).constraints ?? []).toHaveLength(0);
+        expect((resp as any).warnings ?? []).toHaveLength(0);
     });
 
     // Validate trigger (invalid)
@@ -358,14 +327,14 @@ describe('FlowsApi', () => {
             cron: '0 9 1 * *',
         };
 
-        const resp = await kestraClient().flowsApi.validateTrigger(MAIN_TENANT, triggerObj);
-        const raw = resp?.constraints ?? [];
+        const resp = getDataOrThrow(await kestraClient().Flows.validateTrigger({ body: triggerObj }), 'Failed to validate invalid trigger');
+        const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
             ? raw
             : typeof raw === 'string'
                 ? [raw]
-                : Object.values(raw || {}).flatMap(v => Array.isArray(v) ? v : [String(v)]);
+                : Object.values(raw || {}).flatMap((v: unknown) => Array.isArray(v) ? v : [String(v)]);
 
         expect(constraints.join(' ')).toMatch(/Invalid type: io\.kestra\.plugin\.core\.trigger\.InvalidType/);
     });
