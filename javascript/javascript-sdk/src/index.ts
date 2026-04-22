@@ -2,6 +2,7 @@ import axios from "axios"
 import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosProgressEvent, AxiosInstance } from "axios"
 import NProgress from "nprogress"
 import { client } from "./openapi/client.gen"
+import type { ClientOptions, Config } from "./openapi/client"
 
 export * from "./openapi/index"
 
@@ -66,7 +67,7 @@ const errorResponseInterceptor = (error: AxiosError): Promise<AxiosError> => {
 }
 
 const progressInterceptor = (progressEvent: AxiosProgressEvent) => {
-    if (progressEvent?.loaded && progressEvent?.total) {
+    if (progressEvent?.loaded && progressEvent?.total && typeof document !== "undefined") {
         NProgress.inc(Math.floor(progressEvent.loaded * 1.0) / progressEvent.total)
     }
 }
@@ -76,28 +77,35 @@ interface QueueItem {
     resolve: (value: AxiosResponse | Promise<AxiosResponse>) => void
 }
 
-const createAxios = (
-    oss: boolean,
-    router?: {
-        push: (location: { name: string, query?: Record<string, string> }) => void;
-        beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
-        afterEach: (callback: () => void) => void;
-    },
-    coreStore?: {
-        message?: {
-            variant?: string;
-            response?: any;
-            content?: any;
-        };
-        error?: any;
-    },
-    authStore?: {
-        isLogged?: boolean;
-        logout: () => Promise<void>;
-    },
-    beforeLogout?: () => void
+export const configureAxios = (
+    clientConfig: Config<ClientOptions> = {},
+    options: {
+        oss?: boolean,
+        router?: {
+            push: (location: { name: string, query?: Record<string, string> }) => void;
+            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
+            afterEach: (callback: () => void) => void;
+        },
+        coreStore?: {
+            message?: {
+                variant?: string;
+                response?: any;
+                content?: any;
+            };
+            error?: any;
+        },
+        authStore?: {
+            isLogged?: boolean;
+            logout: () => Promise<void>;
+        },
+        beforeLogout?: () => void
+        isImpersonating?: () => boolean
+        onAuthTimeout?: () => void
+    } = {}
 ): AxiosInstance => {
-    const instance = axios.create({
+    const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
+
+    const instance = configureClient(clientConfig, {
         timeout: 15000,
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -149,18 +157,11 @@ const createAxios = (
 
             if (errorResponse.response.status === 401
                 && (oss || !authStore?.isLogged)) {
-                const base_path = window.KESTRA_BASE_PATH.endsWith("/") ? window.KESTRA_BASE_PATH.slice(0, -1) : window.KESTRA_BASE_PATH
-
-                if (window.location.pathname.startsWith(base_path + "/ui/login")) {
-                    return Promise.reject(errorResponse)
-                }
-
-                window.location.assign(`${base_path}/ui/login?from=${window.location.pathname +
-                    (window.location.search ?? "")}`)
-                return
+                onAuthTimeout?.()
+                return Promise.reject(errorResponse)
             }
 
-            const impersonate = window.sessionStorage.getItem("impersonate")
+            const impersonate = isImpersonating ? isImpersonating() : false
 
             // Authentication expired
             if (errorResponse.response.status === 401 &&
@@ -283,10 +284,6 @@ const createAxios = (
             return Promise.reject(errorResponse);
         });
 
-    instance.defaults.paramsSerializer = {
-        indexes: null
-    };
-
     router?.beforeEach((_to, _from, next) => {
         if (pendingRoute) {
             requestsTotal--;
@@ -304,35 +301,114 @@ const createAxios = (
         }
     })
 
-    client.setConfig({
-        axios: instance,
-        querySerializer: {
-            array: {
-                style: "form",
-                explode: true
-            },
-            object: {
-                style: "deepObject",
-                explode: true
-            },
-        }
-    })
-
     return instance;
 };
 
-let axiosInstance: AxiosInstance | null = null;
-
-export function configureAxios(
-    callback: (instance: AxiosInstance) => void,
-    ...args: Parameters<typeof createAxios>
-) {
-    if (!axiosInstance) {
-        axiosInstance = createAxios(...args);
+function serializeQueryValue(val: unknown) {
+    if (typeof val === "object") {
+        return JSON.stringify(val);
     }
-
-    callback(axiosInstance);
+    return val?.toString();
 }
+
+export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
+    const instance = axios.create(axiosConfig)
+
+    client.setConfig({
+        axios: instance,
+        querySerializer(query) {
+            const queryParameters = new URLSearchParams();
+            for (const key in query) {
+                const param = query[key];
+                if (query[key] === undefined) {
+                    continue
+                }
+                const looksLikeQueryFilterArray =
+                    Array.isArray(param) &&
+                    param.length > 0 &&
+                    typeof param[0] === "object" &&
+                    param[0] != null &&
+                    "field" in param[0] &&
+                    "operation" in param[0] &&
+                    "value" in param[0];
+
+                if (looksLikeQueryFilterArray) {
+                    const toCamel = (s: string) => {
+                        const parts = String(s || "")
+                            .trim()
+                            .split(/[^A-Za-z0-9]+/g) // split on any non-alphanumeric: _, -, spaces, etc.
+                            .filter(Boolean); // remove empties from multiple separators
+
+                        if (parts.length === 0) return "";
+
+                        const [first, ...rest] = parts;
+                        return (
+                            first.toLowerCase() +
+                            rest
+                                .map(
+                                    (p) =>
+                                        p.charAt(0).toUpperCase() +
+                                        p.slice(1).toLowerCase(),
+                                )
+                                .join("")
+                        );
+                    };
+
+                    for (const qf of param) {
+                        const fieldStr = String(qf.field);
+                        const op = String(qf.operation);
+                        const keyField =
+                            fieldStr.toLowerCase() === "query"
+                                ? "q"
+                                : toCamel(fieldStr);
+
+                        if (
+                            typeof qf.value === "object" &&
+                            qf.value != null &&
+                            !Array.isArray(qf.value)
+                        ) {
+                            for (const [k, v] of Object.entries(qf.value)) {
+                                const ser = serializeQueryValue(v);
+                                if (ser !== undefined) {
+                                    queryParameters.append(`filters[${keyField}][${op}][${k}]`, ser);
+                                }
+                            }
+                        } else {
+                            const ser = serializeQueryValue(
+                                qf.value,
+                            );
+                            if (ser !== undefined) {
+                                queryParameters.append(`filters[${keyField}][${op}]`, ser);
+                            }
+                        }
+                    }
+                } else if (param instanceof Array) {
+                    param.forEach((value: any) => {
+                        const ser = serializeQueryValue(value)
+                        if (ser !== undefined) {
+                            queryParameters.append(key, ser);
+                        }
+                    });
+                } else {
+                    const ser = serializeQueryValue(param)
+                    if (ser !== undefined) {
+                        queryParameters.append(key, ser);
+                    }
+                }
+            }
+            return queryParameters.toString();
+        },
+        ...clientConfig,
+    })
+
+    instance.defaults.paramsSerializer = {
+        indexes: null
+    };
+
+    return instance
+}
+
+let axiosInstance: AxiosInstance | null = null;
 
 export function useAxios(): AxiosInstance {
     return new Proxy({} as AxiosInstance, {

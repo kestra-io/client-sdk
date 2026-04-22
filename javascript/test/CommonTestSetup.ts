@@ -1,5 +1,6 @@
-import { client } from "@kestra-io/kestra-sdk/client";
+import { beforeAll } from "vitest";
 import { setSelectedTenant } from "@kestra-io/kestra-sdk/shared";
+import { configureClient } from "@kestra-io/kestra-sdk";
 import * as Ai from "@kestra-io/kestra-sdk/ai";
 import * as Apps from "@kestra-io/kestra-sdk/apps";
 import * as AuditLogs from "@kestra-io/kestra-sdk/audit-logs";
@@ -45,18 +46,26 @@ export const username = "root@root.com";
 export const password = "Root!1234";
 export const MAIN_TENANT = "main";
 
-export function kestraClient() {
-    client.setConfig({
-        auth: (auth) => {
-            if (auth.scheme === "basic") {
-                return username + ":" + password;
-            }
+beforeAll(async () => {
+    const instance = configureClient({
+        auth: () => {
+            return username + ":" + password;
         },
-        baseURL,
+        baseURL
+    }, {
+        timeout: 15000,
+        withCredentials: true,
     });
 
-    setSelectedTenant(MAIN_TENANT);
+    instance.interceptors.request.use((config) => {
+        //log the request method and url for debugging purposes
+        console.log(`[${config.method?.toUpperCase()}] ${config.url}`);
+        return config;
+    });
+});
 
+export function kestraClient() {
+    setSelectedTenant(MAIN_TENANT);
     return {
         Ai,
         Apps,
