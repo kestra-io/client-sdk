@@ -92,6 +92,65 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     plugin.node($.const(resolveTenantSymbol).export().assign(resolveTenantNode));
 
+    // Shared helper: extracts response.data or throws
+    const getDataOrThrowSymbol = plugin.symbol("getDataOrThrow", {
+        getFilePath: () => "sdk/ks-shared",
+    });
+
+    const getDataOrThrowNode = $.func()
+        .generic("T")
+        .params(
+            $.param("resp").type($.type.object().prop("data", (p) => p.type("T").optional())),
+            $.param("message").required(false).type($.type("string")),
+        )
+        .returns($.type("T"))
+        .do(
+            $.if($.not($("resp").attr("data")))
+                .do($.throw("Error", true).message($("message").coalesce($.literal("Data not found")))),
+            $.return($("resp").attr("data")),
+        );
+
+    plugin.node($.const(getDataOrThrowSymbol).export().assign(getDataOrThrowNode));
+
+    // Shared helper: augments a promise with an .unwrap(message?) method.
+    const withUnwrapSymbol = plugin.symbol("withUnwrap", {
+        getFilePath: () => "sdk/ks-shared",
+    });
+
+    const withUnwrapNode = $.func()
+        .generic("T extends Promise<{ data?: any }>")
+        .params(
+            $.param("promise").type($.type("T"))
+        )
+        .do(
+            $.return(
+                $("Object").attr("assign").call(
+                    $("promise"),
+                    $.object().prop("unwrap",
+                        $.func()
+                            .params(
+                                $.param("options").required(false)
+                                    .type($.type.object().prop("errorMessage", (p) => p.type("string").optional()))
+                            )
+                            .returns($.type("Promise<NonNullable<Awaited<T>['data']>>"))
+                            .do($.return(
+                                $("promise").attr("then").call(
+                                    $.func().params($.param("resp").type($.type("any")))
+                                        .do($.return($(getDataOrThrowSymbol).call($("resp"), $("options").attr("errorMessage").optional())))
+                                )
+                            ))
+                    )
+                )
+            )
+        );
+
+    plugin.node($.const(withUnwrapSymbol).export().assign(withUnwrapNode));
+
+    // Augments the promise with an .unwrap(message?) method that extracts resp.data or throws.
+    const wrapCallStatements = (callNode: any) => [
+        $.return($(withUnwrapSymbol).call(callNode)),
+    ];
+
     const operationsDict: Record<string, { symbol: ReturnType<typeof plugin.symbol>, methodName: string }[]> = {}
 
 
@@ -135,29 +194,68 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
             const isMultipart = operation.body?.mediaType === "multipart/form-data";
 
+            // SSE operations return ServerSentEventsResult (not a data-bearing response),
+            // so getDataOrThrow does not apply — pass these through unchanged.
+            const isSSE = Object.values(operation.responses || {}).some(
+                (resp: any) => resp?.mediaType === "text/event-stream"
+            );
+
+            const operationOptionsType = (sym: any, idx: 0 | 1 = 1) =>
+                $.type("Parameters").generic($.type.query(sym)).idx(idx);
+
+            const returnStatements = (callNode: any) =>
+                isSSE ? [$.return(callNode)] : wrapCallStatements(callNode);
+
             if (!hasTenant && !bodySimplification && !isMultipart) {
-                // No tenant, no body simplification — re-export as-is
-                plugin.node(
-                    $.const(funcSymbol)
-                        .assign(originalOperationSymbol)
-                        .export()
-                );
+                // No tenant, no body simplification — wrap with getDataOrThrow (unless SSE)
+
+                // Detect whether the original hey-api operation takes (parameters, options)
+                // or just (options). Operations with no path/query params and no body only
+                // expose a single options argument.
+                const hasAnyParams =
+                    Object.keys(operation.parameters?.path || {}).length > 0 ||
+                    Object.keys(operation.parameters?.query || {}).length > 0 ||
+                    !!operation.body;
+
+                if (!hasAnyParams) {
+                    // 1-param form: (options?) — options IS the first and only parameter
+                    const functionNode = $.func()
+                        .params(
+                            $.param(optionsId).required(false)
+                                .type(operationOptionsType(originalOperationSymbol, 0)),
+                        )
+                        .do(...returnStatements(originalOperationSymbol.call($(optionsId))));
+                    plugin.node($.const(funcSymbol).export().assign(functionNode));
+                } else {
+                    // 2-param form: (parameters, options?)
+                    // Mirror the original's required-ness for the parameters param
+                    const hasRequiredParams =
+                        Object.values(operation.parameters?.path || {}).some((p: any) => p.required) ||
+                        Object.values(operation.parameters?.query || {}).some((p: any) => p.required) ||
+                        (operation.body?.required === true);
+                    const functionNode = $.func()
+                        .params(
+                            $.param(paramId).required(hasRequiredParams)
+                                .type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
+                            $.param(optionsId).required(false)
+                                .type(operationOptionsType(originalOperationSymbol)),
+                        )
+                        .do(...returnStatements(originalOperationSymbol.call($(paramId), $(optionsId))));
+                    plugin.node($.const(funcSymbol).export().assign(functionNode));
+                }
                 return;
             }
 
             if (isMultipart && !hasTenant && !bodySimplification) {
                 // Multipart but no tenant and no body simplification
-                // Re-export with body added to spread of parameters
-                // with value empty object
+                // Re-export with body added to spread of parameters with value empty object
                 const functionNode = $.func()
                     .params(
                         $.param(paramId).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
-                        $.param(optionsId).required(false).type(
-                            $.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(1)
-                        )
+                        $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        $.return(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
+                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
                     );
 
                 plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
@@ -197,12 +295,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 const functionNode = $.func()
                     .params(
                         $.param(paramId).type(paramsType),
-                        $.param(optionsId).required(false).type(
-                            $.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(1)
-                        )
+                        $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        $.return(originalOperationSymbol.call(callArgs, optionsId))
+                        ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
                     );
 
                 plugin.node(
@@ -233,20 +329,13 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                             )),
                         $.param(optionsId)
                             .required(false)
-                            .type(
-                                $.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(1)
-                            )
+                            .type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        isTenantOnlyRequiredParam ?
-                            $.return(originalOperationSymbol.call(
-                                $(addTenantToParametersSymbol).call(parametersArguments),
-                                optionsId,
-                            ))
-                            : $.return(originalOperationSymbol.call(
-                                $(addTenantToParametersSymbol).call(parametersArguments),
-                                optionsId,
-                            ))
+                        ...returnStatements(originalOperationSymbol.call(
+                            $(addTenantToParametersSymbol).call(parametersArguments),
+                            optionsId,
+                        ))
                     );
 
                 plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
@@ -307,12 +396,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         .type(paramsType),
                     $.param(optionsId)
                         .required(false)
-                        .type(
-                            $.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(1)
-                        )
+                        .type(operationOptionsType(originalOperationSymbol)),
                 )
                 .do(
-                    $.return(originalOperationSymbol.call(callArgs, optionsId))
+                    ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
                 );
 
             plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));

@@ -4,17 +4,9 @@ import { kestraClient, getSimpleFlow, getCompleteFlow, getSimpleFlowAndId } from
 import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 
 // ---------- helpers ----------
-
-function getDataOrThrow<T>(resp: { data?: T }, message?: string): T {
-    if (!resp.data) {
-        throw new Error(message ?? 'Data not found');
-    }
-    return resp.data;
-}
-
 async function createSimpleFlow() {
     const body = getSimpleFlow();
-    const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create flow');
+    const flow = await kestraClient().Flows.createFlow({ body }).unwrap({ errorMessage: 'Failed to create flow' });
     await assertFlowExist(flow);
     return flow;
 }
@@ -23,8 +15,8 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
     const result = await kestraClient().Flows.flow({
         namespace: flow.namespace,
         id: flow.id,
-    });
-    expect(result.data).toBeDefined();
+    }).unwrap({ errorMessage: 'Failed to fetch flow' });
+    expect(result).toBeDefined();
 }
 
 async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
@@ -44,7 +36,7 @@ describe('FlowsApi', () => {
     // Update from multiples yaml sources
     it('bulk_update_flows: Update from multiple yaml sources', async () => {
         const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body: flowBody }), 'Failed to create flow for bulk update');
+        const flow = await kestraClient().Flows.createFlow({ body: flowBody }).unwrap({ errorMessage: 'Failed to create flow for bulk update' });
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
@@ -52,12 +44,12 @@ describe('FlowsApi', () => {
         const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        const resp = getDataOrThrow(await kestraClient().Flows.bulkUpdateFlows({
+        const resp = await kestraClient().Flows.bulkUpdateFlows({
             delete: false,
             allowNamespaceChild: false,
             namespace,
             body: updatedBody,
-        }), 'Failed to bulk update flows');
+        }).unwrap({ errorMessage: 'Failed to bulk update flows' });
 
         const first = Array.isArray(resp) ? resp[0] : (resp as any)?.[0];
         expect(first?.description).toBe('simple_flow_description_updated');
@@ -67,14 +59,14 @@ describe('FlowsApi', () => {
     // Create a flow from yaml source (simple)
     it('create_flow: simple', async () => {
         const body = getSimpleFlow();
-        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create simple flow');
+        const flow = await kestraClient().Flows.createFlow({ body }).unwrap({ errorMessage: 'Failed to create simple flow' });
         await assertFlowExist(flow);
     });
 
     // Create a flow from yaml source (full)
     it('create_flow: full', async () => {
         const body = getCompleteFlow();
-        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body }), 'Failed to create complete flow');
+        const flow = await kestraClient().Flows.createFlow({ body }).unwrap({ errorMessage: 'Failed to create complete flow' });
         await assertFlowExist(flow);
     });
 
@@ -172,7 +164,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        const resp = getDataOrThrow(await kestraClient().Flows.flow({ namespace, id }), 'Failed to get flow');
+        const resp = await kestraClient().Flows.flow({ namespace, id }).unwrap({ errorMessage: 'Failed to get flow' });
         expect(resp.id).toBe(id);
     });
 
@@ -204,7 +196,7 @@ describe('FlowsApi', () => {
     // List all distinct namespaces
     it('list_distinct_namespaces', async () => {
         await createSimpleFlow();
-        const resp = getDataOrThrow(await kestraClient().Flows.listDistinctNamespaces({}), 'Failed to list distinct namespaces');
+        const resp = await kestraClient().Flows.listDistinctNamespaces({}).unwrap({ errorMessage: 'Failed to list distinct namespaces' });
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -212,7 +204,7 @@ describe('FlowsApi', () => {
     it('list_flow_revisions', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const resp = getDataOrThrow(await kestraClient().Flows.listFlowRevisions({ namespace, id }), 'Failed to list flow revisions');
+        const resp = await kestraClient().Flows.listFlowRevisions({ namespace, id }).unwrap({ errorMessage: 'Failed to list flow revisions' });
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -220,7 +212,7 @@ describe('FlowsApi', () => {
     it('list_flows_by_namespace', async () => {
         const flow = await createSimpleFlow();
         const { namespace } = flow;
-        const resp = getDataOrThrow(await kestraClient().Flows.listFlowsByNamespace({ namespace }), 'Failed to list flows by namespace');
+        const resp = await kestraClient().Flows.listFlowsByNamespace({ namespace }).unwrap({ errorMessage: 'Failed to list flows by namespace' });
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -235,20 +227,20 @@ describe('FlowsApi', () => {
     // Search for flows source code
     it('search_flows_by_source_code', async () => {
         const flow = await createSimpleFlow();
-        const resp = getDataOrThrow(await kestraClient().Flows.searchFlowsBySourceCode({
+        const resp = await kestraClient().Flows.searchFlowsBySourceCode({
             page: 1,
             size: 10000,
             q: flow.id,
             namespace: flow.namespace,
-        }), 'Failed to search flows by source code');
-        const ids = ((resp as any)?.results ?? []).map((x: any) => x?.model?.id);
+        }).unwrap({ errorMessage: 'Failed to search flows by source code' });
+        const ids = resp.results.map((x: any) => x?.model?.id);
         expect(ids).toContain(flow.id);
     });
 
     // Update a flow
     it('update_flow', async () => {
         const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        const flow = getDataOrThrow(await kestraClient().Flows.createFlow({ body: flowBody }), 'Failed to create flow for update');
+        const flow = await kestraClient().Flows.createFlow({ body: flowBody }).unwrap({ errorMessage: 'Failed to create flow for update' });
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
@@ -256,7 +248,7 @@ describe('FlowsApi', () => {
         const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        const resp = getDataOrThrow(await kestraClient().Flows.updateFlow({ namespace, id, body: updatedBody }), 'Failed to update flow');
+        const resp = await kestraClient().Flows.updateFlow({ namespace, id, body: updatedBody }).unwrap({ errorMessage: 'Failed to update flow' });
         expect(resp.description).toBe('simple_flow_description_updated');
     });
 
@@ -281,7 +273,7 @@ describe('FlowsApi', () => {
             message: 'strange---string',
         };
 
-        const resp = getDataOrThrow(await kestraClient().Flows.validateTask({ section, body: taskObj }), 'Failed to validate task');
+        const resp = await kestraClient().Flows.validateTask({ section, body: taskObj }).unwrap({ errorMessage: 'Failed to validate task' });
         expect((resp as any).constraints ?? []).toHaveLength(0);
         expect((resp as any).warnings ?? []).toHaveLength(0);
     });
@@ -295,7 +287,7 @@ describe('FlowsApi', () => {
             message: 'strange---string',
         };
 
-        const resp = getDataOrThrow(await kestraClient().Flows.validateTask({ section, body: taskObj }), 'Failed to validate invalid task');
+        const resp = await kestraClient().Flows.validateTask({ section, body: taskObj }).unwrap({ errorMessage: 'Failed to validate invalid task' });
         const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
@@ -314,7 +306,7 @@ describe('FlowsApi', () => {
             type: 'io.kestra.plugin.core.trigger.Schedule',
             cron: '0 9 1 * *',
         };
-        const resp = getDataOrThrow(await kestraClient().Flows.validateTrigger({ body: triggerObj }), 'Failed to validate trigger');
+        const resp = await kestraClient().Flows.validateTrigger({ body: triggerObj }).unwrap({ errorMessage: 'Failed to validate trigger' });
         expect((resp as any).constraints ?? []).toHaveLength(0);
         expect((resp as any).warnings ?? []).toHaveLength(0);
     });
@@ -327,7 +319,7 @@ describe('FlowsApi', () => {
             cron: '0 9 1 * *',
         };
 
-        const resp = getDataOrThrow(await kestraClient().Flows.validateTrigger({ body: triggerObj }), 'Failed to validate invalid trigger');
+        const resp = await kestraClient().Flows.validateTrigger({ body: triggerObj }).unwrap({ errorMessage: 'Failed to validate invalid trigger' });
         const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
