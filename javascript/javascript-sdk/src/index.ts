@@ -314,6 +314,19 @@ function serializeQueryValue(val: unknown) {
 export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
     const instance = axios.create(axiosConfig)
 
+    // Axios omits Content-Type for body-less requests, which causes servers that
+    // expect application/json (e.g. Kestra) to reject them with 401/415.
+    // Force application/json for POST/PUT/PATCH when the body is strictly absent.
+    instance.interceptors.request.use((config) => {
+        const method = config.method?.toLowerCase()
+        if (method === "post" || method === "put" || method === "patch") {
+            if (config.data == null) {
+                config.headers["Content-Type"] = "application/json"
+            }
+        }
+        return config
+    })
+
     client.setConfig({
         axios: instance,
         querySerializer(query) {
