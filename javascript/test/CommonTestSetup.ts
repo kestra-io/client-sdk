@@ -52,15 +52,27 @@ beforeAll(async () => {
             return username + ":" + password;
         },
         baseURL
-    }, {
-        timeout: 15000,
-        withCredentials: true,
     });
 
     instance.interceptors.request.use((config) => {
         //log the request method and url for debugging purposes
-        console.log(`[${config.method?.toUpperCase()}] ${config.url}`);
+        console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
         return config;
+    });
+
+    instance.interceptors.response.use((response) => {
+        //log the response status and url for debugging purposes
+        console.log(`[${response.status}] ${response.config.url}`);
+        return response;
+    }, (error) => {
+        if (error.response) {
+            //log the error status and url for debugging purposes
+            console.error(`[${error.response.status}] ${error.config.url}`);
+            console.error("Error data:", error.response.data);
+        } else {
+            console.error("Error:", error.message);
+        }
+        return Promise.reject(error);
     });
 });
 
