@@ -344,7 +344,7 @@ describe("ExecutionsApi", () => {
         expect(bulk.count).toBe(1);
 
         const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
-        expect(after.state.current).toBe("RUNNING");
+        expect(after.state?.current).toBe("RUNNING");
     });
 
     // --- force run execution (single) ---
@@ -371,7 +371,7 @@ describe("ExecutionsApi", () => {
             executionId: queued.id,
         }));
         const after = await awaitExecution(resp.id, "RUNNING", 1500, 100);
-        expect(after.state.current).toBe("RUNNING");
+        expect(after.state?.current).toBe("RUNNING");
     });
 
     // --- force run by query ---
@@ -406,7 +406,7 @@ describe("ExecutionsApi", () => {
         expect(resp.count).toBeGreaterThanOrEqual(1);
 
         const after = await awaitExecution(e2.id, "RUNNING", 1500, 100);
-        expect(after.state.current).toBe("RUNNING");
+        expect(after.state?.current).toBe("RUNNING");
     });
 
     // --- get execution ---
@@ -427,7 +427,7 @@ describe("ExecutionsApi", () => {
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        const graph = getDataOrThrow(await kestraClient().Executions.executionFlowGraph({
+        const graph = getDataOrThrow(await kestraClient().Executions.getExecutionFlowGraph({
             executionId: ex.id,
         }));
         expect(graph).toBeTruthy();
@@ -445,8 +445,8 @@ describe("ExecutionsApi", () => {
         })();
 
         const uri = done?.taskRunList?.[0]?.outputs?.uri;
-        const metas = getDataOrThrow(await kestraClient().Executions.fileMetadatasFromExecution({
-            executionId: done.id,
+        const metas = getDataOrThrow(await kestraClient().Executions.getFileMetadatasFromExecution({
+            executionId: done.id ?? "",
             path: uri,
         }));
         expect([15, 16]).toContain(metas.size);
@@ -463,8 +463,8 @@ describe("ExecutionsApi", () => {
             return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
-        const flow = getDataOrThrow(await kestraClient().Executions.flowFromExecutionById({
-            executionId: done.id,
+        const flow = getDataOrThrow(await kestraClient().Executions.getFlowFromExecutionById({
+            executionId: done.id ?? "",
         }));
         expect(flow.id).toBe(flowId);
         expect(flow.namespace).toBe(ns);
