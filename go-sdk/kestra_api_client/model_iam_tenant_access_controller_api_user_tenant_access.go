@@ -18,12 +18,12 @@ var _ MappedNullable = &IAMTenantAccessControllerApiUserTenantAccess{}
 
 // IAMTenantAccessControllerApiUserTenantAccess struct for IAMTenantAccessControllerApiUserTenantAccess
 type IAMTenantAccessControllerApiUserTenantAccess struct {
-	Id                   *string                                      `json:"id,omitempty"`
-	Username             *string                                      `json:"username,omitempty"`
-	DisplayName          *string                                      `json:"displayName,omitempty"`
-	Description          *string                                      `json:"description,omitempty"`
-	Groups               []IAMTenantAccessControllerApiGroup          `json:"groups,omitempty"`
-	Auths                []IAMTenantAccessControllerApiAuthentication `json:"auths,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Username *string `json:"username,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Groups []IAMTenantAccessControllerApiGroup `json:"groups,omitempty"`
+	Auths []IAMTenantAccessControllerApiAuthentication `json:"auths,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *IAMTenantAccessControllerApiUserTenantAccess) SetAuths(v []IAMTenantAcc
 }
 
 func (o IAMTenantAccessControllerApiUserTenantAccess) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableIAMTenantAccessControllerApiUserTenantAccess) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

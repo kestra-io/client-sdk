@@ -18,11 +18,11 @@ var _ MappedNullable = &ServiceProviderConfigurationAuthenticationSchema{}
 
 // ServiceProviderConfigurationAuthenticationSchema struct for ServiceProviderConfigurationAuthenticationSchema
 type ServiceProviderConfigurationAuthenticationSchema struct {
-	Type                 *ServiceProviderConfigurationAuthenticationSchemaType `json:"type,omitempty"`
-	Name                 *string                                               `json:"name,omitempty"`
-	Description          *string                                               `json:"description,omitempty"`
-	SpecUri              *string                                               `json:"specUri,omitempty"`
-	DocumentationUri     *string                                               `json:"documentationUri,omitempty"`
+	Type *ServiceProviderConfigurationAuthenticationSchemaType `json:"type,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	SpecUri *string `json:"specUri,omitempty"`
+	DocumentationUri *string `json:"documentationUri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,7 +206,7 @@ func (o *ServiceProviderConfigurationAuthenticationSchema) SetDocumentationUri(v
 }
 
 func (o ServiceProviderConfigurationAuthenticationSchema) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullableServiceProviderConfigurationAuthenticationSchema) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

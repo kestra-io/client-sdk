@@ -19,13 +19,13 @@ type KVType string
 
 // List of KVType
 const (
-	KVTYPE_STRING   KVType = "STRING"
-	KVTYPE_NUMBER   KVType = "NUMBER"
-	KVTYPE_BOOLEAN  KVType = "BOOLEAN"
+	KVTYPE_STRING KVType = "STRING"
+	KVTYPE_NUMBER KVType = "NUMBER"
+	KVTYPE_BOOLEAN KVType = "BOOLEAN"
 	KVTYPE_DATETIME KVType = "DATETIME"
-	KVTYPE_DATE     KVType = "DATE"
+	KVTYPE_DATE KVType = "DATE"
 	KVTYPE_DURATION KVType = "DURATION"
-	KVTYPE_JSON     KVType = "JSON"
+	KVTYPE_JSON KVType = "JSON"
 )
 
 // All allowed values of KVType enum
@@ -117,3 +117,4 @@ func (v *NullableKVType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

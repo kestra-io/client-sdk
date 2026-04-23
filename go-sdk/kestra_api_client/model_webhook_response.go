@@ -18,16 +18,16 @@ var _ MappedNullable = &WebhookResponse{}
 
 // WebhookResponse struct for WebhookResponse
 type WebhookResponse struct {
-	TenantId             *string                           `json:"tenantId,omitempty"`
-	Id                   *string                           `json:"id,omitempty"`
-	Namespace            *string                           `json:"namespace,omitempty"`
-	FlowId               *string                           `json:"flowId,omitempty"`
-	FlowRevision         *int32                            `json:"flowRevision,omitempty"`
-	Trigger              *ExecutionTrigger                 `json:"trigger,omitempty"`
-	Outputs              map[string]map[string]interface{} `json:"outputs,omitempty"`
-	Labels               []Label                           `json:"labels,omitempty"`
-	State                *State                            `json:"state,omitempty"`
-	Url                  *string                           `json:"url,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	FlowRevision *int32 `json:"flowRevision,omitempty"`
+	Trigger *ExecutionTrigger `json:"trigger,omitempty"`
+	Outputs map[string]map[string]interface{} `json:"outputs,omitempty"`
+	Labels []Label `json:"labels,omitempty"`
+	State *State `json:"state,omitempty"`
+	Url *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -371,7 +371,7 @@ func (o *WebhookResponse) SetUrl(v string) {
 }
 
 func (o WebhookResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -483,3 +483,5 @@ func (v *NullableWebhookResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

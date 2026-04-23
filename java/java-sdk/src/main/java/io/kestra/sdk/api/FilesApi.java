@@ -463,8 +463,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -775,28 +775,33 @@ import java.util.StringJoiner;
   /**
    * Move a file or directory
    * 
+   * @param to The internal storage uri to move to (required)
    * @param namespace The namespace id (required)
    * @param from The internal storage uri to move from (required)
-   * @param to The internal storage uri to move to (required)
    * @param tenant  (required)
    * @throws ApiException if fails to make API call
    */
-  public void moveFileDirectory(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull URI from, @jakarta.annotation.Nonnull URI to, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    this.moveFileDirectory(namespace, from, to, tenant, Collections.emptyMap());
+  public void moveFileDirectory(@jakarta.annotation.Nonnull URI to, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull URI from, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    this.moveFileDirectory(to, namespace, from, tenant, Collections.emptyMap());
   }
 
   /**
    * Move a file or directory
    * 
+   * @param to The internal storage uri to move to (required)
    * @param namespace The namespace id (required)
    * @param from The internal storage uri to move from (required)
-   * @param to The internal storage uri to move to (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void moveFileDirectory(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull URI from, @jakarta.annotation.Nonnull URI to, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void moveFileDirectory(@jakarta.annotation.Nonnull URI to, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull URI from, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
+    
+    // verify the required parameter 'to' is set
+    if (to == null) {
+      throw new ApiException(400, "Missing the required parameter 'to' when calling moveFileDirectory");
+    }
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
@@ -806,11 +811,6 @@ import java.util.StringJoiner;
     // verify the required parameter 'from' is set
     if (from == null) {
       throw new ApiException(400, "Missing the required parameter 'from' when calling moveFileDirectory");
-    }
-    
-    // verify the required parameter 'to' is set
-    if (to == null) {
-      throw new ApiException(400, "Missing the required parameter 'to' when calling moveFileDirectory");
     }
     
     // verify the required parameter 'tenant' is set
@@ -830,8 +830,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("from", from));
     localVarQueryParams.addAll(apiClient.parameterToPair("to", to));
+    localVarQueryParams.addAll(apiClient.parameterToPair("from", from));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -874,37 +874,37 @@ import java.util.StringJoiner;
   /**
    * Find files which path contain the given string in their URI
    * 
-   * @param namespace The namespace id (required)
    * @param q The string the file path should contain (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> searchNamespaceFiles(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String q, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.searchNamespaceFiles(namespace, q, tenant, Collections.emptyMap());
+  public List<String> searchNamespaceFiles(@jakarta.annotation.Nonnull String q, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.searchNamespaceFiles(q, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Find files which path contain the given string in their URI
    * 
-   * @param namespace The namespace id (required)
    * @param q The string the file path should contain (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> searchNamespaceFiles(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String q, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> searchNamespaceFiles(@jakarta.annotation.Nonnull String q, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling searchNamespaceFiles");
-    }
     
     // verify the required parameter 'q' is set
     if (q == null) {
       throw new ApiException(400, "Missing the required parameter 'q' when calling searchNamespaceFiles");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling searchNamespaceFiles");
     }
     
     // verify the required parameter 'tenant' is set

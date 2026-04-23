@@ -18,12 +18,12 @@ var _ MappedNullable = &IAMUserControllerApiUserSummary{}
 
 // IAMUserControllerApiUserSummary struct for IAMUserControllerApiUserSummary
 type IAMUserControllerApiUserSummary struct {
-	Id                   *string                        `json:"id,omitempty"`
-	Username             *string                        `json:"username,omitempty"`
-	DisplayName          *string                        `json:"displayName,omitempty"`
-	Tenants              []ApiTenantSummary             `json:"tenants,omitempty"`
-	Auths                []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
-	SuperAdmin           *bool                          `json:"superAdmin,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Username *string `json:"username,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Tenants []ApiTenantSummary `json:"tenants,omitempty"`
+	Auths []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *IAMUserControllerApiUserSummary) SetSuperAdmin(v bool) {
 }
 
 func (o IAMUserControllerApiUserSummary) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableIAMUserControllerApiUserSummary) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

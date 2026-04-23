@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## deleteKeyValue
 
-> Boolean deleteKeyValue(namespace, key, tenant)
+> Boolean deleteKeyValue(key, namespace, tenant)
 
 Delete a key-value pair
 
@@ -34,10 +34,10 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
+let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteKeyValue(namespace, key, tenant).then((data) => {
+apiInstance.deleteKeyValue(key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -50,8 +50,8 @@ apiInstance.deleteKeyValue(namespace, key, tenant).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace id | 
  **key** | **String**| The key | 
+ **namespace** | **String**| The namespace id | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## keyValue
 
-> KVControllerKvDetail keyValue(namespace, key, tenant)
+> KVControllerKvDetail keyValue(key, namespace, tenant)
 
 Get value for a key
 
@@ -142,10 +142,10 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
+let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.keyValue(namespace, key, tenant).then((data) => {
+apiInstance.keyValue(key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -158,8 +158,8 @@ apiInstance.keyValue(namespace, key, tenant).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace id | 
  **key** | **String**| The key | 
+ **namespace** | **String**| The namespace id | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ## listAllKeys
 
-> PagedResultsKVEntry listAllKeys(page, size, tenant, opts)
+> PagedResultsKVEntry listAllKeys(tenant, opts)
 
 List all keys
 
@@ -196,14 +196,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
+  'size': 10, // Number | The current page size
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
+  'page': 1 // Number | The current page
 };
-apiInstance.listAllKeys(page, size, tenant, opts).then((data) => {
+apiInstance.listAllKeys(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -216,11 +216,11 @@ apiInstance.listAllKeys(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **size** | **Number**| The current page size | [optional] [default to 10]
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **page** | **Number**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 ## setKeyValue
 
-> setKeyValue(namespace, key, tenant, body)
+> setKeyValue(key, namespace, tenant, body)
 
 Puts a key-value pair in store
 
@@ -360,11 +360,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
+let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The value of the key
-apiInstance.setKeyValue(namespace, key, tenant, body).then(() => {
+apiInstance.setKeyValue(key, namespace, tenant, body).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -377,8 +377,8 @@ apiInstance.setKeyValue(namespace, key, tenant, body).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace id | 
  **key** | **String**| The key | 
+ **namespace** | **String**| The namespace id | 
  **tenant** | **String**|  | 
  **body** | **String**| The value of the key | 
 

@@ -594,7 +594,7 @@ public class Example {
 
 ## moveFileDirectory
 
-> moveFileDirectory(namespace, from, to, tenant)
+> moveFileDirectory(to, namespace, from, tenant)
 
 Move a file or directory
 
@@ -618,12 +618,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        URI to = new URI(); // URI | The internal storage uri to move to
         String namespace = "namespace_example"; // String | The namespace id
         URI from = new URI(); // URI | The internal storage uri to move from
-        URI to = new URI(); // URI | The internal storage uri to move to
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.FilesApi().moveFileDirectory(namespace, from, to, tenant);
+            kestraClient.FilesApi().moveFileDirectory(to, namespace, from, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#moveFileDirectory");
             System.err.println("Status code: " + e.getCode());
@@ -640,9 +640,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **to** | **URI**| The internal storage uri to move to | |
 | **namespace** | **String**| The namespace id | |
 | **from** | **URI**| The internal storage uri to move from | |
-| **to** | **URI**| The internal storage uri to move to | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -667,7 +667,7 @@ null (empty response body)
 
 ## searchNamespaceFiles
 
-> List&lt;String&gt; searchNamespaceFiles(namespace, q, tenant)
+> List&lt;String&gt; searchNamespaceFiles(q, namespace, tenant)
 
 Find files which path contain the given string in their URI
 
@@ -691,11 +691,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The namespace id
         String q = "q_example"; // String | The string the file path should contain
+        String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            List<String> result = kestraClient.FilesApi().searchNamespaceFiles(namespace, q, tenant);
+            List<String> result = kestraClient.FilesApi().searchNamespaceFiles(q, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FilesApi#searchNamespaceFiles");
@@ -713,8 +713,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
 | **q** | **String**| The string the file path should contain | |
+| **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
 
 ### Return type

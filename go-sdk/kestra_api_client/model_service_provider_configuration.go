@@ -19,22 +19,22 @@ var _ MappedNullable = &ServiceProviderConfiguration{}
 
 // ServiceProviderConfiguration struct for ServiceProviderConfiguration
 type ServiceProviderConfiguration struct {
-	Schemas               []string                                            `json:"schemas,omitempty"`
-	BaseUrn               *string                                             `json:"baseUrn,omitempty"`
-	Extensions            *map[string]ScimExtension                           `json:"extensions,omitempty"`
-	Meta                  Meta                                                `json:"meta"`
-	Id                    *string                                             `json:"id,omitempty"`
-	ExternalId            *string                                             `json:"externalId,omitempty"`
-	ResourceType          *string                                             `json:"resourceType,omitempty"`
-	DocumentationUrl      *string                                             `json:"documentationUrl,omitempty"`
-	Patch                 *ServiceProviderConfigurationSupportedConfiguration `json:"patch,omitempty"`
-	Bulk                  *ServiceProviderConfigurationBulkConfiguration      `json:"bulk,omitempty"`
-	Filter                *ServiceProviderConfigurationFilterConfiguration    `json:"filter,omitempty"`
-	ChangePassword        *ServiceProviderConfigurationSupportedConfiguration `json:"changePassword,omitempty"`
-	Sort                  *ServiceProviderConfigurationSupportedConfiguration `json:"sort,omitempty"`
-	Etag                  *ServiceProviderConfigurationSupportedConfiguration `json:"etag,omitempty"`
-	AuthenticationSchemes []ServiceProviderConfigurationAuthenticationSchema  `json:"authenticationSchemes,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	Schemas []string `json:"schemas,omitempty"`
+	BaseUrn *string `json:"baseUrn,omitempty"`
+	Extensions *map[string]ScimExtension `json:"extensions,omitempty"`
+	Meta Meta `json:"meta"`
+	Id *string `json:"id,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	ResourceType *string `json:"resourceType,omitempty"`
+	DocumentationUrl *string `json:"documentationUrl,omitempty"`
+	Patch *ServiceProviderConfigurationSupportedConfiguration `json:"patch,omitempty"`
+	Bulk *ServiceProviderConfigurationBulkConfiguration `json:"bulk,omitempty"`
+	Filter *ServiceProviderConfigurationFilterConfiguration `json:"filter,omitempty"`
+	ChangePassword *ServiceProviderConfigurationSupportedConfiguration `json:"changePassword,omitempty"`
+	Sort *ServiceProviderConfigurationSupportedConfiguration `json:"sort,omitempty"`
+	Etag *ServiceProviderConfigurationSupportedConfiguration `json:"etag,omitempty"`
+	AuthenticationSchemes []ServiceProviderConfigurationAuthenticationSchema `json:"authenticationSchemes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServiceProviderConfiguration ServiceProviderConfiguration
@@ -530,7 +530,7 @@ func (o *ServiceProviderConfiguration) SetAuthenticationSchemes(v []ServiceProvi
 }
 
 func (o ServiceProviderConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -603,10 +603,10 @@ func (o *ServiceProviderConfiguration) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -681,3 +681,5 @@ func (v *NullableServiceProviderConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

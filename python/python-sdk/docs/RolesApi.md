@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_roles**
-> PagedResultsApiRoleSummary search_roles(page, size, tenant, q=q, sort=sort)
+> PagedResultsApiRoleSummary search_roles(tenant, q=q, page=page, size=size, sort=sort)
 
 Search for roles
 
@@ -354,15 +354,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for roles
-        api_response = kestra_client.RolesApi.search_roles(page, size, tenant, q=q, sort=sort)
+        api_response = kestra_client.RolesApi.search_roles(tenant, q=q, page=page, size=size, sort=sort)
         print("The response of RolesApi->search_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -376,10 +376,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
  **q** | **str**| A string filter | [optional] 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type

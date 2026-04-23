@@ -18,8 +18,8 @@ var _ MappedNullable = &Isolation{}
 
 // Isolation struct for Isolation
 type Isolation struct {
-	DeniedServices       []ServiceType `json:"deniedServices,omitempty"`
-	Enabled              *bool         `json:"enabled,omitempty"`
+	DeniedServices []ServiceType `json:"deniedServices,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *Isolation) SetEnabled(v bool) {
 }
 
 func (o Isolation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableIsolation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

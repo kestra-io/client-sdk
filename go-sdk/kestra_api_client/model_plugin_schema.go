@@ -18,9 +18,9 @@ var _ MappedNullable = &PluginSchema{}
 
 // PluginSchema struct for PluginSchema
 type PluginSchema struct {
-	Properties           map[string]map[string]interface{} `json:"properties,omitempty"`
-	Outputs              map[string]map[string]interface{} `json:"outputs,omitempty"`
-	Definitions          map[string]map[string]interface{} `json:"definitions,omitempty"`
+	Properties map[string]map[string]interface{} `json:"properties,omitempty"`
+	Outputs map[string]map[string]interface{} `json:"outputs,omitempty"`
+	Definitions map[string]map[string]interface{} `json:"definitions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *PluginSchema) SetDefinitions(v map[string]map[string]interface{}) {
 }
 
 func (o PluginSchema) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullablePluginSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

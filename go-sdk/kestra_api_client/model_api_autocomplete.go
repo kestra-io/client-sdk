@@ -18,9 +18,9 @@ var _ MappedNullable = &ApiAutocomplete{}
 
 // ApiAutocomplete struct for ApiAutocomplete
 type ApiAutocomplete struct {
-	Q                    NullableString `json:"q,omitempty"`
-	Ids                  []string       `json:"ids,omitempty"`
-	ExistingOnly         *bool          `json:"existingOnly,omitempty"`
+	Q NullableString `json:"q,omitempty"`
+	Ids []string `json:"ids,omitempty"`
+	ExistingOnly *bool `json:"existingOnly,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +75,6 @@ func (o *ApiAutocomplete) HasQ() bool {
 func (o *ApiAutocomplete) SetQ(v string) {
 	o.Q.Set(&v)
 }
-
 // SetQNil sets the value for Q to be an explicit nil
 func (o *ApiAutocomplete) SetQNil() {
 	o.Q.Set(nil)
@@ -152,7 +151,7 @@ func (o *ApiAutocomplete) SetExistingOnly(v bool) {
 }
 
 func (o ApiAutocomplete) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -236,3 +235,5 @@ func (v *NullableApiAutocomplete) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

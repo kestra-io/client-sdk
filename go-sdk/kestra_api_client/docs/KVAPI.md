@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## DeleteKeyValue
 
-> bool DeleteKeyValue(ctx, namespace, key, tenant).Execute()
+> bool DeleteKeyValue(ctx, key, namespace, tenant).Execute()
 
 Delete a key-value pair
 
@@ -33,13 +33,13 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The namespace id
 	key := "key_example" // string | The key
+	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KVAPI.DeleteKeyValue(context.Background(), namespace, key, tenant).Execute()
+	resp, r, err := apiClient.KVAPI.DeleteKeyValue(context.Background(), key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.DeleteKeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -55,8 +55,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The namespace id | 
 **key** | **string** | The key | 
+**namespace** | **string** | The namespace id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## KeyValue
 
-> KVControllerKvDetail KeyValue(ctx, namespace, key, tenant).Execute()
+> KVControllerKvDetail KeyValue(ctx, key, namespace, tenant).Execute()
 
 Get value for a key
 
@@ -180,13 +180,13 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The namespace id
 	key := "key_example" // string | The key
+	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KVAPI.KeyValue(context.Background(), namespace, key, tenant).Execute()
+	resp, r, err := apiClient.KVAPI.KeyValue(context.Background(), key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.KeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -202,8 +202,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The namespace id | 
 **key** | **string** | The key | 
+**namespace** | **string** | The namespace id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## ListAllKeys
 
-> PagedResultsKVEntry ListAllKeys(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+> PagedResultsKVEntry ListAllKeys(ctx, tenant).Filters(filters).Size(size).Sort(sort).Page(page).Execute()
 
 List all keys
 
@@ -254,15 +254,15 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KVAPI.ListAllKeys(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+	resp, r, err := apiClient.KVAPI.ListAllKeys(context.Background(), tenant).Filters(filters).Size(size).Sort(sort).Page(page).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.ListAllKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -287,11 +287,11 @@ Other parameters are passed through a pointer to a apiListAllKeysRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
- **sort** | **[]string** | The sort of current page | 
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
+ **size** | **int32** | The current page size | [default to 10]
+ **sort** | **[]string** | The sort of current page | 
+ **page** | **int32** | The current page | [default to 1]
 
 ### Return type
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## SetKeyValue
 
-> SetKeyValue(ctx, namespace, key, tenant).Body(body).Execute()
+> SetKeyValue(ctx, key, namespace, tenant).Body(body).Execute()
 
 Puts a key-value pair in store
 
@@ -472,14 +472,14 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The namespace id
 	key := "key_example" // string | The key
+	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
 	body := "body_example" // string | The value of the key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KVAPI.SetKeyValue(context.Background(), namespace, key, tenant).Body(body).Execute()
+	r, err := apiClient.KVAPI.SetKeyValue(context.Background(), key, namespace, tenant).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.SetKeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -493,8 +493,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The namespace id | 
 **key** | **string** | The key | 
+**namespace** | **string** | The namespace id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters

@@ -18,8 +18,8 @@ var _ MappedNullable = &RightSidebarConfigurationCustomLink{}
 
 // RightSidebarConfigurationCustomLink struct for RightSidebarConfigurationCustomLink
 type RightSidebarConfigurationCustomLink struct {
-	Title                *string `json:"title,omitempty"`
-	Url                  *string `json:"url,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Url *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *RightSidebarConfigurationCustomLink) SetUrl(v string) {
 }
 
 func (o RightSidebarConfigurationCustomLink) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableRightSidebarConfigurationCustomLink) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

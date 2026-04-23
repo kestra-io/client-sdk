@@ -18,8 +18,8 @@ var _ MappedNullable = &ResourceTypeSchemaExtensionConfiguration{}
 
 // ResourceTypeSchemaExtensionConfiguration struct for ResourceTypeSchemaExtensionConfiguration
 type ResourceTypeSchemaExtensionConfiguration struct {
-	SchemaUrn            *string `json:"schemaUrn,omitempty"`
-	Required             *bool   `json:"required,omitempty"`
+	SchemaUrn *string `json:"schemaUrn,omitempty"`
+	Required *bool `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ResourceTypeSchemaExtensionConfiguration) SetRequired(v bool) {
 }
 
 func (o ResourceTypeSchemaExtensionConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableResourceTypeSchemaExtensionConfiguration) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

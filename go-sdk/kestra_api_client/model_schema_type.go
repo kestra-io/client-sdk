@@ -19,14 +19,14 @@ type SchemaType string
 
 // List of SchemaType
 const (
-	SCHEMATYPE_FLOW          SchemaType = "FLOW"
-	SCHEMATYPE_TEMPLATE      SchemaType = "TEMPLATE"
-	SCHEMATYPE_TASK          SchemaType = "TASK"
-	SCHEMATYPE_TRIGGER       SchemaType = "TRIGGER"
+	SCHEMATYPE_FLOW SchemaType = "FLOW"
+	SCHEMATYPE_TEMPLATE SchemaType = "TEMPLATE"
+	SCHEMATYPE_TASK SchemaType = "TASK"
+	SCHEMATYPE_TRIGGER SchemaType = "TRIGGER"
 	SCHEMATYPE_PLUGINDEFAULT SchemaType = "PLUGINDEFAULT"
-	SCHEMATYPE_APPS          SchemaType = "APPS"
-	SCHEMATYPE_TESTSUITES    SchemaType = "TESTSUITES"
-	SCHEMATYPE_DASHBOARD     SchemaType = "DASHBOARD"
+	SCHEMATYPE_APPS SchemaType = "APPS"
+	SCHEMATYPE_TESTSUITES SchemaType = "TESTSUITES"
+	SCHEMATYPE_DASHBOARD SchemaType = "DASHBOARD"
 )
 
 // All allowed values of SchemaType enum
@@ -119,3 +119,4 @@ func (v *NullableSchemaType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -19,10 +19,10 @@ var _ MappedNullable = &AbstractTriggerForExecution{}
 
 // AbstractTriggerForExecution struct for AbstractTriggerForExecution
 type AbstractTriggerForExecution struct {
-	Id   string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
 	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
-	// Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
-	Version              *string `json:"version,omitempty"`
+	// Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). 
+	Version *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -128,7 +128,7 @@ func (o *AbstractTriggerForExecution) SetVersion(v string) {
 }
 
 func (o AbstractTriggerForExecution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -164,10 +164,10 @@ func (o *AbstractTriggerForExecution) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -230,3 +230,5 @@ func (v *NullableAbstractTriggerForExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

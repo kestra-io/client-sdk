@@ -18,13 +18,13 @@ var _ MappedNullable = &AttributeReference{}
 
 // AttributeReference struct for AttributeReference
 type AttributeReference struct {
-	FullAttributeName           *string `json:"fullAttributeName,omitempty"`
+	FullAttributeName *string `json:"fullAttributeName,omitempty"`
 	FullyQualifiedAttributeName *string `json:"fullyQualifiedAttributeName,omitempty"`
-	AttributeBase               *string `json:"attributeBase,omitempty"`
-	Urn                         *string `json:"urn,omitempty"`
-	AttributeName               *string `json:"attributeName,omitempty"`
-	SubAttributeName            *string `json:"subAttributeName,omitempty"`
-	AdditionalProperties        map[string]interface{}
+	AttributeBase *string `json:"attributeBase,omitempty"`
+	Urn *string `json:"urn,omitempty"`
+	AttributeName *string `json:"attributeName,omitempty"`
+	SubAttributeName *string `json:"subAttributeName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AttributeReference AttributeReference
@@ -239,7 +239,7 @@ func (o *AttributeReference) SetSubAttributeName(v string) {
 }
 
 func (o AttributeReference) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableAttributeReference) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

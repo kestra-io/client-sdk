@@ -1683,9 +1683,9 @@ class ServiceAccountApi:
     @validate_call
     def list_service_accounts(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1699,12 +1699,12 @@ class ServiceAccountApi:
         """List service accounts. Superadmin-only. 
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param filters: Filters (required)
+        :param filters: Filters (required)
         :type filters: List[QueryFilter]
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1716,9 +1716,9 @@ class ServiceAccountApi:
         """ # noqa: E501
 
         _param = self._list_service_accounts_serialize(
+            filters=filters,
             page=page,
             size=size,
-            filters=filters,
             sort=sort,
         )
 
@@ -1740,9 +1740,9 @@ class ServiceAccountApi:
     @validate_call
     def list_service_accounts_with_http_info(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1756,12 +1756,12 @@ class ServiceAccountApi:
         """List service accounts. Superadmin-only. 
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param filters: Filters (required)
+        :param filters: Filters (required)
         :type filters: List[QueryFilter]
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1773,9 +1773,9 @@ class ServiceAccountApi:
         """ # noqa: E501
 
         _param = self._list_service_accounts_serialize(
+            filters=filters,
             page=page,
             size=size,
-            filters=filters,
             sort=sort,
         )
 
@@ -1796,9 +1796,9 @@ class ServiceAccountApi:
 
     def _list_service_accounts_serialize(
         self,
+        filters,
         page,
         size,
-        filters,
         sort,
     ) -> RequestSerialized:
 

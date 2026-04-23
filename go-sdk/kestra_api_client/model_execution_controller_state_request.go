@@ -18,8 +18,8 @@ var _ MappedNullable = &ExecutionControllerStateRequest{}
 
 // ExecutionControllerStateRequest struct for ExecutionControllerStateRequest
 type ExecutionControllerStateRequest struct {
-	TaskRunId            *string    `json:"taskRunId,omitempty"`
-	State                *StateType `json:"state,omitempty"`
+	TaskRunId *string `json:"taskRunId,omitempty"`
+	State *StateType `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ExecutionControllerStateRequest) SetState(v StateType) {
 }
 
 func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableExecutionControllerStateRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

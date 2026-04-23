@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the StateHistory type satisfies the MappedNullable interface at compile time
@@ -20,8 +20,8 @@ var _ MappedNullable = &StateHistory{}
 
 // StateHistory struct for StateHistory
 type StateHistory struct {
-	State                StateType `json:"state"`
-	Date                 time.Time `json:"date"`
+	State StateType `json:"state"`
+	Date time.Time `json:"date"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -95,7 +95,7 @@ func (o *StateHistory) SetDate(v time.Time) {
 }
 
 func (o StateHistory) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -128,10 +128,10 @@ func (o *StateHistory) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -193,3 +193,5 @@ func (v *NullableStateHistory) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,7 +18,7 @@ var _ MappedNullable = &TenantInterface{}
 
 // TenantInterface struct for TenantInterface
 type TenantInterface struct {
-	TenantId             *string `json:"tenantId,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *TenantInterface) SetTenantId(v string) {
 }
 
 func (o TenantInterface) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableTenantInterface) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

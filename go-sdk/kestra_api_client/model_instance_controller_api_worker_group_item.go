@@ -25,7 +25,7 @@ type InstanceControllerApiWorkerGroupItem struct {
 	// The description of the worker group.
 	Description *string `json:"description,omitempty"`
 	// The number of active workers for the group.
-	ActiveWorkers        *int32 `json:"activeWorkers,omitempty"`
+	ActiveWorkers *int32 `json:"activeWorkers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -177,7 +177,7 @@ func (o *InstanceControllerApiWorkerGroupItem) SetActiveWorkers(v int32) {
 }
 
 func (o InstanceControllerApiWorkerGroupItem) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -265,3 +265,5 @@ func (v *NullableInstanceControllerApiWorkerGroupItem) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

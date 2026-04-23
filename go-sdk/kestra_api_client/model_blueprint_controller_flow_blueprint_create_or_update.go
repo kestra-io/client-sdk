@@ -19,10 +19,10 @@ var _ MappedNullable = &BlueprintControllerFlowBlueprintCreateOrUpdate{}
 
 // BlueprintControllerFlowBlueprintCreateOrUpdate struct for BlueprintControllerFlowBlueprintCreateOrUpdate
 type BlueprintControllerFlowBlueprintCreateOrUpdate struct {
-	Title                string   `json:"title"`
-	Source               string   `json:"source"`
-	Description          *string  `json:"description,omitempty"`
-	Tags                 []string `json:"tags,omitempty"`
+	Title string `json:"title"`
+	Source string `json:"source"`
+	Description *string `json:"description,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,7 +160,7 @@ func (o *BlueprintControllerFlowBlueprintCreateOrUpdate) SetTags(v []string) {
 }
 
 func (o BlueprintControllerFlowBlueprintCreateOrUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -199,10 +199,10 @@ func (o *BlueprintControllerFlowBlueprintCreateOrUpdate) UnmarshalJSON(data []by
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -266,3 +266,5 @@ func (v *NullableBlueprintControllerFlowBlueprintCreateOrUpdate) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

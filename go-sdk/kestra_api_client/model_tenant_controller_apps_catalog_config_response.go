@@ -18,10 +18,10 @@ var _ MappedNullable = &TenantControllerAppsCatalogConfigResponse{}
 
 // TenantControllerAppsCatalogConfigResponse struct for TenantControllerAppsCatalogConfigResponse
 type TenantControllerAppsCatalogConfigResponse struct {
-	Title                *string `json:"title,omitempty"`
-	TitleColor           *string `json:"titleColor,omitempty"`
-	PrimaryColor         *string `json:"primaryColor,omitempty"`
-	Logo                 *string `json:"logo,omitempty"`
+	Title *string `json:"title,omitempty"`
+	TitleColor *string `json:"titleColor,omitempty"`
+	PrimaryColor *string `json:"primaryColor,omitempty"`
+	Logo *string `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *TenantControllerAppsCatalogConfigResponse) SetLogo(v string) {
 }
 
 func (o TenantControllerAppsCatalogConfigResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableTenantControllerAppsCatalogConfigResponse) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

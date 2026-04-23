@@ -241,7 +241,7 @@ public class Example {
 
 ## deleteTrigger
 
-> Object deleteTrigger(namespace, flowId, triggerId, tenant)
+> Object deleteTrigger(namespace, triggerId, flowId, tenant)
 
 Delete a trigger
 
@@ -266,11 +266,11 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The namespace
-        String flowId = "flowId_example"; // String | The flow id
         String triggerId = "triggerId_example"; // String | The trigger id
+        String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.TriggersApi().deleteTrigger(namespace, flowId, triggerId, tenant);
+            Object result = kestraClient.TriggersApi().deleteTrigger(namespace, triggerId, flowId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteTrigger");
@@ -289,8 +289,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace | |
-| **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
+| **flowId** | **String**| The flow id | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -525,7 +525,7 @@ public class Example {
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, filters)
+> Object disabledTriggersByQuery(tenant, disabled, filters)
 
 Disable/enable triggers by query parameters
 
@@ -549,11 +549,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Boolean disabled = true; // Boolean | The disabled state
         String tenant = "tenant_example"; // String | 
+        Boolean disabled = true; // Boolean | The disabled state
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = kestraClient.TriggersApi().disabledTriggersByQuery(disabled, tenant, filters);
+            Object result = kestraClient.TriggersApi().disabledTriggersByQuery(tenant, disabled, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disabledTriggersByQuery");
@@ -571,8 +571,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **disabled** | **Boolean**| The disabled state | [default to true] |
 | **tenant** | **String**|  | |
+| **disabled** | **Boolean**| The disabled state | [optional] [default to true] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
@@ -877,7 +877,7 @@ public class Example {
 
 ## restartTrigger
 
-> Object restartTrigger(namespace, flowId, triggerId, tenant)
+> Object restartTrigger(namespace, triggerId, flowId, tenant)
 
 Restart a trigger
 
@@ -902,11 +902,11 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The namespace
-        String flowId = "flowId_example"; // String | The flow id
         String triggerId = "triggerId_example"; // String | The trigger id
+        String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.TriggersApi().restartTrigger(namespace, flowId, triggerId, tenant);
+            Object result = kestraClient.TriggersApi().restartTrigger(namespace, triggerId, flowId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#restartTrigger");
@@ -925,8 +925,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace | |
-| **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
+| **flowId** | **String**| The flow id | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -951,7 +951,7 @@ public class Example {
 
 ## searchTriggers
 
-> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, sort, filters)
+> PagedResultsTriggerControllerTriggers searchTriggers(tenant, filters, size, page, sort)
 
 Search for triggers
 
@@ -975,13 +975,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsTriggerControllerTriggers result = kestraClient.TriggersApi().searchTriggers(page, size, tenant, sort, filters);
+            PagedResultsTriggerControllerTriggers result = kestraClient.TriggersApi().searchTriggers(tenant, filters, size, page, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#searchTriggers");
@@ -999,11 +999,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 
@@ -1027,7 +1027,7 @@ public class Example {
 
 ## searchTriggersForFlow
 
-> PagedResultsTrigger searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q)
+> PagedResultsTrigger searchTriggersForFlow(namespace, flowId, tenant, q, size, page, sort)
 
 Get all triggers for a flow
 
@@ -1051,15 +1051,15 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        String namespace = "namespace_example"; // String | The namespace
+        ListBlueprintTagsQParameter namespace = new ListBlueprintTagsQParameter(); // ListBlueprintTagsQParameter | The namespace
         String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String q = "q_example"; // String | A string filter
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsTrigger result = kestraClient.TriggersApi().searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q);
+            PagedResultsTrigger result = kestraClient.TriggersApi().searchTriggersForFlow(namespace, flowId, tenant, q, size, page, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#searchTriggersForFlow");
@@ -1077,13 +1077,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **namespace** | **String**| The namespace | |
+| **namespace** | [**ListBlueprintTagsQParameter**](.md)| The namespace | |
 | **flowId** | **String**| The flow id | |
 | **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **q** | **String**| A string filter | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 
@@ -1107,7 +1107,7 @@ public class Example {
 
 ## unlockTrigger
 
-> Trigger unlockTrigger(namespace, flowId, triggerId, tenant)
+> Trigger unlockTrigger(namespace, triggerId, flowId, tenant)
 
 Unlock a trigger
 
@@ -1132,11 +1132,11 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The namespace
-        String flowId = "flowId_example"; // String | The flow id
         String triggerId = "triggerId_example"; // String | The trigger id
+        String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         try {
-            Trigger result = kestraClient.TriggersApi().unlockTrigger(namespace, flowId, triggerId, tenant);
+            Trigger result = kestraClient.TriggersApi().unlockTrigger(namespace, triggerId, flowId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTrigger");
@@ -1155,8 +1155,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace | |
-| **flowId** | **String**| The flow id | |
 | **triggerId** | **String**| The trigger id | |
+| **flowId** | **String**| The flow id | |
 | **tenant** | **String**|  | |
 
 ### Return type

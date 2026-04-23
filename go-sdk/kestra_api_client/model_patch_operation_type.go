@@ -19,8 +19,8 @@ type PatchOperationType string
 
 // List of PatchOperation.Type
 const (
-	PATCHOPERATIONTYPE_ADD     PatchOperationType = "ADD"
-	PATCHOPERATIONTYPE_REMOVE  PatchOperationType = "REMOVE"
+	PATCHOPERATIONTYPE_ADD PatchOperationType = "ADD"
+	PATCHOPERATIONTYPE_REMOVE PatchOperationType = "REMOVE"
 	PATCHOPERATIONTYPE_REPLACE PatchOperationType = "REPLACE"
 )
 
@@ -109,3 +109,4 @@ func (v *NullablePatchOperationType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

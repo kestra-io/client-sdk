@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Backfill type satisfies the MappedNullable interface at compile time
@@ -20,14 +20,14 @@ var _ MappedNullable = &Backfill{}
 
 // Backfill struct for Backfill
 type Backfill struct {
-	Start                     time.Time                         `json:"start"`
-	End                       *time.Time                        `json:"end,omitempty"`
-	CurrentDate               *time.Time                        `json:"currentDate,omitempty"`
-	Paused                    *bool                             `json:"paused,omitempty"`
-	Inputs                    map[string]map[string]interface{} `json:"inputs,omitempty"`
-	Labels                    []Label                           `json:"labels,omitempty"`
-	PreviousNextExecutionDate *time.Time                        `json:"previousNextExecutionDate,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	Start time.Time `json:"start"`
+	End *time.Time `json:"end,omitempty"`
+	CurrentDate *time.Time `json:"currentDate,omitempty"`
+	Paused *bool `json:"paused,omitempty"`
+	Inputs map[string]map[string]interface{} `json:"inputs,omitempty"`
+	Labels []Label `json:"labels,omitempty"`
+	PreviousNextExecutionDate *time.Time `json:"previousNextExecutionDate,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Backfill Backfill
@@ -267,7 +267,7 @@ func (o *Backfill) SetPreviousNextExecutionDate(v time.Time) {
 }
 
 func (o Backfill) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -316,10 +316,10 @@ func (o *Backfill) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -386,3 +386,5 @@ func (v *NullableBackfill) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

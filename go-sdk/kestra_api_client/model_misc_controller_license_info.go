@@ -19,14 +19,14 @@ var _ MappedNullable = &MiscControllerLicenseInfo{}
 
 // MiscControllerLicenseInfo struct for MiscControllerLicenseInfo
 type MiscControllerLicenseInfo struct {
-	Type                 *string    `json:"type,omitempty"`
-	Expiry               *time.Time `json:"expiry,omitempty"`
-	Expired              *bool      `json:"expired,omitempty"`
-	MaxServers           *int32     `json:"maxServers,omitempty"`
-	Standalone           *bool      `json:"standalone,omitempty"`
-	WorkerGroups         *bool      `json:"workerGroups,omitempty"`
-	Online               *bool      `json:"online,omitempty"`
-	GracePeriod          *time.Time `json:"gracePeriod,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Expiry *time.Time `json:"expiry,omitempty"`
+	Expired *bool `json:"expired,omitempty"`
+	MaxServers *int32 `json:"maxServers,omitempty"`
+	Standalone *bool `json:"standalone,omitempty"`
+	WorkerGroups *bool `json:"workerGroups,omitempty"`
+	Online *bool `json:"online,omitempty"`
+	GracePeriod *time.Time `json:"gracePeriod,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,7 +306,7 @@ func (o *MiscControllerLicenseInfo) SetGracePeriod(v time.Time) {
 }
 
 func (o MiscControllerLicenseInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -410,3 +410,5 @@ func (v *NullableMiscControllerLicenseInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,9 +18,9 @@ var _ MappedNullable = &PatchOperation{}
 
 // PatchOperation struct for PatchOperation
 type PatchOperation struct {
-	Operation            *PatchOperationType    `json:"operation,omitempty"`
-	Path                 *PatchOperationPath    `json:"path,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
+	Operation *PatchOperationType `json:"operation,omitempty"`
+	Path *PatchOperationPath `json:"path,omitempty"`
+	Value map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *PatchOperation) SetValue(v map[string]interface{}) {
 }
 
 func (o PatchOperation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullablePatchOperation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

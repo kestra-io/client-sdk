@@ -18,12 +18,12 @@ var _ MappedNullable = &IAMRoleControllerApiRoleDetail{}
 
 // IAMRoleControllerApiRoleDetail struct for IAMRoleControllerApiRoleDetail
 type IAMRoleControllerApiRoleDetail struct {
-	Id                   *string                                                   `json:"id,omitempty"`
-	Name                 *string                                                   `json:"name,omitempty"`
-	Description          *string                                                   `json:"description,omitempty"`
-	Permissions          *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions `json:"permissions,omitempty"`
-	IsDefault            *bool                                                     `json:"isDefault,omitempty"`
-	IsManaged            *bool                                                     `json:"isManaged,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Permissions *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions `json:"permissions,omitempty"`
+	IsDefault *bool `json:"isDefault,omitempty"`
+	IsManaged *bool `json:"isManaged,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *IAMRoleControllerApiRoleDetail) SetIsManaged(v bool) {
 }
 
 func (o IAMRoleControllerApiRoleDetail) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableIAMRoleControllerApiRoleDetail) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

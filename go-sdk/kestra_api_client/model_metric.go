@@ -18,12 +18,12 @@ var _ MappedNullable = &Metric{}
 
 // Metric struct for Metric
 type Metric struct {
-	Name                 *string                `json:"name,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	BaseUnit             *string                `json:"baseUnit,omitempty"`
-	Tags                 []MetricTag            `json:"tags,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Description *string `json:"description,omitempty"`
+	BaseUnit *string `json:"baseUnit,omitempty"`
+	Tags []MetricTag `json:"tags,omitempty"`
+	Value map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *Metric) SetValue(v map[string]interface{}) {
 }
 
 func (o Metric) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableMetric) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

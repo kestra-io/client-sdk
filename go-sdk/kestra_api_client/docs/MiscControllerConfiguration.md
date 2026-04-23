@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **SystemNamespace** | Pointer to **string** |  | [optional] 
 **HiddenLabelsPrefixes** | Pointer to **[]string** |  | [optional] 
 **IsAiEnabled** | Pointer to **bool** |  | [optional] 
+**IsAiApiKeyConfigured** | Pointer to **bool** |  | [optional] 
 **IsBasicAuthInitialized** | Pointer to **bool** |  | [optional] 
 **PluginsHash** | Pointer to **int64** |  | [optional] 
 **IsConcurrencyViewEnabled** | Pointer to **bool** |  | [optional] 
@@ -442,6 +443,31 @@ SetIsAiEnabled sets IsAiEnabled field to given value.
 `func (o *MiscControllerConfiguration) HasIsAiEnabled() bool`
 
 HasIsAiEnabled returns a boolean if a field has been set.
+
+### GetIsAiApiKeyConfigured
+
+`func (o *MiscControllerConfiguration) GetIsAiApiKeyConfigured() bool`
+
+GetIsAiApiKeyConfigured returns the IsAiApiKeyConfigured field if non-nil, zero value otherwise.
+
+### GetIsAiApiKeyConfiguredOk
+
+`func (o *MiscControllerConfiguration) GetIsAiApiKeyConfiguredOk() (*bool, bool)`
+
+GetIsAiApiKeyConfiguredOk returns a tuple with the IsAiApiKeyConfigured field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsAiApiKeyConfigured
+
+`func (o *MiscControllerConfiguration) SetIsAiApiKeyConfigured(v bool)`
+
+SetIsAiApiKeyConfigured sets IsAiApiKeyConfigured field to given value.
+
+### HasIsAiApiKeyConfigured
+
+`func (o *MiscControllerConfiguration) HasIsAiApiKeyConfigured() bool`
+
+HasIsAiApiKeyConfigured returns a boolean if a field has been set.
 
 ### GetIsBasicAuthInitialized
 

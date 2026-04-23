@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Blueprint type satisfies the MappedNullable interface at compile time
@@ -20,14 +20,14 @@ var _ MappedNullable = &Blueprint{}
 
 // Blueprint struct for Blueprint
 type Blueprint struct {
-	Id                   *string            `json:"id,omitempty"`
-	Title                string             `json:"title"`
-	Description          *string            `json:"description,omitempty"`
-	Tags                 []string           `json:"tags,omitempty"`
-	IncludedTasks        []string           `json:"includedTasks,omitempty"`
-	PublishedAt          *time.Time         `json:"publishedAt,omitempty"`
-	Deleted              bool               `json:"deleted"`
-	Template             *BlueprintTemplate `json:"template,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	IncludedTasks []string `json:"includedTasks,omitempty"`
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+	Deleted bool `json:"deleted"`
+	Template *BlueprintTemplate `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -293,7 +293,7 @@ func (o *Blueprint) SetTemplate(v BlueprintTemplate) {
 }
 
 func (o Blueprint) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -344,10 +344,10 @@ func (o *Blueprint) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -415,3 +415,5 @@ func (v *NullableBlueprint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

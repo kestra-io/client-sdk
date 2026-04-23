@@ -19,8 +19,8 @@ var _ MappedNullable = &Breakpoint{}
 
 // Breakpoint struct for Breakpoint
 type Breakpoint struct {
-	Id                   string         `json:"id"`
-	Value                NullableString `json:"value,omitempty"`
+	Id string `json:"id"`
+	Value NullableString `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -100,7 +100,6 @@ func (o *Breakpoint) HasValue() bool {
 func (o *Breakpoint) SetValue(v string) {
 	o.Value.Set(&v)
 }
-
 // SetValueNil sets the value for Value to be an explicit nil
 func (o *Breakpoint) SetValueNil() {
 	o.Value.Set(nil)
@@ -112,7 +111,7 @@ func (o *Breakpoint) UnsetValue() {
 }
 
 func (o Breakpoint) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -146,10 +145,10 @@ func (o *Breakpoint) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -211,3 +210,5 @@ func (v *NullableBreakpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

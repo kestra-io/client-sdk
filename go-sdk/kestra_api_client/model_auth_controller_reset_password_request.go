@@ -18,8 +18,8 @@ var _ MappedNullable = &AuthControllerResetPasswordRequest{}
 
 // AuthControllerResetPasswordRequest struct for AuthControllerResetPasswordRequest
 type AuthControllerResetPasswordRequest struct {
-	Token                *string `json:"token,omitempty"`
-	Password             *string `json:"password,omitempty"`
+	Token *string `json:"token,omitempty"`
+	Password *string `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *AuthControllerResetPasswordRequest) SetPassword(v string) {
 }
 
 func (o AuthControllerResetPasswordRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableAuthControllerResetPasswordRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

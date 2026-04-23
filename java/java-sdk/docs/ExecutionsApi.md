@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
 | [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
 | [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
+| [**evalExpression**](ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution |
 | [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
 | [**executionFlowGraph**](ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
 | [**fileMetadatasFromExecution**](ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
@@ -57,7 +58,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind)
+> ExecutionControllerExecutionResponse createExecution(namespace, tenant, id, wait, scheduleDate, breakpoints, kind, labels, revision)
 
 Create a new execution for a flow
 
@@ -82,16 +83,16 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The flow namespace
+        String tenant = "tenant_example"; // String | 
         String id = "id_example"; // String | The flow id
         Boolean wait = false; // Boolean | If the server will wait the end of the execution
-        String tenant = "tenant_example"; // String | 
-        List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
-        Integer revision = 56; // Integer | The flow revision or latest if null
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
+        CreateExecutionLabelsParameter labels = new CreateExecutionLabelsParameter(); // CreateExecutionLabelsParameter | The labels as a list of 'key:value'
+        Integer revision = 56; // Integer | The flow revision or latest if null
         try {
-            ExecutionControllerExecutionResponse result = kestraClient.ExecutionsApi().createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = kestraClient.ExecutionsApi().createExecution(namespace, tenant, id, wait, scheduleDate, breakpoints, kind, labels, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -110,14 +111,14 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **wait** | **Boolean**| If the server will wait the end of the execution | [default to false] |
 | **tenant** | **String**|  | |
-| **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
-| **revision** | **Integer**| The flow revision or latest if null | [optional] |
+| **id** | **String**| The flow id | |
+| **wait** | **Boolean**| If the server will wait the end of the execution | [optional] [default to false] |
 | **scheduleDate** | **OffsetDateTime**| Schedule the flow on a specific date | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 | **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] [enum: NORMAL, TEST, PLAYGROUND] |
+| **labels** | [**CreateExecutionLabelsParameter**](.md)| The labels as a list of &#39;key:value&#39; | [optional] |
+| **revision** | **Integer**| The flow revision or latest if null | [optional] |
 
 ### Return type
 
@@ -142,7 +143,7 @@ public class Example {
 
 ## deleteExecution
 
-> deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage)
+> deleteExecution(executionId, tenant, deleteLogs, deleteStorage, deleteMetrics)
 
 Delete an execution
 
@@ -168,11 +169,11 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
-        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        DeleteExecutionsByIdsDeleteLogsParameter deleteLogs = new DeleteExecutionsByIdsDeleteLogsParameter(); // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
+        DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics = new DeleteExecutionsByIdsDeleteLogsParameter(); // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
         try {
-            kestraClient.ExecutionsApi().deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
+            kestraClient.ExecutionsApi().deleteExecution(executionId, tenant, deleteLogs, deleteStorage, deleteMetrics);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecution");
             System.err.println("Status code: " + e.getCode());
@@ -191,9 +192,9 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] |
 | **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
+| **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] |
 
 ### Return type
 
@@ -218,7 +219,7 @@ null (empty response body)
 
 ## deleteExecutionsByIds
 
-> BulkResponse deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+> BulkResponse deleteExecutionsByIds(tenant, requestBody, deleteLogs, deleteStorage, deleteMetrics, includeNonTerminated)
 
 Delete a list of executions
 
@@ -244,12 +245,12 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The execution id
-        Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
-        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
-        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        DeleteExecutionsByIdsDeleteLogsParameter deleteLogs = new DeleteExecutionsByIdsDeleteLogsParameter(); // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
+        DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics = new DeleteExecutionsByIdsDeleteLogsParameter(); // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
+        Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            BulkResponse result = kestraClient.ExecutionsApi().deleteExecutionsByIds(tenant, requestBody, deleteLogs, deleteStorage, deleteMetrics, includeNonTerminated);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByIds");
@@ -269,10 +270,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **requestBody** | [**List&lt;String&gt;**](String.md)| The execution id | |
-| **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
-| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] |
 | **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
+| **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] |
+| **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
 
 ### Return type
 
@@ -297,7 +298,7 @@ public class Example {
 
 ## deleteExecutionsByQuery
 
-> Object deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
+> Object deleteExecutionsByQuery(tenant, deleteStorage, filters, includeNonTerminated, deleteMetrics, deleteLogs)
 
 Delete executions filter by query parameters
 
@@ -322,13 +323,13 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
+        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
+        DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics = new DeleteExecutionsByIdsDeleteLogsParameter(); // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
         Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
-        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
-        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            Object result = kestraClient.ExecutionsApi().deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            Object result = kestraClient.ExecutionsApi().deleteExecutionsByQuery(tenant, deleteStorage, filters, includeNonTerminated, deleteMetrics, deleteLogs);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQuery");
@@ -347,11 +348,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
+| **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] |
 | **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
-| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
 
 ### Return type
 
@@ -443,6 +444,78 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | downloadFileFromExecution 200 response |  -  |
+
+
+## evalExpression
+
+> ExecutionControllerEvalResult evalExpression(executionId, tenant, body)
+
+Evaluate a variable expression for this execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The Pebble expression that should be evaluated
+        try {
+            ExecutionControllerEvalResult result = kestraClient.ExecutionsApi().evalExpression(executionId, tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#evalExpression");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **tenant** | **String**|  | |
+| **body** | **String**| The Pebble expression that should be evaluated | |
+
+### Return type
+
+[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: text/plain
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | evalExpression 200 response |  -  |
 
 
 ## execution
@@ -688,7 +761,7 @@ public class Example {
         String namespace = "namespace_example"; // String | The namespace of the flow
         String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | The flow revision
+        FlowFromExecutionRevisionParameter revision = new FlowFromExecutionRevisionParameter(); // FlowFromExecutionRevisionParameter | The flow revision
         try {
             FlowForExecution result = kestraClient.ExecutionsApi().flowFromExecution(namespace, flowId, tenant, revision);
             System.out.println(result);
@@ -711,7 +784,7 @@ public class Example {
 | **namespace** | **String**| The namespace of the flow | |
 | **flowId** | **String**| The flow id | |
 | **tenant** | **String**|  | |
-| **revision** | **Integer**| The flow revision | [optional] |
+| **revision** | [**FlowFromExecutionRevisionParameter**](.md)| The flow revision | [optional] |
 
 ### Return type
 
@@ -805,7 +878,7 @@ public class Example {
 
 ## followDependenciesExecutions
 
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
+> EventExecutionStatusEvent followDependenciesExecutions(executionId, tenant, expandAll, destinationOnly)
 
 Follow all execution dependencies executions
 
@@ -830,11 +903,11 @@ public class Example {
         .build();
 
         String executionId = "executionId_example"; // String | The execution id
-        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
         String tenant = "tenant_example"; // String | 
+        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
+        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         try {
-            EventExecutionStatusEvent result = kestraClient.ExecutionsApi().followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant);
+            EventExecutionStatusEvent result = kestraClient.ExecutionsApi().followDependenciesExecutions(executionId, tenant, expandAll, destinationOnly);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#followDependenciesExecutions");
@@ -853,9 +926,9 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
 | **tenant** | **String**|  | |
+| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false] |
+| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
 
 ### Return type
 
@@ -1160,7 +1233,7 @@ public class Example {
 
 ## killExecution
 
-> Object killExecution(executionId, isOnKillCascade, tenant)
+> Object killExecution(executionId, tenant, isOnKillCascade)
 
 Kill an execution
 
@@ -1185,10 +1258,10 @@ public class Example {
         .build();
 
         String executionId = "executionId_example"; // String | The execution id
-        Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         String tenant = "tenant_example"; // String | 
+        Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         try {
-            Object result = kestraClient.ExecutionsApi().killExecution(executionId, isOnKillCascade, tenant);
+            Object result = kestraClient.ExecutionsApi().killExecution(executionId, tenant, isOnKillCascade);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecution");
@@ -1207,8 +1280,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [default to true] |
 | **tenant** | **String**|  | |
+| **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [optional] [default to true] |
 
 ### Return type
 
@@ -1658,7 +1731,7 @@ public class Example {
 
 ## replayExecution
 
-> Execution replayExecution(executionId, tenant, taskRunId, revision, breakpoints)
+> Execution replayExecution(executionId, tenant, taskRunId, breakpoints, revision)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1685,10 +1758,10 @@ public class Example {
         String executionId = "executionId_example"; // String | the original execution id to clone
         String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
-        Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        Integer revision = 56; // Integer | The flow revision to use for new execution
         try {
-            Execution result = kestraClient.ExecutionsApi().replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.ExecutionsApi().replayExecution(executionId, tenant, taskRunId, breakpoints, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecution");
@@ -1709,8 +1782,8 @@ public class Example {
 | **executionId** | **String**| the original execution id to clone | |
 | **tenant** | **String**|  | |
 | **taskRunId** | **String**| The taskrun id | [optional] |
-| **revision** | **Integer**| The flow revision to use for new execution | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
+| **revision** | **Integer**| The flow revision to use for new execution | [optional] |
 
 ### Return type
 
@@ -1734,7 +1807,7 @@ public class Example {
 
 ## replayExecutionWithinputs
 
-> Execution replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints)
+> Execution replayExecutionWithinputs(executionId, tenant, taskRunId, breakpoints, revision)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1761,10 +1834,10 @@ public class Example {
         String executionId = "executionId_example"; // String | the original execution id to clone
         String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
-        Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        Integer revision = 56; // Integer | The flow revision to use for new execution
         try {
-            Execution result = kestraClient.ExecutionsApi().replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.ExecutionsApi().replayExecutionWithinputs(executionId, tenant, taskRunId, breakpoints, revision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionWithinputs");
@@ -1785,8 +1858,8 @@ public class Example {
 | **executionId** | **String**| the original execution id to clone | |
 | **tenant** | **String**|  | |
 | **taskRunId** | **String**| The taskrun id | [optional] |
-| **revision** | **Integer**| The flow revision to use for new execution | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
+| **revision** | **Integer**| The flow revision to use for new execution | [optional] |
 
 ### Return type
 
@@ -2381,7 +2454,7 @@ public class Example {
 
 ## searchExecutions
 
-> PagedResultsExecution searchExecutions(page, size, tenant, sort, filters)
+> PagedResultsExecution searchExecutions(tenant, page, size, filters, sort)
 
 Search for executions
 
@@ -2405,13 +2478,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        SearchBlueprintsSizeParameter page = new SearchBlueprintsSizeParameter(); // SearchBlueprintsSizeParameter | The current page
+        Integer size = 10; // Integer | The current page size
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutions(page, size, tenant, sort, filters);
+            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutions(tenant, page, size, filters, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutions");
@@ -2429,11 +2502,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **page** | [**SearchBlueprintsSizeParameter**](.md)| The current page | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 
@@ -2457,7 +2530,7 @@ public class Example {
 
 ## searchExecutionsByFlowId
 
-> PagedResultsExecution searchExecutionsByFlowId(namespace, flowId, page, size, tenant)
+> PagedResultsExecution searchExecutionsByFlowId(flowId, namespace, tenant, size, page)
 
 Search for executions for a flow
 
@@ -2481,13 +2554,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
         String flowId = "flowId_example"; // String | The flow id
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
         try {
-            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutionsByFlowId(namespace, flowId, page, size, tenant);
+            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutionsByFlowId(flowId, namespace, tenant, size, page);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutionsByFlowId");
@@ -2505,11 +2578,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
 | **flowId** | **String**| The flow id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
 
 ### Return type
 
@@ -2750,7 +2823,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhook
 
-> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2774,12 +2847,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
         String key = "key_example"; // String | The webhook trigger uid
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhook(namespace, id, key, tenant);
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhook(id, key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhook");
@@ -2797,9 +2870,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -2824,7 +2897,7 @@ public class Example {
 
 ## triggerExecutionByGetWebhookWithPath
 
-> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2848,13 +2921,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
+        String path = "path_example"; // String | Optional additional path segments
         String id = "id_example"; // String | The flow id
         String key = "key_example"; // String | The webhook trigger uid
-        String path = "path_example"; // String | Optional additional path segments
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhookWithPath");
@@ -2872,10 +2945,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
+| **path** | **String**| Optional additional path segments | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
-| **path** | **String**| Optional additional path segments | |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -2900,7 +2973,7 @@ public class Example {
 
 ## triggerExecutionByPostWebhookWithPath
 
-> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by POST webhook trigger
 
@@ -2924,13 +2997,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
+        String path = "path_example"; // String | Optional additional path segments
         String id = "id_example"; // String | The flow id
         String key = "key_example"; // String | The webhook trigger uid
-        String path = "path_example"; // String | Optional additional path segments
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPostWebhookWithPath");
@@ -2948,10 +3021,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
+| **path** | **String**| Optional additional path segments | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
-| **path** | **String**| Optional additional path segments | |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -2976,7 +3049,7 @@ public class Example {
 
 ## triggerExecutionByPutWebhookWithPath
 
-> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3000,13 +3073,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The flow namespace
+        String path = "path_example"; // String | Optional additional path segments
         String id = "id_example"; // String | The flow id
         String key = "key_example"; // String | The webhook trigger uid
-        String path = "path_example"; // String | Optional additional path segments
+        String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
         try {
-            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant);
+            WebhookResponse result = kestraClient.ExecutionsApi().triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPutWebhookWithPath");
@@ -3024,10 +3097,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
+| **path** | **String**| Optional additional path segments | |
 | **id** | **String**| The flow id | |
 | **key** | **String**| The webhook trigger uid | |
-| **path** | **String**| Optional additional path segments | |
+| **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
 
 ### Return type

@@ -18,10 +18,10 @@ var _ MappedNullable = &IAMBindingControllerApiBindingUser{}
 
 // IAMBindingControllerApiBindingUser struct for IAMBindingControllerApiBindingUser
 type IAMBindingControllerApiBindingUser struct {
-	Id                   *string   `json:"id,omitempty"`
-	Username             *string   `json:"username,omitempty"`
-	DisplayName          *string   `json:"displayName,omitempty"`
-	Type                 *UserType `json:"type,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Username *string `json:"username,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Type *UserType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *IAMBindingControllerApiBindingUser) SetType(v UserType) {
 }
 
 func (o IAMBindingControllerApiBindingUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableIAMBindingControllerApiBindingUser) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

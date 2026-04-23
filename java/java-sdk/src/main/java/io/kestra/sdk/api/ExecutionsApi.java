@@ -29,9 +29,12 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
+import io.kestra.sdk.model.CreateExecutionLabelsParameter;
+import io.kestra.sdk.model.DeleteExecutionsByIdsDeleteLogsParameter;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.EventExecutionStatusEvent;
 import io.kestra.sdk.model.Execution;
+import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
@@ -41,11 +44,13 @@ import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
+import io.kestra.sdk.model.FlowFromExecutionRevisionParameter;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.SearchBlueprintsSizeParameter;
 import io.kestra.sdk.model.StateType;
 import java.net.URI;
 import io.kestra.sdk.model.WebhookResponse;
@@ -72,41 +77,41 @@ import java.util.StringJoiner;
    * Create a new execution for a flow
    * 
    * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param wait If the server will wait the end of the execution (required)
    * @param tenant  (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (optional)
-   * @param revision The flow revision or latest if null (optional)
+   * @param id The flow id (required)
+   * @param wait If the server will wait the end of the execution (optional, default to false)
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
+   * @param labels The labels as a list of &#39;key:value&#39; (optional)
+   * @param revision The flow revision or latest if null (optional)
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), null);
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean wait, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, @jakarta.annotation.Nullable CreateExecutionLabelsParameter labels, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.createExecution(namespace, tenant, id, wait, scheduleDate, breakpoints, kind, labels, revision, Collections.emptyMap(), null);
   }
-  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, HashMap<String, Object> additionalFormDatas)  throws ApiException {
-  return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), additionalFormDatas);
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean wait, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, @jakarta.annotation.Nullable CreateExecutionLabelsParameter labels, @jakarta.annotation.Nullable Integer revision, HashMap<String, Object> additionalFormDatas)  throws ApiException {
+  return this.createExecution(namespace, tenant, id, wait, scheduleDate, breakpoints, kind, labels, revision, Collections.emptyMap(), additionalFormDatas);
   }
 
   /**
    * Create a new execution for a flow
    * 
    * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param wait If the server will wait the end of the execution (required)
    * @param tenant  (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (optional)
-   * @param revision The flow revision or latest if null (optional)
+   * @param id The flow id (required)
+   * @param wait If the server will wait the end of the execution (optional, default to false)
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
+   * @param labels The labels as a list of &#39;key:value&#39; (optional)
+   * @param revision The flow revision or latest if null (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean wait, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, @jakarta.annotation.Nullable CreateExecutionLabelsParameter labels, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -114,26 +119,21 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling createExecution");
     }
     
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createExecution");
-    }
-    
-    // verify the required parameter 'wait' is set
-    if (wait == null) {
-      throw new ApiException(400, "Missing the required parameter 'wait' when calling createExecution");
-    }
-    
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling createExecution");
     }
     
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling createExecution");
+    }
+    
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/{namespace}/{id}"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;
@@ -142,12 +142,12 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = additionalFormDatas != null ? new HashMap<String, Object>(additionalFormDatas) : new HashMap<String, Object>();
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     localVarQueryParams.addAll(apiClient.parameterToPair("wait", wait));
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarQueryParams.addAll(apiClient.parameterToPair("scheduleDate", scheduleDate));
     localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
     localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
+    localVarQueryStringJoiner.add(labels.toUrlQueryString());
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -193,13 +193,13 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteLogs Whether to delete execution logs (optional)
    * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteLogs, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics) throws ApiException {
+    this.deleteExecution(executionId, tenant, deleteLogs, deleteStorage, deleteMetrics, Collections.emptyMap());
   }
 
   /**
@@ -207,13 +207,13 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteLogs Whether to delete execution logs (optional)
    * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteLogs, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -239,8 +239,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
-    localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
+    localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -285,15 +285,15 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param requestBody The execution id (required)
-   * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
-   * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteLogs Whether to delete execution logs (optional)
    * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
+   * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteLogs, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics, @jakarta.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
+    return this.deleteExecutionsByIds(tenant, requestBody, deleteLogs, deleteStorage, deleteMetrics, includeNonTerminated, Collections.emptyMap());
   }
 
   /**
@@ -301,15 +301,15 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param requestBody The execution id (required)
-   * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
-   * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteLogs Whether to delete execution logs (optional)
    * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
+   * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteLogs, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics, @jakarta.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -333,10 +333,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
-    localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
+    localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
+    localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -381,32 +381,32 @@ import java.util.StringJoiner;
    * Delete executions filter by query parameters
    * 
    * @param tenant  (required)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
    * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
-   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics, @jakarta.annotation.Nullable Boolean deleteLogs) throws ApiException {
+    return this.deleteExecutionsByQuery(tenant, deleteStorage, filters, includeNonTerminated, deleteMetrics, deleteLogs, Collections.emptyMap());
   }
 
   /**
    * Delete executions filter by query parameters
    * 
    * @param tenant  (required)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteMetrics Whether to delete execution metrics (optional)
    * @param deleteLogs Whether to delete execution logs (optional, default to true)
-   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
-   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteStorage, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable DeleteExecutionsByIdsDeleteLogsParameter deleteMetrics, @jakarta.annotation.Nullable Boolean deleteLogs, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -425,11 +425,11 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
-    localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
-    localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
+    localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -545,6 +545,99 @@ import java.util.StringJoiner;
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Evaluate a variable expression for this execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param body The Pebble expression that should be evaluated (required)
+   * @return ExecutionControllerEvalResult
+   * @throws ApiException if fails to make API call
+   */
+  public ExecutionControllerEvalResult evalExpression(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.evalExpression(executionId, tenant, body, Collections.emptyMap());
+  }
+
+  /**
+   * Evaluate a variable expression for this execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param body The Pebble expression that should be evaluated (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return ExecutionControllerEvalResult
+   * @throws ApiException if fails to make API call
+   */
+  public ExecutionControllerEvalResult evalExpression(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling evalExpression");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling evalExpression");
+    }
+    
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling evalExpression");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/eval"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "text/plain"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<ExecutionControllerEvalResult> localVarReturnType = new TypeReference<ExecutionControllerEvalResult>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
@@ -843,7 +936,7 @@ import java.util.StringJoiner;
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
-  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable FlowFromExecutionRevisionParameter revision) throws ApiException {
     return this.flowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap());
   }
 
@@ -858,7 +951,7 @@ import java.util.StringJoiner;
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
-  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable FlowFromExecutionRevisionParameter revision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1490,36 +1583,31 @@ import java.util.StringJoiner;
    * Kill an execution
    * 
    * @param executionId The execution id (required)
-   * @param isOnKillCascade Specifies whether killing the execution also kill all subflow executions. (required)
    * @param tenant  (required)
+   * @param isOnKillCascade Specifies whether killing the execution also kill all subflow executions. (optional, default to true)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull Boolean isOnKillCascade, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap());
+  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean isOnKillCascade) throws ApiException {
+    return this.killExecution(executionId, tenant, isOnKillCascade, Collections.emptyMap());
   }
 
   /**
    * Kill an execution
    * 
    * @param executionId The execution id (required)
-   * @param isOnKillCascade Specifies whether killing the execution also kill all subflow executions. (required)
    * @param tenant  (required)
+   * @param isOnKillCascade Specifies whether killing the execution also kill all subflow executions. (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull Boolean isOnKillCascade, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean isOnKillCascade, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
     if (executionId == null) {
       throw new ApiException(400, "Missing the required parameter 'executionId' when calling killExecution");
-    }
-    
-    // verify the required parameter 'isOnKillCascade' is set
-    if (isOnKillCascade == null) {
-      throw new ApiException(400, "Missing the required parameter 'isOnKillCascade' when calling killExecution");
     }
     
     // verify the required parameter 'tenant' is set
@@ -2086,13 +2174,13 @@ import java.util.StringJoiner;
    * @param executionId the original execution id to clone (required)
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
-   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
+  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.replayExecution(executionId, tenant, taskRunId, breakpoints, revision, Collections.emptyMap());
   }
 
   /**
@@ -2101,13 +2189,13 @@ import java.util.StringJoiner;
    * @param executionId the original execution id to clone (required)
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
-   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2133,8 +2221,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2181,16 +2269,16 @@ import java.util.StringJoiner;
    * @param executionId the original execution id to clone (required)
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
-   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, breakpoints, revision, Collections.emptyMap(), null);
   }
-  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, HashMap<String, Object> additionalFormDatas)  throws ApiException {
-  return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), additionalFormDatas);
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable Integer revision, HashMap<String, Object> additionalFormDatas)  throws ApiException {
+  return this.replayExecutionWithinputs(executionId, tenant, taskRunId, breakpoints, revision, Collections.emptyMap(), additionalFormDatas);
   }
 
   /**
@@ -2199,13 +2287,13 @@ import java.util.StringJoiner;
    * @param executionId the original execution id to clone (required)
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
-   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2231,8 +2319,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = additionalFormDatas != null ? new HashMap<String, Object>(additionalFormDatas) : new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2958,42 +3046,32 @@ import java.util.StringJoiner;
   /**
    * Search for executions
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
+   * @param page The current page (optional)
+   * @param size The current page size (optional, default to 10)
    * @param filters Filters (optional)
+   * @param sort The sort of current page (optional)
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap());
+  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable SearchBlueprintsSizeParameter page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchExecutions(tenant, page, size, filters, sort, Collections.emptyMap());
   }
 
   /**
    * Search for executions
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
+   * @param page The current page (optional)
+   * @param size The current page size (optional, default to 10)
    * @param filters Filters (optional)
+   * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable SearchBlueprintsSizeParameter page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchExecutions");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchExecutions");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -3013,8 +3091,8 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3058,51 +3136,41 @@ import java.util.StringJoiner;
   /**
    * Search for executions for a flow
    * 
-   * @param namespace The flow namespace (required)
    * @param flowId The flow id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap());
+  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page) throws ApiException {
+    return this.searchExecutionsByFlowId(flowId, namespace, tenant, size, page, Collections.emptyMap());
   }
 
   /**
    * Search for executions for a flow
    * 
-   * @param namespace The flow namespace (required)
    * @param flowId The flow id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
-    }
     
     // verify the required parameter 'flowId' is set
     if (flowId == null) {
       throw new ApiException(400, "Missing the required parameter 'flowId' when calling searchExecutionsByFlowId");
     }
     
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchExecutionsByFlowId");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchExecutionsByFlowId");
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
     }
     
     // verify the required parameter 'tenant' is set
@@ -3121,10 +3189,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3434,35 +3502,30 @@ import java.util.StringJoiner;
   /**
    * Trigger a new execution by GET webhook trigger
    * 
-   * @param namespace The flow namespace (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
+  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByGetWebhook(id, key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Trigger a new execution by GET webhook trigger
    * 
-   * @param namespace The flow namespace (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public WebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhook");
-    }
     
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -3474,6 +3537,11 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByGetWebhook");
     }
     
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhook");
+    }
+    
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByGetWebhook");
@@ -3481,9 +3549,9 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -3536,36 +3604,36 @@ import java.util.StringJoiner;
   /**
    * Trigger a new execution by GET webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Trigger a new execution by GET webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public WebhookResponse triggerExecutionByGetWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
     }
     
     // verify the required parameter 'id' is set
@@ -3578,9 +3646,9 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByGetWebhookWithPath");
     }
     
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
     }
     
     // verify the required parameter 'tenant' is set
@@ -3590,10 +3658,10 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
-      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -3646,36 +3714,36 @@ import java.util.StringJoiner;
   /**
    * Trigger a new execution by POST webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Trigger a new execution by POST webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public WebhookResponse triggerExecutionByPostWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
     }
     
     // verify the required parameter 'id' is set
@@ -3688,9 +3756,9 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPostWebhookWithPath");
     }
     
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
     }
     
     // verify the required parameter 'tenant' is set
@@ -3700,10 +3768,10 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
-      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -3756,36 +3824,36 @@ import java.util.StringJoiner;
   /**
    * Trigger a new execution by PUT webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant, Collections.emptyMap());
+  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Trigger a new execution by PUT webhook trigger
    * 
-   * @param namespace The flow namespace (required)
+   * @param path Optional additional path segments (required)
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
-   * @param path Optional additional path segments (required)
+   * @param namespace The flow namespace (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return WebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public WebhookResponse triggerExecutionByPutWebhookWithPath(@jakarta.annotation.Nullable String path, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
     }
     
     // verify the required parameter 'id' is set
@@ -3798,9 +3866,9 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPutWebhookWithPath");
     }
     
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new ApiException(400, "Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
     }
     
     // verify the required parameter 'tenant' is set
@@ -3810,10 +3878,10 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
-      .replaceAll("\\{" + "path" + "\\}", apiClient.escapeString(apiClient.parameterToString(path)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");

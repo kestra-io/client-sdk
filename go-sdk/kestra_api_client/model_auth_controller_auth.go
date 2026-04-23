@@ -18,10 +18,10 @@ var _ MappedNullable = &AuthControllerAuth{}
 
 // AuthControllerAuth struct for AuthControllerAuth
 type AuthControllerAuth struct {
-	LoginPassword        *bool    `json:"loginPassword,omitempty"`
-	MailsEnabled         *bool    `json:"mailsEnabled,omitempty"`
-	Passwordless         *bool    `json:"passwordless,omitempty"`
-	Oauths               []string `json:"oauths,omitempty"`
+	LoginPassword *bool `json:"loginPassword,omitempty"`
+	MailsEnabled *bool `json:"mailsEnabled,omitempty"`
+	Passwordless *bool `json:"passwordless,omitempty"`
+	Oauths []string `json:"oauths,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *AuthControllerAuth) SetOauths(v []string) {
 }
 
 func (o AuthControllerAuth) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableAuthControllerAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

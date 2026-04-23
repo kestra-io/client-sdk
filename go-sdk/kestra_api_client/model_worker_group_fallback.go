@@ -19,8 +19,8 @@ type WorkerGroupFallback string
 
 // List of WorkerGroup.Fallback
 const (
-	WORKERGROUPFALLBACK_FAIL   WorkerGroupFallback = "FAIL"
-	WORKERGROUPFALLBACK_WAIT   WorkerGroupFallback = "WAIT"
+	WORKERGROUPFALLBACK_FAIL WorkerGroupFallback = "FAIL"
+	WORKERGROUPFALLBACK_WAIT WorkerGroupFallback = "WAIT"
 	WORKERGROUPFALLBACK_CANCEL WorkerGroupFallback = "CANCEL"
 )
 
@@ -109,3 +109,4 @@ func (v *NullableWorkerGroupFallback) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

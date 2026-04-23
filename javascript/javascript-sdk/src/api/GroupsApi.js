@@ -515,29 +515,21 @@ export default class GroupsApi {
     /**
     * Search for users in a group
     * @param {String} id The group id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMGroupControllerApiGroupMember>}
     */
-    searchGroupMembersWithHttpInfo(id, page, size, filters, tenant, opts) {
+    searchGroupMembersWithHttpInfo(id, filters, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling searchGroupMembers");
-      }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroupMembers");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroupMembers");
       }
       // verify the required parameter 'filters' is set
       if (filters === undefined || filters === null) {
@@ -553,8 +545,8 @@ export default class GroupsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
+        'page': opts['page'],
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
         'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
@@ -577,17 +569,17 @@ export default class GroupsApi {
     /**
     * Search for users in a group
     * @param {String} id The group id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMGroupControllerApiGroupMember>}
     */
-    searchGroupMembers(id, page, size, filters, tenant, opts) {
-      return this.searchGroupMembersWithHttpInfo(id, page, size, filters, tenant, opts)
+    searchGroupMembers(id, filters, tenant, opts) {
+      return this.searchGroupMembersWithHttpInfo(id, filters, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -605,26 +597,18 @@ export default class GroupsApi {
 
     /**
     * Search for groups
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [q] A string filter
+    * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsApiGroupSummary>}
     */
-    searchGroupsWithHttpInfo(page, size, tenant, opts) {
+    searchGroupsWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroups");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroups");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchGroups");
@@ -635,8 +619,8 @@ export default class GroupsApi {
       };
       let queryParams = {
         'q': opts['q'],
-        'page': page,
-        'size': size,
+        'page': opts['page'],
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
@@ -657,17 +641,17 @@ export default class GroupsApi {
 
     /**
     * Search for groups
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.q] A string filter
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsApiGroupSummary>}
     */
-    searchGroups(page, size, tenant, opts) {
-      return this.searchGroupsWithHttpInfo(page, size, tenant, opts)
+    searchGroups(tenant, opts) {
+      return this.searchGroupsWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

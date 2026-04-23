@@ -786,40 +786,30 @@ import java.util.StringJoiner;
   /**
    * Retrieve users
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listUsers(page, size, filters, sort, Collections.emptyMap());
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.listUsers(filters, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Retrieve users
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling listUsers");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling listUsers");
-    }
     
     // verify the required parameter 'filters' is set
     if (filters == null) {

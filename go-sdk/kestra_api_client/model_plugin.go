@@ -18,32 +18,32 @@ var _ MappedNullable = &Plugin{}
 
 // Plugin struct for Plugin
 type Plugin struct {
-	Name                 *string                        `json:"name,omitempty"`
-	Title                *string                        `json:"title,omitempty"`
-	Description          *string                        `json:"description,omitempty"`
-	License              *string                        `json:"license,omitempty"`
-	LongDescription      *string                        `json:"longDescription,omitempty"`
-	Group                *string                        `json:"group,omitempty"`
-	Version              *string                        `json:"version,omitempty"`
-	Manifest             *map[string]string             `json:"manifest,omitempty"`
-	Guides               []string                       `json:"guides,omitempty"`
-	Aliases              []string                       `json:"aliases,omitempty"`
-	Tasks                []PluginPluginElementMetadata  `json:"tasks,omitempty"`
-	Triggers             []PluginPluginElementMetadata  `json:"triggers,omitempty"`
-	Conditions           []PluginPluginElementMetadata  `json:"conditions,omitempty"`
-	Controllers          []PluginPluginElementMetadata  `json:"controllers,omitempty"`
-	Storages             []PluginPluginElementMetadata  `json:"storages,omitempty"`
-	Secrets              []PluginPluginElementMetadata  `json:"secrets,omitempty"`
-	TaskRunners          []PluginPluginElementMetadata  `json:"taskRunners,omitempty"`
-	Apps                 []PluginPluginElementMetadata  `json:"apps,omitempty"`
-	AppBlocks            []PluginPluginElementMetadata  `json:"appBlocks,omitempty"`
-	Charts               []PluginPluginElementMetadata  `json:"charts,omitempty"`
-	DataFilters          []PluginPluginElementMetadata  `json:"dataFilters,omitempty"`
-	DataFiltersKPI       []PluginPluginElementMetadata  `json:"dataFiltersKPI,omitempty"`
-	LogExporters         []PluginPluginElementMetadata  `json:"logExporters,omitempty"`
-	AdditionalPlugins    []PluginPluginElementMetadata  `json:"additionalPlugins,omitempty"`
-	Categories           []PluginSubGroupPluginCategory `json:"categories,omitempty"`
-	SubGroup             *string                        `json:"subGroup,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	License *string `json:"license,omitempty"`
+	LongDescription *string `json:"longDescription,omitempty"`
+	Group *string `json:"group,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Manifest *map[string]string `json:"manifest,omitempty"`
+	Guides []string `json:"guides,omitempty"`
+	Aliases []string `json:"aliases,omitempty"`
+	Tasks []PluginPluginElementMetadata `json:"tasks,omitempty"`
+	Triggers []PluginPluginElementMetadata `json:"triggers,omitempty"`
+	Conditions []PluginPluginElementMetadata `json:"conditions,omitempty"`
+	Controllers []PluginPluginElementMetadata `json:"controllers,omitempty"`
+	Storages []PluginPluginElementMetadata `json:"storages,omitempty"`
+	Secrets []PluginPluginElementMetadata `json:"secrets,omitempty"`
+	TaskRunners []PluginPluginElementMetadata `json:"taskRunners,omitempty"`
+	Apps []PluginPluginElementMetadata `json:"apps,omitempty"`
+	AppBlocks []PluginPluginElementMetadata `json:"appBlocks,omitempty"`
+	Charts []PluginPluginElementMetadata `json:"charts,omitempty"`
+	DataFilters []PluginPluginElementMetadata `json:"dataFilters,omitempty"`
+	DataFiltersKPI []PluginPluginElementMetadata `json:"dataFiltersKPI,omitempty"`
+	LogExporters []PluginPluginElementMetadata `json:"logExporters,omitempty"`
+	AdditionalPlugins []PluginPluginElementMetadata `json:"additionalPlugins,omitempty"`
+	Categories []PluginSubGroupPluginCategory `json:"categories,omitempty"`
+	SubGroup *string `json:"subGroup,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -899,7 +899,7 @@ func (o *Plugin) SetSubGroup(v string) {
 }
 
 func (o Plugin) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -1075,3 +1075,5 @@ func (v *NullablePlugin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

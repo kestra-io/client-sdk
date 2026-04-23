@@ -12,20 +12,24 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
+	"os"
 )
+
 
 // NamespacesAPIService NamespacesAPI service
 type NamespacesAPIService service
 
 type ApiAutocompleteNamespacesRequest struct {
-	ctx             context.Context
-	ApiService      *NamespacesAPIService
-	tenant          string
+	ctx context.Context
+	ApiService *NamespacesAPIService
+	tenant string
 	apiAutocomplete *ApiAutocomplete
 }
 
@@ -34,12 +38,14 @@ func (r ApiAutocompleteNamespacesRequest) ApiAutocomplete(apiAutocomplete ApiAut
 	return r
 }
 
+
 func (r ApiAutocompleteNamespacesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiAutocompleteNamespacesRequest) GetApiAutocomplete() *ApiAutocomplete {
-	return r.apiAutocomplete
+    return r.apiAutocomplete
 }
+
 
 func (r ApiAutocompleteNamespacesRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.AutocompleteNamespacesExecute(r)
@@ -50,27 +56,26 @@ AutocompleteNamespaces List namespaces for autocomplete
 
 Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiAutocompleteNamespacesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiAutocompleteNamespacesRequest
 */
 func (a *NamespacesAPIService) AutocompleteNamespaces(ctx context.Context, tenant string) ApiAutocompleteNamespacesRequest {
 	return ApiAutocompleteNamespacesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *NamespacesAPIService) AutocompleteNamespacesExecute(r ApiAutocompleteNamespacesRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.AutocompleteNamespaces")
@@ -144,11 +149,15 @@ func (a *NamespacesAPIService) AutocompleteNamespacesExecute(r ApiAutocompleteNa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateNamespaceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	tenant     string
-	namespace  *Namespace
+	tenant string
+	namespace *Namespace
 }
 
 // The namespace
@@ -157,12 +166,14 @@ func (r ApiCreateNamespaceRequest) Namespace(namespace Namespace) ApiCreateNames
 	return r
 }
 
+
 func (r ApiCreateNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateNamespaceRequest) GetNamespace() *Namespace {
-	return r.namespace
+    return r.namespace
 }
+
 
 func (r ApiCreateNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 	return r.ApiService.CreateNamespaceExecute(r)
@@ -171,27 +182,26 @@ func (r ApiCreateNamespaceRequest) Execute() (*Namespace, *http.Response, error)
 /*
 CreateNamespace Create a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiCreateNamespaceRequest
 */
 func (a *NamespacesAPIService) CreateNamespace(ctx context.Context, tenant string) ApiCreateNamespaceRequest {
 	return ApiCreateNamespaceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Namespace
+//  @return Namespace
 func (a *NamespacesAPIService) CreateNamespaceExecute(r ApiCreateNamespaceRequest) (*Namespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Namespace
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Namespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.CreateNamespace")
@@ -265,19 +275,25 @@ func (a *NamespacesAPIService) CreateNamespaceExecute(r ApiCreateNamespaceReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteNamespaceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiDeleteNamespaceRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteNamespaceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteNamespaceExecute(r)
@@ -286,26 +302,26 @@ func (r ApiDeleteNamespaceRequest) Execute() (*http.Response, error) {
 /*
 DeleteNamespace Delete a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiDeleteNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiDeleteNamespaceRequest
 */
 func (a *NamespacesAPIService) DeleteNamespace(ctx context.Context, id string, tenant string) ApiDeleteNamespaceRequest {
 	return ApiDeleteNamespaceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *NamespacesAPIService) DeleteNamespaceExecute(r ApiDeleteNamespaceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.DeleteNamespace")
@@ -366,23 +382,29 @@ func (a *NamespacesAPIService) DeleteNamespaceExecute(r ApiDeleteNamespaceReques
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteSecretRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	namespace  string
-	key        string
-	tenant     string
+	namespace string
+	key string
+	tenant string
 }
 
+
 func (r ApiDeleteSecretRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiDeleteSecretRequest) GetKey() string {
-	return r.key
+    return r.key
 }
 func (r ApiDeleteSecretRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteSecretRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSecretExecute(r)
@@ -391,28 +413,28 @@ func (r ApiDeleteSecretRequest) Execute() (*http.Response, error) {
 /*
 DeleteSecret Delete a secret for a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param key The secret key
-	@param tenant
-	@return ApiDeleteSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param key The secret key
+ @param tenant
+ @return ApiDeleteSecretRequest
 */
 func (a *NamespacesAPIService) DeleteSecret(ctx context.Context, namespace string, key string, tenant string) ApiDeleteSecretRequest {
 	return ApiDeleteSecretRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		key: key,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.DeleteSecret")
@@ -474,19 +496,25 @@ func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiExportPluginDefaultsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiExportPluginDefaultsRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiExportPluginDefaultsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiExportPluginDefaultsRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.ExportPluginDefaultsExecute(r)
@@ -495,29 +523,28 @@ func (r ApiExportPluginDefaultsRequest) Execute() (string, *http.Response, error
 /*
 ExportPluginDefaults Export this namespace plugin defaults
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiExportPluginDefaultsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiExportPluginDefaultsRequest
 */
 func (a *NamespacesAPIService) ExportPluginDefaults(ctx context.Context, id string, tenant string) ApiExportPluginDefaultsRequest {
 	return ApiExportPluginDefaultsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return string
+//  @return string
 func (a *NamespacesAPIService) ExportPluginDefaultsExecute(r ApiExportPluginDefaultsRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.ExportPluginDefaults")
@@ -587,11 +614,15 @@ func (a *NamespacesAPIService) ExportPluginDefaultsExecute(r ApiExportPluginDefa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiImportPluginDefaultsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 	fileUpload *os.File
 }
 
@@ -600,15 +631,17 @@ func (r ApiImportPluginDefaultsRequest) FileUpload(fileUpload *os.File) ApiImpor
 	return r
 }
 
+
 func (r ApiImportPluginDefaultsRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiImportPluginDefaultsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiImportPluginDefaultsRequest) GetFileUpload() *os.File {
-	return r.fileUpload
+    return r.fileUpload
 }
+
 
 func (r ApiImportPluginDefaultsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ImportPluginDefaultsExecute(r)
@@ -617,29 +650,28 @@ func (r ApiImportPluginDefaultsRequest) Execute() ([]string, *http.Response, err
 /*
 ImportPluginDefaults Import plugin defaults in this namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiImportPluginDefaultsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiImportPluginDefaultsRequest
 */
 func (a *NamespacesAPIService) ImportPluginDefaults(ctx context.Context, id string, tenant string) ApiImportPluginDefaultsRequest {
 	return ApiImportPluginDefaultsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *NamespacesAPIService) ImportPluginDefaultsExecute(r ApiImportPluginDefaultsRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.ImportPluginDefaults")
@@ -673,8 +705,8 @@ func (a *NamespacesAPIService) ImportPluginDefaultsExecute(r ApiImportPluginDefa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileUploadLocalVarFormFileName string
-	var fileUploadLocalVarFileName string
-	var fileUploadLocalVarFileBytes []byte
+	var fileUploadLocalVarFileName     string
+	var fileUploadLocalVarFileBytes    []byte
 
 	fileUploadLocalVarFormFileName = "fileUpload"
 	fileUploadLocalVarFile := r.fileUpload
@@ -724,19 +756,25 @@ func (a *NamespacesAPIService) ImportPluginDefaultsExecute(r ApiImportPluginDefa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiInheritedPluginDefaultsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiInheritedPluginDefaultsRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiInheritedPluginDefaultsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiInheritedPluginDefaultsRequest) Execute() ([]NamespaceControllerApiInheritedPluginDefaultFromNamespace, *http.Response, error) {
 	return r.ApiService.InheritedPluginDefaultsExecute(r)
@@ -745,29 +783,28 @@ func (r ApiInheritedPluginDefaultsRequest) Execute() ([]NamespaceControllerApiIn
 /*
 InheritedPluginDefaults List inherited plugin defaults
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiInheritedPluginDefaultsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiInheritedPluginDefaultsRequest
 */
 func (a *NamespacesAPIService) InheritedPluginDefaults(ctx context.Context, id string, tenant string) ApiInheritedPluginDefaultsRequest {
 	return ApiInheritedPluginDefaultsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []NamespaceControllerApiInheritedPluginDefaultFromNamespace
+//  @return []NamespaceControllerApiInheritedPluginDefaultFromNamespace
 func (a *NamespacesAPIService) InheritedPluginDefaultsExecute(r ApiInheritedPluginDefaultsRequest) ([]NamespaceControllerApiInheritedPluginDefaultFromNamespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []NamespaceControllerApiInheritedPluginDefaultFromNamespace
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []NamespaceControllerApiInheritedPluginDefaultFromNamespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedPluginDefaults")
@@ -837,19 +874,25 @@ func (a *NamespacesAPIService) InheritedPluginDefaultsExecute(r ApiInheritedPlug
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiInheritedSecretsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	namespace  string
-	tenant     string
+	namespace string
+	tenant string
 }
 
+
 func (r ApiInheritedSecretsRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiInheritedSecretsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiInheritedSecretsRequest) Execute() (*map[string][]string, *http.Response, error) {
 	return r.ApiService.InheritedSecretsExecute(r)
@@ -858,29 +901,28 @@ func (r ApiInheritedSecretsRequest) Execute() (*map[string][]string, *http.Respo
 /*
 InheritedSecrets List inherited secrets
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiInheritedSecretsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiInheritedSecretsRequest
 */
 func (a *NamespacesAPIService) InheritedSecrets(ctx context.Context, namespace string, tenant string) ApiInheritedSecretsRequest {
 	return ApiInheritedSecretsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string][]string
+//  @return map[string][]string
 func (a *NamespacesAPIService) InheritedSecretsExecute(r ApiInheritedSecretsRequest) (*map[string][]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *map[string][]string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *map[string][]string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedSecrets")
@@ -950,19 +992,25 @@ func (a *NamespacesAPIService) InheritedSecretsExecute(r ApiInheritedSecretsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiInheritedVariablesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiInheritedVariablesRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiInheritedVariablesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiInheritedVariablesRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.InheritedVariablesExecute(r)
@@ -971,29 +1019,28 @@ func (r ApiInheritedVariablesRequest) Execute() (map[string]map[string]interface
 /*
 InheritedVariables List inherited variables
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiInheritedVariablesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiInheritedVariablesRequest
 */
 func (a *NamespacesAPIService) InheritedVariables(ctx context.Context, id string, tenant string) ApiInheritedVariablesRequest {
 	return ApiInheritedVariablesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]map[string]interface{}
+//  @return map[string]map[string]interface{}
 func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariablesRequest) (map[string]map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedVariables")
@@ -1063,20 +1110,24 @@ func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariables
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListNamespaceSecretsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	namespace  string
-	page       *int32
-	size       *int32
-	filters    *[]QueryFilter
-	tenant     string
-	sort       *[]string
+	namespace string
+	filters *[]QueryFilter
+	tenant string
+	size *int32
+	sort *[]string
+	page *int32
 }
 
-// The current page
-func (r ApiListNamespaceSecretsRequest) Page(page int32) ApiListNamespaceSecretsRequest {
-	r.page = &page
+// Filters
+func (r ApiListNamespaceSecretsRequest) Filters(filters []QueryFilter) ApiListNamespaceSecretsRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -1086,36 +1137,38 @@ func (r ApiListNamespaceSecretsRequest) Size(size int32) ApiListNamespaceSecrets
 	return r
 }
 
-// Filters
-func (r ApiListNamespaceSecretsRequest) Filters(filters []QueryFilter) ApiListNamespaceSecretsRequest {
-	r.filters = &filters
-	return r
-}
-
 // The sort of current page
 func (r ApiListNamespaceSecretsRequest) Sort(sort []string) ApiListNamespaceSecretsRequest {
 	r.sort = &sort
 	return r
 }
 
+// The current page
+func (r ApiListNamespaceSecretsRequest) Page(page int32) ApiListNamespaceSecretsRequest {
+	r.page = &page
+	return r
+}
+
+
 func (r ApiListNamespaceSecretsRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiListNamespaceSecretsRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiListNamespaceSecretsRequest) GetSize() *int32 {
-	return r.size
+    return r.namespace
 }
 func (r ApiListNamespaceSecretsRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
 func (r ApiListNamespaceSecretsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
+}
+func (r ApiListNamespaceSecretsRequest) GetSize() *int32 {
+    return r.size
 }
 func (r ApiListNamespaceSecretsRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+func (r ApiListNamespaceSecretsRequest) GetPage() *int32 {
+    return r.page
+}
+
 
 func (r ApiListNamespaceSecretsRequest) Execute() (*ApiSecretListResponseApiSecretMeta, *http.Response, error) {
 	return r.ApiService.ListNamespaceSecretsExecute(r)
@@ -1124,35 +1177,33 @@ func (r ApiListNamespaceSecretsRequest) Execute() (*ApiSecretListResponseApiSecr
 /*
 ListNamespaceSecrets Get secrets for a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiListNamespaceSecretsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiListNamespaceSecretsRequest
 
 Deprecated
 */
 func (a *NamespacesAPIService) ListNamespaceSecrets(ctx context.Context, namespace string, tenant string) ApiListNamespaceSecretsRequest {
 	return ApiListNamespaceSecretsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return ApiSecretListResponseApiSecretMeta
-//
+//  @return ApiSecretListResponseApiSecretMeta
 // Deprecated
 func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSecretsRequest) (*ApiSecretListResponseApiSecretMeta, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiSecretListResponseApiSecretMeta
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ApiSecretListResponseApiSecretMeta
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.ListNamespaceSecrets")
@@ -1167,22 +1218,20 @@ func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSec
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 	if r.filters == nil {
 		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1237,19 +1286,25 @@ func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiNamespaceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiNamespaceRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 	return r.ApiService.NamespaceExecute(r)
@@ -1258,29 +1313,28 @@ func (r ApiNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 /*
 Namespace Get a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiNamespaceRequest
 */
 func (a *NamespacesAPIService) Namespace(ctx context.Context, id string, tenant string) ApiNamespaceRequest {
 	return ApiNamespaceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Namespace
+//  @return Namespace
 func (a *NamespacesAPIService) NamespaceExecute(r ApiNamespaceRequest) (*Namespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Namespace
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Namespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.Namespace")
@@ -1350,12 +1404,16 @@ func (a *NamespacesAPIService) NamespaceExecute(r ApiNamespaceRequest) (*Namespa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPatchSecretRequest struct {
-	ctx             context.Context
-	ApiService      *NamespacesAPIService
-	namespace       string
-	key             string
-	tenant          string
+	ctx context.Context
+	ApiService *NamespacesAPIService
+	namespace string
+	key string
+	tenant string
 	apiSecretMetaEE *ApiSecretMetaEE
 }
 
@@ -1364,18 +1422,20 @@ func (r ApiPatchSecretRequest) ApiSecretMetaEE(apiSecretMetaEE ApiSecretMetaEE) 
 	return r
 }
 
+
 func (r ApiPatchSecretRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiPatchSecretRequest) GetKey() string {
-	return r.key
+    return r.key
 }
 func (r ApiPatchSecretRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPatchSecretRequest) GetApiSecretMetaEE() *ApiSecretMetaEE {
-	return r.apiSecretMetaEE
+    return r.apiSecretMetaEE
 }
+
 
 func (r ApiPatchSecretRequest) Execute() ([]ApiSecretMetaEE, *http.Response, error) {
 	return r.ApiService.PatchSecretExecute(r)
@@ -1384,31 +1444,30 @@ func (r ApiPatchSecretRequest) Execute() ([]ApiSecretMetaEE, *http.Response, err
 /*
 PatchSecret Patch a secret metadata for a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param key The secret key
-	@param tenant
-	@return ApiPatchSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param key The secret key
+ @param tenant
+ @return ApiPatchSecretRequest
 */
 func (a *NamespacesAPIService) PatchSecret(ctx context.Context, namespace string, key string, tenant string) ApiPatchSecretRequest {
 	return ApiPatchSecretRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		key: key,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ApiSecretMetaEE
+//  @return []ApiSecretMetaEE
 func (a *NamespacesAPIService) PatchSecretExecute(r ApiPatchSecretRequest) ([]ApiSecretMetaEE, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ApiSecretMetaEE
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ApiSecretMetaEE
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.PatchSecret")
@@ -1484,11 +1543,15 @@ func (a *NamespacesAPIService) PatchSecretExecute(r ApiPatchSecretRequest) ([]Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPutSecretsRequest struct {
-	ctx            context.Context
-	ApiService     *NamespacesAPIService
-	namespace      string
-	tenant         string
+	ctx context.Context
+	ApiService *NamespacesAPIService
+	namespace string
+	tenant string
 	apiSecretValue *ApiSecretValue
 }
 
@@ -1497,15 +1560,17 @@ func (r ApiPutSecretsRequest) ApiSecretValue(apiSecretValue ApiSecretValue) ApiP
 	return r
 }
 
+
 func (r ApiPutSecretsRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiPutSecretsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPutSecretsRequest) GetApiSecretValue() *ApiSecretValue {
-	return r.apiSecretValue
+    return r.apiSecretValue
 }
+
 
 func (r ApiPutSecretsRequest) Execute() ([]ApiSecretMetaEE, *http.Response, error) {
 	return r.ApiService.PutSecretsExecute(r)
@@ -1514,29 +1579,28 @@ func (r ApiPutSecretsRequest) Execute() ([]ApiSecretMetaEE, *http.Response, erro
 /*
 PutSecrets Update secrets for a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiPutSecretsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiPutSecretsRequest
 */
 func (a *NamespacesAPIService) PutSecrets(ctx context.Context, namespace string, tenant string) ApiPutSecretsRequest {
 	return ApiPutSecretsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ApiSecretMetaEE
+//  @return []ApiSecretMetaEE
 func (a *NamespacesAPIService) PutSecretsExecute(r ApiPutSecretsRequest) ([]ApiSecretMetaEE, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ApiSecretMetaEE
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ApiSecretMetaEE
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.PutSecrets")
@@ -1611,20 +1675,30 @@ func (a *NamespacesAPIService) PutSecretsExecute(r ApiPutSecretsRequest) ([]ApiS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchNamespacesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	page       *int32
-	size       *int32
-	existing   *bool
-	tenant     string
-	q          *string
-	sort       *[]string
+	tenant string
+	q *string
+	existing *SchemasFromTypeArrayOfParameter
+	size *int32
+	page *int32
+	sort *[]string
 }
 
-// The current page
-func (r ApiSearchNamespacesRequest) Page(page int32) ApiSearchNamespacesRequest {
-	r.page = &page
+// A string filter
+func (r ApiSearchNamespacesRequest) Q(q string) ApiSearchNamespacesRequest {
+	r.q = &q
+	return r
+}
+
+// Return only existing namespace
+func (r ApiSearchNamespacesRequest) Existing(existing SchemasFromTypeArrayOfParameter) ApiSearchNamespacesRequest {
+	r.existing = &existing
 	return r
 }
 
@@ -1634,15 +1708,9 @@ func (r ApiSearchNamespacesRequest) Size(size int32) ApiSearchNamespacesRequest 
 	return r
 }
 
-// Return only existing namespace
-func (r ApiSearchNamespacesRequest) Existing(existing bool) ApiSearchNamespacesRequest {
-	r.existing = &existing
-	return r
-}
-
-// A string filter
-func (r ApiSearchNamespacesRequest) Q(q string) ApiSearchNamespacesRequest {
-	r.q = &q
+// The current page
+func (r ApiSearchNamespacesRequest) Page(page int32) ApiSearchNamespacesRequest {
+	r.page = &page
 	return r
 }
 
@@ -1652,24 +1720,26 @@ func (r ApiSearchNamespacesRequest) Sort(sort []string) ApiSearchNamespacesReque
 	return r
 }
 
-func (r ApiSearchNamespacesRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchNamespacesRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiSearchNamespacesRequest) GetExisting() *bool {
-	return r.existing
-}
+
 func (r ApiSearchNamespacesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSearchNamespacesRequest) GetQ() *string {
-	return r.q
+    return r.q
+}
+func (r ApiSearchNamespacesRequest) GetExisting() *SchemasFromTypeArrayOfParameter {
+    return r.existing
+}
+func (r ApiSearchNamespacesRequest) GetSize() *int32 {
+    return r.size
+}
+func (r ApiSearchNamespacesRequest) GetPage() *int32 {
+    return r.page
 }
 func (r ApiSearchNamespacesRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+
 
 func (r ApiSearchNamespacesRequest) Execute() (*PagedResultsNamespace, *http.Response, error) {
 	return r.ApiService.SearchNamespacesExecute(r)
@@ -1678,30 +1748,28 @@ func (r ApiSearchNamespacesRequest) Execute() (*PagedResultsNamespace, *http.Res
 /*
 SearchNamespaces Search for namespaces
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchNamespacesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchNamespacesRequest
 */
 func (a *NamespacesAPIService) SearchNamespaces(ctx context.Context, tenant string) ApiSearchNamespacesRequest {
 	return ApiSearchNamespacesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-		existing:   Ptr(bool(false)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsNamespace
+//  @return PagedResultsNamespace
 func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequest) (*PagedResultsNamespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsNamespace
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsNamespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.SearchNamespaces")
@@ -1715,31 +1783,22 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
-	if r.existing == nil {
-		return localVarReturnValue, nil, reportError("existing is required and must be specified")
-	}
 
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.existing != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1794,12 +1853,16 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateNamespaceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *NamespacesAPIService
-	id         string
-	tenant     string
-	namespace  *Namespace
+	id string
+	tenant string
+	namespace *Namespace
 }
 
 // The namespace
@@ -1808,15 +1871,17 @@ func (r ApiUpdateNamespaceRequest) Namespace(namespace Namespace) ApiUpdateNames
 	return r
 }
 
+
 func (r ApiUpdateNamespaceRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiUpdateNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateNamespaceRequest) GetNamespace() *Namespace {
-	return r.namespace
+    return r.namespace
 }
+
 
 func (r ApiUpdateNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 	return r.ApiService.UpdateNamespaceExecute(r)
@@ -1825,29 +1890,28 @@ func (r ApiUpdateNamespaceRequest) Execute() (*Namespace, *http.Response, error)
 /*
 UpdateNamespace Update a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The namespace id
-	@param tenant
-	@return ApiUpdateNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The namespace id
+ @param tenant
+ @return ApiUpdateNamespaceRequest
 */
 func (a *NamespacesAPIService) UpdateNamespace(ctx context.Context, id string, tenant string) ApiUpdateNamespaceRequest {
 	return ApiUpdateNamespaceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Namespace
+//  @return Namespace
 func (a *NamespacesAPIService) UpdateNamespaceExecute(r ApiUpdateNamespaceRequest) (*Namespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Namespace
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Namespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.UpdateNamespace")
@@ -1921,3 +1985,7 @@ func (a *NamespacesAPIService) UpdateNamespaceExecute(r ApiUpdateNamespaceReques
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

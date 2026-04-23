@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the TestSuiteRunResult type satisfies the MappedNullable interface at compile time
@@ -20,14 +20,14 @@ var _ MappedNullable = &TestSuiteRunResult{}
 
 // TestSuiteRunResult struct for TestSuiteRunResult
 type TestSuiteRunResult struct {
-	Id                   string           `json:"id"`
-	TestSuiteId          string           `json:"testSuiteId"`
-	Namespace            string           `json:"namespace"`
-	FlowId               string           `json:"flowId"`
-	State                TestState        `json:"state"`
-	StartDate            time.Time        `json:"startDate"`
-	EndDate              time.Time        `json:"endDate"`
-	Results              []UnitTestResult `json:"results,omitempty"`
+	Id string `json:"id"`
+	TestSuiteId string `json:"testSuiteId"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	State TestState `json:"state"`
+	StartDate time.Time `json:"startDate"`
+	EndDate time.Time `json:"endDate"`
+	Results []UnitTestResult `json:"results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -258,7 +258,7 @@ func (o *TestSuiteRunResult) SetResults(v []UnitTestResult) {
 }
 
 func (o TestSuiteRunResult) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -304,10 +304,10 @@ func (o *TestSuiteRunResult) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -375,3 +375,5 @@ func (v *NullableTestSuiteRunResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

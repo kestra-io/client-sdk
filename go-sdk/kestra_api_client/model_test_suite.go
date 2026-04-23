@@ -19,14 +19,14 @@ var _ MappedNullable = &TestSuite{}
 
 // TestSuite struct for TestSuite
 type TestSuite struct {
-	Id                   string     `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Description          *string    `json:"description,omitempty"`
-	Namespace            string     `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	FlowId               string     `json:"flowId" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Source               *string    `json:"source,omitempty"`
-	TestCases            []UnitTest `json:"testCases"`
-	Deleted              *bool      `json:"deleted,omitempty"`
-	Disabled             *bool      `json:"disabled,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Description *string `json:"description,omitempty"`
+	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	FlowId string `json:"flowId" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Source *string `json:"source,omitempty"`
+	TestCases []UnitTest `json:"testCases"`
+	Deleted *bool `json:"deleted,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -278,7 +278,7 @@ func (o *TestSuite) SetDisabled(v bool) {
 }
 
 func (o TestSuite) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -327,10 +327,10 @@ func (o *TestSuite) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -398,3 +398,5 @@ func (v *NullableTestSuite) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

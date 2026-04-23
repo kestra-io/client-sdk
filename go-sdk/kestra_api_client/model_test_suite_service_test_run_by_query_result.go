@@ -18,12 +18,12 @@ var _ MappedNullable = &TestSuiteServiceTestRunByQueryResult{}
 
 // TestSuiteServiceTestRunByQueryResult struct for TestSuiteServiceTestRunByQueryResult
 type TestSuiteServiceTestRunByQueryResult struct {
-	RequestMade               *TestSuiteServiceRunByQueryRequest `json:"requestMade,omitempty"`
-	TenantId                  *string                            `json:"tenantId,omitempty"`
-	NumberOfTestSuitesToBeRun *int32                             `json:"numberOfTestSuitesToBeRun,omitempty"`
-	NumberOfTestCasesToBeRun  *int32                             `json:"numberOfTestCasesToBeRun,omitempty"`
-	Results                   []TestSuiteRunResult               `json:"results,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	RequestMade *TestSuiteServiceRunByQueryRequest `json:"requestMade,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	NumberOfTestSuitesToBeRun *int32 `json:"numberOfTestSuitesToBeRun,omitempty"`
+	NumberOfTestCasesToBeRun *int32 `json:"numberOfTestCasesToBeRun,omitempty"`
+	Results []TestSuiteRunResult `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TestSuiteServiceTestRunByQueryResult TestSuiteServiceTestRunByQueryResult
@@ -206,7 +206,7 @@ func (o *TestSuiteServiceTestRunByQueryResult) SetResults(v []TestSuiteRunResult
 }
 
 func (o TestSuiteServiceTestRunByQueryResult) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullableTestSuiteServiceTestRunByQueryResult) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

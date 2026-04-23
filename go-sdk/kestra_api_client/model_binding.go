@@ -19,12 +19,12 @@ var _ MappedNullable = &Binding{}
 
 // Binding struct for Binding
 type Binding struct {
-	Id                   *string     `json:"id,omitempty"`
-	Type                 BindingType `json:"type"`
-	ExternalId           string      `json:"externalId"`
-	RoleId               string      `json:"roleId"`
-	NamespaceId          *string     `json:"namespaceId,omitempty"`
-	Deleted              bool        `json:"deleted"`
+	Id *string `json:"id,omitempty"`
+	Type BindingType `json:"type"`
+	ExternalId string `json:"externalId"`
+	RoleId string `json:"roleId"`
+	NamespaceId *string `json:"namespaceId,omitempty"`
+	Deleted bool `json:"deleted"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,7 +212,7 @@ func (o *Binding) SetDeleted(v bool) {
 }
 
 func (o Binding) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -255,10 +255,10 @@ func (o *Binding) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -324,3 +324,5 @@ func (v *NullableBinding) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

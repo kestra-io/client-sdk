@@ -19,11 +19,11 @@ var _ MappedNullable = &ExecutionControllerLastExecutionResponse{}
 
 // ExecutionControllerLastExecutionResponse struct for ExecutionControllerLastExecutionResponse
 type ExecutionControllerLastExecutionResponse struct {
-	Id                   *string    `json:"id,omitempty"`
-	FlowId               *string    `json:"flowId,omitempty"`
-	Namespace            *string    `json:"namespace,omitempty"`
-	StartDate            *time.Time `json:"startDate,omitempty"`
-	Status               *StateType `json:"status,omitempty"`
+	Id *string `json:"id,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	Status *StateType `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,7 +207,7 @@ func (o *ExecutionControllerLastExecutionResponse) SetStatus(v StateType) {
 }
 
 func (o ExecutionControllerLastExecutionResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -299,3 +299,5 @@ func (v *NullableExecutionControllerLastExecutionResponse) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

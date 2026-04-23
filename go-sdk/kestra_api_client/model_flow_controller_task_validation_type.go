@@ -19,7 +19,7 @@ type FlowControllerTaskValidationType string
 
 // List of FlowController.TaskValidationType
 const (
-	FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS    FlowControllerTaskValidationType = "TASKS"
+	FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS FlowControllerTaskValidationType = "TASKS"
 	FLOWCONTROLLERTASKVALIDATIONTYPE_TRIGGERS FlowControllerTaskValidationType = "TRIGGERS"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableFlowControllerTaskValidationType) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -18,13 +18,13 @@ var _ MappedNullable = &SetupConfiguration{}
 
 // SetupConfiguration struct for SetupConfiguration
 type SetupConfiguration struct {
-	Done                 *bool   `json:"done,omitempty"`
-	RepositoryType       *string `json:"repositoryType,omitempty"`
-	QueueType            *string `json:"queueType,omitempty"`
-	StorageType          *string `json:"storageType,omitempty"`
-	SecretType           *string `json:"secretType,omitempty"`
-	PasswordRegexp       *string `json:"passwordRegexp,omitempty"`
-	HaveAuthNotBasic     *bool   `json:"haveAuthNotBasic,omitempty"`
+	Done *bool `json:"done,omitempty"`
+	RepositoryType *string `json:"repositoryType,omitempty"`
+	QueueType *string `json:"queueType,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	PasswordRegexp *string `json:"passwordRegexp,omitempty"`
+	HaveAuthNotBasic *bool `json:"haveAuthNotBasic,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -272,7 +272,7 @@ func (o *SetupConfiguration) SetHaveAuthNotBasic(v bool) {
 }
 
 func (o SetupConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -372,3 +372,5 @@ func (v *NullableSetupConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

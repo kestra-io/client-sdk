@@ -9,5 +9,8 @@ Name | Type | Description | Notes
 **endDate** | **Date** |  | [optional] [readonly] 
 **current** | [**StateType**](StateType.md) |  | 
 **histories** | [**[StateHistory]**](StateHistory.md) |  | [optional] 
+**getDuration** | **String** |  | [readonly] 
+**getStartDate** | **Date** |  | [readonly] 
+**getEndDate** | **Date** |  | [readonly] 
 
 

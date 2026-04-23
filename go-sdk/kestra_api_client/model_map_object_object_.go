@@ -18,7 +18,7 @@ var _ MappedNullable = &MapObjectObject{}
 
 // MapObjectObject struct for MapObjectObject
 type MapObjectObject struct {
-	Empty                *bool `json:"empty,omitempty"`
+	Empty *bool `json:"empty,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *MapObjectObject) SetEmpty(v bool) {
 }
 
 func (o MapObjectObject) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableMapObjectObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

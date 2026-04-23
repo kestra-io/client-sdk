@@ -664,7 +664,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_service_accounts**
-> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail list_service_accounts(page, size, filters, sort=sort)
+> PagedResultsIAMServiceAccountControllerApiServiceAccountDetail list_service_accounts(filters, page=page, size=size, sort=sort)
 
 List service accounts. Superadmin-only. 
 
@@ -684,14 +684,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # List service accounts. Superadmin-only. 
-        api_response = kestra_client.ServiceAccountApi.list_service_accounts(page, size, filters, sort=sort)
+        api_response = kestra_client.ServiceAccountApi.list_service_accounts(filters, page=page, size=size, sort=sort)
         print("The response of ServiceAccountApi->list_service_accounts:\n")
         pprint(api_response)
     except Exception as e:
@@ -705,9 +705,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type

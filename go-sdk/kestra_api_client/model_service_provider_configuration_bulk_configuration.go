@@ -18,9 +18,9 @@ var _ MappedNullable = &ServiceProviderConfigurationBulkConfiguration{}
 
 // ServiceProviderConfigurationBulkConfiguration struct for ServiceProviderConfigurationBulkConfiguration
 type ServiceProviderConfigurationBulkConfiguration struct {
-	Supported            *bool  `json:"supported,omitempty"`
-	MaxOperations        *int32 `json:"maxOperations,omitempty"`
-	MaxPayloadSize       *int32 `json:"maxPayloadSize,omitempty"`
+	Supported *bool `json:"supported,omitempty"`
+	MaxOperations *int32 `json:"maxOperations,omitempty"`
+	MaxPayloadSize *int32 `json:"maxPayloadSize,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *ServiceProviderConfigurationBulkConfiguration) SetMaxPayloadSize(v int3
 }
 
 func (o ServiceProviderConfigurationBulkConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableServiceProviderConfigurationBulkConfiguration) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

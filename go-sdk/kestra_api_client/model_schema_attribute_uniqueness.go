@@ -20,7 +20,7 @@ type SchemaAttributeUniqueness string
 // List of Schema.Attribute.Uniqueness
 const (
 	SCHEMAATTRIBUTEUNIQUENESS_GLOBAL SchemaAttributeUniqueness = "GLOBAL"
-	SCHEMAATTRIBUTEUNIQUENESS_NONE   SchemaAttributeUniqueness = "NONE"
+	SCHEMAATTRIBUTEUNIQUENESS_NONE SchemaAttributeUniqueness = "NONE"
 	SCHEMAATTRIBUTEUNIQUENESS_SERVER SchemaAttributeUniqueness = "SERVER"
 )
 
@@ -109,3 +109,4 @@ func (v *NullableSchemaAttributeUniqueness) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

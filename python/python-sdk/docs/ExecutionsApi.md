@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_executions_by_ids**](ExecutionsApi.md#delete_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 [**delete_executions_by_query**](ExecutionsApi.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**download_file_from_execution**](ExecutionsApi.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+[**eval_expression**](ExecutionsApi.md#eval_expression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**execution_flow_graph**](ExecutionsApi.md#execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 [**file_metadatas_from_execution**](ExecutionsApi.md#file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
@@ -55,7 +56,7 @@ Method | HTTP request | Description
 
 
 # **create_execution**
-> ExecutionControllerExecutionResponse create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+> ExecutionControllerExecutionResponse create_execution(namespace, tenant, id, wait=wait, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, labels=labels, revision=revision)
 
 Create a new execution for a flow
 
@@ -76,18 +77,18 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    wait = False # bool | If the server will wait the end of the execution (default to False)
     tenant = 'tenant_example' # str | 
-    labels = ['labels_example'] # List[str] | The labels as a list of 'key:value' (optional)
-    revision = 56 # int | The flow revision or latest if null (optional)
+    id = 'id_example' # str | The flow id
+    wait = False # bool | If the server will wait the end of the execution (optional) (default to False)
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
     kind = kestrapy.ExecutionKind() # ExecutionKind | Specific execution kind (optional)
+    labels = kestrapy.CreateExecutionLabelsParameter() # CreateExecutionLabelsParameter | The labels as a list of 'key:value' (optional)
+    revision = 56 # int | The flow revision or latest if null (optional)
 
     try:
         # Create a new execution for a flow
-        api_response = kestra_client.ExecutionsApi.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+        api_response = kestra_client.ExecutionsApi.create_execution(namespace, tenant, id, wait=wait, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, labels=labels, revision=revision)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -102,14 +103,14 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **wait** | **bool**| If the server will wait the end of the execution | [default to False]
  **tenant** | **str**|  | 
- **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | [optional] 
- **revision** | **int**| The flow revision or latest if null | [optional] 
+ **id** | **str**| The flow id | 
+ **wait** | **bool**| If the server will wait the end of the execution | [optional] [default to False]
  **schedule_date** | **datetime**| Schedule the flow on a specific date | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
  **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
+ **labels** | [**CreateExecutionLabelsParameter**](.md)| The labels as a list of &#39;key:value&#39; | [optional] 
+ **revision** | **int**| The flow revision or latest if null | [optional] 
 
 ### Return type
 
@@ -134,7 +135,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_execution**
-> delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+> delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_storage=delete_storage, delete_metrics=delete_metrics)
 
 Delete an execution
 
@@ -156,13 +157,13 @@ configuration.password = "Root!1234"
 with KestraClient(configuration) as kestra_client:
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_logs = kestrapy.DeleteExecutionsByIdsDeleteLogsParameter() # DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs (optional)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
+    delete_metrics = kestrapy.DeleteExecutionsByIdsDeleteLogsParameter() # DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
 
     try:
         # Delete an execution
-        kestra_client.ExecutionsApi.delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        kestra_client.ExecutionsApi.delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_storage=delete_storage, delete_metrics=delete_metrics)
     except Exception as e:
         print("Exception when calling ExecutionsApi->delete_execution: %s\n" % e)
 ```
@@ -176,9 +177,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
- **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_logs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] 
  **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
+ **delete_metrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
 
 ### Return type
 
@@ -203,7 +204,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_executions_by_ids**
-> BulkResponse delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+> BulkResponse delete_executions_by_ids(tenant, request_body, delete_logs=delete_logs, delete_storage=delete_storage, delete_metrics=delete_metrics, include_non_terminated=include_non_terminated)
 
 Delete a list of executions
 
@@ -225,14 +226,14 @@ configuration.password = "Root!1234"
 with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The execution id
-    include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
-    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_logs = kestrapy.DeleteExecutionsByIdsDeleteLogsParameter() # DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs (optional)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
+    delete_metrics = kestrapy.DeleteExecutionsByIdsDeleteLogsParameter() # DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
+    include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
 
     try:
         # Delete a list of executions
-        api_response = kestra_client.ExecutionsApi.delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        api_response = kestra_client.ExecutionsApi.delete_executions_by_ids(tenant, request_body, delete_logs=delete_logs, delete_storage=delete_storage, delete_metrics=delete_metrics, include_non_terminated=include_non_terminated)
         print("The response of ExecutionsApi->delete_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -248,10 +249,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **request_body** | [**List[str]**](str.md)| The execution id | 
- **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
- **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_logs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] 
  **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
+ **delete_metrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
+ **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
 
 ### Return type
 
@@ -276,7 +277,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_executions_by_query**
-> object delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+> object delete_executions_by_query(tenant, delete_storage=delete_storage, filters=filters, include_non_terminated=include_non_terminated, delete_metrics=delete_metrics, delete_logs=delete_logs)
 
 Delete executions filter by query parameters
 
@@ -297,15 +298,15 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
     include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
+    delete_metrics = kestrapy.DeleteExecutionsByIdsDeleteLogsParameter() # DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
     delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
-    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
 
     try:
         # Delete executions filter by query parameters
-        api_response = kestra_client.ExecutionsApi.delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        api_response = kestra_client.ExecutionsApi.delete_executions_by_query(tenant, delete_storage=delete_storage, filters=filters, include_non_terminated=include_non_terminated, delete_metrics=delete_metrics, delete_logs=delete_logs)
         print("The response of ExecutionsApi->delete_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -320,11 +321,11 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
+ **delete_metrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
  **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
- **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
 
 ### Return type
 
@@ -410,6 +411,72 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | downloadFileFromExecution 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **eval_expression**
+> ExecutionControllerEvalResult eval_expression(execution_id, tenant, body)
+
+Evaluate a variable expression for this execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution id
+    tenant = 'tenant_example' # str | 
+    body = 'body_example' # str | The Pebble expression that should be evaluated
+
+    try:
+        # Evaluate a variable expression for this execution
+        api_response = kestra_client.ExecutionsApi.eval_expression(execution_id, tenant, body)
+        print("The response of ExecutionsApi->eval_expression:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->eval_expression: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **tenant** | **str**|  | 
+ **body** | **str**| The Pebble expression that should be evaluated | 
+
+### Return type
+
+[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: text/plain
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | evalExpression 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -633,7 +700,7 @@ with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace of the flow
     flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
-    revision = 56 # int | The flow revision (optional)
+    revision = kestrapy.FlowFromExecutionRevisionParameter() # FlowFromExecutionRevisionParameter | The flow revision (optional)
 
     try:
         # Get flow information's for an execution
@@ -654,7 +721,7 @@ Name | Type | Description  | Notes
  **namespace** | **str**| The namespace of the flow | 
  **flow_id** | **str**| The flow id | 
  **tenant** | **str**|  | 
- **revision** | **int**| The flow revision | [optional] 
+ **revision** | [**FlowFromExecutionRevisionParameter**](.md)| The flow revision | [optional] 
 
 ### Return type
 
@@ -742,7 +809,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **follow_dependencies_executions**
-> EventExecutionStatusEvent follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+> EventExecutionStatusEvent follow_dependencies_executions(execution_id, tenant, expand_all=expand_all, destination_only=destination_only)
 
 Follow all execution dependencies executions
 
@@ -763,13 +830,13 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     execution_id = 'execution_id_example' # str | The execution id
-    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
-    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
     tenant = 'tenant_example' # str | 
+    expand_all = False # bool | If true, expand all dependencies recursively (optional) (default to False)
+    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (optional) (default to False)
 
     try:
         # Follow all execution dependencies executions
-        api_response = kestra_client.ExecutionsApi.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+        api_response = kestra_client.ExecutionsApi.follow_dependencies_executions(execution_id, tenant, expand_all=expand_all, destination_only=destination_only)
         print("The response of ExecutionsApi->follow_dependencies_executions:\n")
         pprint(api_response)
     except Exception as e:
@@ -784,9 +851,9 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
- **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
  **tenant** | **str**|  | 
+ **expand_all** | **bool**| If true, expand all dependencies recursively | [optional] [default to False]
+ **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to False]
 
 ### Return type
 
@@ -1067,7 +1134,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **kill_execution**
-> object kill_execution(execution_id, is_on_kill_cascade, tenant)
+> object kill_execution(execution_id, tenant, is_on_kill_cascade=is_on_kill_cascade)
 
 Kill an execution
 
@@ -1088,12 +1155,12 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     execution_id = 'execution_id_example' # str | The execution id
-    is_on_kill_cascade = True # bool | Specifies whether killing the execution also kill all subflow executions. (default to True)
     tenant = 'tenant_example' # str | 
+    is_on_kill_cascade = True # bool | Specifies whether killing the execution also kill all subflow executions. (optional) (default to True)
 
     try:
         # Kill an execution
-        api_response = kestra_client.ExecutionsApi.kill_execution(execution_id, is_on_kill_cascade, tenant)
+        api_response = kestra_client.ExecutionsApi.kill_execution(execution_id, tenant, is_on_kill_cascade=is_on_kill_cascade)
         print("The response of ExecutionsApi->kill_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1108,8 +1175,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **is_on_kill_cascade** | **bool**| Specifies whether killing the execution also kill all subflow executions. | [default to True]
  **tenant** | **str**|  | 
+ **is_on_kill_cascade** | **bool**| Specifies whether killing the execution also kill all subflow executions. | [optional] [default to True]
 
 ### Return type
 
@@ -1522,7 +1589,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution**
-> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, breakpoints=breakpoints, revision=revision)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1545,12 +1612,12 @@ with KestraClient(configuration) as kestra_client:
     execution_id = 'execution_id_example' # str | the original execution id to clone
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
-    revision = 56 # int | The flow revision to use for new execution (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    revision = 56 # int | The flow revision to use for new execution (optional)
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = kestra_client.ExecutionsApi.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        api_response = kestra_client.ExecutionsApi.replay_execution(execution_id, tenant, task_run_id=task_run_id, breakpoints=breakpoints, revision=revision)
         print("The response of ExecutionsApi->replay_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1567,8 +1634,8 @@ Name | Type | Description  | Notes
  **execution_id** | **str**| the original execution id to clone | 
  **tenant** | **str**|  | 
  **task_run_id** | **str**| The taskrun id | [optional] 
- **revision** | **int**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **revision** | **int**| The flow revision to use for new execution | [optional] 
 
 ### Return type
 
@@ -1592,7 +1659,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution_withinputs**
-> Execution replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+> Execution replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, breakpoints=breakpoints, revision=revision)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1615,12 +1682,12 @@ with KestraClient(configuration) as kestra_client:
     execution_id = 'execution_id_example' # str | the original execution id to clone
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
-    revision = 56 # int | The flow revision to use for new execution (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    revision = 56 # int | The flow revision to use for new execution (optional)
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = kestra_client.ExecutionsApi.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        api_response = kestra_client.ExecutionsApi.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, breakpoints=breakpoints, revision=revision)
         print("The response of ExecutionsApi->replay_execution_withinputs:\n")
         pprint(api_response)
     except Exception as e:
@@ -1637,8 +1704,8 @@ Name | Type | Description  | Notes
  **execution_id** | **str**| the original execution id to clone | 
  **tenant** | **str**|  | 
  **task_run_id** | **str**| The taskrun id | [optional] 
- **revision** | **int**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **revision** | **int**| The flow revision to use for new execution | [optional] 
 
 ### Return type
 
@@ -2185,7 +2252,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_executions**
-> PagedResultsExecution search_executions(page, size, tenant, sort=sort, filters=filters)
+> PagedResultsExecution search_executions(tenant, page=page, size=size, filters=filters, sort=sort)
 
 Search for executions
 
@@ -2205,15 +2272,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    page = kestrapy.SearchBlueprintsSizeParameter() # SearchBlueprintsSizeParameter | The current page (optional)
+    size = 10 # int | The current page size (optional) (default to 10)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for executions
-        api_response = kestra_client.ExecutionsApi.search_executions(page, size, tenant, sort=sort, filters=filters)
+        api_response = kestra_client.ExecutionsApi.search_executions(tenant, page=page, size=size, filters=filters, sort=sort)
         print("The response of ExecutionsApi->search_executions:\n")
         pprint(api_response)
     except Exception as e:
@@ -2227,11 +2294,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **page** | [**SearchBlueprintsSizeParameter**](.md)| The current page | [optional] 
+ **size** | **int**| The current page size | [optional] [default to 10]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -2255,7 +2322,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_executions_by_flow_id**
-> PagedResultsExecution search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
+> PagedResultsExecution search_executions_by_flow_id(flow_id, namespace, tenant, size=size, page=page)
 
 Search for executions for a flow
 
@@ -2275,15 +2342,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
     flow_id = 'flow_id_example' # str | The flow id
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
+    size = 10 # int | The current page size (optional) (default to 10)
+    page = 1 # int | The current page (optional) (default to 1)
 
     try:
         # Search for executions for a flow
-        api_response = kestra_client.ExecutionsApi.search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
+        api_response = kestra_client.ExecutionsApi.search_executions_by_flow_id(flow_id, namespace, tenant, size=size, page=page)
         print("The response of ExecutionsApi->search_executions_by_flow_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -2297,11 +2364,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
  **flow_id** | **str**| The flow id | 
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
+ **size** | **int**| The current page size | [optional] [default to 10]
+ **page** | **int**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -2524,7 +2591,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook**
-> WebhookResponse trigger_execution_by_get_webhook(namespace, id, key, tenant)
+> WebhookResponse trigger_execution_by_get_webhook(id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2544,14 +2611,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
 
     try:
         # Trigger a new execution by GET webhook trigger
-        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook(namespace, id, key, tenant)
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook(id, key, namespace, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_get_webhook:\n")
         pprint(api_response)
     except Exception as e:
@@ -2565,9 +2632,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -2592,7 +2659,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook_with_path**
-> WebhookResponse trigger_execution_by_get_webhook_with_path(namespace, id, key, path, tenant)
+> WebhookResponse trigger_execution_by_get_webhook_with_path(path, id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2612,15 +2679,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
+    path = 'path_example' # str | Optional additional path segments
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
-    path = 'path_example' # str | Optional additional path segments
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
 
     try:
         # Trigger a new execution by GET webhook trigger
-        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook_with_path(namespace, id, key, path, tenant)
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook_with_path(path, id, key, namespace, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_get_webhook_with_path:\n")
         pprint(api_response)
     except Exception as e:
@@ -2634,10 +2701,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
+ **path** | **str**| Optional additional path segments | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -2662,7 +2729,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_post_webhook_with_path**
-> WebhookResponse trigger_execution_by_post_webhook_with_path(namespace, id, key, path, tenant)
+> WebhookResponse trigger_execution_by_post_webhook_with_path(path, id, key, namespace, tenant)
 
 Trigger a new execution by POST webhook trigger
 
@@ -2682,15 +2749,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
+    path = 'path_example' # str | Optional additional path segments
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
-    path = 'path_example' # str | Optional additional path segments
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
 
     try:
         # Trigger a new execution by POST webhook trigger
-        api_response = kestra_client.ExecutionsApi.trigger_execution_by_post_webhook_with_path(namespace, id, key, path, tenant)
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_post_webhook_with_path(path, id, key, namespace, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_post_webhook_with_path:\n")
         pprint(api_response)
     except Exception as e:
@@ -2704,10 +2771,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
+ **path** | **str**| Optional additional path segments | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -2732,7 +2799,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_put_webhook_with_path**
-> WebhookResponse trigger_execution_by_put_webhook_with_path(namespace, id, key, path, tenant)
+> WebhookResponse trigger_execution_by_put_webhook_with_path(path, id, key, namespace, tenant)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -2752,15 +2819,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
+    path = 'path_example' # str | Optional additional path segments
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
-    path = 'path_example' # str | Optional additional path segments
+    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
 
     try:
         # Trigger a new execution by PUT webhook trigger
-        api_response = kestra_client.ExecutionsApi.trigger_execution_by_put_webhook_with_path(namespace, id, key, path, tenant)
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_put_webhook_with_path(path, id, key, namespace, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_put_webhook_with_path:\n")
         pprint(api_response)
     except Exception as e:
@@ -2774,10 +2841,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
+ **path** | **str**| Optional additional path segments | 
  **id** | **str**| The flow id | 
  **key** | **str**| The webhook trigger uid | 
- **path** | **str**| Optional additional path segments | 
+ **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
 
 ### Return type

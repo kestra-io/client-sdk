@@ -18,7 +18,7 @@ var _ MappedNullable = &IAMUserGroupControllerApiUpdateUserGroupsRequest{}
 
 // IAMUserGroupControllerApiUpdateUserGroupsRequest struct for IAMUserGroupControllerApiUpdateUserGroupsRequest
 type IAMUserGroupControllerApiUpdateUserGroupsRequest struct {
-	GroupIds             []string `json:"groupIds,omitempty"`
+	GroupIds []string `json:"groupIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) SetGroupIds(v []strin
 }
 
 func (o IAMUserGroupControllerApiUpdateUserGroupsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableIAMUserGroupControllerApiUpdateUserGroupsRequest) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

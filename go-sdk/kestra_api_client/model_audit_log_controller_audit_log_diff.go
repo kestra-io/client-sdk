@@ -18,8 +18,8 @@ var _ MappedNullable = &AuditLogControllerAuditLogDiff{}
 
 // AuditLogControllerAuditLogDiff struct for AuditLogControllerAuditLogDiff
 type AuditLogControllerAuditLogDiff struct {
-	Before               *string `json:"before,omitempty"`
-	After                *string `json:"after,omitempty"`
+	Before *string `json:"before,omitempty"`
+	After *string `json:"after,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *AuditLogControllerAuditLogDiff) SetAfter(v string) {
 }
 
 func (o AuditLogControllerAuditLogDiff) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableAuditLogControllerAuditLogDiff) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

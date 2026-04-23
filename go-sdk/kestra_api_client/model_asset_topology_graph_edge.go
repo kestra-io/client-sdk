@@ -18,9 +18,9 @@ var _ MappedNullable = &AssetTopologyGraphEdge{}
 
 // AssetTopologyGraphEdge struct for AssetTopologyGraphEdge
 type AssetTopologyGraphEdge struct {
-	Source               *string    `json:"source,omitempty"`
-	Target               *string    `json:"target,omitempty"`
-	Relation             *Relation1 `json:"relation,omitempty"`
+	Source *string `json:"source,omitempty"`
+	Target *string `json:"target,omitempty"`
+	Relation *Relation1 `json:"relation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *AssetTopologyGraphEdge) SetRelation(v Relation1) {
 }
 
 func (o AssetTopologyGraphEdge) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableAssetTopologyGraphEdge) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

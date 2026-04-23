@@ -19,8 +19,8 @@ var _ MappedNullable = &TriggerControllerSetDisabledRequest{}
 
 // TriggerControllerSetDisabledRequest struct for TriggerControllerSetDisabledRequest
 type TriggerControllerSetDisabledRequest struct {
-	Triggers             []Trigger `json:"triggers"`
-	Disabled             bool      `json:"disabled"`
+	Triggers []Trigger `json:"triggers"`
+	Disabled bool `json:"disabled"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,7 +94,7 @@ func (o *TriggerControllerSetDisabledRequest) SetDisabled(v bool) {
 }
 
 func (o TriggerControllerSetDisabledRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -127,10 +127,10 @@ func (o *TriggerControllerSetDisabledRequest) UnmarshalJSON(data []byte) (err er
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -192,3 +192,5 @@ func (v *NullableTriggerControllerSetDisabledRequest) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

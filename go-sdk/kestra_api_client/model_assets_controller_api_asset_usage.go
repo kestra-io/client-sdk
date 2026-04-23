@@ -19,14 +19,14 @@ var _ MappedNullable = &AssetsControllerApiAssetUsage{}
 
 // AssetsControllerApiAssetUsage struct for AssetsControllerApiAssetUsage
 type AssetsControllerApiAssetUsage struct {
-	AssetId              *string    `json:"assetId,omitempty"`
-	Namespace            *string    `json:"namespace,omitempty"`
-	FlowId               *string    `json:"flowId,omitempty"`
-	FlowRevision         *int32     `json:"flowRevision,omitempty"`
-	ExecutionId          *string    `json:"executionId,omitempty"`
-	TaskId               *string    `json:"taskId,omitempty"`
-	TaskRunId            *string    `json:"taskRunId,omitempty"`
-	Created              *time.Time `json:"created,omitempty"`
+	AssetId *string `json:"assetId,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	FlowRevision *int32 `json:"flowRevision,omitempty"`
+	ExecutionId *string `json:"executionId,omitempty"`
+	TaskId *string `json:"taskId,omitempty"`
+	TaskRunId *string `json:"taskRunId,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,7 +306,7 @@ func (o *AssetsControllerApiAssetUsage) SetCreated(v time.Time) {
 }
 
 func (o AssetsControllerApiAssetUsage) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -410,3 +410,5 @@ func (v *NullableAssetsControllerApiAssetUsage) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

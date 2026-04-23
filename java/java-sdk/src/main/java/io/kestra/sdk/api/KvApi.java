@@ -55,37 +55,37 @@ import java.util.StringJoiner;
   /**
    * Delete a key-value pair
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @return Boolean
    * @throws ApiException if fails to make API call
    */
-  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteKeyValue(namespace, key, tenant, Collections.emptyMap());
+  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.deleteKeyValue(key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Delete a key-value pair
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Boolean
    * @throws ApiException if fails to make API call
    */
-  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling deleteKeyValue");
-    }
     
     // verify the required parameter 'key' is set
     if (key == null) {
       throw new ApiException(400, "Missing the required parameter 'key' when calling deleteKeyValue");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling deleteKeyValue");
     }
     
     // verify the required parameter 'tenant' is set
@@ -95,8 +95,8 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -242,37 +242,37 @@ import java.util.StringJoiner;
   /**
    * Get value for a key
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @return KVControllerKvDetail
    * @throws ApiException if fails to make API call
    */
-  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.keyValue(namespace, key, tenant, Collections.emptyMap());
+  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.keyValue(key, namespace, tenant, Collections.emptyMap());
   }
 
   /**
    * Get value for a key
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return KVControllerKvDetail
    * @throws ApiException if fails to make API call
    */
-  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerKvDetail keyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling keyValue");
-    }
     
     // verify the required parameter 'key' is set
     if (key == null) {
       throw new ApiException(400, "Missing the required parameter 'key' when calling keyValue");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling keyValue");
     }
     
     // verify the required parameter 'tenant' is set
@@ -282,8 +282,8 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -336,42 +336,32 @@ import java.util.StringJoiner;
   /**
    * List all keys
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param sort The sort of current page (optional)
+   * @param page The current page (optional, default to 1)
    * @return PagedResultsKVEntry
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.listAllKeys(page, size, tenant, sort, filters, Collections.emptyMap());
+  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable Integer page) throws ApiException {
+    return this.listAllKeys(tenant, filters, size, sort, page, Collections.emptyMap());
   }
 
   /**
    * List all keys
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param sort The sort of current page (optional)
+   * @param page The current page (optional, default to 1)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsKVEntry
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable Integer page, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling listAllKeys");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling listAllKeys");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -389,10 +379,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -612,37 +602,37 @@ import java.util.StringJoiner;
   /**
    * Puts a key-value pair in store
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param body The value of the key (required)
    * @throws ApiException if fails to make API call
    */
-  public void setKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
-    this.setKeyValue(namespace, key, tenant, body, Collections.emptyMap());
+  public void setKeyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    this.setKeyValue(key, namespace, tenant, body, Collections.emptyMap());
   }
 
   /**
    * Puts a key-value pair in store
    * 
-   * @param namespace The namespace id (required)
    * @param key The key (required)
+   * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param body The value of the key (required)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void setKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public void setKeyValue(@jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling setKeyValue");
-    }
     
     // verify the required parameter 'key' is set
     if (key == null) {
       throw new ApiException(400, "Missing the required parameter 'key' when calling setKeyValue");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling setKeyValue");
     }
     
     // verify the required parameter 'tenant' is set
@@ -657,8 +647,8 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");

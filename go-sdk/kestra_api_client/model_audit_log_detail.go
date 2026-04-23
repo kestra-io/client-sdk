@@ -19,10 +19,10 @@ var _ MappedNullable = &AuditLogDetail{}
 
 // AuditLogDetail struct for AuditLogDetail
 type AuditLogDetail struct {
-	Permission           *Permission   `json:"permission,omitempty"`
-	ResourceType         *ResourceType `json:"resourceType,omitempty"`
-	Type                 string        `json:"type"`
-	Id                   *string       `json:"id,omitempty"`
+	Permission *Permission `json:"permission,omitempty"`
+	ResourceType *ResourceType `json:"resourceType,omitempty"`
+	Type string `json:"type"`
+	Id *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -167,7 +167,7 @@ func (o *AuditLogDetail) SetId(v string) {
 }
 
 func (o AuditLogDetail) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -207,10 +207,10 @@ func (o *AuditLogDetail) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -274,3 +274,5 @@ func (v *NullableAuditLogDetail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

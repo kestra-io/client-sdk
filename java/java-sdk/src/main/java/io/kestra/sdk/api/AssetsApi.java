@@ -58,36 +58,31 @@ import java.util.StringJoiner;
    * Retrieve an asset
    * 
    * @param id The ID of the asset (required)
-   * @param allowDeleted Get asset even if soft deleted (required)
    * @param tenant  (required)
+   * @param allowDeleted Get asset even if soft deleted (optional, default to false)
    * @return AssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.asset(id, allowDeleted, tenant, Collections.emptyMap());
+  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean allowDeleted) throws ApiException {
+    return this.asset(id, tenant, allowDeleted, Collections.emptyMap());
   }
 
   /**
    * Retrieve an asset
    * 
    * @param id The ID of the asset (required)
-   * @param allowDeleted Get asset even if soft deleted (required)
    * @param tenant  (required)
+   * @param allowDeleted Get asset even if soft deleted (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return AssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public AssetsControllerApiAsset asset(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean allowDeleted, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling asset");
-    }
-    
-    // verify the required parameter 'allowDeleted' is set
-    if (allowDeleted == null) {
-      throw new ApiException(400, "Missing the required parameter 'allowDeleted' when calling asset");
     }
     
     // verify the required parameter 'tenant' is set
@@ -152,43 +147,33 @@ import java.util.StringJoiner;
    * Get an asset dependencies
    * 
    * @param id The asset id (required)
-   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (required)
-   * @param expandAll If true, expand all dependencies recursively (required)
    * @param tenant  (required)
+   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (optional, default to false)
+   * @param expandAll If true, expand all dependencies recursively (optional, default to false)
    * @return AssetTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public AssetTopologyGraph assetDependencies(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull Boolean expandAll, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.assetDependencies(id, destinationOnly, expandAll, tenant, Collections.emptyMap());
+  public AssetTopologyGraph assetDependencies(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nullable Boolean expandAll) throws ApiException {
+    return this.assetDependencies(id, tenant, destinationOnly, expandAll, Collections.emptyMap());
   }
 
   /**
    * Get an asset dependencies
    * 
    * @param id The asset id (required)
-   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (required)
-   * @param expandAll If true, expand all dependencies recursively (required)
    * @param tenant  (required)
+   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (optional, default to false)
+   * @param expandAll If true, expand all dependencies recursively (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return AssetTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public AssetTopologyGraph assetDependencies(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull Boolean expandAll, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public AssetTopologyGraph assetDependencies(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nullable Boolean expandAll, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling assetDependencies");
-    }
-    
-    // verify the required parameter 'destinationOnly' is set
-    if (destinationOnly == null) {
-      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling assetDependencies");
-    }
-    
-    // verify the required parameter 'expandAll' is set
-    if (expandAll == null) {
-      throw new ApiException(400, "Missing the required parameter 'expandAll' when calling assetDependencies");
     }
     
     // verify the required parameter 'tenant' is set
@@ -679,36 +664,31 @@ import java.util.StringJoiner;
    * Delete assets by query
    * 
    * @param filters Filters (required)
-   * @param purge If true, will purge instead of soft-delete (required)
    * @param tenant  (required)
+   * @param purge If true, will purge instead of soft-delete (optional, default to false)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull Boolean purge, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteAssetsByQuery(filters, purge, tenant, Collections.emptyMap());
+  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean purge) throws ApiException {
+    return this.deleteAssetsByQuery(filters, tenant, purge, Collections.emptyMap());
   }
 
   /**
    * Delete assets by query
    * 
    * @param filters Filters (required)
-   * @param purge If true, will purge instead of soft-delete (required)
    * @param tenant  (required)
+   * @param purge If true, will purge instead of soft-delete (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull Boolean purge, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteAssetsByQuery(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean purge, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filters' is set
     if (filters == null) {
       throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteAssetsByQuery");
-    }
-    
-    // verify the required parameter 'purge' is set
-    if (purge == null) {
-      throw new ApiException(400, "Missing the required parameter 'purge' when calling deleteAssetsByQuery");
     }
     
     // verify the required parameter 'tenant' is set
@@ -772,42 +752,32 @@ import java.util.StringJoiner;
   /**
    * Search for asset lineage events
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsAssetsControllerApiAssetLineageEvent
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchAssetLineageEvents(page, size, filters, tenant, sort, Collections.emptyMap());
+  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchAssetLineageEvents(filters, tenant, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for asset lineage events
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsAssetsControllerApiAssetLineageEvent
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAssetLineageEvents");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAssetLineageEvents");
-    }
     
     // verify the required parameter 'filters' is set
     if (filters == null) {
@@ -877,42 +847,32 @@ import java.util.StringJoiner;
   /**
    * Search for asset usages
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsAssetsControllerApiAssetUsage
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchAssetUsages(page, size, filters, tenant, sort, Collections.emptyMap());
+  public PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchAssetUsages(filters, tenant, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for asset usages
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsAssetsControllerApiAssetUsage
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAssetUsages");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAssetUsages");
-    }
     
     // verify the required parameter 'filters' is set
     if (filters == null) {
@@ -982,42 +942,32 @@ import java.util.StringJoiner;
   /**
    * Search for assets
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsAssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAsset searchAssets(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchAssets(page, size, filters, tenant, sort, Collections.emptyMap());
+  public PagedResultsAssetsControllerApiAsset searchAssets(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchAssets(filters, tenant, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for assets
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsAssetsControllerApiAsset
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAssetsControllerApiAsset searchAssets(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAssetsControllerApiAsset searchAssets(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAssets");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAssets");
-    }
     
     // verify the required parameter 'filters' is set
     if (filters == null) {

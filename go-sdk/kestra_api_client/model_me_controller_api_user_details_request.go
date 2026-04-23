@@ -18,9 +18,9 @@ var _ MappedNullable = &MeControllerApiUserDetailsRequest{}
 
 // MeControllerApiUserDetailsRequest struct for MeControllerApiUserDetailsRequest
 type MeControllerApiUserDetailsRequest struct {
-	FirstName            *string `json:"firstName,omitempty"`
-	LastName             *string `json:"lastName,omitempty"`
-	Email                *string `json:"email,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Email *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *MeControllerApiUserDetailsRequest) SetEmail(v string) {
 }
 
 func (o MeControllerApiUserDetailsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableMeControllerApiUserDetailsRequest) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

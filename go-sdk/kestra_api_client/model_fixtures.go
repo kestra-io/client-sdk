@@ -18,10 +18,10 @@ var _ MappedNullable = &Fixtures{}
 
 // Fixtures struct for Fixtures
 type Fixtures struct {
-	Inputs               map[string]interface{} `json:"inputs,omitempty"`
-	Files                *map[string]string     `json:"files,omitempty"`
-	Tasks                []TaskFixture          `json:"tasks,omitempty"`
-	Trigger              *TriggerFixture        `json:"trigger,omitempty"`
+	Inputs map[string]interface{} `json:"inputs,omitempty"`
+	Files *map[string]string `json:"files,omitempty"`
+	Tasks []TaskFixture `json:"tasks,omitempty"`
+	Trigger *TriggerFixture `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *Fixtures) SetTrigger(v TriggerFixture) {
 }
 
 func (o Fixtures) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableFixtures) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

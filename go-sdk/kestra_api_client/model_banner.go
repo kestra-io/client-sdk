@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Banner type satisfies the MappedNullable interface at compile time
@@ -20,13 +20,13 @@ var _ MappedNullable = &Banner{}
 
 // Banner struct for Banner
 type Banner struct {
-	Id                   *string        `json:"id,omitempty"`
-	Message              string         `json:"message"`
-	Type                 *BannerType    `json:"type,omitempty"`
-	StartDate            NullableTime   `json:"startDate,omitempty"`
-	EndDate              NullableTime   `json:"endDate,omitempty"`
-	TenantId             NullableString `json:"tenantId,omitempty"`
-	Active               *bool          `json:"active,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Message string `json:"message"`
+	Type *BannerType `json:"type,omitempty"`
+	StartDate NullableTime `json:"startDate,omitempty"`
+	EndDate NullableTime `json:"endDate,omitempty"`
+	TenantId NullableString `json:"tenantId,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -170,7 +170,6 @@ func (o *Banner) HasStartDate() bool {
 func (o *Banner) SetStartDate(v time.Time) {
 	o.StartDate.Set(&v)
 }
-
 // SetStartDateNil sets the value for StartDate to be an explicit nil
 func (o *Banner) SetStartDateNil() {
 	o.StartDate.Set(nil)
@@ -213,7 +212,6 @@ func (o *Banner) HasEndDate() bool {
 func (o *Banner) SetEndDate(v time.Time) {
 	o.EndDate.Set(&v)
 }
-
 // SetEndDateNil sets the value for EndDate to be an explicit nil
 func (o *Banner) SetEndDateNil() {
 	o.EndDate.Set(nil)
@@ -256,7 +254,6 @@ func (o *Banner) HasTenantId() bool {
 func (o *Banner) SetTenantId(v string) {
 	o.TenantId.Set(&v)
 }
-
 // SetTenantIdNil sets the value for TenantId to be an explicit nil
 func (o *Banner) SetTenantIdNil() {
 	o.TenantId.Set(nil)
@@ -300,7 +297,7 @@ func (o *Banner) SetActive(v bool) {
 }
 
 func (o Banner) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -349,10 +346,10 @@ func (o *Banner) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -419,3 +416,5 @@ func (v *NullableBanner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

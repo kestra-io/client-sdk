@@ -19,7 +19,7 @@ type ServerInstanceType string
 
 // List of ServerInstance.Type
 const (
-	SERVERINSTANCETYPE_SERVER     ServerInstanceType = "SERVER"
+	SERVERINSTANCETYPE_SERVER ServerInstanceType = "SERVER"
 	SERVERINSTANCETYPE_STANDALONE ServerInstanceType = "STANDALONE"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableServerInstanceType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

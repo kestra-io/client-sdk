@@ -19,23 +19,23 @@ var _ MappedNullable = &Namespace{}
 
 // Namespace struct for Namespace
 type Namespace struct {
-	Id                       string                            `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	StorageIsolation         *Isolation                        `json:"storageIsolation,omitempty"`
-	SecretIsolation          *Isolation                        `json:"secretIsolation,omitempty"`
-	Deleted                  bool                              `json:"deleted"`
-	Description              *string                           `json:"description,omitempty"`
-	Variables                map[string]map[string]interface{} `json:"variables,omitempty"`
-	PluginDefaults           []PluginDefault                   `json:"pluginDefaults,omitempty"`
-	AllowedNamespaces        []NamespaceAllowedNamespace       `json:"allowedNamespaces,omitempty"`
-	WorkerGroup              *WorkerGroup                      `json:"workerGroup,omitempty"`
-	StorageType              *string                           `json:"storageType,omitempty"`
-	StorageConfiguration     map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
-	SecretType               *string                           `json:"secretType,omitempty"`
-	SecretReadOnly           *bool                             `json:"secretReadOnly,omitempty"`
-	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
-	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
-	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
-	AdditionalProperties     map[string]interface{}
+	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
+	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
+	Deleted bool `json:"deleted"`
+	Description *string `json:"description,omitempty"`
+	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
+	PluginDefaults []PluginDefault `json:"pluginDefaults,omitempty"`
+	AllowedNamespaces []NamespaceAllowedNamespace `json:"allowedNamespaces,omitempty"`
+	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	StorageConfiguration map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
+	SecretConfiguration map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
+	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
+	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Namespace Namespace
@@ -556,7 +556,7 @@ func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth) {
 }
 
 func (o Namespace) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -631,10 +631,10 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -710,3 +710,5 @@ func (v *NullableNamespace) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

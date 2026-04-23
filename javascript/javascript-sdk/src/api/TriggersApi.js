@@ -14,6 +14,7 @@
 import ApiClient from "../ApiClient";
 import polyfilledEventSource from "@sanity/eventsource"
 import DeleteTriggersByQueryRequest from '../model/DeleteTriggersByQueryRequest';
+import ListBlueprintTagsQParameter from '../model/ListBlueprintTagsQParameter';
 import PagedResultsTrigger from '../model/PagedResultsTrigger';
 import PagedResultsTriggerControllerTriggers from '../model/PagedResultsTriggerControllerTriggers';
 import QueryFilter from '../model/QueryFilter';
@@ -234,25 +235,25 @@ export default class TriggersApi {
     /**
     * Delete a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise< Object >}
     */
-    deleteTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
+    deleteTriggerWithHttpInfo(namespace, triggerId, flowId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling deleteTrigger");
       }
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling deleteTrigger");
-      }
       // verify the required parameter 'triggerId' is set
       if (triggerId === undefined || triggerId === null) {
         throw new Error("Missing the required parameter 'triggerId' when calling deleteTrigger");
+      }
+      // verify the required parameter 'flowId' is set
+      if (flowId === undefined || flowId === null) {
+        throw new Error("Missing the required parameter 'flowId' when calling deleteTrigger");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -261,8 +262,8 @@ export default class TriggersApi {
 
       let pathParams = {
         'namespace': namespace,
-        'flowId': flowId,
         'triggerId': triggerId,
+        'flowId': flowId,
         'tenant': tenant
       };
       let queryParams = {
@@ -286,14 +287,14 @@ export default class TriggersApi {
     /**
     * Delete a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise< Object >}
     */
-    deleteTrigger(namespace, flowId, triggerId, tenant) {
-      return this.deleteTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
+    deleteTrigger(namespace, triggerId, flowId, tenant) {
+      return this.deleteTriggerWithHttpInfo(namespace, triggerId, flowId, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -500,20 +501,16 @@ export default class TriggersApi {
 
     /**
     * Disable/enable triggers by query parameters
-    * @param {Boolean} disabled The disabled state
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Boolean} [disabled = true)] The disabled state
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
-    disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts) {
+    disabledTriggersByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'disabled' is set
-      if (disabled === undefined || disabled === null) {
-        throw new Error("Missing the required parameter 'disabled' when calling disabledTriggersByQuery");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling disabledTriggersByQuery");
@@ -523,8 +520,8 @@ export default class TriggersApi {
         'tenant': tenant
       };
       let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'disabled': disabled
+        'disabled': opts['disabled'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -544,15 +541,15 @@ export default class TriggersApi {
 
     /**
     * Disable/enable triggers by query parameters
-    * @param {Boolean} disabled The disabled state
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.disabled (default to true)] The disabled state
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
-    disabledTriggersByQuery(disabled, tenant, opts) {
-      return this.disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts)
+    disabledTriggersByQuery(tenant, opts) {
+      return this.disabledTriggersByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -824,25 +821,25 @@ export default class TriggersApi {
     /**
     * Restart a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise< Object >}
     */
-    restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
+    restartTriggerWithHttpInfo(namespace, triggerId, flowId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling restartTrigger");
       }
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling restartTrigger");
-      }
       // verify the required parameter 'triggerId' is set
       if (triggerId === undefined || triggerId === null) {
         throw new Error("Missing the required parameter 'triggerId' when calling restartTrigger");
+      }
+      // verify the required parameter 'flowId' is set
+      if (flowId === undefined || flowId === null) {
+        throw new Error("Missing the required parameter 'flowId' when calling restartTrigger");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -851,8 +848,8 @@ export default class TriggersApi {
 
       let pathParams = {
         'namespace': namespace,
-        'flowId': flowId,
         'triggerId': triggerId,
+        'flowId': flowId,
         'tenant': tenant
       };
       let queryParams = {
@@ -876,14 +873,14 @@ export default class TriggersApi {
     /**
     * Restart a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise< Object >}
     */
-    restartTrigger(namespace, flowId, triggerId, tenant) {
-      return this.restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
+    restartTrigger(namespace, triggerId, flowId, tenant) {
+      return this.restartTriggerWithHttpInfo(namespace, triggerId, flowId, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -901,26 +898,18 @@ export default class TriggersApi {
 
     /**
     * Search for triggers
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [sort] The sort of current page
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
+    * @param {Number} [size = 10)] The current page size
+    * @param {Number} [page = 1)] The current page
+    * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
-    searchTriggersWithHttpInfo(page, size, tenant, opts) {
+    searchTriggersWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTriggers");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTriggers");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchTriggers");
@@ -930,10 +919,10 @@ export default class TriggersApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
+        'size': opts['size'],
+        'page': opts['page'],
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
       };
@@ -953,17 +942,17 @@ export default class TriggersApi {
 
     /**
     * Search for triggers
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.sort] The sort of current page
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {Number} [opts.size (default to 10)] The current page size
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
-    searchTriggers(page, size, tenant, opts) {
-      return this.searchTriggersWithHttpInfo(page, size, tenant, opts)
+    searchTriggers(tenant, opts) {
+      return this.searchTriggersWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -981,28 +970,20 @@ export default class TriggersApi {
 
     /**
     * Get all triggers for a flow
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} namespace The namespace
+    * @param {module:model/ListBlueprintTagsQParameter} namespace The namespace
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [sort] The sort of current page
     * @param {String} [q] A string filter
+    * @param {Number} [size = 10)] The current page size
+    * @param {Number} [page = 1)] The current page
+    * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsTrigger>}
     */
-    searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts) {
+    searchTriggersForFlowWithHttpInfo(namespace, flowId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTriggersForFlow");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTriggersForFlow");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling searchTriggersForFlow");
@@ -1022,10 +1003,10 @@ export default class TriggersApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'q': opts['q']
+        'q': opts['q'],
+        'size': opts['size'],
+        'page': opts['page'],
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
       };
@@ -1045,19 +1026,19 @@ export default class TriggersApi {
 
     /**
     * Get all triggers for a flow
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} namespace The namespace
+    * @param {module:model/ListBlueprintTagsQParameter} namespace The namespace
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.sort] The sort of current page
     * @param {String} [opts.q] A string filter
+    * @param {Number} [opts.size (default to 10)] The current page size
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsTrigger>}
     */
-    searchTriggersForFlow(page, size, namespace, flowId, tenant, opts) {
-      return this.searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts)
+    searchTriggersForFlow(namespace, flowId, tenant, opts) {
+      return this.searchTriggersForFlowWithHttpInfo(namespace, flowId, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1076,25 +1057,25 @@ export default class TriggersApi {
     /**
     * Unlock a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise<Trigger>}
     */
-    unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
+    unlockTriggerWithHttpInfo(namespace, triggerId, flowId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling unlockTrigger");
       }
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling unlockTrigger");
-      }
       // verify the required parameter 'triggerId' is set
       if (triggerId === undefined || triggerId === null) {
         throw new Error("Missing the required parameter 'triggerId' when calling unlockTrigger");
+      }
+      // verify the required parameter 'flowId' is set
+      if (flowId === undefined || flowId === null) {
+        throw new Error("Missing the required parameter 'flowId' when calling unlockTrigger");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1103,8 +1084,8 @@ export default class TriggersApi {
 
       let pathParams = {
         'namespace': namespace,
-        'flowId': flowId,
         'triggerId': triggerId,
+        'flowId': flowId,
         'tenant': tenant
       };
       let queryParams = {
@@ -1128,14 +1109,14 @@ export default class TriggersApi {
     /**
     * Unlock a trigger
     * @param {String} namespace The namespace
-    * @param {String} flowId The flow id
     * @param {String} triggerId The trigger id
+    * @param {String} flowId The flow id
     * @param {String} tenant 
 
     * @return {Promise<Trigger>}
     */
-    unlockTrigger(namespace, flowId, triggerId, tenant) {
-      return this.unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
+    unlockTrigger(namespace, triggerId, flowId, tenant) {
+      return this.unlockTriggerWithHttpInfo(namespace, triggerId, flowId, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

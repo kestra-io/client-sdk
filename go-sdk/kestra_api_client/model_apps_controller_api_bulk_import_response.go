@@ -18,8 +18,8 @@ var _ MappedNullable = &AppsControllerApiBulkImportResponse{}
 
 // AppsControllerApiBulkImportResponse struct for AppsControllerApiBulkImportResponse
 type AppsControllerApiBulkImportResponse struct {
-	Success              []string                                   `json:"success,omitempty"`
-	Errors               []AppsControllerApiBulkImportResponseError `json:"errors,omitempty"`
+	Success []string `json:"success,omitempty"`
+	Errors []AppsControllerApiBulkImportResponseError `json:"errors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *AppsControllerApiBulkImportResponse) SetErrors(v []AppsControllerApiBul
 }
 
 func (o AppsControllerApiBulkImportResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableAppsControllerApiBulkImportResponse) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

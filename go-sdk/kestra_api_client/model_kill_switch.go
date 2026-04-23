@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the KillSwitch type satisfies the MappedNullable interface at compile time
@@ -20,18 +20,18 @@ var _ MappedNullable = &KillSwitch{}
 
 // KillSwitch struct for KillSwitch
 type KillSwitch struct {
-	Id                   *string        `json:"id,omitempty"`
-	Name                 string         `json:"name"`
-	TenantId             *string        `json:"tenantId,omitempty"`
-	Namespace            *string        `json:"namespace,omitempty"`
-	FlowId               *string        `json:"flowId,omitempty"`
-	ExecutionIds         []string       `json:"executionIds,omitempty"`
-	StartDate            time.Time      `json:"startDate"`
-	EndDate              *time.Time     `json:"endDate,omitempty"`
-	Description          *string        `json:"description,omitempty"`
-	EvaluationType       EvaluationType `json:"evaluationType"`
-	Enabled              *bool          `json:"enabled,omitempty"`
-	Deleted              *bool          `json:"deleted,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name string `json:"name"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	ExecutionIds []string `json:"executionIds,omitempty"`
+	StartDate time.Time `json:"startDate"`
+	EndDate *time.Time `json:"endDate,omitempty"`
+	Description *string `json:"description,omitempty"`
+	EvaluationType EvaluationType `json:"evaluationType"`
+	Enabled *bool `json:"enabled,omitempty"`
+	Deleted *bool `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -418,7 +418,7 @@ func (o *KillSwitch) SetDeleted(v bool) {
 }
 
 func (o KillSwitch) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -480,10 +480,10 @@ func (o *KillSwitch) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -555,3 +555,5 @@ func (v *NullableKillSwitch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

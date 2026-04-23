@@ -18,8 +18,8 @@ var _ MappedNullable = &InputType{}
 
 // InputType struct for InputType
 type InputType struct {
-	Type                 *string `json:"type,omitempty"`
-	Cls                  *string `json:"cls,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Cls *string `json:"cls,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *InputType) SetCls(v string) {
 }
 
 func (o InputType) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableInputType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

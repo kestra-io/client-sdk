@@ -658,7 +658,7 @@ public class Example {
 
 ## listNamespaceSecrets
 
-> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
+> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, filters, tenant, size, sort, page)
 
 Get secrets for a namespace
 
@@ -683,13 +683,13 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The namespace id
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
+        Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        Integer page = 1; // Integer | The current page
         try {
-            ApiSecretListResponseApiSecretMeta result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
+            ApiSecretListResponseApiSecretMeta result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, filters, tenant, size, sort, page);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#listNamespaceSecrets");
@@ -708,11 +708,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
 
 ### Return type
 
@@ -952,7 +952,7 @@ public class Example {
 
 ## searchNamespaces
 
-> PagedResultsNamespace searchNamespaces(page, size, existing, tenant, q, sort)
+> PagedResultsNamespace searchNamespaces(tenant, q, existing, size, page, sort)
 
 Search for namespaces
 
@@ -976,14 +976,14 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        Boolean existing = false; // Boolean | Return only existing namespace
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
+        SchemasFromTypeArrayOfParameter existing = new SchemasFromTypeArrayOfParameter(); // SchemasFromTypeArrayOfParameter | Return only existing namespace
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsNamespace result = kestraClient.NamespacesApi().searchNamespaces(page, size, existing, tenant, q, sort);
+            PagedResultsNamespace result = kestraClient.NamespacesApi().searchNamespaces(tenant, q, existing, size, page, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#searchNamespaces");
@@ -1001,11 +1001,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **existing** | **Boolean**| Return only existing namespace | [default to false] |
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
+| **existing** | [**SchemasFromTypeArrayOfParameter**](.md)| Return only existing namespace | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

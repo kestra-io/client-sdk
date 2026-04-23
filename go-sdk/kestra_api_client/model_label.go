@@ -19,8 +19,8 @@ var _ MappedNullable = &Label{}
 
 // Label A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
 type Label struct {
-	Key                  string `json:"key" validate:"regexp=^[\\\\p{Ll}][\\\\p{L}0-9._-]*$"`
-	Value                string `json:"value"`
+	Key string `json:"key" validate:"regexp=^[\\\\p{Ll}][\\\\p{L}0-9._-]*$"`
+	Value string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,7 +94,7 @@ func (o *Label) SetValue(v string) {
 }
 
 func (o Label) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -127,10 +127,10 @@ func (o *Label) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -192,3 +192,5 @@ func (v *NullableLabel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

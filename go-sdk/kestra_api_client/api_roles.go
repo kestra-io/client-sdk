@@ -12,19 +12,23 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // RolesAPIService RolesAPI service
 type RolesAPIService service
 
 type ApiAutocompleteRolesRequest struct {
-	ctx             context.Context
-	ApiService      *RolesAPIService
-	tenant          string
+	ctx context.Context
+	ApiService *RolesAPIService
+	tenant string
 	apiAutocomplete *ApiAutocomplete
 }
 
@@ -34,12 +38,14 @@ func (r ApiAutocompleteRolesRequest) ApiAutocomplete(apiAutocomplete ApiAutocomp
 	return r
 }
 
+
 func (r ApiAutocompleteRolesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiAutocompleteRolesRequest) GetApiAutocomplete() *ApiAutocomplete {
-	return r.apiAutocomplete
+    return r.apiAutocomplete
 }
+
 
 func (r ApiAutocompleteRolesRequest) Execute() ([]ApiRoleSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteRolesExecute(r)
@@ -48,27 +54,26 @@ func (r ApiAutocompleteRolesRequest) Execute() ([]ApiRoleSummary, *http.Response
 /*
 AutocompleteRoles List roles for autocomplete
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiAutocompleteRolesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiAutocompleteRolesRequest
 */
 func (a *RolesAPIService) AutocompleteRoles(ctx context.Context, tenant string) ApiAutocompleteRolesRequest {
 	return ApiAutocompleteRolesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ApiRoleSummary
+//  @return []ApiRoleSummary
 func (a *RolesAPIService) AutocompleteRolesExecute(r ApiAutocompleteRolesRequest) ([]ApiRoleSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ApiRoleSummary
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ApiRoleSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.AutocompleteRoles")
@@ -142,10 +147,14 @@ func (a *RolesAPIService) AutocompleteRolesExecute(r ApiAutocompleteRolesRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateRoleRequest struct {
-	ctx                                           context.Context
-	ApiService                                    *RolesAPIService
-	tenant                                        string
+	ctx context.Context
+	ApiService *RolesAPIService
+	tenant string
 	iAMRoleControllerApiRoleCreateOrUpdateRequest *IAMRoleControllerApiRoleCreateOrUpdateRequest
 }
 
@@ -154,12 +163,14 @@ func (r ApiCreateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMR
 	return r
 }
 
+
 func (r ApiCreateRoleRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateRoleRequest) GetIAMRoleControllerApiRoleCreateOrUpdateRequest() *IAMRoleControllerApiRoleCreateOrUpdateRequest {
-	return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
+    return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
 }
+
 
 func (r ApiCreateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.CreateRoleExecute(r)
@@ -168,27 +179,26 @@ func (r ApiCreateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.
 /*
 CreateRole Create a role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiCreateRoleRequest
 */
 func (a *RolesAPIService) CreateRole(ctx context.Context, tenant string) ApiCreateRoleRequest {
 	return ApiCreateRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMRoleControllerApiRoleDetail
+//  @return IAMRoleControllerApiRoleDetail
 func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMRoleControllerApiRoleDetail
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.CreateRole")
@@ -262,19 +272,25 @@ func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IAMRoleCon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteRoleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RolesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiDeleteRoleRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteRoleRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteRoleRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRoleExecute(r)
@@ -283,26 +299,26 @@ func (r ApiDeleteRoleRequest) Execute() (*http.Response, error) {
 /*
 DeleteRole Delete a role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param tenant
-	@return ApiDeleteRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The role id
+ @param tenant
+ @return ApiDeleteRoleRequest
 */
 func (a *RolesAPIService) DeleteRole(ctx context.Context, id string, tenant string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *RolesAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.DeleteRole")
@@ -363,11 +379,15 @@ func (a *RolesAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*http.Respo
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListRolesFromGivenIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RolesAPIService
-	tenant     string
-	apiIds     *ApiIds
+	tenant string
+	apiIds *ApiIds
 }
 
 // The ids that must be present on results
@@ -376,12 +396,14 @@ func (r ApiListRolesFromGivenIdsRequest) ApiIds(apiIds ApiIds) ApiListRolesFromG
 	return r
 }
 
+
 func (r ApiListRolesFromGivenIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiListRolesFromGivenIdsRequest) GetApiIds() *ApiIds {
-	return r.apiIds
+    return r.apiIds
 }
+
 
 func (r ApiListRolesFromGivenIdsRequest) Execute() ([]Role, *http.Response, error) {
 	return r.ApiService.ListRolesFromGivenIdsExecute(r)
@@ -390,27 +412,26 @@ func (r ApiListRolesFromGivenIdsRequest) Execute() ([]Role, *http.Response, erro
 /*
 ListRolesFromGivenIds List roles by ids
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListRolesFromGivenIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiListRolesFromGivenIdsRequest
 */
 func (a *RolesAPIService) ListRolesFromGivenIds(ctx context.Context, tenant string) ApiListRolesFromGivenIdsRequest {
 	return ApiListRolesFromGivenIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []Role
+//  @return []Role
 func (a *RolesAPIService) ListRolesFromGivenIdsExecute(r ApiListRolesFromGivenIdsRequest) ([]Role, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Role
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Role
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.ListRolesFromGivenIds")
@@ -484,19 +505,25 @@ func (a *RolesAPIService) ListRolesFromGivenIdsExecute(r ApiListRolesFromGivenId
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiRoleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RolesAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiRoleRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiRoleRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.RoleExecute(r)
@@ -505,29 +532,28 @@ func (r ApiRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Respon
 /*
 Role Retrieve a role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param tenant
-	@return ApiRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The role id
+ @param tenant
+ @return ApiRoleRequest
 */
 func (a *RolesAPIService) Role(ctx context.Context, id string, tenant string) ApiRoleRequest {
 	return ApiRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMRoleControllerApiRoleDetail
+//  @return IAMRoleControllerApiRoleDetail
 func (a *RolesAPIService) RoleExecute(r ApiRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMRoleControllerApiRoleDetail
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.Role")
@@ -597,14 +623,24 @@ func (a *RolesAPIService) RoleExecute(r ApiRoleRequest) (*IAMRoleControllerApiRo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchRolesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RolesAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	q          *string
-	sort       *[]string
+	tenant string
+	q *string
+	page *int32
+	size *int32
+	sort *[]string
+}
+
+// A string filter
+func (r ApiSearchRolesRequest) Q(q string) ApiSearchRolesRequest {
+	r.q = &q
+	return r
 }
 
 // The current page
@@ -619,33 +655,29 @@ func (r ApiSearchRolesRequest) Size(size int32) ApiSearchRolesRequest {
 	return r
 }
 
-// A string filter
-func (r ApiSearchRolesRequest) Q(q string) ApiSearchRolesRequest {
-	r.q = &q
-	return r
-}
-
 // The sort of current page
 func (r ApiSearchRolesRequest) Sort(sort []string) ApiSearchRolesRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r ApiSearchRolesRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchRolesRequest) GetSize() *int32 {
-	return r.size
-}
+
 func (r ApiSearchRolesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSearchRolesRequest) GetQ() *string {
-	return r.q
+    return r.q
+}
+func (r ApiSearchRolesRequest) GetPage() *int32 {
+    return r.page
+}
+func (r ApiSearchRolesRequest) GetSize() *int32 {
+    return r.size
 }
 func (r ApiSearchRolesRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+
 
 func (r ApiSearchRolesRequest) Execute() (*PagedResultsApiRoleSummary, *http.Response, error) {
 	return r.ApiService.SearchRolesExecute(r)
@@ -654,29 +686,28 @@ func (r ApiSearchRolesRequest) Execute() (*PagedResultsApiRoleSummary, *http.Res
 /*
 SearchRoles Search for roles
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchRolesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchRolesRequest
 */
 func (a *RolesAPIService) SearchRoles(ctx context.Context, tenant string) ApiSearchRolesRequest {
 	return ApiSearchRolesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        page: Ptr(int32(1)),
+        size: Ptr(int32(10)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsApiRoleSummary
+//  @return PagedResultsApiRoleSummary
 func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedResultsApiRoleSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsApiRoleSummary
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsApiRoleSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.SearchRoles")
@@ -690,18 +721,16 @@ func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedRes
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
@@ -759,11 +788,15 @@ func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateRoleRequest struct {
-	ctx                                           context.Context
-	ApiService                                    *RolesAPIService
-	id                                            string
-	tenant                                        string
+	ctx context.Context
+	ApiService *RolesAPIService
+	id string
+	tenant string
 	iAMRoleControllerApiRoleCreateOrUpdateRequest *IAMRoleControllerApiRoleCreateOrUpdateRequest
 }
 
@@ -772,15 +805,17 @@ func (r ApiUpdateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMR
 	return r
 }
 
+
 func (r ApiUpdateRoleRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiUpdateRoleRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateRoleRequest) GetIAMRoleControllerApiRoleCreateOrUpdateRequest() *IAMRoleControllerApiRoleCreateOrUpdateRequest {
-	return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
+    return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
 }
+
 
 func (r ApiUpdateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.UpdateRoleExecute(r)
@@ -789,29 +824,28 @@ func (r ApiUpdateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.
 /*
 UpdateRole Update a role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param tenant
-	@return ApiUpdateRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The role id
+ @param tenant
+ @return ApiUpdateRoleRequest
 */
 func (a *RolesAPIService) UpdateRole(ctx context.Context, id string, tenant string) ApiUpdateRoleRequest {
 	return ApiUpdateRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMRoleControllerApiRoleDetail
+//  @return IAMRoleControllerApiRoleDetail
 func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMRoleControllerApiRoleDetail
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.UpdateRole")
@@ -885,3 +919,7 @@ func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*IAMRoleCon
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

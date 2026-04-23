@@ -19,7 +19,7 @@ var _ MappedNullable = &IAMTenantAccessControllerApiCreateTenantAccessRequest{}
 
 // IAMTenantAccessControllerApiCreateTenantAccessRequest struct for IAMTenantAccessControllerApiCreateTenantAccessRequest
 type IAMTenantAccessControllerApiCreateTenantAccessRequest struct {
-	Email                string `json:"email"`
+	Email string `json:"email"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +68,7 @@ func (o *IAMTenantAccessControllerApiCreateTenantAccessRequest) SetEmail(v strin
 }
 
 func (o IAMTenantAccessControllerApiCreateTenantAccessRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -99,10 +99,10 @@ func (o *IAMTenantAccessControllerApiCreateTenantAccessRequest) UnmarshalJSON(da
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -163,3 +163,5 @@ func (v *NullableIAMTenantAccessControllerApiCreateTenantAccessRequest) Unmarsha
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

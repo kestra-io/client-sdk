@@ -19,18 +19,18 @@ var _ MappedNullable = &ResourceType1{}
 
 // ResourceType1 struct for ResourceType1
 type ResourceType1 struct {
-	Schemas              []string                                   `json:"schemas,omitempty"`
-	BaseUrn              *string                                    `json:"baseUrn,omitempty"`
-	Extensions           *map[string]ScimExtension                  `json:"extensions,omitempty"`
-	Meta                 Meta                                       `json:"meta"`
-	Id                   *string                                    `json:"id,omitempty"`
-	ExternalId           *string                                    `json:"externalId,omitempty"`
-	ResourceType         *string                                    `json:"resourceType,omitempty"`
-	Name                 *string                                    `json:"name,omitempty"`
-	Description          *string                                    `json:"description,omitempty"`
-	Endpoint             *string                                    `json:"endpoint,omitempty"`
-	SchemaUrn            *string                                    `json:"schemaUrn,omitempty"`
-	SchemaExtensions     []ResourceTypeSchemaExtensionConfiguration `json:"schemaExtensions,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
+	BaseUrn *string `json:"baseUrn,omitempty"`
+	Extensions *map[string]ScimExtension `json:"extensions,omitempty"`
+	Meta Meta `json:"meta"`
+	Id *string `json:"id,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	ResourceType *string `json:"resourceType,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Endpoint *string `json:"endpoint,omitempty"`
+	SchemaUrn *string `json:"schemaUrn,omitempty"`
+	SchemaExtensions []ResourceTypeSchemaExtensionConfiguration `json:"schemaExtensions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -431,7 +431,7 @@ func (o *ResourceType1) SetSchemaExtensions(v []ResourceTypeSchemaExtensionConfi
 }
 
 func (o ResourceType1) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -495,10 +495,10 @@ func (o *ResourceType1) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -570,3 +570,5 @@ func (v *NullableResourceType1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

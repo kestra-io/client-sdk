@@ -19,9 +19,9 @@ var _ MappedNullable = &TriggerFixture{}
 
 // TriggerFixture struct for TriggerFixture
 type TriggerFixture struct {
-	Id                   string                            `json:"id"`
-	Type                 string                            `json:"type"`
-	Variables            map[string]map[string]interface{} `json:"variables,omitempty"`
+	Id string `json:"id"`
+	Type string `json:"type"`
+	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -127,7 +127,7 @@ func (o *TriggerFixture) SetVariables(v map[string]map[string]interface{}) {
 }
 
 func (o TriggerFixture) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -163,10 +163,10 @@ func (o *TriggerFixture) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -229,3 +229,5 @@ func (v *NullableTriggerFixture) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

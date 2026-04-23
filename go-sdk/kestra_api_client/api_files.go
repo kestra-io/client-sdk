@@ -12,22 +12,26 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
+	"os"
 )
+
 
 // FilesAPIService FilesAPI service
 type FilesAPIService service
 
 type ApiCreateNamespaceDirectoryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	tenant     string
-	path       *string
+	namespace string
+	tenant string
+	path *string
 }
 
 // The internal storage uri
@@ -36,15 +40,17 @@ func (r ApiCreateNamespaceDirectoryRequest) Path(path string) ApiCreateNamespace
 	return r
 }
 
+
 func (r ApiCreateNamespaceDirectoryRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiCreateNamespaceDirectoryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateNamespaceDirectoryRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
+
 
 func (r ApiCreateNamespaceDirectoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.CreateNamespaceDirectoryExecute(r)
@@ -53,26 +59,26 @@ func (r ApiCreateNamespaceDirectoryRequest) Execute() (*http.Response, error) {
 /*
 CreateNamespaceDirectory Create a directory
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiCreateNamespaceDirectoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiCreateNamespaceDirectoryRequest
 */
 func (a *FilesAPIService) CreateNamespaceDirectory(ctx context.Context, namespace string, tenant string) ApiCreateNamespaceDirectoryRequest {
 	return ApiCreateNamespaceDirectoryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *FilesAPIService) CreateNamespaceDirectoryExecute(r ApiCreateNamespaceDirectoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.CreateNamespaceDirectory")
@@ -136,12 +142,16 @@ func (a *FilesAPIService) CreateNamespaceDirectoryExecute(r ApiCreateNamespaceDi
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateNamespaceFileRequest struct {
-	ctx         context.Context
-	ApiService  *FilesAPIService
-	namespace   string
-	path        *string
-	tenant      string
+	ctx context.Context
+	ApiService *FilesAPIService
+	namespace string
+	path *string
+	tenant string
 	fileContent *os.File
 }
 
@@ -157,18 +167,20 @@ func (r ApiCreateNamespaceFileRequest) FileContent(fileContent *os.File) ApiCrea
 	return r
 }
 
+
 func (r ApiCreateNamespaceFileRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiCreateNamespaceFileRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
 func (r ApiCreateNamespaceFileRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateNamespaceFileRequest) GetFileContent() *os.File {
-	return r.fileContent
+    return r.fileContent
 }
+
 
 func (r ApiCreateNamespaceFileRequest) Execute() (*http.Response, error) {
 	return r.ApiService.CreateNamespaceFileExecute(r)
@@ -177,26 +189,26 @@ func (r ApiCreateNamespaceFileRequest) Execute() (*http.Response, error) {
 /*
 CreateNamespaceFile Create a file
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiCreateNamespaceFileRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiCreateNamespaceFileRequest
 */
 func (a *FilesAPIService) CreateNamespaceFile(ctx context.Context, namespace string, tenant string) ApiCreateNamespaceFileRequest {
 	return ApiCreateNamespaceFileRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *FilesAPIService) CreateNamespaceFileExecute(r ApiCreateNamespaceFileRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.CreateNamespaceFile")
@@ -234,8 +246,8 @@ func (a *FilesAPIService) CreateNamespaceFileExecute(r ApiCreateNamespaceFileReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileContentLocalVarFormFileName string
-	var fileContentLocalVarFileName string
-	var fileContentLocalVarFileBytes []byte
+	var fileContentLocalVarFileName     string
+	var fileContentLocalVarFileBytes    []byte
 
 	fileContentLocalVarFormFileName = "fileContent"
 	fileContentLocalVarFile := r.fileContent
@@ -276,12 +288,16 @@ func (a *FilesAPIService) CreateNamespaceFileExecute(r ApiCreateNamespaceFileReq
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteFileDirectoryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	path       *string
-	tenant     string
+	namespace string
+	path *string
+	tenant string
 }
 
 // The internal storage uri of the file / directory to delete
@@ -290,15 +306,17 @@ func (r ApiDeleteFileDirectoryRequest) Path(path string) ApiDeleteFileDirectoryR
 	return r
 }
 
+
 func (r ApiDeleteFileDirectoryRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiDeleteFileDirectoryRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
 func (r ApiDeleteFileDirectoryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteFileDirectoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteFileDirectoryExecute(r)
@@ -307,26 +325,26 @@ func (r ApiDeleteFileDirectoryRequest) Execute() (*http.Response, error) {
 /*
 DeleteFileDirectory Delete a file or directory
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiDeleteFileDirectoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiDeleteFileDirectoryRequest
 */
 func (a *FilesAPIService) DeleteFileDirectory(ctx context.Context, namespace string, tenant string) ApiDeleteFileDirectoryRequest {
 	return ApiDeleteFileDirectoryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *FilesAPIService) DeleteFileDirectoryExecute(r ApiDeleteFileDirectoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.DeleteFileDirectory")
@@ -391,19 +409,25 @@ func (a *FilesAPIService) DeleteFileDirectoryExecute(r ApiDeleteFileDirectoryReq
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiExportNamespaceFilesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	tenant     string
+	namespace string
+	tenant string
 }
 
+
 func (r ApiExportNamespaceFilesRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiExportNamespaceFilesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiExportNamespaceFilesRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.ExportNamespaceFilesExecute(r)
@@ -412,29 +436,28 @@ func (r ApiExportNamespaceFilesRequest) Execute() (string, *http.Response, error
 /*
 ExportNamespaceFiles Export namespace files as a ZIP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiExportNamespaceFilesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiExportNamespaceFilesRequest
 */
 func (a *FilesAPIService) ExportNamespaceFiles(ctx context.Context, namespace string, tenant string) ApiExportNamespaceFilesRequest {
 	return ApiExportNamespaceFilesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return string
+//  @return string
 func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.ExportNamespaceFiles")
@@ -504,13 +527,17 @@ func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFileContentRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	path       *string
-	tenant     string
-	revision   *int32
+	namespace string
+	path *string
+	tenant string
+	revision *int32
 }
 
 // The internal storage uri
@@ -525,18 +552,20 @@ func (r ApiFileContentRequest) Revision(revision int32) ApiFileContentRequest {
 	return r
 }
 
+
 func (r ApiFileContentRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiFileContentRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
 func (r ApiFileContentRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiFileContentRequest) GetRevision() *int32 {
-	return r.revision
+    return r.revision
 }
+
 
 func (r ApiFileContentRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.FileContentExecute(r)
@@ -545,29 +574,28 @@ func (r ApiFileContentRequest) Execute() (*os.File, *http.Response, error) {
 /*
 FileContent Get namespace file content
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiFileContentRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiFileContentRequest
 */
 func (a *FilesAPIService) FileContent(ctx context.Context, namespace string, tenant string) ApiFileContentRequest {
 	return ApiFileContentRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *FilesAPIService) FileContentExecute(r ApiFileContentRequest) (*os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *os.File
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FileContent")
@@ -586,10 +614,10 @@ func (a *FilesAPIService) FileContentExecute(r ApiFileContentRequest) (*os.File,
 		return localVarReturnValue, nil, reportError("path is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
 	if r.revision != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -644,12 +672,16 @@ func (a *FilesAPIService) FileContentExecute(r ApiFileContentRequest) (*os.File,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFileMetadatasRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	tenant     string
-	path       *string
+	namespace string
+	tenant string
+	path *string
 }
 
 // The internal storage uri
@@ -658,15 +690,17 @@ func (r ApiFileMetadatasRequest) Path(path string) ApiFileMetadatasRequest {
 	return r
 }
 
+
 func (r ApiFileMetadatasRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiFileMetadatasRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiFileMetadatasRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
+
 
 func (r ApiFileMetadatasRequest) Execute() (*FileAttributes, *http.Response, error) {
 	return r.ApiService.FileMetadatasExecute(r)
@@ -675,29 +709,28 @@ func (r ApiFileMetadatasRequest) Execute() (*FileAttributes, *http.Response, err
 /*
 FileMetadatas Get namespace file stats such as size, creation & modification dates and type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiFileMetadatasRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiFileMetadatasRequest
 */
 func (a *FilesAPIService) FileMetadatas(ctx context.Context, namespace string, tenant string) ApiFileMetadatasRequest {
 	return ApiFileMetadatasRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FileAttributes
+//  @return FileAttributes
 func (a *FilesAPIService) FileMetadatasExecute(r ApiFileMetadatasRequest) (*FileAttributes, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FileAttributes
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FileAttributes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FileMetadatas")
@@ -770,12 +803,16 @@ func (a *FilesAPIService) FileMetadatasExecute(r ApiFileMetadatasRequest) (*File
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFileRevisionsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	tenant     string
-	path       *string
+	namespace string
+	tenant string
+	path *string
 }
 
 // The internal storage uri
@@ -784,15 +821,17 @@ func (r ApiFileRevisionsRequest) Path(path string) ApiFileRevisionsRequest {
 	return r
 }
 
+
 func (r ApiFileRevisionsRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiFileRevisionsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiFileRevisionsRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
+
 
 func (r ApiFileRevisionsRequest) Execute() ([]NamespaceFileRevision, *http.Response, error) {
 	return r.ApiService.FileRevisionsExecute(r)
@@ -801,29 +840,28 @@ func (r ApiFileRevisionsRequest) Execute() ([]NamespaceFileRevision, *http.Respo
 /*
 FileRevisions Get namespace file revisions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiFileRevisionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiFileRevisionsRequest
 */
 func (a *FilesAPIService) FileRevisions(ctx context.Context, namespace string, tenant string) ApiFileRevisionsRequest {
 	return ApiFileRevisionsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []NamespaceFileRevision
+//  @return []NamespaceFileRevision
 func (a *FilesAPIService) FileRevisionsExecute(r ApiFileRevisionsRequest) ([]NamespaceFileRevision, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []NamespaceFileRevision
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []NamespaceFileRevision
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FileRevisions")
@@ -896,12 +934,16 @@ func (a *FilesAPIService) FileRevisionsExecute(r ApiFileRevisionsRequest) ([]Nam
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListNamespaceDirectoryFilesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	tenant     string
-	path       *string
+	namespace string
+	tenant string
+	path *string
 }
 
 // The internal storage uri
@@ -910,15 +952,17 @@ func (r ApiListNamespaceDirectoryFilesRequest) Path(path string) ApiListNamespac
 	return r
 }
 
+
 func (r ApiListNamespaceDirectoryFilesRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiListNamespaceDirectoryFilesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiListNamespaceDirectoryFilesRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
+
 
 func (r ApiListNamespaceDirectoryFilesRequest) Execute() ([]FileAttributes, *http.Response, error) {
 	return r.ApiService.ListNamespaceDirectoryFilesExecute(r)
@@ -927,29 +971,28 @@ func (r ApiListNamespaceDirectoryFilesRequest) Execute() ([]FileAttributes, *htt
 /*
 ListNamespaceDirectoryFiles List directory content
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiListNamespaceDirectoryFilesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiListNamespaceDirectoryFilesRequest
 */
 func (a *FilesAPIService) ListNamespaceDirectoryFiles(ctx context.Context, namespace string, tenant string) ApiListNamespaceDirectoryFilesRequest {
 	return ApiListNamespaceDirectoryFilesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []FileAttributes
+//  @return []FileAttributes
 func (a *FilesAPIService) ListNamespaceDirectoryFilesExecute(r ApiListNamespaceDirectoryFilesRequest) ([]FileAttributes, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []FileAttributes
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []FileAttributes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.ListNamespaceDirectoryFiles")
@@ -1022,19 +1065,17 @@ func (a *FilesAPIService) ListNamespaceDirectoryFilesExecute(r ApiListNamespaceD
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiMoveFileDirectoryRequest struct {
-	ctx        context.Context
-	ApiService *FilesAPIService
-	namespace  string
-	from       *string
-	to         *string
-	tenant     string
-}
 
-// The internal storage uri to move from
-func (r ApiMoveFileDirectoryRequest) From(from string) ApiMoveFileDirectoryRequest {
-	r.from = &from
-	return r
+
+
+
+type ApiMoveFileDirectoryRequest struct {
+	ctx context.Context
+	ApiService *FilesAPIService
+	to *string
+	namespace string
+	from *string
+	tenant string
 }
 
 // The internal storage uri to move to
@@ -1043,18 +1084,26 @@ func (r ApiMoveFileDirectoryRequest) To(to string) ApiMoveFileDirectoryRequest {
 	return r
 }
 
+// The internal storage uri to move from
+func (r ApiMoveFileDirectoryRequest) From(from string) ApiMoveFileDirectoryRequest {
+	r.from = &from
+	return r
+}
+
+
+func (r ApiMoveFileDirectoryRequest) GetTo() *string {
+    return r.to
+}
 func (r ApiMoveFileDirectoryRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiMoveFileDirectoryRequest) GetFrom() *string {
-	return r.from
-}
-func (r ApiMoveFileDirectoryRequest) GetTo() *string {
-	return r.to
+    return r.from
 }
 func (r ApiMoveFileDirectoryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiMoveFileDirectoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.MoveFileDirectoryExecute(r)
@@ -1063,26 +1112,26 @@ func (r ApiMoveFileDirectoryRequest) Execute() (*http.Response, error) {
 /*
 MoveFileDirectory Move a file or directory
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiMoveFileDirectoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiMoveFileDirectoryRequest
 */
 func (a *FilesAPIService) MoveFileDirectory(ctx context.Context, namespace string, tenant string) ApiMoveFileDirectoryRequest {
 	return ApiMoveFileDirectoryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *FilesAPIService) MoveFileDirectoryExecute(r ApiMoveFileDirectoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.MoveFileDirectory")
@@ -1097,15 +1146,15 @@ func (a *FilesAPIService) MoveFileDirectoryExecute(r ApiMoveFileDirectoryRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.from == nil {
-		return nil, reportError("from is required and must be specified")
-	}
 	if r.to == nil {
 		return nil, reportError("to is required and must be specified")
 	}
+	if r.from == nil {
+		return nil, reportError("from is required and must be specified")
+	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1151,12 +1200,16 @@ func (a *FilesAPIService) MoveFileDirectoryExecute(r ApiMoveFileDirectoryRequest
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchNamespaceFilesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FilesAPIService
-	namespace  string
-	q          *string
-	tenant     string
+	q *string
+	namespace string
+	tenant string
 }
 
 // The string the file path should contain
@@ -1165,15 +1218,17 @@ func (r ApiSearchNamespaceFilesRequest) Q(q string) ApiSearchNamespaceFilesReque
 	return r
 }
 
-func (r ApiSearchNamespaceFilesRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiSearchNamespaceFilesRequest) GetQ() *string {
-	return r.q
+    return r.q
+}
+func (r ApiSearchNamespaceFilesRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiSearchNamespaceFilesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiSearchNamespaceFilesRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.SearchNamespaceFilesExecute(r)
@@ -1182,29 +1237,28 @@ func (r ApiSearchNamespaceFilesRequest) Execute() ([]string, *http.Response, err
 /*
 SearchNamespaceFiles Find files which path contain the given string in their URI
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiSearchNamespaceFilesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiSearchNamespaceFilesRequest
 */
 func (a *FilesAPIService) SearchNamespaceFiles(ctx context.Context, namespace string, tenant string) ApiSearchNamespaceFilesRequest {
 	return ApiSearchNamespaceFilesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *FilesAPIService) SearchNamespaceFilesExecute(r ApiSearchNamespaceFilesRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.SearchNamespaceFiles")
@@ -1277,3 +1331,7 @@ func (a *FilesAPIService) SearchNamespaceFilesExecute(r ApiSearchNamespaceFilesR
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

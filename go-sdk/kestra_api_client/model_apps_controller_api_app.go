@@ -19,16 +19,16 @@ var _ MappedNullable = &AppsControllerApiApp{}
 
 // AppsControllerApiApp struct for AppsControllerApiApp
 type AppsControllerApiApp struct {
-	Uid                  *string    `json:"uid,omitempty"`
-	Id                   *string    `json:"id,omitempty"`
-	Name                 *string    `json:"name,omitempty"`
-	Type                 *string    `json:"type,omitempty"`
-	Namespace            *string    `json:"namespace,omitempty"`
-	FlowId               *string    `json:"flowId,omitempty"`
-	Tags                 []string   `json:"tags,omitempty"`
-	Enabled              *bool      `json:"enabled,omitempty"`
-	Created              *time.Time `json:"created,omitempty"`
-	Updated              *time.Time `json:"updated,omitempty"`
+	Uid *string `json:"uid,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -372,7 +372,7 @@ func (o *AppsControllerApiApp) SetUpdated(v time.Time) {
 }
 
 func (o AppsControllerApiApp) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -484,3 +484,5 @@ func (v *NullableAppsControllerApiApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

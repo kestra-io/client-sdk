@@ -19,15 +19,15 @@ var _ MappedNullable = &ValidateConstraintViolation{}
 
 // ValidateConstraintViolation struct for ValidateConstraintViolation
 type ValidateConstraintViolation struct {
-	Index                int32    `json:"index"`
-	Filename             *string  `json:"filename,omitempty"`
-	Namespace            *string  `json:"namespace,omitempty"`
-	Flow                 *string  `json:"flow,omitempty"`
-	Constraints          *string  `json:"constraints,omitempty"`
-	Outdated             *bool    `json:"outdated,omitempty"`
-	DeprecationPaths     []string `json:"deprecationPaths,omitempty"`
-	Warnings             []string `json:"warnings,omitempty"`
-	Infos                []string `json:"infos,omitempty"`
+	Index int32 `json:"index"`
+	Filename *string `json:"filename,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Flow *string `json:"flow,omitempty"`
+	Constraints *string `json:"constraints,omitempty"`
+	Outdated *bool `json:"outdated,omitempty"`
+	DeprecationPaths []string `json:"deprecationPaths,omitempty"`
+	Warnings []string `json:"warnings,omitempty"`
+	Infos []string `json:"infos,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -332,7 +332,7 @@ func (o *ValidateConstraintViolation) SetInfos(v []string) {
 }
 
 func (o ValidateConstraintViolation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -387,10 +387,10 @@ func (o *ValidateConstraintViolation) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -459,3 +459,5 @@ func (v *NullableValidateConstraintViolation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

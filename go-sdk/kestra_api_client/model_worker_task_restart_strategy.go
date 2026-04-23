@@ -19,8 +19,8 @@ type WorkerTaskRestartStrategy string
 
 // List of WorkerTaskRestartStrategy
 const (
-	WORKERTASKRESTARTSTRATEGY_NEVER                          WorkerTaskRestartStrategy = "NEVER"
-	WORKERTASKRESTARTSTRATEGY_IMMEDIATELY                    WorkerTaskRestartStrategy = "IMMEDIATELY"
+	WORKERTASKRESTARTSTRATEGY_NEVER WorkerTaskRestartStrategy = "NEVER"
+	WORKERTASKRESTARTSTRATEGY_IMMEDIATELY WorkerTaskRestartStrategy = "IMMEDIATELY"
 	WORKERTASKRESTARTSTRATEGY_AFTER_TERMINATION_GRACE_PERIOD WorkerTaskRestartStrategy = "AFTER_TERMINATION_GRACE_PERIOD"
 )
 
@@ -109,3 +109,4 @@ func (v *NullableWorkerTaskRestartStrategy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

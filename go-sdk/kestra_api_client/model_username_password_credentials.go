@@ -19,10 +19,10 @@ var _ MappedNullable = &UsernamePasswordCredentials{}
 
 // UsernamePasswordCredentials struct for UsernamePasswordCredentials
 type UsernamePasswordCredentials struct {
-	Username             NullableString `json:"username"`
-	Password             NullableString `json:"password"`
-	Identity             NullableString `json:"identity,omitempty"`
-	Secret               NullableString `json:"secret,omitempty"`
+	Username NullableString `json:"username"`
+	Password NullableString `json:"password"`
+	Identity NullableString `json:"identity,omitempty"`
+	Secret NullableString `json:"secret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -131,7 +131,6 @@ func (o *UsernamePasswordCredentials) HasIdentity() bool {
 func (o *UsernamePasswordCredentials) SetIdentity(v string) {
 	o.Identity.Set(&v)
 }
-
 // SetIdentityNil sets the value for Identity to be an explicit nil
 func (o *UsernamePasswordCredentials) SetIdentityNil() {
 	o.Identity.Set(nil)
@@ -174,7 +173,6 @@ func (o *UsernamePasswordCredentials) HasSecret() bool {
 func (o *UsernamePasswordCredentials) SetSecret(v string) {
 	o.Secret.Set(&v)
 }
-
 // SetSecretNil sets the value for Secret to be an explicit nil
 func (o *UsernamePasswordCredentials) SetSecretNil() {
 	o.Secret.Set(nil)
@@ -186,7 +184,7 @@ func (o *UsernamePasswordCredentials) UnsetSecret() {
 }
 
 func (o UsernamePasswordCredentials) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -225,10 +223,10 @@ func (o *UsernamePasswordCredentials) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -292,3 +290,5 @@ func (v *NullableUsernamePasswordCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

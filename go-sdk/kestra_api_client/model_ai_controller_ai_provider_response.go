@@ -18,9 +18,9 @@ var _ MappedNullable = &AiControllerAiProviderResponse{}
 
 // AiControllerAiProviderResponse struct for AiControllerAiProviderResponse
 type AiControllerAiProviderResponse struct {
-	Id                   *string `json:"id,omitempty"`
-	DisplayName          *string `json:"displayName,omitempty"`
-	IsDefault            *bool   `json:"isDefault,omitempty"`
+	Id *string `json:"id,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	IsDefault *bool `json:"isDefault,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *AiControllerAiProviderResponse) SetIsDefault(v bool) {
 }
 
 func (o AiControllerAiProviderResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableAiControllerAiProviderResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

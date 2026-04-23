@@ -18,12 +18,12 @@ var _ MappedNullable = &IAMBindingControllerApiBindingDetail{}
 
 // IAMBindingControllerApiBindingDetail struct for IAMBindingControllerApiBindingDetail
 type IAMBindingControllerApiBindingDetail struct {
-	Id                   *string                                     `json:"id,omitempty"`
-	Type                 *BindingType                                `json:"type,omitempty"`
-	Namespace            NullableString                              `json:"namespace,omitempty"`
-	Role                 *IAMBindingControllerApiRole                `json:"role,omitempty"`
-	Group                NullableIAMBindingControllerApiBindingGroup `json:"group,omitempty"`
-	User                 NullableIAMBindingControllerApiBindingUser  `json:"user,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *BindingType `json:"type,omitempty"`
+	Namespace NullableString `json:"namespace,omitempty"`
+	Role *IAMBindingControllerApiRole `json:"role,omitempty"`
+	Group NullableIAMBindingControllerApiBindingGroup `json:"group,omitempty"`
+	User NullableIAMBindingControllerApiBindingUser `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -142,7 +142,6 @@ func (o *IAMBindingControllerApiBindingDetail) HasNamespace() bool {
 func (o *IAMBindingControllerApiBindingDetail) SetNamespace(v string) {
 	o.Namespace.Set(&v)
 }
-
 // SetNamespaceNil sets the value for Namespace to be an explicit nil
 func (o *IAMBindingControllerApiBindingDetail) SetNamespaceNil() {
 	o.Namespace.Set(nil)
@@ -217,7 +216,6 @@ func (o *IAMBindingControllerApiBindingDetail) HasGroup() bool {
 func (o *IAMBindingControllerApiBindingDetail) SetGroup(v IAMBindingControllerApiBindingGroup) {
 	o.Group.Set(&v)
 }
-
 // SetGroupNil sets the value for Group to be an explicit nil
 func (o *IAMBindingControllerApiBindingDetail) SetGroupNil() {
 	o.Group.Set(nil)
@@ -260,7 +258,6 @@ func (o *IAMBindingControllerApiBindingDetail) HasUser() bool {
 func (o *IAMBindingControllerApiBindingDetail) SetUser(v IAMBindingControllerApiBindingUser) {
 	o.User.Set(&v)
 }
-
 // SetUserNil sets the value for User to be an explicit nil
 func (o *IAMBindingControllerApiBindingDetail) SetUserNil() {
 	o.User.Set(nil)
@@ -272,7 +269,7 @@ func (o *IAMBindingControllerApiBindingDetail) UnsetUser() {
 }
 
 func (o IAMBindingControllerApiBindingDetail) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -368,3 +365,5 @@ func (v *NullableIAMBindingControllerApiBindingDetail) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

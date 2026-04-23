@@ -537,7 +537,7 @@ No authorization required
 
 ## SearchTestSuites
 
-> PagedResultsTestSuite SearchTestSuites(ctx, tenant).Page(page).Size(size).IncludeChildNamespaces(includeChildNamespaces).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+> PagedResultsTestSuite SearchTestSuites(ctx, tenant).Page(page).Size(size).Sort(sort).Namespace(namespace).FlowId(flowId).IncludeChildNamespaces(includeChildNamespaces).Execute()
 
 Search for tests
 
@@ -556,17 +556,17 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	includeChildNamespaces := true // bool | Include child namespaces in filter or not (default to true)
 	tenant := "tenant_example" // string | 
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	namespace := "namespace_example" // string | The namespace to filter on (optional)
 	flowId := "flowId_example" // string | The flow id to filter on (optional)
+	includeChildNamespaces := true // bool | Include child namespaces in filter or not (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TestSuitesAPI.SearchTestSuites(context.Background(), tenant).Page(page).Size(size).IncludeChildNamespaces(includeChildNamespaces).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+	resp, r, err := apiClient.TestSuitesAPI.SearchTestSuites(context.Background(), tenant).Page(page).Size(size).Sort(sort).Namespace(namespace).FlowId(flowId).IncludeChildNamespaces(includeChildNamespaces).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.SearchTestSuites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -591,13 +591,13 @@ Other parameters are passed through a pointer to a apiSearchTestSuitesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
- **includeChildNamespaces** | **bool** | Include child namespaces in filter or not | [default to true]
-
  **sort** | **[]string** | The sort of current page | 
  **namespace** | **string** | The namespace to filter on | 
  **flowId** | **string** | The flow id to filter on | 
+ **includeChildNamespaces** | **bool** | Include child namespaces in filter or not | [default to true]
 
 ### Return type
 
@@ -638,9 +638,9 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	testSuiteId := "testSuiteId_example" // string | The test suite id to filter on (optional)
 	namespace := "namespace_example" // string | The namespace to filter on (optional)
@@ -673,9 +673,9 @@ Other parameters are passed through a pointer to a apiSearchTestSuitesResultsReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
-
  **sort** | **[]string** | The sort of current page | 
  **testSuiteId** | **string** | The test suite id to filter on | 
  **namespace** | **string** | The namespace to filter on | 

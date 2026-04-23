@@ -19,7 +19,7 @@ type Relation1 string
 
 // List of Relation_1
 const (
-	RELATION1_UPSERT  Relation1 = "UPSERT"
+	RELATION1_UPSERT Relation1 = "UPSERT"
 	RELATION1_USED_BY Relation1 = "USED_BY"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableRelation1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

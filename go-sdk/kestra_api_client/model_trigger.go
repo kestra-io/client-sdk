@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Trigger type satisfies the MappedNullable interface at compile time
@@ -20,19 +20,19 @@ var _ MappedNullable = &Trigger{}
 
 // Trigger struct for Trigger
 type Trigger struct {
-	Disabled             *bool            `json:"disabled,omitempty"`
-	TenantId             *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
-	Namespace            string           `json:"namespace"`
-	FlowId               string           `json:"flowId"`
-	TriggerId            string           `json:"triggerId"`
-	Date                 time.Time        `json:"date"`
-	NextExecutionDate    NullableTime     `json:"nextExecutionDate,omitempty"`
-	Backfill             NullableBackfill `json:"backfill,omitempty"`
-	StopAfter            []StateType      `json:"stopAfter,omitempty"`
-	ExecutionId          NullableString   `json:"executionId,omitempty"`
-	UpdatedDate          NullableTime     `json:"updatedDate,omitempty"`
-	EvaluateRunningDate  NullableTime     `json:"evaluateRunningDate,omitempty"`
-	WorkerId             NullableString   `json:"workerId,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	TenantId *string `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TriggerId string `json:"triggerId"`
+	Date time.Time `json:"date"`
+	NextExecutionDate NullableTime `json:"nextExecutionDate,omitempty"`
+	Backfill NullableBackfill `json:"backfill,omitempty"`
+	StopAfter []StateType `json:"stopAfter,omitempty"`
+	ExecutionId NullableString `json:"executionId,omitempty"`
+	UpdatedDate NullableTime `json:"updatedDate,omitempty"`
+	EvaluateRunningDate NullableTime `json:"evaluateRunningDate,omitempty"`
+	WorkerId NullableString `json:"workerId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -255,7 +255,6 @@ func (o *Trigger) HasNextExecutionDate() bool {
 func (o *Trigger) SetNextExecutionDate(v time.Time) {
 	o.NextExecutionDate.Set(&v)
 }
-
 // SetNextExecutionDateNil sets the value for NextExecutionDate to be an explicit nil
 func (o *Trigger) SetNextExecutionDateNil() {
 	o.NextExecutionDate.Set(nil)
@@ -298,7 +297,6 @@ func (o *Trigger) HasBackfill() bool {
 func (o *Trigger) SetBackfill(v Backfill) {
 	o.Backfill.Set(&v)
 }
-
 // SetBackfillNil sets the value for Backfill to be an explicit nil
 func (o *Trigger) SetBackfillNil() {
 	o.Backfill.Set(nil)
@@ -374,7 +372,6 @@ func (o *Trigger) HasExecutionId() bool {
 func (o *Trigger) SetExecutionId(v string) {
 	o.ExecutionId.Set(&v)
 }
-
 // SetExecutionIdNil sets the value for ExecutionId to be an explicit nil
 func (o *Trigger) SetExecutionIdNil() {
 	o.ExecutionId.Set(nil)
@@ -417,7 +414,6 @@ func (o *Trigger) HasUpdatedDate() bool {
 func (o *Trigger) SetUpdatedDate(v time.Time) {
 	o.UpdatedDate.Set(&v)
 }
-
 // SetUpdatedDateNil sets the value for UpdatedDate to be an explicit nil
 func (o *Trigger) SetUpdatedDateNil() {
 	o.UpdatedDate.Set(nil)
@@ -460,7 +456,6 @@ func (o *Trigger) HasEvaluateRunningDate() bool {
 func (o *Trigger) SetEvaluateRunningDate(v time.Time) {
 	o.EvaluateRunningDate.Set(&v)
 }
-
 // SetEvaluateRunningDateNil sets the value for EvaluateRunningDate to be an explicit nil
 func (o *Trigger) SetEvaluateRunningDateNil() {
 	o.EvaluateRunningDate.Set(nil)
@@ -503,7 +498,6 @@ func (o *Trigger) HasWorkerId() bool {
 func (o *Trigger) SetWorkerId(v string) {
 	o.WorkerId.Set(&v)
 }
-
 // SetWorkerIdNil sets the value for WorkerId to be an explicit nil
 func (o *Trigger) SetWorkerIdNil() {
 	o.WorkerId.Set(nil)
@@ -515,7 +509,7 @@ func (o *Trigger) UnsetWorkerId() {
 }
 
 func (o Trigger) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -579,10 +573,10 @@ func (o *Trigger) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -655,3 +649,5 @@ func (v *NullableTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

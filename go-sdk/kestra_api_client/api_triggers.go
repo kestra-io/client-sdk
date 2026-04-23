@@ -12,20 +12,24 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // TriggersAPIService TriggersAPI service
 type TriggersAPIService service
 
 type ApiDeleteBackfillRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *Trigger
+	tenant string
+	trigger *Trigger
 }
 
 func (r ApiDeleteBackfillRequest) Trigger(trigger Trigger) ApiDeleteBackfillRequest {
@@ -33,12 +37,14 @@ func (r ApiDeleteBackfillRequest) Trigger(trigger Trigger) ApiDeleteBackfillRequ
 	return r
 }
 
+
 func (r ApiDeleteBackfillRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteBackfillRequest) GetTrigger() *Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiDeleteBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.DeleteBackfillExecute(r)
@@ -47,27 +53,26 @@ func (r ApiDeleteBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 DeleteBackfill Delete a backfill
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteBackfillRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteBackfillRequest
 */
 func (a *TriggersAPIService) DeleteBackfill(ctx context.Context, tenant string) ApiDeleteBackfillRequest {
 	return ApiDeleteBackfillRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *TriggersAPIService) DeleteBackfillExecute(r ApiDeleteBackfillRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteBackfill")
@@ -141,11 +146,15 @@ func (a *TriggersAPIService) DeleteBackfillExecute(r ApiDeleteBackfillRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteBackfillByIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *[]Trigger
+	tenant string
+	trigger *[]Trigger
 }
 
 func (r ApiDeleteBackfillByIdsRequest) Trigger(trigger []Trigger) ApiDeleteBackfillByIdsRequest {
@@ -153,12 +162,14 @@ func (r ApiDeleteBackfillByIdsRequest) Trigger(trigger []Trigger) ApiDeleteBackf
 	return r
 }
 
+
 func (r ApiDeleteBackfillByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteBackfillByIdsRequest) GetTrigger() *[]Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiDeleteBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteBackfillByIdsExecute(r)
@@ -167,27 +178,26 @@ func (r ApiDeleteBackfillByIdsRequest) Execute() (map[string]interface{}, *http.
 /*
 DeleteBackfillByIds Delete backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteBackfillByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteBackfillByIdsRequest
 */
 func (a *TriggersAPIService) DeleteBackfillByIds(ctx context.Context, tenant string) ApiDeleteBackfillByIdsRequest {
 	return ApiDeleteBackfillByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DeleteBackfillByIdsExecute(r ApiDeleteBackfillByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteBackfillByIds")
@@ -261,11 +271,15 @@ func (a *TriggersAPIService) DeleteBackfillByIdsExecute(r ApiDeleteBackfillByIds
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteBackfillByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -274,12 +288,14 @@ func (r ApiDeleteBackfillByQueryRequest) Filters(filters []QueryFilter) ApiDelet
 	return r
 }
 
+
 func (r ApiDeleteBackfillByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteBackfillByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiDeleteBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteBackfillByQueryExecute(r)
@@ -288,27 +304,26 @@ func (r ApiDeleteBackfillByQueryRequest) Execute() (map[string]interface{}, *htt
 /*
 DeleteBackfillByQuery Delete backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteBackfillByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteBackfillByQueryRequest
 */
 func (a *TriggersAPIService) DeleteBackfillByQuery(ctx context.Context, tenant string) ApiDeleteBackfillByQueryRequest {
 	return ApiDeleteBackfillByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DeleteBackfillByQueryExecute(r ApiDeleteBackfillByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteBackfillByQuery")
@@ -380,27 +395,33 @@ func (a *TriggersAPIService) DeleteBackfillByQueryExecute(r ApiDeleteBackfillByQ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteTriggerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	namespace  string
-	flowId     string
-	triggerId  string
-	tenant     string
+	namespace string
+	triggerId string
+	flowId string
+	tenant string
 }
 
+
 func (r ApiDeleteTriggerRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiDeleteTriggerRequest) GetFlowId() string {
-	return r.flowId
+    return r.namespace
 }
 func (r ApiDeleteTriggerRequest) GetTriggerId() string {
-	return r.triggerId
+    return r.triggerId
+}
+func (r ApiDeleteTriggerRequest) GetFlowId() string {
+    return r.flowId
 }
 func (r ApiDeleteTriggerRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteTriggerRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteTriggerExecute(r)
@@ -409,33 +430,32 @@ func (r ApiDeleteTriggerRequest) Execute() (map[string]interface{}, *http.Respon
 /*
 DeleteTrigger Delete a trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace
-	@param flowId The flow id
-	@param triggerId The trigger id
-	@param tenant
-	@return ApiDeleteTriggerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace
+ @param triggerId The trigger id
+ @param flowId The flow id
+ @param tenant
+ @return ApiDeleteTriggerRequest
 */
-func (a *TriggersAPIService) DeleteTrigger(ctx context.Context, namespace string, flowId string, triggerId string, tenant string) ApiDeleteTriggerRequest {
+func (a *TriggersAPIService) DeleteTrigger(ctx context.Context, namespace string, triggerId string, flowId string, tenant string) ApiDeleteTriggerRequest {
 	return ApiDeleteTriggerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		triggerId:  triggerId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		triggerId: triggerId,
+		flowId: flowId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DeleteTriggerExecute(r ApiDeleteTriggerRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteTrigger")
@@ -445,8 +465,8 @@ func (a *TriggersAPIService) DeleteTriggerExecute(r ApiDeleteTriggerRequest) (ma
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterValueToString(r.triggerId, "triggerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -507,11 +527,15 @@ func (a *TriggersAPIService) DeleteTriggerExecute(r ApiDeleteTriggerRequest) (ma
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteTriggersByIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *[]Trigger
+	tenant string
+	trigger *[]Trigger
 }
 
 func (r ApiDeleteTriggersByIdsRequest) Trigger(trigger []Trigger) ApiDeleteTriggersByIdsRequest {
@@ -519,12 +543,14 @@ func (r ApiDeleteTriggersByIdsRequest) Trigger(trigger []Trigger) ApiDeleteTrigg
 	return r
 }
 
+
 func (r ApiDeleteTriggersByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteTriggersByIdsRequest) GetTrigger() *[]Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiDeleteTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteTriggersByIdsExecute(r)
@@ -533,27 +559,26 @@ func (r ApiDeleteTriggersByIdsRequest) Execute() (map[string]interface{}, *http.
 /*
 DeleteTriggersByIds Delete given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteTriggersByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteTriggersByIdsRequest
 */
 func (a *TriggersAPIService) DeleteTriggersByIds(ctx context.Context, tenant string) ApiDeleteTriggersByIdsRequest {
 	return ApiDeleteTriggersByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DeleteTriggersByIdsExecute(r ApiDeleteTriggersByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteTriggersByIds")
@@ -627,10 +652,14 @@ func (a *TriggersAPIService) DeleteTriggersByIdsExecute(r ApiDeleteTriggersByIds
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteTriggersByQueryRequest struct {
-	ctx                          context.Context
-	ApiService                   *TriggersAPIService
-	tenant                       string
+	ctx context.Context
+	ApiService *TriggersAPIService
+	tenant string
 	deleteTriggersByQueryRequest *DeleteTriggersByQueryRequest
 }
 
@@ -639,12 +668,14 @@ func (r ApiDeleteTriggersByQueryRequest) DeleteTriggersByQueryRequest(deleteTrig
 	return r
 }
 
+
 func (r ApiDeleteTriggersByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteTriggersByQueryRequest) GetDeleteTriggersByQueryRequest() *DeleteTriggersByQueryRequest {
-	return r.deleteTriggersByQueryRequest
+    return r.deleteTriggersByQueryRequest
 }
+
 
 func (r ApiDeleteTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteTriggersByQueryExecute(r)
@@ -653,27 +684,26 @@ func (r ApiDeleteTriggersByQueryRequest) Execute() (map[string]interface{}, *htt
 /*
 DeleteTriggersByQuery Delete triggers by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteTriggersByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteTriggersByQueryRequest
 */
 func (a *TriggersAPIService) DeleteTriggersByQuery(ctx context.Context, tenant string) ApiDeleteTriggersByQueryRequest {
 	return ApiDeleteTriggersByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DeleteTriggersByQueryExecute(r ApiDeleteTriggersByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DeleteTriggersByQuery")
@@ -747,10 +777,14 @@ func (a *TriggersAPIService) DeleteTriggersByQueryExecute(r ApiDeleteTriggersByQ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDisabledTriggersByIdsRequest struct {
-	ctx                                 context.Context
-	ApiService                          *TriggersAPIService
-	tenant                              string
+	ctx context.Context
+	ApiService *TriggersAPIService
+	tenant string
 	triggerControllerSetDisabledRequest *TriggerControllerSetDisabledRequest
 }
 
@@ -759,12 +793,14 @@ func (r ApiDisabledTriggersByIdsRequest) TriggerControllerSetDisabledRequest(tri
 	return r
 }
 
+
 func (r ApiDisabledTriggersByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDisabledTriggersByIdsRequest) GetTriggerControllerSetDisabledRequest() *TriggerControllerSetDisabledRequest {
-	return r.triggerControllerSetDisabledRequest
+    return r.triggerControllerSetDisabledRequest
 }
+
 
 func (r ApiDisabledTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DisabledTriggersByIdsExecute(r)
@@ -773,27 +809,26 @@ func (r ApiDisabledTriggersByIdsRequest) Execute() (map[string]interface{}, *htt
 /*
 DisabledTriggersByIds Disable/enable given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDisabledTriggersByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDisabledTriggersByIdsRequest
 */
 func (a *TriggersAPIService) DisabledTriggersByIds(ctx context.Context, tenant string) ApiDisabledTriggersByIdsRequest {
 	return ApiDisabledTriggersByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DisabledTriggersByIdsExecute(r ApiDisabledTriggersByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DisabledTriggersByIds")
@@ -867,12 +902,16 @@ func (a *TriggersAPIService) DisabledTriggersByIdsExecute(r ApiDisabledTriggersB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDisabledTriggersByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	disabled   *bool
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	disabled *bool
+	filters *[]QueryFilter
 }
 
 // The disabled state
@@ -887,15 +926,17 @@ func (r ApiDisabledTriggersByQueryRequest) Filters(filters []QueryFilter) ApiDis
 	return r
 }
 
-func (r ApiDisabledTriggersByQueryRequest) GetDisabled() *bool {
-	return r.disabled
-}
+
 func (r ApiDisabledTriggersByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
+}
+func (r ApiDisabledTriggersByQueryRequest) GetDisabled() *bool {
+    return r.disabled
 }
 func (r ApiDisabledTriggersByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiDisabledTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DisabledTriggersByQueryExecute(r)
@@ -904,28 +945,27 @@ func (r ApiDisabledTriggersByQueryRequest) Execute() (map[string]interface{}, *h
 /*
 DisabledTriggersByQuery Disable/enable triggers by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDisabledTriggersByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDisabledTriggersByQueryRequest
 */
 func (a *TriggersAPIService) DisabledTriggersByQuery(ctx context.Context, tenant string) ApiDisabledTriggersByQueryRequest {
 	return ApiDisabledTriggersByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		disabled:   Ptr(bool(true)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        disabled: Ptr(bool(true)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) DisabledTriggersByQueryExecute(r ApiDisabledTriggersByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.DisabledTriggersByQuery")
@@ -939,14 +979,13 @@ func (a *TriggersAPIService) DisabledTriggersByQueryExecute(r ApiDisabledTrigger
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.disabled == nil {
-		return localVarReturnValue, nil, reportError("disabled is required and must be specified")
-	}
 
+	if r.disabled != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "disabled", r.disabled, "form", "")
+	}
 	if r.filters != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "disabled", r.disabled, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1001,11 +1040,15 @@ func (a *TriggersAPIService) DisabledTriggersByQueryExecute(r ApiDisabledTrigger
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiExportTriggersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	filters    *[]QueryFilter
-	tenant     string
+	filters *[]QueryFilter
+	tenant string
 }
 
 // A list of filters
@@ -1014,12 +1057,14 @@ func (r ApiExportTriggersRequest) Filters(filters []QueryFilter) ApiExportTrigge
 	return r
 }
 
+
 func (r ApiExportTriggersRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
 func (r ApiExportTriggersRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiExportTriggersRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ExportTriggersExecute(r)
@@ -1028,27 +1073,26 @@ func (r ApiExportTriggersRequest) Execute() ([]map[string]interface{}, *http.Res
 /*
 ExportTriggers Export all triggers as a streamed CSV file
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiExportTriggersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiExportTriggersRequest
 */
 func (a *TriggersAPIService) ExportTriggers(ctx context.Context, tenant string) ApiExportTriggersRequest {
 	return ApiExportTriggersRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []map[string]interface{}
+//  @return []map[string]interface{}
 func (a *TriggersAPIService) ExportTriggersExecute(r ApiExportTriggersRequest) ([]map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []map[string]interface{}
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.ExportTriggers")
@@ -1121,11 +1165,15 @@ func (a *TriggersAPIService) ExportTriggersExecute(r ApiExportTriggersRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseBackfillRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *Trigger
+	tenant string
+	trigger *Trigger
 }
 
 func (r ApiPauseBackfillRequest) Trigger(trigger Trigger) ApiPauseBackfillRequest {
@@ -1133,12 +1181,14 @@ func (r ApiPauseBackfillRequest) Trigger(trigger Trigger) ApiPauseBackfillReques
 	return r
 }
 
+
 func (r ApiPauseBackfillRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPauseBackfillRequest) GetTrigger() *Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiPauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.PauseBackfillExecute(r)
@@ -1147,27 +1197,26 @@ func (r ApiPauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 PauseBackfill Pause a backfill
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPauseBackfillRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiPauseBackfillRequest
 */
 func (a *TriggersAPIService) PauseBackfill(ctx context.Context, tenant string) ApiPauseBackfillRequest {
 	return ApiPauseBackfillRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *TriggersAPIService) PauseBackfillExecute(r ApiPauseBackfillRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.PauseBackfill")
@@ -1241,11 +1290,15 @@ func (a *TriggersAPIService) PauseBackfillExecute(r ApiPauseBackfillRequest) (*T
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseBackfillByIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *[]Trigger
+	tenant string
+	trigger *[]Trigger
 }
 
 func (r ApiPauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiPauseBackfillByIdsRequest {
@@ -1253,12 +1306,14 @@ func (r ApiPauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiPauseBackfil
 	return r
 }
 
+
 func (r ApiPauseBackfillByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPauseBackfillByIdsRequest) GetTrigger() *[]Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiPauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PauseBackfillByIdsExecute(r)
@@ -1267,27 +1322,26 @@ func (r ApiPauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http.R
 /*
 PauseBackfillByIds Pause backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPauseBackfillByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiPauseBackfillByIdsRequest
 */
 func (a *TriggersAPIService) PauseBackfillByIds(ctx context.Context, tenant string) ApiPauseBackfillByIdsRequest {
 	return ApiPauseBackfillByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) PauseBackfillByIdsExecute(r ApiPauseBackfillByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.PauseBackfillByIds")
@@ -1361,11 +1415,15 @@ func (a *TriggersAPIService) PauseBackfillByIdsExecute(r ApiPauseBackfillByIdsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseBackfillByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -1374,12 +1432,14 @@ func (r ApiPauseBackfillByQueryRequest) Filters(filters []QueryFilter) ApiPauseB
 	return r
 }
 
+
 func (r ApiPauseBackfillByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPauseBackfillByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiPauseBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PauseBackfillByQueryExecute(r)
@@ -1388,27 +1448,26 @@ func (r ApiPauseBackfillByQueryRequest) Execute() (map[string]interface{}, *http
 /*
 PauseBackfillByQuery Pause backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPauseBackfillByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiPauseBackfillByQueryRequest
 */
 func (a *TriggersAPIService) PauseBackfillByQuery(ctx context.Context, tenant string) ApiPauseBackfillByQueryRequest {
 	return ApiPauseBackfillByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) PauseBackfillByQueryExecute(r ApiPauseBackfillByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.PauseBackfillByQuery")
@@ -1480,27 +1539,33 @@ func (a *TriggersAPIService) PauseBackfillByQueryExecute(r ApiPauseBackfillByQue
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiRestartTriggerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	namespace  string
-	flowId     string
-	triggerId  string
-	tenant     string
+	namespace string
+	triggerId string
+	flowId string
+	tenant string
 }
 
+
 func (r ApiRestartTriggerRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiRestartTriggerRequest) GetFlowId() string {
-	return r.flowId
+    return r.namespace
 }
 func (r ApiRestartTriggerRequest) GetTriggerId() string {
-	return r.triggerId
+    return r.triggerId
+}
+func (r ApiRestartTriggerRequest) GetFlowId() string {
+    return r.flowId
 }
 func (r ApiRestartTriggerRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiRestartTriggerRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.RestartTriggerExecute(r)
@@ -1509,33 +1574,32 @@ func (r ApiRestartTriggerRequest) Execute() (map[string]interface{}, *http.Respo
 /*
 RestartTrigger Restart a trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace
-	@param flowId The flow id
-	@param triggerId The trigger id
-	@param tenant
-	@return ApiRestartTriggerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace
+ @param triggerId The trigger id
+ @param flowId The flow id
+ @param tenant
+ @return ApiRestartTriggerRequest
 */
-func (a *TriggersAPIService) RestartTrigger(ctx context.Context, namespace string, flowId string, triggerId string, tenant string) ApiRestartTriggerRequest {
+func (a *TriggersAPIService) RestartTrigger(ctx context.Context, namespace string, triggerId string, flowId string, tenant string) ApiRestartTriggerRequest {
 	return ApiRestartTriggerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		triggerId:  triggerId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		triggerId: triggerId,
+		flowId: flowId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) RestartTriggerExecute(r ApiRestartTriggerRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.RestartTrigger")
@@ -1545,8 +1609,8 @@ func (a *TriggersAPIService) RestartTriggerExecute(r ApiRestartTriggerRequest) (
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterValueToString(r.triggerId, "triggerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1607,19 +1671,23 @@ func (a *TriggersAPIService) RestartTriggerExecute(r ApiRestartTriggerRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchTriggersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
+	size *int32
+	page *int32
+	sort *[]string
 }
 
-// The current page
-func (r ApiSearchTriggersRequest) Page(page int32) ApiSearchTriggersRequest {
-	r.page = &page
+// Filters
+func (r ApiSearchTriggersRequest) Filters(filters []QueryFilter) ApiSearchTriggersRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -1629,33 +1697,35 @@ func (r ApiSearchTriggersRequest) Size(size int32) ApiSearchTriggersRequest {
 	return r
 }
 
+// The current page
+func (r ApiSearchTriggersRequest) Page(page int32) ApiSearchTriggersRequest {
+	r.page = &page
+	return r
+}
+
 // The sort of current page
 func (r ApiSearchTriggersRequest) Sort(sort []string) ApiSearchTriggersRequest {
 	r.sort = &sort
 	return r
 }
 
-// Filters
-func (r ApiSearchTriggersRequest) Filters(filters []QueryFilter) ApiSearchTriggersRequest {
-	r.filters = &filters
-	return r
-}
 
-func (r ApiSearchTriggersRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchTriggersRequest) GetSize() *int32 {
-	return r.size
-}
 func (r ApiSearchTriggersRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiSearchTriggersRequest) GetSort() *[]string {
-	return r.sort
+    return r.tenant
 }
 func (r ApiSearchTriggersRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+func (r ApiSearchTriggersRequest) GetSize() *int32 {
+    return r.size
+}
+func (r ApiSearchTriggersRequest) GetPage() *int32 {
+    return r.page
+}
+func (r ApiSearchTriggersRequest) GetSort() *[]string {
+    return r.sort
+}
+
 
 func (r ApiSearchTriggersRequest) Execute() (*PagedResultsTriggerControllerTriggers, *http.Response, error) {
 	return r.ApiService.SearchTriggersExecute(r)
@@ -1664,29 +1734,28 @@ func (r ApiSearchTriggersRequest) Execute() (*PagedResultsTriggerControllerTrigg
 /*
 SearchTriggers Search for triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchTriggersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchTriggersRequest
 */
 func (a *TriggersAPIService) SearchTriggers(ctx context.Context, tenant string) ApiSearchTriggersRequest {
 	return ApiSearchTriggersRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsTriggerControllerTriggers
+//  @return PagedResultsTriggerControllerTriggers
 func (a *TriggersAPIService) SearchTriggersExecute(r ApiSearchTriggersRequest) (*PagedResultsTriggerControllerTriggers, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsTriggerControllerTriggers
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsTriggerControllerTriggers
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.SearchTriggers")
@@ -1700,26 +1769,18 @@ func (a *TriggersAPIService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
 	if r.filters != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1775,21 +1836,25 @@ func (a *TriggersAPIService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchTriggersForFlowRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	page       *int32
-	size       *int32
-	namespace  string
-	flowId     string
-	tenant     string
-	sort       *[]string
-	q          *string
+	namespace ListBlueprintTagsQParameter
+	flowId string
+	tenant string
+	q *string
+	size *int32
+	page *int32
+	sort *[]string
 }
 
-// The current page
-func (r ApiSearchTriggersForFlowRequest) Page(page int32) ApiSearchTriggersForFlowRequest {
-	r.page = &page
+// A string filter
+func (r ApiSearchTriggersForFlowRequest) Q(q string) ApiSearchTriggersForFlowRequest {
+	r.q = &q
 	return r
 }
 
@@ -1799,39 +1864,41 @@ func (r ApiSearchTriggersForFlowRequest) Size(size int32) ApiSearchTriggersForFl
 	return r
 }
 
+// The current page
+func (r ApiSearchTriggersForFlowRequest) Page(page int32) ApiSearchTriggersForFlowRequest {
+	r.page = &page
+	return r
+}
+
 // The sort of current page
 func (r ApiSearchTriggersForFlowRequest) Sort(sort []string) ApiSearchTriggersForFlowRequest {
 	r.sort = &sort
 	return r
 }
 
-// A string filter
-func (r ApiSearchTriggersForFlowRequest) Q(q string) ApiSearchTriggersForFlowRequest {
-	r.q = &q
-	return r
-}
 
-func (r ApiSearchTriggersForFlowRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchTriggersForFlowRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiSearchTriggersForFlowRequest) GetNamespace() string {
-	return r.namespace
+func (r ApiSearchTriggersForFlowRequest) GetNamespace() ListBlueprintTagsQParameter {
+    return r.namespace
 }
 func (r ApiSearchTriggersForFlowRequest) GetFlowId() string {
-	return r.flowId
+    return r.flowId
 }
 func (r ApiSearchTriggersForFlowRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiSearchTriggersForFlowRequest) GetSort() *[]string {
-	return r.sort
+    return r.tenant
 }
 func (r ApiSearchTriggersForFlowRequest) GetQ() *string {
-	return r.q
+    return r.q
 }
+func (r ApiSearchTriggersForFlowRequest) GetSize() *int32 {
+    return r.size
+}
+func (r ApiSearchTriggersForFlowRequest) GetPage() *int32 {
+    return r.page
+}
+func (r ApiSearchTriggersForFlowRequest) GetSort() *[]string {
+    return r.sort
+}
+
 
 func (r ApiSearchTriggersForFlowRequest) Execute() (*PagedResultsTrigger, *http.Response, error) {
 	return r.ApiService.SearchTriggersForFlowExecute(r)
@@ -1840,33 +1907,32 @@ func (r ApiSearchTriggersForFlowRequest) Execute() (*PagedResultsTrigger, *http.
 /*
 SearchTriggersForFlow Get all triggers for a flow
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace
-	@param flowId The flow id
-	@param tenant
-	@return ApiSearchTriggersForFlowRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace
+ @param flowId The flow id
+ @param tenant
+ @return ApiSearchTriggersForFlowRequest
 */
-func (a *TriggersAPIService) SearchTriggersForFlow(ctx context.Context, namespace string, flowId string, tenant string) ApiSearchTriggersForFlowRequest {
+func (a *TriggersAPIService) SearchTriggersForFlow(ctx context.Context, namespace ListBlueprintTagsQParameter, flowId string, tenant string) ApiSearchTriggersForFlowRequest {
 	return ApiSearchTriggersForFlowRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		namespace: namespace,
+		flowId: flowId,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsTrigger
+//  @return PagedResultsTrigger
 func (a *TriggersAPIService) SearchTriggersForFlowExecute(r ApiSearchTriggersForFlowRequest) (*PagedResultsTrigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsTrigger
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsTrigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.SearchTriggersForFlow")
@@ -1882,26 +1948,18 @@ func (a *TriggersAPIService) SearchTriggersForFlowExecute(r ApiSearchTriggersFor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1957,27 +2015,33 @@ func (a *TriggersAPIService) SearchTriggersForFlowExecute(r ApiSearchTriggersFor
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnlockTriggerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	namespace  string
-	flowId     string
-	triggerId  string
-	tenant     string
+	namespace string
+	triggerId string
+	flowId string
+	tenant string
 }
 
+
 func (r ApiUnlockTriggerRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiUnlockTriggerRequest) GetFlowId() string {
-	return r.flowId
+    return r.namespace
 }
 func (r ApiUnlockTriggerRequest) GetTriggerId() string {
-	return r.triggerId
+    return r.triggerId
+}
+func (r ApiUnlockTriggerRequest) GetFlowId() string {
+    return r.flowId
 }
 func (r ApiUnlockTriggerRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiUnlockTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.UnlockTriggerExecute(r)
@@ -1986,33 +2050,32 @@ func (r ApiUnlockTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 UnlockTrigger Unlock a trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace
-	@param flowId The flow id
-	@param triggerId The trigger id
-	@param tenant
-	@return ApiUnlockTriggerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace
+ @param triggerId The trigger id
+ @param flowId The flow id
+ @param tenant
+ @return ApiUnlockTriggerRequest
 */
-func (a *TriggersAPIService) UnlockTrigger(ctx context.Context, namespace string, flowId string, triggerId string, tenant string) ApiUnlockTriggerRequest {
+func (a *TriggersAPIService) UnlockTrigger(ctx context.Context, namespace string, triggerId string, flowId string, tenant string) ApiUnlockTriggerRequest {
 	return ApiUnlockTriggerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		triggerId:  triggerId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		triggerId: triggerId,
+		flowId: flowId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *TriggersAPIService) UnlockTriggerExecute(r ApiUnlockTriggerRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnlockTrigger")
@@ -2022,8 +2085,8 @@ func (a *TriggersAPIService) UnlockTriggerExecute(r ApiUnlockTriggerRequest) (*T
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterValueToString(r.triggerId, "triggerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowId"+"}", url.PathEscape(parameterValueToString(r.flowId, "flowId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2084,11 +2147,15 @@ func (a *TriggersAPIService) UnlockTriggerExecute(r ApiUnlockTriggerRequest) (*T
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnlockTriggersByIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *[]Trigger
+	tenant string
+	trigger *[]Trigger
 }
 
 func (r ApiUnlockTriggersByIdsRequest) Trigger(trigger []Trigger) ApiUnlockTriggersByIdsRequest {
@@ -2096,12 +2163,14 @@ func (r ApiUnlockTriggersByIdsRequest) Trigger(trigger []Trigger) ApiUnlockTrigg
 	return r
 }
 
+
 func (r ApiUnlockTriggersByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnlockTriggersByIdsRequest) GetTrigger() *[]Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiUnlockTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnlockTriggersByIdsExecute(r)
@@ -2110,27 +2179,26 @@ func (r ApiUnlockTriggersByIdsRequest) Execute() (map[string]interface{}, *http.
 /*
 UnlockTriggersByIds Unlock given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnlockTriggersByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnlockTriggersByIdsRequest
 */
 func (a *TriggersAPIService) UnlockTriggersByIds(ctx context.Context, tenant string) ApiUnlockTriggersByIdsRequest {
 	return ApiUnlockTriggersByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) UnlockTriggersByIdsExecute(r ApiUnlockTriggersByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnlockTriggersByIds")
@@ -2204,11 +2272,15 @@ func (a *TriggersAPIService) UnlockTriggersByIdsExecute(r ApiUnlockTriggersByIds
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnlockTriggersByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -2217,12 +2289,14 @@ func (r ApiUnlockTriggersByQueryRequest) Filters(filters []QueryFilter) ApiUnloc
 	return r
 }
 
+
 func (r ApiUnlockTriggersByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnlockTriggersByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiUnlockTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnlockTriggersByQueryExecute(r)
@@ -2231,27 +2305,26 @@ func (r ApiUnlockTriggersByQueryRequest) Execute() (map[string]interface{}, *htt
 /*
 UnlockTriggersByQuery Unlock triggers by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnlockTriggersByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnlockTriggersByQueryRequest
 */
 func (a *TriggersAPIService) UnlockTriggersByQuery(ctx context.Context, tenant string) ApiUnlockTriggersByQueryRequest {
 	return ApiUnlockTriggersByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) UnlockTriggersByQueryExecute(r ApiUnlockTriggersByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnlockTriggersByQuery")
@@ -2323,11 +2396,15 @@ func (a *TriggersAPIService) UnlockTriggersByQueryExecute(r ApiUnlockTriggersByQ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnpauseBackfillRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *Trigger
+	tenant string
+	trigger *Trigger
 }
 
 func (r ApiUnpauseBackfillRequest) Trigger(trigger Trigger) ApiUnpauseBackfillRequest {
@@ -2335,12 +2412,14 @@ func (r ApiUnpauseBackfillRequest) Trigger(trigger Trigger) ApiUnpauseBackfillRe
 	return r
 }
 
+
 func (r ApiUnpauseBackfillRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnpauseBackfillRequest) GetTrigger() *Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiUnpauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.UnpauseBackfillExecute(r)
@@ -2349,27 +2428,26 @@ func (r ApiUnpauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 UnpauseBackfill Unpause a backfill
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnpauseBackfillRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnpauseBackfillRequest
 */
 func (a *TriggersAPIService) UnpauseBackfill(ctx context.Context, tenant string) ApiUnpauseBackfillRequest {
 	return ApiUnpauseBackfillRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *TriggersAPIService) UnpauseBackfillExecute(r ApiUnpauseBackfillRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnpauseBackfill")
@@ -2443,11 +2521,15 @@ func (a *TriggersAPIService) UnpauseBackfillExecute(r ApiUnpauseBackfillRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnpauseBackfillByIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *[]Trigger
+	tenant string
+	trigger *[]Trigger
 }
 
 func (r ApiUnpauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiUnpauseBackfillByIdsRequest {
@@ -2455,12 +2537,14 @@ func (r ApiUnpauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiUnpauseBac
 	return r
 }
 
+
 func (r ApiUnpauseBackfillByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnpauseBackfillByIdsRequest) GetTrigger() *[]Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiUnpauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnpauseBackfillByIdsExecute(r)
@@ -2469,27 +2553,26 @@ func (r ApiUnpauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http
 /*
 UnpauseBackfillByIds Unpause backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnpauseBackfillByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnpauseBackfillByIdsRequest
 */
 func (a *TriggersAPIService) UnpauseBackfillByIds(ctx context.Context, tenant string) ApiUnpauseBackfillByIdsRequest {
 	return ApiUnpauseBackfillByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) UnpauseBackfillByIdsExecute(r ApiUnpauseBackfillByIdsRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnpauseBackfillByIds")
@@ -2563,11 +2646,15 @@ func (a *TriggersAPIService) UnpauseBackfillByIdsExecute(r ApiUnpauseBackfillByI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnpauseBackfillByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -2576,12 +2663,14 @@ func (r ApiUnpauseBackfillByQueryRequest) Filters(filters []QueryFilter) ApiUnpa
 	return r
 }
 
+
 func (r ApiUnpauseBackfillByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnpauseBackfillByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiUnpauseBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnpauseBackfillByQueryExecute(r)
@@ -2590,27 +2679,26 @@ func (r ApiUnpauseBackfillByQueryRequest) Execute() (map[string]interface{}, *ht
 /*
 UnpauseBackfillByQuery Unpause backfill for given triggers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnpauseBackfillByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnpauseBackfillByQueryRequest
 */
 func (a *TriggersAPIService) UnpauseBackfillByQuery(ctx context.Context, tenant string) ApiUnpauseBackfillByQueryRequest {
 	return ApiUnpauseBackfillByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *TriggersAPIService) UnpauseBackfillByQueryExecute(r ApiUnpauseBackfillByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UnpauseBackfillByQuery")
@@ -2682,11 +2770,15 @@ func (a *TriggersAPIService) UnpauseBackfillByQueryExecute(r ApiUnpauseBackfillB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateTriggerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TriggersAPIService
-	tenant     string
-	trigger    *Trigger
+	tenant string
+	trigger *Trigger
 }
 
 func (r ApiUpdateTriggerRequest) Trigger(trigger Trigger) ApiUpdateTriggerRequest {
@@ -2694,12 +2786,14 @@ func (r ApiUpdateTriggerRequest) Trigger(trigger Trigger) ApiUpdateTriggerReques
 	return r
 }
 
+
 func (r ApiUpdateTriggerRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateTriggerRequest) GetTrigger() *Trigger {
-	return r.trigger
+    return r.trigger
 }
+
 
 func (r ApiUpdateTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.UpdateTriggerExecute(r)
@@ -2708,27 +2802,26 @@ func (r ApiUpdateTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 UpdateTrigger Update a trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUpdateTriggerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUpdateTriggerRequest
 */
 func (a *TriggersAPIService) UpdateTrigger(ctx context.Context, tenant string) ApiUpdateTriggerRequest {
 	return ApiUpdateTriggerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *TriggersAPIService) UpdateTriggerExecute(r ApiUpdateTriggerRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersAPIService.UpdateTrigger")
@@ -2801,3 +2894,7 @@ func (a *TriggersAPIService) UpdateTriggerExecute(r ApiUpdateTriggerRequest) (*T
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

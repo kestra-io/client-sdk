@@ -18,8 +18,8 @@ var _ MappedNullable = &BulkErrorResponse{}
 
 // BulkErrorResponse struct for BulkErrorResponse
 type BulkErrorResponse struct {
-	Message              *string                `json:"message,omitempty"`
-	Invalids             map[string]interface{} `json:"invalids,omitempty"`
+	Message *string `json:"message,omitempty"`
+	Invalids map[string]interface{} `json:"invalids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *BulkErrorResponse) SetInvalids(v map[string]interface{}) {
 }
 
 func (o BulkErrorResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableBulkErrorResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

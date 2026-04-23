@@ -18,7 +18,7 @@ var _ MappedNullable = &ServiceProviderConfigurationSupportedConfiguration{}
 
 // ServiceProviderConfigurationSupportedConfiguration struct for ServiceProviderConfigurationSupportedConfiguration
 type ServiceProviderConfigurationSupportedConfiguration struct {
-	Supported            *bool `json:"supported,omitempty"`
+	Supported *bool `json:"supported,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *ServiceProviderConfigurationSupportedConfiguration) SetSupported(v bool
 }
 
 func (o ServiceProviderConfigurationSupportedConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableServiceProviderConfigurationSupportedConfiguration) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,10 +19,10 @@ var _ MappedNullable = &IAMServiceAccountControllerApiCreateServiceAccountReques
 
 // IAMServiceAccountControllerApiCreateServiceAccountRequest Request payload for updating service account details
 type IAMServiceAccountControllerApiCreateServiceAccountRequest struct {
-	Name                 string   `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
-	Description          *string  `json:"description,omitempty"`
-	SuperAdmin           *bool    `json:"superAdmin,omitempty"`
-	Tenants              []string `json:"tenants,omitempty"`
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	Description *string `json:"description,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Tenants []string `json:"tenants,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -167,7 +167,7 @@ func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetTenants(v
 }
 
 func (o IAMServiceAccountControllerApiCreateServiceAccountRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -207,10 +207,10 @@ func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) UnmarshalJSO
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -274,3 +274,5 @@ func (v *NullableIAMServiceAccountControllerApiCreateServiceAccountRequest) Unma
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

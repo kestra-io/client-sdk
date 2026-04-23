@@ -18,8 +18,8 @@ var _ MappedNullable = &MiscControllerPluginIdAndVersion{}
 
 // MiscControllerPluginIdAndVersion struct for MiscControllerPluginIdAndVersion
 type MiscControllerPluginIdAndVersion struct {
-	Id                   *string `json:"id,omitempty"`
-	Version              *string `json:"version,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Version *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *MiscControllerPluginIdAndVersion) SetVersion(v string) {
 }
 
 func (o MiscControllerPluginIdAndVersion) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableMiscControllerPluginIdAndVersion) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

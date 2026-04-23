@@ -18,12 +18,12 @@ var _ MappedNullable = &AppsControllerApiAppCatalogItem{}
 
 // AppsControllerApiAppCatalogItem struct for AppsControllerApiAppCatalogItem
 type AppsControllerApiAppCatalogItem struct {
-	Uid                  *string  `json:"uid,omitempty"`
-	Name                 *string  `json:"name,omitempty"`
-	Description          *string  `json:"description,omitempty"`
-	Type                 *string  `json:"type,omitempty"`
-	Tags                 []string `json:"tags,omitempty"`
-	Thumbnail            *string  `json:"thumbnail,omitempty"`
+	Uid *string `json:"uid,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	Thumbnail *string `json:"thumbnail,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *AppsControllerApiAppCatalogItem) SetThumbnail(v string) {
 }
 
 func (o AppsControllerApiAppCatalogItem) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableAppsControllerApiAppCatalogItem) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,14 +19,14 @@ type CrudEventType string
 
 // List of CrudEventType
 const (
-	CRUDEVENTTYPE_READ           CrudEventType = "READ"
-	CRUDEVENTTYPE_CREATE         CrudEventType = "CREATE"
-	CRUDEVENTTYPE_UPDATE         CrudEventType = "UPDATE"
-	CRUDEVENTTYPE_DELETE         CrudEventType = "DELETE"
-	CRUDEVENTTYPE_LOGIN          CrudEventType = "LOGIN"
-	CRUDEVENTTYPE_LOGOUT         CrudEventType = "LOGOUT"
-	CRUDEVENTTYPE_IMPERSONATE    CrudEventType = "IMPERSONATE"
-	CRUDEVENTTYPE_LOGIN_FAILURE  CrudEventType = "LOGIN_FAILURE"
+	CRUDEVENTTYPE_READ CrudEventType = "READ"
+	CRUDEVENTTYPE_CREATE CrudEventType = "CREATE"
+	CRUDEVENTTYPE_UPDATE CrudEventType = "UPDATE"
+	CRUDEVENTTYPE_DELETE CrudEventType = "DELETE"
+	CRUDEVENTTYPE_LOGIN CrudEventType = "LOGIN"
+	CRUDEVENTTYPE_LOGOUT CrudEventType = "LOGOUT"
+	CRUDEVENTTYPE_IMPERSONATE CrudEventType = "IMPERSONATE"
+	CRUDEVENTTYPE_LOGIN_FAILURE CrudEventType = "LOGIN_FAILURE"
 	CRUDEVENTTYPE_ACCOUNT_LOCKED CrudEventType = "ACCOUNT_LOCKED"
 )
 
@@ -121,3 +121,4 @@ func (v *NullableCrudEventType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

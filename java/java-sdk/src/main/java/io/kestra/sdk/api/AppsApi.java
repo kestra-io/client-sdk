@@ -986,9 +986,9 @@ import java.util.StringJoiner;
   /**
    * Search for apps
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param tags A tags filter (optional)
    * @param q A string filter (optional)
@@ -997,16 +997,16 @@ import java.util.StringJoiner;
    * @return PagedResultsAppsControllerApiApp
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAppsControllerApiApp searchApps(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId) throws ApiException {
-    return this.searchApps(page, size, tenant, sort, tags, q, namespace, flowId, Collections.emptyMap());
+  public PagedResultsAppsControllerApiApp searchApps(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId) throws ApiException {
+    return this.searchApps(tenant, page, size, sort, tags, q, namespace, flowId, Collections.emptyMap());
   }
 
   /**
    * Search for apps
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param tags A tags filter (optional)
    * @param q A string filter (optional)
@@ -1016,18 +1016,8 @@ import java.util.StringJoiner;
    * @return PagedResultsAppsControllerApiApp
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAppsControllerApiApp searchApps(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAppsControllerApiApp searchApps(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchApps");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchApps");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -1095,42 +1085,32 @@ import java.util.StringJoiner;
   /**
    * Search for apps from catalog
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param tags Tags filter (optional)
    * @param q String filter (optional)
    * @return PagedResultsAppsControllerApiAppCatalogItem
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q) throws ApiException {
-    return this.searchAppsFromCatalog(page, size, tenant, tags, q, Collections.emptyMap());
+  public PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q) throws ApiException {
+    return this.searchAppsFromCatalog(tenant, page, size, tags, q, Collections.emptyMap());
   }
 
   /**
    * Search for apps from catalog
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param tags Tags filter (optional)
    * @param q String filter (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsAppsControllerApiAppCatalogItem
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAppsFromCatalog");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAppsFromCatalog");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {

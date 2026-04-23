@@ -19,10 +19,10 @@ var _ MappedNullable = &IAMBindingControllerApiCreateBindingRequest{}
 
 // IAMBindingControllerApiCreateBindingRequest struct for IAMBindingControllerApiCreateBindingRequest
 type IAMBindingControllerApiCreateBindingRequest struct {
-	Type                 BindingType    `json:"type"`
-	ExternalId           string         `json:"externalId"`
-	RoleId               string         `json:"roleId"`
-	NamespaceId          NullableString `json:"namespaceId,omitempty"`
+	Type BindingType `json:"type"`
+	ExternalId string `json:"externalId"`
+	RoleId string `json:"roleId"`
+	NamespaceId NullableString `json:"namespaceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -152,7 +152,6 @@ func (o *IAMBindingControllerApiCreateBindingRequest) HasNamespaceId() bool {
 func (o *IAMBindingControllerApiCreateBindingRequest) SetNamespaceId(v string) {
 	o.NamespaceId.Set(&v)
 }
-
 // SetNamespaceIdNil sets the value for NamespaceId to be an explicit nil
 func (o *IAMBindingControllerApiCreateBindingRequest) SetNamespaceIdNil() {
 	o.NamespaceId.Set(nil)
@@ -164,7 +163,7 @@ func (o *IAMBindingControllerApiCreateBindingRequest) UnsetNamespaceId() {
 }
 
 func (o IAMBindingControllerApiCreateBindingRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -202,10 +201,10 @@ func (o *IAMBindingControllerApiCreateBindingRequest) UnmarshalJSON(data []byte)
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -269,3 +268,5 @@ func (v *NullableIAMBindingControllerApiCreateBindingRequest) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

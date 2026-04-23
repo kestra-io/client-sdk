@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the MetricAggregation type satisfies the MappedNullable interface at compile time
@@ -20,9 +20,9 @@ var _ MappedNullable = &MetricAggregation{}
 
 // MetricAggregation struct for MetricAggregation
 type MetricAggregation struct {
-	Name                 string    `json:"name"`
-	Value                *float64  `json:"value,omitempty"`
-	Date                 time.Time `json:"date"`
+	Name string `json:"name"`
+	Value *float64 `json:"value,omitempty"`
+	Date time.Time `json:"date"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -128,7 +128,7 @@ func (o *MetricAggregation) SetDate(v time.Time) {
 }
 
 func (o MetricAggregation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -164,10 +164,10 @@ func (o *MetricAggregation) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -230,3 +230,5 @@ func (v *NullableMetricAggregation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

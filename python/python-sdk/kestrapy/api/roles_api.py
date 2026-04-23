@@ -882,10 +882,10 @@ class RolesApi:
     @validate_call
     def search_roles(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -899,14 +899,14 @@ class RolesApi:
         """Search for roles
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -918,10 +918,10 @@ class RolesApi:
         """ # noqa: E501
 
         _param = self._search_roles_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
             q=q,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -942,10 +942,10 @@ class RolesApi:
     @validate_call
     def search_roles_with_http_info(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -959,14 +959,14 @@ class RolesApi:
         """Search for roles
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -978,10 +978,10 @@ class RolesApi:
         """ # noqa: E501
 
         _param = self._search_roles_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
             q=q,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -1001,10 +1001,10 @@ class RolesApi:
 
     def _search_roles_serialize(
         self,
-        page,
-        size,
         tenant,
         q,
+        page,
+        size,
         sort,
     ) -> RequestSerialized:
 

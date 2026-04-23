@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // SLALabels - struct for SLALabels
 type SLALabels struct {
 	MapObjectObject *MapObjectObject
-	ArrayOfString   *[]string
+	ArrayOfString *[]string
 }
 
 // MapObjectObjectAsSLALabels is a convenience function that returns MapObjectObject wrapped in SLALabels
@@ -35,6 +34,7 @@ func ArrayOfStringAsSLALabels(v *[]string) SLALabels {
 		ArrayOfString: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *SLALabels) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src SLALabels) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SLALabels) GetActualInstance() interface{} {
+func (obj *SLALabels) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *SLALabels) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj SLALabels) GetActualInstanceValue() interface{} {
+func (obj SLALabels) GetActualInstanceValue() (interface{}) {
 	if obj.MapObjectObject != nil {
 		return *obj.MapObjectObject
 	}
@@ -166,3 +166,5 @@ func (v *NullableSLALabels) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,10 +19,10 @@ var _ MappedNullable = &ExecutionTrigger{}
 
 // ExecutionTrigger struct for ExecutionTrigger
 type ExecutionTrigger struct {
-	Id                   string                 `json:"id"`
-	Type                 string                 `json:"type"`
-	Variables            map[string]interface{} `json:"variables,omitempty"`
-	LogFile              *string                `json:"logFile,omitempty"`
+	Id string `json:"id"`
+	Type string `json:"type"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	LogFile *string `json:"logFile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,7 +160,7 @@ func (o *ExecutionTrigger) SetLogFile(v string) {
 }
 
 func (o ExecutionTrigger) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -199,10 +199,10 @@ func (o *ExecutionTrigger) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -266,3 +266,5 @@ func (v *NullableExecutionTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -791,7 +791,7 @@ public class Example {
 
 ## searchApps
 
-> PagedResultsAppsControllerApiApp searchApps(page, size, tenant, sort, tags, q, namespace, flowId)
+> PagedResultsAppsControllerApiApp searchApps(tenant, page, size, sort, tags, q, namespace, flowId)
 
 Search for apps
 
@@ -815,16 +815,16 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<String> tags = Arrays.asList(); // List<String> | A tags filter
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         String flowId = "flowId_example"; // String | A flow id filter
         try {
-            PagedResultsAppsControllerApiApp result = kestraClient.AppsApi().searchApps(page, size, tenant, sort, tags, q, namespace, flowId);
+            PagedResultsAppsControllerApiApp result = kestraClient.AppsApi().searchApps(tenant, page, size, sort, tags, q, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchApps");
@@ -842,9 +842,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
 | **q** | **String**| A string filter | [optional] |
@@ -873,7 +873,7 @@ public class Example {
 
 ## searchAppsFromCatalog
 
-> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(page, size, tenant, tags, q)
+> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(tenant, page, size, tags, q)
 
 Search for apps from catalog
 
@@ -897,13 +897,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> tags = Arrays.asList(); // List<String> | Tags filter
         String q = "q_example"; // String | String filter
         try {
-            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.AppsApi().searchAppsFromCatalog(page, size, tenant, tags, q);
+            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.AppsApi().searchAppsFromCatalog(tenant, page, size, tags, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchAppsFromCatalog");
@@ -921,9 +921,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **tags** | [**List&lt;String&gt;**](String.md)| Tags filter | [optional] |
 | **q** | **String**| String filter | [optional] |
 

@@ -18,8 +18,8 @@ var _ MappedNullable = &TriggerControllerTriggers{}
 
 // TriggerControllerTriggers struct for TriggerControllerTriggers
 type TriggerControllerTriggers struct {
-	AbstractTrigger      *AbstractTrigger `json:"abstractTrigger,omitempty"`
-	TriggerContext       *Trigger         `json:"triggerContext,omitempty"`
+	AbstractTrigger *AbstractTrigger `json:"abstractTrigger,omitempty"`
+	TriggerContext *Trigger `json:"triggerContext,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *TriggerControllerTriggers) SetTriggerContext(v Trigger) {
 }
 
 func (o TriggerControllerTriggers) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableTriggerControllerTriggers) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

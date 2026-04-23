@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **delete_key_value**
-> bool delete_key_value(namespace, key, tenant)
+> bool delete_key_value(key, namespace, tenant)
 
 Delete a key-value pair
 
@@ -34,13 +34,13 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
+    namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a key-value pair
-        api_response = kestra_client.KVApi.delete_key_value(namespace, key, tenant)
+        api_response = kestra_client.KVApi.delete_key_value(key, namespace, tenant)
         print("The response of KVApi->delete_key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -54,8 +54,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace id | 
  **key** | **str**| The key | 
+ **namespace** | **str**| The namespace id | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **key_value**
-> KVControllerKvDetail key_value(namespace, key, tenant)
+> KVControllerKvDetail key_value(key, namespace, tenant)
 
 Get value for a key
 
@@ -166,13 +166,13 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
+    namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
 
     try:
         # Get value for a key
-        api_response = kestra_client.KVApi.key_value(namespace, key, tenant)
+        api_response = kestra_client.KVApi.key_value(key, namespace, tenant)
         print("The response of KVApi->key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -186,8 +186,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace id | 
  **key** | **str**| The key | 
+ **namespace** | **str**| The namespace id | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_all_keys**
-> PagedResultsKVEntry list_all_keys(page, size, tenant, sort=sort, filters=filters)
+> PagedResultsKVEntry list_all_keys(tenant, filters=filters, size=size, sort=sort, page=page)
 
 List all keys
 
@@ -232,15 +232,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    size = 10 # int | The current page size (optional) (default to 10)
+    sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    page = 1 # int | The current page (optional) (default to 1)
 
     try:
         # List all keys
-        api_response = kestra_client.KVApi.list_all_keys(page, size, tenant, sort=sort, filters=filters)
+        api_response = kestra_client.KVApi.list_all_keys(tenant, filters=filters, size=size, sort=sort, page=page)
         print("The response of KVApi->list_all_keys:\n")
         pprint(api_response)
     except Exception as e:
@@ -254,11 +254,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **size** | **int**| The current page size | [optional] [default to 10]
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **page** | **int**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_key_value**
-> set_key_value(namespace, key, tenant, body)
+> set_key_value(key, namespace, tenant, body)
 
 Puts a key-value pair in store
 
@@ -430,14 +430,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
+    namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The value of the key
 
     try:
         # Puts a key-value pair in store
-        kestra_client.KVApi.set_key_value(namespace, key, tenant, body)
+        kestra_client.KVApi.set_key_value(key, namespace, tenant, body)
     except Exception as e:
         print("Exception when calling KVApi->set_key_value: %s\n" % e)
 ```
@@ -449,8 +449,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace id | 
  **key** | **str**| The key | 
+ **namespace** | **str**| The namespace id | 
  **tenant** | **str**|  | 
  **body** | **str**| The value of the key | 
 

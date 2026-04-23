@@ -19,19 +19,19 @@ var _ MappedNullable = &AssetsControllerApiAssetLineageEvent{}
 
 // AssetsControllerApiAssetLineageEvent struct for AssetsControllerApiAssetLineageEvent
 type AssetsControllerApiAssetLineageEvent struct {
-	Uid                  *string           `json:"uid,omitempty"`
-	Namespace            *string           `json:"namespace,omitempty"`
-	FlowId               *string           `json:"flowId,omitempty"`
-	FlowRevision         *int32            `json:"flowRevision,omitempty"`
-	ExecutionId          *string           `json:"executionId,omitempty"`
-	TaskId               *string           `json:"taskId,omitempty"`
-	TaskRunId            *string           `json:"taskRunId,omitempty"`
-	State                *string           `json:"state,omitempty"`
-	Inputs               []AssetIdentifier `json:"inputs,omitempty"`
-	Outputs              []AssetIdentifier `json:"outputs,omitempty"`
-	Created              *time.Time        `json:"created,omitempty"`
-	StartDate            *time.Time        `json:"startDate,omitempty"`
-	EndDate              *time.Time        `json:"endDate,omitempty"`
+	Uid *string `json:"uid,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	FlowRevision *int32 `json:"flowRevision,omitempty"`
+	ExecutionId *string `json:"executionId,omitempty"`
+	TaskId *string `json:"taskId,omitempty"`
+	TaskRunId *string `json:"taskRunId,omitempty"`
+	State *string `json:"state,omitempty"`
+	Inputs []AssetIdentifier `json:"inputs,omitempty"`
+	Outputs []AssetIdentifier `json:"outputs,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate *time.Time `json:"endDate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -471,7 +471,7 @@ func (o *AssetsControllerApiAssetLineageEvent) SetEndDate(v time.Time) {
 }
 
 func (o AssetsControllerApiAssetLineageEvent) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -595,3 +595,5 @@ func (v *NullableAssetsControllerApiAssetLineageEvent) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

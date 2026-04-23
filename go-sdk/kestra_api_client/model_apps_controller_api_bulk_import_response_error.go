@@ -18,8 +18,8 @@ var _ MappedNullable = &AppsControllerApiBulkImportResponseError{}
 
 // AppsControllerApiBulkImportResponseError struct for AppsControllerApiBulkImportResponseError
 type AppsControllerApiBulkImportResponseError struct {
-	Source               *string `json:"source,omitempty"`
-	Message              *string `json:"message,omitempty"`
+	Source *string `json:"source,omitempty"`
+	Message *string `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *AppsControllerApiBulkImportResponseError) SetMessage(v string) {
 }
 
 func (o AppsControllerApiBulkImportResponseError) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableAppsControllerApiBulkImportResponseError) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

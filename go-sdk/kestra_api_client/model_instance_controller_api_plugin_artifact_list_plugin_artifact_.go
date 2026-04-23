@@ -18,8 +18,8 @@ var _ MappedNullable = &InstanceControllerApiPluginArtifactListPluginArtifact{}
 
 // InstanceControllerApiPluginArtifactListPluginArtifact struct for InstanceControllerApiPluginArtifactListPluginArtifact
 type InstanceControllerApiPluginArtifactListPluginArtifact struct {
-	Total                *int32                   `json:"total,omitempty"`
-	Results              []map[string]interface{} `json:"results,omitempty"`
+	Total *int32 `json:"total,omitempty"`
+	Results []map[string]interface{} `json:"results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *InstanceControllerApiPluginArtifactListPluginArtifact) SetResults(v []m
 }
 
 func (o InstanceControllerApiPluginArtifactListPluginArtifact) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableInstanceControllerApiPluginArtifactListPluginArtifact) Unmarsha
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

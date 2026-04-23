@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 
 ## listUsers
 
-> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, filters, opts)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(filters, opts)
 
 Retrieve users
 
@@ -517,13 +517,13 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let opts = {
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.listUsers(page, size, filters, opts).then((data) => {
+apiInstance.listUsers(filters, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -536,9 +536,9 @@ apiInstance.listUsers(page, size, filters, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

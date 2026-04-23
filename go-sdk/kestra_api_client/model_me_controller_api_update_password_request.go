@@ -18,8 +18,8 @@ var _ MappedNullable = &MeControllerApiUpdatePasswordRequest{}
 
 // MeControllerApiUpdatePasswordRequest struct for MeControllerApiUpdatePasswordRequest
 type MeControllerApiUpdatePasswordRequest struct {
-	OldPassword          *string `json:"oldPassword,omitempty"`
-	NewPassword          *string `json:"newPassword,omitempty"`
+	OldPassword *string `json:"oldPassword,omitempty"`
+	NewPassword *string `json:"newPassword,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *MeControllerApiUpdatePasswordRequest) SetNewPassword(v string) {
 }
 
 func (o MeControllerApiUpdatePasswordRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableMeControllerApiUpdatePasswordRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

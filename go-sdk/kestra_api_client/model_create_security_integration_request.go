@@ -22,8 +22,8 @@ type CreateSecurityIntegrationRequest struct {
 	// The name of security integration.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// The description of security integration.
-	Description          string                  `json:"description"`
-	Type                 SecurityIntegrationType `json:"type"`
+	Description string `json:"description"`
+	Type SecurityIntegrationType `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -122,7 +122,7 @@ func (o *CreateSecurityIntegrationRequest) SetType(v SecurityIntegrationType) {
 }
 
 func (o CreateSecurityIntegrationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -157,10 +157,10 @@ func (o *CreateSecurityIntegrationRequest) UnmarshalJSON(data []byte) (err error
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -223,3 +223,5 @@ func (v *NullableCreateSecurityIntegrationRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

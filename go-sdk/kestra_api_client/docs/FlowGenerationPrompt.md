@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **ConversationId** | **string** |  | 
 **UserPrompt** | **string** |  | 
 **Yaml** | Pointer to **string** |  | [optional] 
-**ProviderId** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -93,31 +92,6 @@ SetYaml sets Yaml field to given value.
 `func (o *FlowGenerationPrompt) HasYaml() bool`
 
 HasYaml returns a boolean if a field has been set.
-
-### GetProviderId
-
-`func (o *FlowGenerationPrompt) GetProviderId() string`
-
-GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
-
-### GetProviderIdOk
-
-`func (o *FlowGenerationPrompt) GetProviderIdOk() (*string, bool)`
-
-GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProviderId
-
-`func (o *FlowGenerationPrompt) SetProviderId(v string)`
-
-SetProviderId sets ProviderId field to given value.
-
-### HasProviderId
-
-`func (o *FlowGenerationPrompt) HasProviderId() bool`
-
-HasProviderId returns a boolean if a field has been set.
 
 ### GetNamespace
 

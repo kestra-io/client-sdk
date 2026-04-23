@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> PagedResultsIAMUserControllerApiUserSummary list_users(page, size, filters, sort=sort)
+> PagedResultsIAMUserControllerApiUserSummary list_users(filters, page=page, size=size, sort=sort)
 
 Retrieve users
 
@@ -627,14 +627,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Retrieve users
-        api_response = kestra_client.UsersApi.list_users(page, size, filters, sort=sort)
+        api_response = kestra_client.UsersApi.list_users(filters, page=page, size=size, sort=sort)
         print("The response of UsersApi->list_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -648,9 +648,9 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type

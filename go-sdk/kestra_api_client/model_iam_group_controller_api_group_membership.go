@@ -18,10 +18,10 @@ var _ MappedNullable = &IAMGroupControllerApiGroupMembership{}
 
 // IAMGroupControllerApiGroupMembership struct for IAMGroupControllerApiGroupMembership
 type IAMGroupControllerApiGroupMembership struct {
-	Id                   *string                    `json:"id,omitempty"`
-	Name                 *string                    `json:"name,omitempty"`
-	External             *bool                      `json:"external,omitempty"`
-	Membership           *GroupIdentifierMembership `json:"membership,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	External *bool `json:"external,omitempty"`
+	Membership *GroupIdentifierMembership `json:"membership,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *IAMGroupControllerApiGroupMembership) SetMembership(v GroupIdentifierMe
 }
 
 func (o IAMGroupControllerApiGroupMembership) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableIAMGroupControllerApiGroupMembership) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

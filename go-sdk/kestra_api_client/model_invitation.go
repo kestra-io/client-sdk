@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Invitation type satisfies the MappedNullable interface at compile time
@@ -20,20 +20,20 @@ var _ MappedNullable = &Invitation{}
 
 // Invitation struct for Invitation
 type Invitation struct {
-	IsExpired            *bool                       `json:"isExpired,omitempty"`
-	Email                string                      "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
-	Id                   *string                     `json:"id,omitempty"`
-	Bindings             []Binding                   `json:"bindings,omitempty"`
-	GroupIds             []string                    `json:"groupIds,omitempty"`
-	TenantId             *string                     `json:"tenantId,omitempty"`
-	Status               *InvitationInvitationStatus `json:"status,omitempty"`
-	SentAt               *time.Time                  `json:"sentAt,omitempty"`
-	ExpiredAt            *time.Time                  `json:"expiredAt,omitempty"`
-	AcceptedAt           *time.Time                  `json:"acceptedAt,omitempty"`
-	Deleted              bool                        `json:"deleted"`
-	UserType             *UserType                   `json:"userType,omitempty"`
-	SuperAdmin           *bool                       `json:"superAdmin,omitempty"`
-	Link                 *string                     `json:"link,omitempty"`
+	IsExpired *bool `json:"isExpired,omitempty"`
+	Email string "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	Id *string `json:"id,omitempty"`
+	Bindings []Binding `json:"bindings,omitempty"`
+	GroupIds []string `json:"groupIds,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Status *InvitationInvitationStatus `json:"status,omitempty"`
+	SentAt *time.Time `json:"sentAt,omitempty"`
+	ExpiredAt *time.Time `json:"expiredAt,omitempty"`
+	AcceptedAt *time.Time `json:"acceptedAt,omitempty"`
+	Deleted bool `json:"deleted"`
+	UserType *UserType `json:"userType,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Link *string `json:"link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -491,7 +491,7 @@ func (o *Invitation) SetLink(v string) {
 }
 
 func (o Invitation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -560,10 +560,10 @@ func (o *Invitation) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -637,3 +637,5 @@ func (v *NullableInvitation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

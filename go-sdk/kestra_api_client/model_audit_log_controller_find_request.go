@@ -18,9 +18,9 @@ var _ MappedNullable = &AuditLogControllerFindRequest{}
 
 // AuditLogControllerFindRequest struct for AuditLogControllerFindRequest
 type AuditLogControllerFindRequest struct {
-	Resource             *ResourceType                     `json:"resource,omitempty"`
-	Type                 NullableCrudEventType             `json:"type,omitempty"`
-	Detail               map[string]map[string]interface{} `json:"detail,omitempty"`
+	Resource *ResourceType `json:"resource,omitempty"`
+	Type NullableCrudEventType `json:"type,omitempty"`
+	Detail map[string]map[string]interface{} `json:"detail,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,6 @@ func (o *AuditLogControllerFindRequest) HasType() bool {
 func (o *AuditLogControllerFindRequest) SetType(v CrudEventType) {
 	o.Type.Set(&v)
 }
-
 // SetTypeNil sets the value for Type to be an explicit nil
 func (o *AuditLogControllerFindRequest) SetTypeNil() {
 	o.Type.Set(nil)
@@ -151,7 +150,7 @@ func (o *AuditLogControllerFindRequest) SetDetail(v map[string]map[string]interf
 }
 
 func (o AuditLogControllerFindRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -235,3 +234,5 @@ func (v *NullableAuditLogControllerFindRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,12 +18,12 @@ var _ MappedNullable = &AbstractUserTenantIdentityProvider{}
 
 // AbstractUserTenantIdentityProvider struct for AbstractUserTenantIdentityProvider
 type AbstractUserTenantIdentityProvider struct {
-	Attributes              map[string]map[string]interface{} `json:"attributes,omitempty"`
-	ExternalId              *string                           `json:"externalId,omitempty"`
-	SecurityIntegrationId   *string                           `json:"securityIntegrationId,omitempty"`
-	SecurityIntegrationName *string                           `json:"securityIntegrationName,omitempty"`
-	TenantId                NullableString                    `json:"tenantId,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	Attributes map[string]map[string]interface{} `json:"attributes,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	SecurityIntegrationId *string `json:"securityIntegrationId,omitempty"`
+	SecurityIntegrationName *string `json:"securityIntegrationName,omitempty"`
+	TenantId NullableString `json:"tenantId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AbstractUserTenantIdentityProvider AbstractUserTenantIdentityProvider
@@ -205,7 +205,6 @@ func (o *AbstractUserTenantIdentityProvider) HasTenantId() bool {
 func (o *AbstractUserTenantIdentityProvider) SetTenantId(v string) {
 	o.TenantId.Set(&v)
 }
-
 // SetTenantIdNil sets the value for TenantId to be an explicit nil
 func (o *AbstractUserTenantIdentityProvider) SetTenantIdNil() {
 	o.TenantId.Set(nil)
@@ -217,7 +216,7 @@ func (o *AbstractUserTenantIdentityProvider) UnsetTenantId() {
 }
 
 func (o AbstractUserTenantIdentityProvider) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -309,3 +308,5 @@ func (v *NullableAbstractUserTenantIdentityProvider) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

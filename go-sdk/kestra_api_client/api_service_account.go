@@ -12,19 +12,23 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // ServiceAccountAPIService ServiceAccountAPI service
 type ServiceAccountAPIService service
 
 type ApiCreateApiTokensForServiceAccountRequest struct {
-	ctx                   context.Context
-	ApiService            *ServiceAccountAPIService
-	id                    string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	id string
 	createApiTokenRequest *CreateApiTokenRequest
 }
 
@@ -34,12 +38,14 @@ func (r ApiCreateApiTokensForServiceAccountRequest) CreateApiTokenRequest(create
 	return r
 }
 
+
 func (r ApiCreateApiTokensForServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiCreateApiTokensForServiceAccountRequest) GetCreateApiTokenRequest() *CreateApiTokenRequest {
-	return r.createApiTokenRequest
+    return r.createApiTokenRequest
 }
+
 
 func (r ApiCreateApiTokensForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.CreateApiTokensForServiceAccountExecute(r)
@@ -48,27 +54,26 @@ func (r ApiCreateApiTokensForServiceAccountRequest) Execute() (map[string]interf
 /*
 CreateApiTokensForServiceAccount Create new API Token for a specific service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@return ApiCreateApiTokensForServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @return ApiCreateApiTokensForServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccount(ctx context.Context, id string) ApiCreateApiTokensForServiceAccountRequest {
 	return ApiCreateApiTokensForServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccountExecute(r ApiCreateApiTokensForServiceAccountRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateApiTokensForServiceAccount")
@@ -142,11 +147,15 @@ func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccountExecute(r Api
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateApiTokensForServiceAccountWithTenantRequest struct {
-	ctx                   context.Context
-	ApiService            *ServiceAccountAPIService
-	id                    string
-	tenant                string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	id string
+	tenant string
 	createApiTokenRequest *CreateApiTokenRequest
 }
 
@@ -156,15 +165,17 @@ func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) CreateApiTokenRequ
 	return r
 }
 
+
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetCreateApiTokenRequest() *CreateApiTokenRequest {
-	return r.createApiTokenRequest
+    return r.createApiTokenRequest
 }
+
 
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.CreateApiTokensForServiceAccountWithTenantExecute(r)
@@ -173,29 +184,28 @@ func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) Execute() (map[str
 /*
 CreateApiTokensForServiceAccountWithTenant Create new API Token for a specific service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tenant
-	@return ApiCreateApiTokensForServiceAccountWithTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tenant
+ @return ApiCreateApiTokensForServiceAccountWithTenantRequest
 */
 func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccountWithTenant(ctx context.Context, id string, tenant string) ApiCreateApiTokensForServiceAccountWithTenantRequest {
 	return ApiCreateApiTokensForServiceAccountWithTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccountWithTenantExecute(r ApiCreateApiTokensForServiceAccountWithTenantRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateApiTokensForServiceAccountWithTenant")
@@ -270,9 +280,13 @@ func (a *ServiceAccountAPIService) CreateApiTokensForServiceAccountWithTenantExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateServiceAccountRequest struct {
-	ctx                                                       context.Context
-	ApiService                                                *ServiceAccountAPIService
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
 	iAMServiceAccountControllerApiCreateServiceAccountRequest *IAMServiceAccountControllerApiCreateServiceAccountRequest
 }
 
@@ -282,9 +296,11 @@ func (r ApiCreateServiceAccountRequest) IAMServiceAccountControllerApiCreateServ
 	return r
 }
 
+
 func (r ApiCreateServiceAccountRequest) GetIAMServiceAccountControllerApiCreateServiceAccountRequest() *IAMServiceAccountControllerApiCreateServiceAccountRequest {
-	return r.iAMServiceAccountControllerApiCreateServiceAccountRequest
+    return r.iAMServiceAccountControllerApiCreateServiceAccountRequest
 }
+
 
 func (r ApiCreateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.CreateServiceAccountExecute(r)
@@ -295,25 +311,24 @@ CreateServiceAccount Create a service account
 
 Superadmin-only. CReate service account with access to multiple tenants.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) CreateServiceAccount(ctx context.Context) ApiCreateServiceAccountRequest {
 	return ApiCreateServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-	}
+		ctx: ctx,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountDetail
+//  @return IAMServiceAccountControllerApiServiceAccountDetail
 func (a *ServiceAccountAPIService) CreateServiceAccountExecute(r ApiCreateServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateServiceAccount")
@@ -386,10 +401,14 @@ func (a *ServiceAccountAPIService) CreateServiceAccountExecute(r ApiCreateServic
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateServiceAccountForTenantRequest struct {
-	ctx                                                 context.Context
-	ApiService                                          *ServiceAccountAPIService
-	tenant                                              string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	tenant string
 	iAMServiceAccountControllerApiServiceAccountRequest *IAMServiceAccountControllerApiServiceAccountRequest
 }
 
@@ -399,12 +418,14 @@ func (r ApiCreateServiceAccountForTenantRequest) IAMServiceAccountControllerApiS
 	return r
 }
 
+
 func (r ApiCreateServiceAccountForTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateServiceAccountForTenantRequest) GetIAMServiceAccountControllerApiServiceAccountRequest() *IAMServiceAccountControllerApiServiceAccountRequest {
-	return r.iAMServiceAccountControllerApiServiceAccountRequest
+    return r.iAMServiceAccountControllerApiServiceAccountRequest
 }
+
 
 func (r ApiCreateServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	return r.ApiService.CreateServiceAccountForTenantExecute(r)
@@ -413,27 +434,26 @@ func (r ApiCreateServiceAccountForTenantRequest) Execute() (*IAMServiceAccountCo
 /*
 CreateServiceAccountForTenant Create a service account for the given tenant
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateServiceAccountForTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiCreateServiceAccountForTenantRequest
 */
 func (a *ServiceAccountAPIService) CreateServiceAccountForTenant(ctx context.Context, tenant string) ApiCreateServiceAccountForTenantRequest {
 	return ApiCreateServiceAccountForTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountResponse
+//  @return IAMServiceAccountControllerApiServiceAccountResponse
 func (a *ServiceAccountAPIService) CreateServiceAccountForTenantExecute(r ApiCreateServiceAccountForTenantRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateServiceAccountForTenant")
@@ -507,19 +527,25 @@ func (a *ServiceAccountAPIService) CreateServiceAccountForTenantExecute(r ApiCre
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteApiTokenForServiceAccountRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
-	tokenId    string
+	id string
+	tokenId string
 }
 
+
 func (r ApiDeleteApiTokenForServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteApiTokenForServiceAccountRequest) GetTokenId() string {
-	return r.tokenId
+    return r.tokenId
 }
+
 
 func (r ApiDeleteApiTokenForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteApiTokenForServiceAccountExecute(r)
@@ -528,29 +554,28 @@ func (r ApiDeleteApiTokenForServiceAccountRequest) Execute() (map[string]interfa
 /*
 DeleteApiTokenForServiceAccount Delete an API Token for specific service account and token id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tokenId The token id
-	@return ApiDeleteApiTokenForServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tokenId The token id
+ @return ApiDeleteApiTokenForServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccount(ctx context.Context, id string, tokenId string) ApiDeleteApiTokenForServiceAccountRequest {
 	return ApiDeleteApiTokenForServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tokenId:    tokenId,
-	}
+		ctx: ctx,
+		id: id,
+		tokenId: tokenId,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccountExecute(r ApiDeleteApiTokenForServiceAccountRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteApiTokenForServiceAccount")
@@ -620,23 +645,29 @@ func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccountExecute(r ApiD
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteApiTokenForServiceAccountWithTenantRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
-	tokenId    string
-	tenant     string
+	id string
+	tokenId string
+	tenant string
 }
 
+
 func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetTokenId() string {
-	return r.tokenId
+    return r.tokenId
 }
 func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteApiTokenForServiceAccountWithTenantExecute(r)
@@ -645,31 +676,30 @@ func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) Execute() (map[stri
 /*
 DeleteApiTokenForServiceAccountWithTenant Delete an API Token for specific service account and token id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tokenId The token id
-	@param tenant
-	@return ApiDeleteApiTokenForServiceAccountWithTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tokenId The token id
+ @param tenant
+ @return ApiDeleteApiTokenForServiceAccountWithTenantRequest
 */
 func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccountWithTenant(ctx context.Context, id string, tokenId string, tenant string) ApiDeleteApiTokenForServiceAccountWithTenantRequest {
 	return ApiDeleteApiTokenForServiceAccountWithTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tokenId:    tokenId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tokenId: tokenId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccountWithTenantExecute(r ApiDeleteApiTokenForServiceAccountWithTenantRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteApiTokenForServiceAccountWithTenant")
@@ -740,15 +770,21 @@ func (a *ServiceAccountAPIService) DeleteApiTokenForServiceAccountWithTenantExec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteServiceAccountRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
+	id string
 }
 
+
 func (r ApiDeleteServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
+
 
 func (r ApiDeleteServiceAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteServiceAccountExecute(r)
@@ -759,24 +795,24 @@ DeleteServiceAccount Delete a service account
 
 Superadmin-only. Delete a service account including all its access.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The service account id
-	@return ApiDeleteServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The service account id
+ @return ApiDeleteServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) DeleteServiceAccount(ctx context.Context, id string) ApiDeleteServiceAccountRequest {
 	return ApiDeleteServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
 func (a *ServiceAccountAPIService) DeleteServiceAccountExecute(r ApiDeleteServiceAccountRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteServiceAccount")
@@ -836,19 +872,25 @@ func (a *ServiceAccountAPIService) DeleteServiceAccountExecute(r ApiDeleteServic
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteServiceAccountForTenantRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiDeleteServiceAccountForTenantRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteServiceAccountForTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteServiceAccountForTenantRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteServiceAccountForTenantExecute(r)
@@ -857,26 +899,26 @@ func (r ApiDeleteServiceAccountForTenantRequest) Execute() (*http.Response, erro
 /*
 DeleteServiceAccountForTenant Delete a service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The service account id
-	@param tenant
-	@return ApiDeleteServiceAccountForTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The service account id
+ @param tenant
+ @return ApiDeleteServiceAccountForTenantRequest
 */
 func (a *ServiceAccountAPIService) DeleteServiceAccountForTenant(ctx context.Context, id string, tenant string) ApiDeleteServiceAccountForTenantRequest {
 	return ApiDeleteServiceAccountForTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *ServiceAccountAPIService) DeleteServiceAccountForTenantExecute(r ApiDeleteServiceAccountForTenantRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteServiceAccountForTenant")
@@ -937,15 +979,21 @@ func (a *ServiceAccountAPIService) DeleteServiceAccountForTenantExecute(r ApiDel
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListApiTokensForServiceAccountRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
+	id string
 }
 
+
 func (r ApiListApiTokensForServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
+
 
 func (r ApiListApiTokensForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ListApiTokensForServiceAccountExecute(r)
@@ -954,27 +1002,26 @@ func (r ApiListApiTokensForServiceAccountRequest) Execute() (map[string]interfac
 /*
 ListApiTokensForServiceAccount List API tokens for a specific service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@return ApiListApiTokensForServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @return ApiListApiTokensForServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) ListApiTokensForServiceAccount(ctx context.Context, id string) ApiListApiTokensForServiceAccountRequest {
 	return ApiListApiTokensForServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) ListApiTokensForServiceAccountExecute(r ApiListApiTokensForServiceAccountRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ListApiTokensForServiceAccount")
@@ -1043,19 +1090,25 @@ func (a *ServiceAccountAPIService) ListApiTokensForServiceAccountExecute(r ApiLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListApiTokensForServiceAccountWithTenantRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiListApiTokensForServiceAccountWithTenantRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiListApiTokensForServiceAccountWithTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiListApiTokensForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ListApiTokensForServiceAccountWithTenantExecute(r)
@@ -1064,29 +1117,28 @@ func (r ApiListApiTokensForServiceAccountWithTenantRequest) Execute() (map[strin
 /*
 ListApiTokensForServiceAccountWithTenant List API tokens for a specific service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tenant
-	@return ApiListApiTokensForServiceAccountWithTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tenant
+ @return ApiListApiTokensForServiceAccountWithTenantRequest
 */
 func (a *ServiceAccountAPIService) ListApiTokensForServiceAccountWithTenant(ctx context.Context, id string, tenant string) ApiListApiTokensForServiceAccountWithTenantRequest {
 	return ApiListApiTokensForServiceAccountWithTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ServiceAccountAPIService) ListApiTokensForServiceAccountWithTenantExecute(r ApiListApiTokensForServiceAccountWithTenantRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ListApiTokensForServiceAccountWithTenant")
@@ -1156,13 +1208,23 @@ func (a *ServiceAccountAPIService) ListApiTokensForServiceAccountWithTenantExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListServiceAccountsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	page       *int32
-	size       *int32
-	filters    *[]QueryFilter
-	sort       *[]string
+	filters *[]QueryFilter
+	page *int32
+	size *int32
+	sort *[]string
+}
+
+// Filters
+func (r ApiListServiceAccountsRequest) Filters(filters []QueryFilter) ApiListServiceAccountsRequest {
+	r.filters = &filters
+	return r
 }
 
 // The current page
@@ -1177,59 +1239,54 @@ func (r ApiListServiceAccountsRequest) Size(size int32) ApiListServiceAccountsRe
 	return r
 }
 
-// Filters
-func (r ApiListServiceAccountsRequest) Filters(filters []QueryFilter) ApiListServiceAccountsRequest {
-	r.filters = &filters
-	return r
-}
-
 // The sort of current page
 func (r ApiListServiceAccountsRequest) Sort(sort []string) ApiListServiceAccountsRequest {
 	r.sort = &sort
 	return r
 }
 
+
+func (r ApiListServiceAccountsRequest) GetFilters() *[]QueryFilter {
+    return r.filters
+}
 func (r ApiListServiceAccountsRequest) GetPage() *int32 {
-	return r.page
+    return r.page
 }
 func (r ApiListServiceAccountsRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiListServiceAccountsRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.size
 }
 func (r ApiListServiceAccountsRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+
 
 func (r ApiListServiceAccountsRequest) Execute() (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.ListServiceAccountsExecute(r)
 }
 
 /*
-ListServiceAccounts List service accounts. Superadmin-only.
+ListServiceAccounts List service accounts. Superadmin-only. 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListServiceAccountsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListServiceAccountsRequest
 */
 func (a *ServiceAccountAPIService) ListServiceAccounts(ctx context.Context) ApiListServiceAccountsRequest {
 	return ApiListServiceAccountsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+        page: Ptr(int32(1)),
+        size: Ptr(int32(10)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+//  @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
 func (a *ServiceAccountAPIService) ListServiceAccountsExecute(r ApiListServiceAccountsRequest) (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ListServiceAccounts")
@@ -1242,18 +1299,16 @@ func (a *ServiceAccountAPIService) ListServiceAccountsExecute(r ApiListServiceAc
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 	if r.filters == nil {
 		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
@@ -1312,10 +1367,14 @@ func (a *ServiceAccountAPIService) ListServiceAccountsExecute(r ApiListServiceAc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPatchServiceAccountDetailsRequest struct {
-	ctx                                                      context.Context
-	ApiService                                               *ServiceAccountAPIService
-	id                                                       string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	id string
 	iAMServiceAccountControllerApiPatchServiceAccountRequest *IAMServiceAccountControllerApiPatchServiceAccountRequest
 }
 
@@ -1325,12 +1384,14 @@ func (r ApiPatchServiceAccountDetailsRequest) IAMServiceAccountControllerApiPatc
 	return r
 }
 
+
 func (r ApiPatchServiceAccountDetailsRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiPatchServiceAccountDetailsRequest) GetIAMServiceAccountControllerApiPatchServiceAccountRequest() *IAMServiceAccountControllerApiPatchServiceAccountRequest {
-	return r.iAMServiceAccountControllerApiPatchServiceAccountRequest
+    return r.iAMServiceAccountControllerApiPatchServiceAccountRequest
 }
+
 
 func (r ApiPatchServiceAccountDetailsRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.PatchServiceAccountDetailsExecute(r)
@@ -1341,27 +1402,26 @@ PatchServiceAccountDetails Update service account details
 
 Superadmin-only. Updates the details of a service account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The service account id
-	@return ApiPatchServiceAccountDetailsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The service account id
+ @return ApiPatchServiceAccountDetailsRequest
 */
 func (a *ServiceAccountAPIService) PatchServiceAccountDetails(ctx context.Context, id string) ApiPatchServiceAccountDetailsRequest {
 	return ApiPatchServiceAccountDetailsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountDetail
+//  @return IAMServiceAccountControllerApiServiceAccountDetail
 func (a *ServiceAccountAPIService) PatchServiceAccountDetailsExecute(r ApiPatchServiceAccountDetailsRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.PatchServiceAccountDetails")
@@ -1435,10 +1495,14 @@ func (a *ServiceAccountAPIService) PatchServiceAccountDetailsExecute(r ApiPatchS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPatchServiceAccountSuperAdminRequest struct {
-	ctx                       context.Context
-	ApiService                *ServiceAccountAPIService
-	id                        string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	id string
 	apiPatchSuperAdminRequest *ApiPatchSuperAdminRequest
 }
 
@@ -1447,12 +1511,14 @@ func (r ApiPatchServiceAccountSuperAdminRequest) ApiPatchSuperAdminRequest(apiPa
 	return r
 }
 
+
 func (r ApiPatchServiceAccountSuperAdminRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiPatchServiceAccountSuperAdminRequest) GetApiPatchSuperAdminRequest() *ApiPatchSuperAdminRequest {
-	return r.apiPatchSuperAdminRequest
+    return r.apiPatchSuperAdminRequest
 }
+
 
 func (r ApiPatchServiceAccountSuperAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchServiceAccountSuperAdminExecute(r)
@@ -1463,24 +1529,24 @@ PatchServiceAccountSuperAdmin Update service account superadmin privileges
 
 Superadmin-only. Updates whether a service account is a superadmin.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@return ApiPatchServiceAccountSuperAdminRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @return ApiPatchServiceAccountSuperAdminRequest
 */
 func (a *ServiceAccountAPIService) PatchServiceAccountSuperAdmin(ctx context.Context, id string) ApiPatchServiceAccountSuperAdminRequest {
 	return ApiPatchServiceAccountSuperAdminRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
 func (a *ServiceAccountAPIService) PatchServiceAccountSuperAdminExecute(r ApiPatchServiceAccountSuperAdminRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.PatchServiceAccountSuperAdmin")
@@ -1545,15 +1611,21 @@ func (a *ServiceAccountAPIService) PatchServiceAccountSuperAdminExecute(r ApiPat
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiServiceAccountRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
+	id string
 }
 
+
 func (r ApiServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
+
 
 func (r ApiServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.ServiceAccountExecute(r)
@@ -1564,27 +1636,26 @@ ServiceAccount Get a service account
 
 Superadmin-only. Get user account details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The service account id
-	@return ApiServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The service account id
+ @return ApiServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) ServiceAccount(ctx context.Context, id string) ApiServiceAccountRequest {
 	return ApiServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
+		ctx: ctx,
+		id: id,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountDetail
+//  @return IAMServiceAccountControllerApiServiceAccountDetail
 func (a *ServiceAccountAPIService) ServiceAccountExecute(r ApiServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ServiceAccount")
@@ -1653,19 +1724,25 @@ func (a *ServiceAccountAPIService) ServiceAccountExecute(r ApiServiceAccountRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiServiceAccountForTenantRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ServiceAccountAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiServiceAccountForTenantRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiServiceAccountForTenantRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	return r.ApiService.ServiceAccountForTenantExecute(r)
@@ -1674,29 +1751,28 @@ func (r ApiServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControll
 /*
 ServiceAccountForTenant Retrieve a service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tenant
-	@return ApiServiceAccountForTenantRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tenant
+ @return ApiServiceAccountForTenantRequest
 */
 func (a *ServiceAccountAPIService) ServiceAccountForTenant(ctx context.Context, id string, tenant string) ApiServiceAccountForTenantRequest {
 	return ApiServiceAccountForTenantRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountResponse
+//  @return IAMServiceAccountControllerApiServiceAccountResponse
 func (a *ServiceAccountAPIService) ServiceAccountForTenantExecute(r ApiServiceAccountForTenantRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ServiceAccountForTenant")
@@ -1766,11 +1842,15 @@ func (a *ServiceAccountAPIService) ServiceAccountForTenantExecute(r ApiServiceAc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateServiceAccountRequest struct {
-	ctx                                                 context.Context
-	ApiService                                          *ServiceAccountAPIService
-	id                                                  string
-	tenant                                              string
+	ctx context.Context
+	ApiService *ServiceAccountAPIService
+	id string
+	tenant string
 	iAMServiceAccountControllerApiServiceAccountRequest *IAMServiceAccountControllerApiServiceAccountRequest
 }
 
@@ -1780,15 +1860,17 @@ func (r ApiUpdateServiceAccountRequest) IAMServiceAccountControllerApiServiceAcc
 	return r
 }
 
+
 func (r ApiUpdateServiceAccountRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiUpdateServiceAccountRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateServiceAccountRequest) GetIAMServiceAccountControllerApiServiceAccountRequest() *IAMServiceAccountControllerApiServiceAccountRequest {
-	return r.iAMServiceAccountControllerApiServiceAccountRequest
+    return r.iAMServiceAccountControllerApiServiceAccountRequest
 }
+
 
 func (r ApiUpdateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	return r.ApiService.UpdateServiceAccountExecute(r)
@@ -1797,29 +1879,28 @@ func (r ApiUpdateServiceAccountRequest) Execute() (*IAMServiceAccountControllerA
 /*
 UpdateServiceAccount Update a user service account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tenant
-	@return ApiUpdateServiceAccountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The user id
+ @param tenant
+ @return ApiUpdateServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) UpdateServiceAccount(ctx context.Context, id string, tenant string) ApiUpdateServiceAccountRequest {
 	return ApiUpdateServiceAccountRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMServiceAccountControllerApiServiceAccountResponse
+//  @return IAMServiceAccountControllerApiServiceAccountResponse
 func (a *ServiceAccountAPIService) UpdateServiceAccountExecute(r ApiUpdateServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountResponse
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMServiceAccountControllerApiServiceAccountResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.UpdateServiceAccount")
@@ -1893,3 +1974,7 @@ func (a *ServiceAccountAPIService) UpdateServiceAccountExecute(r ApiUpdateServic
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

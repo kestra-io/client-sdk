@@ -18,8 +18,8 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionsApiPluginVersionAndMe
 
 // InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata struct for InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
 type InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata struct {
-	Version              *string                 `json:"version,omitempty"`
-	Metadata             *PluginArtifactMetadata `json:"metadata,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Metadata *PluginArtifactMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) SetMeta
 }
 
 func (o InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

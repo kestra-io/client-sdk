@@ -19,7 +19,7 @@ type Action string
 
 // List of Action
 const (
-	ACTION_READ   Action = "READ"
+	ACTION_READ Action = "READ"
 	ACTION_CREATE Action = "CREATE"
 	ACTION_UPDATE Action = "UPDATE"
 	ACTION_DELETE Action = "DELETE"
@@ -111,3 +111,4 @@ func (v *NullableAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

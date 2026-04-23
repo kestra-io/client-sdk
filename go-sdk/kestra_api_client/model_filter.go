@@ -18,8 +18,8 @@ var _ MappedNullable = &Filter{}
 
 // Filter struct for Filter
 type Filter struct {
-	Filter               *string                `json:"filter,omitempty"`
-	Expression           map[string]interface{} `json:"expression,omitempty"`
+	Filter *string `json:"filter,omitempty"`
+	Expression map[string]interface{} `json:"expression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *Filter) SetExpression(v map[string]interface{}) {
 }
 
 func (o Filter) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableFilter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

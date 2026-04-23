@@ -20,7 +20,7 @@ var _ MappedNullable = &CreateNamespaceFileRequest{}
 // CreateNamespaceFileRequest struct for CreateNamespaceFileRequest
 type CreateNamespaceFileRequest struct {
 	// The file to upload
-	FileContent          **os.File `json:"fileContent,omitempty"`
+	FileContent **os.File `json:"fileContent,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +76,7 @@ func (o *CreateNamespaceFileRequest) SetFileContent(v *os.File) {
 }
 
 func (o CreateNamespaceFileRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -152,3 +152,5 @@ func (v *NullableCreateNamespaceFileRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

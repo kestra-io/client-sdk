@@ -21,6 +21,9 @@ import StateType from './StateType';
   * @property {Date} endDate
   * @property {keyof typeof import('./StateType').StateTypeStatic} current
   * @property {Array.<module:model/StateHistory>} histories
+  * @property {String} getDuration
+  * @property {Date} getStartDate
+  * @property {Date} getEndDate
   */
 
 /**
@@ -33,10 +36,13 @@ class State {
      * Constructs a new <code>State</code>.
      * @alias module:model/State
      * @param {module:model/StateType} current - 
+     * @param {String} getDuration - 
+     * @param {Date} getStartDate - 
+     * @param {Date} getEndDate - 
      */
-    constructor(current) { 
+    constructor(current, getDuration, getStartDate, getEndDate) { 
         
-        State.initialize(this, current);
+        State.initialize(this, current, getDuration, getStartDate, getEndDate);
     }
 
     /**
@@ -44,8 +50,11 @@ class State {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, current) { 
+    static initialize(obj, current, getDuration, getStartDate, getEndDate) { 
         obj['current'] = current;
+        obj['getDuration'] = getDuration;
+        obj['getStartDate'] = getStartDate;
+        obj['getEndDate'] = getEndDate;
     }
 
     /**
@@ -73,6 +82,15 @@ class State {
             }
             if (data.hasOwnProperty('histories')) {
                 obj['histories'] = ApiClient.convertToType(data['histories'], [StateHistory]);
+            }
+            if (data.hasOwnProperty('getDuration')) {
+                obj['getDuration'] = ApiClient.convertToType(data['getDuration'], 'String');
+            }
+            if (data.hasOwnProperty('getStartDate')) {
+                obj['getStartDate'] = ApiClient.convertToType(data['getStartDate'], 'Date');
+            }
+            if (data.hasOwnProperty('getEndDate')) {
+                obj['getEndDate'] = ApiClient.convertToType(data['getEndDate'], 'Date');
             }
         }
         return obj;
@@ -104,6 +122,10 @@ class State {
                 StateHistory.validateJSON(item);
             };
         }
+        // ensure the json data is a string
+        if (data['getDuration'] && !(typeof data['getDuration'] === 'string' || data['getDuration'] instanceof String)) {
+            throw new Error("Expected the field `getDuration` to be a primitive type in the JSON string but got " + data['getDuration']);
+        }
 
         return true;
     }
@@ -111,7 +133,7 @@ class State {
 
 }
 
-State.RequiredProperties = ["current"];
+State.RequiredProperties = ["current", "getDuration", "getStartDate", "getEndDate"];
 
 /**
  * @member {String} duration
@@ -137,6 +159,21 @@ State.prototype['current'] = undefined;
  * @member {Array.<module:model/StateHistory>} histories
  */
 State.prototype['histories'] = undefined;
+
+/**
+ * @member {String} getDuration
+ */
+State.prototype['getDuration'] = undefined;
+
+/**
+ * @member {Date} getStartDate
+ */
+State.prototype['getStartDate'] = undefined;
+
+/**
+ * @member {Date} getEndDate
+ */
+State.prototype['getEndDate'] = undefined;
 
 
 

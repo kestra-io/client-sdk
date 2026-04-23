@@ -19,9 +19,9 @@ type InvitationInvitationStatus string
 
 // List of Invitation.InvitationStatus
 const (
-	INVITATIONINVITATIONSTATUS_PENDING  InvitationInvitationStatus = "PENDING"
+	INVITATIONINVITATIONSTATUS_PENDING InvitationInvitationStatus = "PENDING"
 	INVITATIONINVITATIONSTATUS_ACCEPTED InvitationInvitationStatus = "ACCEPTED"
-	INVITATIONINVITATIONSTATUS_EXPIRED  InvitationInvitationStatus = "EXPIRED"
+	INVITATIONINVITATIONSTATUS_EXPIRED InvitationInvitationStatus = "EXPIRED"
 )
 
 // All allowed values of InvitationInvitationStatus enum
@@ -109,3 +109,4 @@ func (v *NullableInvitationInvitationStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -13,7 +13,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.10"
+__version__ = "1.3"
 
 # Define package exports
 __all__ = [
@@ -43,6 +43,8 @@ __all__ = [
     "AbstractUserTenantIdentityProvider",
     "Action",
     "AiControllerAiProviderResponse",
+    "AiControllerDashboardGenerationPrompt",
+    "AiControllerFlowGenerationPrompt",
     "ApiAuth",
     "ApiAutocomplete",
     "ApiGroupSummary",
@@ -115,24 +117,22 @@ __all__ = [
     "BulkErrorResponse",
     "BulkImportAppsRequest",
     "BulkResponse",
-    "Cache",
     "ChartChartOption",
     "ChartFiltersOverrides",
-    "Check",
-    "CheckBehavior",
-    "CheckStyle",
     "Concurrency",
     "ConcurrencyBehavior",
     "ConcurrencyLimit",
     "Condition",
     "CreateApiTokenRequest",
     "CreateApiTokenResponse",
+    "CreateExecutionLabelsParameter",
     "CreateNamespaceFileRequest",
     "CreateSecurityIntegrationRequest",
     "CrudEventType",
-    "Dashboard",
+    "DashboardControllerDashboardResponse",
     "DashboardControllerPreviewRequest",
     "DashboardGenerationPrompt",
+    "DeleteExecutionsByIdsDeleteLogsParameter",
     "DeleteTriggersByQueryRequest",
     "DependsOn",
     "DocumentationWithSchema",
@@ -143,6 +143,7 @@ __all__ = [
     "EventExecutionStatusEvent",
     "ExecutableTaskSubflowId",
     "Execution",
+    "ExecutionControllerEvalResult",
     "ExecutionControllerExecutionResponse",
     "ExecutionControllerLastExecutionResponse",
     "ExecutionControllerSetLabelsByIdsRequest",
@@ -157,9 +158,9 @@ __all__ = [
     "FileMetas",
     "Filter",
     "Fixtures",
-    "Flow",
     "FlowControllerTaskValidationType",
     "FlowForExecution",
+    "FlowFromExecutionRevisionParameter",
     "FlowGenerationPrompt",
     "FlowGraph",
     "FlowGraphCluster",
@@ -170,7 +171,8 @@ __all__ = [
     "FlowRelation",
     "FlowTopologyGraph",
     "FlowTopologyGraphEdge",
-    "FlowWithSource",
+    "GenerateFlowGraphFromSourceSubflowsParameter",
+    "GenerateFlowGraphRevisionParameter",
     "GroupIdentifier",
     "GroupIdentifierMembership",
     "IAMBindingControllerApiBindingDetail",
@@ -211,7 +213,6 @@ __all__ = [
     "IAMUserControllerApiUserAuth",
     "IAMUserControllerApiUserSummary",
     "IAMUserGroupControllerApiUpdateUserGroupsRequest",
-    "IdWithNamespace",
     "IdentityProvider",
     "ImportPluginDefaultsRequest",
     "InputObject",
@@ -246,6 +247,7 @@ __all__ = [
     "Label",
     "LeftSidebarConfiguration",
     "Level",
+    "ListBlueprintTagsQParameter",
     "LogEntry",
     "MapObjectObject",
     "MeControllerApiMe",
@@ -287,9 +289,8 @@ __all__ = [
     "PagedResultsBlueprint",
     "PagedResultsBlueprintControllerApiBlueprintItem",
     "PagedResultsConcurrencyLimit",
-    "PagedResultsDashboard",
+    "PagedResultsDashboardControllerDashboardResponse",
     "PagedResultsExecution",
-    "PagedResultsFlow",
     "PagedResultsIAMBindingControllerApiBindingDetail",
     "PagedResultsIAMGroupControllerApiGroupMember",
     "PagedResultsIAMInvitationControllerApiInvitationDetail",
@@ -303,7 +304,6 @@ __all__ = [
     "PagedResultsMapStringObject",
     "PagedResultsMetricEntry",
     "PagedResultsNamespace",
-    "PagedResultsSearchResultFlow",
     "PagedResultsTenant",
     "PagedResultsTestSuite",
     "PagedResultsTestSuiteRunResult",
@@ -325,7 +325,6 @@ __all__ = [
     "PluginSubGroupPluginCategory",
     "PropertyBoolean",
     "PropertyDouble",
-    "PropertyDuration",
     "PropertyListAsset",
     "PropertyListAssetIdentifier",
     "PropertyListString",
@@ -355,12 +354,14 @@ __all__ = [
     "SchemaAttributeType",
     "SchemaAttributeUniqueness",
     "SchemaType",
+    "SchemasFromTypeArrayOfParameter",
     "ScimExtension",
     "ScimResource",
     "ScimResourceWithOptionalId",
     "ScimUser",
+    "SearchBlueprintsSizeParameter",
+    "SearchInternalBlueprintsSizeParameter",
     "SearchRequest",
-    "SearchResultFlow",
     "SecurityIntegrationType",
     "ServerConfig",
     "ServerConfigLiveness",
@@ -384,7 +385,6 @@ __all__ = [
     "State",
     "StateHistory",
     "StateType",
-    "Task",
     "TaskFixture",
     "TaskForExecution",
     "TaskRun",
@@ -415,6 +415,7 @@ __all__ = [
     "Type",
     "UnitTest",
     "UnitTestResult",
+    "UpdateFlowsInNamespaceOverrideParameter",
     "UploadVersionedPluginsRequest",
     "UserGroup",
     "UserGroupType",
@@ -460,6 +461,8 @@ from kestrapy.models.abstract_user import AbstractUser as AbstractUser
 from kestrapy.models.abstract_user_tenant_identity_provider import AbstractUserTenantIdentityProvider as AbstractUserTenantIdentityProvider
 from kestrapy.models.action import Action as Action
 from kestrapy.models.ai_controller_ai_provider_response import AiControllerAiProviderResponse as AiControllerAiProviderResponse
+from kestrapy.models.ai_controller_dashboard_generation_prompt import AiControllerDashboardGenerationPrompt as AiControllerDashboardGenerationPrompt
+from kestrapy.models.ai_controller_flow_generation_prompt import AiControllerFlowGenerationPrompt as AiControllerFlowGenerationPrompt
 from kestrapy.models.api_auth import ApiAuth as ApiAuth
 from kestrapy.models.api_autocomplete import ApiAutocomplete as ApiAutocomplete
 from kestrapy.models.api_group_summary import ApiGroupSummary as ApiGroupSummary
@@ -532,24 +535,22 @@ from kestrapy.models.breakpoint import Breakpoint as Breakpoint
 from kestrapy.models.bulk_error_response import BulkErrorResponse as BulkErrorResponse
 from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest as BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse as BulkResponse
-from kestrapy.models.cache import Cache as Cache
 from kestrapy.models.chart_chart_option import ChartChartOption as ChartChartOption
 from kestrapy.models.chart_filters_overrides import ChartFiltersOverrides as ChartFiltersOverrides
-from kestrapy.models.check import Check as Check
-from kestrapy.models.check_behavior import CheckBehavior as CheckBehavior
-from kestrapy.models.check_style import CheckStyle as CheckStyle
 from kestrapy.models.concurrency import Concurrency as Concurrency
 from kestrapy.models.concurrency_behavior import ConcurrencyBehavior as ConcurrencyBehavior
 from kestrapy.models.concurrency_limit import ConcurrencyLimit as ConcurrencyLimit
 from kestrapy.models.condition import Condition as Condition
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest as CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse as CreateApiTokenResponse
+from kestrapy.models.create_execution_labels_parameter import CreateExecutionLabelsParameter as CreateExecutionLabelsParameter
 from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest as CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest as CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
-from kestrapy.models.dashboard import Dashboard as Dashboard
+from kestrapy.models.dashboard_controller_dashboard_response import DashboardControllerDashboardResponse as DashboardControllerDashboardResponse
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest as DashboardControllerPreviewRequest
 from kestrapy.models.dashboard_generation_prompt import DashboardGenerationPrompt as DashboardGenerationPrompt
+from kestrapy.models.delete_executions_by_ids_delete_logs_parameter import DeleteExecutionsByIdsDeleteLogsParameter as DeleteExecutionsByIdsDeleteLogsParameter
 from kestrapy.models.delete_triggers_by_query_request import DeleteTriggersByQueryRequest as DeleteTriggersByQueryRequest
 from kestrapy.models.depends_on import DependsOn as DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
@@ -560,6 +561,7 @@ from kestrapy.models.event_execution import EventExecution as EventExecution
 from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent as EventExecutionStatusEvent
 from kestrapy.models.executable_task_subflow_id import ExecutableTaskSubflowId as ExecutableTaskSubflowId
 from kestrapy.models.execution import Execution as Execution
+from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult as ExecutionControllerEvalResult
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse as ExecutionControllerExecutionResponse
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse as ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest as ExecutionControllerSetLabelsByIdsRequest
@@ -574,9 +576,9 @@ from kestrapy.models.file_attributes_file_type import FileAttributesFileType as 
 from kestrapy.models.file_metas import FileMetas as FileMetas
 from kestrapy.models.filter import Filter as Filter
 from kestrapy.models.fixtures import Fixtures as Fixtures
-from kestrapy.models.flow import Flow as Flow
 from kestrapy.models.flow_controller_task_validation_type import FlowControllerTaskValidationType as FlowControllerTaskValidationType
 from kestrapy.models.flow_for_execution import FlowForExecution as FlowForExecution
+from kestrapy.models.flow_from_execution_revision_parameter import FlowFromExecutionRevisionParameter as FlowFromExecutionRevisionParameter
 from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt as FlowGenerationPrompt
 from kestrapy.models.flow_graph import FlowGraph as FlowGraph
 from kestrapy.models.flow_graph_cluster import FlowGraphCluster as FlowGraphCluster
@@ -587,7 +589,8 @@ from kestrapy.models.flow_node import FlowNode as FlowNode
 from kestrapy.models.flow_relation import FlowRelation as FlowRelation
 from kestrapy.models.flow_topology_graph import FlowTopologyGraph as FlowTopologyGraph
 from kestrapy.models.flow_topology_graph_edge import FlowTopologyGraphEdge as FlowTopologyGraphEdge
-from kestrapy.models.flow_with_source import FlowWithSource as FlowWithSource
+from kestrapy.models.generate_flow_graph_from_source_subflows_parameter import GenerateFlowGraphFromSourceSubflowsParameter as GenerateFlowGraphFromSourceSubflowsParameter
+from kestrapy.models.generate_flow_graph_revision_parameter import GenerateFlowGraphRevisionParameter as GenerateFlowGraphRevisionParameter
 from kestrapy.models.group_identifier import GroupIdentifier as GroupIdentifier
 from kestrapy.models.group_identifier_membership import GroupIdentifierMembership as GroupIdentifierMembership
 from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail as IAMBindingControllerApiBindingDetail
@@ -628,7 +631,6 @@ from kestrapy.models.iam_user_controller_api_user import IAMUserControllerApiUse
 from kestrapy.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth as IAMUserControllerApiUserAuth
 from kestrapy.models.iam_user_controller_api_user_summary import IAMUserControllerApiUserSummary as IAMUserControllerApiUserSummary
 from kestrapy.models.iam_user_group_controller_api_update_user_groups_request import IAMUserGroupControllerApiUpdateUserGroupsRequest as IAMUserGroupControllerApiUpdateUserGroupsRequest
-from kestrapy.models.id_with_namespace import IdWithNamespace as IdWithNamespace
 from kestrapy.models.identity_provider import IdentityProvider as IdentityProvider
 from kestrapy.models.import_plugin_defaults_request import ImportPluginDefaultsRequest as ImportPluginDefaultsRequest
 from kestrapy.models.input_object import InputObject as InputObject
@@ -663,6 +665,7 @@ from kestrapy.models.kill_switch import KillSwitch as KillSwitch
 from kestrapy.models.label import Label as Label
 from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration as LeftSidebarConfiguration
 from kestrapy.models.level import Level as Level
+from kestrapy.models.list_blueprint_tags_q_parameter import ListBlueprintTagsQParameter as ListBlueprintTagsQParameter
 from kestrapy.models.log_entry import LogEntry as LogEntry
 from kestrapy.models.map_object_object import MapObjectObject as MapObjectObject
 from kestrapy.models.me_controller_api_me import MeControllerApiMe as MeControllerApiMe
@@ -704,9 +707,8 @@ from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item impor
 from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint as PagedResultsBlueprint
 from kestrapy.models.paged_results_blueprint_controller_api_blueprint_item import PagedResultsBlueprintControllerApiBlueprintItem as PagedResultsBlueprintControllerApiBlueprintItem
 from kestrapy.models.paged_results_concurrency_limit import PagedResultsConcurrencyLimit as PagedResultsConcurrencyLimit
-from kestrapy.models.paged_results_dashboard import PagedResultsDashboard as PagedResultsDashboard
+from kestrapy.models.paged_results_dashboard_controller_dashboard_response import PagedResultsDashboardControllerDashboardResponse as PagedResultsDashboardControllerDashboardResponse
 from kestrapy.models.paged_results_execution import PagedResultsExecution as PagedResultsExecution
-from kestrapy.models.paged_results_flow import PagedResultsFlow as PagedResultsFlow
 from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail as PagedResultsIAMBindingControllerApiBindingDetail
 from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember as PagedResultsIAMGroupControllerApiGroupMember
 from kestrapy.models.paged_results_iam_invitation_controller_api_invitation_detail import PagedResultsIAMInvitationControllerApiInvitationDetail as PagedResultsIAMInvitationControllerApiInvitationDetail
@@ -720,7 +722,6 @@ from kestrapy.models.paged_results_log_entry import PagedResultsLogEntry as Page
 from kestrapy.models.paged_results_map_string_object import PagedResultsMapStringObject as PagedResultsMapStringObject
 from kestrapy.models.paged_results_metric_entry import PagedResultsMetricEntry as PagedResultsMetricEntry
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace as PagedResultsNamespace
-from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow as PagedResultsSearchResultFlow
 from kestrapy.models.paged_results_tenant import PagedResultsTenant as PagedResultsTenant
 from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite as PagedResultsTestSuite
 from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult as PagedResultsTestSuiteRunResult
@@ -742,7 +743,6 @@ from kestrapy.models.plugin_schema import PluginSchema as PluginSchema
 from kestrapy.models.plugin_sub_group_plugin_category import PluginSubGroupPluginCategory as PluginSubGroupPluginCategory
 from kestrapy.models.property_boolean import PropertyBoolean as PropertyBoolean
 from kestrapy.models.property_double import PropertyDouble as PropertyDouble
-from kestrapy.models.property_duration import PropertyDuration as PropertyDuration
 from kestrapy.models.property_list_asset import PropertyListAsset as PropertyListAsset
 from kestrapy.models.property_list_asset_identifier import PropertyListAssetIdentifier as PropertyListAssetIdentifier
 from kestrapy.models.property_list_string import PropertyListString as PropertyListString
@@ -772,12 +772,14 @@ from kestrapy.models.schema_attribute_returned import SchemaAttributeReturned as
 from kestrapy.models.schema_attribute_type import SchemaAttributeType as SchemaAttributeType
 from kestrapy.models.schema_attribute_uniqueness import SchemaAttributeUniqueness as SchemaAttributeUniqueness
 from kestrapy.models.schema_type import SchemaType as SchemaType
+from kestrapy.models.schemas_from_type_array_of_parameter import SchemasFromTypeArrayOfParameter as SchemasFromTypeArrayOfParameter
 from kestrapy.models.scim_extension import ScimExtension as ScimExtension
 from kestrapy.models.scim_resource import ScimResource as ScimResource
 from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptionalId as ScimResourceWithOptionalId
 from kestrapy.models.scim_user import ScimUser as ScimUser
+from kestrapy.models.search_blueprints_size_parameter import SearchBlueprintsSizeParameter as SearchBlueprintsSizeParameter
+from kestrapy.models.search_internal_blueprints_size_parameter import SearchInternalBlueprintsSizeParameter as SearchInternalBlueprintsSizeParameter
 from kestrapy.models.search_request import SearchRequest as SearchRequest
-from kestrapy.models.search_result_flow import SearchResultFlow as SearchResultFlow
 from kestrapy.models.security_integration_type import SecurityIntegrationType as SecurityIntegrationType
 from kestrapy.models.server_config import ServerConfig as ServerConfig
 from kestrapy.models.server_config_liveness import ServerConfigLiveness as ServerConfigLiveness
@@ -801,7 +803,6 @@ from kestrapy.models.sort_request import SortRequest as SortRequest
 from kestrapy.models.state import State as State
 from kestrapy.models.state_history import StateHistory as StateHistory
 from kestrapy.models.state_type import StateType as StateType
-from kestrapy.models.task import Task as Task
 from kestrapy.models.task_fixture import TaskFixture as TaskFixture
 from kestrapy.models.task_for_execution import TaskForExecution as TaskForExecution
 from kestrapy.models.task_run import TaskRun as TaskRun
@@ -832,6 +833,7 @@ from kestrapy.models.trigger_fixture import TriggerFixture as TriggerFixture
 from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
+from kestrapy.models.update_flows_in_namespace_override_parameter import UpdateFlowsInNamespaceOverrideParameter as UpdateFlowsInNamespaceOverrideParameter
 from kestrapy.models.upload_versioned_plugins_request import UploadVersionedPluginsRequest as UploadVersionedPluginsRequest
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType

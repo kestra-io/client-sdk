@@ -18,12 +18,12 @@ var _ MappedNullable = &IAMTenantAccessControllerApiRoleAssignment{}
 
 // IAMTenantAccessControllerApiRoleAssignment struct for IAMTenantAccessControllerApiRoleAssignment
 type IAMTenantAccessControllerApiRoleAssignment struct {
-	Id                   *string                                      `json:"id,omitempty"`
-	Name                 *string                                      `json:"name,omitempty"`
-	Namespace            *string                                      `json:"namespace,omitempty"`
-	Origin               *RBACServiceRoleAssignmentRoleOrigin         `json:"origin,omitempty"`
-	SourceId             *string                                      `json:"sourceId,omitempty"`
-	Permissions          []IAMTenantAccessControllerApiUserPermission `json:"permissions,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Origin *RBACServiceRoleAssignmentRoleOrigin `json:"origin,omitempty"`
+	SourceId *string `json:"sourceId,omitempty"`
+	Permissions []IAMTenantAccessControllerApiUserPermission `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *IAMTenantAccessControllerApiRoleAssignment) SetPermissions(v []IAMTenan
 }
 
 func (o IAMTenantAccessControllerApiRoleAssignment) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableIAMTenantAccessControllerApiRoleAssignment) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

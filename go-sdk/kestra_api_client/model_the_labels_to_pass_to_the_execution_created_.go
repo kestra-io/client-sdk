@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // TheLabelsToPassToTheExecutionCreated - struct for TheLabelsToPassToTheExecutionCreated
 type TheLabelsToPassToTheExecutionCreated struct {
 	MapObjectObject *MapObjectObject
-	ArrayOfString   *[]string
+	ArrayOfString *[]string
 }
 
 // MapObjectObjectAsTheLabelsToPassToTheExecutionCreated is a convenience function that returns MapObjectObject wrapped in TheLabelsToPassToTheExecutionCreated
@@ -35,6 +34,7 @@ func ArrayOfStringAsTheLabelsToPassToTheExecutionCreated(v *[]string) TheLabelsT
 		ArrayOfString: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *TheLabelsToPassToTheExecutionCreated) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src TheLabelsToPassToTheExecutionCreated) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *TheLabelsToPassToTheExecutionCreated) GetActualInstance() interface{} {
+func (obj *TheLabelsToPassToTheExecutionCreated) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *TheLabelsToPassToTheExecutionCreated) GetActualInstance() interface{}
 }
 
 // Get the actual instance value
-func (obj TheLabelsToPassToTheExecutionCreated) GetActualInstanceValue() interface{} {
+func (obj TheLabelsToPassToTheExecutionCreated) GetActualInstanceValue() (interface{}) {
 	if obj.MapObjectObject != nil {
 		return *obj.MapObjectObject
 	}
@@ -166,3 +166,5 @@ func (v *NullableTheLabelsToPassToTheExecutionCreated) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

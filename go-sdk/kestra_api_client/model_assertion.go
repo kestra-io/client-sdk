@@ -19,23 +19,23 @@ var _ MappedNullable = &Assertion{}
 
 // Assertion struct for Assertion
 type Assertion struct {
-	Value                string  `json:"value"`
-	TaskId               *string `json:"taskId,omitempty"`
-	ErrorMessage         *string `json:"errorMessage,omitempty"`
-	Description          *string `json:"description,omitempty"`
-	EndsWith             *string `json:"endsWith,omitempty"`
-	StartsWith           *string `json:"startsWith,omitempty"`
-	Contains             *string `json:"contains,omitempty"`
-	EqualTo              *string `json:"equalTo,omitempty"`
-	NotEqualTo           *string `json:"notEqualTo,omitempty"`
-	GreaterThan          *string `json:"greaterThan,omitempty"`
+	Value string `json:"value"`
+	TaskId *string `json:"taskId,omitempty"`
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+	Description *string `json:"description,omitempty"`
+	EndsWith *string `json:"endsWith,omitempty"`
+	StartsWith *string `json:"startsWith,omitempty"`
+	Contains *string `json:"contains,omitempty"`
+	EqualTo *string `json:"equalTo,omitempty"`
+	NotEqualTo *string `json:"notEqualTo,omitempty"`
+	GreaterThan *string `json:"greaterThan,omitempty"`
 	GreaterThanOrEqualTo *string `json:"greaterThanOrEqualTo,omitempty"`
-	LessThan             *string `json:"lessThan,omitempty"`
-	LessThanOrEqualTo    *string `json:"lessThanOrEqualTo,omitempty"`
-	In                   *string `json:"in,omitempty"`
-	NotIn                *string `json:"notIn,omitempty"`
-	IsNull               *string `json:"isNull,omitempty"`
-	IsNotNull            *string `json:"isNotNull,omitempty"`
+	LessThan *string `json:"lessThan,omitempty"`
+	LessThanOrEqualTo *string `json:"lessThanOrEqualTo,omitempty"`
+	In *string `json:"in,omitempty"`
+	NotIn *string `json:"notIn,omitempty"`
+	IsNull *string `json:"isNull,omitempty"`
+	IsNotNull *string `json:"isNotNull,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -596,7 +596,7 @@ func (o *Assertion) SetIsNotNull(v string) {
 }
 
 func (o Assertion) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -675,10 +675,10 @@ func (o *Assertion) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -755,3 +755,5 @@ func (v *NullableAssertion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

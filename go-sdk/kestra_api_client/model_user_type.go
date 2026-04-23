@@ -19,7 +19,7 @@ type UserType string
 
 // List of UserType
 const (
-	USERTYPE_STANDARD        UserType = "STANDARD"
+	USERTYPE_STANDARD UserType = "STANDARD"
 	USERTYPE_SERVICE_ACCOUNT UserType = "SERVICE_ACCOUNT"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableUserType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

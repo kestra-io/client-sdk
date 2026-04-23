@@ -19,10 +19,10 @@ var _ MappedNullable = &ServiceInstanceTimestampedEvent{}
 
 // ServiceInstanceTimestampedEvent struct for ServiceInstanceTimestampedEvent
 type ServiceInstanceTimestampedEvent struct {
-	Ts                   *time.Time           `json:"ts,omitempty"`
-	Value                *string              `json:"value,omitempty"`
-	Type                 *string              `json:"type,omitempty"`
-	State                *ServiceServiceState `json:"state,omitempty"`
+	Ts *time.Time `json:"ts,omitempty"`
+	Value *string `json:"value,omitempty"`
+	Type *string `json:"type,omitempty"`
+	State *ServiceServiceState `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,7 +174,7 @@ func (o *ServiceInstanceTimestampedEvent) SetState(v ServiceServiceState) {
 }
 
 func (o ServiceInstanceTimestampedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -262,3 +262,5 @@ func (v *NullableServiceInstanceTimestampedEvent) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

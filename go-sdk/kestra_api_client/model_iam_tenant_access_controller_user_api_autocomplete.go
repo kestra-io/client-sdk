@@ -18,10 +18,10 @@ var _ MappedNullable = &IAMTenantAccessControllerUserApiAutocomplete{}
 
 // IAMTenantAccessControllerUserApiAutocomplete struct for IAMTenantAccessControllerUserApiAutocomplete
 type IAMTenantAccessControllerUserApiAutocomplete struct {
-	Q                    NullableString `json:"q,omitempty"`
-	Ids                  []string       `json:"ids,omitempty"`
-	ExistingOnly         *bool          `json:"existingOnly,omitempty"`
-	Username             NullableString `json:"username,omitempty"`
+	Q NullableString `json:"q,omitempty"`
+	Ids []string `json:"ids,omitempty"`
+	ExistingOnly *bool `json:"existingOnly,omitempty"`
+	Username NullableString `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +76,6 @@ func (o *IAMTenantAccessControllerUserApiAutocomplete) HasQ() bool {
 func (o *IAMTenantAccessControllerUserApiAutocomplete) SetQ(v string) {
 	o.Q.Set(&v)
 }
-
 // SetQNil sets the value for Q to be an explicit nil
 func (o *IAMTenantAccessControllerUserApiAutocomplete) SetQNil() {
 	o.Q.Set(nil)
@@ -184,7 +183,6 @@ func (o *IAMTenantAccessControllerUserApiAutocomplete) HasUsername() bool {
 func (o *IAMTenantAccessControllerUserApiAutocomplete) SetUsername(v string) {
 	o.Username.Set(&v)
 }
-
 // SetUsernameNil sets the value for Username to be an explicit nil
 func (o *IAMTenantAccessControllerUserApiAutocomplete) SetUsernameNil() {
 	o.Username.Set(nil)
@@ -196,7 +194,7 @@ func (o *IAMTenantAccessControllerUserApiAutocomplete) UnsetUsername() {
 }
 
 func (o IAMTenantAccessControllerUserApiAutocomplete) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -284,3 +282,5 @@ func (v *NullableIAMTenantAccessControllerUserApiAutocomplete) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,11 +18,11 @@ var _ MappedNullable = &ExecutionStatusEvent{}
 
 // ExecutionStatusEvent struct for ExecutionStatusEvent
 type ExecutionStatusEvent struct {
-	ExecutionId          *string `json:"executionId,omitempty"`
-	TenantId             *string `json:"tenantId,omitempty"`
-	Namespace            *string `json:"namespace,omitempty"`
-	FlowId               *string `json:"flowId,omitempty"`
-	State                *State  `json:"state,omitempty"`
+	ExecutionId *string `json:"executionId,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	State *State `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,7 +206,7 @@ func (o *ExecutionStatusEvent) SetState(v State) {
 }
 
 func (o ExecutionStatusEvent) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullableExecutionStatusEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

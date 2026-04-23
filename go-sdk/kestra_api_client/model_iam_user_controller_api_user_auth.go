@@ -18,9 +18,9 @@ var _ MappedNullable = &IAMUserControllerApiUserAuth{}
 
 // IAMUserControllerApiUserAuth struct for IAMUserControllerApiUserAuth
 type IAMUserControllerApiUserAuth struct {
-	Id                   *string `json:"id,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	Type                 *string `json:"type,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *IAMUserControllerApiUserAuth) SetType(v string) {
 }
 
 func (o IAMUserControllerApiUserAuth) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableIAMUserControllerApiUserAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

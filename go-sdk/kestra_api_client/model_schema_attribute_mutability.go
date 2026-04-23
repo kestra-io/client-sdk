@@ -19,8 +19,8 @@ type SchemaAttributeMutability string
 
 // List of Schema.Attribute.Mutability
 const (
-	SCHEMAATTRIBUTEMUTABILITY_IMMUTABLE  SchemaAttributeMutability = "IMMUTABLE"
-	SCHEMAATTRIBUTEMUTABILITY_READ_ONLY  SchemaAttributeMutability = "READ_ONLY"
+	SCHEMAATTRIBUTEMUTABILITY_IMMUTABLE SchemaAttributeMutability = "IMMUTABLE"
+	SCHEMAATTRIBUTEMUTABILITY_READ_ONLY SchemaAttributeMutability = "READ_ONLY"
 	SCHEMAATTRIBUTEMUTABILITY_READ_WRITE SchemaAttributeMutability = "READ_WRITE"
 	SCHEMAATTRIBUTEMUTABILITY_WRITE_ONLY SchemaAttributeMutability = "WRITE_ONLY"
 )
@@ -111,3 +111,4 @@ func (v *NullableSchemaAttributeMutability) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

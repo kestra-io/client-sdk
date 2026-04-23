@@ -19,11 +19,11 @@ type ServiceProviderConfigurationAuthenticationSchemaType string
 
 // List of ServiceProviderConfiguration.AuthenticationSchema.Type
 const (
-	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH        ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH"
-	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH2       ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH2"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH2 ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH2"
 	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_OAUTH_BEARER ServiceProviderConfigurationAuthenticationSchemaType = "OAUTH_BEARER"
-	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_BASIC   ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_BASIC"
-	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_DIGEST  ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_DIGEST"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_BASIC ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_BASIC"
+	SERVICEPROVIDERCONFIGURATIONAUTHENTICATIONSCHEMATYPE_HTTP_DIGEST ServiceProviderConfigurationAuthenticationSchemaType = "HTTP_DIGEST"
 )
 
 // All allowed values of ServiceProviderConfigurationAuthenticationSchemaType enum
@@ -113,3 +113,4 @@ func (v *NullableServiceProviderConfigurationAuthenticationSchemaType) Unmarshal
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

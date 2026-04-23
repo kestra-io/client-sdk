@@ -21,7 +21,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictBytes, StrictInt, StrictStr
+from pydantic import Field, StrictBytes, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from kestrapy.models.api_autocomplete import ApiAutocomplete
@@ -1537,11 +1537,11 @@ class NamespacesApi:
     def list_namespace_secrets(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -1556,16 +1556,16 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
                 :param filters: Filters (required)
         :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1577,11 +1577,11 @@ class NamespacesApi:
 
         _param = self._list_namespace_secrets_serialize(
             namespace=namespace,
-            page=page,
-            size=size,
             filters=filters,
             tenant=tenant,
+            size=size,
             sort=sort,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1602,11 +1602,11 @@ class NamespacesApi:
     def list_namespace_secrets_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -1621,16 +1621,16 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
                 :param filters: Filters (required)
         :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1642,11 +1642,11 @@ class NamespacesApi:
 
         _param = self._list_namespace_secrets_serialize(
             namespace=namespace,
-            page=page,
-            size=size,
             filters=filters,
             tenant=tenant,
+            size=size,
             sort=sort,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1666,11 +1666,11 @@ class NamespacesApi:
     def _list_namespace_secrets_serialize(
         self,
         namespace,
-        page,
-        size,
         filters,
         tenant,
+        size,
         sort,
+        page,
     ) -> RequestSerialized:
 
         _host = None
@@ -1695,10 +1695,6 @@ class NamespacesApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if page is not None:
-            
-            _query_params.append(('page', page))
-            
         if size is not None:
             
             _query_params.append(('size', size))
@@ -1710,6 +1706,10 @@ class NamespacesApi:
         if filters is not None:
             
             _query_params.append(('filters', filters))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
             
         # process the header parameters
         # process the form parameters
@@ -2287,11 +2287,11 @@ class NamespacesApi:
     @validate_call
     def search_namespaces(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        existing: Annotated[Optional[Any], Field(description="Return only existing namespace")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -2305,16 +2305,16 @@ class NamespacesApi:
         """Search for namespaces
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param existing: Return only existing namespace (required)
-        :type existing: bool
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param existing: Return only existing namespace
+        :type existing: SchemasFromTypeArrayOfParameter
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -2326,11 +2326,11 @@ class NamespacesApi:
         """ # noqa: E501
 
         _param = self._search_namespaces_serialize(
-            page=page,
-            size=size,
-            existing=existing,
             tenant=tenant,
             q=q,
+            existing=existing,
+            size=size,
+            page=page,
             sort=sort,
         )
 
@@ -2351,11 +2351,11 @@ class NamespacesApi:
     @validate_call
     def search_namespaces_with_http_info(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        existing: Annotated[Optional[Any], Field(description="Return only existing namespace")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -2369,16 +2369,16 @@ class NamespacesApi:
         """Search for namespaces
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param existing: Return only existing namespace (required)
-        :type existing: bool
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param existing: Return only existing namespace
+        :type existing: SchemasFromTypeArrayOfParameter
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -2390,11 +2390,11 @@ class NamespacesApi:
         """ # noqa: E501
 
         _param = self._search_namespaces_serialize(
-            page=page,
-            size=size,
-            existing=existing,
             tenant=tenant,
             q=q,
+            existing=existing,
+            size=size,
+            page=page,
             sort=sort,
         )
 
@@ -2414,11 +2414,11 @@ class NamespacesApi:
 
     def _search_namespaces_serialize(
         self,
-        page,
-        size,
-        existing,
         tenant,
         q,
+        existing,
+        size,
+        page,
         sort,
     ) -> RequestSerialized:
 
@@ -2445,21 +2445,21 @@ class NamespacesApi:
             
             _query_params.append(('q', q))
             
-        if page is not None:
+        if existing is not None:
             
-            _query_params.append(('page', page))
+            _query_params.append(('existing', existing))
             
         if size is not None:
             
             _query_params.append(('size', size))
             
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         if sort is not None:
             
             _query_params.append(('sort', sort))
-            
-        if existing is not None:
-            
-            _query_params.append(('existing', existing))
             
         # process the header parameters
         # process the form parameters

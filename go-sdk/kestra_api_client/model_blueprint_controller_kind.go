@@ -19,9 +19,9 @@ type BlueprintControllerKind string
 
 // List of BlueprintController.Kind
 const (
-	BLUEPRINTCONTROLLERKIND_APP       BlueprintControllerKind = "APP"
+	BLUEPRINTCONTROLLERKIND_APP BlueprintControllerKind = "APP"
 	BLUEPRINTCONTROLLERKIND_DASHBOARD BlueprintControllerKind = "DASHBOARD"
-	BLUEPRINTCONTROLLERKIND_FLOW      BlueprintControllerKind = "FLOW"
+	BLUEPRINTCONTROLLERKIND_FLOW BlueprintControllerKind = "FLOW"
 )
 
 // All allowed values of BlueprintControllerKind enum
@@ -109,3 +109,4 @@ func (v *NullableBlueprintControllerKind) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

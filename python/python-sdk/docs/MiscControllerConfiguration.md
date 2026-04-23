@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **system_namespace** | **str** |  | [optional] 
 **hidden_labels_prefixes** | **List[str]** |  | [optional] 
 **is_ai_enabled** | **bool** |  | [optional] 
+**is_ai_api_key_configured** | **bool** |  | [optional] 
 **is_basic_auth_initialized** | **bool** |  | [optional] 
 **plugins_hash** | **int** |  | [optional] 
 **is_concurrency_view_enabled** | **bool** |  | [optional] 

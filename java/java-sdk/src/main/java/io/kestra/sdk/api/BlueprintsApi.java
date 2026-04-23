@@ -36,6 +36,8 @@ import io.kestra.sdk.model.BlueprintControllerUseBlueprintTemplateResponse;
 import io.kestra.sdk.model.BlueprintWithFlowEntity;
 import io.kestra.sdk.model.PagedResultsBlueprint;
 import io.kestra.sdk.model.PagedResultsBlueprintControllerApiBlueprintItem;
+import io.kestra.sdk.model.SearchBlueprintsSizeParameter;
+import io.kestra.sdk.model.SearchInternalBlueprintsSizeParameter;
 
 
 import java.util.ArrayList;
@@ -1028,46 +1030,36 @@ import java.util.StringJoiner;
   /**
    * List all blueprints
    * Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param kind The blueprint kind (required)
    * @param tenant  (required)
+   * @param size The current page size (optional)
    * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @param tags A tags filter (optional)
+   * @param page The current page (optional, default to 1)
    * @return PagedResultsBlueprintControllerApiBlueprintItem
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull BlueprintControllerKind kind, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags) throws ApiException {
-    return this.searchBlueprints(page, size, kind, tenant, q, sort, tags, Collections.emptyMap());
+  public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(@jakarta.annotation.Nonnull BlueprintControllerKind kind, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable SearchBlueprintsSizeParameter size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable Integer page) throws ApiException {
+    return this.searchBlueprints(kind, tenant, size, q, sort, tags, page, Collections.emptyMap());
   }
 
   /**
    * List all blueprints
    * Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param kind The blueprint kind (required)
    * @param tenant  (required)
+   * @param size The current page size (optional)
    * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
    * @param tags A tags filter (optional)
+   * @param page The current page (optional, default to 1)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsBlueprintControllerApiBlueprintItem
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull BlueprintControllerKind kind, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(@jakarta.annotation.Nonnull BlueprintControllerKind kind, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable SearchBlueprintsSizeParameter size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable Integer page, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchBlueprints");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchBlueprints");
-    }
     
     // verify the required parameter 'kind' is set
     if (kind == null) {
@@ -1091,11 +1083,11 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "tags", tags));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1139,44 +1131,36 @@ import java.util.StringJoiner;
   /**
    * List all internal blueprints
    * Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
+   * @param q A string filter (optional)
    * @param tags A tags filter (optional)
+   * @param size The current page size (optional)
+   * @param source Whether to include the flow source in the response (optional, default to false)
+   * @param page The current page (optional, default to 1)
    * @return PagedResultsBlueprint
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsBlueprint searchInternalBlueprints(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags) throws ApiException {
-    return this.searchInternalBlueprints(page, size, tenant, q, sort, tags, Collections.emptyMap());
+  public PagedResultsBlueprint searchInternalBlueprints(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable SearchInternalBlueprintsSizeParameter size, @jakarta.annotation.Nullable Boolean source, @jakarta.annotation.Nullable Integer page) throws ApiException {
+    return this.searchInternalBlueprints(tenant, sort, q, tags, size, source, page, Collections.emptyMap());
   }
 
   /**
    * List all internal blueprints
    * Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
+   * @param q A string filter (optional)
    * @param tags A tags filter (optional)
+   * @param size The current page size (optional)
+   * @param source Whether to include the flow source in the response (optional, default to false)
+   * @param page The current page (optional, default to 1)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsBlueprint
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsBlueprint searchInternalBlueprints(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable List<String> tags, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsBlueprint searchInternalBlueprints(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> tags, @jakarta.annotation.Nullable SearchInternalBlueprintsSizeParameter size, @jakarta.annotation.Nullable Boolean source, @jakarta.annotation.Nullable Integer page, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchInternalBlueprints");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchInternalBlueprints");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -1194,11 +1178,12 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("sort", sort));
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "tags", tags));
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("source", source));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

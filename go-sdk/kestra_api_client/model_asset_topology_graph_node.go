@@ -19,10 +19,10 @@ var _ MappedNullable = &AssetTopologyGraphNode{}
 
 // AssetTopologyGraphNode struct for AssetTopologyGraphNode
 type AssetTopologyGraphNode struct {
-	Uid                  string                          `json:"uid"`
-	Namespace            *string                         `json:"namespace,omitempty"`
-	Id                   *string                         `json:"id,omitempty"`
-	Type                 *AssetTopologyGraphNodeNodeType `json:"type,omitempty"`
+	Uid string `json:"uid"`
+	Namespace *string `json:"namespace,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *AssetTopologyGraphNodeNodeType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -167,7 +167,7 @@ func (o *AssetTopologyGraphNode) SetType(v AssetTopologyGraphNodeNodeType) {
 }
 
 func (o AssetTopologyGraphNode) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -207,10 +207,10 @@ func (o *AssetTopologyGraphNode) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -274,3 +274,5 @@ func (v *NullableAssetTopologyGraphNode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

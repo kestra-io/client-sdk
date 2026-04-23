@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the FlowForExecution type satisfies the MappedNullable interface at compile time
@@ -20,24 +20,24 @@ var _ MappedNullable = &FlowForExecution{}
 
 // FlowForExecution struct for FlowForExecution
 type FlowForExecution struct {
-	Id        string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
 	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision  *int32 `json:"revision,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
 	// The timestamp when this revision was created or last updated.
-	Updated              *time.Time                    `json:"updated,omitempty"`
-	Description          *string                       `json:"description,omitempty"`
-	Inputs               []InputObject                 `json:"inputs,omitempty"`
-	Outputs              []Output                      `json:"outputs,omitempty"`
-	Disabled             bool                          `json:"disabled"`
-	Labels               *MapObjectObject              `json:"labels,omitempty"`
-	Variables            map[string]interface{}        `json:"variables,omitempty"`
-	WorkerGroup          *WorkerGroup                  `json:"workerGroup,omitempty"`
-	Deleted              bool                          `json:"deleted"`
-	Tasks                []TaskForExecution            `json:"tasks"`
-	Errors               []TaskForExecution            `json:"errors,omitempty"`
-	Finally              []TaskForExecution            `json:"finally,omitempty"`
-	AfterExecution       []TaskForExecution            `json:"afterExecution,omitempty"`
-	Triggers             []AbstractTriggerForExecution `json:"triggers,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Inputs []InputObject `json:"inputs,omitempty"`
+	Outputs []Output `json:"outputs,omitempty"`
+	Disabled bool `json:"disabled"`
+	Labels *MapObjectObject `json:"labels,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	Deleted bool `json:"deleted"`
+	Tasks []TaskForExecution `json:"tasks"`
+	Errors []TaskForExecution `json:"errors,omitempty"`
+	Finally []TaskForExecution `json:"finally,omitempty"`
+	AfterExecution []TaskForExecution `json:"afterExecution,omitempty"`
+	Triggers []AbstractTriggerForExecution `json:"triggers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -570,7 +570,7 @@ func (o *FlowForExecution) SetTriggers(v []AbstractTriggerForExecution) {
 }
 
 func (o FlowForExecution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -645,10 +645,10 @@ func (o *FlowForExecution) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -725,3 +725,5 @@ func (v *NullableFlowForExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

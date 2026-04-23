@@ -12,52 +12,39 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
-	"fmt"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
-	"os"
-	"reflect"
 	"strings"
-	"sync/atomic"
 	"time"
-
-	sse "github.com/tmaxmax/go-sse"
+	"os"
 )
+
 
 // ExecutionsAPIService ExecutionsAPI service
 type ExecutionsAPIService service
 
 type ApiCreateExecutionRequest struct {
-	ctx          context.Context
-	ApiService   *ExecutionsAPIService
-	namespace    string
-	id           string
-	wait         *bool
-	tenant       string
-	labels       *[]string
-	revision     *int32
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	namespace string
+	tenant string
+	id string
+	wait *bool
 	scheduleDate *time.Time
-	breakpoints  *string
-	kind         *ExecutionKind
-	formData     *map[string]any
+	breakpoints *string
+	kind *ExecutionKind
+	labels *CreateExecutionLabelsParameter
+	revision *int32
+    formData *map[string]any
 }
 
 // If the server will wait the end of the execution
 func (r ApiCreateExecutionRequest) Wait(wait bool) ApiCreateExecutionRequest {
 	r.wait = &wait
-	return r
-}
-
-// The labels as a list of &#39;key:value&#39;
-func (r ApiCreateExecutionRequest) Labels(labels []string) ApiCreateExecutionRequest {
-	r.labels = &labels
-	return r
-}
-
-// The flow revision or latest if null
-func (r ApiCreateExecutionRequest) Revision(revision int32) ApiCreateExecutionRequest {
-	r.revision = &revision
 	return r
 }
 
@@ -79,38 +66,51 @@ func (r ApiCreateExecutionRequest) Kind(kind ExecutionKind) ApiCreateExecutionRe
 	return r
 }
 
+// The labels as a list of &#39;key:value&#39;
+func (r ApiCreateExecutionRequest) Labels(labels CreateExecutionLabelsParameter) ApiCreateExecutionRequest {
+	r.labels = &labels
+	return r
+}
+
+// The flow revision or latest if null
+func (r ApiCreateExecutionRequest) Revision(revision int32) ApiCreateExecutionRequest {
+	r.revision = &revision
+	return r
+}
+
+
 func (r ApiCreateExecutionRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiCreateExecutionRequest) GetId() string {
-	return r.id
-}
-func (r ApiCreateExecutionRequest) GetWait() *bool {
-	return r.wait
+    return r.namespace
 }
 func (r ApiCreateExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
-func (r ApiCreateExecutionRequest) GetLabels() *[]string {
-	return r.labels
+func (r ApiCreateExecutionRequest) GetId() string {
+    return r.id
 }
-func (r ApiCreateExecutionRequest) GetRevision() *int32 {
-	return r.revision
+func (r ApiCreateExecutionRequest) GetWait() *bool {
+    return r.wait
 }
 func (r ApiCreateExecutionRequest) GetScheduleDate() *time.Time {
-	return r.scheduleDate
+    return r.scheduleDate
 }
 func (r ApiCreateExecutionRequest) GetBreakpoints() *string {
-	return r.breakpoints
+    return r.breakpoints
 }
 func (r ApiCreateExecutionRequest) GetKind() *ExecutionKind {
-	return r.kind
+    return r.kind
+}
+func (r ApiCreateExecutionRequest) GetLabels() *CreateExecutionLabelsParameter {
+    return r.labels
+}
+func (r ApiCreateExecutionRequest) GetRevision() *int32 {
+    return r.revision
 }
 
 // the request multipart/form-data content
 func (r ApiCreateExecutionRequest) FormData(formData map[string]any) ApiCreateExecutionRequest {
-	r.formData = &formData
-	return r
+    r.formData = &formData
+    return r
 }
 
 func (r ApiCreateExecutionRequest) Execute() (*ExecutionControllerExecutionResponse, *http.Response, error) {
@@ -120,32 +120,31 @@ func (r ApiCreateExecutionRequest) Execute() (*ExecutionControllerExecutionRespo
 /*
 CreateExecution Create a new execution for a flow
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiCreateExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The flow namespace
+ @param tenant
+ @param id The flow id
+ @return ApiCreateExecutionRequest
 */
-func (a *ExecutionsAPIService) CreateExecution(ctx context.Context, namespace string, id string, tenant string) ApiCreateExecutionRequest {
+func (a *ExecutionsAPIService) CreateExecution(ctx context.Context, namespace string, tenant string, id string) ApiCreateExecutionRequest {
 	return ApiCreateExecutionRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
-		wait:       Ptr(bool(false)),
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+		id: id,
+        wait: Ptr(bool(false)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return ExecutionControllerExecutionResponse
+//  @return ExecutionControllerExecutionResponse
 func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionRequest) (*ExecutionControllerExecutionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ExecutionControllerExecutionResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ExecutionControllerExecutionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.CreateExecution")
@@ -155,30 +154,15 @@ func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionReques
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{namespace}/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.wait == nil {
-		return localVarReturnValue, nil, reportError("wait is required and must be specified")
-	}
 
-	if r.labels != nil {
-		t := *r.labels
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "labels", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "labels", t, "form", "multi")
-		}
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
-	if r.revision != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
+	if r.wait != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
 	}
 	if r.scheduleDate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scheduleDate", r.scheduleDate, "form", "")
@@ -189,35 +173,41 @@ func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionReques
 	if r.kind != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
 	}
-
-	if r.formData != nil {
-		for key, val := range *r.formData {
-			switch v := val.(type) {
-			case string:
-				localVarFormParams.Add(key, v)
-			case *string:
-				if v != nil {
-					localVarFormParams.Add(key, *v)
-				}
-			case []string:
-				for _, s := range v {
-					localVarFormParams.Add(key, s)
-				}
-			case []interface{}:
-				for _, item := range v {
-					localVarFormParams.Add(key, fmt.Sprint(item))
-				}
-			case time.Time:
-				localVarFormParams.Add(key, v.Format(time.RFC3339))
-			case *time.Time:
-				if v != nil {
-					localVarFormParams.Add(key, v.Format(time.RFC3339))
-				}
-			default:
-				localVarFormParams.Add(key, fmt.Sprint(v))
-			}
-		}
+	if r.labels != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "labels", r.labels, "form", "")
 	}
+	if r.revision != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
+	}
+
+    if r.formData != nil {
+        for key, val := range *r.formData {
+            switch v := val.(type) {
+            case string:
+                localVarFormParams.Add(key, v)
+            case *string:
+                if v != nil {
+                    localVarFormParams.Add(key, *v)
+                }
+            case []string:
+                for _, s := range v {
+                    localVarFormParams.Add(key, s)
+                }
+            case []interface{}:
+                for _, item := range v {
+                    localVarFormParams.Add(key, fmt.Sprint(item))
+                }
+            case time.Time:
+                localVarFormParams.Add(key, v.Format(time.RFC3339))
+            case *time.Time:
+                if v != nil {
+                    localVarFormParams.Add(key, v.Format(time.RFC3339))
+                }
+            default:
+                localVarFormParams.Add(key, fmt.Sprint(v))
+            }
+        }
+    }
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -273,25 +263,23 @@ func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteExecutionRequest struct {
-	ctx           context.Context
-	ApiService    *ExecutionsAPIService
-	executionId   string
-	tenant        string
-	deleteLogs    *bool
-	deleteMetrics *bool
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	executionId string
+	tenant string
+	deleteLogs *DeleteExecutionsByIdsDeleteLogsParameter
 	deleteStorage *bool
+	deleteMetrics *DeleteExecutionsByIdsDeleteLogsParameter
 }
 
 // Whether to delete execution logs
-func (r ApiDeleteExecutionRequest) DeleteLogs(deleteLogs bool) ApiDeleteExecutionRequest {
+func (r ApiDeleteExecutionRequest) DeleteLogs(deleteLogs DeleteExecutionsByIdsDeleteLogsParameter) ApiDeleteExecutionRequest {
 	r.deleteLogs = &deleteLogs
-	return r
-}
-
-// Whether to delete execution metrics
-func (r ApiDeleteExecutionRequest) DeleteMetrics(deleteMetrics bool) ApiDeleteExecutionRequest {
-	r.deleteMetrics = &deleteMetrics
 	return r
 }
 
@@ -301,21 +289,29 @@ func (r ApiDeleteExecutionRequest) DeleteStorage(deleteStorage bool) ApiDeleteEx
 	return r
 }
 
+// Whether to delete execution metrics
+func (r ApiDeleteExecutionRequest) DeleteMetrics(deleteMetrics DeleteExecutionsByIdsDeleteLogsParameter) ApiDeleteExecutionRequest {
+	r.deleteMetrics = &deleteMetrics
+	return r
+}
+
+
 func (r ApiDeleteExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiDeleteExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
-func (r ApiDeleteExecutionRequest) GetDeleteLogs() *bool {
-	return r.deleteLogs
-}
-func (r ApiDeleteExecutionRequest) GetDeleteMetrics() *bool {
-	return r.deleteMetrics
+func (r ApiDeleteExecutionRequest) GetDeleteLogs() *DeleteExecutionsByIdsDeleteLogsParameter {
+    return r.deleteLogs
 }
 func (r ApiDeleteExecutionRequest) GetDeleteStorage() *bool {
-	return r.deleteStorage
+    return r.deleteStorage
 }
+func (r ApiDeleteExecutionRequest) GetDeleteMetrics() *DeleteExecutionsByIdsDeleteLogsParameter {
+    return r.deleteMetrics
+}
+
 
 func (r ApiDeleteExecutionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteExecutionExecute(r)
@@ -324,29 +320,27 @@ func (r ApiDeleteExecutionRequest) Execute() (*http.Response, error) {
 /*
 DeleteExecution Delete an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiDeleteExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiDeleteExecutionRequest
 */
 func (a *ExecutionsAPIService) DeleteExecution(ctx context.Context, executionId string, tenant string) ApiDeleteExecutionRequest {
 	return ApiDeleteExecutionRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		executionId:   executionId,
-		tenant:        tenant,
-		deleteLogs:    Ptr(bool(true)),
-		deleteMetrics: Ptr(bool(true)),
-		deleteStorage: Ptr(bool(true)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		executionId: executionId,
+		tenant: tenant,
+        deleteStorage: Ptr(bool(true)),
+    }
 }
 
 // Execute executes the request
 func (a *ExecutionsAPIService) DeleteExecutionExecute(r ApiDeleteExecutionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.DeleteExecution")
@@ -365,11 +359,11 @@ func (a *ExecutionsAPIService) DeleteExecutionExecute(r ApiDeleteExecutionReques
 	if r.deleteLogs != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
 	}
-	if r.deleteMetrics != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
-	}
 	if r.deleteStorage != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
+	}
+	if r.deleteMetrics != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -416,15 +410,19 @@ func (a *ExecutionsAPIService) DeleteExecutionExecute(r ApiDeleteExecutionReques
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteExecutionsByIdsRequest struct {
-	ctx                  context.Context
-	ApiService           *ExecutionsAPIService
-	tenant               string
-	requestBody          *[]string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
+	requestBody *[]string
+	deleteLogs *DeleteExecutionsByIdsDeleteLogsParameter
+	deleteStorage *bool
+	deleteMetrics *DeleteExecutionsByIdsDeleteLogsParameter
 	includeNonTerminated *bool
-	deleteLogs           *bool
-	deleteMetrics        *bool
-	deleteStorage        *bool
 }
 
 // The execution id
@@ -433,21 +431,9 @@ func (r ApiDeleteExecutionsByIdsRequest) RequestBody(requestBody []string) ApiDe
 	return r
 }
 
-// Whether to delete non-terminated executions
-func (r ApiDeleteExecutionsByIdsRequest) IncludeNonTerminated(includeNonTerminated bool) ApiDeleteExecutionsByIdsRequest {
-	r.includeNonTerminated = &includeNonTerminated
-	return r
-}
-
 // Whether to delete execution logs
-func (r ApiDeleteExecutionsByIdsRequest) DeleteLogs(deleteLogs bool) ApiDeleteExecutionsByIdsRequest {
+func (r ApiDeleteExecutionsByIdsRequest) DeleteLogs(deleteLogs DeleteExecutionsByIdsDeleteLogsParameter) ApiDeleteExecutionsByIdsRequest {
 	r.deleteLogs = &deleteLogs
-	return r
-}
-
-// Whether to delete execution metrics
-func (r ApiDeleteExecutionsByIdsRequest) DeleteMetrics(deleteMetrics bool) ApiDeleteExecutionsByIdsRequest {
-	r.deleteMetrics = &deleteMetrics
 	return r
 }
 
@@ -457,24 +443,38 @@ func (r ApiDeleteExecutionsByIdsRequest) DeleteStorage(deleteStorage bool) ApiDe
 	return r
 }
 
+// Whether to delete execution metrics
+func (r ApiDeleteExecutionsByIdsRequest) DeleteMetrics(deleteMetrics DeleteExecutionsByIdsDeleteLogsParameter) ApiDeleteExecutionsByIdsRequest {
+	r.deleteMetrics = &deleteMetrics
+	return r
+}
+
+// Whether to delete non-terminated executions
+func (r ApiDeleteExecutionsByIdsRequest) IncludeNonTerminated(includeNonTerminated bool) ApiDeleteExecutionsByIdsRequest {
+	r.includeNonTerminated = &includeNonTerminated
+	return r
+}
+
+
 func (r ApiDeleteExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
-func (r ApiDeleteExecutionsByIdsRequest) GetIncludeNonTerminated() *bool {
-	return r.includeNonTerminated
-}
-func (r ApiDeleteExecutionsByIdsRequest) GetDeleteLogs() *bool {
-	return r.deleteLogs
-}
-func (r ApiDeleteExecutionsByIdsRequest) GetDeleteMetrics() *bool {
-	return r.deleteMetrics
+func (r ApiDeleteExecutionsByIdsRequest) GetDeleteLogs() *DeleteExecutionsByIdsDeleteLogsParameter {
+    return r.deleteLogs
 }
 func (r ApiDeleteExecutionsByIdsRequest) GetDeleteStorage() *bool {
-	return r.deleteStorage
+    return r.deleteStorage
 }
+func (r ApiDeleteExecutionsByIdsRequest) GetDeleteMetrics() *DeleteExecutionsByIdsDeleteLogsParameter {
+    return r.deleteMetrics
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetIncludeNonTerminated() *bool {
+    return r.includeNonTerminated
+}
+
 
 func (r ApiDeleteExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.DeleteExecutionsByIdsExecute(r)
@@ -483,31 +483,28 @@ func (r ApiDeleteExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Respons
 /*
 DeleteExecutionsByIds Delete a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) DeleteExecutionsByIds(ctx context.Context, tenant string) ApiDeleteExecutionsByIdsRequest {
 	return ApiDeleteExecutionsByIdsRequest{
-		ApiService:           a,
-		ctx:                  ctx,
-		tenant:               tenant,
-		includeNonTerminated: Ptr(bool(false)),
-		deleteLogs:           Ptr(bool(true)),
-		deleteMetrics:        Ptr(bool(true)),
-		deleteStorage:        Ptr(bool(true)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		tenant: tenant,
+        deleteStorage: Ptr(bool(true)),
+        includeNonTerminated: Ptr(bool(false)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) DeleteExecutionsByIdsExecute(r ApiDeleteExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.DeleteExecutionsByIds")
@@ -525,17 +522,17 @@ func (a *ExecutionsAPIService) DeleteExecutionsByIdsExecute(r ApiDeleteExecution
 		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
 	}
 
-	if r.includeNonTerminated != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
-	}
 	if r.deleteLogs != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
+	}
+	if r.deleteStorage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
 	}
 	if r.deleteMetrics != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
 	}
-	if r.deleteStorage != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
+	if r.includeNonTerminated != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -585,8 +582,8 @@ func (a *ExecutionsAPIService) DeleteExecutionsByIdsExecute(r ApiDeleteExecution
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -603,15 +600,25 @@ func (a *ExecutionsAPIService) DeleteExecutionsByIdsExecute(r ApiDeleteExecution
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteExecutionsByQueryRequest struct {
-	ctx                  context.Context
-	ApiService           *ExecutionsAPIService
-	tenant               string
-	filters              *[]QueryFilter
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
+	deleteStorage *bool
+	filters *[]QueryFilter
 	includeNonTerminated *bool
-	deleteLogs           *bool
-	deleteMetrics        *bool
-	deleteStorage        *bool
+	deleteMetrics *DeleteExecutionsByIdsDeleteLogsParameter
+	deleteLogs *bool
+}
+
+// Whether to delete execution files in the internal storage
+func (r ApiDeleteExecutionsByQueryRequest) DeleteStorage(deleteStorage bool) ApiDeleteExecutionsByQueryRequest {
+	r.deleteStorage = &deleteStorage
+	return r
 }
 
 // Filters
@@ -626,42 +633,38 @@ func (r ApiDeleteExecutionsByQueryRequest) IncludeNonTerminated(includeNonTermin
 	return r
 }
 
+// Whether to delete execution metrics
+func (r ApiDeleteExecutionsByQueryRequest) DeleteMetrics(deleteMetrics DeleteExecutionsByIdsDeleteLogsParameter) ApiDeleteExecutionsByQueryRequest {
+	r.deleteMetrics = &deleteMetrics
+	return r
+}
+
 // Whether to delete execution logs
 func (r ApiDeleteExecutionsByQueryRequest) DeleteLogs(deleteLogs bool) ApiDeleteExecutionsByQueryRequest {
 	r.deleteLogs = &deleteLogs
 	return r
 }
 
-// Whether to delete execution metrics
-func (r ApiDeleteExecutionsByQueryRequest) DeleteMetrics(deleteMetrics bool) ApiDeleteExecutionsByQueryRequest {
-	r.deleteMetrics = &deleteMetrics
-	return r
-}
-
-// Whether to delete execution files in the internal storage
-func (r ApiDeleteExecutionsByQueryRequest) DeleteStorage(deleteStorage bool) ApiDeleteExecutionsByQueryRequest {
-	r.deleteStorage = &deleteStorage
-	return r
-}
 
 func (r ApiDeleteExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiDeleteExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-func (r ApiDeleteExecutionsByQueryRequest) GetIncludeNonTerminated() *bool {
-	return r.includeNonTerminated
-}
-func (r ApiDeleteExecutionsByQueryRequest) GetDeleteLogs() *bool {
-	return r.deleteLogs
-}
-func (r ApiDeleteExecutionsByQueryRequest) GetDeleteMetrics() *bool {
-	return r.deleteMetrics
+    return r.tenant
 }
 func (r ApiDeleteExecutionsByQueryRequest) GetDeleteStorage() *bool {
-	return r.deleteStorage
+    return r.deleteStorage
 }
+func (r ApiDeleteExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+    return r.filters
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetIncludeNonTerminated() *bool {
+    return r.includeNonTerminated
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetDeleteMetrics() *DeleteExecutionsByIdsDeleteLogsParameter {
+    return r.deleteMetrics
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetDeleteLogs() *bool {
+    return r.deleteLogs
+}
+
 
 func (r ApiDeleteExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteExecutionsByQueryExecute(r)
@@ -670,31 +673,29 @@ func (r ApiDeleteExecutionsByQueryRequest) Execute() (map[string]interface{}, *h
 /*
 DeleteExecutionsByQuery Delete executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiDeleteExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) DeleteExecutionsByQuery(ctx context.Context, tenant string) ApiDeleteExecutionsByQueryRequest {
 	return ApiDeleteExecutionsByQueryRequest{
-		ApiService:           a,
-		ctx:                  ctx,
-		tenant:               tenant,
-		includeNonTerminated: Ptr(bool(false)),
-		deleteLogs:           Ptr(bool(true)),
-		deleteMetrics:        Ptr(bool(true)),
-		deleteStorage:        Ptr(bool(true)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		tenant: tenant,
+        deleteStorage: Ptr(bool(true)),
+        includeNonTerminated: Ptr(bool(false)),
+        deleteLogs: Ptr(bool(true)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.DeleteExecutionsByQuery")
@@ -709,20 +710,20 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.deleteStorage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
+	}
 	if r.filters != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	}
 	if r.includeNonTerminated != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
 	}
-	if r.deleteLogs != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
-	}
 	if r.deleteMetrics != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
 	}
-	if r.deleteStorage != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
+	if r.deleteLogs != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -778,12 +779,16 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDownloadFileFromExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	path        *string
-	tenant      string
+	path *string
+	tenant string
 }
 
 // The internal storage uri
@@ -792,15 +797,17 @@ func (r ApiDownloadFileFromExecutionRequest) Path(path string) ApiDownloadFileFr
 	return r
 }
 
+
 func (r ApiDownloadFileFromExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiDownloadFileFromExecutionRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
 func (r ApiDownloadFileFromExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDownloadFileFromExecutionRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.DownloadFileFromExecutionExecute(r)
@@ -809,29 +816,28 @@ func (r ApiDownloadFileFromExecutionRequest) Execute() (*os.File, *http.Response
 /*
 DownloadFileFromExecution Download file for an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiDownloadFileFromExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiDownloadFileFromExecutionRequest
 */
 func (a *ExecutionsAPIService) DownloadFileFromExecution(ctx context.Context, executionId string, tenant string) ApiDownloadFileFromExecutionRequest {
 	return ApiDownloadFileFromExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return *os.File
+//  @return *os.File
 func (a *ExecutionsAPIService) DownloadFileFromExecutionExecute(r ApiDownloadFileFromExecutionRequest) (*os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *os.File
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.DownloadFileFromExecution")
@@ -905,19 +911,158 @@ func (a *ExecutionsAPIService) DownloadFileFromExecutionExecute(r ApiDownloadFil
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+
+
+
+
+type ApiEvalExpressionRequest struct {
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
+	tenant string
+	body *string
 }
 
+// The Pebble expression that should be evaluated
+func (r ApiEvalExpressionRequest) Body(body string) ApiEvalExpressionRequest {
+	r.body = &body
+	return r
+}
+
+
+func (r ApiEvalExpressionRequest) GetExecutionId() string {
+    return r.executionId
+}
+func (r ApiEvalExpressionRequest) GetTenant() string {
+    return r.tenant
+}
+func (r ApiEvalExpressionRequest) GetBody() *string {
+    return r.body
+}
+
+
+func (r ApiEvalExpressionRequest) Execute() (*ExecutionControllerEvalResult, *http.Response, error) {
+	return r.ApiService.EvalExpressionExecute(r)
+}
+
+/*
+EvalExpression Evaluate a variable expression for this execution
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiEvalExpressionRequest
+*/
+func (a *ExecutionsAPIService) EvalExpression(ctx context.Context, executionId string, tenant string) ApiEvalExpressionRequest {
+	return ApiEvalExpressionRequest{
+		ApiService: a,
+		ctx: ctx,
+		executionId: executionId,
+		tenant: tenant,
+    }
+}
+
+// Execute executes the request
+//  @return ExecutionControllerEvalResult
+func (a *ExecutionsAPIService) EvalExpressionExecute(r ApiEvalExpressionRequest) (*ExecutionControllerEvalResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ExecutionControllerEvalResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.EvalExpression")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/eval"
+	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"text/plain"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.body
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+
+
+
+
+type ApiExecutionRequest struct {
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	executionId string
+	tenant string
+}
+
+
 func (r ApiExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.ExecutionExecute(r)
@@ -926,29 +1071,28 @@ func (r ApiExecutionRequest) Execute() (*Execution, *http.Response, error) {
 /*
 Execution Get an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiExecutionRequest
 */
 func (a *ExecutionsAPIService) Execution(ctx context.Context, executionId string, tenant string) ApiExecutionRequest {
 	return ApiExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) ExecutionExecute(r ApiExecutionRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.Execution")
@@ -1018,12 +1162,16 @@ func (a *ExecutionsAPIService) ExecutionExecute(r ApiExecutionRequest) (*Executi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiExecutionFlowGraphRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	subflows    *[]string
+	tenant string
+	subflows *[]string
 }
 
 // The subflow tasks to display
@@ -1032,15 +1180,17 @@ func (r ApiExecutionFlowGraphRequest) Subflows(subflows []string) ApiExecutionFl
 	return r
 }
 
+
 func (r ApiExecutionFlowGraphRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiExecutionFlowGraphRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiExecutionFlowGraphRequest) GetSubflows() *[]string {
-	return r.subflows
+    return r.subflows
 }
+
 
 func (r ApiExecutionFlowGraphRequest) Execute() (*FlowGraph, *http.Response, error) {
 	return r.ApiService.ExecutionFlowGraphExecute(r)
@@ -1049,29 +1199,28 @@ func (r ApiExecutionFlowGraphRequest) Execute() (*FlowGraph, *http.Response, err
 /*
 ExecutionFlowGraph Generate a graph for an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiExecutionFlowGraphRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiExecutionFlowGraphRequest
 */
 func (a *ExecutionsAPIService) ExecutionFlowGraph(ctx context.Context, executionId string, tenant string) ApiExecutionFlowGraphRequest {
 	return ApiExecutionFlowGraphRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowGraph
+//  @return FlowGraph
 func (a *ExecutionsAPIService) ExecutionFlowGraphExecute(r ApiExecutionFlowGraphRequest) (*FlowGraph, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowGraph
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowGraph
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ExecutionFlowGraph")
@@ -1144,12 +1293,16 @@ func (a *ExecutionsAPIService) ExecutionFlowGraphExecute(r ApiExecutionFlowGraph
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFileMetadatasFromExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	path        *string
-	tenant      string
+	path *string
+	tenant string
 }
 
 // The internal storage uri
@@ -1158,15 +1311,17 @@ func (r ApiFileMetadatasFromExecutionRequest) Path(path string) ApiFileMetadatas
 	return r
 }
 
+
 func (r ApiFileMetadatasFromExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiFileMetadatasFromExecutionRequest) GetPath() *string {
-	return r.path
+    return r.path
 }
 func (r ApiFileMetadatasFromExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiFileMetadatasFromExecutionRequest) Execute() (*FileMetas, *http.Response, error) {
 	return r.ApiService.FileMetadatasFromExecutionExecute(r)
@@ -1175,29 +1330,28 @@ func (r ApiFileMetadatasFromExecutionRequest) Execute() (*FileMetas, *http.Respo
 /*
 FileMetadatasFromExecution Get file meta information for an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiFileMetadatasFromExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiFileMetadatasFromExecutionRequest
 */
 func (a *ExecutionsAPIService) FileMetadatasFromExecution(ctx context.Context, executionId string, tenant string) ApiFileMetadatasFromExecutionRequest {
 	return ApiFileMetadatasFromExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FileMetas
+//  @return FileMetas
 func (a *ExecutionsAPIService) FileMetadatasFromExecutionExecute(r ApiFileMetadatasFromExecutionRequest) (*FileMetas, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FileMetas
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FileMetas
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FileMetadatasFromExecution")
@@ -1271,33 +1425,39 @@ func (a *ExecutionsAPIService) FileMetadatasFromExecutionExecute(r ApiFileMetada
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFlowFromExecutionRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	namespace  string
-	flowId     string
-	tenant     string
-	revision   *int32
+	namespace string
+	flowId string
+	tenant string
+	revision *FlowFromExecutionRevisionParameter
 }
 
 // The flow revision
-func (r ApiFlowFromExecutionRequest) Revision(revision int32) ApiFlowFromExecutionRequest {
+func (r ApiFlowFromExecutionRequest) Revision(revision FlowFromExecutionRevisionParameter) ApiFlowFromExecutionRequest {
 	r.revision = &revision
 	return r
 }
 
+
 func (r ApiFlowFromExecutionRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiFlowFromExecutionRequest) GetFlowId() string {
-	return r.flowId
+    return r.flowId
 }
 func (r ApiFlowFromExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
-func (r ApiFlowFromExecutionRequest) GetRevision() *int32 {
-	return r.revision
+func (r ApiFlowFromExecutionRequest) GetRevision() *FlowFromExecutionRevisionParameter {
+    return r.revision
 }
+
 
 func (r ApiFlowFromExecutionRequest) Execute() (*FlowForExecution, *http.Response, error) {
 	return r.ApiService.FlowFromExecutionExecute(r)
@@ -1306,31 +1466,30 @@ func (r ApiFlowFromExecutionRequest) Execute() (*FlowForExecution, *http.Respons
 /*
 FlowFromExecution Get flow information's for an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace of the flow
-	@param flowId The flow id
-	@param tenant
-	@return ApiFlowFromExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace of the flow
+ @param flowId The flow id
+ @param tenant
+ @return ApiFlowFromExecutionRequest
 */
 func (a *ExecutionsAPIService) FlowFromExecution(ctx context.Context, namespace string, flowId string, tenant string) ApiFlowFromExecutionRequest {
 	return ApiFlowFromExecutionRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		flowId: flowId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowForExecution
+//  @return FlowForExecution
 func (a *ExecutionsAPIService) FlowFromExecutionExecute(r ApiFlowFromExecutionRequest) (*FlowForExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowForExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowForExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FlowFromExecution")
@@ -1404,19 +1563,25 @@ func (a *ExecutionsAPIService) FlowFromExecutionExecute(r ApiFlowFromExecutionRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiFlowFromExecutionByIdRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
+	tenant string
 }
 
+
 func (r ApiFlowFromExecutionByIdRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiFlowFromExecutionByIdRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiFlowFromExecutionByIdRequest) Execute() (*FlowForExecution, *http.Response, error) {
 	return r.ApiService.FlowFromExecutionByIdExecute(r)
@@ -1425,29 +1590,28 @@ func (r ApiFlowFromExecutionByIdRequest) Execute() (*FlowForExecution, *http.Res
 /*
 FlowFromExecutionById Get flow information's for an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution that you want flow information
-	@param tenant
-	@return ApiFlowFromExecutionByIdRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution that you want flow information
+ @param tenant
+ @return ApiFlowFromExecutionByIdRequest
 */
 func (a *ExecutionsAPIService) FlowFromExecutionById(ctx context.Context, executionId string, tenant string) ApiFlowFromExecutionByIdRequest {
 	return ApiFlowFromExecutionByIdRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowForExecution
+//  @return FlowForExecution
 func (a *ExecutionsAPIService) FlowFromExecutionByIdExecute(r ApiFlowFromExecutionByIdRequest) (*FlowForExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowForExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowForExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FlowFromExecutionById")
@@ -1517,13 +1681,20 @@ func (a *ExecutionsAPIService) FlowFromExecutionByIdExecute(r ApiFlowFromExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
+
+
+
 type ApiFollowDependenciesExecutionsRequest struct {
-	ctx             context.Context
-	ApiService      *ExecutionsAPIService
-	tenant          string
-	executionId     string
-	destinationOnly *bool
-	expandAll       *bool
+    ctx         context.Context
+    ApiService  *ExecutionsAPIService
+    tenant      string
+    executionId string
+    destinationOnly *bool
+    expandAll *bool
 }
 
 /*
@@ -1537,127 +1708,127 @@ This function rely on SSE.
 	@return ApiFollowExecutionRequest
 */
 func (a *ExecutionsAPIService) FollowDependenciesExecutions(ctx context.Context, executionId string, tenant string) ApiFollowDependenciesExecutionsRequest {
-	return ApiFollowDependenciesExecutionsRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		tenant:      tenant,
-		executionId: executionId,
-	}
+    return ApiFollowDependenciesExecutionsRequest{
+        ApiService:  a,
+        ctx:         ctx,
+        tenant:      tenant,
+        executionId: executionId,
+    }
 }
 
 // If true, list only destination dependencies, otherwise list also source dependencies
 func (r ApiFollowDependenciesExecutionsRequest) DestinationOnly(destinationOnly bool) ApiFollowDependenciesExecutionsRequest {
-	r.destinationOnly = &destinationOnly
-	return r
+    r.destinationOnly = &destinationOnly
+    return r
 }
 
 // If true, expand all dependencies recursively
 func (r ApiFollowDependenciesExecutionsRequest) ExpandAll(expandAll bool) ApiFollowDependenciesExecutionsRequest {
-	r.expandAll = &expandAll
-	return r
+    r.expandAll = &expandAll
+    return r
 }
 
 func (r ApiFollowDependenciesExecutionsRequest) Execute() (<-chan *ExecutionStatusEvent, error) {
-	return r.ApiService.FollowDependenciesExecutionsExecute(r)
+    return r.ApiService.FollowDependenciesExecutionsExecute(r)
 }
 
 /*
 Follows an Execution events and send them to the output channel.
 */
 func (a *ExecutionsAPIService) FollowDependenciesExecutionsExecute(r ApiFollowDependenciesExecutionsRequest) (<-chan *ExecutionStatusEvent, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-	executionEvents := make(chan *ExecutionStatusEvent)
+    var (
+        localVarHTTPMethod = http.MethodGet
+        localVarPostBody   interface{}
+        formFiles          []formFile
+    )
+    executionEvents := make(chan *ExecutionStatusEvent)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecutions")
-	if err != nil {
-		return executionEvents, &GenericOpenAPIError{error: err.Error()}
-	}
+    localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecutions")
+    if err != nil {
+        return executionEvents, &GenericOpenAPIError{error: err.Error()}
+    }
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
-	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+    localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
+    localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
+    localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
+    localVarHeaderParams := make(map[string]string)
+    localVarQueryParams := url.Values{}
+    localVarFormParams := url.Values{}
 
-	if r.destinationOnly != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", *r.destinationOnly, "form", "")
-	}
-	if r.expandAll != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expandAll", *r.expandAll, "form", "")
-	}
+    if r.destinationOnly != nil {
+        parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", *r.destinationOnly, "form", "")
+    }
+    if r.expandAll != nil {
+        parameterAddToHeaderOrQuery(localVarQueryParams, "expandAll", *r.expandAll, "form", "")
+    }
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+    // to determine the Content-Type header
+    localVarHTTPContentTypes := []string{}
 
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
+    // set Content-Type header
+    localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+    if localVarHTTPContentType != "" {
+        localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+    }
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"text/event-stream"}
+    // to determine the Accept header
+    localVarHTTPHeaderAccepts := []string{"text/event-stream"}
 
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	ctx, cancel := context.WithCancel(r.ctx)
-	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return executionEvents, err
-	}
+    // set Accept header
+    localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+    if localVarHTTPHeaderAccept != "" {
+        localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+    }
+    ctx, cancel := context.WithCancel(r.ctx)
+    req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+    if err != nil {
+        return executionEvents, err
+    }
 
-	conn := sse.NewConnection(req)
+    conn := sse.NewConnection(req)
 
-	stopSend := atomic.Bool{}
+    stopSend := atomic.Bool{}
 
-	conn.SubscribeToAll(func(event sse.Event) {
-		if stopSend.Load() {
-			return
-		}
-		switch event.LastEventID {
-		case "start":
-			// ignore first event
-		case "progress", "end":
-			exec, err := a.decodeExecutionStatusEvent(event.Data)
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				stopSend.Store(true)
-				cancel()
-			} else {
-				executionEvents <- exec
-			}
-		case "end-all":
-			_, err := a.decodeExecutionStatusEvent(event.Data)
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-			}
-			stopSend.Store(true)
-			cancel()
-		default: // no event name
-			fmt.Printf("unhandled SSE event, id: %s, type: %s, data: %s\n", event.LastEventID, event.Type, event.Data)
-		}
-	})
+    conn.SubscribeToAll(func(event sse.Event) {
+        if stopSend.Load() {
+            return
+        }
+        switch event.LastEventID {
+        case "start":
+            // ignore first event
+        case "progress", "end":
+            exec, err := a.decodeExecutionStatusEvent(event.Data)
+            if err != nil {
+                fmt.Fprintln(os.Stderr, err)
+                stopSend.Store(true)
+                cancel()
+            } else {
+                executionEvents <- exec
+            }
+        case "end-all":
+            _, err := a.decodeExecutionStatusEvent(event.Data)
+            if err != nil {
+                fmt.Fprintln(os.Stderr, err)
+            }
+            stopSend.Store(true)
+            cancel()
+        default: // no event name
+            fmt.Printf("unhandled SSE event, id: %s, type: %s, data: %s\n", event.LastEventID, event.Type, event.Data)
+        }
+    })
 
-	// SSE goroutine
-	go func() {
-		defer cancel()
-		defer close(executionEvents)
+    // SSE goroutine
+    go func() {
+        defer cancel()
+        defer close(executionEvents)
 
-		if err := conn.Connect(); err != nil {
-			fmt.Fprintln(os.Stderr, err)
-		}
-	}()
+        if err := conn.Connect(); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+        }
+    }()
 
-	return executionEvents, nil
+    return executionEvents, nil
 }
 
 func (a *ExecutionsAPIService) decodeExecutionStatusEvent(body string) (*ExecutionStatusEvent, error) {
@@ -1672,6 +1843,8 @@ func (a *ExecutionsAPIService) decodeExecutionStatusEvent(body string) (*Executi
 	}
 	return &executionStatusEvent, nil
 }
+
+
 
 type ApiFollowExecutionRequest struct {
 	ctx         context.Context
@@ -1702,10 +1875,9 @@ func (a *ExecutionsAPIService) FollowExecution(ctx context.Context, executionId 
 func (r ApiFollowExecutionRequest) Execute() (<-chan *Execution, error) {
 	return r.ApiService.FollowExecutionExecute(r)
 }
-
 /*
 Follows an Execution events and send them to the output channel.
-*/
+ */
 func (a *ExecutionsAPIService) FollowExecutionExecute(r ApiFollowExecutionRequest) (<-chan *Execution, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
@@ -1744,50 +1916,50 @@ func (a *ExecutionsAPIService) FollowExecutionExecute(r ApiFollowExecutionReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	ctx, cancel := context.WithCancel(r.ctx)
+    ctx, cancel := context.WithCancel(r.ctx)
 	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return executionEvents, err
 	}
 
-	conn := sse.NewConnection(req)
+    conn := sse.NewConnection(req)
 
-	stopSend := atomic.Bool{}
+    stopSend := atomic.Bool{}
 
-	conn.SubscribeToAll(func(event sse.Event) {
-		if stopSend.Load() {
-			return
-		}
-		switch event.LastEventID {
-		case "start":
-			// ignore first event
-		case "progress":
-			exec, err := a.decodeExecution(event.Data)
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				stopSend.Store(true)
-				cancel()
-			} else {
-				executionEvents <- exec
-			}
-		case "end":
-			exec, err := a.decodeExecution(event.Data)
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-			} else {
-				executionEvents <- exec
-			}
-			stopSend.Store(true)
-			cancel()
-		default: // no event name
-			fmt.Printf("unhandled SSE event, id: %s, type: %s, data: %s\n", event.LastEventID, event.Type, event.Data)
-		}
-	})
+    conn.SubscribeToAll(func(event sse.Event) {
+        if stopSend.Load(){
+            return
+        }
+        switch event.LastEventID {
+        case "start":
+            // ignore first event
+        case "progress":
+            exec, err := a.decodeExecution(event.Data)
+            if err != nil {
+                fmt.Fprintln(os.Stderr, err)
+                stopSend.Store(true)
+                cancel()
+            } else {
+                executionEvents <- exec
+            }
+        case "end":
+            exec, err := a.decodeExecution(event.Data)
+            if err != nil {
+                fmt.Fprintln(os.Stderr, err)
+            } else {
+                executionEvents <- exec
+            }
+            stopSend.Store(true)
+            cancel()
+        default: // no event name
+            fmt.Printf("unhandled SSE event, id: %s, type: %s, data: %s\n", event.LastEventID, event.Type, event.Data)
+        }
+    })
 
 	// SSE goroutine
 	go func() {
-		defer cancel()
-		defer close(executionEvents)
+        defer cancel()
+        defer close(executionEvents)
 
 		if err := conn.Connect(); err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -1810,10 +1982,13 @@ func (a *ExecutionsAPIService) decodeExecution(body string) (*Execution, error) 
 	return &execution, nil
 }
 
+
+
+
 type ApiForceRunByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	requestBody *[]string
 }
 
@@ -1823,12 +1998,14 @@ func (r ApiForceRunByIdsRequest) RequestBody(requestBody []string) ApiForceRunBy
 	return r
 }
 
+
 func (r ApiForceRunByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiForceRunByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiForceRunByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ForceRunByIdsExecute(r)
@@ -1837,27 +2014,26 @@ func (r ApiForceRunByIdsRequest) Execute() (*BulkResponse, *http.Response, error
 /*
 ForceRunByIds Force run a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiForceRunByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiForceRunByIdsRequest
 */
 func (a *ExecutionsAPIService) ForceRunByIds(ctx context.Context, tenant string) ApiForceRunByIdsRequest {
 	return ApiForceRunByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) ForceRunByIdsExecute(r ApiForceRunByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ForceRunByIds")
@@ -1923,8 +2099,8 @@ func (a *ExecutionsAPIService) ForceRunByIdsExecute(r ApiForceRunByIdsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1941,19 +2117,25 @@ func (a *ExecutionsAPIService) ForceRunByIdsExecute(r ApiForceRunByIdsRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiForceRunExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
+	tenant string
 }
 
+
 func (r ApiForceRunExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiForceRunExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiForceRunExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.ForceRunExecutionExecute(r)
@@ -1962,29 +2144,28 @@ func (r ApiForceRunExecutionRequest) Execute() (*Execution, *http.Response, erro
 /*
 ForceRunExecution Force run an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiForceRunExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiForceRunExecutionRequest
 */
 func (a *ExecutionsAPIService) ForceRunExecution(ctx context.Context, executionId string, tenant string) ApiForceRunExecutionRequest {
 	return ApiForceRunExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) ForceRunExecutionExecute(r ApiForceRunExecutionRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ForceRunExecution")
@@ -2054,11 +2235,15 @@ func (a *ExecutionsAPIService) ForceRunExecutionExecute(r ApiForceRunExecutionRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiForceRunExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -2067,12 +2252,14 @@ func (r ApiForceRunExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiF
 	return r
 }
 
+
 func (r ApiForceRunExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiForceRunExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiForceRunExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ForceRunExecutionsByQueryExecute(r)
@@ -2081,27 +2268,26 @@ func (r ApiForceRunExecutionsByQueryRequest) Execute() (map[string]interface{}, 
 /*
 ForceRunExecutionsByQuery Force run executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiForceRunExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiForceRunExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) ForceRunExecutionsByQuery(ctx context.Context, tenant string) ApiForceRunExecutionsByQueryRequest {
 	return ApiForceRunExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ForceRunExecutionsByQuery")
@@ -2173,12 +2359,16 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiKillExecutionRequest struct {
-	ctx             context.Context
-	ApiService      *ExecutionsAPIService
-	executionId     string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	executionId string
+	tenant string
 	isOnKillCascade *bool
-	tenant          string
 }
 
 // Specifies whether killing the execution also kill all subflow executions.
@@ -2187,15 +2377,17 @@ func (r ApiKillExecutionRequest) IsOnKillCascade(isOnKillCascade bool) ApiKillEx
 	return r
 }
 
+
 func (r ApiKillExecutionRequest) GetExecutionId() string {
-	return r.executionId
-}
-func (r ApiKillExecutionRequest) GetIsOnKillCascade() *bool {
-	return r.isOnKillCascade
+    return r.executionId
 }
 func (r ApiKillExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+func (r ApiKillExecutionRequest) GetIsOnKillCascade() *bool {
+    return r.isOnKillCascade
+}
+
 
 func (r ApiKillExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.KillExecutionExecute(r)
@@ -2204,30 +2396,29 @@ func (r ApiKillExecutionRequest) Execute() (map[string]interface{}, *http.Respon
 /*
 KillExecution Kill an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiKillExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiKillExecutionRequest
 */
 func (a *ExecutionsAPIService) KillExecution(ctx context.Context, executionId string, tenant string) ApiKillExecutionRequest {
 	return ApiKillExecutionRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		executionId:     executionId,
-		tenant:          tenant,
-		isOnKillCascade: Ptr(bool(true)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		executionId: executionId,
+		tenant: tenant,
+        isOnKillCascade: Ptr(bool(true)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) KillExecutionExecute(r ApiKillExecutionRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.KillExecution")
@@ -2242,11 +2433,10 @@ func (a *ExecutionsAPIService) KillExecutionExecute(r ApiKillExecutionRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.isOnKillCascade == nil {
-		return localVarReturnValue, nil, reportError("isOnKillCascade is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "isOnKillCascade", r.isOnKillCascade, "form", "")
+	if r.isOnKillCascade != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "isOnKillCascade", r.isOnKillCascade, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2301,10 +2491,14 @@ func (a *ExecutionsAPIService) KillExecutionExecute(r ApiKillExecutionRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiKillExecutionsByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	requestBody *[]string
 }
 
@@ -2314,12 +2508,14 @@ func (r ApiKillExecutionsByIdsRequest) RequestBody(requestBody []string) ApiKill
 	return r
 }
 
+
 func (r ApiKillExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiKillExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiKillExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.KillExecutionsByIdsExecute(r)
@@ -2328,27 +2524,26 @@ func (r ApiKillExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response,
 /*
 KillExecutionsByIds Kill a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiKillExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiKillExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) KillExecutionsByIds(ctx context.Context, tenant string) ApiKillExecutionsByIdsRequest {
 	return ApiKillExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) KillExecutionsByIdsExecute(r ApiKillExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.KillExecutionsByIds")
@@ -2414,8 +2609,8 @@ func (a *ExecutionsAPIService) KillExecutionsByIdsExecute(r ApiKillExecutionsByI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2432,11 +2627,15 @@ func (a *ExecutionsAPIService) KillExecutionsByIdsExecute(r ApiKillExecutionsByI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiKillExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -2445,12 +2644,14 @@ func (r ApiKillExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiKillE
 	return r
 }
 
+
 func (r ApiKillExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiKillExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiKillExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.KillExecutionsByQueryExecute(r)
@@ -2459,27 +2660,26 @@ func (r ApiKillExecutionsByQueryRequest) Execute() (map[string]interface{}, *htt
 /*
 KillExecutionsByQuery Kill executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiKillExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiKillExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) KillExecutionsByQuery(ctx context.Context, tenant string) ApiKillExecutionsByQueryRequest {
 	return ApiKillExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.KillExecutionsByQuery")
@@ -2551,10 +2751,14 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiLatestExecutionsRequest struct {
-	ctx                                    context.Context
-	ApiService                             *ExecutionsAPIService
-	tenant                                 string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	executionRepositoryInterfaceFlowFilter *[]ExecutionRepositoryInterfaceFlowFilter
 }
 
@@ -2563,12 +2767,14 @@ func (r ApiLatestExecutionsRequest) ExecutionRepositoryInterfaceFlowFilter(execu
 	return r
 }
 
+
 func (r ApiLatestExecutionsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiLatestExecutionsRequest) GetExecutionRepositoryInterfaceFlowFilter() *[]ExecutionRepositoryInterfaceFlowFilter {
-	return r.executionRepositoryInterfaceFlowFilter
+    return r.executionRepositoryInterfaceFlowFilter
 }
+
 
 func (r ApiLatestExecutionsRequest) Execute() ([]ExecutionControllerLastExecutionResponse, *http.Response, error) {
 	return r.ApiService.LatestExecutionsExecute(r)
@@ -2577,27 +2783,26 @@ func (r ApiLatestExecutionsRequest) Execute() ([]ExecutionControllerLastExecutio
 /*
 LatestExecutions Get the latest execution for given flows
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiLatestExecutionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiLatestExecutionsRequest
 */
 func (a *ExecutionsAPIService) LatestExecutions(ctx context.Context, tenant string) ApiLatestExecutionsRequest {
 	return ApiLatestExecutionsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ExecutionControllerLastExecutionResponse
+//  @return []ExecutionControllerLastExecutionResponse
 func (a *ExecutionsAPIService) LatestExecutionsExecute(r ApiLatestExecutionsRequest) ([]ExecutionControllerLastExecutionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ExecutionControllerLastExecutionResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ExecutionControllerLastExecutionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.LatestExecutions")
@@ -2671,19 +2876,25 @@ func (a *ExecutionsAPIService) LatestExecutionsExecute(r ApiLatestExecutionsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
+	tenant string
 }
 
+
 func (r ApiPauseExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiPauseExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiPauseExecutionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PauseExecutionExecute(r)
@@ -2692,26 +2903,26 @@ func (r ApiPauseExecutionRequest) Execute() (*http.Response, error) {
 /*
 PauseExecution Pause a running execution.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiPauseExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiPauseExecutionRequest
 */
 func (a *ExecutionsAPIService) PauseExecution(ctx context.Context, executionId string, tenant string) ApiPauseExecutionRequest {
 	return ApiPauseExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *ExecutionsAPIService) PauseExecutionExecute(r ApiPauseExecutionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.PauseExecution")
@@ -2772,10 +2983,14 @@ func (a *ExecutionsAPIService) PauseExecutionExecute(r ApiPauseExecutionRequest)
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseExecutionsByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	requestBody *[]string
 }
 
@@ -2785,12 +3000,14 @@ func (r ApiPauseExecutionsByIdsRequest) RequestBody(requestBody []string) ApiPau
 	return r
 }
 
+
 func (r ApiPauseExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPauseExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiPauseExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.PauseExecutionsByIdsExecute(r)
@@ -2799,27 +3016,26 @@ func (r ApiPauseExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response
 /*
 PauseExecutionsByIds Pause a list of running executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPauseExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiPauseExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) PauseExecutionsByIds(ctx context.Context, tenant string) ApiPauseExecutionsByIdsRequest {
 	return ApiPauseExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) PauseExecutionsByIdsExecute(r ApiPauseExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.PauseExecutionsByIds")
@@ -2885,8 +3101,8 @@ func (a *ExecutionsAPIService) PauseExecutionsByIdsExecute(r ApiPauseExecutionsB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2903,11 +3119,15 @@ func (a *ExecutionsAPIService) PauseExecutionsByIdsExecute(r ApiPauseExecutionsB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiPauseExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -2916,12 +3136,14 @@ func (r ApiPauseExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiPaus
 	return r
 }
 
+
 func (r ApiPauseExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiPauseExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiPauseExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PauseExecutionsByQueryExecute(r)
@@ -2930,27 +3152,26 @@ func (r ApiPauseExecutionsByQueryRequest) Execute() (map[string]interface{}, *ht
 /*
 PauseExecutionsByQuery Pause executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPauseExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiPauseExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) PauseExecutionsByQuery(ctx context.Context, tenant string) ApiPauseExecutionsByQueryRequest {
 	return ApiPauseExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.PauseExecutionsByQuery")
@@ -3022,25 +3243,23 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiReplayExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	taskRunId   *string
-	revision    *int32
+	tenant string
+	taskRunId *string
 	breakpoints *string
+	revision *int32
 }
 
 // The taskrun id
 func (r ApiReplayExecutionRequest) TaskRunId(taskRunId string) ApiReplayExecutionRequest {
 	r.taskRunId = &taskRunId
-	return r
-}
-
-// The flow revision to use for new execution
-func (r ApiReplayExecutionRequest) Revision(revision int32) ApiReplayExecutionRequest {
-	r.revision = &revision
 	return r
 }
 
@@ -3050,21 +3269,29 @@ func (r ApiReplayExecutionRequest) Breakpoints(breakpoints string) ApiReplayExec
 	return r
 }
 
+// The flow revision to use for new execution
+func (r ApiReplayExecutionRequest) Revision(revision int32) ApiReplayExecutionRequest {
+	r.revision = &revision
+	return r
+}
+
+
 func (r ApiReplayExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiReplayExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiReplayExecutionRequest) GetTaskRunId() *string {
-	return r.taskRunId
-}
-func (r ApiReplayExecutionRequest) GetRevision() *int32 {
-	return r.revision
+    return r.taskRunId
 }
 func (r ApiReplayExecutionRequest) GetBreakpoints() *string {
-	return r.breakpoints
+    return r.breakpoints
 }
+func (r ApiReplayExecutionRequest) GetRevision() *int32 {
+    return r.revision
+}
+
 
 func (r ApiReplayExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.ReplayExecutionExecute(r)
@@ -3073,29 +3300,28 @@ func (r ApiReplayExecutionRequest) Execute() (*Execution, *http.Response, error)
 /*
 ReplayExecution Create a new execution from an old one and start it from a specified task run id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId the original execution id to clone
-	@param tenant
-	@return ApiReplayExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId the original execution id to clone
+ @param tenant
+ @return ApiReplayExecutionRequest
 */
 func (a *ExecutionsAPIService) ReplayExecution(ctx context.Context, executionId string, tenant string) ApiReplayExecutionRequest {
 	return ApiReplayExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ReplayExecution")
@@ -3114,11 +3340,11 @@ func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionReques
 	if r.taskRunId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "taskRunId", r.taskRunId, "form", "")
 	}
-	if r.revision != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
-	}
 	if r.breakpoints != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
+	}
+	if r.revision != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3174,26 +3400,24 @@ func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiReplayExecutionWithinputsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	taskRunId   *string
-	revision    *int32
+	tenant string
+	taskRunId *string
 	breakpoints *string
-	formData    *map[string]any
+	revision *int32
+    formData *map[string]any
 }
 
 // The taskrun id
 func (r ApiReplayExecutionWithinputsRequest) TaskRunId(taskRunId string) ApiReplayExecutionWithinputsRequest {
 	r.taskRunId = &taskRunId
-	return r
-}
-
-// The flow revision to use for new execution
-func (r ApiReplayExecutionWithinputsRequest) Revision(revision int32) ApiReplayExecutionWithinputsRequest {
-	r.revision = &revision
 	return r
 }
 
@@ -3203,26 +3427,33 @@ func (r ApiReplayExecutionWithinputsRequest) Breakpoints(breakpoints string) Api
 	return r
 }
 
+// The flow revision to use for new execution
+func (r ApiReplayExecutionWithinputsRequest) Revision(revision int32) ApiReplayExecutionWithinputsRequest {
+	r.revision = &revision
+	return r
+}
+
+
 func (r ApiReplayExecutionWithinputsRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiReplayExecutionWithinputsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiReplayExecutionWithinputsRequest) GetTaskRunId() *string {
-	return r.taskRunId
-}
-func (r ApiReplayExecutionWithinputsRequest) GetRevision() *int32 {
-	return r.revision
+    return r.taskRunId
 }
 func (r ApiReplayExecutionWithinputsRequest) GetBreakpoints() *string {
-	return r.breakpoints
+    return r.breakpoints
+}
+func (r ApiReplayExecutionWithinputsRequest) GetRevision() *int32 {
+    return r.revision
 }
 
 // the request multipart/form-data content
 func (r ApiReplayExecutionWithinputsRequest) FormData(formData map[string]any) ApiReplayExecutionWithinputsRequest {
-	r.formData = &formData
-	return r
+    r.formData = &formData
+    return r
 }
 
 func (r ApiReplayExecutionWithinputsRequest) Execute() (*Execution, *http.Response, error) {
@@ -3232,29 +3463,28 @@ func (r ApiReplayExecutionWithinputsRequest) Execute() (*Execution, *http.Respon
 /*
 ReplayExecutionWithinputs Create a new execution from an old one and start it from a specified task run id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId the original execution id to clone
-	@param tenant
-	@return ApiReplayExecutionWithinputsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId the original execution id to clone
+ @param tenant
+ @return ApiReplayExecutionWithinputsRequest
 */
 func (a *ExecutionsAPIService) ReplayExecutionWithinputs(ctx context.Context, executionId string, tenant string) ApiReplayExecutionWithinputsRequest {
 	return ApiReplayExecutionWithinputsRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecutionWithinputsRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ReplayExecutionWithinputs")
@@ -3273,41 +3503,41 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 	if r.taskRunId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "taskRunId", r.taskRunId, "form", "")
 	}
-	if r.revision != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
-	}
 	if r.breakpoints != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
 	}
-
-	if r.formData != nil {
-		for key, val := range *r.formData {
-			switch v := val.(type) {
-			case string:
-				localVarFormParams.Add(key, v)
-			case *string:
-				if v != nil {
-					localVarFormParams.Add(key, *v)
-				}
-			case []string:
-				for _, s := range v {
-					localVarFormParams.Add(key, s)
-				}
-			case []interface{}:
-				for _, item := range v {
-					localVarFormParams.Add(key, fmt.Sprint(item))
-				}
-			case time.Time:
-				localVarFormParams.Add(key, v.Format(time.RFC3339))
-			case *time.Time:
-				if v != nil {
-					localVarFormParams.Add(key, v.Format(time.RFC3339))
-				}
-			default:
-				localVarFormParams.Add(key, fmt.Sprint(v))
-			}
-		}
+	if r.revision != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
 	}
+
+    if r.formData != nil {
+        for key, val := range *r.formData {
+            switch v := val.(type) {
+            case string:
+                localVarFormParams.Add(key, v)
+            case *string:
+                if v != nil {
+                    localVarFormParams.Add(key, *v)
+                }
+            case []string:
+                for _, s := range v {
+                    localVarFormParams.Add(key, s)
+                }
+            case []interface{}:
+                for _, item := range v {
+                    localVarFormParams.Add(key, fmt.Sprint(item))
+                }
+            case time.Time:
+                localVarFormParams.Add(key, v.Format(time.RFC3339))
+            case *time.Time:
+                if v != nil {
+                    localVarFormParams.Add(key, v.Format(time.RFC3339))
+                }
+            default:
+                localVarFormParams.Add(key, fmt.Sprint(v))
+            }
+        }
+    }
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -3363,11 +3593,15 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiReplayExecutionsByIdsRequest struct {
-	ctx            context.Context
-	ApiService     *ExecutionsAPIService
-	tenant         string
-	requestBody    *[]string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
+	requestBody *[]string
 	latestRevision *bool
 }
 
@@ -3383,15 +3617,17 @@ func (r ApiReplayExecutionsByIdsRequest) LatestRevision(latestRevision bool) Api
 	return r
 }
 
+
 func (r ApiReplayExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiReplayExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
 func (r ApiReplayExecutionsByIdsRequest) GetLatestRevision() *bool {
-	return r.latestRevision
+    return r.latestRevision
 }
+
 
 func (r ApiReplayExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ReplayExecutionsByIdsExecute(r)
@@ -3400,28 +3636,27 @@ func (r ApiReplayExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Respons
 /*
 ReplayExecutionsByIds Create new executions from old ones. Keep the flow revision
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiReplayExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiReplayExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) ReplayExecutionsByIds(ctx context.Context, tenant string) ApiReplayExecutionsByIdsRequest {
 	return ApiReplayExecutionsByIdsRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		tenant:         tenant,
-		latestRevision: Ptr(bool(false)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		tenant: tenant,
+        latestRevision: Ptr(bool(false)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ReplayExecutionsByIds")
@@ -3490,8 +3725,8 @@ func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecution
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3508,11 +3743,15 @@ func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecution
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiReplayExecutionsByQueryRequest struct {
-	ctx            context.Context
-	ApiService     *ExecutionsAPIService
-	tenant         string
-	filters        *[]QueryFilter
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
+	filters *[]QueryFilter
 	latestRevision *bool
 }
 
@@ -3528,15 +3767,17 @@ func (r ApiReplayExecutionsByQueryRequest) LatestRevision(latestRevision bool) A
 	return r
 }
 
+
 func (r ApiReplayExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiReplayExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
 func (r ApiReplayExecutionsByQueryRequest) GetLatestRevision() *bool {
-	return r.latestRevision
+    return r.latestRevision
 }
+
 
 func (r ApiReplayExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ReplayExecutionsByQueryExecute(r)
@@ -3545,28 +3786,27 @@ func (r ApiReplayExecutionsByQueryRequest) Execute() (map[string]interface{}, *h
 /*
 ReplayExecutionsByQuery Create new executions from old ones filter by query parameters. Keep the flow revision
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiReplayExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiReplayExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) ReplayExecutionsByQuery(ctx context.Context, tenant string) ApiReplayExecutionsByQueryRequest {
 	return ApiReplayExecutionsByQueryRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		tenant:         tenant,
-		latestRevision: Ptr(bool(false)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		tenant: tenant,
+        latestRevision: Ptr(bool(false)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ReplayExecutionsByQuery")
@@ -3641,12 +3881,16 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiRestartExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	revision    *int32
+	tenant string
+	revision *int32
 }
 
 // The flow revision to use for new execution
@@ -3655,15 +3899,17 @@ func (r ApiRestartExecutionRequest) Revision(revision int32) ApiRestartExecution
 	return r
 }
 
+
 func (r ApiRestartExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiRestartExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiRestartExecutionRequest) GetRevision() *int32 {
-	return r.revision
+    return r.revision
 }
+
 
 func (r ApiRestartExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.RestartExecutionExecute(r)
@@ -3672,29 +3918,28 @@ func (r ApiRestartExecutionRequest) Execute() (*Execution, *http.Response, error
 /*
 RestartExecution Restart a new execution from an old one
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiRestartExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiRestartExecutionRequest
 */
 func (a *ExecutionsAPIService) RestartExecution(ctx context.Context, executionId string, tenant string) ApiRestartExecutionRequest {
 	return ApiRestartExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) RestartExecutionExecute(r ApiRestartExecutionRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.RestartExecution")
@@ -3767,10 +4012,14 @@ func (a *ExecutionsAPIService) RestartExecutionExecute(r ApiRestartExecutionRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiRestartExecutionsByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	requestBody *[]string
 }
 
@@ -3780,12 +4029,14 @@ func (r ApiRestartExecutionsByIdsRequest) RequestBody(requestBody []string) ApiR
 	return r
 }
 
+
 func (r ApiRestartExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiRestartExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiRestartExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.RestartExecutionsByIdsExecute(r)
@@ -3794,27 +4045,26 @@ func (r ApiRestartExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Respon
 /*
 RestartExecutionsByIds Restart a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiRestartExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiRestartExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) RestartExecutionsByIds(ctx context.Context, tenant string) ApiRestartExecutionsByIdsRequest {
 	return ApiRestartExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) RestartExecutionsByIdsExecute(r ApiRestartExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.RestartExecutionsByIds")
@@ -3880,8 +4130,8 @@ func (a *ExecutionsAPIService) RestartExecutionsByIdsExecute(r ApiRestartExecuti
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3898,11 +4148,15 @@ func (a *ExecutionsAPIService) RestartExecutionsByIdsExecute(r ApiRestartExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiRestartExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -3911,12 +4165,14 @@ func (r ApiRestartExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiRe
 	return r
 }
 
+
 func (r ApiRestartExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiRestartExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiRestartExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.RestartExecutionsByQueryExecute(r)
@@ -3925,27 +4181,26 @@ func (r ApiRestartExecutionsByQueryRequest) Execute() (map[string]interface{}, *
 /*
 RestartExecutionsByQuery Restart executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiRestartExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiRestartExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) RestartExecutionsByQuery(ctx context.Context, tenant string) ApiRestartExecutionsByQueryRequest {
 	return ApiRestartExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.RestartExecutionsByQuery")
@@ -4017,25 +4272,30 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiResumeExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	formData    *map[string]any
+	tenant string
+    formData *map[string]any
 }
 
+
 func (r ApiResumeExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiResumeExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 
 // the request multipart/form-data content
 func (r ApiResumeExecutionRequest) FormData(formData map[string]any) ApiResumeExecutionRequest {
-	r.formData = &formData
-	return r
+    r.formData = &formData
+    return r
 }
 
 func (r ApiResumeExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -4045,29 +4305,28 @@ func (r ApiResumeExecutionRequest) Execute() (map[string]interface{}, *http.Resp
 /*
 ResumeExecution Resume a paused execution.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiResumeExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiResumeExecutionRequest
 */
 func (a *ExecutionsAPIService) ResumeExecution(ctx context.Context, executionId string, tenant string) ApiResumeExecutionRequest {
 	return ApiResumeExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ResumeExecution")
@@ -4083,34 +4342,35 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.formData != nil {
-		for key, val := range *r.formData {
-			switch v := val.(type) {
-			case string:
-				localVarFormParams.Add(key, v)
-			case *string:
-				if v != nil {
-					localVarFormParams.Add(key, *v)
-				}
-			case []string:
-				for _, s := range v {
-					localVarFormParams.Add(key, s)
-				}
-			case []interface{}:
-				for _, item := range v {
-					localVarFormParams.Add(key, fmt.Sprint(item))
-				}
-			case time.Time:
-				localVarFormParams.Add(key, v.Format(time.RFC3339))
-			case *time.Time:
-				if v != nil {
-					localVarFormParams.Add(key, v.Format(time.RFC3339))
-				}
-			default:
-				localVarFormParams.Add(key, fmt.Sprint(v))
-			}
-		}
-	}
+
+    if r.formData != nil {
+        for key, val := range *r.formData {
+            switch v := val.(type) {
+            case string:
+                localVarFormParams.Add(key, v)
+            case *string:
+                if v != nil {
+                    localVarFormParams.Add(key, *v)
+                }
+            case []string:
+                for _, s := range v {
+                    localVarFormParams.Add(key, s)
+                }
+            case []interface{}:
+                for _, item := range v {
+                    localVarFormParams.Add(key, fmt.Sprint(item))
+                }
+            case time.Time:
+                localVarFormParams.Add(key, v.Format(time.RFC3339))
+            case *time.Time:
+                if v != nil {
+                    localVarFormParams.Add(key, v.Format(time.RFC3339))
+                }
+            default:
+                localVarFormParams.Add(key, fmt.Sprint(v))
+            }
+        }
+    }
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -4166,10 +4426,14 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiResumeExecutionsByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	requestBody *[]string
 }
 
@@ -4179,12 +4443,14 @@ func (r ApiResumeExecutionsByIdsRequest) RequestBody(requestBody []string) ApiRe
 	return r
 }
 
+
 func (r ApiResumeExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiResumeExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiResumeExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ResumeExecutionsByIdsExecute(r)
@@ -4193,27 +4459,26 @@ func (r ApiResumeExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Respons
 /*
 ResumeExecutionsByIds Resume a list of paused executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiResumeExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiResumeExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) ResumeExecutionsByIds(ctx context.Context, tenant string) ApiResumeExecutionsByIdsRequest {
 	return ApiResumeExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) ResumeExecutionsByIdsExecute(r ApiResumeExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ResumeExecutionsByIds")
@@ -4279,8 +4544,8 @@ func (a *ExecutionsAPIService) ResumeExecutionsByIdsExecute(r ApiResumeExecution
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -4297,11 +4562,15 @@ func (a *ExecutionsAPIService) ResumeExecutionsByIdsExecute(r ApiResumeExecution
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiResumeExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
 }
 
 // Filters
@@ -4310,12 +4579,14 @@ func (r ApiResumeExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiRes
 	return r
 }
 
+
 func (r ApiResumeExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiResumeExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiResumeExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ResumeExecutionsByQueryExecute(r)
@@ -4324,27 +4595,26 @@ func (r ApiResumeExecutionsByQueryRequest) Execute() (map[string]interface{}, *h
 /*
 ResumeExecutionsByQuery Resume executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiResumeExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiResumeExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) ResumeExecutionsByQuery(ctx context.Context, tenant string) ApiResumeExecutionsByQueryRequest {
 	return ApiResumeExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ResumeExecutionsByQuery")
@@ -4416,18 +4686,22 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchExecutionsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	filters    *[]QueryFilter
+	tenant string
+	page *SearchBlueprintsSizeParameter
+	size *int32
+	filters *[]QueryFilter
+	sort *[]string
 }
 
 // The current page
-func (r ApiSearchExecutionsRequest) Page(page int32) ApiSearchExecutionsRequest {
+func (r ApiSearchExecutionsRequest) Page(page SearchBlueprintsSizeParameter) ApiSearchExecutionsRequest {
 	r.page = &page
 	return r
 }
@@ -4438,33 +4712,35 @@ func (r ApiSearchExecutionsRequest) Size(size int32) ApiSearchExecutionsRequest 
 	return r
 }
 
-// The sort of current page
-func (r ApiSearchExecutionsRequest) Sort(sort []string) ApiSearchExecutionsRequest {
-	r.sort = &sort
-	return r
-}
-
 // Filters
 func (r ApiSearchExecutionsRequest) Filters(filters []QueryFilter) ApiSearchExecutionsRequest {
 	r.filters = &filters
 	return r
 }
 
-func (r ApiSearchExecutionsRequest) GetPage() *int32 {
-	return r.page
+// The sort of current page
+func (r ApiSearchExecutionsRequest) Sort(sort []string) ApiSearchExecutionsRequest {
+	r.sort = &sort
+	return r
+}
+
+
+func (r ApiSearchExecutionsRequest) GetTenant() string {
+    return r.tenant
+}
+func (r ApiSearchExecutionsRequest) GetPage() *SearchBlueprintsSizeParameter {
+    return r.page
 }
 func (r ApiSearchExecutionsRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiSearchExecutionsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiSearchExecutionsRequest) GetSort() *[]string {
-	return r.sort
+    return r.size
 }
 func (r ApiSearchExecutionsRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+func (r ApiSearchExecutionsRequest) GetSort() *[]string {
+    return r.sort
+}
+
 
 func (r ApiSearchExecutionsRequest) Execute() (*PagedResultsExecution, *http.Response, error) {
 	return r.ApiService.SearchExecutionsExecute(r)
@@ -4473,29 +4749,27 @@ func (r ApiSearchExecutionsRequest) Execute() (*PagedResultsExecution, *http.Res
 /*
 SearchExecutions Search for executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchExecutionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchExecutionsRequest
 */
 func (a *ExecutionsAPIService) SearchExecutions(ctx context.Context, tenant string) ApiSearchExecutionsRequest {
 	return ApiSearchExecutionsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsExecution
+//  @return PagedResultsExecution
 func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequest) (*PagedResultsExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SearchExecutions")
@@ -4509,26 +4783,18 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	}
 	if r.filters != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4584,20 +4850,18 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSearchExecutionsByFlowIdRequest struct {
-	ctx        context.Context
-	ApiService *ExecutionsAPIService
-	namespace  *string
-	flowId     *string
-	page       *int32
-	size       *int32
-	tenant     string
-}
 
-// The flow namespace
-func (r ApiSearchExecutionsByFlowIdRequest) Namespace(namespace string) ApiSearchExecutionsByFlowIdRequest {
-	r.namespace = &namespace
-	return r
+
+
+
+type ApiSearchExecutionsByFlowIdRequest struct {
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	flowId *string
+	namespace *string
+	tenant string
+	size *int32
+	page *int32
 }
 
 // The flow id
@@ -4606,9 +4870,9 @@ func (r ApiSearchExecutionsByFlowIdRequest) FlowId(flowId string) ApiSearchExecu
 	return r
 }
 
-// The current page
-func (r ApiSearchExecutionsByFlowIdRequest) Page(page int32) ApiSearchExecutionsByFlowIdRequest {
-	r.page = &page
+// The flow namespace
+func (r ApiSearchExecutionsByFlowIdRequest) Namespace(namespace string) ApiSearchExecutionsByFlowIdRequest {
+	r.namespace = &namespace
 	return r
 }
 
@@ -4618,21 +4882,29 @@ func (r ApiSearchExecutionsByFlowIdRequest) Size(size int32) ApiSearchExecutions
 	return r
 }
 
-func (r ApiSearchExecutionsByFlowIdRequest) GetNamespace() *string {
-	return r.namespace
+// The current page
+func (r ApiSearchExecutionsByFlowIdRequest) Page(page int32) ApiSearchExecutionsByFlowIdRequest {
+	r.page = &page
+	return r
 }
+
+
 func (r ApiSearchExecutionsByFlowIdRequest) GetFlowId() *string {
-	return r.flowId
+    return r.flowId
 }
-func (r ApiSearchExecutionsByFlowIdRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchExecutionsByFlowIdRequest) GetSize() *int32 {
-	return r.size
+func (r ApiSearchExecutionsByFlowIdRequest) GetNamespace() *string {
+    return r.namespace
 }
 func (r ApiSearchExecutionsByFlowIdRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+func (r ApiSearchExecutionsByFlowIdRequest) GetSize() *int32 {
+    return r.size
+}
+func (r ApiSearchExecutionsByFlowIdRequest) GetPage() *int32 {
+    return r.page
+}
+
 
 func (r ApiSearchExecutionsByFlowIdRequest) Execute() (*PagedResultsExecution, *http.Response, error) {
 	return r.ApiService.SearchExecutionsByFlowIdExecute(r)
@@ -4641,29 +4913,28 @@ func (r ApiSearchExecutionsByFlowIdRequest) Execute() (*PagedResultsExecution, *
 /*
 SearchExecutionsByFlowId Search for executions for a flow
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchExecutionsByFlowIdRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchExecutionsByFlowIdRequest
 */
 func (a *ExecutionsAPIService) SearchExecutionsByFlowId(ctx context.Context, tenant string) ApiSearchExecutionsByFlowIdRequest {
 	return ApiSearchExecutionsByFlowIdRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsExecution
+//  @return PagedResultsExecution
 func (a *ExecutionsAPIService) SearchExecutionsByFlowIdExecute(r ApiSearchExecutionsByFlowIdRequest) (*PagedResultsExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SearchExecutionsByFlowId")
@@ -4677,29 +4948,21 @@ func (a *ExecutionsAPIService) SearchExecutionsByFlowIdExecute(r ApiSearchExecut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.namespace == nil {
-		return localVarReturnValue, nil, reportError("namespace is required and must be specified")
-	}
 	if r.flowId == nil {
 		return localVarReturnValue, nil, reportError("flowId is required and must be specified")
 	}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
+	if r.namespace == nil {
+		return localVarReturnValue, nil, reportError("namespace is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "flowId", r.flowId, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -4754,12 +5017,16 @@ func (a *ExecutionsAPIService) SearchExecutionsByFlowIdExecute(r ApiSearchExecut
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetLabelsOnTerminatedExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	tenant      string
-	label       *[]Label
+	tenant string
+	label *[]Label
 }
 
 // The labels to add to the execution
@@ -4768,15 +5035,17 @@ func (r ApiSetLabelsOnTerminatedExecutionRequest) Label(label []Label) ApiSetLab
 	return r
 }
 
+
 func (r ApiSetLabelsOnTerminatedExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiSetLabelsOnTerminatedExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSetLabelsOnTerminatedExecutionRequest) GetLabel() *[]Label {
-	return r.label
+    return r.label
 }
+
 
 func (r ApiSetLabelsOnTerminatedExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.SetLabelsOnTerminatedExecutionExecute(r)
@@ -4785,29 +5054,28 @@ func (r ApiSetLabelsOnTerminatedExecutionRequest) Execute() (map[string]interfac
 /*
 SetLabelsOnTerminatedExecution Add or update labels of a terminated execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiSetLabelsOnTerminatedExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiSetLabelsOnTerminatedExecutionRequest
 */
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecution(ctx context.Context, executionId string, tenant string) ApiSetLabelsOnTerminatedExecutionRequest {
 	return ApiSetLabelsOnTerminatedExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionExecute(r ApiSetLabelsOnTerminatedExecutionRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SetLabelsOnTerminatedExecution")
@@ -4882,10 +5150,14 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionExecute(r ApiSetLab
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetLabelsOnTerminatedExecutionsByIdsRequest struct {
-	ctx                                      context.Context
-	ApiService                               *ExecutionsAPIService
-	tenant                                   string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	tenant string
 	executionControllerSetLabelsByIdsRequest *ExecutionControllerSetLabelsByIdsRequest
 }
 
@@ -4895,12 +5167,14 @@ func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) ExecutionControllerSetLa
 	return r
 }
 
+
 func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) GetExecutionControllerSetLabelsByIdsRequest() *ExecutionControllerSetLabelsByIdsRequest {
-	return r.executionControllerSetLabelsByIdsRequest
+    return r.executionControllerSetLabelsByIdsRequest
 }
+
 
 func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.SetLabelsOnTerminatedExecutionsByIdsExecute(r)
@@ -4909,27 +5183,26 @@ func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) Execute() (*BulkResponse
 /*
 SetLabelsOnTerminatedExecutionsByIds Set labels on a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSetLabelsOnTerminatedExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSetLabelsOnTerminatedExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIds(ctx context.Context, tenant string) ApiSetLabelsOnTerminatedExecutionsByIdsRequest {
 	return ApiSetLabelsOnTerminatedExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIdsExecute(r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SetLabelsOnTerminatedExecutionsByIds")
@@ -4995,8 +5268,8 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIdsExecute(r Api
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -5013,12 +5286,16 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIdsExecute(r Api
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetLabelsOnTerminatedExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	label      *[]Label
-	filters    *[]QueryFilter
+	tenant string
+	label *[]Label
+	filters *[]QueryFilter
 }
 
 // The labels to add to the execution
@@ -5033,15 +5310,17 @@ func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) Filters(filters []Quer
 	return r
 }
 
+
 func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetLabel() *[]Label {
-	return r.label
+    return r.label
 }
 func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.SetLabelsOnTerminatedExecutionsByQueryExecute(r)
@@ -5050,27 +5329,26 @@ func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) Execute() (map[string]
 /*
 SetLabelsOnTerminatedExecutionsByQuery Set label on executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSetLabelsOnTerminatedExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSetLabelsOnTerminatedExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQuery(ctx context.Context, tenant string) ApiSetLabelsOnTerminatedExecutionsByQueryRequest {
 	return ApiSetLabelsOnTerminatedExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SetLabelsOnTerminatedExecutionsByQuery")
@@ -5147,27 +5425,33 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiTriggerExecutionByGetWebhookRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	namespace  string
-	id         string
-	key        string
-	tenant     string
+	id string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiTriggerExecutionByGetWebhookRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiTriggerExecutionByGetWebhookRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiTriggerExecutionByGetWebhookRequest) GetKey() string {
-	return r.key
+    return r.key
+}
+func (r ApiTriggerExecutionByGetWebhookRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiTriggerExecutionByGetWebhookRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*WebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByGetWebhookExecute(r)
@@ -5176,33 +5460,32 @@ func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*WebhookResponse, *ht
 /*
 TriggerExecutionByGetWebhook Trigger a new execution by GET webhook trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param key The webhook trigger uid
-	@param tenant
-	@return ApiTriggerExecutionByGetWebhookRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The flow id
+ @param key The webhook trigger uid
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiTriggerExecutionByGetWebhookRequest
 */
-func (a *ExecutionsAPIService) TriggerExecutionByGetWebhook(ctx context.Context, namespace string, id string, key string, tenant string) ApiTriggerExecutionByGetWebhookRequest {
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhook(ctx context.Context, id string, key string, namespace string, tenant string) ApiTriggerExecutionByGetWebhookRequest {
 	return ApiTriggerExecutionByGetWebhookRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return WebhookResponse
+//  @return WebhookResponse
 func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerExecutionByGetWebhookRequest) (*WebhookResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *WebhookResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByGetWebhook")
@@ -5211,9 +5494,9 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerE
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5274,31 +5557,37 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiTriggerExecutionByGetWebhookWithPathRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	namespace  string
-	id         string
-	key        string
-	path       string
-	tenant     string
+	path string
+	id string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetNamespace() string {
-	return r.namespace
+
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetPath() string {
+    return r.path
 }
 func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetKey() string {
-	return r.key
+    return r.key
 }
-func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetPath() string {
-	return r.path
+func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiTriggerExecutionByGetWebhookWithPathRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiTriggerExecutionByGetWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByGetWebhookWithPathExecute(r)
@@ -5307,35 +5596,34 @@ func (r ApiTriggerExecutionByGetWebhookWithPathRequest) Execute() (*WebhookRespo
 /*
 TriggerExecutionByGetWebhookWithPath Trigger a new execution by GET webhook trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param key The webhook trigger uid
-	@param path Optional additional path segments
-	@param tenant
-	@return ApiTriggerExecutionByGetWebhookWithPathRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param path Optional additional path segments
+ @param id The flow id
+ @param key The webhook trigger uid
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiTriggerExecutionByGetWebhookWithPathRequest
 */
-func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByGetWebhookWithPathRequest {
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPath(ctx context.Context, path string, id string, key string, namespace string, tenant string) ApiTriggerExecutionByGetWebhookWithPathRequest {
 	return ApiTriggerExecutionByGetWebhookWithPathRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		key:        key,
-		path:       path,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		path: path,
+		id: id,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return WebhookResponse
+//  @return WebhookResponse
 func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPathExecute(r ApiTriggerExecutionByGetWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *WebhookResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByGetWebhookWithPath")
@@ -5344,10 +5632,10 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPathExecute(r Api
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5408,31 +5696,37 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookWithPathExecute(r Api
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiTriggerExecutionByPostWebhookWithPathRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	namespace  string
-	id         string
-	key        string
-	path       string
-	tenant     string
+	path string
+	id string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetNamespace() string {
-	return r.namespace
+
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetPath() string {
+    return r.path
 }
 func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetKey() string {
-	return r.key
+    return r.key
 }
-func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetPath() string {
-	return r.path
+func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiTriggerExecutionByPostWebhookWithPathRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiTriggerExecutionByPostWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByPostWebhookWithPathExecute(r)
@@ -5441,35 +5735,34 @@ func (r ApiTriggerExecutionByPostWebhookWithPathRequest) Execute() (*WebhookResp
 /*
 TriggerExecutionByPostWebhookWithPath Trigger a new execution by POST webhook trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param key The webhook trigger uid
-	@param path Optional additional path segments
-	@param tenant
-	@return ApiTriggerExecutionByPostWebhookWithPathRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param path Optional additional path segments
+ @param id The flow id
+ @param key The webhook trigger uid
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiTriggerExecutionByPostWebhookWithPathRequest
 */
-func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByPostWebhookWithPathRequest {
+func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPath(ctx context.Context, path string, id string, key string, namespace string, tenant string) ApiTriggerExecutionByPostWebhookWithPathRequest {
 	return ApiTriggerExecutionByPostWebhookWithPathRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		key:        key,
-		path:       path,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		path: path,
+		id: id,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return WebhookResponse
+//  @return WebhookResponse
 func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPathExecute(r ApiTriggerExecutionByPostWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *WebhookResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPostWebhookWithPath")
@@ -5478,10 +5771,10 @@ func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPathExecute(r Ap
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5542,31 +5835,37 @@ func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookWithPathExecute(r Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiTriggerExecutionByPutWebhookWithPathRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	namespace  string
-	id         string
-	key        string
-	path       string
-	tenant     string
+	path string
+	id string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetNamespace() string {
-	return r.namespace
+
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetPath() string {
+    return r.path
 }
 func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetKey() string {
-	return r.key
+    return r.key
 }
-func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetPath() string {
-	return r.path
+func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiTriggerExecutionByPutWebhookWithPathRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiTriggerExecutionByPutWebhookWithPathRequest) Execute() (*WebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByPutWebhookWithPathExecute(r)
@@ -5575,35 +5874,34 @@ func (r ApiTriggerExecutionByPutWebhookWithPathRequest) Execute() (*WebhookRespo
 /*
 TriggerExecutionByPutWebhookWithPath Trigger a new execution by PUT webhook trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param key The webhook trigger uid
-	@param path Optional additional path segments
-	@param tenant
-	@return ApiTriggerExecutionByPutWebhookWithPathRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param path Optional additional path segments
+ @param id The flow id
+ @param key The webhook trigger uid
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiTriggerExecutionByPutWebhookWithPathRequest
 */
-func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPath(ctx context.Context, namespace string, id string, key string, path string, tenant string) ApiTriggerExecutionByPutWebhookWithPathRequest {
+func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPath(ctx context.Context, path string, id string, key string, namespace string, tenant string) ApiTriggerExecutionByPutWebhookWithPathRequest {
 	return ApiTriggerExecutionByPutWebhookWithPathRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		key:        key,
-		path:       path,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		path: path,
+		id: id,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return WebhookResponse
+//  @return WebhookResponse
 func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPathExecute(r ApiTriggerExecutionByPutWebhookWithPathRequest) (*WebhookResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *WebhookResponse
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPutWebhookWithPath")
@@ -5612,10 +5910,10 @@ func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPathExecute(r Api
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5676,12 +5974,16 @@ func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookWithPathExecute(r Api
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnqueueExecutionRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	state       *StateType
-	tenant      string
+	state *StateType
+	tenant string
 }
 
 // The new state of the execution
@@ -5690,15 +5992,17 @@ func (r ApiUnqueueExecutionRequest) State(state StateType) ApiUnqueueExecutionRe
 	return r
 }
 
+
 func (r ApiUnqueueExecutionRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiUnqueueExecutionRequest) GetState() *StateType {
-	return r.state
+    return r.state
 }
 func (r ApiUnqueueExecutionRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiUnqueueExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionExecute(r)
@@ -5707,29 +6011,28 @@ func (r ApiUnqueueExecutionRequest) Execute() (*Execution, *http.Response, error
 /*
 UnqueueExecution Unqueue an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiUnqueueExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiUnqueueExecutionRequest
 */
 func (a *ExecutionsAPIService) UnqueueExecution(ctx context.Context, executionId string, tenant string) ApiUnqueueExecutionRequest {
 	return ApiUnqueueExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UnqueueExecution")
@@ -5803,11 +6106,15 @@ func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnqueueExecutionsByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	state       *StateType
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	state *StateType
+	tenant string
 	requestBody *[]string
 }
 
@@ -5823,15 +6130,17 @@ func (r ApiUnqueueExecutionsByIdsRequest) RequestBody(requestBody []string) ApiU
 	return r
 }
 
+
 func (r ApiUnqueueExecutionsByIdsRequest) GetState() *StateType {
-	return r.state
+    return r.state
 }
 func (r ApiUnqueueExecutionsByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnqueueExecutionsByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiUnqueueExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionsByIdsExecute(r)
@@ -5840,27 +6149,26 @@ func (r ApiUnqueueExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Respon
 /*
 UnqueueExecutionsByIds Unqueue a list of executions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnqueueExecutionsByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnqueueExecutionsByIdsRequest
 */
 func (a *ExecutionsAPIService) UnqueueExecutionsByIds(ctx context.Context, tenant string) ApiUnqueueExecutionsByIdsRequest {
 	return ApiUnqueueExecutionsByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UnqueueExecutionsByIds")
@@ -5930,8 +6238,8 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecuti
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -5948,12 +6256,16 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUnqueueExecutionsByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	tenant     string
-	filters    *[]QueryFilter
-	newState   *StateType
+	tenant string
+	filters *[]QueryFilter
+	newState *StateType
 }
 
 // Filters
@@ -5968,15 +6280,17 @@ func (r ApiUnqueueExecutionsByQueryRequest) NewState(newState StateType) ApiUnqu
 	return r
 }
 
+
 func (r ApiUnqueueExecutionsByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUnqueueExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
 func (r ApiUnqueueExecutionsByQueryRequest) GetNewState() *StateType {
-	return r.newState
+    return r.newState
 }
+
 
 func (r ApiUnqueueExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionsByQueryExecute(r)
@@ -5985,27 +6299,26 @@ func (r ApiUnqueueExecutionsByQueryRequest) Execute() (map[string]interface{}, *
 /*
 UnqueueExecutionsByQuery Unqueue executions filter by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUnqueueExecutionsByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUnqueueExecutionsByQueryRequest
 */
 func (a *ExecutionsAPIService) UnqueueExecutionsByQuery(ctx context.Context, tenant string) ApiUnqueueExecutionsByQueryRequest {
 	return ApiUnqueueExecutionsByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
+//  @return map[string]interface{}
 func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecutionsByQueryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UnqueueExecutionsByQuery")
@@ -6080,12 +6393,16 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateExecutionStatusRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
+	ctx context.Context
+	ApiService *ExecutionsAPIService
 	executionId string
-	status      *StateType
-	tenant      string
+	status *StateType
+	tenant string
 }
 
 // The new state of the execution
@@ -6094,15 +6411,17 @@ func (r ApiUpdateExecutionStatusRequest) Status(status StateType) ApiUpdateExecu
 	return r
 }
 
+
 func (r ApiUpdateExecutionStatusRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiUpdateExecutionStatusRequest) GetStatus() *StateType {
-	return r.status
+    return r.status
 }
 func (r ApiUpdateExecutionStatusRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiUpdateExecutionStatusRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.UpdateExecutionStatusExecute(r)
@@ -6111,29 +6430,28 @@ func (r ApiUpdateExecutionStatusRequest) Execute() (*Execution, *http.Response, 
 /*
 UpdateExecutionStatus Change the state of an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiUpdateExecutionStatusRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiUpdateExecutionStatusRequest
 */
 func (a *ExecutionsAPIService) UpdateExecutionStatus(ctx context.Context, executionId string, tenant string) ApiUpdateExecutionStatusRequest {
 	return ApiUpdateExecutionStatusRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) UpdateExecutionStatusExecute(r ApiUpdateExecutionStatusRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateExecutionStatus")
@@ -6207,11 +6525,15 @@ func (a *ExecutionsAPIService) UpdateExecutionStatusExecute(r ApiUpdateExecution
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateExecutionsStatusByIdsRequest struct {
-	ctx         context.Context
-	ApiService  *ExecutionsAPIService
-	newStatus   *StateType
-	tenant      string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	newStatus *StateType
+	tenant string
 	requestBody *[]string
 }
 
@@ -6227,15 +6549,17 @@ func (r ApiUpdateExecutionsStatusByIdsRequest) RequestBody(requestBody []string)
 	return r
 }
 
+
 func (r ApiUpdateExecutionsStatusByIdsRequest) GetNewStatus() *StateType {
-	return r.newStatus
+    return r.newStatus
 }
 func (r ApiUpdateExecutionsStatusByIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateExecutionsStatusByIdsRequest) GetRequestBody() *[]string {
-	return r.requestBody
+    return r.requestBody
 }
+
 
 func (r ApiUpdateExecutionsStatusByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.UpdateExecutionsStatusByIdsExecute(r)
@@ -6244,27 +6568,26 @@ func (r ApiUpdateExecutionsStatusByIdsRequest) Execute() (*BulkResponse, *http.R
 /*
 UpdateExecutionsStatusByIds Change executions state by id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUpdateExecutionsStatusByIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUpdateExecutionsStatusByIdsRequest
 */
 func (a *ExecutionsAPIService) UpdateExecutionsStatusByIds(ctx context.Context, tenant string) ApiUpdateExecutionsStatusByIdsRequest {
 	return ApiUpdateExecutionsStatusByIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) UpdateExecutionsStatusByIdsExecute(r ApiUpdateExecutionsStatusByIdsRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateExecutionsStatusByIds")
@@ -6334,8 +6657,8 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByIdsExecute(r ApiUpdateExe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -6352,12 +6675,16 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByIdsExecute(r ApiUpdateExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateExecutionsStatusByQueryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionsAPIService
-	newStatus  *StateType
-	tenant     string
-	filters    *[]QueryFilter
+	newStatus *StateType
+	tenant string
+	filters *[]QueryFilter
 }
 
 // The new state of the executions
@@ -6372,15 +6699,17 @@ func (r ApiUpdateExecutionsStatusByQueryRequest) Filters(filters []QueryFilter) 
 	return r
 }
 
+
 func (r ApiUpdateExecutionsStatusByQueryRequest) GetNewStatus() *StateType {
-	return r.newStatus
+    return r.newStatus
 }
 func (r ApiUpdateExecutionsStatusByQueryRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateExecutionsStatusByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+
 
 func (r ApiUpdateExecutionsStatusByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.UpdateExecutionsStatusByQueryExecute(r)
@@ -6389,27 +6718,26 @@ func (r ApiUpdateExecutionsStatusByQueryRequest) Execute() (*BulkResponse, *http
 /*
 UpdateExecutionsStatusByQuery Change executions state by query parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiUpdateExecutionsStatusByQueryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiUpdateExecutionsStatusByQueryRequest
 */
 func (a *ExecutionsAPIService) UpdateExecutionsStatusByQuery(ctx context.Context, tenant string) ApiUpdateExecutionsStatusByQueryRequest {
 	return ApiUpdateExecutionsStatusByQueryRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return BulkResponse
+//  @return BulkResponse
 func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateExecutionsStatusByQueryRequest) (*BulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateExecutionsStatusByQuery")
@@ -6477,8 +6805,8 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -6495,11 +6823,15 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateTaskRunStateRequest struct {
-	ctx                             context.Context
-	ApiService                      *ExecutionsAPIService
-	executionId                     string
-	tenant                          string
+	ctx context.Context
+	ApiService *ExecutionsAPIService
+	executionId string
+	tenant string
 	executionControllerStateRequest *ExecutionControllerStateRequest
 }
 
@@ -6509,15 +6841,17 @@ func (r ApiUpdateTaskRunStateRequest) ExecutionControllerStateRequest(executionC
 	return r
 }
 
+
 func (r ApiUpdateTaskRunStateRequest) GetExecutionId() string {
-	return r.executionId
+    return r.executionId
 }
 func (r ApiUpdateTaskRunStateRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateTaskRunStateRequest) GetExecutionControllerStateRequest() *ExecutionControllerStateRequest {
-	return r.executionControllerStateRequest
+    return r.executionControllerStateRequest
 }
+
 
 func (r ApiUpdateTaskRunStateRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.UpdateTaskRunStateExecute(r)
@@ -6526,29 +6860,28 @@ func (r ApiUpdateTaskRunStateRequest) Execute() (*Execution, *http.Response, err
 /*
 UpdateTaskRunState Change state for a taskrun in an execution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution id
-	@param tenant
-	@return ApiUpdateTaskRunStateRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param executionId The execution id
+ @param tenant
+ @return ApiUpdateTaskRunStateRequest
 */
 func (a *ExecutionsAPIService) UpdateTaskRunState(ctx context.Context, executionId string, tenant string) ApiUpdateTaskRunStateRequest {
 	return ApiUpdateTaskRunStateRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		executionId: executionId,
-		tenant:      tenant,
-	}
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return Execution
+//  @return Execution
 func (a *ExecutionsAPIService) UpdateTaskRunStateExecute(r ApiUpdateTaskRunStateRequest) (*Execution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Execution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateTaskRunState")
@@ -6622,3 +6955,7 @@ func (a *ExecutionsAPIService) UpdateTaskRunStateExecute(r ApiUpdateTaskRunState
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

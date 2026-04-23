@@ -20,9 +20,9 @@ var _ MappedNullable = &ServerConfig{}
 // ServerConfig struct for ServerConfig
 type ServerConfig struct {
 	WorkerTaskRestartStrategy NullableWorkerTaskRestartStrategy `json:"workerTaskRestartStrategy,omitempty"`
-	TerminationGracePeriod    string                            `json:"terminationGracePeriod"`
-	Liveness                  *ServerConfigLiveness             `json:"liveness,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	TerminationGracePeriod string `json:"terminationGracePeriod"`
+	Liveness *ServerConfigLiveness `json:"liveness,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ServerConfig ServerConfig
@@ -79,7 +79,6 @@ func (o *ServerConfig) HasWorkerTaskRestartStrategy() bool {
 func (o *ServerConfig) SetWorkerTaskRestartStrategy(v WorkerTaskRestartStrategy) {
 	o.WorkerTaskRestartStrategy.Set(&v)
 }
-
 // SetWorkerTaskRestartStrategyNil sets the value for WorkerTaskRestartStrategy to be an explicit nil
 func (o *ServerConfig) SetWorkerTaskRestartStrategyNil() {
 	o.WorkerTaskRestartStrategy.Set(nil)
@@ -147,7 +146,7 @@ func (o *ServerConfig) SetLiveness(v ServerConfigLiveness) {
 }
 
 func (o ServerConfig) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -184,10 +183,10 @@ func (o *ServerConfig) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -250,3 +249,5 @@ func (v *NullableServerConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

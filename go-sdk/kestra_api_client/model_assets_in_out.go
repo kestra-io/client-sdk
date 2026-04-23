@@ -18,8 +18,8 @@ var _ MappedNullable = &AssetsInOut{}
 
 // AssetsInOut struct for AssetsInOut
 type AssetsInOut struct {
-	Inputs               []AssetIdentifier `json:"inputs,omitempty"`
-	Outputs              []Asset           `json:"outputs,omitempty"`
+	Inputs []AssetIdentifier `json:"inputs,omitempty"`
+	Outputs []Asset `json:"outputs,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *AssetsInOut) SetOutputs(v []Asset) {
 }
 
 func (o AssetsInOut) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableAssetsInOut) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

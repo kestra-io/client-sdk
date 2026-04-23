@@ -55,6 +55,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_SYSTEM_NAMESPACE,
   MiscControllerEEConfiguration.JSON_PROPERTY_HIDDEN_LABELS_PREFIXES,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
   MiscControllerEEConfiguration.JSON_PROPERTY_PLUGINS_HASH,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED,
@@ -127,6 +128,9 @@ public class MiscControllerEEConfiguration {
 
   public static final String JSON_PROPERTY_IS_AI_ENABLED = "isAiEnabled";
   @jakarta.annotation.Nullable  private Boolean isAiEnabled;
+
+  public static final String JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED = "isAiApiKeyConfigured";
+  @jakarta.annotation.Nullable  private Boolean isAiApiKeyConfigured;
 
   public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
   @jakarta.annotation.Nullable  private Boolean isBasicAuthInitialized;
@@ -584,6 +588,30 @@ public class MiscControllerEEConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
     this.isAiEnabled = isAiEnabled;
+  }
+
+  public MiscControllerEEConfiguration isAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+    return this;
+  }
+
+  /**
+   * Get isAiApiKeyConfigured
+   * @return isAiApiKeyConfigured
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiApiKeyConfigured() {
+    return isAiApiKeyConfigured;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
   }
 
   public MiscControllerEEConfiguration isBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
@@ -1147,6 +1175,7 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.systemNamespace, miscControllerEEConfiguration.systemNamespace) &&
         Objects.equals(this.hiddenLabelsPrefixes, miscControllerEEConfiguration.hiddenLabelsPrefixes) &&
         Objects.equals(this.isAiEnabled, miscControllerEEConfiguration.isAiEnabled) &&
+        Objects.equals(this.isAiApiKeyConfigured, miscControllerEEConfiguration.isAiApiKeyConfigured) &&
         Objects.equals(this.isBasicAuthInitialized, miscControllerEEConfiguration.isBasicAuthInitialized) &&
         Objects.equals(this.pluginsHash, miscControllerEEConfiguration.pluginsHash) &&
         Objects.equals(this.isConcurrencyViewEnabled, miscControllerEEConfiguration.isConcurrencyViewEnabled) &&
@@ -1172,7 +1201,7 @@ public class MiscControllerEEConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
   }
 
   @Override
@@ -1195,6 +1224,7 @@ public class MiscControllerEEConfiguration {
     sb.append("    systemNamespace: ").append(toIndentedString(systemNamespace)).append("\n");
     sb.append("    hiddenLabelsPrefixes: ").append(toIndentedString(hiddenLabelsPrefixes)).append("\n");
     sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
+    sb.append("    isAiApiKeyConfigured: ").append(toIndentedString(isAiApiKeyConfigured)).append("\n");
     sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
     sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
     sb.append("    isConcurrencyViewEnabled: ").append(toIndentedString(isConcurrencyViewEnabled)).append("\n");

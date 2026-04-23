@@ -12,1829 +12,44 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
+
 
 // FlowsAPIService FlowsAPI service
 type FlowsAPIService service
 
-type ApiBulkUpdateFlowsRequest struct {
-	ctx                 context.Context
-	ApiService          *FlowsAPIService
-	delete              *bool
-	allowNamespaceChild *bool
-	tenant              string
-	namespace           *string
-	body                *string
-}
-
-// If missing flow should be deleted
-func (r ApiBulkUpdateFlowsRequest) Delete(delete bool) ApiBulkUpdateFlowsRequest {
-	r.delete = &delete
-	return r
-}
-
-// If namespace child should are allowed to be updated
-func (r ApiBulkUpdateFlowsRequest) AllowNamespaceChild(allowNamespaceChild bool) ApiBulkUpdateFlowsRequest {
-	r.allowNamespaceChild = &allowNamespaceChild
-	return r
-}
-
-// The namespace where to update flows
-func (r ApiBulkUpdateFlowsRequest) Namespace(namespace string) ApiBulkUpdateFlowsRequest {
-	r.namespace = &namespace
-	return r
-}
-
-// A list of flows source code split with \&quot;---\&quot;
-func (r ApiBulkUpdateFlowsRequest) Body(body string) ApiBulkUpdateFlowsRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiBulkUpdateFlowsRequest) GetDelete() *bool {
-	return r.delete
-}
-func (r ApiBulkUpdateFlowsRequest) GetAllowNamespaceChild() *bool {
-	return r.allowNamespaceChild
-}
-func (r ApiBulkUpdateFlowsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiBulkUpdateFlowsRequest) GetNamespace() *string {
-	return r.namespace
-}
-func (r ApiBulkUpdateFlowsRequest) GetBody() *string {
-	return r.body
-}
-
-func (r ApiBulkUpdateFlowsRequest) Execute() ([]FlowInterface, *http.Response, error) {
-	return r.ApiService.BulkUpdateFlowsExecute(r)
-}
-
-/*
-BulkUpdateFlows Update from multiples yaml sources
-
-All flow will be created / updated for this namespace.
-Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiBulkUpdateFlowsRequest
-*/
-func (a *FlowsAPIService) BulkUpdateFlows(ctx context.Context, tenant string) ApiBulkUpdateFlowsRequest {
-	return ApiBulkUpdateFlowsRequest{
-		ApiService:          a,
-		ctx:                 ctx,
-		tenant:              tenant,
-		delete:              Ptr(bool(true)),
-		allowNamespaceChild: Ptr(bool(false)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return []FlowInterface
-func (a *FlowsAPIService) BulkUpdateFlowsExecute(r ApiBulkUpdateFlowsRequest) ([]FlowInterface, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []FlowInterface
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.BulkUpdateFlows")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/bulk"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.delete == nil {
-		return localVarReturnValue, nil, reportError("delete is required and must be specified")
-	}
-	if r.allowNamespaceChild == nil {
-		return localVarReturnValue, nil, reportError("allowNamespaceChild is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
-	if r.namespace != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "allowNamespaceChild", r.allowNamespaceChild, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-yaml"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateFlowRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	tenant     string
-	body       *string
-}
-
-// The flow source code
-func (r ApiCreateFlowRequest) Body(body string) ApiCreateFlowRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiCreateFlowRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiCreateFlowRequest) GetBody() *string {
-	return r.body
-}
-
-func (r ApiCreateFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
-	return r.ApiService.CreateFlowExecute(r)
-}
-
-/*
-CreateFlow Create a flow from yaml source
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateFlowRequest
-*/
-func (a *FlowsAPIService) CreateFlow(ctx context.Context, tenant string) ApiCreateFlowRequest {
-	return ApiCreateFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return FlowWithSource
-func (a *FlowsAPIService) CreateFlowExecute(r ApiCreateFlowRequest) (*FlowWithSource, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowWithSource
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.CreateFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-yaml"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteFlowRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	tenant     string
-}
-
-func (r ApiDeleteFlowRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiDeleteFlowRequest) GetId() string {
-	return r.id
-}
-func (r ApiDeleteFlowRequest) GetTenant() string {
-	return r.tenant
-}
-
-func (r ApiDeleteFlowRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteFlowExecute(r)
-}
-
-/*
-DeleteFlow Delete a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiDeleteFlowRequest
-*/
-func (a *FlowsAPIService) DeleteFlow(ctx context.Context, namespace string, id string, tenant string) ApiDeleteFlowRequest {
-	return ApiDeleteFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-func (a *FlowsAPIService) DeleteFlowExecute(r ApiDeleteFlowRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DeleteFlow")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteFlowsByIdsRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	tenant          string
-	idWithNamespace *[]IdWithNamespace
-}
-
-// A list of tuple flow ID and namespace as flow identifiers
-func (r ApiDeleteFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiDeleteFlowsByIdsRequest {
-	r.idWithNamespace = &idWithNamespace
-	return r
-}
-
-func (r ApiDeleteFlowsByIdsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiDeleteFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
-	return r.idWithNamespace
-}
-
-func (r ApiDeleteFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.DeleteFlowsByIdsExecute(r)
-}
-
-/*
-DeleteFlowsByIds Delete flows by their IDs.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteFlowsByIdsRequest
-*/
-func (a *FlowsAPIService) DeleteFlowsByIds(ctx context.Context, tenant string) ApiDeleteFlowsByIdsRequest {
-	return ApiDeleteFlowsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) DeleteFlowsByIdsExecute(r ApiDeleteFlowsByIdsRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DeleteFlowsByIds")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/delete/by-ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idWithNamespace == nil {
-		return localVarReturnValue, nil, reportError("idWithNamespace is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.idWithNamespace
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteFlowsByQueryRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	tenant     string
-	filters    *[]QueryFilter
-}
-
-// Filters
-func (r ApiDeleteFlowsByQueryRequest) Filters(filters []QueryFilter) ApiDeleteFlowsByQueryRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiDeleteFlowsByQueryRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiDeleteFlowsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-
-func (r ApiDeleteFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.DeleteFlowsByQueryExecute(r)
-}
-
-/*
-DeleteFlowsByQuery Delete flows returned by the query parameters.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDeleteFlowsByQueryRequest
-*/
-func (a *FlowsAPIService) DeleteFlowsByQuery(ctx context.Context, tenant string) ApiDeleteFlowsByQueryRequest {
-	return ApiDeleteFlowsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) DeleteFlowsByQueryExecute(r ApiDeleteFlowsByQueryRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DeleteFlowsByQuery")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/delete/by-query"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteRevisionsRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	revisions  *[]int32
-	tenant     string
-}
-
-func (r ApiDeleteRevisionsRequest) Revisions(revisions []int32) ApiDeleteRevisionsRequest {
-	r.revisions = &revisions
-	return r
-}
-
-func (r ApiDeleteRevisionsRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiDeleteRevisionsRequest) GetId() string {
-	return r.id
-}
-func (r ApiDeleteRevisionsRequest) GetRevisions() *[]int32 {
-	return r.revisions
-}
-func (r ApiDeleteRevisionsRequest) GetTenant() string {
-	return r.tenant
-}
-
-func (r ApiDeleteRevisionsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteRevisionsExecute(r)
-}
-
-/*
-DeleteRevisions Delete revisions for a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiDeleteRevisionsRequest
-*/
-func (a *FlowsAPIService) DeleteRevisions(ctx context.Context, namespace string, id string, tenant string) ApiDeleteRevisionsRequest {
-	return ApiDeleteRevisionsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-func (a *FlowsAPIService) DeleteRevisionsExecute(r ApiDeleteRevisionsRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DeleteRevisions")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/revisions"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.revisions == nil {
-		return nil, reportError("revisions is required and must be specified")
-	}
-	if len(*r.revisions) < 1 {
-		return nil, reportError("revisions must have at least 1 elements")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "revisions", r.revisions, "form", "csv")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDisableFlowsByIdsRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	tenant          string
-	idWithNamespace *[]IdWithNamespace
-}
-
-// A list of tuple flow ID and namespace as flow identifiers
-func (r ApiDisableFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiDisableFlowsByIdsRequest {
-	r.idWithNamespace = &idWithNamespace
-	return r
-}
-
-func (r ApiDisableFlowsByIdsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiDisableFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
-	return r.idWithNamespace
-}
-
-func (r ApiDisableFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.DisableFlowsByIdsExecute(r)
-}
-
-/*
-DisableFlowsByIds Disable flows by their IDs.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDisableFlowsByIdsRequest
-*/
-func (a *FlowsAPIService) DisableFlowsByIds(ctx context.Context, tenant string) ApiDisableFlowsByIdsRequest {
-	return ApiDisableFlowsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) DisableFlowsByIdsExecute(r ApiDisableFlowsByIdsRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DisableFlowsByIds")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/disable/by-ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idWithNamespace == nil {
-		return localVarReturnValue, nil, reportError("idWithNamespace is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.idWithNamespace
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDisableFlowsByQueryRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	tenant     string
-	filters    *[]QueryFilter
-}
-
-// Filters
-func (r ApiDisableFlowsByQueryRequest) Filters(filters []QueryFilter) ApiDisableFlowsByQueryRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiDisableFlowsByQueryRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiDisableFlowsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-
-func (r ApiDisableFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.DisableFlowsByQueryExecute(r)
-}
-
-/*
-DisableFlowsByQuery Disable flows returned by the query parameters.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiDisableFlowsByQueryRequest
-*/
-func (a *FlowsAPIService) DisableFlowsByQuery(ctx context.Context, tenant string) ApiDisableFlowsByQueryRequest {
-	return ApiDisableFlowsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) DisableFlowsByQueryExecute(r ApiDisableFlowsByQueryRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.DisableFlowsByQuery")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/disable/by-query"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiEnableFlowsByIdsRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	tenant          string
-	idWithNamespace *[]IdWithNamespace
-}
-
-// A list of tuple flow ID and namespace as flow identifiers
-func (r ApiEnableFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiEnableFlowsByIdsRequest {
-	r.idWithNamespace = &idWithNamespace
-	return r
-}
-
-func (r ApiEnableFlowsByIdsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiEnableFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
-	return r.idWithNamespace
-}
-
-func (r ApiEnableFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.EnableFlowsByIdsExecute(r)
-}
-
-/*
-EnableFlowsByIds Enable flows by their IDs.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiEnableFlowsByIdsRequest
-*/
-func (a *FlowsAPIService) EnableFlowsByIds(ctx context.Context, tenant string) ApiEnableFlowsByIdsRequest {
-	return ApiEnableFlowsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) EnableFlowsByIdsExecute(r ApiEnableFlowsByIdsRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.EnableFlowsByIds")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/enable/by-ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idWithNamespace == nil {
-		return localVarReturnValue, nil, reportError("idWithNamespace is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.idWithNamespace
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiEnableFlowsByQueryRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	tenant     string
-	filters    *[]QueryFilter
-}
-
-// Filters
-func (r ApiEnableFlowsByQueryRequest) Filters(filters []QueryFilter) ApiEnableFlowsByQueryRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiEnableFlowsByQueryRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiEnableFlowsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-
-func (r ApiEnableFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
-	return r.ApiService.EnableFlowsByQueryExecute(r)
-}
-
-/*
-EnableFlowsByQuery Enable flows returned by the query parameters.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiEnableFlowsByQueryRequest
-*/
-func (a *FlowsAPIService) EnableFlowsByQuery(ctx context.Context, tenant string) ApiEnableFlowsByQueryRequest {
-	return ApiEnableFlowsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BulkResponse
-func (a *FlowsAPIService) EnableFlowsByQueryExecute(r ApiEnableFlowsByQueryRequest) (*BulkResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BulkResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.EnableFlowsByQuery")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/enable/by-query"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiExportFlowsByIdsRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	tenant          string
-	idWithNamespace *[]IdWithNamespace
-}
-
-// A list of tuple flow ID and namespace as flow identifiers
-func (r ApiExportFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiExportFlowsByIdsRequest {
-	r.idWithNamespace = &idWithNamespace
-	return r
-}
-
-func (r ApiExportFlowsByIdsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiExportFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
-	return r.idWithNamespace
-}
-
-func (r ApiExportFlowsByIdsRequest) Execute() (string, *http.Response, error) {
-	return r.ApiService.ExportFlowsByIdsExecute(r)
-}
-
-/*
-ExportFlowsByIds Export flows as a ZIP archive of yaml sources.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiExportFlowsByIdsRequest
-*/
-func (a *FlowsAPIService) ExportFlowsByIds(ctx context.Context, tenant string) ApiExportFlowsByIdsRequest {
-	return ApiExportFlowsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return string
-func (a *FlowsAPIService) ExportFlowsByIdsExecute(r ApiExportFlowsByIdsRequest) (string, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ExportFlowsByIds")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/export/by-ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idWithNamespace == nil {
-		return localVarReturnValue, nil, reportError("idWithNamespace is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.idWithNamespace
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiExportFlowsByQueryRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	tenant     string
-	filters    *[]QueryFilter
-}
-
-// Filters
-func (r ApiExportFlowsByQueryRequest) Filters(filters []QueryFilter) ApiExportFlowsByQueryRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiExportFlowsByQueryRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiExportFlowsByQueryRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-
-func (r ApiExportFlowsByQueryRequest) Execute() (string, *http.Response, error) {
-	return r.ApiService.ExportFlowsByQueryExecute(r)
-}
-
-/*
-ExportFlowsByQuery Export flows as a ZIP archive of yaml sources.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiExportFlowsByQueryRequest
-*/
-func (a *FlowsAPIService) ExportFlowsByQuery(ctx context.Context, tenant string) ApiExportFlowsByQueryRequest {
-	return ApiExportFlowsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return string
-func (a *FlowsAPIService) ExportFlowsByQueryExecute(r ApiExportFlowsByQueryRequest) (string, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ExportFlowsByQuery")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/export/by-query"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiFlowRequest struct {
-	ctx          context.Context
-	ApiService   *FlowsAPIService
-	namespace    string
-	id           string
-	source       *bool
-	allowDeleted *bool
-	tenant       string
-	revision     *int32
-}
-
-// Include the source code
-func (r ApiFlowRequest) Source(source bool) ApiFlowRequest {
-	r.source = &source
-	return r
-}
-
-// Get flow even if deleted
-func (r ApiFlowRequest) AllowDeleted(allowDeleted bool) ApiFlowRequest {
-	r.allowDeleted = &allowDeleted
-	return r
-}
-
-// Get latest revision by default
-func (r ApiFlowRequest) Revision(revision int32) ApiFlowRequest {
-	r.revision = &revision
-	return r
-}
-
-func (r ApiFlowRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiFlowRequest) GetId() string {
-	return r.id
-}
-func (r ApiFlowRequest) GetSource() *bool {
-	return r.source
-}
-func (r ApiFlowRequest) GetAllowDeleted() *bool {
-	return r.allowDeleted
-}
-func (r ApiFlowRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiFlowRequest) GetRevision() *int32 {
-	return r.revision
-}
-
-func (r ApiFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
-	return r.ApiService.FlowExecute(r)
-}
-
-/*
-Flow Get a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiFlowRequest
-*/
-func (a *FlowsAPIService) Flow(ctx context.Context, namespace string, id string, tenant string) ApiFlowRequest {
-	return ApiFlowRequest{
-		ApiService:   a,
-		ctx:          ctx,
-		namespace:    namespace,
-		id:           id,
-		tenant:       tenant,
-		source:       Ptr(bool(false)),
-		allowDeleted: Ptr(bool(false)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return FlowWithSource
-func (a *FlowsAPIService) FlowExecute(r ApiFlowRequest) (*FlowWithSource, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowWithSource
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.Flow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.source == nil {
-		return localVarReturnValue, nil, reportError("source is required and must be specified")
-	}
-	if r.allowDeleted == nil {
-		return localVarReturnValue, nil, reportError("allowDeleted is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "source", r.source, "form", "")
-	if r.revision != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "allowDeleted", r.allowDeleted, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiFlowDependenciesRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	namespace       string
-	id              string
-	destinationOnly *bool
-	expandAll       *bool
-	tenant          string
-}
-
-// If true, list only destination dependencies, otherwise list also source dependencies
-func (r ApiFlowDependenciesRequest) DestinationOnly(destinationOnly bool) ApiFlowDependenciesRequest {
-	r.destinationOnly = &destinationOnly
-	return r
-}
-
-// If true, expand all dependencies recursively
-func (r ApiFlowDependenciesRequest) ExpandAll(expandAll bool) ApiFlowDependenciesRequest {
-	r.expandAll = &expandAll
-	return r
-}
-
-func (r ApiFlowDependenciesRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiFlowDependenciesRequest) GetId() string {
-	return r.id
-}
-func (r ApiFlowDependenciesRequest) GetDestinationOnly() *bool {
-	return r.destinationOnly
-}
-func (r ApiFlowDependenciesRequest) GetExpandAll() *bool {
-	return r.expandAll
-}
-func (r ApiFlowDependenciesRequest) GetTenant() string {
-	return r.tenant
-}
-
-func (r ApiFlowDependenciesRequest) Execute() (*FlowTopologyGraph, *http.Response, error) {
-	return r.ApiService.FlowDependenciesExecute(r)
-}
-
-/*
-FlowDependencies Get flow dependencies
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiFlowDependenciesRequest
-*/
-func (a *FlowsAPIService) FlowDependencies(ctx context.Context, namespace string, id string, tenant string) ApiFlowDependenciesRequest {
-	return ApiFlowDependenciesRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		namespace:       namespace,
-		id:              id,
-		tenant:          tenant,
-		destinationOnly: Ptr(bool(false)),
-		expandAll:       Ptr(bool(false)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return FlowTopologyGraph
-func (a *FlowsAPIService) FlowDependenciesExecute(r ApiFlowDependenciesRequest) (*FlowTopologyGraph, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowTopologyGraph
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.FlowDependencies")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/dependencies"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.destinationOnly == nil {
-		return localVarReturnValue, nil, reportError("destinationOnly is required and must be specified")
-	}
-	if r.expandAll == nil {
-		return localVarReturnValue, nil, reportError("expandAll is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", r.destinationOnly, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "expandAll", r.expandAll, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiFlowDependenciesFromNamespaceRequest struct {
-	ctx             context.Context
-	ApiService      *FlowsAPIService
-	namespace       string
-	destinationOnly *bool
-	tenant          string
+	ctx context.Context
+	ApiService *FlowsAPIService
+	namespace string
+	tenant string
+	destinationOnly *SchemasFromTypeArrayOfParameter
 }
 
 // if true, list only destination dependencies, otherwise list also source dependencies
-func (r ApiFlowDependenciesFromNamespaceRequest) DestinationOnly(destinationOnly bool) ApiFlowDependenciesFromNamespaceRequest {
+func (r ApiFlowDependenciesFromNamespaceRequest) DestinationOnly(destinationOnly SchemasFromTypeArrayOfParameter) ApiFlowDependenciesFromNamespaceRequest {
 	r.destinationOnly = &destinationOnly
 	return r
 }
 
+
 func (r ApiFlowDependenciesFromNamespaceRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiFlowDependenciesFromNamespaceRequest) GetDestinationOnly() *bool {
-	return r.destinationOnly
+    return r.namespace
 }
 func (r ApiFlowDependenciesFromNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+func (r ApiFlowDependenciesFromNamespaceRequest) GetDestinationOnly() *SchemasFromTypeArrayOfParameter {
+    return r.destinationOnly
+}
+
 
 func (r ApiFlowDependenciesFromNamespaceRequest) Execute() (*FlowTopologyGraph, *http.Response, error) {
 	return r.ApiService.FlowDependenciesFromNamespaceExecute(r)
@@ -1843,30 +58,28 @@ func (r ApiFlowDependenciesFromNamespaceRequest) Execute() (*FlowTopologyGraph, 
 /*
 FlowDependenciesFromNamespace Retrieve flow dependencies
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param tenant
-	@return ApiFlowDependenciesFromNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiFlowDependenciesFromNamespaceRequest
 */
 func (a *FlowsAPIService) FlowDependenciesFromNamespace(ctx context.Context, namespace string, tenant string) ApiFlowDependenciesFromNamespaceRequest {
 	return ApiFlowDependenciesFromNamespaceRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		namespace:       namespace,
-		tenant:          tenant,
-		destinationOnly: Ptr(bool(false)),
-	}
+		ApiService: a,
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowTopologyGraph
+//  @return FlowTopologyGraph
 func (a *FlowsAPIService) FlowDependenciesFromNamespaceExecute(r ApiFlowDependenciesFromNamespaceRequest) (*FlowTopologyGraph, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowTopologyGraph
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowTopologyGraph
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.FlowDependenciesFromNamespace")
@@ -1881,11 +94,10 @@ func (a *FlowsAPIService) FlowDependenciesFromNamespaceExecute(r ApiFlowDependen
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.destinationOnly == nil {
-		return localVarReturnValue, nil, reportError("destinationOnly is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", r.destinationOnly, "form", "")
+	if r.destinationOnly != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", r.destinationOnly, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1940,18 +152,22 @@ func (a *FlowsAPIService) FlowDependenciesFromNamespaceExecute(r ApiFlowDependen
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiGenerateFlowGraphRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	tenant     string
-	revision   *int32
-	subflows   *[]string
+	id string
+	namespace string
+	tenant string
+	revision *GenerateFlowGraphRevisionParameter
+	subflows *[]string
 }
 
 // The flow revision
-func (r ApiGenerateFlowGraphRequest) Revision(revision int32) ApiGenerateFlowGraphRequest {
+func (r ApiGenerateFlowGraphRequest) Revision(revision GenerateFlowGraphRevisionParameter) ApiGenerateFlowGraphRequest {
 	r.revision = &revision
 	return r
 }
@@ -1962,21 +178,23 @@ func (r ApiGenerateFlowGraphRequest) Subflows(subflows []string) ApiGenerateFlow
 	return r
 }
 
-func (r ApiGenerateFlowGraphRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiGenerateFlowGraphRequest) GetId() string {
-	return r.id
+    return r.id
+}
+func (r ApiGenerateFlowGraphRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiGenerateFlowGraphRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
-func (r ApiGenerateFlowGraphRequest) GetRevision() *int32 {
-	return r.revision
+func (r ApiGenerateFlowGraphRequest) GetRevision() *GenerateFlowGraphRevisionParameter {
+    return r.revision
 }
 func (r ApiGenerateFlowGraphRequest) GetSubflows() *[]string {
-	return r.subflows
+    return r.subflows
 }
+
 
 func (r ApiGenerateFlowGraphRequest) Execute() (*FlowGraph, *http.Response, error) {
 	return r.ApiService.GenerateFlowGraphExecute(r)
@@ -1985,31 +203,30 @@ func (r ApiGenerateFlowGraphRequest) Execute() (*FlowGraph, *http.Response, erro
 /*
 GenerateFlowGraph Generate a graph for a flow
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiGenerateFlowGraphRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The flow id
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiGenerateFlowGraphRequest
 */
-func (a *FlowsAPIService) GenerateFlowGraph(ctx context.Context, namespace string, id string, tenant string) ApiGenerateFlowGraphRequest {
+func (a *FlowsAPIService) GenerateFlowGraph(ctx context.Context, id string, namespace string, tenant string) ApiGenerateFlowGraphRequest {
 	return ApiGenerateFlowGraphRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowGraph
+//  @return FlowGraph
 func (a *FlowsAPIService) GenerateFlowGraphExecute(r ApiGenerateFlowGraphRequest) (*FlowGraph, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowGraph
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowGraph
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.GenerateFlowGraph")
@@ -2018,8 +235,8 @@ func (a *FlowsAPIService) GenerateFlowGraphExecute(r ApiGenerateFlowGraphRequest
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/graph"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2086,12 +303,16 @@ func (a *FlowsAPIService) GenerateFlowGraphExecute(r ApiGenerateFlowGraphRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiGenerateFlowGraphFromSourceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	tenant     string
-	body       *string
-	subflows   *[]string
+	tenant string
+	body *string
+	subflows *GenerateFlowGraphFromSourceSubflowsParameter
 }
 
 // The flow source code
@@ -2101,20 +322,22 @@ func (r ApiGenerateFlowGraphFromSourceRequest) Body(body string) ApiGenerateFlow
 }
 
 // The subflow tasks to display
-func (r ApiGenerateFlowGraphFromSourceRequest) Subflows(subflows []string) ApiGenerateFlowGraphFromSourceRequest {
+func (r ApiGenerateFlowGraphFromSourceRequest) Subflows(subflows GenerateFlowGraphFromSourceSubflowsParameter) ApiGenerateFlowGraphFromSourceRequest {
 	r.subflows = &subflows
 	return r
 }
 
+
 func (r ApiGenerateFlowGraphFromSourceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiGenerateFlowGraphFromSourceRequest) GetBody() *string {
-	return r.body
+    return r.body
 }
-func (r ApiGenerateFlowGraphFromSourceRequest) GetSubflows() *[]string {
-	return r.subflows
+func (r ApiGenerateFlowGraphFromSourceRequest) GetSubflows() *GenerateFlowGraphFromSourceSubflowsParameter {
+    return r.subflows
 }
+
 
 func (r ApiGenerateFlowGraphFromSourceRequest) Execute() (*FlowGraph, *http.Response, error) {
 	return r.ApiService.GenerateFlowGraphFromSourceExecute(r)
@@ -2123,27 +346,26 @@ func (r ApiGenerateFlowGraphFromSourceRequest) Execute() (*FlowGraph, *http.Resp
 /*
 GenerateFlowGraphFromSource Generate a graph for a flow source
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiGenerateFlowGraphFromSourceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiGenerateFlowGraphFromSourceRequest
 */
 func (a *FlowsAPIService) GenerateFlowGraphFromSource(ctx context.Context, tenant string) ApiGenerateFlowGraphFromSourceRequest {
 	return ApiGenerateFlowGraphFromSourceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return FlowGraph
+//  @return FlowGraph
 func (a *FlowsAPIService) GenerateFlowGraphFromSourceExecute(r ApiGenerateFlowGraphFromSourceRequest) (*FlowGraph, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowGraph
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FlowGraph
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.GenerateFlowGraphFromSource")
@@ -2162,7 +384,7 @@ func (a *FlowsAPIService) GenerateFlowGraphFromSourceExecute(r ApiGenerateFlowGr
 	}
 
 	if r.subflows != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "csv")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-yaml"}
@@ -2220,157 +442,15 @@ func (a *FlowsAPIService) GenerateFlowGraphFromSourceExecute(r ApiGenerateFlowGr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiImportFlowsRequest struct {
-	ctx         context.Context
-	ApiService  *FlowsAPIService
-	failOnError *bool
-	tenant      string
-	fileUpload  *os.File
-}
 
-// If should fail on invalid flows
-func (r ApiImportFlowsRequest) FailOnError(failOnError bool) ApiImportFlowsRequest {
-	r.failOnError = &failOnError
-	return r
-}
 
-// The file to import, can be a ZIP archive or a multi-objects YAML file
-func (r ApiImportFlowsRequest) FileUpload(fileUpload *os.File) ApiImportFlowsRequest {
-	r.fileUpload = fileUpload
-	return r
-}
 
-func (r ApiImportFlowsRequest) GetFailOnError() *bool {
-	return r.failOnError
-}
-func (r ApiImportFlowsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiImportFlowsRequest) GetFileUpload() *os.File {
-	return r.fileUpload
-}
-
-func (r ApiImportFlowsRequest) Execute() ([]string, *http.Response, error) {
-	return r.ApiService.ImportFlowsExecute(r)
-}
-
-/*
-ImportFlows     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiImportFlowsRequest
-*/
-func (a *FlowsAPIService) ImportFlows(ctx context.Context, tenant string) ApiImportFlowsRequest {
-	return ApiImportFlowsRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		tenant:      tenant,
-		failOnError: Ptr(bool(false)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return []string
-func (a *FlowsAPIService) ImportFlowsExecute(r ApiImportFlowsRequest) ([]string, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ImportFlows")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/import"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.failOnError == nil {
-		return localVarReturnValue, nil, reportError("failOnError is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "failOnError", r.failOnError, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"multipart/form-data"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	var fileUploadLocalVarFormFileName string
-	var fileUploadLocalVarFileName string
-	var fileUploadLocalVarFileBytes []byte
-
-	fileUploadLocalVarFormFileName = "fileUpload"
-	fileUploadLocalVarFile := r.fileUpload
-
-	if fileUploadLocalVarFile != nil {
-		fbs, _ := io.ReadAll(fileUploadLocalVarFile)
-
-		fileUploadLocalVarFileBytes = fbs
-		fileUploadLocalVarFileName = fileUploadLocalVarFile.Name()
-		fileUploadLocalVarFile.Close()
-		formFiles = append(formFiles, formFile{fileBytes: fileUploadLocalVarFileBytes, fileName: fileUploadLocalVarFileName, formFileName: fileUploadLocalVarFormFileName})
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiListDistinctNamespacesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	tenant     string
-	q          *string
+	tenant string
+	q *string
 }
 
 // A string filter
@@ -2379,12 +459,14 @@ func (r ApiListDistinctNamespacesRequest) Q(q string) ApiListDistinctNamespacesR
 	return r
 }
 
+
 func (r ApiListDistinctNamespacesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiListDistinctNamespacesRequest) GetQ() *string {
-	return r.q
+    return r.q
 }
+
 
 func (r ApiListDistinctNamespacesRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ListDistinctNamespacesExecute(r)
@@ -2393,27 +475,26 @@ func (r ApiListDistinctNamespacesRequest) Execute() ([]string, *http.Response, e
 /*
 ListDistinctNamespaces List all distinct namespaces
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListDistinctNamespacesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiListDistinctNamespacesRequest
 */
 func (a *FlowsAPIService) ListDistinctNamespaces(ctx context.Context, tenant string) ApiListDistinctNamespacesRequest {
 	return ApiListDistinctNamespacesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []string
+//  @return []string
 func (a *FlowsAPIService) ListDistinctNamespacesExecute(r ApiListDistinctNamespacesRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ListDistinctNamespaces")
@@ -2485,262 +566,21 @@ func (a *FlowsAPIService) ListDistinctNamespacesExecute(r ApiListDistinctNamespa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListFlowRevisionsRequest struct {
-	ctx         context.Context
-	ApiService  *FlowsAPIService
-	namespace   string
-	id          string
-	allowDelete *bool
-	tenant      string
-}
 
-func (r ApiListFlowRevisionsRequest) AllowDelete(allowDelete bool) ApiListFlowRevisionsRequest {
-	r.allowDelete = &allowDelete
-	return r
-}
 
-func (r ApiListFlowRevisionsRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiListFlowRevisionsRequest) GetId() string {
-	return r.id
-}
-func (r ApiListFlowRevisionsRequest) GetAllowDelete() *bool {
-	return r.allowDelete
-}
-func (r ApiListFlowRevisionsRequest) GetTenant() string {
-	return r.tenant
-}
 
-func (r ApiListFlowRevisionsRequest) Execute() ([]FlowWithSource, *http.Response, error) {
-	return r.ApiService.ListFlowRevisionsExecute(r)
-}
-
-/*
-ListFlowRevisions Get revisions for a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiListFlowRevisionsRequest
-*/
-func (a *FlowsAPIService) ListFlowRevisions(ctx context.Context, namespace string, id string, tenant string) ApiListFlowRevisionsRequest {
-	return ApiListFlowRevisionsRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		namespace:   namespace,
-		id:          id,
-		tenant:      tenant,
-		allowDelete: Ptr(bool(false)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return []FlowWithSource
-func (a *FlowsAPIService) ListFlowRevisionsExecute(r ApiListFlowRevisionsRequest) ([]FlowWithSource, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []FlowWithSource
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ListFlowRevisions")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/revisions"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.allowDelete == nil {
-		return localVarReturnValue, nil, reportError("allowDelete is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "allowDelete", r.allowDelete, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListFlowsByNamespaceRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	namespace  string
-	tenant     string
-}
-
-func (r ApiListFlowsByNamespaceRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiListFlowsByNamespaceRequest) GetTenant() string {
-	return r.tenant
-}
-
-func (r ApiListFlowsByNamespaceRequest) Execute() ([]Flow, *http.Response, error) {
-	return r.ApiService.ListFlowsByNamespaceExecute(r)
-}
-
-/*
-ListFlowsByNamespace Retrieve all flows from a given namespace
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace Namespace to filter flows
-	@param tenant
-	@return ApiListFlowsByNamespaceRequest
-*/
-func (a *FlowsAPIService) ListFlowsByNamespace(ctx context.Context, namespace string, tenant string) ApiListFlowsByNamespaceRequest {
-	return ApiListFlowsByNamespaceRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Flow
-func (a *FlowsAPIService) ListFlowsByNamespaceExecute(r ApiListFlowsByNamespaceRequest) ([]Flow, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Flow
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ListFlowsByNamespace")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiSearchConcurrencyLimitsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	tenant     string
+	tenant string
 }
 
+
 func (r ApiSearchConcurrencyLimitsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiSearchConcurrencyLimitsRequest) Execute() (*PagedResultsConcurrencyLimit, *http.Response, error) {
 	return r.ApiService.SearchConcurrencyLimitsExecute(r)
@@ -2749,27 +589,26 @@ func (r ApiSearchConcurrencyLimitsRequest) Execute() (*PagedResultsConcurrencyLi
 /*
 SearchConcurrencyLimits Search for flow concurrency limits
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchConcurrencyLimitsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchConcurrencyLimitsRequest
 */
 func (a *FlowsAPIService) SearchConcurrencyLimits(ctx context.Context, tenant string) ApiSearchConcurrencyLimitsRequest {
 	return ApiSearchConcurrencyLimitsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsConcurrencyLimit
+//  @return PagedResultsConcurrencyLimit
 func (a *FlowsAPIService) SearchConcurrencyLimitsExecute(r ApiSearchConcurrencyLimitsRequest) (*PagedResultsConcurrencyLimit, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsConcurrencyLimit
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsConcurrencyLimit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.SearchConcurrencyLimits")
@@ -2838,501 +677,16 @@ func (a *FlowsAPIService) SearchConcurrencyLimitsExecute(r ApiSearchConcurrencyL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSearchFlowsRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	filters    *[]QueryFilter
-}
 
-// The current page
-func (r ApiSearchFlowsRequest) Page(page int32) ApiSearchFlowsRequest {
-	r.page = &page
-	return r
-}
 
-// The current page size
-func (r ApiSearchFlowsRequest) Size(size int32) ApiSearchFlowsRequest {
-	r.size = &size
-	return r
-}
 
-// The sort of current page
-func (r ApiSearchFlowsRequest) Sort(sort []string) ApiSearchFlowsRequest {
-	r.sort = &sort
-	return r
-}
-
-// Filters
-func (r ApiSearchFlowsRequest) Filters(filters []QueryFilter) ApiSearchFlowsRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiSearchFlowsRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchFlowsRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiSearchFlowsRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiSearchFlowsRequest) GetSort() *[]string {
-	return r.sort
-}
-func (r ApiSearchFlowsRequest) GetFilters() *[]QueryFilter {
-	return r.filters
-}
-
-func (r ApiSearchFlowsRequest) Execute() (*PagedResultsFlow, *http.Response, error) {
-	return r.ApiService.SearchFlowsExecute(r)
-}
-
-/*
-SearchFlows Search for flows
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchFlowsRequest
-*/
-func (a *FlowsAPIService) SearchFlows(ctx context.Context, tenant string) ApiSearchFlowsRequest {
-	return ApiSearchFlowsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsFlow
-func (a *FlowsAPIService) SearchFlowsExecute(r ApiSearchFlowsRequest) (*PagedResultsFlow, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsFlow
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.SearchFlows")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchFlowsBySourceCodeRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	q          *string
-	namespace  *string
-}
-
-// The current page
-func (r ApiSearchFlowsBySourceCodeRequest) Page(page int32) ApiSearchFlowsBySourceCodeRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchFlowsBySourceCodeRequest) Size(size int32) ApiSearchFlowsBySourceCodeRequest {
-	r.size = &size
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchFlowsBySourceCodeRequest) Sort(sort []string) ApiSearchFlowsBySourceCodeRequest {
-	r.sort = &sort
-	return r
-}
-
-// A string filter
-func (r ApiSearchFlowsBySourceCodeRequest) Q(q string) ApiSearchFlowsBySourceCodeRequest {
-	r.q = &q
-	return r
-}
-
-// A namespace filter prefix
-func (r ApiSearchFlowsBySourceCodeRequest) Namespace(namespace string) ApiSearchFlowsBySourceCodeRequest {
-	r.namespace = &namespace
-	return r
-}
-
-func (r ApiSearchFlowsBySourceCodeRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchFlowsBySourceCodeRequest) GetSize() *int32 {
-	return r.size
-}
-func (r ApiSearchFlowsBySourceCodeRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiSearchFlowsBySourceCodeRequest) GetSort() *[]string {
-	return r.sort
-}
-func (r ApiSearchFlowsBySourceCodeRequest) GetQ() *string {
-	return r.q
-}
-func (r ApiSearchFlowsBySourceCodeRequest) GetNamespace() *string {
-	return r.namespace
-}
-
-func (r ApiSearchFlowsBySourceCodeRequest) Execute() (*PagedResultsSearchResultFlow, *http.Response, error) {
-	return r.ApiService.SearchFlowsBySourceCodeExecute(r)
-}
-
-/*
-SearchFlowsBySourceCode Search for flows source code
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchFlowsBySourceCodeRequest
-*/
-func (a *FlowsAPIService) SearchFlowsBySourceCode(ctx context.Context, tenant string) ApiSearchFlowsBySourceCodeRequest {
-	return ApiSearchFlowsBySourceCodeRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsSearchResultFlow
-func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourceCodeRequest) (*PagedResultsSearchResultFlow, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsSearchResultFlow
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.SearchFlowsBySourceCode")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/source"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if *r.page < 1 {
-		return localVarReturnValue, nil, reportError("page must be greater than 1")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-	if *r.size < 1 {
-		return localVarReturnValue, nil, reportError("size must be greater than 1")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	if r.namespace != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiTaskFromFlowRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	taskId     string
-	tenant     string
-	revision   *int32
-}
-
-// The flow revision
-func (r ApiTaskFromFlowRequest) Revision(revision int32) ApiTaskFromFlowRequest {
-	r.revision = &revision
-	return r
-}
-
-func (r ApiTaskFromFlowRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiTaskFromFlowRequest) GetId() string {
-	return r.id
-}
-func (r ApiTaskFromFlowRequest) GetTaskId() string {
-	return r.taskId
-}
-func (r ApiTaskFromFlowRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiTaskFromFlowRequest) GetRevision() *int32 {
-	return r.revision
-}
-
-func (r ApiTaskFromFlowRequest) Execute() (*Task, *http.Response, error) {
-	return r.ApiService.TaskFromFlowExecute(r)
-}
-
-/*
-TaskFromFlow Get a flow task
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param taskId The task id
-	@param tenant
-	@return ApiTaskFromFlowRequest
-*/
-func (a *FlowsAPIService) TaskFromFlow(ctx context.Context, namespace string, id string, taskId string, tenant string) ApiTaskFromFlowRequest {
-	return ApiTaskFromFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		taskId:     taskId,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Task
-func (a *FlowsAPIService) TaskFromFlowExecute(r ApiTaskFromFlowRequest) (*Task, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Task
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.TaskFromFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"taskId"+"}", url.PathEscape(parameterValueToString(r.taskId, "taskId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.revision != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiUpdateConcurrencyLimitRequest struct {
-	ctx              context.Context
-	ApiService       *FlowsAPIService
-	namespace        string
-	flowId           string
-	tenant           string
+	ctx context.Context
+	ApiService *FlowsAPIService
+	namespace string
+	flowId string
+	tenant string
 	concurrencyLimit *ConcurrencyLimit
 }
 
@@ -3341,18 +695,20 @@ func (r ApiUpdateConcurrencyLimitRequest) ConcurrencyLimit(concurrencyLimit Conc
 	return r
 }
 
+
 func (r ApiUpdateConcurrencyLimitRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiUpdateConcurrencyLimitRequest) GetFlowId() string {
-	return r.flowId
+    return r.flowId
 }
 func (r ApiUpdateConcurrencyLimitRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateConcurrencyLimitRequest) GetConcurrencyLimit() *ConcurrencyLimit {
-	return r.concurrencyLimit
+    return r.concurrencyLimit
 }
+
 
 func (r ApiUpdateConcurrencyLimitRequest) Execute() (*ConcurrencyLimit, *http.Response, error) {
 	return r.ApiService.UpdateConcurrencyLimitExecute(r)
@@ -3361,31 +717,30 @@ func (r ApiUpdateConcurrencyLimitRequest) Execute() (*ConcurrencyLimit, *http.Re
 /*
 UpdateConcurrencyLimit Update a flow concurrency limit
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace
-	@param flowId
-	@param tenant
-	@return ApiUpdateConcurrencyLimitRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace
+ @param flowId
+ @param tenant
+ @return ApiUpdateConcurrencyLimitRequest
 */
 func (a *FlowsAPIService) UpdateConcurrencyLimit(ctx context.Context, namespace string, flowId string, tenant string) ApiUpdateConcurrencyLimitRequest {
 	return ApiUpdateConcurrencyLimitRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		flowId:     flowId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		flowId: flowId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return ConcurrencyLimit
+//  @return ConcurrencyLimit
 func (a *FlowsAPIService) UpdateConcurrencyLimitExecute(r ApiUpdateConcurrencyLimitRequest) (*ConcurrencyLimit, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ConcurrencyLimit
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ConcurrencyLimit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.UpdateConcurrencyLimit")
@@ -3461,184 +816,45 @@ func (a *FlowsAPIService) UpdateConcurrencyLimitExecute(r ApiUpdateConcurrencyLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateFlowRequest struct {
-	ctx        context.Context
+
+
+
+
+type ApiUpdateFlowsInNamespaceRequest struct {
+	ctx context.Context
 	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	tenant     string
-	body       *string
+	namespace string
+	tenant string
+	override *UpdateFlowsInNamespaceOverrideParameter
+	delete *bool
 }
 
-// The flow source code
-func (r ApiUpdateFlowRequest) Body(body string) ApiUpdateFlowRequest {
-	r.body = &body
+// If namespace of all provided flows should be overridden
+func (r ApiUpdateFlowsInNamespaceRequest) Override(override UpdateFlowsInNamespaceOverrideParameter) ApiUpdateFlowsInNamespaceRequest {
+	r.override = &override
 	return r
 }
 
-func (r ApiUpdateFlowRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiUpdateFlowRequest) GetId() string {
-	return r.id
-}
-func (r ApiUpdateFlowRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiUpdateFlowRequest) GetBody() *string {
-	return r.body
-}
-
-func (r ApiUpdateFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
-	return r.ApiService.UpdateFlowExecute(r)
-}
-
-/*
-UpdateFlow Update a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param tenant
-	@return ApiUpdateFlowRequest
-*/
-func (a *FlowsAPIService) UpdateFlow(ctx context.Context, namespace string, id string, tenant string) ApiUpdateFlowRequest {
-	return ApiUpdateFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return FlowWithSource
-func (a *FlowsAPIService) UpdateFlowExecute(r ApiUpdateFlowRequest) (*FlowWithSource, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FlowWithSource
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.UpdateFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-yaml"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiUpdateFlowsInNamespaceRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	delete     *bool
-	namespace  string
-	tenant     string
-	override   *bool
-	body       *string
-}
-
-// If missing flow should be deleted
+// If missing flows should be deleted
 func (r ApiUpdateFlowsInNamespaceRequest) Delete(delete bool) ApiUpdateFlowsInNamespaceRequest {
 	r.delete = &delete
 	return r
 }
 
-// If namespace of all provided flows should be overridden
-func (r ApiUpdateFlowsInNamespaceRequest) Override(override bool) ApiUpdateFlowsInNamespaceRequest {
-	r.override = &override
-	return r
-}
 
-// A list of flows source code
-func (r ApiUpdateFlowsInNamespaceRequest) Body(body string) ApiUpdateFlowsInNamespaceRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiUpdateFlowsInNamespaceRequest) GetDelete() *bool {
-	return r.delete
-}
 func (r ApiUpdateFlowsInNamespaceRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiUpdateFlowsInNamespaceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
-func (r ApiUpdateFlowsInNamespaceRequest) GetOverride() *bool {
-	return r.override
+func (r ApiUpdateFlowsInNamespaceRequest) GetOverride() *UpdateFlowsInNamespaceOverrideParameter {
+    return r.override
 }
-func (r ApiUpdateFlowsInNamespaceRequest) GetBody() *string {
-	return r.body
+func (r ApiUpdateFlowsInNamespaceRequest) GetDelete() *bool {
+    return r.delete
 }
+
 
 func (r ApiUpdateFlowsInNamespaceRequest) Execute() ([]FlowInterface, *http.Response, error) {
 	return r.ApiService.UpdateFlowsInNamespaceExecute(r)
@@ -3647,34 +863,32 @@ func (r ApiUpdateFlowsInNamespaceRequest) Execute() ([]FlowInterface, *http.Resp
 /*
 UpdateFlowsInNamespace Update a complete namespace from yaml source
 
-All flow will be created / updated for this namespace.
-Flow that already created but not in `flows` will be deleted if the query delete is `true`
+All flows will be created / updated for this namespace.
+Existing flows missing from `flows` will be deleted if the query delete is `true`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param tenant
-	@return ApiUpdateFlowsInNamespaceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The flow namespace
+ @param tenant
+ @return ApiUpdateFlowsInNamespaceRequest
 */
 func (a *FlowsAPIService) UpdateFlowsInNamespace(ctx context.Context, namespace string, tenant string) ApiUpdateFlowsInNamespaceRequest {
 	return ApiUpdateFlowsInNamespaceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-		delete:     Ptr(bool(true)),
-		override:   Ptr(bool(false)),
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+        delete: Ptr(bool(true)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return []FlowInterface
+//  @return []FlowInterface
 func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamespaceRequest) ([]FlowInterface, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []FlowInterface
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []FlowInterface
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.UpdateFlowsInNamespace")
@@ -3689,20 +903,15 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.delete == nil {
-		return localVarReturnValue, nil, reportError("delete is required and must be specified")
-	}
-	if r.override == nil {
-		return localVarReturnValue, nil, reportError("override is required and must be specified")
-	}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "override", r.override, "form", "")
+	if r.override != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "override", r.override, "form", "")
+	}
+	if r.delete != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
+	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-yaml"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3718,8 +927,6 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3757,157 +964,15 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceExecute(r ApiUpdateFlowsInNamesp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateTaskRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	namespace  string
-	id         string
-	taskId     string
-	tenant     string
-	task       *Task
-}
 
-// The task
-func (r ApiUpdateTaskRequest) Task(task Task) ApiUpdateTaskRequest {
-	r.task = &task
-	return r
-}
 
-func (r ApiUpdateTaskRequest) GetNamespace() string {
-	return r.namespace
-}
-func (r ApiUpdateTaskRequest) GetId() string {
-	return r.id
-}
-func (r ApiUpdateTaskRequest) GetTaskId() string {
-	return r.taskId
-}
-func (r ApiUpdateTaskRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiUpdateTaskRequest) GetTask() *Task {
-	return r.task
-}
 
-func (r ApiUpdateTaskRequest) Execute() (*Flow, *http.Response, error) {
-	return r.ApiService.UpdateTaskExecute(r)
-}
-
-/*
-UpdateTask Update a single task on a flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
-	@param id The flow id
-	@param taskId The task id
-	@param tenant
-	@return ApiUpdateTaskRequest
-
-Deprecated
-*/
-func (a *FlowsAPIService) UpdateTask(ctx context.Context, namespace string, id string, taskId string, tenant string) ApiUpdateTaskRequest {
-	return ApiUpdateTaskRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		taskId:     taskId,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Flow
-//
-// Deprecated
-func (a *FlowsAPIService) UpdateTaskExecute(r ApiUpdateTaskRequest) (*Flow, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Flow
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.UpdateTask")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"taskId"+"}", url.PathEscape(parameterValueToString(r.taskId, "taskId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.task == nil {
-		return localVarReturnValue, nil, reportError("task is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.task
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiValidateFlowsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	tenant     string
-	body       *string
+	tenant string
+	body *string
 }
 
 // Flows as YAML string or multipart files
@@ -3916,12 +981,14 @@ func (r ApiValidateFlowsRequest) Body(body string) ApiValidateFlowsRequest {
 	return r
 }
 
+
 func (r ApiValidateFlowsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiValidateFlowsRequest) GetBody() *string {
-	return r.body
+    return r.body
 }
+
 
 func (r ApiValidateFlowsRequest) Execute() ([]ValidateConstraintViolation, *http.Response, error) {
 	return r.ApiService.ValidateFlowsExecute(r)
@@ -3930,27 +997,26 @@ func (r ApiValidateFlowsRequest) Execute() ([]ValidateConstraintViolation, *http
 /*
 ValidateFlows Validate a list of flows
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiValidateFlowsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiValidateFlowsRequest
 */
 func (a *FlowsAPIService) ValidateFlows(ctx context.Context, tenant string) ApiValidateFlowsRequest {
 	return ApiValidateFlowsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ValidateConstraintViolation
+//  @return []ValidateConstraintViolation
 func (a *FlowsAPIService) ValidateFlowsExecute(r ApiValidateFlowsRequest) ([]ValidateConstraintViolation, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ValidateConstraintViolation
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ValidateConstraintViolation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ValidateFlows")
@@ -4024,12 +1090,16 @@ func (a *FlowsAPIService) ValidateFlowsExecute(r ApiValidateFlowsRequest) ([]Val
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiValidateTaskRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	section    *FlowControllerTaskValidationType
-	tenant     string
-	body       *map[string]interface{}
+	section *FlowControllerTaskValidationType
+	tenant string
+	body *map[string]interface{}
 }
 
 // The type of task
@@ -4044,15 +1114,17 @@ func (r ApiValidateTaskRequest) Body(body map[string]interface{}) ApiValidateTas
 	return r
 }
 
+
 func (r ApiValidateTaskRequest) GetSection() *FlowControllerTaskValidationType {
-	return r.section
+    return r.section
 }
 func (r ApiValidateTaskRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiValidateTaskRequest) GetBody() *map[string]interface{} {
-	return r.body
+    return r.body
 }
+
 
 func (r ApiValidateTaskRequest) Execute() (*ValidateConstraintViolation, *http.Response, error) {
 	return r.ApiService.ValidateTaskExecute(r)
@@ -4061,27 +1133,26 @@ func (r ApiValidateTaskRequest) Execute() (*ValidateConstraintViolation, *http.R
 /*
 ValidateTask Validate a task
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiValidateTaskRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiValidateTaskRequest
 */
 func (a *FlowsAPIService) ValidateTask(ctx context.Context, tenant string) ApiValidateTaskRequest {
 	return ApiValidateTaskRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return ValidateConstraintViolation
+//  @return ValidateConstraintViolation
 func (a *FlowsAPIService) ValidateTaskExecute(r ApiValidateTaskRequest) (*ValidateConstraintViolation, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ValidateConstraintViolation
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ValidateConstraintViolation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ValidateTask")
@@ -4159,11 +1230,15 @@ func (a *FlowsAPIService) ValidateTaskExecute(r ApiValidateTaskRequest) (*Valida
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiValidateTriggerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *FlowsAPIService
-	tenant     string
-	body       *map[string]interface{}
+	tenant string
+	body *map[string]interface{}
 }
 
 // The trigger
@@ -4172,12 +1247,14 @@ func (r ApiValidateTriggerRequest) Body(body map[string]interface{}) ApiValidate
 	return r
 }
 
+
 func (r ApiValidateTriggerRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiValidateTriggerRequest) GetBody() *map[string]interface{} {
-	return r.body
+    return r.body
 }
+
 
 func (r ApiValidateTriggerRequest) Execute() (*ValidateConstraintViolation, *http.Response, error) {
 	return r.ApiService.ValidateTriggerExecute(r)
@@ -4186,27 +1263,26 @@ func (r ApiValidateTriggerRequest) Execute() (*ValidateConstraintViolation, *htt
 /*
 ValidateTrigger Validate trigger
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiValidateTriggerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiValidateTriggerRequest
 */
 func (a *FlowsAPIService) ValidateTrigger(ctx context.Context, tenant string) ApiValidateTriggerRequest {
 	return ApiValidateTriggerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return ValidateConstraintViolation
+//  @return ValidateConstraintViolation
 func (a *FlowsAPIService) ValidateTriggerExecute(r ApiValidateTriggerRequest) (*ValidateConstraintViolation, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ValidateConstraintViolation
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ValidateConstraintViolation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ValidateTrigger")
@@ -4279,3 +1355,7 @@ func (a *FlowsAPIService) ValidateTriggerExecute(r ApiValidateTriggerRequest) (*
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

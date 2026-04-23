@@ -20,10 +20,10 @@ var _ MappedNullable = &TestSuiteServiceRunByQueryRequest{}
 // TestSuiteServiceRunByQueryRequest struct for TestSuiteServiceRunByQueryRequest
 type TestSuiteServiceRunByQueryRequest struct {
 	Namespace NullableString `json:"namespace,omitempty"`
-	FlowId    NullableString `json:"flowId,omitempty"`
+	FlowId NullableString `json:"flowId,omitempty"`
 	// Should child namespaces be included or not
 	IncludeChildNamespaces bool `json:"includeChildNamespaces"`
-	AdditionalProperties   map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _TestSuiteServiceRunByQueryRequest TestSuiteServiceRunByQueryRequest
@@ -80,7 +80,6 @@ func (o *TestSuiteServiceRunByQueryRequest) HasNamespace() bool {
 func (o *TestSuiteServiceRunByQueryRequest) SetNamespace(v string) {
 	o.Namespace.Set(&v)
 }
-
 // SetNamespaceNil sets the value for Namespace to be an explicit nil
 func (o *TestSuiteServiceRunByQueryRequest) SetNamespaceNil() {
 	o.Namespace.Set(nil)
@@ -123,7 +122,6 @@ func (o *TestSuiteServiceRunByQueryRequest) HasFlowId() bool {
 func (o *TestSuiteServiceRunByQueryRequest) SetFlowId(v string) {
 	o.FlowId.Set(&v)
 }
-
 // SetFlowIdNil sets the value for FlowId to be an explicit nil
 func (o *TestSuiteServiceRunByQueryRequest) SetFlowIdNil() {
 	o.FlowId.Set(nil)
@@ -159,7 +157,7 @@ func (o *TestSuiteServiceRunByQueryRequest) SetIncludeChildNamespaces(v bool) {
 }
 
 func (o TestSuiteServiceRunByQueryRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,10 +194,10 @@ func (o *TestSuiteServiceRunByQueryRequest) UnmarshalJSON(data []byte) (err erro
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -262,3 +260,5 @@ func (v *NullableTestSuiteServiceRunByQueryRequest) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

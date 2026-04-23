@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **systemNamespace** | **String** |  | [optional] 
 **hiddenLabelsPrefixes** | **[String]** |  | [optional] 
 **isAiEnabled** | **Boolean** |  | [optional] 
+**isAiApiKeyConfigured** | **Boolean** |  | [optional] 
 **isBasicAuthInitialized** | **Boolean** |  | [optional] 
 **pluginsHash** | **Number** |  | [optional] 
 **isConcurrencyViewEnabled** | **Boolean** |  | [optional] 

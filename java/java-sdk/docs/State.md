@@ -12,6 +12,9 @@
 |**endDate** | **OffsetDateTime** |  |  [optional] [readonly] |
 |**current** | **StateType** |  |  |
 |**histories** | [**List&lt;StateHistory&gt;**](StateHistory.md) |  |  [optional] |
+|**getDuration** | **String** |  |  [readonly] |
+|**getStartDate** | **OffsetDateTime** |  |  [readonly] |
+|**getEndDate** | **OffsetDateTime** |  |  [readonly] |
 
 
 

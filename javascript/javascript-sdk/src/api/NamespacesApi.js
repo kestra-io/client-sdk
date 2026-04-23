@@ -21,6 +21,7 @@ import Namespace from '../model/Namespace';
 import NamespaceControllerApiInheritedPluginDefaultFromNamespace from '../model/NamespaceControllerApiInheritedPluginDefaultFromNamespace';
 import PagedResultsNamespace from '../model/PagedResultsNamespace';
 import QueryFilter from '../model/QueryFilter';
+import SchemasFromTypeArrayOfParameter from '../model/SchemasFromTypeArrayOfParameter';
 
 /**
 * Namespaces service.
@@ -636,29 +637,21 @@ export default class NamespacesApi {
     /**
     * Get secrets for a namespace
     * @param {String} namespace The namespace id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
+    * @param {Number} [page = 1)] The current page
 
     * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
-    listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts) {
+    listNamespaceSecretsWithHttpInfo(namespace, filters, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling listNamespaceSecrets");
-      }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling listNamespaceSecrets");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling listNamespaceSecrets");
       }
       // verify the required parameter 'filters' is set
       if (filters === undefined || filters === null) {
@@ -674,10 +667,10 @@ export default class NamespacesApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(filters, 'csv')
+        'filters': this.apiClient.buildCollectionParam(filters, 'csv'),
+        'page': opts['page']
       };
       let headerParams = {
       };
@@ -698,17 +691,17 @@ export default class NamespacesApi {
     /**
     * Get secrets for a namespace
     * @param {String} namespace The namespace id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Number} [opts.page (default to 1)] The current page
 
     * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
-    listNamespaceSecrets(namespace, page, size, filters, tenant, opts) {
-      return this.listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts)
+    listNamespaceSecrets(namespace, filters, tenant, opts) {
+      return this.listNamespaceSecretsWithHttpInfo(namespace, filters, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -937,31 +930,19 @@ export default class NamespacesApi {
 
     /**
     * Search for namespaces
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {Boolean} existing Return only existing namespace
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [q] A string filter
+    * @param {module:model/SchemasFromTypeArrayOfParameter} [existing] Return only existing namespace
+    * @param {Number} [size = 10)] The current page size
+    * @param {Number} [page = 1)] The current page
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsNamespace>}
     */
-    searchNamespacesWithHttpInfo(page, size, existing, tenant, opts) {
+    searchNamespacesWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchNamespaces");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchNamespaces");
-      }
-      // verify the required parameter 'existing' is set
-      if (existing === undefined || existing === null) {
-        throw new Error("Missing the required parameter 'existing' when calling searchNamespaces");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchNamespaces");
@@ -972,10 +953,10 @@ export default class NamespacesApi {
       };
       let queryParams = {
         'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'existing': existing
+        'existing': opts['existing'],
+        'size': opts['size'],
+        'page': opts['page'],
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
       };
@@ -995,18 +976,18 @@ export default class NamespacesApi {
 
     /**
     * Search for namespaces
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {Boolean} existing Return only existing namespace
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.q] A string filter
+    * @param {module:model/SchemasFromTypeArrayOfParameter} [opts.existing] Return only existing namespace
+    * @param {Number} [opts.size (default to 10)] The current page size
+    * @param {Number} [opts.page (default to 1)] The current page
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsNamespace>}
     */
-    searchNamespaces(page, size, existing, tenant, opts) {
-      return this.searchNamespacesWithHttpInfo(page, size, existing, tenant, opts)
+    searchNamespaces(tenant, opts) {
+      return this.searchNamespacesWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

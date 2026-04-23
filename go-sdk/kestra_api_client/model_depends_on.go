@@ -18,8 +18,8 @@ var _ MappedNullable = &DependsOn{}
 
 // DependsOn struct for DependsOn
 type DependsOn struct {
-	Inputs               []string       `json:"inputs,omitempty"`
-	Condition            NullableString `json:"condition,omitempty"`
+	Inputs []string `json:"inputs,omitempty"`
+	Condition NullableString `json:"condition,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,6 @@ func (o *DependsOn) HasCondition() bool {
 func (o *DependsOn) SetCondition(v string) {
 	o.Condition.Set(&v)
 }
-
 // SetConditionNil sets the value for Condition to be an explicit nil
 func (o *DependsOn) SetConditionNil() {
 	o.Condition.Set(nil)
@@ -119,7 +118,7 @@ func (o *DependsOn) UnsetCondition() {
 }
 
 func (o DependsOn) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -199,3 +198,5 @@ func (v *NullableDependsOn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

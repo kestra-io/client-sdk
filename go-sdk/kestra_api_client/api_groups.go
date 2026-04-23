@@ -12,32 +12,38 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // GroupsAPIService GroupsAPI service
 type GroupsAPIService service
 
 type ApiAddUserToGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	userId     string
-	tenant     string
+	id string
+	userId string
+	tenant string
 }
 
+
 func (r ApiAddUserToGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiAddUserToGroupRequest) GetUserId() string {
-	return r.userId
+    return r.userId
 }
 func (r ApiAddUserToGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiAddUserToGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.AddUserToGroupExecute(r)
@@ -48,31 +54,30 @@ AddUserToGroup Add a user to a group
 
 Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to add to the group
-	@param tenant
-	@return ApiAddUserToGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The ID of the group
+ @param userId The ID of the user to add to the group
+ @param tenant
+ @return ApiAddUserToGroupRequest
 */
 func (a *GroupsAPIService) AddUserToGroup(ctx context.Context, id string, userId string, tenant string) ApiAddUserToGroupRequest {
 	return ApiAddUserToGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		userId: userId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupMember
+//  @return IAMGroupControllerApiGroupMember
 func (a *GroupsAPIService) AddUserToGroupExecute(r ApiAddUserToGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupMember
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AddUserToGroup")
@@ -143,10 +148,14 @@ func (a *GroupsAPIService) AddUserToGroupExecute(r ApiAddUserToGroupRequest) (*I
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiAutocompleteGroupsRequest struct {
-	ctx             context.Context
-	ApiService      *GroupsAPIService
-	tenant          string
+	ctx context.Context
+	ApiService *GroupsAPIService
+	tenant string
 	apiAutocomplete *ApiAutocomplete
 }
 
@@ -156,12 +165,14 @@ func (r ApiAutocompleteGroupsRequest) ApiAutocomplete(apiAutocomplete ApiAutocom
 	return r
 }
 
+
 func (r ApiAutocompleteGroupsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiAutocompleteGroupsRequest) GetApiAutocomplete() *ApiAutocomplete {
-	return r.apiAutocomplete
+    return r.apiAutocomplete
 }
+
 
 func (r ApiAutocompleteGroupsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteGroupsExecute(r)
@@ -170,27 +181,26 @@ func (r ApiAutocompleteGroupsRequest) Execute() ([]ApiGroupSummary, *http.Respon
 /*
 AutocompleteGroups List groups for autocomplete
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiAutocompleteGroupsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiAutocompleteGroupsRequest
 */
 func (a *GroupsAPIService) AutocompleteGroups(ctx context.Context, tenant string) ApiAutocompleteGroupsRequest {
 	return ApiAutocompleteGroupsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ApiGroupSummary
+//  @return []ApiGroupSummary
 func (a *GroupsAPIService) AutocompleteGroupsExecute(r ApiAutocompleteGroupsRequest) ([]ApiGroupSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ApiGroupSummary
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AutocompleteGroups")
@@ -264,10 +274,14 @@ func (a *GroupsAPIService) AutocompleteGroupsExecute(r ApiAutocompleteGroupsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiCreateGroupRequest struct {
-	ctx                                     context.Context
-	ApiService                              *GroupsAPIService
-	tenant                                  string
+	ctx context.Context
+	ApiService *GroupsAPIService
+	tenant string
 	iAMGroupControllerApiCreateGroupRequest *IAMGroupControllerApiCreateGroupRequest
 }
 
@@ -277,12 +291,14 @@ func (r ApiCreateGroupRequest) IAMGroupControllerApiCreateGroupRequest(iAMGroupC
 	return r
 }
 
+
 func (r ApiCreateGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiCreateGroupRequest) GetIAMGroupControllerApiCreateGroupRequest() *IAMGroupControllerApiCreateGroupRequest {
-	return r.iAMGroupControllerApiCreateGroupRequest
+    return r.iAMGroupControllerApiCreateGroupRequest
 }
+
 
 func (r ApiCreateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.CreateGroupExecute(r)
@@ -291,27 +307,26 @@ func (r ApiCreateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *ht
 /*
 CreateGroup Create a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiCreateGroupRequest
 */
 func (a *GroupsAPIService) CreateGroup(ctx context.Context, tenant string) ApiCreateGroupRequest {
 	return ApiCreateGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupDetail
+//  @return IAMGroupControllerApiGroupDetail
 func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupDetail
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.CreateGroup")
@@ -385,19 +400,25 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*IAMGrou
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiDeleteGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteGroupExecute(r)
@@ -406,26 +427,26 @@ func (r ApiDeleteGroupRequest) Execute() (*http.Response, error) {
 /*
 DeleteGroup Delete a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param tenant
-	@return ApiDeleteGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The group id
+ @param tenant
+ @return ApiDeleteGroupRequest
 */
 func (a *GroupsAPIService) DeleteGroup(ctx context.Context, id string, tenant string) ApiDeleteGroupRequest {
 	return ApiDeleteGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *GroupsAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteGroup")
@@ -486,23 +507,29 @@ func (a *GroupsAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*http.Re
 	return localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteUserFromGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	userId     string
-	tenant     string
+	id string
+	userId string
+	tenant string
 }
 
+
 func (r ApiDeleteUserFromGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiDeleteUserFromGroupRequest) GetUserId() string {
-	return r.userId
+    return r.userId
 }
 func (r ApiDeleteUserFromGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteUserFromGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.DeleteUserFromGroupExecute(r)
@@ -513,31 +540,30 @@ DeleteUserFromGroup Remove a user from a group
 
 Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to remove from the group
-	@param tenant
-	@return ApiDeleteUserFromGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The ID of the group
+ @param userId The ID of the user to remove from the group
+ @param tenant
+ @return ApiDeleteUserFromGroupRequest
 */
 func (a *GroupsAPIService) DeleteUserFromGroup(ctx context.Context, id string, userId string, tenant string) ApiDeleteUserFromGroupRequest {
 	return ApiDeleteUserFromGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		userId: userId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupMember
+//  @return IAMGroupControllerApiGroupMember
 func (a *GroupsAPIService) DeleteUserFromGroupExecute(r ApiDeleteUserFromGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupMember
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteUserFromGroup")
@@ -608,19 +634,25 @@ func (a *GroupsAPIService) DeleteUserFromGroupExecute(r ApiDeleteUserFromGroupRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	tenant     string
+	id string
+	tenant string
 }
 
+
 func (r ApiGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.GroupExecute(r)
@@ -631,29 +663,28 @@ Group Retrieve a group
 
 Retrieves details of a specific group by its ID within the current tenant.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param tenant
-	@return ApiGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The group id
+ @param tenant
+ @return ApiGroupRequest
 */
 func (a *GroupsAPIService) Group(ctx context.Context, id string, tenant string) ApiGroupRequest {
 	return ApiGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupDetail
+//  @return IAMGroupControllerApiGroupDetail
 func (a *GroupsAPIService) GroupExecute(r ApiGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupDetail
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.Group")
@@ -723,11 +754,15 @@ func (a *GroupsAPIService) GroupExecute(r ApiGroupRequest) (*IAMGroupControllerA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListGroupIdsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	tenant     string
-	apiIds     *ApiIds
+	tenant string
+	apiIds *ApiIds
 }
 
 // The ids that must be present on results
@@ -736,12 +771,14 @@ func (r ApiListGroupIdsRequest) ApiIds(apiIds ApiIds) ApiListGroupIdsRequest {
 	return r
 }
 
+
 func (r ApiListGroupIdsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiListGroupIdsRequest) GetApiIds() *ApiIds {
-	return r.apiIds
+    return r.apiIds
 }
+
 
 func (r ApiListGroupIdsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
 	return r.ApiService.ListGroupIdsExecute(r)
@@ -750,27 +787,26 @@ func (r ApiListGroupIdsRequest) Execute() ([]ApiGroupSummary, *http.Response, er
 /*
 ListGroupIds List groups by ids
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListGroupIdsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiListGroupIdsRequest
 */
 func (a *GroupsAPIService) ListGroupIds(ctx context.Context, tenant string) ApiListGroupIdsRequest {
 	return ApiListGroupIdsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []ApiGroupSummary
+//  @return []ApiGroupSummary
 func (a *GroupsAPIService) ListGroupIdsExecute(r ApiListGroupIdsRequest) ([]ApiGroupSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ApiGroupSummary
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.ListGroupIds")
@@ -844,15 +880,25 @@ func (a *GroupsAPIService) ListGroupIdsExecute(r ApiListGroupIdsRequest) ([]ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchGroupMembersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	page       *int32
-	size       *int32
-	filters    *[]QueryFilter
-	tenant     string
-	sort       *[]string
+	id string
+	filters *[]QueryFilter
+	tenant string
+	page *int32
+	size *int32
+	sort *[]string
+}
+
+// Filters
+func (r ApiSearchGroupMembersRequest) Filters(filters []QueryFilter) ApiSearchGroupMembersRequest {
+	r.filters = &filters
+	return r
 }
 
 // The current page
@@ -867,36 +913,32 @@ func (r ApiSearchGroupMembersRequest) Size(size int32) ApiSearchGroupMembersRequ
 	return r
 }
 
-// Filters
-func (r ApiSearchGroupMembersRequest) Filters(filters []QueryFilter) ApiSearchGroupMembersRequest {
-	r.filters = &filters
-	return r
-}
-
 // The sort of current page
 func (r ApiSearchGroupMembersRequest) Sort(sort []string) ApiSearchGroupMembersRequest {
 	r.sort = &sort
 	return r
 }
 
+
 func (r ApiSearchGroupMembersRequest) GetId() string {
-	return r.id
-}
-func (r ApiSearchGroupMembersRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchGroupMembersRequest) GetSize() *int32 {
-	return r.size
+    return r.id
 }
 func (r ApiSearchGroupMembersRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
 func (r ApiSearchGroupMembersRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
+}
+func (r ApiSearchGroupMembersRequest) GetPage() *int32 {
+    return r.page
+}
+func (r ApiSearchGroupMembersRequest) GetSize() *int32 {
+    return r.size
 }
 func (r ApiSearchGroupMembersRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+
 
 func (r ApiSearchGroupMembersRequest) Execute() (*PagedResultsIAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.SearchGroupMembersExecute(r)
@@ -905,31 +947,30 @@ func (r ApiSearchGroupMembersRequest) Execute() (*PagedResultsIAMGroupController
 /*
 SearchGroupMembers Search for users in a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param tenant
-	@return ApiSearchGroupMembersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The group id
+ @param tenant
+ @return ApiSearchGroupMembersRequest
 */
 func (a *GroupsAPIService) SearchGroupMembers(ctx context.Context, id string, tenant string) ApiSearchGroupMembersRequest {
 	return ApiSearchGroupMembersRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+        page: Ptr(int32(1)),
+        size: Ptr(int32(10)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsIAMGroupControllerApiGroupMember
+//  @return PagedResultsIAMGroupControllerApiGroupMember
 func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequest) (*PagedResultsIAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsIAMGroupControllerApiGroupMember
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsIAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupMembers")
@@ -944,18 +985,16 @@ func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 	if r.filters == nil {
 		return localVarReturnValue, nil, reportError("filters is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
@@ -1014,14 +1053,24 @@ func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSearchGroupsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	q          *string
-	sort       *[]string
+	tenant string
+	q *string
+	page *int32
+	size *int32
+	sort *[]string
+}
+
+// A string filter
+func (r ApiSearchGroupsRequest) Q(q string) ApiSearchGroupsRequest {
+	r.q = &q
+	return r
 }
 
 // The current page
@@ -1036,33 +1085,29 @@ func (r ApiSearchGroupsRequest) Size(size int32) ApiSearchGroupsRequest {
 	return r
 }
 
-// A string filter
-func (r ApiSearchGroupsRequest) Q(q string) ApiSearchGroupsRequest {
-	r.q = &q
-	return r
-}
-
 // The sort of current page
 func (r ApiSearchGroupsRequest) Sort(sort []string) ApiSearchGroupsRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r ApiSearchGroupsRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiSearchGroupsRequest) GetSize() *int32 {
-	return r.size
-}
+
 func (r ApiSearchGroupsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSearchGroupsRequest) GetQ() *string {
-	return r.q
+    return r.q
+}
+func (r ApiSearchGroupsRequest) GetPage() *int32 {
+    return r.page
+}
+func (r ApiSearchGroupsRequest) GetSize() *int32 {
+    return r.size
 }
 func (r ApiSearchGroupsRequest) GetSort() *[]string {
-	return r.sort
+    return r.sort
 }
+
 
 func (r ApiSearchGroupsRequest) Execute() (*PagedResultsApiGroupSummary, *http.Response, error) {
 	return r.ApiService.SearchGroupsExecute(r)
@@ -1071,29 +1116,28 @@ func (r ApiSearchGroupsRequest) Execute() (*PagedResultsApiGroupSummary, *http.R
 /*
 SearchGroups Search for groups
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiSearchGroupsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiSearchGroupsRequest
 */
 func (a *GroupsAPIService) SearchGroups(ctx context.Context, tenant string) ApiSearchGroupsRequest {
 	return ApiSearchGroupsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        page: Ptr(int32(1)),
+        size: Ptr(int32(10)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsApiGroupSummary
+//  @return PagedResultsApiGroupSummary
 func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*PagedResultsApiGroupSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsApiGroupSummary
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroups")
@@ -1107,18 +1151,16 @@ func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*Paged
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
@@ -1176,13 +1218,17 @@ func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*Paged
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetUserMembershipForGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *GroupsAPIService
-	id         string
-	userId     string
+	id string
+	userId string
 	membership *GroupIdentifierMembership
-	tenant     string
+	tenant string
 }
 
 // The new membership type to assign to the user.
@@ -1191,18 +1237,20 @@ func (r ApiSetUserMembershipForGroupRequest) Membership(membership GroupIdentifi
 	return r
 }
 
+
 func (r ApiSetUserMembershipForGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiSetUserMembershipForGroupRequest) GetUserId() string {
-	return r.userId
+    return r.userId
 }
 func (r ApiSetUserMembershipForGroupRequest) GetMembership() *GroupIdentifierMembership {
-	return r.membership
+    return r.membership
 }
 func (r ApiSetUserMembershipForGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiSetUserMembershipForGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.SetUserMembershipForGroupExecute(r)
@@ -1213,31 +1261,30 @@ SetUserMembershipForGroup Update a user's membership type in a group
 
 Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user whose membership is being updated
-	@param tenant
-	@return ApiSetUserMembershipForGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The ID of the group
+ @param userId The ID of the user whose membership is being updated
+ @param tenant
+ @return ApiSetUserMembershipForGroupRequest
 */
 func (a *GroupsAPIService) SetUserMembershipForGroup(ctx context.Context, id string, userId string, tenant string) ApiSetUserMembershipForGroupRequest {
 	return ApiSetUserMembershipForGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		userId: userId,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupMember
+//  @return IAMGroupControllerApiGroupMember
 func (a *GroupsAPIService) SetUserMembershipForGroupExecute(r ApiSetUserMembershipForGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupMember
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SetUserMembershipForGroup")
@@ -1312,11 +1359,15 @@ func (a *GroupsAPIService) SetUserMembershipForGroupExecute(r ApiSetUserMembersh
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiUpdateGroupRequest struct {
-	ctx                                     context.Context
-	ApiService                              *GroupsAPIService
-	id                                      string
-	tenant                                  string
+	ctx context.Context
+	ApiService *GroupsAPIService
+	id string
+	tenant string
 	iAMGroupControllerApiUpdateGroupRequest *IAMGroupControllerApiUpdateGroupRequest
 }
 
@@ -1326,15 +1377,17 @@ func (r ApiUpdateGroupRequest) IAMGroupControllerApiUpdateGroupRequest(iAMGroupC
 	return r
 }
 
+
 func (r ApiUpdateGroupRequest) GetId() string {
-	return r.id
+    return r.id
 }
 func (r ApiUpdateGroupRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiUpdateGroupRequest) GetIAMGroupControllerApiUpdateGroupRequest() *IAMGroupControllerApiUpdateGroupRequest {
-	return r.iAMGroupControllerApiUpdateGroupRequest
+    return r.iAMGroupControllerApiUpdateGroupRequest
 }
+
 
 func (r ApiUpdateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.UpdateGroupExecute(r)
@@ -1343,29 +1396,28 @@ func (r ApiUpdateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *ht
 /*
 UpdateGroup Update a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param tenant
-	@return ApiUpdateGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The group id
+ @param tenant
+ @return ApiUpdateGroupRequest
 */
 func (a *GroupsAPIService) UpdateGroup(ctx context.Context, id string, tenant string) ApiUpdateGroupRequest {
 	return ApiUpdateGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		id: id,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return IAMGroupControllerApiGroupDetail
+//  @return IAMGroupControllerApiGroupDetail
 func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IAMGroupControllerApiGroupDetail
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.UpdateGroup")
@@ -1439,3 +1491,7 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*IAMGrou
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

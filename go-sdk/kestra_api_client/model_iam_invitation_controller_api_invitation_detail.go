@@ -19,17 +19,17 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationDetail{}
 
 // IAMInvitationControllerApiInvitationDetail struct for IAMInvitationControllerApiInvitationDetail
 type IAMInvitationControllerApiInvitationDetail struct {
-	Id                   *string                     `json:"id,omitempty"`
-	Roles                []ApiRoleSummary            `json:"roles,omitempty"`
-	Groups               []ApiGroupSummary           `json:"groups,omitempty"`
-	TenantId             *string                     `json:"tenantId,omitempty"`
-	Email                *string                     `json:"email,omitempty"`
-	Status               *InvitationInvitationStatus `json:"status,omitempty"`
-	SentAt               *time.Time                  `json:"sentAt,omitempty"`
-	ExpiredAt            *time.Time                  `json:"expiredAt,omitempty"`
-	AcceptedAt           *time.Time                  `json:"acceptedAt,omitempty"`
-	SuperAdmin           *bool                       `json:"superAdmin,omitempty"`
-	Link                 *string                     `json:"link,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Roles []ApiRoleSummary `json:"roles,omitempty"`
+	Groups []ApiGroupSummary `json:"groups,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Email *string `json:"email,omitempty"`
+	Status *InvitationInvitationStatus `json:"status,omitempty"`
+	SentAt *time.Time `json:"sentAt,omitempty"`
+	ExpiredAt *time.Time `json:"expiredAt,omitempty"`
+	AcceptedAt *time.Time `json:"acceptedAt,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Link *string `json:"link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -405,7 +405,7 @@ func (o *IAMInvitationControllerApiInvitationDetail) SetLink(v string) {
 }
 
 func (o IAMInvitationControllerApiInvitationDetail) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -521,3 +521,5 @@ func (v *NullableIAMInvitationControllerApiInvitationDetail) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

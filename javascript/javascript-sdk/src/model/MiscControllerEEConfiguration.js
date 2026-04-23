@@ -40,6 +40,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
   * @property {String} systemNamespace
   * @property {Array.<String>} hiddenLabelsPrefixes
   * @property {Boolean} isAiEnabled
+  * @property {Boolean} isAiApiKeyConfigured
   * @property {Boolean} isBasicAuthInitialized
   * @property {Number} pluginsHash
   * @property {Boolean} isConcurrencyViewEnabled
@@ -146,6 +147,9 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('isAiEnabled')) {
                 obj['isAiEnabled'] = ApiClient.convertToType(data['isAiEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isAiApiKeyConfigured')) {
+                obj['isAiApiKeyConfigured'] = ApiClient.convertToType(data['isAiApiKeyConfigured'], 'Boolean');
             }
             if (data.hasOwnProperty('isBasicAuthInitialized')) {
                 obj['isBasicAuthInitialized'] = ApiClient.convertToType(data['isBasicAuthInitialized'], 'Boolean');
@@ -400,6 +404,11 @@ MiscControllerEEConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
 MiscControllerEEConfiguration.prototype['isAiEnabled'] = undefined;
 
 /**
+ * @member {Boolean} isAiApiKeyConfigured
+ */
+MiscControllerEEConfiguration.prototype['isAiApiKeyConfigured'] = undefined;
+
+/**
  * @member {Boolean} isBasicAuthInitialized
  */
 MiscControllerEEConfiguration.prototype['isBasicAuthInitialized'] = undefined;
@@ -570,6 +579,10 @@ MiscControllerConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
  * @member {Boolean} isAiEnabled
  */
 MiscControllerConfiguration.prototype['isAiEnabled'] = undefined;
+/**
+ * @member {Boolean} isAiApiKeyConfigured
+ */
+MiscControllerConfiguration.prototype['isAiApiKeyConfigured'] = undefined;
 /**
  * @member {Boolean} isBasicAuthInitialized
  */

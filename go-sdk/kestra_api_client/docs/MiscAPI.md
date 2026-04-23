@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Configuration**](MiscAPI.md#Configuration) | **Get** /api/v1/configs | Retrieve the instance configuration.
+[**ExpressionFilters**](MiscAPI.md#ExpressionFilters) | **Get** /api/v1/pebble/filters | Retrieve the list of available Pebble expression filters.
+[**ExpressionFunctions**](MiscAPI.md#ExpressionFunctions) | **Get** /api/v1/pebble/functions | Retrieve the list of available Pebble expression functions.
 [**Generate**](MiscAPI.md#Generate) | **Get** /api/v1/{tenant}/stats/generate-reports | 
 [**LicenseInfo**](MiscAPI.md#LicenseInfo) | **Get** /api/v1/license-info | Retrieve license information
 [**ListActions**](MiscAPI.md#ListActions) | **Get** /api/v1/{tenant}/acls/actions | Retrieve list of actions
@@ -59,6 +61,124 @@ Other parameters are passed through a pointer to a apiConfigurationRequest struc
 ### Return type
 
 [**MiscControllerEEConfiguration**](MiscControllerEEConfiguration.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExpressionFilters
+
+> []string ExpressionFilters(ctx).Execute()
+
+Retrieve the list of available Pebble expression filters.
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MiscAPI.ExpressionFilters(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MiscAPI.ExpressionFilters``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExpressionFilters`: []string
+	fmt.Fprintf(os.Stdout, "Response from `MiscAPI.ExpressionFilters`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExpressionFiltersRequest struct via the builder pattern
+
+
+### Return type
+
+**[]string**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExpressionFunctions
+
+> []string ExpressionFunctions(ctx).Execute()
+
+Retrieve the list of available Pebble expression functions.
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MiscAPI.ExpressionFunctions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MiscAPI.ExpressionFunctions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExpressionFunctions`: []string
+	fmt.Fprintf(os.Stdout, "Response from `MiscAPI.ExpressionFunctions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExpressionFunctionsRequest struct via the builder pattern
+
+
+### Return type
+
+**[]string**
 
 ### Authorization
 

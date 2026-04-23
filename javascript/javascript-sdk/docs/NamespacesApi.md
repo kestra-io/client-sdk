@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ## listNamespaceSecrets
 
-> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, page, size, filters, tenant, opts)
+> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, filters, tenant, opts)
 
 Get secrets for a namespace
 
@@ -519,14 +519,14 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'sort': ["null"] // [String] | The sort of current page
+  'size': 10, // Number | The current page size
+  'sort': ["null"], // [String] | The sort of current page
+  'page': 1 // Number | The current page
 };
-apiInstance.listNamespaceSecrets(namespace, page, size, filters, tenant, opts).then((data) => {
+apiInstance.listNamespaceSecrets(namespace, filters, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -540,11 +540,11 @@ apiInstance.listNamespaceSecrets(namespace, page, size, filters, tenant, opts).t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The namespace id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **String**|  | 
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **page** | **Number**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -724,7 +724,7 @@ Name | Type | Description  | Notes
 
 ## searchNamespaces
 
-> PagedResultsNamespace searchNamespaces(page, size, existing, tenant, opts)
+> PagedResultsNamespace searchNamespaces(tenant, opts)
 
 Search for namespaces
 
@@ -742,15 +742,15 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let existing = false; // Boolean | Return only existing namespace
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
+  'existing': new KestraIoKestraSdk.SchemasFromTypeArrayOfParameter(), // SchemasFromTypeArrayOfParameter | Return only existing namespace
+  'size': 10, // Number | The current page size
+  'page': 1, // Number | The current page
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchNamespaces(page, size, existing, tenant, opts).then((data) => {
+apiInstance.searchNamespaces(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -763,11 +763,11 @@ apiInstance.searchNamespaces(page, size, existing, tenant, opts).then((data) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **existing** | **Boolean**| Return only existing namespace | [default to false]
  **tenant** | **String**|  | 
  **q** | **String**| A string filter | [optional] 
+ **existing** | [**SchemasFromTypeArrayOfParameter**](.md)| Return only existing namespace | [optional] 
+ **size** | **Number**| The current page size | [optional] [default to 10]
+ **page** | **Number**| The current page | [optional] [default to 1]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

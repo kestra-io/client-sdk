@@ -28,9 +28,9 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.ChartFiltersOverrides;
-import io.kestra.sdk.model.Dashboard;
+import io.kestra.sdk.model.DashboardControllerDashboardResponse;
 import io.kestra.sdk.model.DashboardControllerPreviewRequest;
-import io.kestra.sdk.model.PagedResultsDashboard;
+import io.kestra.sdk.model.PagedResultsDashboardControllerDashboardResponse;
 import io.kestra.sdk.model.PagedResultsMapStringObject;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
@@ -57,10 +57,10 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param body The dashboard definition as YAML (required)
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard createDashboard(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+  public DashboardControllerDashboardResponse createDashboard(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
     return this.createDashboard(tenant, body, Collections.emptyMap());
   }
 
@@ -70,10 +70,10 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @param body The dashboard definition as YAML (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard createDashboard(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public DashboardControllerDashboardResponse createDashboard(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -114,7 +114,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] {  };
 
-    TypeReference<Dashboard> localVarReturnType = new TypeReference<Dashboard>() {};
+    TypeReference<DashboardControllerDashboardResponse> localVarReturnType = new TypeReference<DashboardControllerDashboardResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -142,10 +142,10 @@ import java.util.StringJoiner;
    * 
    * @param id The dashboard id (required)
    * @param tenant  (required)
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard dashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+  public DashboardControllerDashboardResponse dashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.dashboard(id, tenant, Collections.emptyMap());
   }
 
@@ -155,10 +155,10 @@ import java.util.StringJoiner;
    * @param id The dashboard id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard dashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public DashboardControllerDashboardResponse dashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -200,7 +200,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] {  };
 
-    TypeReference<Dashboard> localVarReturnType = new TypeReference<Dashboard>() {};
+    TypeReference<DashboardControllerDashboardResponse> localVarReturnType = new TypeReference<DashboardControllerDashboardResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -681,42 +681,32 @@ import java.util.StringJoiner;
   /**
    * Search for dashboards
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param q The filter query (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @param sort The sort of current page (optional)
-   * @return PagedResultsDashboard
+   * @param q The filter query (optional)
+   * @return PagedResultsDashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsDashboard searchDashboards(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchDashboards(page, size, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsDashboardControllerDashboardResponse searchDashboards(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q) throws ApiException {
+    return this.searchDashboards(tenant, size, page, sort, q, Collections.emptyMap());
   }
 
   /**
    * Search for dashboards
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param q The filter query (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @param sort The sort of current page (optional)
+   * @param q The filter query (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return PagedResultsDashboard
+   * @return PagedResultsDashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsDashboard searchDashboards(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsDashboardControllerDashboardResponse searchDashboards(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchDashboards");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchDashboards");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -734,10 +724,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -755,7 +745,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] {  };
 
-    TypeReference<PagedResultsDashboard> localVarReturnType = new TypeReference<PagedResultsDashboard>() {};
+    TypeReference<PagedResultsDashboardControllerDashboardResponse> localVarReturnType = new TypeReference<PagedResultsDashboardControllerDashboardResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -784,10 +774,10 @@ import java.util.StringJoiner;
    * @param id The dashboard id (required)
    * @param tenant  (required)
    * @param body The dashboard definition as YAML (required)
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard updateDashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+  public DashboardControllerDashboardResponse updateDashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
     return this.updateDashboard(id, tenant, body, Collections.emptyMap());
   }
 
@@ -798,10 +788,10 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @param body The dashboard definition as YAML (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Dashboard
+   * @return DashboardControllerDashboardResponse
    * @throws ApiException if fails to make API call
    */
-  public Dashboard updateDashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public DashboardControllerDashboardResponse updateDashboard(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
@@ -848,7 +838,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] {  };
 
-    TypeReference<Dashboard> localVarReturnType = new TypeReference<Dashboard>() {};
+    TypeReference<DashboardControllerDashboardResponse> localVarReturnType = new TypeReference<DashboardControllerDashboardResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PUT",

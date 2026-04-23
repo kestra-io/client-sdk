@@ -18,9 +18,9 @@ var _ MappedNullable = &AssetsDeclaration{}
 
 // AssetsDeclaration struct for AssetsDeclaration
 type AssetsDeclaration struct {
-	EnableAuto           *string                      `json:"enableAuto,omitempty"`
-	Inputs               *PropertyListAssetIdentifier `json:"inputs,omitempty"`
-	Outputs              *PropertyListAsset           `json:"outputs,omitempty"`
+	EnableAuto *string `json:"enableAuto,omitempty"`
+	Inputs *PropertyListAssetIdentifier `json:"inputs,omitempty"`
+	Outputs *PropertyListAsset `json:"outputs,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *AssetsDeclaration) SetOutputs(v PropertyListAsset) {
 }
 
 func (o AssetsDeclaration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableAssetsDeclaration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

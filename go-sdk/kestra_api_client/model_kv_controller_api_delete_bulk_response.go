@@ -18,7 +18,7 @@ var _ MappedNullable = &KVControllerApiDeleteBulkResponse{}
 
 // KVControllerApiDeleteBulkResponse struct for KVControllerApiDeleteBulkResponse
 type KVControllerApiDeleteBulkResponse struct {
-	Keys                 []string `json:"keys,omitempty"`
+	Keys []string `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *KVControllerApiDeleteBulkResponse) SetKeys(v []string) {
 }
 
 func (o KVControllerApiDeleteBulkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableKVControllerApiDeleteBulkResponse) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,15 +19,15 @@ var _ MappedNullable = &ApiToken{}
 
 // ApiToken struct for ApiToken
 type ApiToken struct {
-	Id                   *string    `json:"id,omitempty"`
-	Name                 *string    `json:"name,omitempty"`
-	Description          *string    `json:"description,omitempty"`
-	Prefix               *string    `json:"prefix,omitempty"`
-	Iat                  *time.Time `json:"iat,omitempty"`
-	Exp                  *time.Time `json:"exp,omitempty"`
-	LastUsed             *time.Time `json:"lastUsed,omitempty"`
-	Extended             *bool      `json:"extended,omitempty"`
-	Expired              *bool      `json:"expired,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Prefix *string `json:"prefix,omitempty"`
+	Iat *time.Time `json:"iat,omitempty"`
+	Exp *time.Time `json:"exp,omitempty"`
+	LastUsed *time.Time `json:"lastUsed,omitempty"`
+	Extended *bool `json:"extended,omitempty"`
+	Expired *bool `json:"expired,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -339,7 +339,7 @@ func (o *ApiToken) SetExpired(v bool) {
 }
 
 func (o ApiToken) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -447,3 +447,5 @@ func (v *NullableApiToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

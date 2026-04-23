@@ -18,8 +18,8 @@ var _ MappedNullable = &IAMTenantAccessControllerApiUserPermission{}
 
 // IAMTenantAccessControllerApiUserPermission struct for IAMTenantAccessControllerApiUserPermission
 type IAMTenantAccessControllerApiUserPermission struct {
-	Permission           *Permission `json:"permission,omitempty"`
-	Actions              []Action    `json:"actions,omitempty"`
+	Permission *Permission `json:"permission,omitempty"`
+	Actions []Action `json:"actions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *IAMTenantAccessControllerApiUserPermission) SetActions(v []Action) {
 }
 
 func (o IAMTenantAccessControllerApiUserPermission) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableIAMTenantAccessControllerApiUserPermission) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

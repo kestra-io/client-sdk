@@ -673,47 +673,37 @@ import java.util.StringJoiner;
    * Search for users in a group
    * 
    * @param id The group id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchGroupMembers(id, page, size, filters, tenant, sort, Collections.emptyMap());
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchGroupMembers(id, filters, tenant, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for users in a group
    * 
    * @param id The group id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling searchGroupMembers");
-    }
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchGroupMembers");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchGroupMembers");
     }
     
     // verify the required parameter 'filters' is set
@@ -785,42 +775,32 @@ import java.util.StringJoiner;
   /**
    * Search for groups
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsApiGroupSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchGroups(page, size, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchGroups(tenant, q, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for groups
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsApiGroupSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchGroups");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchGroups");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {

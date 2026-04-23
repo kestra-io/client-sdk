@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // PropertyBoolean - struct for PropertyBoolean
 type PropertyBoolean struct {
 	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	String *string
 }
 
 // map[string]interface{}AsPropertyBoolean is a convenience function that returns map[string]interface{} wrapped in PropertyBoolean
@@ -35,6 +34,7 @@ func StringAsPropertyBoolean(v *string) PropertyBoolean {
 		String: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *PropertyBoolean) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src PropertyBoolean) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *PropertyBoolean) GetActualInstance() interface{} {
+func (obj *PropertyBoolean) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *PropertyBoolean) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj PropertyBoolean) GetActualInstanceValue() interface{} {
+func (obj PropertyBoolean) GetActualInstanceValue() (interface{}) {
 	if obj.MapmapOfStringAny != nil {
 		return *obj.MapmapOfStringAny
 	}
@@ -166,3 +166,5 @@ func (v *NullablePropertyBoolean) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

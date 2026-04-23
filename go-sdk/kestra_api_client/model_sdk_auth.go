@@ -18,9 +18,9 @@ var _ MappedNullable = &SDKAuth{}
 
 // SDKAuth struct for SDKAuth
 type SDKAuth struct {
-	ApiToken             NullableString `json:"apiToken,omitempty"`
-	Username             NullableString `json:"username,omitempty"`
-	Password             NullableString `json:"password,omitempty"`
+	ApiToken NullableString `json:"apiToken,omitempty"`
+	Username NullableString `json:"username,omitempty"`
+	Password NullableString `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +75,6 @@ func (o *SDKAuth) HasApiToken() bool {
 func (o *SDKAuth) SetApiToken(v string) {
 	o.ApiToken.Set(&v)
 }
-
 // SetApiTokenNil sets the value for ApiToken to be an explicit nil
 func (o *SDKAuth) SetApiTokenNil() {
 	o.ApiToken.Set(nil)
@@ -118,7 +117,6 @@ func (o *SDKAuth) HasUsername() bool {
 func (o *SDKAuth) SetUsername(v string) {
 	o.Username.Set(&v)
 }
-
 // SetUsernameNil sets the value for Username to be an explicit nil
 func (o *SDKAuth) SetUsernameNil() {
 	o.Username.Set(nil)
@@ -161,7 +159,6 @@ func (o *SDKAuth) HasPassword() bool {
 func (o *SDKAuth) SetPassword(v string) {
 	o.Password.Set(&v)
 }
-
 // SetPasswordNil sets the value for Password to be an explicit nil
 func (o *SDKAuth) SetPasswordNil() {
 	o.Password.Set(nil)
@@ -173,7 +170,7 @@ func (o *SDKAuth) UnsetPassword() {
 }
 
 func (o SDKAuth) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -257,3 +254,5 @@ func (v *NullableSDKAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

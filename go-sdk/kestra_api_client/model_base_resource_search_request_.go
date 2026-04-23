@@ -18,7 +18,7 @@ var _ MappedNullable = &BaseResourceSearchRequest{}
 
 // BaseResourceSearchRequest struct for BaseResourceSearchRequest
 type BaseResourceSearchRequest struct {
-	Schemas              []string `json:"schemas,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *BaseResourceSearchRequest) SetSchemas(v []string) {
 }
 
 func (o BaseResourceSearchRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableBaseResourceSearchRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

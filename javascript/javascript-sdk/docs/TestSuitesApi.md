@@ -353,7 +353,7 @@ No authorization required
 
 ## searchTestSuites
 
-> PagedResultsTestSuite searchTestSuites(page, size, includeChildNamespaces, tenant, opts)
+> PagedResultsTestSuite searchTestSuites(tenant, opts)
 
 Search for tests
 
@@ -365,16 +365,16 @@ Searches for tests with optional filtering by namespace and flow ID. Requires TE
 import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
 let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"], // [String] | The sort of current page
   'namespace': "namespace_example", // String | The namespace to filter on
-  'flowId': "flowId_example" // String | The flow id to filter on
+  'flowId': "flowId_example", // String | The flow id to filter on
+  'includeChildNamespaces': true // Boolean | Include child namespaces in filter or not
 };
-apiInstance.searchTestSuites(page, size, includeChildNamespaces, tenant, opts).then((data) => {
+apiInstance.searchTestSuites(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -387,13 +387,13 @@ apiInstance.searchTestSuites(page, size, includeChildNamespaces, tenant, opts).t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [default to true]
  **tenant** | **String**|  | 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **namespace** | **String**| The namespace to filter on | [optional] 
  **flowId** | **String**| The flow id to filter on | [optional] 
+ **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [optional] [default to true]
 
 ### Return type
 
@@ -411,7 +411,7 @@ No authorization required
 
 ## searchTestSuitesResults
 
-> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, tenant, opts)
+> PagedResultsTestSuiteRunResult searchTestSuitesResults(tenant, opts)
 
 Search for tests results
 
@@ -423,16 +423,16 @@ with optional filtering by namespace, test suite ID and flow ID. Requires TEST p
 import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
 let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"], // [String] | The sort of current page
   'testSuiteId': "testSuiteId_example", // String | The test suite id to filter on
   'namespace': "namespace_example", // String | The namespace to filter on
   'flowId': "flowId_example" // String | The flow id to filter on
 };
-apiInstance.searchTestSuitesResults(page, size, tenant, opts).then((data) => {
+apiInstance.searchTestSuitesResults(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -445,9 +445,9 @@ apiInstance.searchTestSuitesResults(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **testSuiteId** | **String**| The test suite id to filter on | [optional] 
  **namespace** | **String**| The namespace to filter on | [optional] 

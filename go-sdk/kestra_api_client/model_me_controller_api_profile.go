@@ -18,10 +18,10 @@ var _ MappedNullable = &MeControllerApiProfile{}
 
 // MeControllerApiProfile struct for MeControllerApiProfile
 type MeControllerApiProfile struct {
-	Email                *string `json:"email,omitempty"`
-	FirstName            *string `json:"firstName,omitempty"`
-	LastName             *string `json:"lastName,omitempty"`
-	Username             *string `json:"username,omitempty"`
+	Email *string `json:"email,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Username *string `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *MeControllerApiProfile) SetUsername(v string) {
 }
 
 func (o MeControllerApiProfile) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableMeControllerApiProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

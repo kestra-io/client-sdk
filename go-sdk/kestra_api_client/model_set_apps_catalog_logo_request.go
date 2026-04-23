@@ -20,7 +20,7 @@ var _ MappedNullable = &SetAppsCatalogLogoRequest{}
 // SetAppsCatalogLogoRequest struct for SetAppsCatalogLogoRequest
 type SetAppsCatalogLogoRequest struct {
 	// The logo file
-	Logo                 **os.File `json:"logo,omitempty"`
+	Logo **os.File `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +76,7 @@ func (o *SetAppsCatalogLogoRequest) SetLogo(v *os.File) {
 }
 
 func (o SetAppsCatalogLogoRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -152,3 +152,5 @@ func (v *NullableSetAppsCatalogLogoRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

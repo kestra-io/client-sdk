@@ -18,11 +18,11 @@ var _ MappedNullable = &FlowGraphCluster{}
 
 // FlowGraphCluster struct for FlowGraphCluster
 type FlowGraphCluster struct {
-	Cluster              *AbstractGraph `json:"cluster,omitempty"`
-	Nodes                []string       `json:"nodes,omitempty"`
-	Parents              []string       `json:"parents,omitempty"`
-	Start                *string        `json:"start,omitempty"`
-	End                  *string        `json:"end,omitempty"`
+	Cluster *AbstractGraph `json:"cluster,omitempty"`
+	Nodes []string `json:"nodes,omitempty"`
+	Parents []string `json:"parents,omitempty"`
+	Start *string `json:"start,omitempty"`
+	End *string `json:"end,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,7 +206,7 @@ func (o *FlowGraphCluster) SetEnd(v string) {
 }
 
 func (o FlowGraphCluster) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullableFlowGraphCluster) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

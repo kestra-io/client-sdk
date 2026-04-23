@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the MetricEntry type satisfies the MappedNullable interface at compile time
@@ -20,17 +20,17 @@ var _ MappedNullable = &MetricEntry{}
 
 // MetricEntry struct for MetricEntry
 type MetricEntry struct {
-	Namespace            string                `json:"namespace"`
-	FlowId               string                `json:"flowId"`
-	TaskId               NullableString        `json:"taskId,omitempty"`
-	ExecutionId          NullableString        `json:"executionId,omitempty"`
-	TaskRunId            NullableString        `json:"taskRunId,omitempty"`
-	Type                 string                `json:"type"`
-	Name                 string                `json:"name"`
-	Value                float64               `json:"value"`
-	Timestamp            time.Time             `json:"timestamp"`
-	Tags                 map[string]string     `json:"tags,omitempty"`
-	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId NullableString `json:"taskId,omitempty"`
+	ExecutionId NullableString `json:"executionId,omitempty"`
+	TaskRunId NullableString `json:"taskRunId,omitempty"`
+	Type string `json:"type"`
+	Name string `json:"name"`
+	Value float64 `json:"value"`
+	Timestamp time.Time `json:"timestamp"`
+	Tags map[string]string `json:"tags,omitempty"`
+	ExecutionKind NullableExecutionKind `json:"executionKind,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -139,7 +139,6 @@ func (o *MetricEntry) HasTaskId() bool {
 func (o *MetricEntry) SetTaskId(v string) {
 	o.TaskId.Set(&v)
 }
-
 // SetTaskIdNil sets the value for TaskId to be an explicit nil
 func (o *MetricEntry) SetTaskIdNil() {
 	o.TaskId.Set(nil)
@@ -182,7 +181,6 @@ func (o *MetricEntry) HasExecutionId() bool {
 func (o *MetricEntry) SetExecutionId(v string) {
 	o.ExecutionId.Set(&v)
 }
-
 // SetExecutionIdNil sets the value for ExecutionId to be an explicit nil
 func (o *MetricEntry) SetExecutionIdNil() {
 	o.ExecutionId.Set(nil)
@@ -225,7 +223,6 @@ func (o *MetricEntry) HasTaskRunId() bool {
 func (o *MetricEntry) SetTaskRunId(v string) {
 	o.TaskRunId.Set(&v)
 }
-
 // SetTaskRunIdNil sets the value for TaskRunId to be an explicit nil
 func (o *MetricEntry) SetTaskRunIdNil() {
 	o.TaskRunId.Set(nil)
@@ -397,7 +394,6 @@ func (o *MetricEntry) HasExecutionKind() bool {
 func (o *MetricEntry) SetExecutionKind(v ExecutionKind) {
 	o.ExecutionKind.Set(&v)
 }
-
 // SetExecutionKindNil sets the value for ExecutionKind to be an explicit nil
 func (o *MetricEntry) SetExecutionKindNil() {
 	o.ExecutionKind.Set(nil)
@@ -409,7 +405,7 @@ func (o *MetricEntry) UnsetExecutionKind() {
 }
 
 func (o MetricEntry) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -465,10 +461,10 @@ func (o *MetricEntry) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -539,3 +535,5 @@ func (v *NullableMetricEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

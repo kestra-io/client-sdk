@@ -19,9 +19,9 @@ var _ MappedNullable = &AuditLogControllerAuditLogOption{}
 
 // AuditLogControllerAuditLogOption struct for AuditLogControllerAuditLogOption
 type AuditLogControllerAuditLogOption struct {
-	Id                   *string    `json:"id,omitempty"`
-	Date                 *time.Time `json:"date,omitempty"`
-	Username             *string    `json:"username,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Date *time.Time `json:"date,omitempty"`
+	Username *string `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,7 +141,7 @@ func (o *AuditLogControllerAuditLogOption) SetUsername(v string) {
 }
 
 func (o AuditLogControllerAuditLogOption) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -225,3 +225,5 @@ func (v *NullableAuditLogControllerAuditLogOption) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

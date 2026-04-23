@@ -33,8 +33,11 @@ class State(BaseModel):
     end_date: Optional[datetime] = Field(default=None, alias="endDate")
     current: StateType
     histories: Optional[List[StateHistory]] = None
+    get_duration: StrictStr = Field(alias="getDuration")
+    get_start_date: datetime = Field(alias="getStartDate")
+    get_end_date: datetime = Field(alias="getEndDate")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["duration", "startDate", "endDate", "current", "histories"]
+    __properties: ClassVar[List[str]] = ["duration", "startDate", "endDate", "current", "histories", "getDuration", "getStartDate", "getEndDate"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,12 +72,18 @@ class State(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "duration",
             "start_date",
             "end_date",
+            "get_duration",
+            "get_start_date",
+            "get_end_date",
             "additional_properties",
         ])
 
@@ -121,7 +130,10 @@ class State(BaseModel):
             "startDate": obj.get("startDate"),
             "endDate": obj.get("endDate"),
             "current": obj.get("current"),
-            "histories": [StateHistory.from_dict(_item) for _item in obj["histories"]] if obj.get("histories") is not None else None
+            "histories": [StateHistory.from_dict(_item) for _item in obj["histories"]] if obj.get("histories") is not None else None,
+            "getDuration": obj.get("getDuration"),
+            "getStartDate": obj.get("getStartDate"),
+            "getEndDate": obj.get("getEndDate")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

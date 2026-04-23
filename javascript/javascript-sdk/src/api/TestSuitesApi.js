@@ -527,32 +527,20 @@ export default class TestSuitesApi {
     /**
     * Search for tests
     * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {Boolean} includeChildNamespaces Include child namespaces in filter or not
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
     * @param {String} [namespace] The namespace to filter on
     * @param {String} [flowId] The flow id to filter on
+    * @param {Boolean} [includeChildNamespaces = true)] Include child namespaces in filter or not
 
     * @return {Promise<PagedResultsTestSuite>}
     */
-    searchTestSuitesWithHttpInfo(page, size, includeChildNamespaces, tenant, opts) {
+    searchTestSuitesWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTestSuites");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTestSuites");
-      }
-      // verify the required parameter 'includeChildNamespaces' is set
-      if (includeChildNamespaces === undefined || includeChildNamespaces === null) {
-        throw new Error("Missing the required parameter 'includeChildNamespaces' when calling searchTestSuites");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchTestSuites");
@@ -562,12 +550,12 @@ export default class TestSuitesApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
+        'page': opts['page'],
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
         'namespace': opts['namespace'],
         'flowId': opts['flowId'],
-        'includeChildNamespaces': includeChildNamespaces
+        'includeChildNamespaces': opts['includeChildNamespaces']
       };
       let headerParams = {
       };
@@ -588,19 +576,19 @@ export default class TestSuitesApi {
     /**
     * Search for tests
     * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {Boolean} includeChildNamespaces Include child namespaces in filter or not
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
     * @param {String} [opts.namespace] The namespace to filter on
     * @param {String} [opts.flowId] The flow id to filter on
+    * @param {Boolean} [opts.includeChildNamespaces (default to true)] Include child namespaces in filter or not
 
     * @return {Promise<PagedResultsTestSuite>}
     */
-    searchTestSuites(page, size, includeChildNamespaces, tenant, opts) {
-      return this.searchTestSuitesWithHttpInfo(page, size, includeChildNamespaces, tenant, opts)
+    searchTestSuites(tenant, opts) {
+      return this.searchTestSuitesWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -619,10 +607,10 @@ export default class TestSuitesApi {
     /**
     * Search for tests results
     * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
     * @param {String} [testSuiteId] The test suite id to filter on
     * @param {String} [namespace] The namespace to filter on
@@ -630,17 +618,9 @@ export default class TestSuitesApi {
 
     * @return {Promise<PagedResultsTestSuiteRunResult>}
     */
-    searchTestSuitesResultsWithHttpInfo(page, size, tenant, opts) {
+    searchTestSuitesResultsWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTestSuitesResults");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTestSuitesResults");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchTestSuitesResults");
@@ -650,8 +630,8 @@ export default class TestSuitesApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
+        'page': opts['page'],
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
         'testSuiteId': opts['testSuiteId'],
         'namespace': opts['namespace'],
@@ -676,10 +656,10 @@ export default class TestSuitesApi {
     /**
     * Search for tests results
     * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
     * @param {String} [opts.testSuiteId] The test suite id to filter on
     * @param {String} [opts.namespace] The namespace to filter on
@@ -687,8 +667,8 @@ export default class TestSuitesApi {
 
     * @return {Promise<PagedResultsTestSuiteRunResult>}
     */
-    searchTestSuitesResults(page, size, tenant, opts) {
-      return this.searchTestSuitesResultsWithHttpInfo(page, size, tenant, opts)
+    searchTestSuitesResults(tenant, opts) {
+      return this.searchTestSuitesResultsWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

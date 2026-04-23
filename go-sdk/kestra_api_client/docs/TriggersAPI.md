@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTrigger
 
-> map[string]interface{} DeleteTrigger(ctx, namespace, flowId, triggerId, tenant).Execute()
+> map[string]interface{} DeleteTrigger(ctx, namespace, triggerId, flowId, tenant).Execute()
 
 Delete a trigger
 
@@ -261,13 +261,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace
-	flowId := "flowId_example" // string | The flow id
 	triggerId := "triggerId_example" // string | The trigger id
+	flowId := "flowId_example" // string | The flow id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.DeleteTrigger(context.Background(), namespace, flowId, triggerId, tenant).Execute()
+	resp, r, err := apiClient.TriggersAPI.DeleteTrigger(context.Background(), namespace, triggerId, flowId, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTrigger``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -284,8 +284,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The namespace | 
-**flowId** | **string** | The flow id | 
 **triggerId** | **string** | The trigger id | 
+**flowId** | **string** | The flow id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -549,8 +549,8 @@ import (
 )
 
 func main() {
-	disabled := true // bool | The disabled state (default to true)
 	tenant := "tenant_example" // string | 
+	disabled := true // bool | The disabled state (optional) (default to true)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -580,8 +580,8 @@ Other parameters are passed through a pointer to a apiDisabledTriggersByQueryReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **disabled** | **bool** | The disabled state | [default to true]
 
+ **disabled** | **bool** | The disabled state | [default to true]
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
@@ -886,7 +886,7 @@ Name | Type | Description  | Notes
 
 ## RestartTrigger
 
-> map[string]interface{} RestartTrigger(ctx, namespace, flowId, triggerId, tenant).Execute()
+> map[string]interface{} RestartTrigger(ctx, namespace, triggerId, flowId, tenant).Execute()
 
 Restart a trigger
 
@@ -904,13 +904,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace
-	flowId := "flowId_example" // string | The flow id
 	triggerId := "triggerId_example" // string | The trigger id
+	flowId := "flowId_example" // string | The flow id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.RestartTrigger(context.Background(), namespace, flowId, triggerId, tenant).Execute()
+	resp, r, err := apiClient.TriggersAPI.RestartTrigger(context.Background(), namespace, triggerId, flowId, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.RestartTrigger``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -927,8 +927,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The namespace | 
-**flowId** | **string** | The flow id | 
 **triggerId** | **string** | The trigger id | 
+**flowId** | **string** | The flow id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 
 ## SearchTriggers
 
-> PagedResultsTriggerControllerTriggers SearchTriggers(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+> PagedResultsTriggerControllerTriggers SearchTriggers(ctx, tenant).Filters(filters).Size(size).Page(page).Sort(sort).Execute()
 
 Search for triggers
 
@@ -980,15 +980,15 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.SearchTriggers(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+	resp, r, err := apiClient.TriggersAPI.SearchTriggers(context.Background(), tenant).Filters(filters).Size(size).Page(page).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.SearchTriggers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1013,11 +1013,11 @@ Other parameters are passed through a pointer to a apiSearchTriggersRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
- **sort** | **[]string** | The sort of current page | 
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
+ **size** | **int32** | The current page size | [default to 10]
+ **page** | **int32** | The current page | [default to 1]
+ **sort** | **[]string** | The sort of current page | 
 
 ### Return type
 
@@ -1039,7 +1039,7 @@ Name | Type | Description  | Notes
 
 ## SearchTriggersForFlow
 
-> PagedResultsTrigger SearchTriggersForFlow(ctx, namespace, flowId, tenant).Page(page).Size(size).Sort(sort).Q(q).Execute()
+> PagedResultsTrigger SearchTriggersForFlow(ctx, namespace, flowId, tenant).Q(q).Size(size).Page(page).Sort(sort).Execute()
 
 Get all triggers for a flow
 
@@ -1056,17 +1056,17 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	namespace := "namespace_example" // string | The namespace
+	namespace := openapiclient.listBlueprintTags_q_parameter{String: new(string)} // ListBlueprintTagsQParameter | The namespace
 	flowId := "flowId_example" // string | The flow id
 	tenant := "tenant_example" // string | 
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	q := "q_example" // string | A string filter (optional)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.SearchTriggersForFlow(context.Background(), namespace, flowId, tenant).Page(page).Size(size).Sort(sort).Q(q).Execute()
+	resp, r, err := apiClient.TriggersAPI.SearchTriggersForFlow(context.Background(), namespace, flowId, tenant).Q(q).Size(size).Page(page).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.SearchTriggersForFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1082,7 +1082,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The namespace | 
+**namespace** | [**ListBlueprintTagsQParameter**](.md) | The namespace | 
 **flowId** | **string** | The flow id | 
 **tenant** | **string** |  | 
 
@@ -1093,13 +1093,13 @@ Other parameters are passed through a pointer to a apiSearchTriggersForFlowReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
 
 
- **sort** | **[]string** | The sort of current page | 
  **q** | **string** | A string filter | 
+ **size** | **int32** | The current page size | [default to 10]
+ **page** | **int32** | The current page | [default to 1]
+ **sort** | **[]string** | The sort of current page | 
 
 ### Return type
 
@@ -1121,7 +1121,7 @@ Name | Type | Description  | Notes
 
 ## UnlockTrigger
 
-> Trigger UnlockTrigger(ctx, namespace, flowId, triggerId, tenant).Execute()
+> Trigger UnlockTrigger(ctx, namespace, triggerId, flowId, tenant).Execute()
 
 Unlock a trigger
 
@@ -1139,13 +1139,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace
-	flowId := "flowId_example" // string | The flow id
 	triggerId := "triggerId_example" // string | The trigger id
+	flowId := "flowId_example" // string | The flow id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.UnlockTrigger(context.Background(), namespace, flowId, triggerId, tenant).Execute()
+	resp, r, err := apiClient.TriggersAPI.UnlockTrigger(context.Background(), namespace, triggerId, flowId, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.UnlockTrigger``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1162,8 +1162,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The namespace | 
-**flowId** | **string** | The flow id | 
 **triggerId** | **string** | The trigger id | 
+**flowId** | **string** | The flow id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters

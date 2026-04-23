@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // PropertyListAssetIdentifier - struct for PropertyListAssetIdentifier
 type PropertyListAssetIdentifier struct {
 	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	String *string
 }
 
 // map[string]interface{}AsPropertyListAssetIdentifier is a convenience function that returns map[string]interface{} wrapped in PropertyListAssetIdentifier
@@ -35,6 +34,7 @@ func StringAsPropertyListAssetIdentifier(v *string) PropertyListAssetIdentifier 
 		String: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *PropertyListAssetIdentifier) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src PropertyListAssetIdentifier) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *PropertyListAssetIdentifier) GetActualInstance() interface{} {
+func (obj *PropertyListAssetIdentifier) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *PropertyListAssetIdentifier) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj PropertyListAssetIdentifier) GetActualInstanceValue() interface{} {
+func (obj PropertyListAssetIdentifier) GetActualInstanceValue() (interface{}) {
 	if obj.MapmapOfStringAny != nil {
 		return *obj.MapmapOfStringAny
 	}
@@ -166,3 +166,5 @@ func (v *NullablePropertyListAssetIdentifier) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

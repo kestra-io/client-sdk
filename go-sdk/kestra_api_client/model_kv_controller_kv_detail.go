@@ -19,10 +19,10 @@ var _ MappedNullable = &KVControllerKvDetail{}
 
 // KVControllerKvDetail struct for KVControllerKvDetail
 type KVControllerKvDetail struct {
-	Type                 *KVType                `json:"type,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
-	Revision             *int32                 `json:"revision,omitempty"`
-	Updated              *time.Time             `json:"updated,omitempty"`
+	Type *KVType `json:"type,omitempty"`
+	Value map[string]interface{} `json:"value,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,7 +174,7 @@ func (o *KVControllerKvDetail) SetUpdated(v time.Time) {
 }
 
 func (o KVControllerKvDetail) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -262,3 +262,5 @@ func (v *NullableKVControllerKvDetail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

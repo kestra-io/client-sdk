@@ -19,9 +19,9 @@ type BannerType string
 
 // List of Banner.Type
 const (
-	BANNERTYPE_INFO    BannerType = "INFO"
+	BANNERTYPE_INFO BannerType = "INFO"
 	BANNERTYPE_WARNING BannerType = "WARNING"
-	BANNERTYPE_ERROR   BannerType = "ERROR"
+	BANNERTYPE_ERROR BannerType = "ERROR"
 )
 
 // All allowed values of BannerType enum
@@ -109,3 +109,4 @@ func (v *NullableBannerType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

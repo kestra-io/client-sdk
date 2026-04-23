@@ -18,8 +18,8 @@ var _ MappedNullable = &MiscControllerPreview{}
 
 // MiscControllerPreview struct for MiscControllerPreview
 type MiscControllerPreview struct {
-	Initial              *int32 `json:"initial,omitempty"`
-	Max                  *int32 `json:"max,omitempty"`
+	Initial *int32 `json:"initial,omitempty"`
+	Max *int32 `json:"max,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *MiscControllerPreview) SetMax(v int32) {
 }
 
 func (o MiscControllerPreview) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableMiscControllerPreview) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

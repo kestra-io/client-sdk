@@ -18,8 +18,8 @@ var _ MappedNullable = &PageRequest{}
 
 // PageRequest struct for PageRequest
 type PageRequest struct {
-	StartIndex           *int32 `json:"startIndex,omitempty"`
-	Count                *int32 `json:"count,omitempty"`
+	StartIndex *int32 `json:"startIndex,omitempty"`
+	Count *int32 `json:"count,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *PageRequest) SetCount(v int32) {
 }
 
 func (o PageRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullablePageRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

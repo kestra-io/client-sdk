@@ -19,13 +19,13 @@ var _ MappedNullable = &ChartFiltersOverrides{}
 
 // ChartFiltersOverrides struct for ChartFiltersOverrides
 type ChartFiltersOverrides struct {
-	StartDate            *time.Time         `json:"startDate,omitempty"`
-	EndDate              *time.Time         `json:"endDate,omitempty"`
-	PageSize             *int32             `json:"pageSize,omitempty"`
-	PageNumber           *int32             `json:"pageNumber,omitempty"`
-	Namespace            *string            `json:"namespace,omitempty"`
-	Labels               *map[string]string `json:"labels,omitempty"`
-	Filters              []QueryFilter      `json:"filters,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate *time.Time `json:"endDate,omitempty"`
+	PageSize *int32 `json:"pageSize,omitempty"`
+	PageNumber *int32 `json:"pageNumber,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Labels *map[string]string `json:"labels,omitempty"`
+	Filters []QueryFilter `json:"filters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,7 +273,7 @@ func (o *ChartFiltersOverrides) SetFilters(v []QueryFilter) {
 }
 
 func (o ChartFiltersOverrides) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -373,3 +373,5 @@ func (v *NullableChartFiltersOverrides) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

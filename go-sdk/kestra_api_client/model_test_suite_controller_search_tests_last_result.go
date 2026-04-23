@@ -18,7 +18,7 @@ var _ MappedNullable = &TestSuiteControllerSearchTestsLastResult{}
 
 // TestSuiteControllerSearchTestsLastResult struct for TestSuiteControllerSearchTestsLastResult
 type TestSuiteControllerSearchTestsLastResult struct {
-	TestSuiteIds         []TestSuiteControllerTestSuiteApiId `json:"testSuiteIds,omitempty"`
+	TestSuiteIds []TestSuiteControllerTestSuiteApiId `json:"testSuiteIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *TestSuiteControllerSearchTestsLastResult) SetTestSuiteIds(v []TestSuite
 }
 
 func (o TestSuiteControllerSearchTestsLastResult) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableTestSuiteControllerSearchTestsLastResult) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

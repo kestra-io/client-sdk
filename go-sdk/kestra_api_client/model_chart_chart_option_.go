@@ -19,9 +19,9 @@ var _ MappedNullable = &ChartChartOption{}
 
 // ChartChartOption struct for ChartChartOption
 type ChartChartOption struct {
-	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type                 string                 `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
-	ChartOptions         map[string]interface{} `json:"chartOptions,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
+	ChartOptions map[string]interface{} `json:"chartOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -127,7 +127,7 @@ func (o *ChartChartOption) SetChartOptions(v map[string]interface{}) {
 }
 
 func (o ChartChartOption) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -163,10 +163,10 @@ func (o *ChartChartOption) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -229,3 +229,5 @@ func (v *NullableChartChartOption) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

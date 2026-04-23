@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the BlueprintWithFlowEntity type satisfies the MappedNullable interface at compile time
@@ -20,15 +20,15 @@ var _ MappedNullable = &BlueprintWithFlowEntity{}
 
 // BlueprintWithFlowEntity struct for BlueprintWithFlowEntity
 type BlueprintWithFlowEntity struct {
-	Id                   *string            `json:"id,omitempty"`
-	Title                string             `json:"title"`
-	Description          *string            `json:"description,omitempty"`
-	Tags                 []string           `json:"tags,omitempty"`
-	IncludedTasks        []string           `json:"includedTasks,omitempty"`
-	PublishedAt          *time.Time         `json:"publishedAt,omitempty"`
-	Deleted              bool               `json:"deleted"`
-	Template             *BlueprintTemplate `json:"template,omitempty"`
-	Flow                 string             `json:"flow"`
+	Id *string `json:"id,omitempty"`
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	IncludedTasks []string `json:"includedTasks,omitempty"`
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+	Deleted bool `json:"deleted"`
+	Template *BlueprintTemplate `json:"template,omitempty"`
+	Flow string `json:"flow"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -319,7 +319,7 @@ func (o *BlueprintWithFlowEntity) SetFlow(v string) {
 }
 
 func (o BlueprintWithFlowEntity) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -372,10 +372,10 @@ func (o *BlueprintWithFlowEntity) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -444,3 +444,5 @@ func (v *NullableBlueprintWithFlowEntity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

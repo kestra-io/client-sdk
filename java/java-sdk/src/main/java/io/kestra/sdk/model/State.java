@@ -40,7 +40,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   State.JSON_PROPERTY_START_DATE,
   State.JSON_PROPERTY_END_DATE,
   State.JSON_PROPERTY_CURRENT,
-  State.JSON_PROPERTY_HISTORIES
+  State.JSON_PROPERTY_HISTORIES,
+  State.JSON_PROPERTY_GET_DURATION,
+  State.JSON_PROPERTY_GET_START_DATE,
+  State.JSON_PROPERTY_GET_END_DATE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class State {
@@ -59,6 +62,15 @@ public class State {
   public static final String JSON_PROPERTY_HISTORIES = "histories";
   @jakarta.annotation.Nullable  private List<StateHistory> histories = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_GET_DURATION = "getDuration";
+  @jakarta.annotation.Nonnull  private String getDuration;
+
+  public static final String JSON_PROPERTY_GET_START_DATE = "getStartDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime getStartDate;
+
+  public static final String JSON_PROPERTY_GET_END_DATE = "getEndDate";
+  @jakarta.annotation.Nonnull  private OffsetDateTime getEndDate;
+
   public State() {
   }
   /**
@@ -68,12 +80,18 @@ public class State {
   public State(
     @JsonProperty(JSON_PROPERTY_DURATION) String duration, 
     @JsonProperty(JSON_PROPERTY_START_DATE) OffsetDateTime startDate, 
-    @JsonProperty(JSON_PROPERTY_END_DATE) OffsetDateTime endDate
+    @JsonProperty(JSON_PROPERTY_END_DATE) OffsetDateTime endDate, 
+    @JsonProperty(JSON_PROPERTY_GET_DURATION) String getDuration, 
+    @JsonProperty(JSON_PROPERTY_GET_START_DATE) OffsetDateTime getStartDate, 
+    @JsonProperty(JSON_PROPERTY_GET_END_DATE) OffsetDateTime getEndDate
   ) {
     this();
     this.duration = duration == null ? JsonNullable.<String>undefined() : JsonNullable.of(duration);
     this.startDate = startDate;
     this.endDate = endDate == null ? JsonNullable.<OffsetDateTime>undefined() : JsonNullable.of(endDate);
+    this.getDuration = getDuration;
+    this.getStartDate = getStartDate;
+    this.getEndDate = getEndDate;
   }
 
   /**
@@ -197,6 +215,45 @@ public class State {
     this.histories = histories;
   }
 
+  /**
+   * Get getDuration
+   * @return getDuration
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_DURATION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getGetDuration() {
+    return getDuration;
+  }
+
+
+
+  /**
+   * Get getStartDate
+   * @return getStartDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getGetStartDate() {
+    return getStartDate;
+  }
+
+
+
+  /**
+   * Get getEndDate
+   * @return getEndDate
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GET_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public OffsetDateTime getGetEndDate() {
+    return getEndDate;
+  }
+
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -210,7 +267,10 @@ public class State {
         Objects.equals(this.startDate, state.startDate) &&
         equalsNullable(this.endDate, state.endDate) &&
         Objects.equals(this.current, state.current) &&
-        Objects.equals(this.histories, state.histories);
+        Objects.equals(this.histories, state.histories) &&
+        Objects.equals(this.getDuration, state.getDuration) &&
+        Objects.equals(this.getStartDate, state.getStartDate) &&
+        Objects.equals(this.getEndDate, state.getEndDate);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -219,7 +279,7 @@ public class State {
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(duration), startDate, hashCodeNullable(endDate), current, histories);
+    return Objects.hash(hashCodeNullable(duration), startDate, hashCodeNullable(endDate), current, histories, getDuration, getStartDate, getEndDate);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -238,6 +298,9 @@ public class State {
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    current: ").append(toIndentedString(current)).append("\n");
     sb.append("    histories: ").append(toIndentedString(histories)).append("\n");
+    sb.append("    getDuration: ").append(toIndentedString(getDuration)).append("\n");
+    sb.append("    getStartDate: ").append(toIndentedString(getStartDate)).append("\n");
+    sb.append("    getEndDate: ").append(toIndentedString(getEndDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

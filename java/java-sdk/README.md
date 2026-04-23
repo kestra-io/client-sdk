@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 1.0.0
 
-- Generator version: 7.21.0
+- Generator version: 7.17.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.11</version>
+  <version>1.3</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.11"
+compile "io.kestra:kestra-api-client:1.3"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.11.jar`
+- `target/kestra-api-client-1.3.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -176,6 +176,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+*ExecutionsApi* | [**evalExpression**](docs/ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 *ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
@@ -229,35 +230,13 @@ Class | Method | HTTP request | Description
 *FilesApi* | [**listNamespaceDirectoryFiles**](docs/FilesApi.md#listNamespaceDirectoryFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/directory | List directory content
 *FilesApi* | [**moveFileDirectory**](docs/FilesApi.md#moveFileDirectory) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/files | Move a file or directory
 *FilesApi* | [**searchNamespaceFiles**](docs/FilesApi.md#searchNamespaceFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/search | Find files which path contain the given string in their URI
-*FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
-*FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
-*FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
-*FlowsApi* | [**deleteFlowsByIds**](docs/FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
-*FlowsApi* | [**deleteFlowsByQuery**](docs/FlowsApi.md#deleteFlowsByQuery) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
-*FlowsApi* | [**deleteRevisions**](docs/FlowsApi.md#deleteRevisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
-*FlowsApi* | [**disableFlowsByIds**](docs/FlowsApi.md#disableFlowsByIds) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
-*FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
-*FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
-*FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-*FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
-*FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
-*FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-*FlowsApi* | [**flowDependencies**](docs/FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
 *FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
-*FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
-*FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *FlowsApi* | [**searchConcurrencyLimits**](docs/FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
-*FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
-*FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
-*FlowsApi* | [**taskFromFlow**](docs/FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *FlowsApi* | [**updateConcurrencyLimit**](docs/FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
-*FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
-*FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -389,6 +368,8 @@ Class | Method | HTTP request | Description
  - [AbstractUserTenantIdentityProvider](docs/AbstractUserTenantIdentityProvider.md)
  - [Action](docs/Action.md)
  - [AiControllerAiProviderResponse](docs/AiControllerAiProviderResponse.md)
+ - [AiControllerDashboardGenerationPrompt](docs/AiControllerDashboardGenerationPrompt.md)
+ - [AiControllerFlowGenerationPrompt](docs/AiControllerFlowGenerationPrompt.md)
  - [ApiAuth](docs/ApiAuth.md)
  - [ApiAutocomplete](docs/ApiAutocomplete.md)
  - [ApiGroupSummary](docs/ApiGroupSummary.md)
@@ -461,24 +442,22 @@ Class | Method | HTTP request | Description
  - [BulkErrorResponse](docs/BulkErrorResponse.md)
  - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [BulkResponse](docs/BulkResponse.md)
- - [Cache](docs/Cache.md)
  - [ChartChartOption](docs/ChartChartOption.md)
  - [ChartFiltersOverrides](docs/ChartFiltersOverrides.md)
- - [Check](docs/Check.md)
- - [CheckBehavior](docs/CheckBehavior.md)
- - [CheckStyle](docs/CheckStyle.md)
  - [Concurrency](docs/Concurrency.md)
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [ConcurrencyLimit](docs/ConcurrencyLimit.md)
  - [Condition](docs/Condition.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
+ - [CreateExecutionLabelsParameter](docs/CreateExecutionLabelsParameter.md)
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [Dashboard](docs/Dashboard.md)
+ - [DashboardControllerDashboardResponse](docs/DashboardControllerDashboardResponse.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
+ - [DeleteExecutionsByIdsDeleteLogsParameter](docs/DeleteExecutionsByIdsDeleteLogsParameter.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -489,6 +468,7 @@ Class | Method | HTTP request | Description
  - [EventExecutionStatusEvent](docs/EventExecutionStatusEvent.md)
  - [ExecutableTaskSubflowId](docs/ExecutableTaskSubflowId.md)
  - [Execution](docs/Execution.md)
+ - [ExecutionControllerEvalResult](docs/ExecutionControllerEvalResult.md)
  - [ExecutionControllerExecutionResponse](docs/ExecutionControllerExecutionResponse.md)
  - [ExecutionControllerLastExecutionResponse](docs/ExecutionControllerLastExecutionResponse.md)
  - [ExecutionControllerSetLabelsByIdsRequest](docs/ExecutionControllerSetLabelsByIdsRequest.md)
@@ -503,9 +483,9 @@ Class | Method | HTTP request | Description
  - [FileMetas](docs/FileMetas.md)
  - [Filter](docs/Filter.md)
  - [Fixtures](docs/Fixtures.md)
- - [Flow](docs/Flow.md)
  - [FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [FlowForExecution](docs/FlowForExecution.md)
+ - [FlowFromExecutionRevisionParameter](docs/FlowFromExecutionRevisionParameter.md)
  - [FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
  - [FlowGraph](docs/FlowGraph.md)
  - [FlowGraphCluster](docs/FlowGraphCluster.md)
@@ -516,7 +496,8 @@ Class | Method | HTTP request | Description
  - [FlowRelation](docs/FlowRelation.md)
  - [FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
- - [FlowWithSource](docs/FlowWithSource.md)
+ - [GenerateFlowGraphFromSourceSubflowsParameter](docs/GenerateFlowGraphFromSourceSubflowsParameter.md)
+ - [GenerateFlowGraphRevisionParameter](docs/GenerateFlowGraphRevisionParameter.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
@@ -557,7 +538,6 @@ Class | Method | HTTP request | Description
  - [IAMUserControllerApiUserAuth](docs/IAMUserControllerApiUserAuth.md)
  - [IAMUserControllerApiUserSummary](docs/IAMUserControllerApiUserSummary.md)
  - [IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
- - [IdWithNamespace](docs/IdWithNamespace.md)
  - [IdentityProvider](docs/IdentityProvider.md)
  - [ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
  - [InputObject](docs/InputObject.md)
@@ -592,6 +572,7 @@ Class | Method | HTTP request | Description
  - [Label](docs/Label.md)
  - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
+ - [ListBlueprintTagsQParameter](docs/ListBlueprintTagsQParameter.md)
  - [LogEntry](docs/LogEntry.md)
  - [MapObjectObject](docs/MapObjectObject.md)
  - [MeControllerApiMe](docs/MeControllerApiMe.md)
@@ -632,9 +613,8 @@ Class | Method | HTTP request | Description
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
  - [PagedResultsBlueprintControllerApiBlueprintItem](docs/PagedResultsBlueprintControllerApiBlueprintItem.md)
  - [PagedResultsConcurrencyLimit](docs/PagedResultsConcurrencyLimit.md)
- - [PagedResultsDashboard](docs/PagedResultsDashboard.md)
+ - [PagedResultsDashboardControllerDashboardResponse](docs/PagedResultsDashboardControllerDashboardResponse.md)
  - [PagedResultsExecution](docs/PagedResultsExecution.md)
- - [PagedResultsFlow](docs/PagedResultsFlow.md)
  - [PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
  - [PagedResultsIAMInvitationControllerApiInvitationDetail](docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md)
@@ -648,7 +628,6 @@ Class | Method | HTTP request | Description
  - [PagedResultsMapStringObject](docs/PagedResultsMapStringObject.md)
  - [PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [PagedResultsNamespace](docs/PagedResultsNamespace.md)
- - [PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
@@ -670,7 +649,6 @@ Class | Method | HTTP request | Description
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
- - [PropertyDuration](docs/PropertyDuration.md)
  - [PropertyListAsset](docs/PropertyListAsset.md)
  - [PropertyListAssetIdentifier](docs/PropertyListAssetIdentifier.md)
  - [PropertyListString](docs/PropertyListString.md)
@@ -701,12 +679,14 @@ Class | Method | HTTP request | Description
  - [SchemaAttributeType](docs/SchemaAttributeType.md)
  - [SchemaAttributeUniqueness](docs/SchemaAttributeUniqueness.md)
  - [SchemaType](docs/SchemaType.md)
+ - [SchemasFromTypeArrayOfParameter](docs/SchemasFromTypeArrayOfParameter.md)
  - [ScimExtension](docs/ScimExtension.md)
  - [ScimResource](docs/ScimResource.md)
  - [ScimResourceWithOptionalId](docs/ScimResourceWithOptionalId.md)
  - [ScimUser](docs/ScimUser.md)
+ - [SearchBlueprintsSizeParameter](docs/SearchBlueprintsSizeParameter.md)
+ - [SearchInternalBlueprintsSizeParameter](docs/SearchInternalBlueprintsSizeParameter.md)
  - [SearchRequest](docs/SearchRequest.md)
- - [SearchResultFlow](docs/SearchResultFlow.md)
  - [SecurityIntegrationType](docs/SecurityIntegrationType.md)
  - [ServerConfig](docs/ServerConfig.md)
  - [ServerConfigLiveness](docs/ServerConfigLiveness.md)
@@ -730,7 +710,6 @@ Class | Method | HTTP request | Description
  - [State](docs/State.md)
  - [StateHistory](docs/StateHistory.md)
  - [StateType](docs/StateType.md)
- - [Task](docs/Task.md)
  - [TaskFixture](docs/TaskFixture.md)
  - [TaskForExecution](docs/TaskForExecution.md)
  - [TaskRun](docs/TaskRun.md)
@@ -761,6 +740,7 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
+ - [UpdateFlowsInNamespaceOverrideParameter](docs/UpdateFlowsInNamespaceOverrideParameter.md)
  - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

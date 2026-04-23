@@ -19,9 +19,9 @@ type TestState string
 
 // List of TestState
 const (
-	TESTSTATE_ERROR   TestState = "ERROR"
+	TESTSTATE_ERROR TestState = "ERROR"
 	TESTSTATE_SUCCESS TestState = "SUCCESS"
-	TESTSTATE_FAILED  TestState = "FAILED"
+	TESTSTATE_FAILED TestState = "FAILED"
 	TESTSTATE_SKIPPED TestState = "SKIPPED"
 )
 
@@ -111,3 +111,4 @@ func (v *NullableTestState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

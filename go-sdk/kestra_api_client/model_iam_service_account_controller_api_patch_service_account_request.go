@@ -19,8 +19,8 @@ var _ MappedNullable = &IAMServiceAccountControllerApiPatchServiceAccountRequest
 
 // IAMServiceAccountControllerApiPatchServiceAccountRequest Request payload for updating service account details
 type IAMServiceAccountControllerApiPatchServiceAccountRequest struct {
-	Name                 string  `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
-	Description          *string `json:"description,omitempty"`
+	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	Description *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -101,7 +101,7 @@ func (o *IAMServiceAccountControllerApiPatchServiceAccountRequest) SetDescriptio
 }
 
 func (o IAMServiceAccountControllerApiPatchServiceAccountRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -135,10 +135,10 @@ func (o *IAMServiceAccountControllerApiPatchServiceAccountRequest) UnmarshalJSON
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -200,3 +200,5 @@ func (v *NullableIAMServiceAccountControllerApiPatchServiceAccountRequest) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

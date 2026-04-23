@@ -18,9 +18,9 @@ var _ MappedNullable = &ApiAuth{}
 
 // ApiAuth struct for ApiAuth
 type ApiAuth struct {
-	Uid                  *string `json:"uid,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Name                 *string `json:"name,omitempty"`
+	Uid *string `json:"uid,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Name *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *ApiAuth) SetName(v string) {
 }
 
 func (o ApiAuth) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableApiAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

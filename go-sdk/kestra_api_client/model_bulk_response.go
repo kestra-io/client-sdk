@@ -18,7 +18,7 @@ var _ MappedNullable = &BulkResponse{}
 
 // BulkResponse struct for BulkResponse
 type BulkResponse struct {
-	Count                *int32 `json:"count,omitempty"`
+	Count *int32 `json:"count,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *BulkResponse) SetCount(v int32) {
 }
 
 func (o BulkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableBulkResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

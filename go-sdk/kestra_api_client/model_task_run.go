@@ -19,20 +19,20 @@ var _ MappedNullable = &TaskRun{}
 
 // TaskRun struct for TaskRun
 type TaskRun struct {
-	Id                   string                 `json:"id"`
-	ExecutionId          string                 `json:"executionId"`
-	Namespace            string                 `json:"namespace"`
-	FlowId               string                 `json:"flowId"`
-	TaskId               string                 `json:"taskId"`
-	ParentTaskRunId      *string                `json:"parentTaskRunId,omitempty"`
-	Value                *string                `json:"value,omitempty"`
-	Attempts             []TaskRunAttempt       `json:"attempts,omitempty"`
-	Outputs              map[string]interface{} `json:"outputs,omitempty"`
-	Assets               NullableAssetsInOut    `json:"assets,omitempty"`
-	State                State                  `json:"state"`
-	Iteration            *int32                 `json:"iteration,omitempty"`
-	Dynamic              *bool                  `json:"dynamic,omitempty"`
-	ForceExecution       *bool                  `json:"forceExecution,omitempty"`
+	Id string `json:"id"`
+	ExecutionId string `json:"executionId"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId string `json:"taskId"`
+	ParentTaskRunId *string `json:"parentTaskRunId,omitempty"`
+	Value *string `json:"value,omitempty"`
+	Attempts []TaskRunAttempt `json:"attempts,omitempty"`
+	Outputs map[string]interface{} `json:"outputs,omitempty"`
+	Assets NullableAssetsInOut `json:"assets,omitempty"`
+	State State `json:"state"`
+	Iteration *int32 `json:"iteration,omitempty"`
+	Dynamic *bool `json:"dynamic,omitempty"`
+	ForceExecution *bool `json:"forceExecution,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -342,7 +342,6 @@ func (o *TaskRun) HasAssets() bool {
 func (o *TaskRun) SetAssets(v AssetsInOut) {
 	o.Assets.Set(&v)
 }
-
 // SetAssetsNil sets the value for Assets to be an explicit nil
 func (o *TaskRun) SetAssetsNil() {
 	o.Assets.Set(nil)
@@ -474,7 +473,7 @@ func (o *TaskRun) SetForceExecution(v bool) {
 }
 
 func (o TaskRun) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -539,10 +538,10 @@ func (o *TaskRun) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -616,3 +615,5 @@ func (v *NullableTaskRun) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

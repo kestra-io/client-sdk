@@ -19,18 +19,18 @@ var _ MappedNullable = &AbstractUser{}
 
 // AbstractUser struct for AbstractUser
 type AbstractUser struct {
-	Type                 UserType                             `json:"type"`
-	GroupList            []GroupIdentifier                    `json:"groupList,omitempty"`
-	Groups               []map[string]interface{}             `json:"groups,omitempty"`
-	Username             string                               `json:"username"`
-	Email                string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
-	SuperAdmin           *bool                                `json:"superAdmin,omitempty"`
-	Id                   *string                              `json:"id,omitempty"`
-	Name                 *string                              `json:"name,omitempty"`
-	Description          *string                              `json:"description,omitempty"`
-	FirstName            *string                              `json:"firstName,omitempty"`
-	LastName             *string                              `json:"lastName,omitempty"`
-	Providers            []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
+	Type UserType `json:"type"`
+	GroupList []GroupIdentifier `json:"groupList,omitempty"`
+	Groups []map[string]interface{} `json:"groups,omitempty"`
+	Username string `json:"username"`
+	Email string "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Providers []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -417,7 +417,7 @@ func (o *AbstractUser) SetProviders(v []AbstractUserTenantIdentityProvider) {
 }
 
 func (o AbstractUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -479,10 +479,10 @@ func (o *AbstractUser) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -554,3 +554,5 @@ func (v *NullableAbstractUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

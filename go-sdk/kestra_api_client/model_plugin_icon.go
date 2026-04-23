@@ -18,9 +18,9 @@ var _ MappedNullable = &PluginIcon{}
 
 // PluginIcon struct for PluginIcon
 type PluginIcon struct {
-	Name                 *string `json:"name,omitempty"`
-	Icon                 *string `json:"icon,omitempty"`
-	Flowable             *bool   `json:"flowable,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Icon *string `json:"icon,omitempty"`
+	Flowable *bool `json:"flowable,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *PluginIcon) SetFlowable(v bool) {
 }
 
 func (o PluginIcon) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullablePluginIcon) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

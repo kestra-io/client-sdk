@@ -19,12 +19,12 @@ type ServiceType string
 
 // List of ServiceType
 const (
-	SERVICETYPE_EXECUTOR  ServiceType = "EXECUTOR"
-	SERVICETYPE_INDEXER   ServiceType = "INDEXER"
+	SERVICETYPE_EXECUTOR ServiceType = "EXECUTOR"
+	SERVICETYPE_INDEXER ServiceType = "INDEXER"
 	SERVICETYPE_SCHEDULER ServiceType = "SCHEDULER"
 	SERVICETYPE_WEBSERVER ServiceType = "WEBSERVER"
-	SERVICETYPE_WORKER    ServiceType = "WORKER"
-	SERVICETYPE_INVALID   ServiceType = "INVALID"
+	SERVICETYPE_WORKER ServiceType = "WORKER"
+	SERVICETYPE_INVALID ServiceType = "INVALID"
 )
 
 // All allowed values of ServiceType enum
@@ -115,3 +115,4 @@ func (v *NullableServiceType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

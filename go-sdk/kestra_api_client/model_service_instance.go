@@ -19,17 +19,17 @@ var _ MappedNullable = &ServiceInstance{}
 
 // ServiceInstance struct for ServiceInstance
 type ServiceInstance struct {
-	Server               *ServerInstance                   `json:"server,omitempty"`
-	Metrics              []Metric                          `json:"metrics,omitempty"`
-	State                *ServiceServiceState              `json:"state,omitempty"`
-	Id                   *string                           `json:"id,omitempty"`
-	Type                 *ServiceType                      `json:"type,omitempty"`
-	CreatedAt            *time.Time                        `json:"createdAt,omitempty"`
-	UpdatedAt            *time.Time                        `json:"updatedAt,omitempty"`
-	Events               []ServiceInstanceTimestampedEvent `json:"events,omitempty"`
-	Config               *ServerConfig                     `json:"config,omitempty"`
-	Props                map[string]map[string]interface{} `json:"props,omitempty"`
-	SeqId                *int64                            `json:"seqId,omitempty"`
+	Server *ServerInstance `json:"server,omitempty"`
+	Metrics []Metric `json:"metrics,omitempty"`
+	State *ServiceServiceState `json:"state,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *ServiceType `json:"type,omitempty"`
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	Events []ServiceInstanceTimestampedEvent `json:"events,omitempty"`
+	Config *ServerConfig `json:"config,omitempty"`
+	Props map[string]map[string]interface{} `json:"props,omitempty"`
+	SeqId *int64 `json:"seqId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -405,7 +405,7 @@ func (o *ServiceInstance) SetSeqId(v int64) {
 }
 
 func (o ServiceInstance) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -521,3 +521,5 @@ func (v *NullableServiceInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

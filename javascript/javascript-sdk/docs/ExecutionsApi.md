@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+[**evalExpression**](ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**executionFlowGraph**](ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 [**fileMetadatasFromExecution**](ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
@@ -57,7 +58,7 @@ Method | HTTP request | Description
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, opts)
+> ExecutionControllerExecutionResponse createExecution(namespace, tenant, id, opts)
 
 Create a new execution for a flow
 
@@ -76,17 +77,17 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let wait = false; // Boolean | If the server will wait the end of the execution
 let tenant = "tenant_example"; // String | 
+let id = "id_example"; // String | The flow id
 let opts = {
-  'labels': ["null"], // [String] | The labels as a list of 'key:value'
-  'revision': 56, // Number | The flow revision or latest if null
+  'wait': false, // Boolean | If the server will wait the end of the execution
   'scheduleDate': new Date("2013-10-20T19:20:30+01:00"), // Date | Schedule the flow on a specific date
   'breakpoints': "breakpoints_example", // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-  'kind': new KestraIoKestraSdk.ExecutionKind() // ExecutionKind | Specific execution kind
+  'kind': new KestraIoKestraSdk.ExecutionKind(), // ExecutionKind | Specific execution kind
+  'labels': new KestraIoKestraSdk.CreateExecutionLabelsParameter(), // CreateExecutionLabelsParameter | The labels as a list of 'key:value'
+  'revision': 56 // Number | The flow revision or latest if null
 };
-apiInstance.createExecution(namespace, id, wait, tenant, opts).then((data) => {
+apiInstance.createExecution(namespace, tenant, id, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -100,14 +101,14 @@ apiInstance.createExecution(namespace, id, wait, tenant, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **wait** | **Boolean**| If the server will wait the end of the execution | [default to false]
  **tenant** | **String**|  | 
- **labels** | [**[String]**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] 
- **revision** | **Number**| The flow revision or latest if null | [optional] 
+ **id** | **String**| The flow id | 
+ **wait** | **Boolean**| If the server will wait the end of the execution | [optional] [default to false]
  **scheduleDate** | **Date**| Schedule the flow on a specific date | [optional] 
  **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
  **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
+ **labels** | [**CreateExecutionLabelsParameter**](.md)| The labels as a list of &#39;key:value&#39; | [optional] 
+ **revision** | **Number**| The flow revision or latest if null | [optional] 
 
 ### Return type
 
@@ -146,9 +147,9 @@ let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'deleteLogs': true, // Boolean | Whether to delete execution logs
-  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
-  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
+  'deleteLogs': new KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter(), // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs
+  'deleteStorage': true, // Boolean | Whether to delete execution files in the internal storage
+  'deleteMetrics': new KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter() // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
 };
 apiInstance.deleteExecution(executionId, tenant, opts).then(() => {
   console.log('API called successfully.');
@@ -165,9 +166,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| The execution id | 
  **tenant** | **String**|  | 
- **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
+ **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] 
  **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
 
 ### Return type
 
@@ -206,10 +207,10 @@ let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The execution id
 let opts = {
-  'includeNonTerminated': false, // Boolean | Whether to delete non-terminated executions
-  'deleteLogs': true, // Boolean | Whether to delete execution logs
-  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
-  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
+  'deleteLogs': new KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter(), // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs
+  'deleteStorage': true, // Boolean | Whether to delete execution files in the internal storage
+  'deleteMetrics': new KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter(), // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
+  'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
 };
 apiInstance.deleteExecutionsByIds(tenant, requestBody, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -226,10 +227,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
  **requestBody** | [**[String]**](String.md)| The execution id | 
- **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false]
- **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
+ **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution logs | [optional] 
  **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
+ **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false]
 
 ### Return type
 
@@ -267,11 +268,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'deleteStorage': true, // Boolean | Whether to delete execution files in the internal storage
   'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
   'includeNonTerminated': false, // Boolean | Whether to delete non-terminated executions
-  'deleteLogs': true, // Boolean | Whether to delete execution logs
-  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
-  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
+  'deleteMetrics': new KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter(), // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics
+  'deleteLogs': true // Boolean | Whether to delete execution logs
 };
 apiInstance.deleteExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -287,11 +288,11 @@ apiInstance.deleteExecutionsByQuery(tenant, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
+ **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](.md)| Whether to delete execution metrics | [optional] 
  **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
- **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
 
 ### Return type
 
@@ -359,6 +360,60 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/octet-stream
+
+
+## evalExpression
+
+> ExecutionControllerEvalResult evalExpression(executionId, tenant, body)
+
+Evaluate a variable expression for this execution
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
+let executionId = "executionId_example"; // String | The execution id
+let tenant = "tenant_example"; // String | 
+let body = "body_example"; // String | The Pebble expression that should be evaluated
+apiInstance.evalExpression(executionId, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **executionId** | **String**| The execution id | 
+ **tenant** | **String**|  | 
+ **body** | **String**| The Pebble expression that should be evaluated | 
+
+### Return type
+
+[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: text/plain
+- **Accept**: application/json
 
 
 ## execution
@@ -547,7 +602,7 @@ let namespace = "namespace_example"; // String | The namespace of the flow
 let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'revision': 56 // Number | The flow revision
+  'revision': new KestraIoKestraSdk.FlowFromExecutionRevisionParameter() // FlowFromExecutionRevisionParameter | The flow revision
 };
 apiInstance.flowFromExecution(namespace, flowId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -565,7 +620,7 @@ Name | Type | Description  | Notes
  **namespace** | **String**| The namespace of the flow | 
  **flowId** | **String**| The flow id | 
  **tenant** | **String**|  | 
- **revision** | **Number**| The flow revision | [optional] 
+ **revision** | [**FlowFromExecutionRevisionParameter**](.md)| The flow revision | [optional] 
 
 ### Return type
 
@@ -635,7 +690,7 @@ Name | Type | Description  | Notes
 
 ## followDependenciesExecutions
 
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
+> EventExecutionStatusEvent followDependenciesExecutions(executionId, tenant, opts)
 
 Follow all execution dependencies executions
 
@@ -654,10 +709,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
-let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-let expandAll = false; // Boolean | If true, expand all dependencies recursively
 let tenant = "tenant_example"; // String | 
-apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant).then((data) => {
+let opts = {
+  'expandAll': false, // Boolean | If true, expand all dependencies recursively
+  'destinationOnly': false // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
+};
+apiInstance.followDependenciesExecutions(executionId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -671,9 +728,9 @@ apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| The execution id | 
- **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
  **tenant** | **String**|  | 
+ **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false]
+ **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false]
 
 ### Return type
 
@@ -901,7 +958,7 @@ Name | Type | Description  | Notes
 
 ## killExecution
 
-> Object killExecution(executionId, isOnKillCascade, tenant)
+> Object killExecution(executionId, tenant, opts)
 
 Kill an execution
 
@@ -920,9 +977,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
-let isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
 let tenant = "tenant_example"; // String | 
-apiInstance.killExecution(executionId, isOnKillCascade, tenant).then((data) => {
+let opts = {
+  'isOnKillCascade': true // Boolean | Specifies whether killing the execution also kill all subflow executions.
+};
+apiInstance.killExecution(executionId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -936,8 +995,8 @@ apiInstance.killExecution(executionId, isOnKillCascade, tenant).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| The execution id | 
- **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [default to true]
  **tenant** | **String**|  | 
+ **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [optional] [default to true]
 
 ### Return type
 
@@ -1293,8 +1352,8 @@ let executionId = "executionId_example"; // String | the original execution id t
 let tenant = "tenant_example"; // String | 
 let opts = {
   'taskRunId': "taskRunId_example", // String | The taskrun id
-  'revision': 56, // Number | The flow revision to use for new execution
-  'breakpoints': "breakpoints_example" // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+  'breakpoints': "breakpoints_example", // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+  'revision': 56 // Number | The flow revision to use for new execution
 };
 apiInstance.replayExecution(executionId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1312,8 +1371,8 @@ Name | Type | Description  | Notes
  **executionId** | **String**| the original execution id to clone | 
  **tenant** | **String**|  | 
  **taskRunId** | **String**| The taskrun id | [optional] 
- **revision** | **Number**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **revision** | **Number**| The flow revision to use for new execution | [optional] 
 
 ### Return type
 
@@ -1353,8 +1412,8 @@ let executionId = "executionId_example"; // String | the original execution id t
 let tenant = "tenant_example"; // String | 
 let opts = {
   'taskRunId': "taskRunId_example", // String | The taskrun id
-  'revision': 56, // Number | The flow revision to use for new execution
-  'breakpoints': "breakpoints_example" // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+  'breakpoints': "breakpoints_example", // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+  'revision': 56 // Number | The flow revision to use for new execution
 };
 apiInstance.replayExecutionWithinputs(executionId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1372,8 +1431,8 @@ Name | Type | Description  | Notes
  **executionId** | **String**| the original execution id to clone | 
  **tenant** | **String**|  | 
  **taskRunId** | **String**| The taskrun id | [optional] 
- **revision** | **Number**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **revision** | **Number**| The flow revision to use for new execution | [optional] 
 
 ### Return type
 
@@ -1823,7 +1882,7 @@ Name | Type | Description  | Notes
 
 ## searchExecutions
 
-> PagedResultsExecution searchExecutions(page, size, tenant, opts)
+> PagedResultsExecution searchExecutions(tenant, opts)
 
 Search for executions
 
@@ -1841,14 +1900,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
+  'page': new KestraIoKestraSdk.SearchBlueprintsSizeParameter(), // SearchBlueprintsSizeParameter | The current page
+  'size': 10, // Number | The current page size
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
+  'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchExecutions(page, size, tenant, opts).then((data) => {
+apiInstance.searchExecutions(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1861,11 +1920,11 @@ apiInstance.searchExecutions(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **page** | [**SearchBlueprintsSizeParameter**](.md)| The current page | [optional] 
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -1883,7 +1942,7 @@ Name | Type | Description  | Notes
 
 ## searchExecutionsByFlowId
 
-> PagedResultsExecution searchExecutionsByFlowId(namespace, flowId, page, size, tenant)
+> PagedResultsExecution searchExecutionsByFlowId(flowId, namespace, tenant, opts)
 
 Search for executions for a flow
 
@@ -1901,12 +1960,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
 let flowId = "flowId_example"; // String | The flow id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant).then((data) => {
+let opts = {
+  'size': 10, // Number | The current page size
+  'page': 1 // Number | The current page
+};
+apiInstance.searchExecutionsByFlowId(flowId, namespace, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1919,11 +1980,11 @@ apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
  **flowId** | **String**| The flow id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
+ **size** | **Number**| The current page size | [optional] [default to 10]
+ **page** | **Number**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -2103,7 +2164,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByGetWebhook
 
-> WebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> WebhookResponse triggerExecutionByGetWebhook(id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2121,11 +2182,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant).then((data) => {
+apiInstance.triggerExecutionByGetWebhook(id, key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2138,9 +2199,9 @@ apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant).then((data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
  **id** | **String**| The flow id | 
  **key** | **String**| The webhook trigger uid | 
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2159,7 +2220,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByGetWebhookWithPath
 
-> WebhookResponse triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2177,12 +2238,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
+let path = "path_example"; // String | Optional additional path segments
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
-let path = "path_example"; // String | Optional additional path segments
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+apiInstance.triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2195,10 +2256,10 @@ apiInstance.triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenan
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
+ **path** | **String**| Optional additional path segments | 
  **id** | **String**| The flow id | 
  **key** | **String**| The webhook trigger uid | 
- **path** | **String**| Optional additional path segments | 
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2217,7 +2278,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByPostWebhookWithPath
 
-> WebhookResponse triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by POST webhook trigger
 
@@ -2235,12 +2296,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
+let path = "path_example"; // String | Optional additional path segments
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
-let path = "path_example"; // String | Optional additional path segments
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+apiInstance.triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2253,10 +2314,10 @@ apiInstance.triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tena
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
+ **path** | **String**| Optional additional path segments | 
  **id** | **String**| The flow id | 
  **key** | **String**| The webhook trigger uid | 
- **path** | **String**| Optional additional path segments | 
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2275,7 +2336,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByPutWebhookWithPath
 
-> WebhookResponse triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant)
+> WebhookResponse triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -2293,12 +2354,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
+let path = "path_example"; // String | Optional additional path segments
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
-let path = "path_example"; // String | Optional additional path segments
+let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant).then((data) => {
+apiInstance.triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2311,10 +2372,10 @@ apiInstance.triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenan
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
+ **path** | **String**| Optional additional path segments | 
  **id** | **String**| The flow id | 
  **key** | **String**| The webhook trigger uid | 
- **path** | **String**| Optional additional path segments | 
+ **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
 
 ### Return type

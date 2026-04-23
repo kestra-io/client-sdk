@@ -18,8 +18,8 @@ var _ MappedNullable = &MiscControllerTenantConfigurationInfo{}
 
 // MiscControllerTenantConfigurationInfo struct for MiscControllerTenantConfigurationInfo
 type MiscControllerTenantConfigurationInfo struct {
-	StorageByTenant      *bool `json:"storageByTenant,omitempty"`
-	SecretByTenant       *bool `json:"secretByTenant,omitempty"`
+	StorageByTenant *bool `json:"storageByTenant,omitempty"`
+	SecretByTenant *bool `json:"secretByTenant,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *MiscControllerTenantConfigurationInfo) SetSecretByTenant(v bool) {
 }
 
 func (o MiscControllerTenantConfigurationInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableMiscControllerTenantConfigurationInfo) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

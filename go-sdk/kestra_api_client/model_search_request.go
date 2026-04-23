@@ -18,16 +18,16 @@ var _ MappedNullable = &SearchRequest{}
 
 // SearchRequest struct for SearchRequest
 type SearchRequest struct {
-	Schemas              []string             `json:"schemas,omitempty"`
-	PageRequest          *PageRequest         `json:"pageRequest,omitempty"`
-	SortRequest          *SortRequest         `json:"sortRequest,omitempty"`
-	Attributes           []AttributeReference `json:"attributes,omitempty"`
-	ExcludedAttributes   []AttributeReference `json:"excludedAttributes,omitempty"`
-	Filter               *Filter              `json:"filter,omitempty"`
-	SortBy               *AttributeReference  `json:"sortBy,omitempty"`
-	SortOrder            *SortOrder           `json:"sortOrder,omitempty"`
-	StartIndex           *int32               `json:"startIndex,omitempty"`
-	Count                *int32               `json:"count,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
+	PageRequest *PageRequest `json:"pageRequest,omitempty"`
+	SortRequest *SortRequest `json:"sortRequest,omitempty"`
+	Attributes []AttributeReference `json:"attributes,omitempty"`
+	ExcludedAttributes []AttributeReference `json:"excludedAttributes,omitempty"`
+	Filter *Filter `json:"filter,omitempty"`
+	SortBy *AttributeReference `json:"sortBy,omitempty"`
+	SortOrder *SortOrder `json:"sortOrder,omitempty"`
+	StartIndex *int32 `json:"startIndex,omitempty"`
+	Count *int32 `json:"count,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -371,7 +371,7 @@ func (o *SearchRequest) SetCount(v int32) {
 }
 
 func (o SearchRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -483,3 +483,5 @@ func (v *NullableSearchRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -23,10 +23,10 @@ type InstanceControllerApiWorkerGroupDetails struct {
 	// The key of the worker group.
 	Key *string `json:"key,omitempty"`
 	// The description of the worker group.
-	Description    *string  `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
 	AllowedTenants []string `json:"allowedTenants,omitempty"`
 	// The list of workers for the group.
-	Workers              []ServiceInstance `json:"workers,omitempty"`
+	Workers []ServiceInstance `json:"workers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -210,7 +210,7 @@ func (o *InstanceControllerApiWorkerGroupDetails) SetWorkers(v []ServiceInstance
 }
 
 func (o InstanceControllerApiWorkerGroupDetails) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -302,3 +302,5 @@ func (v *NullableInstanceControllerApiWorkerGroupDetails) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

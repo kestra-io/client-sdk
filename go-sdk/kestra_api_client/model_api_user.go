@@ -19,19 +19,19 @@ var _ MappedNullable = &ApiUser{}
 
 // ApiUser struct for ApiUser
 type ApiUser struct {
-	Type                 UserType                             `json:"type"`
-	GroupList            []GroupIdentifier                    `json:"groupList,omitempty"`
-	Groups               []map[string]interface{}             `json:"groups,omitempty"`
-	Username             string                               `json:"username"`
-	Email                string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
-	SuperAdmin           *bool                                `json:"superAdmin,omitempty"`
-	Id                   *string                              `json:"id,omitempty"`
-	Name                 *string                              `json:"name,omitempty"`
-	Description          *string                              `json:"description,omitempty"`
-	FirstName            *string                              `json:"firstName,omitempty"`
-	LastName             *string                              `json:"lastName,omitempty"`
-	Providers            []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
-	Auths                []ApiAuth                            `json:"auths,omitempty"`
+	Type UserType `json:"type"`
+	GroupList []GroupIdentifier `json:"groupList,omitempty"`
+	Groups []map[string]interface{} `json:"groups,omitempty"`
+	Username string `json:"username"`
+	Email string "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Providers []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
+	Auths []ApiAuth `json:"auths,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -450,7 +450,7 @@ func (o *ApiUser) SetAuths(v []ApiAuth) {
 }
 
 func (o ApiUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -515,10 +515,10 @@ func (o *ApiUser) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -591,3 +591,5 @@ func (v *NullableApiUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

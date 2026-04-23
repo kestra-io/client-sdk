@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the TriggerContext type satisfies the MappedNullable interface at compile time
@@ -20,15 +20,15 @@ var _ MappedNullable = &TriggerContext{}
 
 // TriggerContext struct for TriggerContext
 type TriggerContext struct {
-	Disabled             *bool            `json:"disabled,omitempty"`
-	TenantId             *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
-	Namespace            string           `json:"namespace"`
-	FlowId               string           `json:"flowId"`
-	TriggerId            string           `json:"triggerId"`
-	Date                 time.Time        `json:"date"`
-	NextExecutionDate    NullableTime     `json:"nextExecutionDate,omitempty"`
-	Backfill             NullableBackfill `json:"backfill,omitempty"`
-	StopAfter            []StateType      `json:"stopAfter,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	TenantId *string `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TriggerId string `json:"triggerId"`
+	Date time.Time `json:"date"`
+	NextExecutionDate NullableTime `json:"nextExecutionDate,omitempty"`
+	Backfill NullableBackfill `json:"backfill,omitempty"`
+	StopAfter []StateType `json:"stopAfter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -251,7 +251,6 @@ func (o *TriggerContext) HasNextExecutionDate() bool {
 func (o *TriggerContext) SetNextExecutionDate(v time.Time) {
 	o.NextExecutionDate.Set(&v)
 }
-
 // SetNextExecutionDateNil sets the value for NextExecutionDate to be an explicit nil
 func (o *TriggerContext) SetNextExecutionDateNil() {
 	o.NextExecutionDate.Set(nil)
@@ -294,7 +293,6 @@ func (o *TriggerContext) HasBackfill() bool {
 func (o *TriggerContext) SetBackfill(v Backfill) {
 	o.Backfill.Set(&v)
 }
-
 // SetBackfillNil sets the value for Backfill to be an explicit nil
 func (o *TriggerContext) SetBackfillNil() {
 	o.Backfill.Set(nil)
@@ -339,7 +337,7 @@ func (o *TriggerContext) SetStopAfter(v []StateType) {
 }
 
 func (o TriggerContext) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -391,10 +389,10 @@ func (o *TriggerContext) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -463,3 +461,5 @@ func (v *NullableTriggerContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

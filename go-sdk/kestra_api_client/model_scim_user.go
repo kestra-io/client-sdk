@@ -19,19 +19,19 @@ var _ MappedNullable = &ScimUser{}
 
 // ScimUser Scim core schema.
 type ScimUser struct {
-	Schemas              []string                  `json:"schemas,omitempty"`
-	BaseUrn              *string                   `json:"baseUrn,omitempty"`
-	Extensions           *map[string]ScimExtension `json:"extensions,omitempty"`
-	Meta                 Meta                      `json:"meta"`
-	Id                   *string                   `json:"id,omitempty"`
-	ExternalId           *string                   `json:"externalId,omitempty"`
-	ResourceType         *string                   `json:"resourceType,omitempty"`
-	PrimaryEmailAddress  NullableEmail             `json:"primaryEmailAddress,omitempty"`
-	Active               *bool                     `json:"active,omitempty"`
-	Emails               []Email                   `json:"emails,omitempty"`
-	UserName             *string                   `json:"userName,omitempty"`
-	Name                 *Name                     `json:"name,omitempty"`
-	Groups               []UserGroup               `json:"groups,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
+	BaseUrn *string `json:"baseUrn,omitempty"`
+	Extensions *map[string]ScimExtension `json:"extensions,omitempty"`
+	Meta Meta `json:"meta"`
+	Id *string `json:"id,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	ResourceType *string `json:"resourceType,omitempty"`
+	PrimaryEmailAddress NullableEmail `json:"primaryEmailAddress,omitempty"`
+	Active *bool `json:"active,omitempty"`
+	Emails []Email `json:"emails,omitempty"`
+	UserName *string `json:"userName,omitempty"`
+	Name *Name `json:"name,omitempty"`
+	Groups []UserGroup `json:"groups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,7 +303,6 @@ func (o *ScimUser) HasPrimaryEmailAddress() bool {
 func (o *ScimUser) SetPrimaryEmailAddress(v Email) {
 	o.PrimaryEmailAddress.Set(&v)
 }
-
 // SetPrimaryEmailAddressNil sets the value for PrimaryEmailAddress to be an explicit nil
 func (o *ScimUser) SetPrimaryEmailAddressNil() {
 	o.PrimaryEmailAddress.Set(nil)
@@ -475,7 +474,7 @@ func (o *ScimUser) SetGroups(v []UserGroup) {
 }
 
 func (o ScimUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -542,10 +541,10 @@ func (o *ScimUser) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -618,3 +617,5 @@ func (v *NullableScimUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,10 +19,10 @@ var _ MappedNullable = &NamespaceControllerApiInheritedPluginDefaultFromNamespac
 
 // NamespaceControllerApiInheritedPluginDefaultFromNamespace struct for NamespaceControllerApiInheritedPluginDefaultFromNamespace
 type NamespaceControllerApiInheritedPluginDefaultFromNamespace struct {
-	Type                 string                 `json:"type"`
-	Forced               *bool                  `json:"forced,omitempty"`
-	Values               map[string]interface{} `json:"values,omitempty"`
-	Namespace            *string                `json:"namespace,omitempty"`
+	Type string `json:"type"`
+	Forced *bool `json:"forced,omitempty"`
+	Values map[string]interface{} `json:"values,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -167,7 +167,7 @@ func (o *NamespaceControllerApiInheritedPluginDefaultFromNamespace) SetNamespace
 }
 
 func (o NamespaceControllerApiInheritedPluginDefaultFromNamespace) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -207,10 +207,10 @@ func (o *NamespaceControllerApiInheritedPluginDefaultFromNamespace) UnmarshalJSO
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -274,3 +274,5 @@ func (v *NullableNamespaceControllerApiInheritedPluginDefaultFromNamespace) Unma
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

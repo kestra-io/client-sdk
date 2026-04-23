@@ -18,10 +18,10 @@ var _ MappedNullable = &FlowId{}
 
 // FlowId struct for FlowId
 type FlowId struct {
-	Id                   *string `json:"id,omitempty"`
-	Namespace            *string `json:"namespace,omitempty"`
-	Revision             *int32  `json:"revision,omitempty"`
-	TenantId             *string `json:"tenantId,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *FlowId) SetTenantId(v string) {
 }
 
 func (o FlowId) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableFlowId) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

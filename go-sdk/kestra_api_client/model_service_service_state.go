@@ -19,16 +19,16 @@ type ServiceServiceState string
 
 // List of Service.ServiceState
 const (
-	SERVICESERVICESTATE_CREATED               ServiceServiceState = "CREATED"
-	SERVICESERVICESTATE_RUNNING               ServiceServiceState = "RUNNING"
-	SERVICESERVICESTATE_ERROR                 ServiceServiceState = "ERROR"
-	SERVICESERVICESTATE_DISCONNECTED          ServiceServiceState = "DISCONNECTED"
-	SERVICESERVICESTATE_TERMINATING           ServiceServiceState = "TERMINATING"
+	SERVICESERVICESTATE_CREATED ServiceServiceState = "CREATED"
+	SERVICESERVICESTATE_RUNNING ServiceServiceState = "RUNNING"
+	SERVICESERVICESTATE_ERROR ServiceServiceState = "ERROR"
+	SERVICESERVICESTATE_DISCONNECTED ServiceServiceState = "DISCONNECTED"
+	SERVICESERVICESTATE_TERMINATING ServiceServiceState = "TERMINATING"
 	SERVICESERVICESTATE_TERMINATED_GRACEFULLY ServiceServiceState = "TERMINATED_GRACEFULLY"
-	SERVICESERVICESTATE_TERMINATED_FORCED     ServiceServiceState = "TERMINATED_FORCED"
-	SERVICESERVICESTATE_NOT_RUNNING           ServiceServiceState = "NOT_RUNNING"
-	SERVICESERVICESTATE_INACTIVE              ServiceServiceState = "INACTIVE"
-	SERVICESERVICESTATE_MAINTENANCE           ServiceServiceState = "MAINTENANCE"
+	SERVICESERVICESTATE_TERMINATED_FORCED ServiceServiceState = "TERMINATED_FORCED"
+	SERVICESERVICESTATE_NOT_RUNNING ServiceServiceState = "NOT_RUNNING"
+	SERVICESERVICESTATE_INACTIVE ServiceServiceState = "INACTIVE"
+	SERVICESERVICESTATE_MAINTENANCE ServiceServiceState = "MAINTENANCE"
 )
 
 // All allowed values of ServiceServiceState enum
@@ -123,3 +123,4 @@ func (v *NullableServiceServiceState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

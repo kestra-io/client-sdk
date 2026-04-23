@@ -558,8 +558,8 @@ class TriggersApi:
     def delete_trigger(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -575,10 +575,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -591,8 +591,8 @@ class TriggersApi:
 
         _param = self._delete_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -614,8 +614,8 @@ class TriggersApi:
     def delete_trigger_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -631,10 +631,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -647,8 +647,8 @@ class TriggersApi:
 
         _param = self._delete_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -669,8 +669,8 @@ class TriggersApi:
     def _delete_trigger_serialize(
         self,
         namespace,
-        flow_id,
         trigger_id,
+        flow_id,
         tenant,
     ) -> RequestSerialized:
 
@@ -691,10 +691,10 @@ class TriggersApi:
         # process the path parameters
         if namespace is not None:
             _path_params['namespace'] = namespace
-        if flow_id is not None:
-            _path_params['flowId'] = flow_id
         if trigger_id is not None:
             _path_params['triggerId'] = trigger_id
+        if flow_id is not None:
+            _path_params['flowId'] = flow_id
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -1253,8 +1253,8 @@ class TriggersApi:
     @validate_call
     def disabled_triggers_by_query(
         self,
-        disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
+        disabled: Annotated[Optional[StrictBool], Field(description="The disabled state")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
         None,
@@ -1268,10 +1268,10 @@ class TriggersApi:
         """Disable/enable triggers by query parameters
 
 
-        :param disabled: The disabled state (required)
-        :type disabled: bool
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
+                :param disabled: The disabled state
+        :type disabled: bool
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
@@ -1283,8 +1283,8 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_query_serialize(
-            disabled=disabled,
             tenant=tenant,
+            disabled=disabled,
             filters=filters,
         )
 
@@ -1305,8 +1305,8 @@ class TriggersApi:
     @validate_call
     def disabled_triggers_by_query_with_http_info(
         self,
-        disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
+        disabled: Annotated[Optional[StrictBool], Field(description="The disabled state")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
         None,
@@ -1320,10 +1320,10 @@ class TriggersApi:
         """Disable/enable triggers by query parameters
 
 
-        :param disabled: The disabled state (required)
-        :type disabled: bool
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
+                :param disabled: The disabled state
+        :type disabled: bool
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
@@ -1335,8 +1335,8 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_query_serialize(
-            disabled=disabled,
             tenant=tenant,
+            disabled=disabled,
             filters=filters,
         )
 
@@ -1356,8 +1356,8 @@ class TriggersApi:
 
     def _disabled_triggers_by_query_serialize(
         self,
-        disabled,
         tenant,
+        disabled,
         filters,
     ) -> RequestSerialized:
 
@@ -1380,13 +1380,13 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if filters is not None:
-            
-            _query_params.append(('filters', filters))
-            
         if disabled is not None:
             
             _query_params.append(('disabled', disabled))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
@@ -2099,8 +2099,8 @@ class TriggersApi:
     def restart_trigger(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -2116,10 +2116,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -2132,8 +2132,8 @@ class TriggersApi:
 
         _param = self._restart_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -2155,8 +2155,8 @@ class TriggersApi:
     def restart_trigger_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -2172,10 +2172,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -2188,8 +2188,8 @@ class TriggersApi:
 
         _param = self._restart_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -2210,8 +2210,8 @@ class TriggersApi:
     def _restart_trigger_serialize(
         self,
         namespace,
-        flow_id,
         trigger_id,
+        flow_id,
         tenant,
     ) -> RequestSerialized:
 
@@ -2232,10 +2232,10 @@ class TriggersApi:
         # process the path parameters
         if namespace is not None:
             _path_params['namespace'] = namespace
-        if flow_id is not None:
-            _path_params['flowId'] = flow_id
         if trigger_id is not None:
             _path_params['triggerId'] = trigger_id
+        if flow_id is not None:
+            _path_params['flowId'] = flow_id
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -2280,11 +2280,11 @@ class TriggersApi:
     @validate_call
     def search_triggers(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2297,16 +2297,16 @@ class TriggersApi:
         """Search for triggers
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2316,11 +2316,11 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._search_triggers_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
-            sort=sort,
             filters=filters,
+            size=size,
+            page=page,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2340,11 +2340,11 @@ class TriggersApi:
     @validate_call
     def search_triggers_with_http_info(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2357,16 +2357,16 @@ class TriggersApi:
         """Search for triggers
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2376,11 +2376,11 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._search_triggers_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
-            sort=sort,
             filters=filters,
+            size=size,
+            page=page,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2399,18 +2399,18 @@ class TriggersApi:
 
     def _search_triggers_serialize(
         self,
-        page,
-        size,
         tenant,
-        sort,
         filters,
+        size,
+        page,
+        sort,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'sort': 'csv',
             'filters': 'csv',
+            'sort': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -2426,21 +2426,21 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if page is not None:
+        if filters is not None:
             
-            _query_params.append(('page', page))
+            _query_params.append(('filters', filters))
             
         if size is not None:
             
             _query_params.append(('size', size))
             
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         if sort is not None:
             
             _query_params.append(('sort', sort))
-            
-        if filters is not None:
-            
-            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
@@ -2483,13 +2483,13 @@ class TriggersApi:
     @validate_call
     def search_triggers_for_flow(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        namespace: Annotated[Optional[StrictStr], Field(description="The namespace")],
+        namespace: Annotated[Any, Field(description="The namespace")],
         flow_id: Annotated[Optional[StrictStr], Field(description="The flow id")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2502,20 +2502,20 @@ class TriggersApi:
         """Get all triggers for a flow
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param namespace: The namespace (required)
-        :type namespace: str
+        :param namespace: The namespace (required)
+        :type namespace: ListBlueprintTagsQParameter
                 :param flow_id: The flow id (required)
         :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param q: A string filter
         :type q: str
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2525,13 +2525,13 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._search_triggers_for_flow_serialize(
-            page=page,
-            size=size,
             namespace=namespace,
             flow_id=flow_id,
             tenant=tenant,
-            sort=sort,
             q=q,
+            size=size,
+            page=page,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2551,13 +2551,13 @@ class TriggersApi:
     @validate_call
     def search_triggers_for_flow_with_http_info(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        namespace: Annotated[Optional[StrictStr], Field(description="The namespace")],
+        namespace: Annotated[Any, Field(description="The namespace")],
         flow_id: Annotated[Optional[StrictStr], Field(description="The flow id")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2570,20 +2570,20 @@ class TriggersApi:
         """Get all triggers for a flow
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param namespace: The namespace (required)
-        :type namespace: str
+        :param namespace: The namespace (required)
+        :type namespace: ListBlueprintTagsQParameter
                 :param flow_id: The flow id (required)
         :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param q: A string filter
         :type q: str
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2593,13 +2593,13 @@ class TriggersApi:
         """ # noqa: E501
 
         _param = self._search_triggers_for_flow_serialize(
-            page=page,
-            size=size,
             namespace=namespace,
             flow_id=flow_id,
             tenant=tenant,
-            sort=sort,
             q=q,
+            size=size,
+            page=page,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2618,13 +2618,13 @@ class TriggersApi:
 
     def _search_triggers_for_flow_serialize(
         self,
-        page,
-        size,
         namespace,
         flow_id,
         tenant,
-        sort,
         q,
+        size,
+        page,
+        sort,
     ) -> RequestSerialized:
 
         _host = None
@@ -2650,21 +2650,21 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if page is not None:
+        if q is not None:
             
-            _query_params.append(('page', page))
+            _query_params.append(('q', q))
             
         if size is not None:
             
             _query_params.append(('size', size))
             
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         if sort is not None:
             
             _query_params.append(('sort', sort))
-            
-        if q is not None:
-            
-            _query_params.append(('q', q))
             
         # process the header parameters
         # process the form parameters
@@ -2708,8 +2708,8 @@ class TriggersApi:
     def unlock_trigger(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -2725,10 +2725,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -2741,8 +2741,8 @@ class TriggersApi:
 
         _param = self._unlock_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -2764,8 +2764,8 @@ class TriggersApi:
     def unlock_trigger_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -2781,10 +2781,10 @@ class TriggersApi:
 
         :param namespace: The namespace (required)
         :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
                 :param trigger_id: The trigger id (required)
         :type trigger_id: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -2797,8 +2797,8 @@ class TriggersApi:
 
         _param = self._unlock_trigger_serialize(
             namespace=namespace,
-            flow_id=flow_id,
             trigger_id=trigger_id,
+            flow_id=flow_id,
             tenant=tenant,
         )
 
@@ -2819,8 +2819,8 @@ class TriggersApi:
     def _unlock_trigger_serialize(
         self,
         namespace,
-        flow_id,
         trigger_id,
+        flow_id,
         tenant,
     ) -> RequestSerialized:
 
@@ -2841,10 +2841,10 @@ class TriggersApi:
         # process the path parameters
         if namespace is not None:
             _path_params['namespace'] = namespace
-        if flow_id is not None:
-            _path_params['flowId'] = flow_id
         if trigger_id is not None:
             _path_params['triggerId'] = trigger_id
+        if flow_id is not None:
+            _path_params['flowId'] = flow_id
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters

@@ -20,7 +20,7 @@ type AssetTopologyGraphNodeNodeType string
 // List of AssetTopologyGraph.Node.NodeType
 const (
 	ASSETTOPOLOGYGRAPHNODENODETYPE_ASSET AssetTopologyGraphNodeNodeType = "ASSET"
-	ASSETTOPOLOGYGRAPHNODENODETYPE_FLOW  AssetTopologyGraphNodeNodeType = "FLOW"
+	ASSETTOPOLOGYGRAPHNODENODETYPE_FLOW AssetTopologyGraphNodeNodeType = "FLOW"
 )
 
 // All allowed values of AssetTopologyGraphNodeNodeType enum
@@ -107,3 +107,4 @@ func (v *NullableAssetTopologyGraphNodeNodeType) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

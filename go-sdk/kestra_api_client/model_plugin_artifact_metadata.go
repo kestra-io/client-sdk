@@ -18,11 +18,11 @@ var _ MappedNullable = &PluginArtifactMetadata{}
 
 // PluginArtifactMetadata struct for PluginArtifactMetadata
 type PluginArtifactMetadata struct {
-	Uri                  *string `json:"uri,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	Size                 *int64  `json:"size,omitempty"`
-	LastModifiedTime     *int64  `json:"lastModifiedTime,omitempty"`
-	CreationTime         *int64  `json:"creationTime,omitempty"`
+	Uri *string `json:"uri,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Size *int64 `json:"size,omitempty"`
+	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty"`
+	CreationTime *int64 `json:"creationTime,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,7 +206,7 @@ func (o *PluginArtifactMetadata) SetCreationTime(v int64) {
 }
 
 func (o PluginArtifactMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullablePluginArtifactMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

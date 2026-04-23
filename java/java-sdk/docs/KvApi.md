@@ -16,7 +16,7 @@ All URIs are relative to *http://localhost*
 
 ## deleteKeyValue
 
-> Boolean deleteKeyValue(namespace, key, tenant)
+> Boolean deleteKeyValue(key, namespace, tenant)
 
 Delete a key-value pair
 
@@ -40,11 +40,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
+        String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            Boolean result = kestraClient.KvApi().deleteKeyValue(namespace, key, tenant);
+            Boolean result = kestraClient.KvApi().deleteKeyValue(key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#deleteKeyValue");
@@ -62,8 +62,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
 | **key** | **String**| The key | |
+| **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -160,7 +160,7 @@ public class Example {
 
 ## keyValue
 
-> KVControllerKvDetail keyValue(namespace, key, tenant)
+> KVControllerKvDetail keyValue(key, namespace, tenant)
 
 Get value for a key
 
@@ -184,11 +184,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
+        String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            KVControllerKvDetail result = kestraClient.KvApi().keyValue(namespace, key, tenant);
+            KVControllerKvDetail result = kestraClient.KvApi().keyValue(key, namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#keyValue");
@@ -206,8 +206,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
 | **key** | **String**| The key | |
+| **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
 
 ### Return type
@@ -232,7 +232,7 @@ public class Example {
 
 ## listAllKeys
 
-> PagedResultsKVEntry listAllKeys(page, size, tenant, sort, filters)
+> PagedResultsKVEntry listAllKeys(tenant, filters, size, sort, page)
 
 List all keys
 
@@ -256,13 +256,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        Integer size = 10; // Integer | The current page size
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        Integer page = 1; // Integer | The current page
         try {
-            PagedResultsKVEntry result = kestraClient.KvApi().listAllKeys(page, size, tenant, sort, filters);
+            PagedResultsKVEntry result = kestraClient.KvApi().listAllKeys(tenant, filters, size, sort, page);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#listAllKeys");
@@ -280,11 +280,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
 
 ### Return type
 
@@ -448,7 +448,7 @@ public class Example {
 
 ## setKeyValue
 
-> setKeyValue(namespace, key, tenant, body)
+> setKeyValue(key, namespace, tenant, body)
 
 Puts a key-value pair in store
 
@@ -472,12 +472,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
+        String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The value of the key
         try {
-            kestraClient.KvApi().setKeyValue(namespace, key, tenant, body);
+            kestraClient.KvApi().setKeyValue(key, namespace, tenant, body);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#setKeyValue");
             System.err.println("Status code: " + e.getCode());
@@ -494,8 +494,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
 | **key** | **String**| The key | |
+| **namespace** | **String**| The namespace id | |
 | **tenant** | **String**|  | |
 | **body** | **String**| The value of the key | |
 

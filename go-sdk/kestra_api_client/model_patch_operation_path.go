@@ -18,7 +18,7 @@ var _ MappedNullable = &PatchOperationPath{}
 
 // PatchOperationPath struct for PatchOperationPath
 type PatchOperationPath struct {
-	ValuePathExpression  *ValuePathExpression `json:"valuePathExpression,omitempty"`
+	ValuePathExpression *ValuePathExpression `json:"valuePathExpression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *PatchOperationPath) SetValuePathExpression(v ValuePathExpression) {
 }
 
 func (o PatchOperationPath) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullablePatchOperationPath) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

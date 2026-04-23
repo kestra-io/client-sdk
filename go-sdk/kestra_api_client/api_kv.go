@@ -12,32 +12,38 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // KVAPIService KVAPI service
 type KVAPIService service
 
 type ApiDeleteKeyValueRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	namespace  string
-	key        string
-	tenant     string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiDeleteKeyValueRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiDeleteKeyValueRequest) GetKey() string {
-	return r.key
+    return r.key
+}
+func (r ApiDeleteKeyValueRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiDeleteKeyValueRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiDeleteKeyValueRequest) Execute() (bool, *http.Response, error) {
 	return r.ApiService.DeleteKeyValueExecute(r)
@@ -46,31 +52,30 @@ func (r ApiDeleteKeyValueRequest) Execute() (bool, *http.Response, error) {
 /*
 DeleteKeyValue Delete a key-value pair
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param key The key
-	@param tenant
-	@return ApiDeleteKeyValueRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param key The key
+ @param namespace The namespace id
+ @param tenant
+ @return ApiDeleteKeyValueRequest
 */
-func (a *KVAPIService) DeleteKeyValue(ctx context.Context, namespace string, key string, tenant string) ApiDeleteKeyValueRequest {
+func (a *KVAPIService) DeleteKeyValue(ctx context.Context, key string, namespace string, tenant string) ApiDeleteKeyValueRequest {
 	return ApiDeleteKeyValueRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return bool
+//  @return bool
 func (a *KVAPIService) DeleteKeyValueExecute(r ApiDeleteKeyValueRequest) (bool, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue bool
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  bool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.DeleteKeyValue")
@@ -79,8 +84,8 @@ func (a *KVAPIService) DeleteKeyValueExecute(r ApiDeleteKeyValueRequest) (bool, 
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -141,11 +146,15 @@ func (a *KVAPIService) DeleteKeyValueExecute(r ApiDeleteKeyValueRequest) (bool, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiDeleteKeyValuesRequest struct {
-	ctx                              context.Context
-	ApiService                       *KVAPIService
-	namespace                        string
-	tenant                           string
+	ctx context.Context
+	ApiService *KVAPIService
+	namespace string
+	tenant string
 	kVControllerApiDeleteBulkRequest *KVControllerApiDeleteBulkRequest
 }
 
@@ -155,15 +164,17 @@ func (r ApiDeleteKeyValuesRequest) KVControllerApiDeleteBulkRequest(kVController
 	return r
 }
 
+
 func (r ApiDeleteKeyValuesRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiDeleteKeyValuesRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiDeleteKeyValuesRequest) GetKVControllerApiDeleteBulkRequest() *KVControllerApiDeleteBulkRequest {
-	return r.kVControllerApiDeleteBulkRequest
+    return r.kVControllerApiDeleteBulkRequest
 }
+
 
 func (r ApiDeleteKeyValuesRequest) Execute() (*KVControllerApiDeleteBulkResponse, *http.Response, error) {
 	return r.ApiService.DeleteKeyValuesExecute(r)
@@ -172,29 +183,28 @@ func (r ApiDeleteKeyValuesRequest) Execute() (*KVControllerApiDeleteBulkResponse
 /*
 DeleteKeyValues Bulk-delete multiple key/value pairs from the given namespace.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiDeleteKeyValuesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiDeleteKeyValuesRequest
 */
 func (a *KVAPIService) DeleteKeyValues(ctx context.Context, namespace string, tenant string) ApiDeleteKeyValuesRequest {
 	return ApiDeleteKeyValuesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return KVControllerApiDeleteBulkResponse
+//  @return KVControllerApiDeleteBulkResponse
 func (a *KVAPIService) DeleteKeyValuesExecute(r ApiDeleteKeyValuesRequest) (*KVControllerApiDeleteBulkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *KVControllerApiDeleteBulkResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *KVControllerApiDeleteBulkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.DeleteKeyValues")
@@ -269,23 +279,29 @@ func (a *KVAPIService) DeleteKeyValuesExecute(r ApiDeleteKeyValuesRequest) (*KVC
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiKeyValueRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	namespace  string
-	key        string
-	tenant     string
+	key string
+	namespace string
+	tenant string
 }
 
-func (r ApiKeyValueRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiKeyValueRequest) GetKey() string {
-	return r.key
+    return r.key
+}
+func (r ApiKeyValueRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiKeyValueRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiKeyValueRequest) Execute() (*KVControllerKvDetail, *http.Response, error) {
 	return r.ApiService.KeyValueExecute(r)
@@ -294,31 +310,30 @@ func (r ApiKeyValueRequest) Execute() (*KVControllerKvDetail, *http.Response, er
 /*
 KeyValue Get value for a key
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param key The key
-	@param tenant
-	@return ApiKeyValueRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param key The key
+ @param namespace The namespace id
+ @param tenant
+ @return ApiKeyValueRequest
 */
-func (a *KVAPIService) KeyValue(ctx context.Context, namespace string, key string, tenant string) ApiKeyValueRequest {
+func (a *KVAPIService) KeyValue(ctx context.Context, key string, namespace string, tenant string) ApiKeyValueRequest {
 	return ApiKeyValueRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return KVControllerKvDetail
+//  @return KVControllerKvDetail
 func (a *KVAPIService) KeyValueExecute(r ApiKeyValueRequest) (*KVControllerKvDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *KVControllerKvDetail
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *KVControllerKvDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.KeyValue")
@@ -327,8 +342,8 @@ func (a *KVAPIService) KeyValueExecute(r ApiKeyValueRequest) (*KVControllerKvDet
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -389,19 +404,23 @@ func (a *KVAPIService) KeyValueExecute(r ApiKeyValueRequest) (*KVControllerKvDet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListAllKeysRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	filters    *[]QueryFilter
+	tenant string
+	filters *[]QueryFilter
+	size *int32
+	sort *[]string
+	page *int32
 }
 
-// The current page
-func (r ApiListAllKeysRequest) Page(page int32) ApiListAllKeysRequest {
-	r.page = &page
+// Filters
+func (r ApiListAllKeysRequest) Filters(filters []QueryFilter) ApiListAllKeysRequest {
+	r.filters = &filters
 	return r
 }
 
@@ -417,27 +436,29 @@ func (r ApiListAllKeysRequest) Sort(sort []string) ApiListAllKeysRequest {
 	return r
 }
 
-// Filters
-func (r ApiListAllKeysRequest) Filters(filters []QueryFilter) ApiListAllKeysRequest {
-	r.filters = &filters
+// The current page
+func (r ApiListAllKeysRequest) Page(page int32) ApiListAllKeysRequest {
+	r.page = &page
 	return r
 }
 
-func (r ApiListAllKeysRequest) GetPage() *int32 {
-	return r.page
-}
-func (r ApiListAllKeysRequest) GetSize() *int32 {
-	return r.size
-}
+
 func (r ApiListAllKeysRequest) GetTenant() string {
-	return r.tenant
-}
-func (r ApiListAllKeysRequest) GetSort() *[]string {
-	return r.sort
+    return r.tenant
 }
 func (r ApiListAllKeysRequest) GetFilters() *[]QueryFilter {
-	return r.filters
+    return r.filters
 }
+func (r ApiListAllKeysRequest) GetSize() *int32 {
+    return r.size
+}
+func (r ApiListAllKeysRequest) GetSort() *[]string {
+    return r.sort
+}
+func (r ApiListAllKeysRequest) GetPage() *int32 {
+    return r.page
+}
+
 
 func (r ApiListAllKeysRequest) Execute() (*PagedResultsKVEntry, *http.Response, error) {
 	return r.ApiService.ListAllKeysExecute(r)
@@ -446,29 +467,28 @@ func (r ApiListAllKeysRequest) Execute() (*PagedResultsKVEntry, *http.Response, 
 /*
 ListAllKeys List all keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListAllKeysRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiListAllKeysRequest
 */
 func (a *KVAPIService) ListAllKeys(ctx context.Context, tenant string) ApiListAllKeysRequest {
 	return ApiListAllKeysRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-		page:       Ptr(int32(1)),
-		size:       Ptr(int32(10)),
-	}
+		ctx: ctx,
+		tenant: tenant,
+        size: Ptr(int32(10)),
+        page: Ptr(int32(1)),
+    }
 }
 
 // Execute executes the request
-//
-//	@return PagedResultsKVEntry
+//  @return PagedResultsKVEntry
 func (a *KVAPIService) ListAllKeysExecute(r ApiListAllKeysRequest) (*PagedResultsKVEntry, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsKVEntry
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PagedResultsKVEntry
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.ListAllKeys")
@@ -482,20 +502,18 @@ func (a *KVAPIService) ListAllKeysExecute(r ApiListAllKeysRequest) (*PagedResult
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.filters != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	}
+	if r.size != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -551,19 +569,25 @@ func (a *KVAPIService) ListAllKeysExecute(r ApiListAllKeysRequest) (*PagedResult
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListKeysRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	namespace  string
-	tenant     string
+	namespace string
+	tenant string
 }
 
+
 func (r ApiListKeysRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiListKeysRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiListKeysRequest) Execute() ([]KVEntry, *http.Response, error) {
 	return r.ApiService.ListKeysExecute(r)
@@ -572,33 +596,31 @@ func (r ApiListKeysRequest) Execute() ([]KVEntry, *http.Response, error) {
 /*
 ListKeys List all keys for a namespace
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiListKeysRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiListKeysRequest
 
 Deprecated
 */
 func (a *KVAPIService) ListKeys(ctx context.Context, namespace string, tenant string) ApiListKeysRequest {
 	return ApiListKeysRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []KVEntry
-//
+//  @return []KVEntry
 // Deprecated
 func (a *KVAPIService) ListKeysExecute(r ApiListKeysRequest) ([]KVEntry, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []KVEntry
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []KVEntry
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.ListKeys")
@@ -668,19 +690,25 @@ func (a *KVAPIService) ListKeysExecute(r ApiListKeysRequest) ([]KVEntry, *http.R
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListKeysWithInheritenceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	namespace  string
-	tenant     string
+	namespace string
+	tenant string
 }
 
+
 func (r ApiListKeysWithInheritenceRequest) GetNamespace() string {
-	return r.namespace
+    return r.namespace
 }
 func (r ApiListKeysWithInheritenceRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiListKeysWithInheritenceRequest) Execute() ([]KVEntry, *http.Response, error) {
 	return r.ApiService.ListKeysWithInheritenceExecute(r)
@@ -689,29 +717,28 @@ func (r ApiListKeysWithInheritenceRequest) Execute() ([]KVEntry, *http.Response,
 /*
 ListKeysWithInheritence List all keys for inherited namespaces
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param tenant
-	@return ApiListKeysWithInheritenceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param namespace The namespace id
+ @param tenant
+ @return ApiListKeysWithInheritenceRequest
 */
 func (a *KVAPIService) ListKeysWithInheritence(ctx context.Context, namespace string, tenant string) ApiListKeysWithInheritenceRequest {
 	return ApiListKeysWithInheritenceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []KVEntry
+//  @return []KVEntry
 func (a *KVAPIService) ListKeysWithInheritenceExecute(r ApiListKeysWithInheritenceRequest) ([]KVEntry, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []KVEntry
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []KVEntry
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.ListKeysWithInheritence")
@@ -781,13 +808,17 @@ func (a *KVAPIService) ListKeysWithInheritenceExecute(r ApiListKeysWithInheriten
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetKeyValueRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *KVAPIService
-	namespace  string
-	key        string
-	tenant     string
-	body       *string
+	key string
+	namespace string
+	tenant string
+	body *string
 }
 
 // The value of the key
@@ -796,18 +827,20 @@ func (r ApiSetKeyValueRequest) Body(body string) ApiSetKeyValueRequest {
 	return r
 }
 
-func (r ApiSetKeyValueRequest) GetNamespace() string {
-	return r.namespace
-}
+
 func (r ApiSetKeyValueRequest) GetKey() string {
-	return r.key
+    return r.key
+}
+func (r ApiSetKeyValueRequest) GetNamespace() string {
+    return r.namespace
 }
 func (r ApiSetKeyValueRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiSetKeyValueRequest) GetBody() *string {
-	return r.body
+    return r.body
 }
+
 
 func (r ApiSetKeyValueRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetKeyValueExecute(r)
@@ -816,28 +849,28 @@ func (r ApiSetKeyValueRequest) Execute() (*http.Response, error) {
 /*
 SetKeyValue Puts a key-value pair in store
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The namespace id
-	@param key The key
-	@param tenant
-	@return ApiSetKeyValueRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param key The key
+ @param namespace The namespace id
+ @param tenant
+ @return ApiSetKeyValueRequest
 */
-func (a *KVAPIService) SetKeyValue(ctx context.Context, namespace string, key string, tenant string) ApiSetKeyValueRequest {
+func (a *KVAPIService) SetKeyValue(ctx context.Context, key string, namespace string, tenant string) ApiSetKeyValueRequest {
 	return ApiSetKeyValueRequest{
 		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		key:        key,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		key: key,
+		namespace: namespace,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
 func (a *KVAPIService) SetKeyValueExecute(r ApiSetKeyValueRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.SetKeyValue")
@@ -846,8 +879,8 @@ func (a *KVAPIService) SetKeyValueExecute(r ApiSetKeyValueRequest) (*http.Respon
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/kv/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -903,3 +936,7 @@ func (a *KVAPIService) SetKeyValueExecute(r ApiSetKeyValueRequest) (*http.Respon
 
 	return localVarHTTPResponse, nil
 }
+
+
+
+

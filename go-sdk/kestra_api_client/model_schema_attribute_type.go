@@ -19,14 +19,14 @@ type SchemaAttributeType string
 
 // List of Schema.Attribute.Type
 const (
-	SCHEMAATTRIBUTETYPE_BINARY    SchemaAttributeType = "BINARY"
-	SCHEMAATTRIBUTETYPE_BOOLEAN   SchemaAttributeType = "BOOLEAN"
-	SCHEMAATTRIBUTETYPE_COMPLEX   SchemaAttributeType = "COMPLEX"
+	SCHEMAATTRIBUTETYPE_BINARY SchemaAttributeType = "BINARY"
+	SCHEMAATTRIBUTETYPE_BOOLEAN SchemaAttributeType = "BOOLEAN"
+	SCHEMAATTRIBUTETYPE_COMPLEX SchemaAttributeType = "COMPLEX"
 	SCHEMAATTRIBUTETYPE_DATE_TIME SchemaAttributeType = "DATE_TIME"
-	SCHEMAATTRIBUTETYPE_DECIMAL   SchemaAttributeType = "DECIMAL"
-	SCHEMAATTRIBUTETYPE_INTEGER   SchemaAttributeType = "INTEGER"
+	SCHEMAATTRIBUTETYPE_DECIMAL SchemaAttributeType = "DECIMAL"
+	SCHEMAATTRIBUTETYPE_INTEGER SchemaAttributeType = "INTEGER"
 	SCHEMAATTRIBUTETYPE_REFERENCE SchemaAttributeType = "REFERENCE"
-	SCHEMAATTRIBUTETYPE_STRING    SchemaAttributeType = "STRING"
+	SCHEMAATTRIBUTETYPE_STRING SchemaAttributeType = "STRING"
 )
 
 // All allowed values of SchemaAttributeType enum
@@ -119,3 +119,4 @@ func (v *NullableSchemaAttributeType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

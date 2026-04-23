@@ -36,6 +36,7 @@ import io.kestra.sdk.model.Namespace;
 import io.kestra.sdk.model.NamespaceControllerApiInheritedPluginDefaultFromNamespace;
 import io.kestra.sdk.model.PagedResultsNamespace;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.SchemasFromTypeArrayOfParameter;
 
 
 import java.util.ArrayList;
@@ -837,51 +838,41 @@ import java.util.StringJoiner;
    * Get secrets for a namespace
    * 
    * @param namespace The namespace id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
+   * @param page The current page (optional, default to 1)
    * @return ApiSecretListResponseApiSecretMeta
    * @throws ApiException if fails to make API call
    * @deprecated
    */
   @Deprecated
-  public ApiSecretListResponseApiSecretMeta listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listNamespaceSecrets(namespace, page, size, filters, tenant, sort, Collections.emptyMap());
+  public ApiSecretListResponseApiSecretMeta listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable Integer page) throws ApiException {
+    return this.listNamespaceSecrets(namespace, filters, tenant, size, sort, page, Collections.emptyMap());
   }
 
   /**
    * Get secrets for a namespace
    * 
    * @param namespace The namespace id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
    * @param tenant  (required)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
+   * @param page The current page (optional, default to 1)
    * @param additionalHeaders additionalHeaders for this call
    * @return ApiSecretListResponseApiSecretMeta
    * @throws ApiException if fails to make API call
    * @deprecated
    */
   @Deprecated
-  public ApiSecretListResponseApiSecretMeta listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public ApiSecretListResponseApiSecretMeta listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable Integer page, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling listNamespaceSecrets");
     }
     
     // verify the required parameter 'filters' is set
@@ -906,10 +897,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1233,49 +1224,34 @@ import java.util.StringJoiner;
   /**
    * Search for namespaces
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param existing Return only existing namespace (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param existing Return only existing namespace (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @param sort The sort of current page (optional)
    * @return PagedResultsNamespace
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsNamespace searchNamespaces(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull Boolean existing, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchNamespaces(page, size, existing, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsNamespace searchNamespaces(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable SchemasFromTypeArrayOfParameter existing, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchNamespaces(tenant, q, existing, size, page, sort, Collections.emptyMap());
   }
 
   /**
    * Search for namespaces
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param existing Return only existing namespace (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param existing Return only existing namespace (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsNamespace
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsNamespace searchNamespaces(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull Boolean existing, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsNamespace searchNamespaces(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable SchemasFromTypeArrayOfParameter existing, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchNamespaces");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchNamespaces");
-    }
-    
-    // verify the required parameter 'existing' is set
-    if (existing == null) {
-      throw new ApiException(400, "Missing the required parameter 'existing' when calling searchNamespaces");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -1294,10 +1270,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPair("existing", existing));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

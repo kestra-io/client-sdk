@@ -19,11 +19,11 @@ var _ MappedNullable = &Schema{}
 
 // Schema struct for Schema
 type Schema struct {
-	Attributes           []SchemaAttribute `json:"attributes,omitempty"`
-	Id                   string            `json:"id"`
-	Name                 *string           `json:"name,omitempty"`
-	Description          *string           `json:"description,omitempty"`
-	Meta                 *Meta             `json:"meta,omitempty"`
+	Attributes []SchemaAttribute `json:"attributes,omitempty"`
+	Id string `json:"id"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Meta *Meta `json:"meta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -200,7 +200,7 @@ func (o *Schema) SetMeta(v Meta) {
 }
 
 func (o Schema) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -243,10 +243,10 @@ func (o *Schema) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -311,3 +311,5 @@ func (v *NullableSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

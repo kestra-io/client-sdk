@@ -18,7 +18,7 @@ var _ MappedNullable = &AppsControllerApiBulkOperationRequest{}
 
 // AppsControllerApiBulkOperationRequest struct for AppsControllerApiBulkOperationRequest
 type AppsControllerApiBulkOperationRequest struct {
-	Uids                 []string `json:"uids,omitempty"`
+	Uids []string `json:"uids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *AppsControllerApiBulkOperationRequest) SetUids(v []string) {
 }
 
 func (o AppsControllerApiBulkOperationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableAppsControllerApiBulkOperationRequest) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

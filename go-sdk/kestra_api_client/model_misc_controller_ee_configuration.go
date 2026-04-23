@@ -19,44 +19,45 @@ var _ MappedNullable = &MiscControllerEEConfiguration{}
 
 // MiscControllerEEConfiguration struct for MiscControllerEEConfiguration
 type MiscControllerEEConfiguration struct {
-	Uuid                            *string                                `json:"uuid,omitempty"`
-	Version                         *string                                `json:"version,omitempty"`
-	Edition                         *EditionProviderEdition                `json:"edition,omitempty"`
-	CommitId                        *string                                `json:"commitId,omitempty"`
-	ChartDefaultDuration            *string                                `json:"chartDefaultDuration,omitempty"`
-	CommitDate                      *time.Time                             `json:"commitDate,omitempty"`
-	IsCustomDashboardsEnabled       *bool                                  `json:"isCustomDashboardsEnabled,omitempty"`
-	IsAnonymousUsageEnabled         *bool                                  `json:"isAnonymousUsageEnabled,omitempty"`
-	IsUiAnonymousUsageEnabled       *bool                                  `json:"isUiAnonymousUsageEnabled,omitempty"`
-	IsTemplateEnabled               *bool                                  `json:"isTemplateEnabled,omitempty"`
-	Environment                     *MiscControllerEnvironment             `json:"environment,omitempty"`
-	Url                             *string                                `json:"url,omitempty"`
-	Preview                         *MiscControllerPreview                 `json:"preview,omitempty"`
-	SystemNamespace                 *string                                `json:"systemNamespace,omitempty"`
-	HiddenLabelsPrefixes            []string                               `json:"hiddenLabelsPrefixes,omitempty"`
-	IsAiEnabled                     *bool                                  `json:"isAiEnabled,omitempty"`
-	IsBasicAuthInitialized          *bool                                  `json:"isBasicAuthInitialized,omitempty"`
-	PluginsHash                     *int64                                 `json:"pluginsHash,omitempty"`
-	IsConcurrencyViewEnabled        *bool                                  `json:"isConcurrencyViewEnabled,omitempty"`
-	Tenants                         *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
-	SecretsEnabled                  *bool                                  `json:"secretsEnabled,omitempty"`
-	SupportedStorages               []MiscControllerPluginIdAndVersion     `json:"supportedStorages,omitempty"`
-	SupportedSecrets                []MiscControllerPluginIdAndVersion     `json:"supportedSecrets,omitempty"`
-	PluginManagementEnabled         *bool                                  `json:"pluginManagementEnabled,omitempty"`
-	PluginCustomEnabled             *bool                                  `json:"pluginCustomEnabled,omitempty"`
-	Banner                          *Banner                                `json:"banner,omitempty"`
-	MailServiceEnabled              *bool                                  `json:"mailServiceEnabled,omitempty"`
-	OutputsInInternalStorageEnabled *bool                                  `json:"outputsInInternalStorageEnabled,omitempty"`
-	LeftSidebar                     *LeftSidebarConfiguration              `json:"leftSidebar,omitempty"`
-	RightSidebar                    *RightSidebarConfiguration             `json:"rightSidebar,omitempty"`
-	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
-	PasswordRegexp                  *string                                `json:"passwordRegexp,omitempty"`
-	PasswordlessEnabled             *bool                                  `json:"passwordlessEnabled,omitempty"`
-	Airgapped                       *bool                                  `json:"airgapped,omitempty"`
-	FeatureGating                   *bool                                  `json:"featureGating,omitempty"`
-	Features                        []string                               `json:"features,omitempty"`
-	KillSwitches                    []KillSwitch                           `json:"killSwitches,omitempty"`
-	AdditionalProperties            map[string]interface{}
+	Uuid *string `json:"uuid,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Edition *EditionProviderEdition `json:"edition,omitempty"`
+	CommitId *string `json:"commitId,omitempty"`
+	ChartDefaultDuration *string `json:"chartDefaultDuration,omitempty"`
+	CommitDate *time.Time `json:"commitDate,omitempty"`
+	IsCustomDashboardsEnabled *bool `json:"isCustomDashboardsEnabled,omitempty"`
+	IsAnonymousUsageEnabled *bool `json:"isAnonymousUsageEnabled,omitempty"`
+	IsUiAnonymousUsageEnabled *bool `json:"isUiAnonymousUsageEnabled,omitempty"`
+	IsTemplateEnabled *bool `json:"isTemplateEnabled,omitempty"`
+	Environment *MiscControllerEnvironment `json:"environment,omitempty"`
+	Url *string `json:"url,omitempty"`
+	Preview *MiscControllerPreview `json:"preview,omitempty"`
+	SystemNamespace *string `json:"systemNamespace,omitempty"`
+	HiddenLabelsPrefixes []string `json:"hiddenLabelsPrefixes,omitempty"`
+	IsAiEnabled *bool `json:"isAiEnabled,omitempty"`
+	IsAiApiKeyConfigured *bool `json:"isAiApiKeyConfigured,omitempty"`
+	IsBasicAuthInitialized *bool `json:"isBasicAuthInitialized,omitempty"`
+	PluginsHash *int64 `json:"pluginsHash,omitempty"`
+	IsConcurrencyViewEnabled *bool `json:"isConcurrencyViewEnabled,omitempty"`
+	Tenants *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
+	SecretsEnabled *bool `json:"secretsEnabled,omitempty"`
+	SupportedStorages []MiscControllerPluginIdAndVersion `json:"supportedStorages,omitempty"`
+	SupportedSecrets []MiscControllerPluginIdAndVersion `json:"supportedSecrets,omitempty"`
+	PluginManagementEnabled *bool `json:"pluginManagementEnabled,omitempty"`
+	PluginCustomEnabled *bool `json:"pluginCustomEnabled,omitempty"`
+	Banner *Banner `json:"banner,omitempty"`
+	MailServiceEnabled *bool `json:"mailServiceEnabled,omitempty"`
+	OutputsInInternalStorageEnabled *bool `json:"outputsInInternalStorageEnabled,omitempty"`
+	LeftSidebar *LeftSidebarConfiguration `json:"leftSidebar,omitempty"`
+	RightSidebar *RightSidebarConfiguration `json:"rightSidebar,omitempty"`
+	InMaintenance *bool `json:"inMaintenance,omitempty"`
+	PasswordRegexp *string `json:"passwordRegexp,omitempty"`
+	PasswordlessEnabled *bool `json:"passwordlessEnabled,omitempty"`
+	Airgapped *bool `json:"airgapped,omitempty"`
+	FeatureGating *bool `json:"featureGating,omitempty"`
+	Features []string `json:"features,omitempty"`
+	KillSwitches []KillSwitch `json:"killSwitches,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MiscControllerEEConfiguration MiscControllerEEConfiguration
@@ -588,6 +589,38 @@ func (o *MiscControllerEEConfiguration) HasIsAiEnabled() bool {
 // SetIsAiEnabled gets a reference to the given bool and assigns it to the IsAiEnabled field.
 func (o *MiscControllerEEConfiguration) SetIsAiEnabled(v bool) {
 	o.IsAiEnabled = &v
+}
+
+// GetIsAiApiKeyConfigured returns the IsAiApiKeyConfigured field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsAiApiKeyConfigured() bool {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiApiKeyConfigured
+}
+
+// GetIsAiApiKeyConfiguredOk returns a tuple with the IsAiApiKeyConfigured field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsAiApiKeyConfiguredOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		return nil, false
+	}
+	return o.IsAiApiKeyConfigured, true
+}
+
+// HasIsAiApiKeyConfigured returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsAiApiKeyConfigured() bool {
+	if o != nil && !IsNil(o.IsAiApiKeyConfigured) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiApiKeyConfigured gets a reference to the given bool and assigns it to the IsAiApiKeyConfigured field.
+func (o *MiscControllerEEConfiguration) SetIsAiApiKeyConfigured(v bool) {
+	o.IsAiApiKeyConfigured = &v
 }
 
 // GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field value if set, zero value otherwise.
@@ -1263,7 +1296,7 @@ func (o *MiscControllerEEConfiguration) SetKillSwitches(v []KillSwitch) {
 }
 
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -1319,6 +1352,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsAiEnabled) {
 		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
+	if !IsNil(o.IsAiApiKeyConfigured) {
+		toSerialize["isAiApiKeyConfigured"] = o.IsAiApiKeyConfigured
 	}
 	if !IsNil(o.IsBasicAuthInitialized) {
 		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
@@ -1421,6 +1457,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "systemNamespace")
 		delete(additionalProperties, "hiddenLabelsPrefixes")
 		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "isAiApiKeyConfigured")
 		delete(additionalProperties, "isBasicAuthInitialized")
 		delete(additionalProperties, "pluginsHash")
 		delete(additionalProperties, "isConcurrencyViewEnabled")
@@ -1483,3 +1520,5 @@ func (v *NullableMiscControllerEEConfiguration) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

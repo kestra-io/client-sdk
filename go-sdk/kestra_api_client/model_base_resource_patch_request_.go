@@ -18,7 +18,7 @@ var _ MappedNullable = &BaseResourcePatchRequest{}
 
 // BaseResourcePatchRequest struct for BaseResourcePatchRequest
 type BaseResourcePatchRequest struct {
-	Schemas              []string `json:"schemas,omitempty"`
+	Schemas []string `json:"schemas,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *BaseResourcePatchRequest) SetSchemas(v []string) {
 }
 
 func (o BaseResourcePatchRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableBaseResourcePatchRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,7 +20,7 @@ type EditionProviderEdition string
 // List of EditionProvider.Edition
 const (
 	EDITIONPROVIDEREDITION_OSS EditionProviderEdition = "OSS"
-	EDITIONPROVIDEREDITION_EE  EditionProviderEdition = "EE"
+	EDITIONPROVIDEREDITION_EE EditionProviderEdition = "EE"
 )
 
 // All allowed values of EditionProviderEdition enum
@@ -107,3 +107,4 @@ func (v *NullableEditionProviderEdition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

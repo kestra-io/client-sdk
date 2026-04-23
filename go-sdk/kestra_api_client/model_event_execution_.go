@@ -18,11 +18,11 @@ var _ MappedNullable = &EventExecution{}
 
 // EventExecution struct for EventExecution
 type EventExecution struct {
-	Data                 *Execution `json:"data,omitempty"`
-	Id                   *string    `json:"id,omitempty"`
-	Name                 *string    `json:"name,omitempty"`
-	Comment              *string    `json:"comment,omitempty"`
-	Retry                *string    `json:"retry,omitempty"`
+	Data *Execution `json:"data,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Comment *string `json:"comment,omitempty"`
+	Retry *string `json:"retry,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,7 +206,7 @@ func (o *EventExecution) SetRetry(v string) {
 }
 
 func (o EventExecution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -298,3 +298,5 @@ func (v *NullableEventExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -15,9 +15,12 @@ import ApiClient from "../ApiClient";
 import polyfilledEventSource from "@sanity/eventsource"
 import BulkErrorResponse from '../model/BulkErrorResponse';
 import BulkResponse from '../model/BulkResponse';
+import CreateExecutionLabelsParameter from '../model/CreateExecutionLabelsParameter';
+import DeleteExecutionsByIdsDeleteLogsParameter from '../model/DeleteExecutionsByIdsDeleteLogsParameter';
 import EventExecution from '../model/EventExecution';
 import EventExecutionStatusEvent from '../model/EventExecutionStatusEvent';
 import Execution from '../model/Execution';
+import ExecutionControllerEvalResult from '../model/ExecutionControllerEvalResult';
 import ExecutionControllerExecutionResponse from '../model/ExecutionControllerExecutionResponse';
 import ExecutionControllerLastExecutionResponse from '../model/ExecutionControllerLastExecutionResponse';
 import ExecutionControllerSetLabelsByIdsRequest from '../model/ExecutionControllerSetLabelsByIdsRequest';
@@ -26,10 +29,12 @@ import ExecutionKind from '../model/ExecutionKind';
 import ExecutionRepositoryInterfaceFlowFilter from '../model/ExecutionRepositoryInterfaceFlowFilter';
 import FileMetas from '../model/FileMetas';
 import FlowForExecution from '../model/FlowForExecution';
+import FlowFromExecutionRevisionParameter from '../model/FlowFromExecutionRevisionParameter';
 import FlowGraph from '../model/FlowGraph';
 import Label from '../model/Label';
 import PagedResultsExecution from '../model/PagedResultsExecution';
 import QueryFilter from '../model/QueryFilter';
+import SearchBlueprintsSizeParameter from '../model/SearchBlueprintsSizeParameter';
 import StateType from '../model/StateType';
 import WebhookResponse from '../model/WebhookResponse';
 
@@ -58,51 +63,47 @@ export default class ExecutionsApi {
     /**
     * Create a new execution for a flow
     * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} wait If the server will wait the end of the execution
     * @param {String} tenant 
+    * @param {String} id The flow id
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [labels] The labels as a list of 'key:value'
-    * @param {Number} [revision] The flow revision or latest if null
+    * @param {Boolean} [wait = false)] If the server will wait the end of the execution
     * @param {Date} [scheduleDate] Schedule the flow on a specific date
     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
     * @param {module:model/ExecutionKind} [kind] Specific execution kind
+    * @param {module:model/CreateExecutionLabelsParameter} [labels] The labels as a list of 'key:value'
+    * @param {Number} [revision] The flow revision or latest if null
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<ExecutionControllerExecutionResponse>}
     */
-    createExecutionWithHttpInfo(namespace, id, wait, tenant, opts, formData) {
+    createExecutionWithHttpInfo(namespace, tenant, id, opts, formData) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling createExecution");
       }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createExecution");
-      }
-      // verify the required parameter 'wait' is set
-      if (wait === undefined || wait === null) {
-        throw new Error("Missing the required parameter 'wait' when calling createExecution");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling createExecution");
       }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling createExecution");
+      }
 
       let pathParams = {
         'namespace': namespace,
-        'id': id,
-        'tenant': tenant
+        'tenant': tenant,
+        'id': id
       };
       let queryParams = {
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'wait': wait,
-        'revision': opts['revision'],
+        'wait': opts['wait'],
         'scheduleDate': opts['scheduleDate'],
         'breakpoints': opts['breakpoints'],
-        'kind': opts['kind']
+        'kind': opts['kind'],
+        'labels': opts['labels'],
+        'revision': opts['revision']
       };
       let headerParams = {
       };
@@ -131,21 +132,21 @@ export default class ExecutionsApi {
     /**
     * Create a new execution for a flow
     * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} wait If the server will wait the end of the execution
     * @param {String} tenant 
+    * @param {String} id The flow id
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.labels] The labels as a list of 'key:value'
-    * @param {Number} [opts.revision] The flow revision or latest if null
+    * @param {Boolean} [opts.wait (default to false)] If the server will wait the end of the execution
     * @param {Date} [opts.scheduleDate] Schedule the flow on a specific date
     * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
     * @param {module:model/ExecutionKind} [opts.kind] Specific execution kind
+    * @param {module:model/CreateExecutionLabelsParameter} [opts.labels] The labels as a list of 'key:value'
+    * @param {Number} [opts.revision] The flow revision or latest if null
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<ExecutionControllerExecutionResponse>}
     */
-    createExecution(namespace, id, wait, tenant, opts, formData) {
-      return this.createExecutionWithHttpInfo(namespace, id, wait, tenant, opts, formData)
+    createExecution(namespace, tenant, id, opts, formData) {
+      return this.createExecutionWithHttpInfo(namespace, tenant, id, opts, formData)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -166,9 +167,9 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
-    * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [deleteLogs] Whether to delete execution logs
     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [deleteMetrics] Whether to delete execution metrics
 
     * @return {Promise<  >}
     */
@@ -190,8 +191,8 @@ export default class ExecutionsApi {
       };
       let queryParams = {
         'deleteLogs': opts['deleteLogs'],
-        'deleteMetrics': opts['deleteMetrics'],
-        'deleteStorage': opts['deleteStorage']
+        'deleteStorage': opts['deleteStorage'],
+        'deleteMetrics': opts['deleteMetrics']
       };
       let headerParams = {
       };
@@ -214,9 +215,9 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
-    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [opts.deleteLogs] Whether to delete execution logs
     * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [opts.deleteMetrics] Whether to delete execution metrics
 
     * @return {Promise<  >}
     */
@@ -242,10 +243,10 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The execution id
     * @param {Object} opts Optional parameters
-    * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
-    * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
-    * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [deleteLogs] Whether to delete execution logs
     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [deleteMetrics] Whether to delete execution metrics
+    * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
 
     * @return {Promise<BulkResponse>}
     */
@@ -265,10 +266,10 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'includeNonTerminated': opts['includeNonTerminated'],
         'deleteLogs': opts['deleteLogs'],
+        'deleteStorage': opts['deleteStorage'],
         'deleteMetrics': opts['deleteMetrics'],
-        'deleteStorage': opts['deleteStorage']
+        'includeNonTerminated': opts['includeNonTerminated']
       };
       let headerParams = {
       };
@@ -291,10 +292,10 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The execution id
     * @param {Object} [opts] Optional parameters
-    * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
-    * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
-    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [opts.deleteLogs] Whether to delete execution logs
     * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [opts.deleteMetrics] Whether to delete execution metrics
+    * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
 
     * @return {Promise<BulkResponse>}
     */
@@ -319,11 +320,11 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [deleteMetrics] Whether to delete execution metrics
     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
-    * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
-    * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
 
     * @return {Promise< Object >}
     */
@@ -339,11 +340,11 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
+        'deleteStorage': opts['deleteStorage'],
         'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'includeNonTerminated': opts['includeNonTerminated'],
-        'deleteLogs': opts['deleteLogs'],
         'deleteMetrics': opts['deleteMetrics'],
-        'deleteStorage': opts['deleteStorage']
+        'deleteLogs': opts['deleteLogs']
       };
       let headerParams = {
       };
@@ -365,11 +366,11 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
     * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
+    * @param {module:model/DeleteExecutionsByIdsDeleteLogsParameter} [opts.deleteMetrics] Whether to delete execution metrics
     * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
-    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
-    * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
 
     * @return {Promise< Object >}
     */
@@ -446,6 +447,76 @@ export default class ExecutionsApi {
     */
     downloadFileFromExecution(executionId, path, tenant) {
       return this.downloadFileFromExecutionWithHttpInfo(executionId, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
+    * Evaluate a variable expression for this execution
+    * @param {String} executionId The execution id
+    * @param {String} tenant 
+    * @param {String} body The Pebble expression that should be evaluated
+
+    * @return {Promise<ExecutionControllerEvalResult>}
+    */
+    evalExpressionWithHttpInfo(executionId, tenant, body) {
+      let postBody = body;
+      // verify the required parameter 'executionId' is set
+      if (executionId === undefined || executionId === null) {
+        throw new Error("Missing the required parameter 'executionId' when calling evalExpression");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling evalExpression");
+      }
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling evalExpression");
+      }
+
+      let pathParams = {
+        'executionId': executionId,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['text/plain'];
+      let accepts = ['application/json'];
+      let returnType = ExecutionControllerEvalResult;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/{executionId}/eval', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Evaluate a variable expression for this execution
+    * @param {String} executionId The execution id
+    * @param {String} tenant 
+    * @param {String} body The Pebble expression that should be evaluated
+
+    * @return {Promise<ExecutionControllerEvalResult>}
+    */
+    evalExpression(executionId, tenant, body) {
+      return this.evalExpressionWithHttpInfo(executionId, tenant, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -672,7 +743,7 @@ export default class ExecutionsApi {
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Number} [revision] The flow revision
+    * @param {module:model/FlowFromExecutionRevisionParameter} [revision] The flow revision
 
     * @return {Promise<FlowForExecution>}
     */
@@ -722,7 +793,7 @@ export default class ExecutionsApi {
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Number} [opts.revision] The flow revision
+    * @param {module:model/FlowFromExecutionRevisionParameter} [opts.revision] The flow revision
 
     * @return {Promise<FlowForExecution>}
     */
@@ -811,14 +882,14 @@ export default class ExecutionsApi {
     /**
      * Custom implementation for following execution via Server-Sent Events (SSE)
      * @param {String} executionId
-     * @param {Boolean} destinationOnly
-     * @param {Boolean} expandAll
      * @param {String} tenant
+     * @param {Boolean} expandAll
+     * @param {Boolean} destinationOnly
      * @param {Object} [options] Optional parameters
      * @param {Function} [options.EventSource] Custom EventSource constructor (for Node.js environment)
      * @return {EventSource} EventSource object to listen to execution events
      */
-    followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant, options = {} ) {
+    followDependenciesExecutions(executionId, tenant, opts, options = {} ) {
       // an EventSource implementation must be provided in Node.js environment
       // in browser environment, the native EventSource cannot be used ieither since it cannot
       // send the right http headers (like Authorization)
@@ -1068,20 +1139,18 @@ export default class ExecutionsApi {
     /**
     * Kill an execution
     * @param {String} executionId The execution id
-    * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
     * @param {String} tenant 
+    * @param {Object} opts Optional parameters
+    * @param {Boolean} [isOnKillCascade = true)] Specifies whether killing the execution also kill all subflow executions.
 
     * @return {Promise< Object >}
     */
-    killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant) {
+    killExecutionWithHttpInfo(executionId, tenant, opts) {
+      opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
         throw new Error("Missing the required parameter 'executionId' when calling killExecution");
-      }
-      // verify the required parameter 'isOnKillCascade' is set
-      if (isOnKillCascade === undefined || isOnKillCascade === null) {
-        throw new Error("Missing the required parameter 'isOnKillCascade' when calling killExecution");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1093,7 +1162,7 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'isOnKillCascade': isOnKillCascade
+        'isOnKillCascade': opts['isOnKillCascade']
       };
       let headerParams = {
       };
@@ -1114,13 +1183,14 @@ export default class ExecutionsApi {
     /**
     * Kill an execution
     * @param {String} executionId The execution id
-    * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
     * @param {String} tenant 
+    * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.isOnKillCascade (default to true)] Specifies whether killing the execution also kill all subflow executions.
 
     * @return {Promise< Object >}
     */
-    killExecution(executionId, isOnKillCascade, tenant) {
-      return this.killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant)
+    killExecution(executionId, tenant, opts) {
+      return this.killExecutionWithHttpInfo(executionId, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1521,8 +1591,8 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [taskRunId] The taskrun id
-    * @param {Number} [revision] The flow revision to use for new execution
     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Number} [revision] The flow revision to use for new execution
 
     * @return {Promise<Execution>}
     */
@@ -1544,8 +1614,8 @@ export default class ExecutionsApi {
       };
       let queryParams = {
         'taskRunId': opts['taskRunId'],
-        'revision': opts['revision'],
-        'breakpoints': opts['breakpoints']
+        'breakpoints': opts['breakpoints'],
+        'revision': opts['revision']
       };
       let headerParams = {
       };
@@ -1569,8 +1639,8 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.taskRunId] The taskrun id
-    * @param {Number} [opts.revision] The flow revision to use for new execution
     * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Number} [opts.revision] The flow revision to use for new execution
 
     * @return {Promise<Execution>}
     */
@@ -1597,8 +1667,8 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [taskRunId] The taskrun id
-    * @param {Number} [revision] The flow revision to use for new execution
     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Number} [revision] The flow revision to use for new execution
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<Execution>}
@@ -1621,8 +1691,8 @@ export default class ExecutionsApi {
       };
       let queryParams = {
         'taskRunId': opts['taskRunId'],
-        'revision': opts['revision'],
-        'breakpoints': opts['breakpoints']
+        'breakpoints': opts['breakpoints'],
+        'revision': opts['revision']
       };
       let headerParams = {
       };
@@ -1654,8 +1724,8 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.taskRunId] The taskrun id
-    * @param {Number} [opts.revision] The flow revision to use for new execution
     * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Number} [opts.revision] The flow revision to use for new execution
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<Execution>}
@@ -2210,26 +2280,18 @@ export default class ExecutionsApi {
 
     /**
     * Search for executions
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [sort] The sort of current page
+    * @param {module:model/SearchBlueprintsSizeParameter} [page] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
+    * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsExecution>}
     */
-    searchExecutionsWithHttpInfo(page, size, tenant, opts) {
+    searchExecutionsWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchExecutions");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchExecutions");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling searchExecutions");
@@ -2239,10 +2301,10 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
+        'page': opts['page'],
+        'size': opts['size'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
       };
@@ -2262,17 +2324,17 @@ export default class ExecutionsApi {
 
     /**
     * Search for executions
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {module:model/SearchBlueprintsSizeParameter} [opts.page] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsExecution>}
     */
-    searchExecutions(page, size, tenant, opts) {
-      return this.searchExecutionsWithHttpInfo(page, size, tenant, opts)
+    searchExecutions(tenant, opts) {
+      return this.searchExecutionsWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2290,31 +2352,25 @@ export default class ExecutionsApi {
 
     /**
     * Search for executions for a flow
-    * @param {String} namespace The flow namespace
     * @param {String} flowId The flow id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
+    * @param {Object} opts Optional parameters
+    * @param {Number} [size = 10)] The current page size
+    * @param {Number} [page = 1)] The current page
 
     * @return {Promise<PagedResultsExecution>}
     */
-    searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant) {
+    searchExecutionsByFlowIdWithHttpInfo(flowId, namespace, tenant, opts) {
+      opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
-      }
       // verify the required parameter 'flowId' is set
       if (flowId === undefined || flowId === null) {
         throw new Error("Missing the required parameter 'flowId' when calling searchExecutionsByFlowId");
       }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchExecutionsByFlowId");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchExecutionsByFlowId");
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2325,10 +2381,10 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'namespace': namespace,
+        'size': opts['size'],
         'flowId': flowId,
-        'page': page,
-        'size': size
+        'namespace': namespace,
+        'page': opts['page']
       };
       let headerParams = {
       };
@@ -2348,16 +2404,17 @@ export default class ExecutionsApi {
 
     /**
     * Search for executions for a flow
-    * @param {String} namespace The flow namespace
     * @param {String} flowId The flow id
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.size (default to 10)] The current page size
+    * @param {Number} [opts.page (default to 1)] The current page
 
     * @return {Promise<PagedResultsExecution>}
     */
-    searchExecutionsByFlowId(namespace, flowId, page, size, tenant) {
-      return this.searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant)
+    searchExecutionsByFlowId(flowId, namespace, tenant, opts) {
+      return this.searchExecutionsByFlowIdWithHttpInfo(flowId, namespace, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2577,19 +2634,15 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by GET webhook trigger
-    * @param {String} namespace The flow namespace
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant) {
+    triggerExecutionByGetWebhookWithHttpInfo(id, key, namespace, tenant) {
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhook");
-      }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling triggerExecutionByGetWebhook");
@@ -2598,15 +2651,19 @@ export default class ExecutionsApi {
       if (key === undefined || key === null) {
         throw new Error("Missing the required parameter 'key' when calling triggerExecutionByGetWebhook");
       }
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhook");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByGetWebhook");
       }
 
       let pathParams = {
-        'namespace': namespace,
         'id': id,
         'key': key,
+        'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
@@ -2629,15 +2686,15 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by GET webhook trigger
-    * @param {String} namespace The flow namespace
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByGetWebhook(namespace, id, key, tenant) {
-      return this.triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant)
+    triggerExecutionByGetWebhook(id, key, namespace, tenant) {
+      return this.triggerExecutionByGetWebhookWithHttpInfo(id, key, namespace, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2655,19 +2712,19 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by GET webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByGetWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+    triggerExecutionByGetWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant) {
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
       }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2677,9 +2734,9 @@ export default class ExecutionsApi {
       if (key === undefined || key === null) {
         throw new Error("Missing the required parameter 'key' when calling triggerExecutionByGetWebhookWithPath");
       }
-      // verify the required parameter 'path' is set
-      if (path === undefined || path === null) {
-        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByGetWebhookWithPath");
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByGetWebhookWithPath");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2687,10 +2744,10 @@ export default class ExecutionsApi {
       }
 
       let pathParams = {
-        'namespace': namespace,
+        'path': path,
         'id': id,
         'key': key,
-        'path': path,
+        'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
@@ -2713,16 +2770,16 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by GET webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByGetWebhookWithPath(namespace, id, key, path, tenant) {
-      return this.triggerExecutionByGetWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
+    triggerExecutionByGetWebhookWithPath(path, id, key, namespace, tenant) {
+      return this.triggerExecutionByGetWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2740,19 +2797,19 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by POST webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByPostWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+    triggerExecutionByPostWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant) {
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
       }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2762,9 +2819,9 @@ export default class ExecutionsApi {
       if (key === undefined || key === null) {
         throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPostWebhookWithPath");
       }
-      // verify the required parameter 'path' is set
-      if (path === undefined || path === null) {
-        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPostWebhookWithPath");
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhookWithPath");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2772,10 +2829,10 @@ export default class ExecutionsApi {
       }
 
       let pathParams = {
-        'namespace': namespace,
+        'path': path,
         'id': id,
         'key': key,
-        'path': path,
+        'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
@@ -2798,16 +2855,16 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by POST webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByPostWebhookWithPath(namespace, id, key, path, tenant) {
-      return this.triggerExecutionByPostWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
+    triggerExecutionByPostWebhookWithPath(path, id, key, namespace, tenant) {
+      return this.triggerExecutionByPostWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -2825,19 +2882,19 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by PUT webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByPutWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant) {
+    triggerExecutionByPutWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant) {
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
+      // verify the required parameter 'path' is set
+      if (path === undefined || path === null) {
+        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
       }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2847,9 +2904,9 @@ export default class ExecutionsApi {
       if (key === undefined || key === null) {
         throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPutWebhookWithPath");
       }
-      // verify the required parameter 'path' is set
-      if (path === undefined || path === null) {
-        throw new Error("Missing the required parameter 'path' when calling triggerExecutionByPutWebhookWithPath");
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhookWithPath");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2857,10 +2914,10 @@ export default class ExecutionsApi {
       }
 
       let pathParams = {
-        'namespace': namespace,
+        'path': path,
         'id': id,
         'key': key,
-        'path': path,
+        'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
@@ -2883,16 +2940,16 @@ export default class ExecutionsApi {
 
     /**
     * Trigger a new execution by PUT webhook trigger
-    * @param {String} namespace The flow namespace
+    * @param {String} path Optional additional path segments
     * @param {String} id The flow id
     * @param {String} key The webhook trigger uid
-    * @param {String} path Optional additional path segments
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
 
     * @return {Promise<WebhookResponse>}
     */
-    triggerExecutionByPutWebhookWithPath(namespace, id, key, path, tenant) {
-      return this.triggerExecutionByPutWebhookWithPathWithHttpInfo(namespace, id, key, path, tenant)
+    triggerExecutionByPutWebhookWithPath(path, id, key, namespace, tenant) {
+      return this.triggerExecutionByPutWebhookWithPathWithHttpInfo(path, id, key, namespace, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

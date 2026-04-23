@@ -19,25 +19,25 @@ type Type string
 
 // List of Type
 const (
-	TYPE_STRING      Type = "STRING"
-	TYPE_ENUM        Type = "ENUM"
-	TYPE_SELECT      Type = "SELECT"
-	TYPE_INT         Type = "INT"
-	TYPE_FLOAT       Type = "FLOAT"
-	TYPE_BOOLEAN     Type = "BOOLEAN"
-	TYPE_BOOL        Type = "BOOL"
-	TYPE_DATETIME    Type = "DATETIME"
-	TYPE_DATE        Type = "DATE"
-	TYPE_TIME        Type = "TIME"
-	TYPE_DURATION    Type = "DURATION"
-	TYPE_FILE        Type = "FILE"
-	TYPE_JSON        Type = "JSON"
-	TYPE_URI         Type = "URI"
-	TYPE_SECRET      Type = "SECRET"
-	TYPE_ARRAY       Type = "ARRAY"
+	TYPE_STRING Type = "STRING"
+	TYPE_ENUM Type = "ENUM"
+	TYPE_SELECT Type = "SELECT"
+	TYPE_INT Type = "INT"
+	TYPE_FLOAT Type = "FLOAT"
+	TYPE_BOOLEAN Type = "BOOLEAN"
+	TYPE_BOOL Type = "BOOL"
+	TYPE_DATETIME Type = "DATETIME"
+	TYPE_DATE Type = "DATE"
+	TYPE_TIME Type = "TIME"
+	TYPE_DURATION Type = "DURATION"
+	TYPE_FILE Type = "FILE"
+	TYPE_JSON Type = "JSON"
+	TYPE_URI Type = "URI"
+	TYPE_SECRET Type = "SECRET"
+	TYPE_ARRAY Type = "ARRAY"
 	TYPE_MULTISELECT Type = "MULTISELECT"
-	TYPE_YAML        Type = "YAML"
-	TYPE_EMAIL       Type = "EMAIL"
+	TYPE_YAML Type = "YAML"
+	TYPE_EMAIL Type = "EMAIL"
 )
 
 // All allowed values of Type enum
@@ -141,3 +141,4 @@ func (v *NullableType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

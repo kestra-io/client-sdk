@@ -28,10 +28,9 @@ class FlowGenerationPrompt(BaseModel):
     conversation_id: StrictStr = Field(alias="conversationId")
     user_prompt: StrictStr = Field(alias="userPrompt")
     yaml: Optional[StrictStr] = None
-    provider_id: Optional[StrictStr] = Field(default=None, alias="providerId")
     namespace: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "yaml", "providerId", "namespace"]
+    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "yaml", "namespace"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,7 +93,6 @@ class FlowGenerationPrompt(BaseModel):
             "conversationId": obj.get("conversationId"),
             "userPrompt": obj.get("userPrompt"),
             "yaml": obj.get("yaml"),
-            "providerId": obj.get("providerId"),
             "namespace": obj.get("namespace")
         })
         # store additional fields in additional_properties

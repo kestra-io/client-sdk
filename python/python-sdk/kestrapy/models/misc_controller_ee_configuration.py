@@ -51,6 +51,7 @@ class MiscControllerEEConfiguration(BaseModel):
     system_namespace: Optional[StrictStr] = Field(default=None, alias="systemNamespace")
     hidden_labels_prefixes: Optional[List[StrictStr]] = Field(default=None, alias="hiddenLabelsPrefixes")
     is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
+    is_ai_api_key_configured: Optional[StrictBool] = Field(default=None, alias="isAiApiKeyConfigured")
     is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
     plugins_hash: Optional[StrictInt] = Field(default=None, alias="pluginsHash")
     is_concurrency_view_enabled: Optional[StrictBool] = Field(default=None, alias="isConcurrencyViewEnabled")
@@ -73,7 +74,7 @@ class MiscControllerEEConfiguration(BaseModel):
     features: Optional[List[StrictStr]] = None
     kill_switches: Optional[List[KillSwitch]] = Field(default=None, alias="killSwitches")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp", "passwordlessEnabled", "airgapped", "featureGating", "features", "killSwitches"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "chartDefaultDuration", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isAiApiKeyConfigured", "isBasicAuthInitialized", "pluginsHash", "isConcurrencyViewEnabled", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp", "passwordlessEnabled", "airgapped", "featureGating", "features", "killSwitches"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -188,6 +189,7 @@ class MiscControllerEEConfiguration(BaseModel):
             "systemNamespace": obj.get("systemNamespace"),
             "hiddenLabelsPrefixes": obj.get("hiddenLabelsPrefixes"),
             "isAiEnabled": obj.get("isAiEnabled"),
+            "isAiApiKeyConfigured": obj.get("isAiApiKeyConfigured"),
             "isBasicAuthInitialized": obj.get("isBasicAuthInitialized"),
             "pluginsHash": obj.get("pluginsHash"),
             "isConcurrencyViewEnabled": obj.get("isConcurrencyViewEnabled"),

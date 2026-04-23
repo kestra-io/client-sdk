@@ -19,7 +19,7 @@ var _ MappedNullable = &InstanceControllerApiWorkerGroupList{}
 // InstanceControllerApiWorkerGroupList ApiWorkerGroupList.
 type InstanceControllerApiWorkerGroupList struct {
 	// The list of worker groups.
-	WorkerGroups         []InstanceControllerApiWorkerGroupItem `json:"workerGroups,omitempty"`
+	WorkerGroups []InstanceControllerApiWorkerGroupItem `json:"workerGroups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +75,7 @@ func (o *InstanceControllerApiWorkerGroupList) SetWorkerGroups(v []InstanceContr
 }
 
 func (o InstanceControllerApiWorkerGroupList) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -151,3 +151,5 @@ func (v *NullableInstanceControllerApiWorkerGroupList) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

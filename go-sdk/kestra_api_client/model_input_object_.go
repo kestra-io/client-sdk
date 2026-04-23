@@ -19,15 +19,15 @@ var _ MappedNullable = &InputObject{}
 
 // InputObject struct for InputObject
 type InputObject struct {
-	Id          string     `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
-	Type        Type       `json:"type"`
-	Description *string    `json:"description,omitempty"`
-	DependsOn   *DependsOn `json:"dependsOn,omitempty"`
-	Required    *bool      `json:"required,omitempty"`
-	Defaults    *string    `json:"defaults,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Type Type `json:"type"`
+	Description *string `json:"description,omitempty"`
+	DependsOn *DependsOn `json:"dependsOn,omitempty"`
+	Required *bool `json:"required,omitempty"`
+	Defaults *string `json:"defaults,omitempty"`
 	// Optional UI hint for pre-filling the input. Cannot be used together with a default value.
-	Prefill              *string `json:"prefill,omitempty"`
-	DisplayName          *string `json:"displayName,omitempty"`
+	Prefill *string `json:"prefill,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -293,7 +293,7 @@ func (o *InputObject) SetDisplayName(v string) {
 }
 
 func (o InputObject) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -344,10 +344,10 @@ func (o *InputObject) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -415,3 +415,5 @@ func (v *NullableInputObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

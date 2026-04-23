@@ -18,17 +18,17 @@ var _ MappedNullable = &IAMUserControllerApiUser{}
 
 // IAMUserControllerApiUser struct for IAMUserControllerApiUser
 type IAMUserControllerApiUser struct {
-	Id                   *string                        `json:"id,omitempty"`
-	Username             *string                        `json:"username,omitempty"`
-	DisplayName          *string                        `json:"displayName,omitempty"`
-	FirstName            *string                        `json:"firstName,omitempty"`
-	LastName             *string                        `json:"lastName,omitempty"`
-	Email                *string                        `json:"email,omitempty"`
-	Tenants              []ApiTenantSummary             `json:"tenants,omitempty"`
-	Auths                []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
-	Groups               []IAMUserControllerApiGroup    `json:"groups,omitempty"`
-	SuperAdmin           *bool                          `json:"superAdmin,omitempty"`
-	Restricted           *bool                          `json:"restricted,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Username *string `json:"username,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Email *string `json:"email,omitempty"`
+	Tenants []ApiTenantSummary `json:"tenants,omitempty"`
+	Auths []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
+	Groups []IAMUserControllerApiGroup `json:"groups,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Restricted *bool `json:"restricted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -404,7 +404,7 @@ func (o *IAMUserControllerApiUser) SetRestricted(v bool) {
 }
 
 func (o IAMUserControllerApiUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -520,3 +520,5 @@ func (v *NullableIAMUserControllerApiUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

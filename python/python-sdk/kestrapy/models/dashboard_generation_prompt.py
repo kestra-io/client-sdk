@@ -28,9 +28,8 @@ class DashboardGenerationPrompt(BaseModel):
     conversation_id: StrictStr = Field(alias="conversationId")
     user_prompt: StrictStr = Field(alias="userPrompt")
     yaml: Optional[StrictStr] = None
-    provider_id: Optional[StrictStr] = Field(default=None, alias="providerId")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "yaml", "providerId"]
+    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "yaml"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,8 +91,7 @@ class DashboardGenerationPrompt(BaseModel):
         _obj = cls.model_validate({
             "conversationId": obj.get("conversationId"),
             "userPrompt": obj.get("userPrompt"),
-            "yaml": obj.get("yaml"),
-            "providerId": obj.get("providerId")
+            "yaml": obj.get("yaml")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteExecutionsByIds**](ExecutionsAPI.md#DeleteExecutionsByIds) | **Delete** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 [**DeleteExecutionsByQuery**](ExecutionsAPI.md#DeleteExecutionsByQuery) | **Delete** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**DownloadFileFromExecution**](ExecutionsAPI.md#DownloadFileFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+[**EvalExpression**](ExecutionsAPI.md#EvalExpression) | **Post** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 [**Execution**](ExecutionsAPI.md#Execution) | **Get** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**ExecutionFlowGraph**](ExecutionsAPI.md#ExecutionFlowGraph) | **Get** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 [**FileMetadatasFromExecution**](ExecutionsAPI.md#FileMetadatasFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
@@ -57,7 +58,7 @@ Method | HTTP request | Description
 
 ## CreateExecution
 
-> ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
+> ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, tenant, id).Wait(wait).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Labels(labels).Revision(revision).Execute()
 
 Create a new execution for a flow
 
@@ -76,18 +77,18 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The flow namespace
-	id := "id_example" // string | The flow id
-	wait := true // bool | If the server will wait the end of the execution (default to false)
 	tenant := "tenant_example" // string | 
-	labels := []string{"Inner_example"} // []string | The labels as a list of 'key:value' (optional)
-	revision := int32(56) // int32 | The flow revision or latest if null (optional)
+	id := "id_example" // string | The flow id
+	wait := true // bool | If the server will wait the end of the execution (optional) (default to false)
 	scheduleDate := time.Now() // time.Time | Schedule the flow on a specific date (optional)
 	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 	kind := openapiclient.ExecutionKind("NORMAL") // ExecutionKind | Specific execution kind (optional)
+	labels := openapiclient.createExecution_labels_parameter{Array: new(Array)} // CreateExecutionLabelsParameter | The labels as a list of 'key:value' (optional)
+	revision := int32(56) // int32 | The flow revision or latest if null (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.CreateExecution(context.Background(), namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.CreateExecution(context.Background(), namespace, tenant, id).Wait(wait).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Labels(labels).Revision(revision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.CreateExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -104,8 +105,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The flow namespace | 
-**id** | **string** | The flow id | 
 **tenant** | **string** |  | 
+**id** | **string** | The flow id | 
 
 ### Other Parameters
 
@@ -116,13 +117,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **wait** | **bool** | If the server will wait the end of the execution | [default to false]
 
- **labels** | **[]string** | The labels as a list of &#39;key:value&#39; | 
- **revision** | **int32** | The flow revision or latest if null | 
+ **wait** | **bool** | If the server will wait the end of the execution | [default to false]
  **scheduleDate** | **time.Time** | Schedule the flow on a specific date | 
  **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
  **kind** | [**ExecutionKind**](ExecutionKind.md) | Specific execution kind | 
+ **labels** | [**CreateExecutionLabelsParameter**](CreateExecutionLabelsParameter.md) | The labels as a list of &#39;key:value&#39; | 
+ **revision** | **int32** | The flow revision or latest if null | 
 
 ### Return type
 
@@ -144,7 +145,7 @@ Name | Type | Description  | Notes
 
 ## DeleteExecution
 
-> DeleteExecution(ctx, executionId, tenant).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+> DeleteExecution(ctx, executionId, tenant).DeleteLogs(deleteLogs).DeleteStorage(deleteStorage).DeleteMetrics(deleteMetrics).Execute()
 
 Delete an execution
 
@@ -163,13 +164,13 @@ import (
 func main() {
 	executionId := "executionId_example" // string | The execution id
 	tenant := "tenant_example" // string | 
-	deleteLogs := true // bool | Whether to delete execution logs (optional) (default to true)
-	deleteMetrics := true // bool | Whether to delete execution metrics (optional) (default to true)
+	deleteLogs := openapiclient.deleteExecutionsByIds_deleteLogs_parameter{Bool: new(bool)} // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs (optional)
 	deleteStorage := true // bool | Whether to delete execution files in the internal storage (optional) (default to true)
+	deleteMetrics := openapiclient.deleteExecutionsByIds_deleteLogs_parameter{Bool: new(bool)} // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ExecutionsAPI.DeleteExecution(context.Background(), executionId, tenant).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+	r, err := apiClient.ExecutionsAPI.DeleteExecution(context.Background(), executionId, tenant).DeleteLogs(deleteLogs).DeleteStorage(deleteStorage).DeleteMetrics(deleteMetrics).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.DeleteExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,9 +196,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deleteLogs** | **bool** | Whether to delete execution logs | [default to true]
- **deleteMetrics** | **bool** | Whether to delete execution metrics | [default to true]
+ **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](DeleteExecutionsByIdsDeleteLogsParameter.md) | Whether to delete execution logs | 
  **deleteStorage** | **bool** | Whether to delete execution files in the internal storage | [default to true]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](DeleteExecutionsByIdsDeleteLogsParameter.md) | Whether to delete execution metrics | 
 
 ### Return type
 
@@ -219,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## DeleteExecutionsByIds
 
-> BulkResponse DeleteExecutionsByIds(ctx, tenant).RequestBody(requestBody).IncludeNonTerminated(includeNonTerminated).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+> BulkResponse DeleteExecutionsByIds(ctx, tenant).RequestBody(requestBody).DeleteLogs(deleteLogs).DeleteStorage(deleteStorage).DeleteMetrics(deleteMetrics).IncludeNonTerminated(includeNonTerminated).Execute()
 
 Delete a list of executions
 
@@ -238,14 +239,14 @@ import (
 func main() {
 	tenant := "tenant_example" // string | 
 	requestBody := []string{"Property_example"} // []string | The execution id
-	includeNonTerminated := true // bool | Whether to delete non-terminated executions (optional) (default to false)
-	deleteLogs := true // bool | Whether to delete execution logs (optional) (default to true)
-	deleteMetrics := true // bool | Whether to delete execution metrics (optional) (default to true)
+	deleteLogs := openapiclient.deleteExecutionsByIds_deleteLogs_parameter{Bool: new(bool)} // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution logs (optional)
 	deleteStorage := true // bool | Whether to delete execution files in the internal storage (optional) (default to true)
+	deleteMetrics := openapiclient.deleteExecutionsByIds_deleteLogs_parameter{Bool: new(bool)} // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
+	includeNonTerminated := true // bool | Whether to delete non-terminated executions (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.DeleteExecutionsByIds(context.Background(), tenant).RequestBody(requestBody).IncludeNonTerminated(includeNonTerminated).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.DeleteExecutionsByIds(context.Background(), tenant).RequestBody(requestBody).DeleteLogs(deleteLogs).DeleteStorage(deleteStorage).DeleteMetrics(deleteMetrics).IncludeNonTerminated(includeNonTerminated).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.DeleteExecutionsByIds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -272,10 +273,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **requestBody** | **[]string** | The execution id | 
- **includeNonTerminated** | **bool** | Whether to delete non-terminated executions | [default to false]
- **deleteLogs** | **bool** | Whether to delete execution logs | [default to true]
- **deleteMetrics** | **bool** | Whether to delete execution metrics | [default to true]
+ **deleteLogs** | [**DeleteExecutionsByIdsDeleteLogsParameter**](DeleteExecutionsByIdsDeleteLogsParameter.md) | Whether to delete execution logs | 
  **deleteStorage** | **bool** | Whether to delete execution files in the internal storage | [default to true]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](DeleteExecutionsByIdsDeleteLogsParameter.md) | Whether to delete execution metrics | 
+ **includeNonTerminated** | **bool** | Whether to delete non-terminated executions | [default to false]
 
 ### Return type
 
@@ -297,7 +298,7 @@ Name | Type | Description  | Notes
 
 ## DeleteExecutionsByQuery
 
-> map[string]interface{} DeleteExecutionsByQuery(ctx, tenant).Filters(filters).IncludeNonTerminated(includeNonTerminated).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+> map[string]interface{} DeleteExecutionsByQuery(ctx, tenant).DeleteStorage(deleteStorage).Filters(filters).IncludeNonTerminated(includeNonTerminated).DeleteMetrics(deleteMetrics).DeleteLogs(deleteLogs).Execute()
 
 Delete executions filter by query parameters
 
@@ -315,15 +316,15 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
+	deleteStorage := true // bool | Whether to delete execution files in the internal storage (optional) (default to true)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	includeNonTerminated := true // bool | Whether to delete non-terminated executions (optional) (default to false)
+	deleteMetrics := openapiclient.deleteExecutionsByIds_deleteLogs_parameter{Bool: new(bool)} // DeleteExecutionsByIdsDeleteLogsParameter | Whether to delete execution metrics (optional)
 	deleteLogs := true // bool | Whether to delete execution logs (optional) (default to true)
-	deleteMetrics := true // bool | Whether to delete execution metrics (optional) (default to true)
-	deleteStorage := true // bool | Whether to delete execution files in the internal storage (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.DeleteExecutionsByQuery(context.Background(), tenant).Filters(filters).IncludeNonTerminated(includeNonTerminated).DeleteLogs(deleteLogs).DeleteMetrics(deleteMetrics).DeleteStorage(deleteStorage).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.DeleteExecutionsByQuery(context.Background(), tenant).DeleteStorage(deleteStorage).Filters(filters).IncludeNonTerminated(includeNonTerminated).DeleteMetrics(deleteMetrics).DeleteLogs(deleteLogs).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.DeleteExecutionsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -349,11 +350,11 @@ Other parameters are passed through a pointer to a apiDeleteExecutionsByQueryReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **deleteStorage** | **bool** | Whether to delete execution files in the internal storage | [default to true]
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
  **includeNonTerminated** | **bool** | Whether to delete non-terminated executions | [default to false]
+ **deleteMetrics** | [**DeleteExecutionsByIdsDeleteLogsParameter**](DeleteExecutionsByIdsDeleteLogsParameter.md) | Whether to delete execution metrics | 
  **deleteLogs** | **bool** | Whether to delete execution logs | [default to true]
- **deleteMetrics** | **bool** | Whether to delete execution metrics | [default to true]
- **deleteStorage** | **bool** | Whether to delete execution files in the internal storage | [default to true]
 
 ### Return type
 
@@ -440,6 +441,79 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## EvalExpression
+
+> ExecutionControllerEvalResult EvalExpression(ctx, executionId, tenant).Body(body).Execute()
+
+Evaluate a variable expression for this execution
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	executionId := "executionId_example" // string | The execution id
+	tenant := "tenant_example" // string | 
+	body := "body_example" // string | The Pebble expression that should be evaluated
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.EvalExpression(context.Background(), executionId, tenant).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.EvalExpression``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `EvalExpression`: ExecutionControllerEvalResult
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.EvalExpression`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**executionId** | **string** | The execution id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEvalExpressionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | **string** | The Pebble expression that should be evaluated | 
+
+### Return type
+
+[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: text/plain
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -685,7 +759,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace of the flow
 	flowId := "flowId_example" // string | The flow id
 	tenant := "tenant_example" // string | 
-	revision := int32(56) // int32 | The flow revision (optional)
+	revision := openapiclient.flowFromExecution_revision_parameter{Int32: new(int32)} // FlowFromExecutionRevisionParameter | The flow revision (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -719,7 +793,7 @@ Name | Type | Description  | Notes
 
 
 
- **revision** | **int32** | The flow revision | 
+ **revision** | [**FlowFromExecutionRevisionParameter**](FlowFromExecutionRevisionParameter.md) | The flow revision | 
 
 ### Return type
 
@@ -812,7 +886,7 @@ Name | Type | Description  | Notes
 
 ## FollowDependenciesExecutions
 
-> EventExecutionStatusEvent FollowDependenciesExecutions(ctx, executionId, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+> EventExecutionStatusEvent FollowDependenciesExecutions(ctx, executionId, tenant).ExpandAll(expandAll).DestinationOnly(destinationOnly).Execute()
 
 Follow all execution dependencies executions
 
@@ -830,13 +904,13 @@ import (
 
 func main() {
 	executionId := "executionId_example" // string | The execution id
-	destinationOnly := true // bool | If true, list only destination dependencies, otherwise list also source dependencies (default to false)
-	expandAll := true // bool | If true, expand all dependencies recursively (default to false)
 	tenant := "tenant_example" // string | 
+	expandAll := true // bool | If true, expand all dependencies recursively (optional) (default to false)
+	destinationOnly := true // bool | If true, list only destination dependencies, otherwise list also source dependencies (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.FollowDependenciesExecutions(context.Background(), executionId, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.FollowDependenciesExecutions(context.Background(), executionId, tenant).ExpandAll(expandAll).DestinationOnly(destinationOnly).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.FollowDependenciesExecutions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -863,9 +937,9 @@ Other parameters are passed through a pointer to a apiFollowDependenciesExecutio
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **destinationOnly** | **bool** | If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **expandAll** | **bool** | If true, expand all dependencies recursively | [default to false]
 
+ **expandAll** | **bool** | If true, expand all dependencies recursively | [default to false]
+ **destinationOnly** | **bool** | If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
 
 ### Return type
 
@@ -1187,8 +1261,8 @@ import (
 
 func main() {
 	executionId := "executionId_example" // string | The execution id
-	isOnKillCascade := true // bool | Specifies whether killing the execution also kill all subflow executions. (default to true)
 	tenant := "tenant_example" // string | 
+	isOnKillCascade := true // bool | Specifies whether killing the execution also kill all subflow executions. (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1219,8 +1293,8 @@ Other parameters are passed through a pointer to a apiKillExecutionRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **isOnKillCascade** | **bool** | Specifies whether killing the execution also kill all subflow executions. | [default to true]
 
+ **isOnKillCascade** | **bool** | Specifies whether killing the execution also kill all subflow executions. | [default to true]
 
 ### Return type
 
@@ -1661,7 +1735,7 @@ Name | Type | Description  | Notes
 
 ## ReplayExecution
 
-> Execution ReplayExecution(ctx, executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+> Execution ReplayExecution(ctx, executionId, tenant).TaskRunId(taskRunId).Breakpoints(breakpoints).Revision(revision).Execute()
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1681,12 +1755,12 @@ func main() {
 	executionId := "executionId_example" // string | the original execution id to clone
 	tenant := "tenant_example" // string | 
 	taskRunId := "taskRunId_example" // string | The taskrun id (optional)
-	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
 	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.ReplayExecution(context.Background(), executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.ReplayExecution(context.Background(), executionId, tenant).TaskRunId(taskRunId).Breakpoints(breakpoints).Revision(revision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ReplayExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1715,8 +1789,8 @@ Name | Type | Description  | Notes
 
 
  **taskRunId** | **string** | The taskrun id | 
- **revision** | **int32** | The flow revision to use for new execution | 
  **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
+ **revision** | **int32** | The flow revision to use for new execution | 
 
 ### Return type
 
@@ -1738,7 +1812,7 @@ Name | Type | Description  | Notes
 
 ## ReplayExecutionWithinputs
 
-> Execution ReplayExecutionWithinputs(ctx, executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+> Execution ReplayExecutionWithinputs(ctx, executionId, tenant).TaskRunId(taskRunId).Breakpoints(breakpoints).Revision(revision).Execute()
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1758,12 +1832,12 @@ func main() {
 	executionId := "executionId_example" // string | the original execution id to clone
 	tenant := "tenant_example" // string | 
 	taskRunId := "taskRunId_example" // string | The taskrun id (optional)
-	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
 	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.ReplayExecutionWithinputs(context.Background(), executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.ReplayExecutionWithinputs(context.Background(), executionId, tenant).TaskRunId(taskRunId).Breakpoints(breakpoints).Revision(revision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ReplayExecutionWithinputs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1792,8 +1866,8 @@ Name | Type | Description  | Notes
 
 
  **taskRunId** | **string** | The taskrun id | 
- **revision** | **int32** | The flow revision to use for new execution | 
  **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
+ **revision** | **int32** | The flow revision to use for new execution | 
 
 ### Return type
 
@@ -2383,7 +2457,7 @@ Name | Type | Description  | Notes
 
 ## SearchExecutions
 
-> PagedResultsExecution SearchExecutions(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+> PagedResultsExecution SearchExecutions(ctx, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 
 Search for executions
 
@@ -2400,15 +2474,15 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	page := openapiclient.searchBlueprints_size_parameter{Int32: new(int32)} // SearchBlueprintsSizeParameter | The current page (optional)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.SearchExecutions(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.SearchExecutions(context.Background(), tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.SearchExecutions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2433,11 +2507,11 @@ Other parameters are passed through a pointer to a apiSearchExecutionsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
- **sort** | **[]string** | The sort of current page | 
+ **page** | [**SearchBlueprintsSizeParameter**](SearchBlueprintsSizeParameter.md) | The current page | 
+ **size** | **int32** | The current page size | [default to 10]
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
+ **sort** | **[]string** | The sort of current page | 
 
 ### Return type
 
@@ -2459,7 +2533,7 @@ Name | Type | Description  | Notes
 
 ## SearchExecutionsByFlowId
 
-> PagedResultsExecution SearchExecutionsByFlowId(ctx, tenant).Namespace(namespace).FlowId(flowId).Page(page).Size(size).Execute()
+> PagedResultsExecution SearchExecutionsByFlowId(ctx, tenant).FlowId(flowId).Namespace(namespace).Size(size).Page(page).Execute()
 
 Search for executions for a flow
 
@@ -2476,15 +2550,15 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
 	flowId := "flowId_example" // string | The flow id
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.SearchExecutionsByFlowId(context.Background(), tenant).Namespace(namespace).FlowId(flowId).Page(page).Size(size).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.SearchExecutionsByFlowId(context.Background(), tenant).FlowId(flowId).Namespace(namespace).Size(size).Page(page).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.SearchExecutionsByFlowId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2509,11 +2583,11 @@ Other parameters are passed through a pointer to a apiSearchExecutionsByFlowIdRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespace** | **string** | The flow namespace | 
  **flowId** | **string** | The flow id | 
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
+ **namespace** | **string** | The flow namespace | 
 
+ **size** | **int32** | The current page size | [default to 10]
+ **page** | **int32** | The current page | [default to 1]
 
 ### Return type
 
@@ -2750,7 +2824,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByGetWebhook
 
-> WebhookResponse TriggerExecutionByGetWebhook(ctx, namespace, id, key, tenant).Execute()
+> WebhookResponse TriggerExecutionByGetWebhook(ctx, id, key, namespace, tenant).Execute()
 
 Trigger a new execution by GET webhook trigger
 
@@ -2767,14 +2841,14 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
 	id := "id_example" // string | The flow id
 	key := "key_example" // string | The webhook trigger uid
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByGetWebhook(context.Background(), namespace, id, key, tenant).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByGetWebhook(context.Background(), id, key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByGetWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2790,9 +2864,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
 **id** | **string** | The flow id | 
 **key** | **string** | The webhook trigger uid | 
+**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2827,7 +2901,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByGetWebhookWithPath
 
-> WebhookResponse TriggerExecutionByGetWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+> WebhookResponse TriggerExecutionByGetWebhookWithPath(ctx, path, id, key, namespace, tenant).Execute()
 
 Trigger a new execution by GET webhook trigger
 
@@ -2844,15 +2918,15 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
+	path := "path_example" // string | Optional additional path segments
 	id := "id_example" // string | The flow id
 	key := "key_example" // string | The webhook trigger uid
-	path := "path_example" // string | Optional additional path segments
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByGetWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByGetWebhookWithPath(context.Background(), path, id, key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByGetWebhookWithPath``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2868,10 +2942,10 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
+**path** | **string** | Optional additional path segments | 
 **id** | **string** | The flow id | 
 **key** | **string** | The webhook trigger uid | 
-**path** | **string** | Optional additional path segments | 
+**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2907,7 +2981,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByPostWebhookWithPath
 
-> WebhookResponse TriggerExecutionByPostWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+> WebhookResponse TriggerExecutionByPostWebhookWithPath(ctx, path, id, key, namespace, tenant).Execute()
 
 Trigger a new execution by POST webhook trigger
 
@@ -2924,15 +2998,15 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
+	path := "path_example" // string | Optional additional path segments
 	id := "id_example" // string | The flow id
 	key := "key_example" // string | The webhook trigger uid
-	path := "path_example" // string | Optional additional path segments
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPostWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPostWebhookWithPath(context.Background(), path, id, key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPostWebhookWithPath``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2948,10 +3022,10 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
+**path** | **string** | Optional additional path segments | 
 **id** | **string** | The flow id | 
 **key** | **string** | The webhook trigger uid | 
-**path** | **string** | Optional additional path segments | 
+**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2987,7 +3061,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByPutWebhookWithPath
 
-> WebhookResponse TriggerExecutionByPutWebhookWithPath(ctx, namespace, id, key, path, tenant).Execute()
+> WebhookResponse TriggerExecutionByPutWebhookWithPath(ctx, path, id, key, namespace, tenant).Execute()
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3004,15 +3078,15 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The flow namespace
+	path := "path_example" // string | Optional additional path segments
 	id := "id_example" // string | The flow id
 	key := "key_example" // string | The webhook trigger uid
-	path := "path_example" // string | Optional additional path segments
+	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPutWebhookWithPath(context.Background(), namespace, id, key, path, tenant).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.TriggerExecutionByPutWebhookWithPath(context.Background(), path, id, key, namespace, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPutWebhookWithPath``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3028,10 +3102,10 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
+**path** | **string** | Optional additional path segments | 
 **id** | **string** | The flow id | 
 **key** | **string** | The webhook trigger uid | 
-**path** | **string** | Optional additional path segments | 
+**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
 
 ### Other Parameters

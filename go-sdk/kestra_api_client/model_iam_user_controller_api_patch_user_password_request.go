@@ -19,7 +19,7 @@ var _ MappedNullable = &IAMUserControllerApiPatchUserPasswordRequest{}
 
 // IAMUserControllerApiPatchUserPasswordRequest struct for IAMUserControllerApiPatchUserPasswordRequest
 type IAMUserControllerApiPatchUserPasswordRequest struct {
-	Password             string `json:"password"`
+	Password string `json:"password"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +68,7 @@ func (o *IAMUserControllerApiPatchUserPasswordRequest) SetPassword(v string) {
 }
 
 func (o IAMUserControllerApiPatchUserPasswordRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -99,10 +99,10 @@ func (o *IAMUserControllerApiPatchUserPasswordRequest) UnmarshalJSON(data []byte
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -163,3 +163,5 @@ func (v *NullableIAMUserControllerApiPatchUserPasswordRequest) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

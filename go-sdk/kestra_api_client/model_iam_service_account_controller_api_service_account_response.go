@@ -24,9 +24,9 @@ type IAMServiceAccountControllerApiServiceAccountResponse struct {
 	// the name of this service account.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// the description of this service account.
-	Description          *string                               `json:"description,omitempty"`
-	Groups               []IAMServiceAccountControllerApiGroup `json:"groups,omitempty"`
-	SuperAdmin           *bool                                 `json:"superAdmin,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Groups []IAMServiceAccountControllerApiGroup `json:"groups,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -203,7 +203,7 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetSuperAdmin(v b
 }
 
 func (o IAMServiceAccountControllerApiServiceAccountResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,10 +246,10 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) UnmarshalJSON(dat
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -314,3 +314,5 @@ func (v *NullableIAMServiceAccountControllerApiServiceAccountResponse) Unmarshal
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

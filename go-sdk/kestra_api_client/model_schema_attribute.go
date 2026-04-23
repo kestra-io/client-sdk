@@ -18,23 +18,23 @@ var _ MappedNullable = &SchemaAttribute{}
 
 // SchemaAttribute struct for SchemaAttribute
 type SchemaAttribute struct {
-	Attributes              []SchemaAttribute          `json:"attributes,omitempty"`
-	Urn                     *string                    `json:"urn,omitempty"`
-	Name                    *string                    `json:"name,omitempty" validate:"regexp=\\\\p{Alpha}(-|_|\\\\p{Alnum})*"`
-	Type                    *SchemaAttributeType       `json:"type,omitempty"`
-	SubAttributes           []SchemaAttribute          `json:"subAttributes,omitempty"`
-	MultiValued             *bool                      `json:"multiValued,omitempty"`
-	Description             *string                    `json:"description,omitempty"`
-	Required                *bool                      `json:"required,omitempty"`
-	CanonicalValues         []string                   `json:"canonicalValues,omitempty"`
-	CaseExact               *bool                      `json:"caseExact,omitempty"`
-	Mutability              *SchemaAttributeMutability `json:"mutability,omitempty"`
-	Returned                *SchemaAttributeReturned   `json:"returned,omitempty"`
-	Uniqueness              *SchemaAttributeUniqueness `json:"uniqueness,omitempty"`
-	ReferenceTypes          []string                   `json:"referenceTypes,omitempty"`
-	Accessor                map[string]interface{}     `json:"accessor,omitempty"`
-	ScimResourceIdReference *bool                      `json:"scimResourceIdReference,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	Attributes []SchemaAttribute `json:"attributes,omitempty"`
+	Urn *string `json:"urn,omitempty"`
+	Name *string `json:"name,omitempty" validate:"regexp=\\\\p{Alpha}(-|_|\\\\p{Alnum})*"`
+	Type *SchemaAttributeType `json:"type,omitempty"`
+	SubAttributes []SchemaAttribute `json:"subAttributes,omitempty"`
+	MultiValued *bool `json:"multiValued,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Required *bool `json:"required,omitempty"`
+	CanonicalValues []string `json:"canonicalValues,omitempty"`
+	CaseExact *bool `json:"caseExact,omitempty"`
+	Mutability *SchemaAttributeMutability `json:"mutability,omitempty"`
+	Returned *SchemaAttributeReturned `json:"returned,omitempty"`
+	Uniqueness *SchemaAttributeUniqueness `json:"uniqueness,omitempty"`
+	ReferenceTypes []string `json:"referenceTypes,omitempty"`
+	Accessor map[string]interface{} `json:"accessor,omitempty"`
+	ScimResourceIdReference *bool `json:"scimResourceIdReference,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SchemaAttribute SchemaAttribute
@@ -569,7 +569,7 @@ func (o *SchemaAttribute) SetScimResourceIdReference(v bool) {
 }
 
 func (o SchemaAttribute) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -705,3 +705,5 @@ func (v *NullableSchemaAttribute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

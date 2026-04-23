@@ -664,7 +664,7 @@ Name | Type | Description  | Notes
 
 ## ListNamespaceSecrets
 
-> ApiSecretListResponseApiSecretMeta ListNamespaceSecrets(ctx, namespace, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
+> ApiSecretListResponseApiSecretMeta ListNamespaceSecrets(ctx, namespace, tenant).Filters(filters).Size(size).Sort(sort).Page(page).Execute()
 
 Get secrets for a namespace
 
@@ -682,15 +682,15 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace id
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.ListNamespaceSecrets(context.Background(), namespace, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
+	resp, r, err := apiClient.NamespacesAPI.ListNamespaceSecrets(context.Background(), namespace, tenant).Filters(filters).Size(size).Sort(sort).Page(page).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.ListNamespaceSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -717,11 +717,11 @@ Other parameters are passed through a pointer to a apiListNamespaceSecretsReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
+ **size** | **int32** | The current page size | [default to 10]
  **sort** | **[]string** | The sort of current page | 
+ **page** | **int32** | The current page | [default to 1]
 
 ### Return type
 
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 
 ## SearchNamespaces
 
-> PagedResultsNamespace SearchNamespaces(ctx, tenant).Page(page).Size(size).Existing(existing).Q(q).Sort(sort).Execute()
+> PagedResultsNamespace SearchNamespaces(ctx, tenant).Q(q).Existing(existing).Size(size).Page(page).Sort(sort).Execute()
 
 Search for namespaces
 
@@ -980,16 +980,16 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	existing := true // bool | Return only existing namespace (default to false)
 	tenant := "tenant_example" // string | 
 	q := "q_example" // string | A string filter (optional)
+	existing := openapiclient.schemasFromType_arrayOf_parameter{Bool: new(bool)} // SchemasFromTypeArrayOfParameter | Return only existing namespace (optional)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.SearchNamespaces(context.Background(), tenant).Page(page).Size(size).Existing(existing).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.NamespacesAPI.SearchNamespaces(context.Background(), tenant).Q(q).Existing(existing).Size(size).Page(page).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.SearchNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1014,11 +1014,11 @@ Other parameters are passed through a pointer to a apiSearchNamespacesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
- **existing** | **bool** | Return only existing namespace | [default to false]
 
  **q** | **string** | A string filter | 
+ **existing** | [**SchemasFromTypeArrayOfParameter**](SchemasFromTypeArrayOfParameter.md) | Return only existing namespace | 
+ **size** | **int32** | The current page size | [default to 10]
+ **page** | **int32** | The current page | [default to 1]
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type

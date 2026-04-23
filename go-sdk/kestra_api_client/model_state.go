@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the State type satisfies the MappedNullable interface at compile time
@@ -20,11 +20,14 @@ var _ MappedNullable = &State{}
 
 // State struct for State
 type State struct {
-	Duration             NullableString `json:"duration,omitempty"`
-	StartDate            *time.Time     `json:"startDate,omitempty"`
-	EndDate              NullableTime   `json:"endDate,omitempty"`
-	Current              StateType      `json:"current"`
-	Histories            []StateHistory `json:"histories,omitempty"`
+	Duration NullableString `json:"duration,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate NullableTime `json:"endDate,omitempty"`
+	Current StateType `json:"current"`
+	Histories []StateHistory `json:"histories,omitempty"`
+	GetDuration string `json:"getDuration"`
+	GetStartDate time.Time `json:"getStartDate"`
+	GetEndDate time.Time `json:"getEndDate"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,9 +37,12 @@ type _State State
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewState(current StateType) *State {
+func NewState(current StateType, getDuration string, getStartDate time.Time, getEndDate time.Time) *State {
 	this := State{}
 	this.Current = current
+	this.GetDuration = getDuration
+	this.GetStartDate = getStartDate
+	this.GetEndDate = getEndDate
 	return &this
 }
 
@@ -80,7 +86,6 @@ func (o *State) HasDuration() bool {
 func (o *State) SetDuration(v string) {
 	o.Duration.Set(&v)
 }
-
 // SetDurationNil sets the value for Duration to be an explicit nil
 func (o *State) SetDurationNil() {
 	o.Duration.Set(nil)
@@ -155,7 +160,6 @@ func (o *State) HasEndDate() bool {
 func (o *State) SetEndDate(v time.Time) {
 	o.EndDate.Set(&v)
 }
-
 // SetEndDateNil sets the value for EndDate to be an explicit nil
 func (o *State) SetEndDateNil() {
 	o.EndDate.Set(nil)
@@ -222,8 +226,80 @@ func (o *State) SetHistories(v []StateHistory) {
 	o.Histories = v
 }
 
+// GetGetDuration returns the GetDuration field value
+func (o *State) GetGetDuration() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GetDuration
+}
+
+// GetGetDurationOk returns a tuple with the GetDuration field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetDurationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetDuration, true
+}
+
+// SetGetDuration sets field value
+func (o *State) SetGetDuration(v string) {
+	o.GetDuration = v
+}
+
+// GetGetStartDate returns the GetStartDate field value
+func (o *State) GetGetStartDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.GetStartDate
+}
+
+// GetGetStartDateOk returns a tuple with the GetStartDate field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetStartDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetStartDate, true
+}
+
+// SetGetStartDate sets field value
+func (o *State) SetGetStartDate(v time.Time) {
+	o.GetStartDate = v
+}
+
+// GetGetEndDate returns the GetEndDate field value
+func (o *State) GetGetEndDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.GetEndDate
+}
+
+// GetGetEndDateOk returns a tuple with the GetEndDate field value
+// and a boolean to check if the value has been set.
+func (o *State) GetGetEndDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GetEndDate, true
+}
+
+// SetGetEndDate sets field value
+func (o *State) SetGetEndDate(v time.Time) {
+	o.GetEndDate = v
+}
+
 func (o State) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -245,6 +321,9 @@ func (o State) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Histories) {
 		toSerialize["histories"] = o.Histories
 	}
+	toSerialize["getDuration"] = o.GetDuration
+	toSerialize["getStartDate"] = o.GetStartDate
+	toSerialize["getEndDate"] = o.GetEndDate
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -259,6 +338,9 @@ func (o *State) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"current",
+		"getDuration",
+		"getStartDate",
+		"getEndDate",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -266,10 +348,10 @@ func (o *State) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -293,6 +375,9 @@ func (o *State) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "endDate")
 		delete(additionalProperties, "current")
 		delete(additionalProperties, "histories")
+		delete(additionalProperties, "getDuration")
+		delete(additionalProperties, "getStartDate")
+		delete(additionalProperties, "getEndDate")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -334,3 +419,5 @@ func (v *NullableState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

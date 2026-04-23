@@ -19,9 +19,9 @@ type SLABehavior string
 
 // List of SLA.Behavior
 const (
-	SLABEHAVIOR_FAIL   SLABehavior = "FAIL"
+	SLABEHAVIOR_FAIL SLABehavior = "FAIL"
 	SLABEHAVIOR_CANCEL SLABehavior = "CANCEL"
-	SLABEHAVIOR_NONE   SLABehavior = "NONE"
+	SLABEHAVIOR_NONE SLABehavior = "NONE"
 )
 
 // All allowed values of SLABehavior enum
@@ -109,3 +109,4 @@ func (v *NullableSLABehavior) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

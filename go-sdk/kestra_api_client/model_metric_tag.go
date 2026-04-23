@@ -18,8 +18,8 @@ var _ MappedNullable = &MetricTag{}
 
 // MetricTag struct for MetricTag
 type MetricTag struct {
-	Key                  *string `json:"key,omitempty"`
-	Value                *string `json:"value,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *MetricTag) SetValue(v string) {
 }
 
 func (o MetricTag) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableMetricTag) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

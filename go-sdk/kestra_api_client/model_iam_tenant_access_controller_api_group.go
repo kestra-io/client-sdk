@@ -18,9 +18,9 @@ var _ MappedNullable = &IAMTenantAccessControllerApiGroup{}
 
 // IAMTenantAccessControllerApiGroup struct for IAMTenantAccessControllerApiGroup
 type IAMTenantAccessControllerApiGroup struct {
-	Id                   *string `json:"id,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	External             *bool   `json:"external,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	External *bool `json:"external,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *IAMTenantAccessControllerApiGroup) SetExternal(v bool) {
 }
 
 func (o IAMTenantAccessControllerApiGroup) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableIAMTenantAccessControllerApiGroup) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

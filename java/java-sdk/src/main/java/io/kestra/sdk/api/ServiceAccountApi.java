@@ -900,40 +900,30 @@ import java.util.StringJoiner;
   /**
    * List service accounts. Superadmin-only. 
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listServiceAccounts(page, size, filters, sort, Collections.emptyMap());
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.listServiceAccounts(filters, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * List service accounts. Superadmin-only. 
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param filters Filters (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling listServiceAccounts");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling listServiceAccounts");
-    }
     
     // verify the required parameter 'filters' is set
     if (filters == null) {

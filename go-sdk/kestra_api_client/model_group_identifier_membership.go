@@ -19,7 +19,7 @@ type GroupIdentifierMembership string
 
 // List of GroupIdentifier.Membership
 const (
-	GROUPIDENTIFIERMEMBERSHIP_OWNER  GroupIdentifierMembership = "OWNER"
+	GROUPIDENTIFIERMEMBERSHIP_OWNER GroupIdentifierMembership = "OWNER"
 	GROUPIDENTIFIERMEMBERSHIP_MEMBER GroupIdentifierMembership = "MEMBER"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableGroupIdentifierMembership) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

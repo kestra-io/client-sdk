@@ -18,32 +18,32 @@ var _ MappedNullable = &IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 
 // IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions struct for IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 type IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions struct {
-	FLOW                 []string `json:"FLOW,omitempty"`
-	BLUEPRINT            []string `json:"BLUEPRINT,omitempty"`
-	TEMPLATE             []string `json:"TEMPLATE,omitempty"`
-	NAMESPACE            []string `json:"NAMESPACE,omitempty"`
-	EXECUTION            []string `json:"EXECUTION,omitempty"`
-	USER                 []string `json:"USER,omitempty"`
-	GROUP                []string `json:"GROUP,omitempty"`
-	ROLE                 []string `json:"ROLE,omitempty"`
-	BINDING              []string `json:"BINDING,omitempty"`
-	AUDITLOG             []string `json:"AUDITLOG,omitempty"`
-	SECRET               []string `json:"SECRET,omitempty"`
-	KVSTORE              []string `json:"KVSTORE,omitempty"`
-	IMPERSONATE          []string `json:"IMPERSONATE,omitempty"`
-	SETTING              []string `json:"SETTING,omitempty"`
-	APP                  []string `json:"APP,omitempty"`
-	ASSET                []string `json:"ASSET,omitempty"`
-	APPEXECUTION         []string `json:"APPEXECUTION,omitempty"`
-	TEST                 []string `json:"TEST,omitempty"`
-	DASHBOARD            []string `json:"DASHBOARD,omitempty"`
-	TENANT_ACCESS        []string `json:"TENANT_ACCESS,omitempty"`
-	SERVICE_ACCOUNT      []string `json:"SERVICE_ACCOUNT,omitempty"`
-	INVITATION           []string `json:"INVITATION,omitempty"`
-	GROUP_MEMBERSHIP     []string `json:"GROUP_MEMBERSHIP,omitempty"`
-	CREDENTIAL           []string `json:"CREDENTIAL,omitempty"`
-	AI_COPILOT           []string `json:"AI_COPILOT,omitempty"`
-	UNKNOWN              []string `json:"UNKNOWN,omitempty"`
+	FLOW []string `json:"FLOW,omitempty"`
+	BLUEPRINT []string `json:"BLUEPRINT,omitempty"`
+	TEMPLATE []string `json:"TEMPLATE,omitempty"`
+	NAMESPACE []string `json:"NAMESPACE,omitempty"`
+	EXECUTION []string `json:"EXECUTION,omitempty"`
+	USER []string `json:"USER,omitempty"`
+	GROUP []string `json:"GROUP,omitempty"`
+	ROLE []string `json:"ROLE,omitempty"`
+	BINDING []string `json:"BINDING,omitempty"`
+	AUDITLOG []string `json:"AUDITLOG,omitempty"`
+	SECRET []string `json:"SECRET,omitempty"`
+	KVSTORE []string `json:"KVSTORE,omitempty"`
+	IMPERSONATE []string `json:"IMPERSONATE,omitempty"`
+	SETTING []string `json:"SETTING,omitempty"`
+	APP []string `json:"APP,omitempty"`
+	ASSET []string `json:"ASSET,omitempty"`
+	APPEXECUTION []string `json:"APPEXECUTION,omitempty"`
+	TEST []string `json:"TEST,omitempty"`
+	DASHBOARD []string `json:"DASHBOARD,omitempty"`
+	TENANT_ACCESS []string `json:"TENANT_ACCESS,omitempty"`
+	SERVICE_ACCOUNT []string `json:"SERVICE_ACCOUNT,omitempty"`
+	INVITATION []string `json:"INVITATION,omitempty"`
+	GROUP_MEMBERSHIP []string `json:"GROUP_MEMBERSHIP,omitempty"`
+	CREDENTIAL []string `json:"CREDENTIAL,omitempty"`
+	AI_COPILOT []string `json:"AI_COPILOT,omitempty"`
+	UNKNOWN []string `json:"UNKNOWN,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -899,7 +899,7 @@ func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetUNKNOWN(v 
 }
 
 func (o IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -1075,3 +1075,5 @@ func (v *NullableIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

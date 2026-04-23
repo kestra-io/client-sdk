@@ -30,16 +30,17 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
 )
 
 var (
 	JsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:[^;]+\+)?json)`)
 	XmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/(?:[^;]+\+)?xml)`)
 	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
-	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
+	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Kestra EE API v1.3.0
+// APIClient manages communication with the Kestra EE API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -156,7 +157,7 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 	return nil
 }
 
-func parameterValueToString(obj interface{}, key string) string {
+func parameterValueToString( obj interface{}, key string ) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
 		if actualObj, ok := obj.(interface{ GetActualInstanceValue() interface{} }); ok {
 			return fmt.Sprintf("%v", actualObj.GetActualInstanceValue())
@@ -164,11 +165,11 @@ func parameterValueToString(obj interface{}, key string) string {
 
 		return fmt.Sprintf("%v", obj)
 	}
-	var param, ok = obj.(MappedNullable)
+	var param,ok = obj.(MappedNullable)
 	if !ok {
 		return ""
 	}
-	dataMap, err := param.ToMap()
+	dataMap,err := param.ToMap()
 	if err != nil {
 		return ""
 	}
@@ -213,35 +214,35 @@ func paramToString(v interface{}) string {
 		return s.String()
 	}
 
-	// If it's a slice/array, serialize as comma-separated values with no spaces.
-	// (Except []byte, which we leave to the default formatting to avoid changing semantics.)
-	rv := reflect.ValueOf(v)
-	if rv.IsValid() {
-		k := rv.Kind()
-		if k == reflect.Slice || k == reflect.Array {
-			// Preserve previous behavior for []byte
-			if rv.Type().Elem().Kind() == reflect.Uint8 {
-				return fmt.Sprintf("%v", v)
-			}
+    // If it's a slice/array, serialize as comma-separated values with no spaces.
+    // (Except []byte, which we leave to the default formatting to avoid changing semantics.)
+    rv := reflect.ValueOf(v)
+    if rv.IsValid() {
+        k := rv.Kind()
+        if k == reflect.Slice || k == reflect.Array {
+            // Preserve previous behavior for []byte
+            if rv.Type().Elem().Kind() == reflect.Uint8 {
+                return fmt.Sprintf("%v", v)
+            }
 
-			var b strings.Builder
-			ln := rv.Len()
-			for i := 0; i < ln; i++ {
-				if i > 0 {
-					b.WriteByte(',')
-				}
-				el := rv.Index(i)
-				// Safely handle nil pointers / interfaces
-				if (el.Kind() == reflect.Ptr || el.Kind() == reflect.Interface) && el.IsNil() {
-					continue
-				}
-				b.WriteString(paramToString(el.Interface()))
-			}
-			return b.String()
-		}
-	}
+            var b strings.Builder
+            ln := rv.Len()
+            for i := 0; i < ln; i++ {
+                if i > 0 {
+                    b.WriteByte(',')
+                }
+                el := rv.Index(i)
+                // Safely handle nil pointers / interfaces
+                if (el.Kind() == reflect.Ptr || el.Kind() == reflect.Interface) && el.IsNil() {
+                    continue
+                }
+                b.WriteString(paramToString(el.Interface()))
+            }
+            return b.String()
+        }
+    }
 
-	return fmt.Sprintf("%v", v)
+    return fmt.Sprintf("%v", v)
 }
 
 // parseQueryFilters converts a slice of QueryFilter objects into flattened query params.
@@ -285,106 +286,106 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 	if v == reflect.ValueOf(nil) {
 		value = "null"
 	} else {
-		filters, isFilters := obj.([]QueryFilter)
+        filters, isFilters := obj.([]QueryFilter)
 		if keyPrefix == "filters" && isFilters {
-			kvpairs, err := ParseQueryFilters(filters)
-			if err != nil {
-				panic(fmt.Sprintf("could not parse query filters, err: %s", err))
-			}
+            kvpairs, err := ParseQueryFilters(filters)
+            if err != nil {
+                panic(fmt.Sprintf("could not parse query filters, err: %s", err))
+            }
 
-			switch valuesMap := headerOrQueryParams.(type) {
-			case url.Values:
-				for k, v := range kvpairs {
-					valuesMap.Add(k, v)
-				}
-			case map[string]string:
-				for k, v := range kvpairs {
-					valuesMap[k] = v
-				}
-			}
-			return
+            switch valuesMap := headerOrQueryParams.(type) {
+            case url.Values:
+                for k, v := range kvpairs {
+                    valuesMap.Add(k, v)
+                }
+            case map[string]string:
+                for k, v := range kvpairs {
+                    valuesMap[k] = v
+                }
+            }
+            return
 		}
 
 		switch v.Kind() {
-		case reflect.Invalid:
-			value = "invalid"
+			case reflect.Invalid:
+				value = "invalid"
 
-		case reflect.Struct:
-			if t, ok := obj.(MappedNullable); ok {
-				dataMap, err := t.ToMap()
-				if err != nil {
+			case reflect.Struct:
+				if t,ok := obj.(MappedNullable); ok {
+					dataMap,err := t.ToMap()
+					if err != nil {
+						return
+					}
+					parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, dataMap, style, collectionType)
 					return
 				}
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, dataMap, style, collectionType)
-				return
-			}
-			if t, ok := obj.(time.Time); ok {
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, t.Format(time.RFC3339Nano), style, collectionType)
-				return
-			}
-			value = v.Type().String() + " value"
-		case reflect.Slice:
-			var indValue = reflect.ValueOf(obj)
-			if indValue == reflect.ValueOf(nil) {
-				return
-			}
-			var lenIndValue = indValue.Len()
-			for i := 0; i < lenIndValue; i++ {
-				var arrayValue = indValue.Index(i)
-				var keyPrefixForCollectionType = keyPrefix
-				if style == "deepObject" {
-					keyPrefixForCollectionType = keyPrefix + "[" + strconv.Itoa(i) + "]"
+				if t, ok := obj.(time.Time); ok {
+					parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, t.Format(time.RFC3339Nano), style, collectionType)
+					return
 				}
-				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefixForCollectionType, arrayValue.Interface(), style, collectionType)
-			}
-			return
-
-		case reflect.Map:
-			var indValue = reflect.ValueOf(obj)
-			if indValue == reflect.ValueOf(nil) {
+				value = v.Type().String() + " value"
+			case reflect.Slice:
+				var indValue = reflect.ValueOf(obj)
+				if indValue == reflect.ValueOf(nil) {
+					return
+				}
+				var lenIndValue = indValue.Len()
+				for i:=0;i<lenIndValue;i++ {
+					var arrayValue = indValue.Index(i)
+					var keyPrefixForCollectionType = keyPrefix
+					if style == "deepObject" {
+						keyPrefixForCollectionType = keyPrefix + "[" + strconv.Itoa(i) + "]"
+					}
+					parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefixForCollectionType, arrayValue.Interface(), style, collectionType)
+				}
 				return
-			}
-			iter := indValue.MapRange()
-			for iter.Next() {
-				k, v := iter.Key(), iter.Value()
-				parameterAddToHeaderOrQuery(headerOrQueryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), style, collectionType)
-			}
-			return
 
-		case reflect.Interface:
-			fallthrough
-		case reflect.Ptr:
-			parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, v.Elem().Interface(), style, collectionType)
-			return
+			case reflect.Map:
+				var indValue = reflect.ValueOf(obj)
+				if indValue == reflect.ValueOf(nil) {
+					return
+				}
+				iter := indValue.MapRange()
+				for iter.Next() {
+					k,v := iter.Key(), iter.Value()
+					parameterAddToHeaderOrQuery(headerOrQueryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), style, collectionType)
+				}
+				return
 
-		case reflect.Int, reflect.Int8, reflect.Int16,
-			reflect.Int32, reflect.Int64:
-			value = strconv.FormatInt(v.Int(), 10)
-		case reflect.Uint, reflect.Uint8, reflect.Uint16,
-			reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-			value = strconv.FormatUint(v.Uint(), 10)
-		case reflect.Float32, reflect.Float64:
-			value = strconv.FormatFloat(v.Float(), 'g', -1, 32)
-		case reflect.Bool:
-			value = strconv.FormatBool(v.Bool())
-		case reflect.String:
-			value = v.String()
-		default:
-			value = v.Type().String() + " value"
+			case reflect.Interface:
+				fallthrough
+			case reflect.Ptr:
+				parameterAddToHeaderOrQuery(headerOrQueryParams, keyPrefix, v.Elem().Interface(), style, collectionType)
+				return
+
+			case reflect.Int, reflect.Int8, reflect.Int16,
+				reflect.Int32, reflect.Int64:
+				value = strconv.FormatInt(v.Int(), 10)
+			case reflect.Uint, reflect.Uint8, reflect.Uint16,
+				reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+				value = strconv.FormatUint(v.Uint(), 10)
+			case reflect.Float32, reflect.Float64:
+				value = strconv.FormatFloat(v.Float(), 'g', -1, 32)
+			case reflect.Bool:
+				value = strconv.FormatBool(v.Bool())
+			case reflect.String:
+				value = v.String()
+			default:
+				value = v.Type().String() + " value"
 		}
 	}
 
 	switch valuesMap := headerOrQueryParams.(type) {
-	case url.Values:
-		if collectionType == "csv" && valuesMap.Get(keyPrefix) != "" {
-			valuesMap.Set(keyPrefix, valuesMap.Get(keyPrefix)+","+value)
-		} else {
-			valuesMap.Add(keyPrefix, value)
-		}
-		break
-	case map[string]string:
-		valuesMap[keyPrefix] = value
-		break
+		case url.Values:
+			if collectionType == "csv" && valuesMap.Get(keyPrefix) != "" {
+				valuesMap.Set(keyPrefix, valuesMap.Get(keyPrefix) + "," + value)
+			} else {
+				valuesMap.Add(keyPrefix, value)
+			}
+			break
+		case map[string]string:
+			valuesMap[keyPrefix] = value
+			break
 	}
 }
 
@@ -429,9 +430,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-	fileBytes    []byte
-	fileName     string
-	formFileName string
+		fileBytes []byte
+		fileName string
+		formFileName string
 }
 
 // prepareRequest build the request
@@ -485,11 +486,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-					return nil, err
+						return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-					return nil, err
+						return nil, err
 				}
 			}
 		}

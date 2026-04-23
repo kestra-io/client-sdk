@@ -18,8 +18,8 @@ var _ MappedNullable = &ExecutionControllerSetLabelsByIdsRequest{}
 
 // ExecutionControllerSetLabelsByIdsRequest struct for ExecutionControllerSetLabelsByIdsRequest
 type ExecutionControllerSetLabelsByIdsRequest struct {
-	ExecutionsId         []string `json:"executionsId,omitempty"`
-	ExecutionLabels      []Label  `json:"executionLabels,omitempty"`
+	ExecutionsId []string `json:"executionsId,omitempty"`
+	ExecutionLabels []Label `json:"executionLabels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ExecutionControllerSetLabelsByIdsRequest) SetExecutionLabels(v []Label)
 }
 
 func (o ExecutionControllerSetLabelsByIdsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableExecutionControllerSetLabelsByIdsRequest) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

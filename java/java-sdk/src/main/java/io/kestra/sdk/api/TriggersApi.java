@@ -28,6 +28,7 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.DeleteTriggersByQueryRequest;
+import io.kestra.sdk.model.ListBlueprintTagsQParameter;
 import io.kestra.sdk.model.PagedResultsTrigger;
 import io.kestra.sdk.model.PagedResultsTriggerControllerTriggers;
 import io.kestra.sdk.model.QueryFilter;
@@ -307,28 +308,28 @@ import java.util.StringJoiner;
    * Delete a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
+  public Object deleteTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.deleteTrigger(namespace, triggerId, flowId, tenant, Collections.emptyMap());
   }
 
   /**
    * Delete a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -336,14 +337,14 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling deleteTrigger");
     }
     
-    // verify the required parameter 'flowId' is set
-    if (flowId == null) {
-      throw new ApiException(400, "Missing the required parameter 'flowId' when calling deleteTrigger");
-    }
-    
     // verify the required parameter 'triggerId' is set
     if (triggerId == null) {
       throw new ApiException(400, "Missing the required parameter 'triggerId' when calling deleteTrigger");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling deleteTrigger");
     }
     
     // verify the required parameter 'tenant' is set
@@ -354,8 +355,8 @@ import java.util.StringJoiner;
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "triggerId" + "\\}", apiClient.escapeString(apiClient.parameterToString(triggerId)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -663,33 +664,28 @@ import java.util.StringJoiner;
   /**
    * Disable/enable triggers by query parameters
    * 
-   * @param disabled The disabled state (required)
    * @param tenant  (required)
+   * @param disabled The disabled state (optional, default to true)
    * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap());
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean disabled, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.disabledTriggersByQuery(tenant, disabled, filters, Collections.emptyMap());
   }
 
   /**
    * Disable/enable triggers by query parameters
    * 
-   * @param disabled The disabled state (required)
    * @param tenant  (required)
+   * @param disabled The disabled state (optional, default to true)
    * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean disabled, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'disabled' is set
-    if (disabled == null) {
-      throw new ApiException(400, "Missing the required parameter 'disabled' when calling disabledTriggersByQuery");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -707,8 +703,8 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("disabled", disabled));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1090,28 +1086,28 @@ import java.util.StringJoiner;
    * Restart a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.restartTrigger(namespace, triggerId, flowId, tenant, Collections.emptyMap());
   }
 
   /**
    * Restart a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1119,14 +1115,14 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling restartTrigger");
     }
     
-    // verify the required parameter 'flowId' is set
-    if (flowId == null) {
-      throw new ApiException(400, "Missing the required parameter 'flowId' when calling restartTrigger");
-    }
-    
     // verify the required parameter 'triggerId' is set
     if (triggerId == null) {
       throw new ApiException(400, "Missing the required parameter 'triggerId' when calling restartTrigger");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling restartTrigger");
     }
     
     // verify the required parameter 'tenant' is set
@@ -1137,8 +1133,8 @@ import java.util.StringJoiner;
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "triggerId" + "\\}", apiClient.escapeString(apiClient.parameterToString(triggerId)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -1191,42 +1187,32 @@ import java.util.StringJoiner;
   /**
    * Search for triggers
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap());
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchTriggers(tenant, filters, size, page, sort, Collections.emptyMap());
   }
 
   /**
    * Search for triggers
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchTriggers");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchTriggers");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -1244,10 +1230,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1291,46 +1277,36 @@ import java.util.StringJoiner;
   /**
    * Get all triggers for a flow
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param namespace The namespace (required)
    * @param flowId The flow id (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param q A string filter (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q) throws ApiException {
-    return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap());
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull ListBlueprintTagsQParameter namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchTriggersForFlow(namespace, flowId, tenant, q, size, page, sort, Collections.emptyMap());
   }
 
   /**
    * Get all triggers for a flow
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param namespace The namespace (required)
    * @param flowId The flow id (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param q A string filter (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull ListBlueprintTagsQParameter namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchTriggersForFlow");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchTriggersForFlow");
-    }
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
@@ -1360,10 +1336,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1408,28 +1384,28 @@ import java.util.StringJoiner;
    * Unlock a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.unlockTrigger(namespace, triggerId, flowId, tenant, Collections.emptyMap());
   }
 
   /**
    * Unlock a trigger
    * 
    * @param namespace The namespace (required)
-   * @param flowId The flow id (required)
    * @param triggerId The trigger id (required)
+   * @param flowId The flow id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1437,14 +1413,14 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling unlockTrigger");
     }
     
-    // verify the required parameter 'flowId' is set
-    if (flowId == null) {
-      throw new ApiException(400, "Missing the required parameter 'flowId' when calling unlockTrigger");
-    }
-    
     // verify the required parameter 'triggerId' is set
     if (triggerId == null) {
       throw new ApiException(400, "Missing the required parameter 'triggerId' when calling unlockTrigger");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling unlockTrigger");
     }
     
     // verify the required parameter 'tenant' is set
@@ -1455,8 +1431,8 @@ import java.util.StringJoiner;
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "triggerId" + "\\}", apiClient.escapeString(apiClient.parameterToString(triggerId)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");

@@ -18,8 +18,8 @@ var _ MappedNullable = &ValuePathExpression{}
 
 // ValuePathExpression struct for ValuePathExpression
 type ValuePathExpression struct {
-	AttributePath        *AttributeReference    `json:"attributePath,omitempty"`
-	AttributeExpression  map[string]interface{} `json:"attributeExpression,omitempty"`
+	AttributePath *AttributeReference `json:"attributePath,omitempty"`
+	AttributeExpression map[string]interface{} `json:"attributeExpression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ValuePathExpression) SetAttributeExpression(v map[string]interface{}) {
 }
 
 func (o ValuePathExpression) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableValuePathExpression) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

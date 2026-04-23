@@ -14,7 +14,7 @@ All URIs are relative to *http://localhost*
 
 ## deleteLogsFromExecution
 
-> deleteLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt)
+> deleteLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId)
 
 Delete logs for a specific execution, taskrun or task
 
@@ -40,12 +40,12 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
         String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
+        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
+        String taskId = "taskId_example"; // String | The task id
         try {
-            kestraClient.LogsApi().deleteLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            kestraClient.LogsApi().deleteLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#deleteLogsFromExecution");
             System.err.println("Status code: " + e.getCode());
@@ -64,10 +64,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
 | **taskRunId** | **String**| The taskrun id | [optional] |
-| **taskId** | **String**| The task id | [optional] |
 | **attempt** | **Integer**| The attempt number | [optional] |
+| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
+| **taskId** | **String**| The task id | [optional] |
 
 ### Return type
 
@@ -164,7 +164,7 @@ null (empty response body)
 
 ## downloadLogsFromExecution
 
-> File downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt)
+> File downloadLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId)
 
 Download logs for a specific execution, taskrun or task
 
@@ -190,12 +190,12 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
         String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
+        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
+        String taskId = "taskId_example"; // String | The task id
         try {
-            File result = kestraClient.LogsApi().downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            File result = kestraClient.LogsApi().downloadLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#downloadLogsFromExecution");
@@ -215,10 +215,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
 | **taskRunId** | **String**| The taskrun id | [optional] |
-| **taskId** | **String**| The task id | [optional] |
 | **attempt** | **Integer**| The attempt number | [optional] |
+| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
+| **taskId** | **String**| The task id | [optional] |
 
 ### Return type
 
@@ -242,7 +242,7 @@ public class Example {
 
 ## listLogsFromExecution
 
-> List&lt;LogEntry&gt; listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt)
+> List&lt;LogEntry&gt; listLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId)
 
 Get logs for a specific execution, taskrun or task
 
@@ -268,12 +268,12 @@ public class Example {
 
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
         String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String taskId = "taskId_example"; // String | The task id
         Integer attempt = 56; // Integer | The attempt number
+        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
+        String taskId = "taskId_example"; // String | The task id
         try {
-            List<LogEntry> result = kestraClient.LogsApi().listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt);
+            List<LogEntry> result = kestraClient.LogsApi().listLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#listLogsFromExecution");
@@ -293,10 +293,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
 | **taskRunId** | **String**| The taskrun id | [optional] |
-| **taskId** | **String**| The task id | [optional] |
 | **attempt** | **Integer**| The attempt number | [optional] |
+| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
+| **taskId** | **String**| The task id | [optional] |
 
 ### Return type
 
@@ -320,7 +320,7 @@ public class Example {
 
 ## searchLogs
 
-> PagedResultsLogEntry searchLogs(page, size, tenant, sort, filters)
+> PagedResultsLogEntry searchLogs(tenant, filters, size, page, sort)
 
 Search for logs
 
@@ -344,13 +344,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsLogEntry result = kestraClient.LogsApi().searchLogs(page, size, tenant, sort, filters);
+            PagedResultsLogEntry result = kestraClient.LogsApi().searchLogs(tenant, filters, size, page, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#searchLogs");
@@ -368,11 +368,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 

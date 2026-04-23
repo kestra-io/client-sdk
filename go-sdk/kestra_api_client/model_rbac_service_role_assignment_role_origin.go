@@ -20,7 +20,7 @@ type RBACServiceRoleAssignmentRoleOrigin string
 // List of RBACService.RoleAssignment.RoleOrigin
 const (
 	RBACSERVICEROLEASSIGNMENTROLEORIGIN_BINDING RBACServiceRoleAssignmentRoleOrigin = "BINDING"
-	RBACSERVICEROLEASSIGNMENTROLEORIGIN_GROUP   RBACServiceRoleAssignmentRoleOrigin = "GROUP"
+	RBACSERVICEROLEASSIGNMENTROLEORIGIN_GROUP RBACServiceRoleAssignmentRoleOrigin = "GROUP"
 )
 
 // All allowed values of RBACServiceRoleAssignmentRoleOrigin enum
@@ -107,3 +107,4 @@ func (v *NullableRBACServiceRoleAssignmentRoleOrigin) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

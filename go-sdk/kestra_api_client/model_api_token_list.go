@@ -18,8 +18,8 @@ var _ MappedNullable = &ApiTokenList{}
 
 // ApiTokenList struct for ApiTokenList
 type ApiTokenList struct {
-	Total                *int32     `json:"total,omitempty"`
-	Results              []ApiToken `json:"results,omitempty"`
+	Total *int32 `json:"total,omitempty"`
+	Results []ApiToken `json:"results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ApiTokenList) SetResults(v []ApiToken) {
 }
 
 func (o ApiTokenList) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableApiTokenList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

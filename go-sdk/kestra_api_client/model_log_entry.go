@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the LogEntry type satisfies the MappedNullable interface at compile time
@@ -20,18 +20,18 @@ var _ MappedNullable = &LogEntry{}
 
 // LogEntry struct for LogEntry
 type LogEntry struct {
-	Namespace            string                `json:"namespace"`
-	FlowId               string                `json:"flowId"`
-	TaskId               NullableString        `json:"taskId,omitempty"`
-	ExecutionId          NullableString        `json:"executionId,omitempty"`
-	TaskRunId            NullableString        `json:"taskRunId,omitempty"`
-	AttemptNumber        NullableInt32         `json:"attemptNumber,omitempty"`
-	TriggerId            NullableString        `json:"triggerId,omitempty"`
-	Timestamp            *time.Time            `json:"timestamp,omitempty"`
-	Level                *Level                `json:"level,omitempty"`
-	Thread               *string               `json:"thread,omitempty"`
-	Message              *string               `json:"message,omitempty"`
-	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	TaskId NullableString `json:"taskId,omitempty"`
+	ExecutionId NullableString `json:"executionId,omitempty"`
+	TaskRunId NullableString `json:"taskRunId,omitempty"`
+	AttemptNumber NullableInt32 `json:"attemptNumber,omitempty"`
+	TriggerId NullableString `json:"triggerId,omitempty"`
+	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Level *Level `json:"level,omitempty"`
+	Thread *string `json:"thread,omitempty"`
+	Message *string `json:"message,omitempty"`
+	ExecutionKind NullableExecutionKind `json:"executionKind,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -136,7 +136,6 @@ func (o *LogEntry) HasTaskId() bool {
 func (o *LogEntry) SetTaskId(v string) {
 	o.TaskId.Set(&v)
 }
-
 // SetTaskIdNil sets the value for TaskId to be an explicit nil
 func (o *LogEntry) SetTaskIdNil() {
 	o.TaskId.Set(nil)
@@ -179,7 +178,6 @@ func (o *LogEntry) HasExecutionId() bool {
 func (o *LogEntry) SetExecutionId(v string) {
 	o.ExecutionId.Set(&v)
 }
-
 // SetExecutionIdNil sets the value for ExecutionId to be an explicit nil
 func (o *LogEntry) SetExecutionIdNil() {
 	o.ExecutionId.Set(nil)
@@ -222,7 +220,6 @@ func (o *LogEntry) HasTaskRunId() bool {
 func (o *LogEntry) SetTaskRunId(v string) {
 	o.TaskRunId.Set(&v)
 }
-
 // SetTaskRunIdNil sets the value for TaskRunId to be an explicit nil
 func (o *LogEntry) SetTaskRunIdNil() {
 	o.TaskRunId.Set(nil)
@@ -265,7 +262,6 @@ func (o *LogEntry) HasAttemptNumber() bool {
 func (o *LogEntry) SetAttemptNumber(v int32) {
 	o.AttemptNumber.Set(&v)
 }
-
 // SetAttemptNumberNil sets the value for AttemptNumber to be an explicit nil
 func (o *LogEntry) SetAttemptNumberNil() {
 	o.AttemptNumber.Set(nil)
@@ -308,7 +304,6 @@ func (o *LogEntry) HasTriggerId() bool {
 func (o *LogEntry) SetTriggerId(v string) {
 	o.TriggerId.Set(&v)
 }
-
 // SetTriggerIdNil sets the value for TriggerId to be an explicit nil
 func (o *LogEntry) SetTriggerIdNil() {
 	o.TriggerId.Set(nil)
@@ -479,7 +474,6 @@ func (o *LogEntry) HasExecutionKind() bool {
 func (o *LogEntry) SetExecutionKind(v ExecutionKind) {
 	o.ExecutionKind.Set(&v)
 }
-
 // SetExecutionKindNil sets the value for ExecutionKind to be an explicit nil
 func (o *LogEntry) SetExecutionKindNil() {
 	o.ExecutionKind.Set(nil)
@@ -491,7 +485,7 @@ func (o *LogEntry) UnsetExecutionKind() {
 }
 
 func (o LogEntry) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -554,10 +548,10 @@ func (o *LogEntry) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -629,3 +623,5 @@ func (v *NullableLogEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

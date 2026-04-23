@@ -599,7 +599,7 @@ Name | Type | Description  | Notes
 
 ## MoveFileDirectory
 
-> MoveFileDirectory(ctx, namespace, tenant).From(from).To(to).Execute()
+> MoveFileDirectory(ctx, namespace, tenant).To(to).From(from).Execute()
 
 Move a file or directory
 
@@ -616,14 +616,14 @@ import (
 )
 
 func main() {
+	to := "to_example" // string | The internal storage uri to move to
 	namespace := "namespace_example" // string | The namespace id
 	from := "from_example" // string | The internal storage uri to move from
-	to := "to_example" // string | The internal storage uri to move to
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FilesAPI.MoveFileDirectory(context.Background(), namespace, tenant).From(from).To(to).Execute()
+	r, err := apiClient.FilesAPI.MoveFileDirectory(context.Background(), namespace, tenant).To(to).From(from).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.MoveFileDirectory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -647,9 +647,9 @@ Other parameters are passed through a pointer to a apiMoveFileDirectoryRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **to** | **string** | The internal storage uri to move to | 
 
  **from** | **string** | The internal storage uri to move from | 
- **to** | **string** | The internal storage uri to move to | 
 
 
 ### Return type
@@ -689,8 +689,8 @@ import (
 )
 
 func main() {
-	namespace := "namespace_example" // string | The namespace id
 	q := "q_example" // string | The string the file path should contain
+	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -721,8 +721,8 @@ Other parameters are passed through a pointer to a apiSearchNamespaceFilesReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **q** | **string** | The string the file path should contain | 
+
 
 
 ### Return type

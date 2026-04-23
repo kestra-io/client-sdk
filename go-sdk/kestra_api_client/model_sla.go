@@ -19,10 +19,10 @@ var _ MappedNullable = &SLA{}
 
 // SLA struct for SLA
 type SLA struct {
-	Id                   string      `json:"id"`
-	Type                 SLAType     `json:"type"`
-	Behavior             SLABehavior `json:"behavior"`
-	Labels               *SLALabels  `json:"labels,omitempty"`
+	Id string `json:"id"`
+	Type SLAType `json:"type"`
+	Behavior SLABehavior `json:"behavior"`
+	Labels *SLALabels `json:"labels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -153,7 +153,7 @@ func (o *SLA) SetLabels(v SLALabels) {
 }
 
 func (o SLA) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -191,10 +191,10 @@ func (o *SLA) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -258,3 +258,5 @@ func (v *NullableSLA) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **conversation_id** | **str** |  | 
 **user_prompt** | **str** |  | 
 **yaml** | **str** |  | [optional] 
-**provider_id** | **str** |  | [optional] 
 **namespace** | **str** |  | [optional] 
 
 ## Example

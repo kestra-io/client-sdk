@@ -19,7 +19,7 @@ type SortOrder string
 
 // List of SortOrder
 const (
-	SORTORDER_ASCENDING  SortOrder = "ASCENDING"
+	SORTORDER_ASCENDING SortOrder = "ASCENDING"
 	SORTORDER_DESCENDING SortOrder = "DESCENDING"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableSortOrder) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

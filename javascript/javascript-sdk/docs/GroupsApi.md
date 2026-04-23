@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ## searchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, filters, tenant, opts)
+> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, filters, tenant, opts)
 
 Search for users in a group
 
@@ -413,14 +413,14 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchGroupMembers(id, page, size, filters, tenant, opts).then((data) => {
+apiInstance.searchGroupMembers(id, filters, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -434,10 +434,10 @@ apiInstance.searchGroupMembers(id, page, size, filters, tenant, opts).then((data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The group id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **String**|  | 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 
 ## searchGroups
 
-> PagedResultsApiGroupSummary searchGroups(page, size, tenant, opts)
+> PagedResultsApiGroupSummary searchGroups(tenant, opts)
 
 Search for groups
 
@@ -474,14 +474,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchGroups(page, size, tenant, opts).then((data) => {
+apiInstance.searchGroups(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -494,10 +494,10 @@ apiInstance.searchGroups(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
  **q** | **String**| A string filter | [optional] 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

@@ -19,8 +19,8 @@ type AbstractGraphBranchType string
 
 // List of AbstractGraph.BranchType
 const (
-	ABSTRACTGRAPHBRANCHTYPE_ERROR           AbstractGraphBranchType = "ERROR"
-	ABSTRACTGRAPHBRANCHTYPE_FINALLY         AbstractGraphBranchType = "FINALLY"
+	ABSTRACTGRAPHBRANCHTYPE_ERROR AbstractGraphBranchType = "ERROR"
+	ABSTRACTGRAPHBRANCHTYPE_FINALLY AbstractGraphBranchType = "FINALLY"
 	ABSTRACTGRAPHBRANCHTYPE_AFTER_EXECUTION AbstractGraphBranchType = "AFTER_EXECUTION"
 )
 
@@ -109,3 +109,4 @@ func (v *NullableAbstractGraphBranchType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

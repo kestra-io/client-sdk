@@ -1245,10 +1245,10 @@ class GroupsApi:
     def search_group_members(
         self,
         id: Annotated[StrictStr, Field(description="The group id")],
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1264,14 +1264,14 @@ class GroupsApi:
 
         :param id: The group id (required)
         :type id: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
                 :param filters: Filters (required)
         :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1284,10 +1284,10 @@ class GroupsApi:
 
         _param = self._search_group_members_serialize(
             id=id,
-            page=page,
-            size=size,
             filters=filters,
             tenant=tenant,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -1309,10 +1309,10 @@ class GroupsApi:
     def search_group_members_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The group id")],
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1328,14 +1328,14 @@ class GroupsApi:
 
         :param id: The group id (required)
         :type id: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
                 :param filters: Filters (required)
         :type filters: List[QueryFilter]
                 :param tenant: (required)
         :type tenant: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1348,10 +1348,10 @@ class GroupsApi:
 
         _param = self._search_group_members_serialize(
             id=id,
-            page=page,
-            size=size,
             filters=filters,
             tenant=tenant,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -1372,10 +1372,10 @@ class GroupsApi:
     def _search_group_members_serialize(
         self,
         id,
-        page,
-        size,
         filters,
         tenant,
+        page,
+        size,
         sort,
     ) -> RequestSerialized:
 
@@ -1458,10 +1458,10 @@ class GroupsApi:
     @validate_call
     def search_groups(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1475,14 +1475,14 @@ class GroupsApi:
         """Search for groups
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1494,10 +1494,10 @@ class GroupsApi:
         """ # noqa: E501
 
         _param = self._search_groups_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
             q=q,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -1518,10 +1518,10 @@ class GroupsApi:
     @validate_call
     def search_groups_with_http_info(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
@@ -1535,14 +1535,14 @@ class GroupsApi:
         """Search for groups
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
                 :param q: A string filter
         :type q: str
+                :param page: The current page
+        :type page: int
+                :param size: The current page size
+        :type size: int
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
@@ -1554,10 +1554,10 @@ class GroupsApi:
         """ # noqa: E501
 
         _param = self._search_groups_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
             q=q,
+            page=page,
+            size=size,
             sort=sort,
         )
 
@@ -1577,10 +1577,10 @@ class GroupsApi:
 
     def _search_groups_serialize(
         self,
-        page,
-        size,
         tenant,
         q,
+        page,
+        size,
         sort,
     ) -> RequestSerialized:
 

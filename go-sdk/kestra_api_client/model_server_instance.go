@@ -19,12 +19,12 @@ var _ MappedNullable = &ServerInstance{}
 
 // ServerInstance struct for ServerInstance
 type ServerInstance struct {
-	Id                   string                            `json:"id"`
-	Type                 ServerInstanceType                `json:"type"`
-	Version              string                            `json:"version"`
-	Hostname             string                            `json:"hostname"`
-	Props                map[string]map[string]interface{} `json:"props"`
-	Metrics              []Metric                          `json:"metrics"`
+	Id string `json:"id"`
+	Type ServerInstanceType `json:"type"`
+	Version string `json:"version"`
+	Hostname string `json:"hostname"`
+	Props map[string]map[string]interface{} `json:"props"`
+	Metrics []Metric `json:"metrics"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -198,7 +198,7 @@ func (o *ServerInstance) SetMetrics(v []Metric) {
 }
 
 func (o ServerInstance) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -239,10 +239,10 @@ func (o *ServerInstance) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -308,3 +308,5 @@ func (v *NullableServerInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,9 +18,9 @@ var _ MappedNullable = &ExecutableTaskSubflowId{}
 
 // ExecutableTaskSubflowId struct for ExecutableTaskSubflowId
 type ExecutableTaskSubflowId struct {
-	Namespace            *string       `json:"namespace,omitempty"`
-	FlowId               *string       `json:"flowId,omitempty"`
-	Revision             NullableInt32 `json:"revision,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	FlowId *string `json:"flowId,omitempty"`
+	Revision NullableInt32 `json:"revision,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -139,7 +139,6 @@ func (o *ExecutableTaskSubflowId) HasRevision() bool {
 func (o *ExecutableTaskSubflowId) SetRevision(v int32) {
 	o.Revision.Set(&v)
 }
-
 // SetRevisionNil sets the value for Revision to be an explicit nil
 func (o *ExecutableTaskSubflowId) SetRevisionNil() {
 	o.Revision.Set(nil)
@@ -151,7 +150,7 @@ func (o *ExecutableTaskSubflowId) UnsetRevision() {
 }
 
 func (o ExecutableTaskSubflowId) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -235,3 +234,5 @@ func (v *NullableExecutableTaskSubflowId) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

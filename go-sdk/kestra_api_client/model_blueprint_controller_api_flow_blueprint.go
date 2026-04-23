@@ -19,14 +19,14 @@ var _ MappedNullable = &BlueprintControllerApiFlowBlueprint{}
 
 // BlueprintControllerApiFlowBlueprint struct for BlueprintControllerApiFlowBlueprint
 type BlueprintControllerApiFlowBlueprint struct {
-	Id                   *string            `json:"id,omitempty"`
-	Title                *string            `json:"title,omitempty"`
-	Description          *string            `json:"description,omitempty"`
-	IncludedTasks        []string           `json:"includedTasks,omitempty"`
-	Tags                 []string           `json:"tags,omitempty"`
-	Source               *string            `json:"source,omitempty"`
-	PublishedAt          *time.Time         `json:"publishedAt,omitempty"`
-	Template             *BlueprintTemplate `json:"template,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IncludedTasks []string `json:"includedTasks,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	Source *string `json:"source,omitempty"`
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+	Template *BlueprintTemplate `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,7 +306,7 @@ func (o *BlueprintControllerApiFlowBlueprint) SetTemplate(v BlueprintTemplate) {
 }
 
 func (o BlueprintControllerApiFlowBlueprint) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -410,3 +410,5 @@ func (v *NullableBlueprintControllerApiFlowBlueprint) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

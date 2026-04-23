@@ -17,7 +17,6 @@ import ApiClient from '../ApiClient';
   * @property {String} conversationId
   * @property {String} userPrompt
   * @property {String} yaml
-  * @property {String} providerId
   */
 
 /**
@@ -67,9 +66,6 @@ class DashboardGenerationPrompt {
             if (data.hasOwnProperty('yaml')) {
                 obj['yaml'] = ApiClient.convertToType(data['yaml'], 'String');
             }
-            if (data.hasOwnProperty('providerId')) {
-                obj['providerId'] = ApiClient.convertToType(data['providerId'], 'String');
-            }
         }
         return obj;
     }
@@ -98,10 +94,6 @@ class DashboardGenerationPrompt {
         if (data['yaml'] && !(typeof data['yaml'] === 'string' || data['yaml'] instanceof String)) {
             throw new Error("Expected the field `yaml` to be a primitive type in the JSON string but got " + data['yaml']);
         }
-        // ensure the json data is a string
-        if (data['providerId'] && !(typeof data['providerId'] === 'string' || data['providerId'] instanceof String)) {
-            throw new Error("Expected the field `providerId` to be a primitive type in the JSON string but got " + data['providerId']);
-        }
 
         return true;
     }
@@ -125,11 +117,6 @@ DashboardGenerationPrompt.prototype['userPrompt'] = undefined;
  * @member {String} yaml
  */
 DashboardGenerationPrompt.prototype['yaml'] = undefined;
-
-/**
- * @member {String} providerId
- */
-DashboardGenerationPrompt.prototype['providerId'] = undefined;
 
 
 

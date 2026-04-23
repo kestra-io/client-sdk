@@ -18,10 +18,10 @@ var _ MappedNullable = &GroupIdentifier{}
 
 // GroupIdentifier struct for GroupIdentifier
 type GroupIdentifier struct {
-	TenantId             NullableString             `json:"tenantId,omitempty"`
-	GroupId              *string                    `json:"groupId,omitempty"`
-	Membership           *GroupIdentifierMembership `json:"membership,omitempty"`
-	ManagedExternally    *bool                      `json:"managedExternally,omitempty"`
+	TenantId NullableString `json:"tenantId,omitempty"`
+	GroupId *string `json:"groupId,omitempty"`
+	Membership *GroupIdentifierMembership `json:"membership,omitempty"`
+	ManagedExternally *bool `json:"managedExternally,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +76,6 @@ func (o *GroupIdentifier) HasTenantId() bool {
 func (o *GroupIdentifier) SetTenantId(v string) {
 	o.TenantId.Set(&v)
 }
-
 // SetTenantIdNil sets the value for TenantId to be an explicit nil
 func (o *GroupIdentifier) SetTenantIdNil() {
 	o.TenantId.Set(nil)
@@ -184,7 +183,7 @@ func (o *GroupIdentifier) SetManagedExternally(v bool) {
 }
 
 func (o GroupIdentifier) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -272,3 +271,5 @@ func (v *NullableGroupIdentifier) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

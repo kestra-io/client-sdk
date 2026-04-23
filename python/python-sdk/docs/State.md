@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **end_date** | **datetime** |  | [optional] [readonly] 
 **current** | [**StateType**](StateType.md) |  | 
 **histories** | [**List[StateHistory]**](StateHistory.md) |  | [optional] 
+**get_duration** | **str** |  | [readonly] 
+**get_start_date** | **datetime** |  | [readonly] 
+**get_end_date** | **datetime** |  | [readonly] 
 
 ## Example
 

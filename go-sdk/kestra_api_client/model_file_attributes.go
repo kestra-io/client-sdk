@@ -18,12 +18,12 @@ var _ MappedNullable = &FileAttributes{}
 
 // FileAttributes struct for FileAttributes
 type FileAttributes struct {
-	FileName             *string                 `json:"fileName,omitempty"`
-	LastModifiedTime     *int64                  `json:"lastModifiedTime,omitempty"`
-	CreationTime         *int64                  `json:"creationTime,omitempty"`
-	Type                 *FileAttributesFileType `json:"type,omitempty"`
-	Size                 *int64                  `json:"size,omitempty"`
-	Metadata             *map[string]string      `json:"metadata,omitempty"`
+	FileName *string `json:"fileName,omitempty"`
+	LastModifiedTime *int64 `json:"lastModifiedTime,omitempty"`
+	CreationTime *int64 `json:"creationTime,omitempty"`
+	Type *FileAttributesFileType `json:"type,omitempty"`
+	Size *int64 `json:"size,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *FileAttributes) SetMetadata(v map[string]string) {
 }
 
 func (o FileAttributes) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullableFileAttributes) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

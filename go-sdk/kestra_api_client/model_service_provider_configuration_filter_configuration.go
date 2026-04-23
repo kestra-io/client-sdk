@@ -18,8 +18,8 @@ var _ MappedNullable = &ServiceProviderConfigurationFilterConfiguration{}
 
 // ServiceProviderConfigurationFilterConfiguration struct for ServiceProviderConfigurationFilterConfiguration
 type ServiceProviderConfigurationFilterConfiguration struct {
-	Supported            *bool  `json:"supported,omitempty"`
-	MaxResults           *int32 `json:"maxResults,omitempty"`
+	Supported *bool `json:"supported,omitempty"`
+	MaxResults *int32 `json:"maxResults,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *ServiceProviderConfigurationFilterConfiguration) SetMaxResults(v int32)
 }
 
 func (o ServiceProviderConfigurationFilterConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableServiceProviderConfigurationFilterConfiguration) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

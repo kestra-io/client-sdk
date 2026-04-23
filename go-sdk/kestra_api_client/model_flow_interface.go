@@ -18,21 +18,21 @@ var _ MappedNullable = &FlowInterface{}
 
 // FlowInterface struct for FlowInterface
 type FlowInterface struct {
-	Id                   *string                           `json:"id,omitempty"`
-	Namespace            *string                           `json:"namespace,omitempty"`
-	Revision             *int32                            `json:"revision,omitempty"`
-	TenantId             *string                           `json:"tenantId,omitempty"`
-	Deleted              *bool                             `json:"deleted,omitempty"`
-	Description          *string                           `json:"description,omitempty"`
-	Disabled             *bool                             `json:"disabled,omitempty"`
-	Labels               []Label                           `json:"labels,omitempty"`
-	Inputs               []InputObject                     `json:"inputs,omitempty"`
-	Outputs              []Output                          `json:"outputs,omitempty"`
-	Variables            map[string]map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup          *WorkerGroup                      `json:"workerGroup,omitempty"`
-	Concurrency          *Concurrency                      `json:"concurrency,omitempty"`
-	Sla                  []SLA                             `json:"sla,omitempty"`
-	Source               *string                           `json:"source,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
+	TenantId *string `json:"tenantId,omitempty"`
+	Deleted *bool `json:"deleted,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	Labels []Label `json:"labels,omitempty"`
+	Inputs []InputObject `json:"inputs,omitempty"`
+	Outputs []Output `json:"outputs,omitempty"`
+	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	Concurrency *Concurrency `json:"concurrency,omitempty"`
+	Sla []SLA `json:"sla,omitempty"`
+	Source *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -536,7 +536,7 @@ func (o *FlowInterface) SetSource(v string) {
 }
 
 func (o FlowInterface) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -668,3 +668,5 @@ func (v *NullableFlowInterface) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

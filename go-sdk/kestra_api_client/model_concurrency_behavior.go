@@ -19,9 +19,9 @@ type ConcurrencyBehavior string
 
 // List of Concurrency.Behavior
 const (
-	CONCURRENCYBEHAVIOR_QUEUE  ConcurrencyBehavior = "QUEUE"
+	CONCURRENCYBEHAVIOR_QUEUE ConcurrencyBehavior = "QUEUE"
 	CONCURRENCYBEHAVIOR_CANCEL ConcurrencyBehavior = "CANCEL"
-	CONCURRENCYBEHAVIOR_FAIL   ConcurrencyBehavior = "FAIL"
+	CONCURRENCYBEHAVIOR_FAIL ConcurrencyBehavior = "FAIL"
 )
 
 // All allowed values of ConcurrencyBehavior enum
@@ -109,3 +109,4 @@ func (v *NullableConcurrencyBehavior) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

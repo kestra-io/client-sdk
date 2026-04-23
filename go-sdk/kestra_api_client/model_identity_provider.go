@@ -18,11 +18,11 @@ var _ MappedNullable = &IdentityProvider{}
 
 // IdentityProvider struct for IdentityProvider
 type IdentityProvider struct {
-	Attributes              map[string]map[string]interface{} `json:"attributes,omitempty"`
-	ExternalId              *string                           `json:"externalId,omitempty"`
-	SecurityIntegrationId   *string                           `json:"securityIntegrationId,omitempty"`
-	SecurityIntegrationName *string                           `json:"securityIntegrationName,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	Attributes map[string]map[string]interface{} `json:"attributes,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
+	SecurityIntegrationId *string `json:"securityIntegrationId,omitempty"`
+	SecurityIntegrationName *string `json:"securityIntegrationName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IdentityProvider IdentityProvider
@@ -173,7 +173,7 @@ func (o *IdentityProvider) SetSecurityIntegrationName(v string) {
 }
 
 func (o IdentityProvider) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableIdentityProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

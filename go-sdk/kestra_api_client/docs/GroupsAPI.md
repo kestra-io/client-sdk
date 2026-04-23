@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ## SearchGroupMembers
 
-> PagedResultsIAMGroupControllerApiGroupMember SearchGroupMembers(ctx, id, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
+> PagedResultsIAMGroupControllerApiGroupMember SearchGroupMembers(ctx, id, tenant).Filters(filters).Page(page).Size(size).Sort(sort).Execute()
 
 Search for users in a group
 
@@ -542,15 +542,15 @@ import (
 
 func main() {
 	id := "id_example" // string | The group id
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.SearchGroupMembers(context.Background(), id, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
+	resp, r, err := apiClient.GroupsAPI.SearchGroupMembers(context.Background(), id, tenant).Filters(filters).Page(page).Size(size).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.SearchGroupMembers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -577,10 +577,10 @@ Other parameters are passed through a pointer to a apiSearchGroupMembersRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
+ **page** | **int32** | The current page | [default to 1]
+ **size** | **int32** | The current page size | [default to 10]
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type
@@ -603,7 +603,7 @@ Name | Type | Description  | Notes
 
 ## SearchGroups
 
-> PagedResultsApiGroupSummary SearchGroups(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+> PagedResultsApiGroupSummary SearchGroups(ctx, tenant).Q(q).Page(page).Size(size).Sort(sort).Execute()
 
 Search for groups
 
@@ -620,15 +620,15 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	q := "q_example" // string | A string filter (optional)
+	page := int32(56) // int32 | The current page (optional) (default to 1)
+	size := int32(56) // int32 | The current page size (optional) (default to 10)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.SearchGroups(context.Background(), tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
+	resp, r, err := apiClient.GroupsAPI.SearchGroups(context.Background(), tenant).Q(q).Page(page).Size(size).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.SearchGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -653,10 +653,10 @@ Other parameters are passed through a pointer to a apiSearchGroupsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
  **q** | **string** | A string filter | 
+ **page** | **int32** | The current page | [default to 1]
+ **size** | **int32** | The current page size | [default to 10]
  **sort** | **[]string** | The sort of current page | 
 
 ### Return type

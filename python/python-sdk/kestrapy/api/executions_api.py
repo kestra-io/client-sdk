@@ -29,6 +29,7 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.event_execution import EventExecution
 from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent
 from kestrapy.models.execution import Execution
+from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
@@ -64,14 +65,14 @@ class ExecutionsApi:
     def create_execution(
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        wait: Annotated[StrictBool, Field(description="If the server will wait the end of the execution")],
         tenant: StrictStr,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        wait: Annotated[Optional[StrictBool], Field(description="If the server will wait the end of the execution")] = None,
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
+        labels: Annotated[Optional[Any], Field(description="The labels as a list of 'key:value'")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
         additional_form_datas: Optional[Dict[str, Any]] = None,
         additional_files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -88,22 +89,22 @@ class ExecutionsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param wait: If the server will wait the end of the execution (required)
-        :type wait: bool
                 :param tenant: (required)
         :type tenant: str
-                :param labels: The labels as a list of 'key:value'
-        :type labels: List[str]
-                :param revision: The flow revision or latest if null
-        :type revision: int
+                :param id: The flow id (required)
+        :type id: str
+                :param wait: If the server will wait the end of the execution
+        :type wait: bool
                 :param schedule_date: Schedule the flow on a specific date
         :type schedule_date: datetime
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
                 :param kind: Specific execution kind
         :type kind: ExecutionKind
+                :param labels: The labels as a list of 'key:value'
+        :type labels: CreateExecutionLabelsParameter
+                :param revision: The flow revision or latest if null
+        :type revision: int
         ,
         :param additional_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -123,14 +124,14 @@ class ExecutionsApi:
 
         _param = self._create_execution_serialize(
             namespace=namespace,
+            tenant=tenant,
             id=id,
             wait=wait,
-            tenant=tenant,
-            labels=labels,
-            revision=revision,
             schedule_date=schedule_date,
             breakpoints=breakpoints,
             kind=kind,
+            labels=labels,
+            revision=revision,
             additional_form_datas=additional_form_datas,
             additional_files=additional_files
         )
@@ -154,14 +155,14 @@ class ExecutionsApi:
     def create_execution_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        wait: Annotated[StrictBool, Field(description="If the server will wait the end of the execution")],
         tenant: StrictStr,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        wait: Annotated[Optional[StrictBool], Field(description="If the server will wait the end of the execution")] = None,
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
+        labels: Annotated[Optional[Any], Field(description="The labels as a list of 'key:value'")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
         additional_form_datas: Optional[Dict[str, Any]] = None,
         additional_files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -178,22 +179,22 @@ class ExecutionsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param wait: If the server will wait the end of the execution (required)
-        :type wait: bool
                 :param tenant: (required)
         :type tenant: str
-                :param labels: The labels as a list of 'key:value'
-        :type labels: List[str]
-                :param revision: The flow revision or latest if null
-        :type revision: int
+                :param id: The flow id (required)
+        :type id: str
+                :param wait: If the server will wait the end of the execution
+        :type wait: bool
                 :param schedule_date: Schedule the flow on a specific date
         :type schedule_date: datetime
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
                 :param kind: Specific execution kind
         :type kind: ExecutionKind
+                :param labels: The labels as a list of 'key:value'
+        :type labels: CreateExecutionLabelsParameter
+                :param revision: The flow revision or latest if null
+        :type revision: int
         ,
         :param additional_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -213,14 +214,14 @@ class ExecutionsApi:
 
         _param = self._create_execution_serialize(
             namespace=namespace,
+            tenant=tenant,
             id=id,
             wait=wait,
-            tenant=tenant,
-            labels=labels,
-            revision=revision,
             schedule_date=schedule_date,
             breakpoints=breakpoints,
             kind=kind,
+            labels=labels,
+            revision=revision,
             additional_form_datas=additional_form_datas,
             additional_files=additional_files
         )
@@ -243,14 +244,14 @@ class ExecutionsApi:
     def _create_execution_serialize(
         self,
         namespace,
+        tenant,
         id,
         wait,
-        tenant,
-        labels,
-        revision,
         schedule_date,
         breakpoints,
         kind,
+        labels,
+        revision,
         additional_form_datas,
         additional_files
     ) -> RequestSerialized:
@@ -258,7 +259,6 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'labels': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -273,22 +273,14 @@ class ExecutionsApi:
         # process the path parameters
         if namespace is not None:
             _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
         if tenant is not None:
             _path_params['tenant'] = tenant
+        if id is not None:
+            _path_params['id'] = id
         # process the query parameters
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
         if wait is not None:
             
             _query_params.append(('wait', wait))
-            
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
             
         if schedule_date is not None:
             if isinstance(schedule_date, datetime):
@@ -310,6 +302,14 @@ class ExecutionsApi:
         if kind is not None:
             
             _query_params.append(('kind', kind.value))
+            
+        if labels is not None:
+            
+            _query_params.append(('labels', labels))
+            
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
             
         # process the header parameters
         # process the form parameters
@@ -377,9 +377,9 @@ class ExecutionsApi:
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
         tenant: StrictStr,
-        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_logs: Annotated[Optional[Any], Field(description="Whether to delete execution logs")] = None,
         delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -397,11 +397,11 @@ class ExecutionsApi:
                 :param tenant: (required)
         :type tenant: str
                 :param delete_logs: Whether to delete execution logs
-        :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
+        :type delete_logs: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_storage: Whether to delete execution files in the internal storage
         :type delete_storage: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -414,8 +414,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
             delete_storage=delete_storage,
+            delete_metrics=delete_metrics,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -438,9 +438,9 @@ class ExecutionsApi:
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
         tenant: StrictStr,
-        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_logs: Annotated[Optional[Any], Field(description="Whether to delete execution logs")] = None,
         delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -458,11 +458,11 @@ class ExecutionsApi:
                 :param tenant: (required)
         :type tenant: str
                 :param delete_logs: Whether to delete execution logs
-        :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
+        :type delete_logs: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_storage: Whether to delete execution files in the internal storage
         :type delete_storage: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -475,8 +475,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
             delete_storage=delete_storage,
+            delete_metrics=delete_metrics,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -499,8 +499,8 @@ class ExecutionsApi:
         execution_id,
         tenant,
         delete_logs,
-        delete_metrics,
         delete_storage,
+        delete_metrics,
     ) -> RequestSerialized:
 
         _host = None
@@ -527,13 +527,13 @@ class ExecutionsApi:
             
             _query_params.append(('deleteLogs', delete_logs))
             
-        if delete_metrics is not None:
-            
-            _query_params.append(('deleteMetrics', delete_metrics))
-            
         if delete_storage is not None:
             
             _query_params.append(('deleteStorage', delete_storage))
+            
+        if delete_metrics is not None:
+            
+            _query_params.append(('deleteMetrics', delete_metrics))
             
         # process the header parameters
         # process the form parameters
@@ -571,10 +571,10 @@ class ExecutionsApi:
         self,
         tenant: StrictStr,
         request_body: Annotated[List[StrictStr], Field(description="The execution id")],
-        include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
-        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_logs: Annotated[Optional[Any], Field(description="Whether to delete execution logs")] = None,
         delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
+        include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -591,14 +591,14 @@ class ExecutionsApi:
         :type tenant: str
                 :param request_body: The execution id (required)
         :type request_body: List[str]
-                :param include_non_terminated: Whether to delete non-terminated executions
-        :type include_non_terminated: bool
                 :param delete_logs: Whether to delete execution logs
-        :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
+        :type delete_logs: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_storage: Whether to delete execution files in the internal storage
         :type delete_storage: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
+                :param include_non_terminated: Whether to delete non-terminated executions
+        :type include_non_terminated: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -610,10 +610,10 @@ class ExecutionsApi:
         _param = self._delete_executions_by_ids_serialize(
             tenant=tenant,
             request_body=request_body,
-            include_non_terminated=include_non_terminated,
             delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
             delete_storage=delete_storage,
+            delete_metrics=delete_metrics,
+            include_non_terminated=include_non_terminated,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -636,10 +636,10 @@ class ExecutionsApi:
         self,
         tenant: StrictStr,
         request_body: Annotated[List[StrictStr], Field(description="The execution id")],
-        include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
-        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_logs: Annotated[Optional[Any], Field(description="Whether to delete execution logs")] = None,
         delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
+        include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -656,14 +656,14 @@ class ExecutionsApi:
         :type tenant: str
                 :param request_body: The execution id (required)
         :type request_body: List[str]
-                :param include_non_terminated: Whether to delete non-terminated executions
-        :type include_non_terminated: bool
                 :param delete_logs: Whether to delete execution logs
-        :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
+        :type delete_logs: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_storage: Whether to delete execution files in the internal storage
         :type delete_storage: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
+                :param include_non_terminated: Whether to delete non-terminated executions
+        :type include_non_terminated: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -675,10 +675,10 @@ class ExecutionsApi:
         _param = self._delete_executions_by_ids_serialize(
             tenant=tenant,
             request_body=request_body,
-            include_non_terminated=include_non_terminated,
             delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
             delete_storage=delete_storage,
+            delete_metrics=delete_metrics,
+            include_non_terminated=include_non_terminated,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -700,10 +700,10 @@ class ExecutionsApi:
         self,
         tenant,
         request_body,
-        include_non_terminated,
         delete_logs,
-        delete_metrics,
         delete_storage,
+        delete_metrics,
+        include_non_terminated,
     ) -> RequestSerialized:
 
         _host = None
@@ -725,21 +725,21 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if include_non_terminated is not None:
-            
-            _query_params.append(('includeNonTerminated', include_non_terminated))
-            
         if delete_logs is not None:
             
             _query_params.append(('deleteLogs', delete_logs))
+            
+        if delete_storage is not None:
+            
+            _query_params.append(('deleteStorage', delete_storage))
             
         if delete_metrics is not None:
             
             _query_params.append(('deleteMetrics', delete_metrics))
             
-        if delete_storage is not None:
+        if include_non_terminated is not None:
             
-            _query_params.append(('deleteStorage', delete_storage))
+            _query_params.append(('includeNonTerminated', include_non_terminated))
             
         # process the header parameters
         # process the form parameters
@@ -796,11 +796,11 @@ class ExecutionsApi:
     def delete_executions_by_query(
         self,
         tenant: StrictStr,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
         delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
-        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -815,16 +815,16 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
+                :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
                 :param filters: Filters
         :type filters: List[QueryFilter]
                 :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_logs: Whether to delete execution logs
         :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
-                :param delete_storage: Whether to delete execution files in the internal storage
-        :type delete_storage: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -835,11 +835,11 @@ class ExecutionsApi:
 
         _param = self._delete_executions_by_query_serialize(
             tenant=tenant,
+            delete_storage=delete_storage,
             filters=filters,
             include_non_terminated=include_non_terminated,
-            delete_logs=delete_logs,
             delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
+            delete_logs=delete_logs,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -860,11 +860,11 @@ class ExecutionsApi:
     def delete_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_metrics: Annotated[Optional[Any], Field(description="Whether to delete execution metrics")] = None,
         delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
-        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
-        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -879,16 +879,16 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
+                :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
                 :param filters: Filters
         :type filters: List[QueryFilter]
                 :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+                :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: DeleteExecutionsByIdsDeleteLogsParameter
                 :param delete_logs: Whether to delete execution logs
         :type delete_logs: bool
-                :param delete_metrics: Whether to delete execution metrics
-        :type delete_metrics: bool
-                :param delete_storage: Whether to delete execution files in the internal storage
-        :type delete_storage: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -899,11 +899,11 @@ class ExecutionsApi:
 
         _param = self._delete_executions_by_query_serialize(
             tenant=tenant,
+            delete_storage=delete_storage,
             filters=filters,
             include_non_terminated=include_non_terminated,
-            delete_logs=delete_logs,
             delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
+            delete_logs=delete_logs,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -923,11 +923,11 @@ class ExecutionsApi:
     def _delete_executions_by_query_serialize(
         self,
         tenant,
+        delete_storage,
         filters,
         include_non_terminated,
-        delete_logs,
         delete_metrics,
-        delete_storage,
+        delete_logs,
     ) -> RequestSerialized:
 
         _host = None
@@ -949,6 +949,10 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
+        if delete_storage is not None:
+            
+            _query_params.append(('deleteStorage', delete_storage))
+            
         if filters is not None:
             
             _query_params.append(('filters', filters))
@@ -957,17 +961,13 @@ class ExecutionsApi:
             
             _query_params.append(('includeNonTerminated', include_non_terminated))
             
-        if delete_logs is not None:
-            
-            _query_params.append(('deleteLogs', delete_logs))
-            
         if delete_metrics is not None:
             
             _query_params.append(('deleteMetrics', delete_metrics))
             
-        if delete_storage is not None:
+        if delete_logs is not None:
             
-            _query_params.append(('deleteStorage', delete_storage))
+            _query_params.append(('deleteLogs', delete_logs))
             
         # process the header parameters
         # process the form parameters
@@ -1166,6 +1166,188 @@ class ExecutionsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/executions/{executionId}/file',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def eval_expression(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        body: Annotated[StrictStr, Field(description="The Pebble expression that should be evaluated")],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ExecutionControllerEvalResult:
+        """Evaluate a variable expression for this execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param body: The Pebble expression that should be evaluated (required)
+        :type body: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._eval_expression_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            body=body,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ExecutionControllerEvalResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def eval_expression_with_http_info(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        body: Annotated[StrictStr, Field(description="The Pebble expression that should be evaluated")],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[ExecutionControllerEvalResult]:
+        """Evaluate a variable expression for this execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param body: The Pebble expression that should be evaluated (required)
+        :type body: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._eval_expression_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            body=body,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ExecutionControllerEvalResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _eval_expression_serialize(
+        self,
+        execution_id,
+        tenant,
+        body,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if body is not None:
+            _body_params = body
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'text/plain'
+                ]
+            )
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/executions/{executionId}/eval',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1693,7 +1875,7 @@ class ExecutionsApi:
         namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        revision: Annotated[Optional[Any], Field(description="The flow revision")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -1713,7 +1895,7 @@ class ExecutionsApi:
                 :param tenant: (required)
         :type tenant: str
                 :param revision: The flow revision
-        :type revision: int
+        :type revision: FlowFromExecutionRevisionParameter
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1749,7 +1931,7 @@ class ExecutionsApi:
         namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        revision: Annotated[Optional[Any], Field(description="The flow revision")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -1769,7 +1951,7 @@ class ExecutionsApi:
                 :param tenant: (required)
         :type tenant: str
                 :param revision: The flow revision
-        :type revision: int
+        :type revision: FlowFromExecutionRevisionParameter
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2035,9 +2217,9 @@ class ExecutionsApi:
     def _follow_dependencies_executions_serialize(
         self,
         execution_id,
-        destination_only,
-        expand_all,
         tenant,
+        expand_all,
+        destination_only,
     ) -> RequestSerialized:
 
         _host = None
@@ -2060,13 +2242,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if destination_only is not None:
-            
-            _query_params.append(('destinationOnly', destination_only))
-            
         if expand_all is not None:
             
             _query_params.append(('expandAll', expand_all))
+            
+        if destination_only is not None:
+            
+            _query_params.append(('destinationOnly', destination_only))
             
         # process the header parameters
         # process the form parameters
@@ -2762,8 +2944,8 @@ class ExecutionsApi:
     def kill_execution(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        is_on_kill_cascade: Annotated[StrictBool, Field(description="Specifies whether killing the execution also kill all subflow executions.")],
         tenant: StrictStr,
+        is_on_kill_cascade: Annotated[Optional[StrictBool], Field(description="Specifies whether killing the execution also kill all subflow executions.")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2778,10 +2960,10 @@ class ExecutionsApi:
 
         :param execution_id: The execution id (required)
         :type execution_id: str
-                :param is_on_kill_cascade: Specifies whether killing the execution also kill all subflow executions. (required)
-        :type is_on_kill_cascade: bool
                 :param tenant: (required)
         :type tenant: str
+                :param is_on_kill_cascade: Specifies whether killing the execution also kill all subflow executions.
+        :type is_on_kill_cascade: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2792,8 +2974,8 @@ class ExecutionsApi:
 
         _param = self._kill_execution_serialize(
             execution_id=execution_id,
-            is_on_kill_cascade=is_on_kill_cascade,
             tenant=tenant,
+            is_on_kill_cascade=is_on_kill_cascade,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2817,8 +2999,8 @@ class ExecutionsApi:
     def kill_execution_with_http_info(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        is_on_kill_cascade: Annotated[StrictBool, Field(description="Specifies whether killing the execution also kill all subflow executions.")],
         tenant: StrictStr,
+        is_on_kill_cascade: Annotated[Optional[StrictBool], Field(description="Specifies whether killing the execution also kill all subflow executions.")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -2833,10 +3015,10 @@ class ExecutionsApi:
 
         :param execution_id: The execution id (required)
         :type execution_id: str
-                :param is_on_kill_cascade: Specifies whether killing the execution also kill all subflow executions. (required)
-        :type is_on_kill_cascade: bool
                 :param tenant: (required)
         :type tenant: str
+                :param is_on_kill_cascade: Specifies whether killing the execution also kill all subflow executions.
+        :type is_on_kill_cascade: bool
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2847,8 +3029,8 @@ class ExecutionsApi:
 
         _param = self._kill_execution_serialize(
             execution_id=execution_id,
-            is_on_kill_cascade=is_on_kill_cascade,
             tenant=tenant,
+            is_on_kill_cascade=is_on_kill_cascade,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2871,8 +3053,8 @@ class ExecutionsApi:
     def _kill_execution_serialize(
         self,
         execution_id,
-        is_on_kill_cascade,
         tenant,
+        is_on_kill_cascade,
     ) -> RequestSerialized:
 
         _host = None
@@ -3946,8 +4128,8 @@ class ExecutionsApi:
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -3966,10 +4148,10 @@ class ExecutionsApi:
         :type tenant: str
                 :param task_run_id: The taskrun id
         :type task_run_id: str
-                :param revision: The flow revision to use for new execution
-        :type revision: int
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
+                :param revision: The flow revision to use for new execution
+        :type revision: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3982,8 +4164,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             task_run_id=task_run_id,
-            revision=revision,
             breakpoints=breakpoints,
+            revision=revision,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4006,8 +4188,8 @@ class ExecutionsApi:
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -4026,10 +4208,10 @@ class ExecutionsApi:
         :type tenant: str
                 :param task_run_id: The taskrun id
         :type task_run_id: str
-                :param revision: The flow revision to use for new execution
-        :type revision: int
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
+                :param revision: The flow revision to use for new execution
+        :type revision: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4042,8 +4224,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             task_run_id=task_run_id,
-            revision=revision,
             breakpoints=breakpoints,
+            revision=revision,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4065,8 +4247,8 @@ class ExecutionsApi:
         execution_id,
         tenant,
         task_run_id,
-        revision,
         breakpoints,
+        revision,
     ) -> RequestSerialized:
 
         _host = None
@@ -4093,13 +4275,13 @@ class ExecutionsApi:
             
             _query_params.append(('taskRunId', task_run_id))
             
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
         if breakpoints is not None:
             
             _query_params.append(('breakpoints', breakpoints))
+            
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
             
         # process the header parameters
         # process the form parameters
@@ -4145,8 +4327,8 @@ class ExecutionsApi:
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         additional_form_datas: Optional[Dict[str, Any]] = None,
         additional_files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -4167,10 +4349,10 @@ class ExecutionsApi:
         :type tenant: str
                 :param task_run_id: The taskrun id
         :type task_run_id: str
-                :param revision: The flow revision to use for new execution
-        :type revision: int
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
+                :param revision: The flow revision to use for new execution
+        :type revision: int
         ,
         :param additional_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -4192,8 +4374,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             task_run_id=task_run_id,
-            revision=revision,
             breakpoints=breakpoints,
+            revision=revision,
             additional_form_datas=additional_form_datas,
             additional_files=additional_files
         )
@@ -4218,8 +4400,8 @@ class ExecutionsApi:
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         additional_form_datas: Optional[Dict[str, Any]] = None,
         additional_files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -4240,10 +4422,10 @@ class ExecutionsApi:
         :type tenant: str
                 :param task_run_id: The taskrun id
         :type task_run_id: str
-                :param revision: The flow revision to use for new execution
-        :type revision: int
                 :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
+                :param revision: The flow revision to use for new execution
+        :type revision: int
         ,
         :param additional_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -4265,8 +4447,8 @@ class ExecutionsApi:
             execution_id=execution_id,
             tenant=tenant,
             task_run_id=task_run_id,
-            revision=revision,
             breakpoints=breakpoints,
+            revision=revision,
             additional_form_datas=additional_form_datas,
             additional_files=additional_files
         )
@@ -4290,8 +4472,8 @@ class ExecutionsApi:
         execution_id,
         tenant,
         task_run_id,
-        revision,
         breakpoints,
+        revision,
         additional_form_datas,
         additional_files
     ) -> RequestSerialized:
@@ -4320,13 +4502,13 @@ class ExecutionsApi:
             
             _query_params.append(('taskRunId', task_run_id))
             
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
         if breakpoints is not None:
             
             _query_params.append(('breakpoints', breakpoints))
+            
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
             
         # process the header parameters
         # process the form parameters
@@ -5817,11 +5999,11 @@ class ExecutionsApi:
     @validate_call
     def search_executions(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[Any], Field(description="The current page")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -5834,16 +6016,16 @@ class ExecutionsApi:
         """Search for executions
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
+                :param page: The current page
+        :type page: SearchBlueprintsSizeParameter
+                :param size: The current page size
+        :type size: int
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5853,11 +6035,11 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._search_executions_serialize(
+            tenant=tenant,
             page=page,
             size=size,
-            tenant=tenant,
-            sort=sort,
             filters=filters,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -5877,11 +6059,11 @@ class ExecutionsApi:
     @validate_call
     def search_executions_with_http_info(
         self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[Any], Field(description="The current page")] = None,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -5894,16 +6076,16 @@ class ExecutionsApi:
         """Search for executions
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
+                :param page: The current page
+        :type page: SearchBlueprintsSizeParameter
+                :param size: The current page size
+        :type size: int
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param sort: The sort of current page
+        :type sort: List[str]
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -5913,11 +6095,11 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._search_executions_serialize(
+            tenant=tenant,
             page=page,
             size=size,
-            tenant=tenant,
-            sort=sort,
             filters=filters,
+            sort=sort,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -5936,18 +6118,18 @@ class ExecutionsApi:
 
     def _search_executions_serialize(
         self,
+        tenant,
         page,
         size,
-        tenant,
-        sort,
         filters,
+        sort,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'sort': 'csv',
             'filters': 'csv',
+            'sort': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -5971,13 +6153,13 @@ class ExecutionsApi:
             
             _query_params.append(('size', size))
             
-        if sort is not None:
-            
-            _query_params.append(('sort', sort))
-            
         if filters is not None:
             
             _query_params.append(('filters', filters))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
             
         # process the header parameters
         # process the form parameters
@@ -6020,11 +6202,11 @@ class ExecutionsApi:
     @validate_call
     def search_executions_by_flow_id(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -6037,16 +6219,16 @@ class ExecutionsApi:
         """Search for executions for a flow
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param flow_id: The flow id (required)
+        :param flow_id: The flow id (required)
         :type flow_id: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6056,11 +6238,11 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._search_executions_by_flow_id_serialize(
-            namespace=namespace,
             flow_id=flow_id,
-            page=page,
-            size=size,
+            namespace=namespace,
             tenant=tenant,
+            size=size,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -6080,11 +6262,11 @@ class ExecutionsApi:
     @validate_call
     def search_executions_by_flow_id_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
+        size: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page size")] = None,
+        page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -6097,16 +6279,16 @@ class ExecutionsApi:
         """Search for executions for a flow
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param flow_id: The flow id (required)
+        :param flow_id: The flow id (required)
         :type flow_id: str
-                :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
+                :param size: The current page size
+        :type size: int
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6116,11 +6298,11 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._search_executions_by_flow_id_serialize(
-            namespace=namespace,
             flow_id=flow_id,
-            page=page,
-            size=size,
+            namespace=namespace,
             tenant=tenant,
+            size=size,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -6139,11 +6321,11 @@ class ExecutionsApi:
 
     def _search_executions_by_flow_id_serialize(
         self,
-        namespace,
         flow_id,
-        page,
-        size,
+        namespace,
         tenant,
+        size,
+        page,
     ) -> RequestSerialized:
 
         _host = None
@@ -6164,21 +6346,21 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if namespace is not None:
+        if size is not None:
             
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('size', size))
             
         if flow_id is not None:
             
             _query_params.append(('flowId', flow_id))
             
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
         if page is not None:
             
             _query_params.append(('page', page))
-            
-        if size is not None:
-            
-            _query_params.append(('size', size))
             
         # process the header parameters
         # process the form parameters
@@ -6767,9 +6949,9 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_get_webhook(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -6783,12 +6965,12 @@ class ExecutionsApi:
         """Trigger a new execution by GET webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
+        :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -6800,9 +6982,9 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_get_webhook_serialize(
-            namespace=namespace,
             id=id,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -6823,9 +7005,9 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_get_webhook_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -6839,12 +7021,12 @@ class ExecutionsApi:
         """Trigger a new execution by GET webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
+        :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -6856,9 +7038,9 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_get_webhook_serialize(
-            namespace=namespace,
             id=id,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -6878,9 +7060,9 @@ class ExecutionsApi:
 
     def _trigger_execution_by_get_webhook_serialize(
         self,
-        namespace,
         id,
         key,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -6899,12 +7081,12 @@ class ExecutionsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
         if id is not None:
             _path_params['id'] = id
         if key is not None:
             _path_params['key'] = key
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -6949,10 +7131,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_get_webhook_with_path(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -6966,14 +7148,14 @@ class ExecutionsApi:
         """Trigger a new execution by GET webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -6985,10 +7167,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_get_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7009,10 +7191,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_get_webhook_with_path_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -7026,14 +7208,14 @@ class ExecutionsApi:
         """Trigger a new execution by GET webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -7045,10 +7227,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_get_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7068,10 +7250,10 @@ class ExecutionsApi:
 
     def _trigger_execution_by_get_webhook_with_path_serialize(
         self,
-        namespace,
+        path,
         id,
         key,
-        path,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -7090,14 +7272,14 @@ class ExecutionsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
+        if path is not None:
+            _path_params['path'] = path
         if id is not None:
             _path_params['id'] = id
         if key is not None:
             _path_params['key'] = key
-        if path is not None:
-            _path_params['path'] = path
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -7142,10 +7324,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_post_webhook_with_path(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -7159,14 +7341,14 @@ class ExecutionsApi:
         """Trigger a new execution by POST webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -7178,10 +7360,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_post_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7202,10 +7384,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_post_webhook_with_path_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -7219,14 +7401,14 @@ class ExecutionsApi:
         """Trigger a new execution by POST webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -7238,10 +7420,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_post_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7261,10 +7443,10 @@ class ExecutionsApi:
 
     def _trigger_execution_by_post_webhook_with_path_serialize(
         self,
-        namespace,
+        path,
         id,
         key,
-        path,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -7283,14 +7465,14 @@ class ExecutionsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
+        if path is not None:
+            _path_params['path'] = path
         if id is not None:
             _path_params['id'] = id
         if key is not None:
             _path_params['key'] = key
-        if path is not None:
-            _path_params['path'] = path
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -7335,10 +7517,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_put_webhook_with_path(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -7352,14 +7534,14 @@ class ExecutionsApi:
         """Trigger a new execution by PUT webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -7371,10 +7553,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_put_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7395,10 +7577,10 @@ class ExecutionsApi:
     @validate_call
     def trigger_execution_by_put_webhook_with_path_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        path: Annotated[Optional[StrictStr], Field(description="Optional additional path segments")],
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -7412,14 +7594,14 @@ class ExecutionsApi:
         """Trigger a new execution by PUT webhook trigger
 
 
-        :param namespace: The flow namespace (required)
-        :type namespace: str
+        :param path: Optional additional path segments (required)
+        :type path: str
                 :param id: The flow id (required)
         :type id: str
                 :param key: The webhook trigger uid (required)
         :type key: str
-                :param path: Optional additional path segments (required)
-        :type path: str
+                :param namespace: The flow namespace (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -7431,10 +7613,10 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._trigger_execution_by_put_webhook_with_path_serialize(
-            namespace=namespace,
+            path=path,
             id=id,
             key=key,
-            path=path,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -7454,10 +7636,10 @@ class ExecutionsApi:
 
     def _trigger_execution_by_put_webhook_with_path_serialize(
         self,
-        namespace,
+        path,
         id,
         key,
-        path,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -7476,14 +7658,14 @@ class ExecutionsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
+        if path is not None:
+            _path_params['path'] = path
         if id is not None:
             _path_params['id'] = id
         if key is not None:
             _path_params['key'] = key
-        if path is not None:
-            _path_params['path'] = path
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters

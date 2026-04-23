@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // OutputValue - struct for OutputValue
 type OutputValue struct {
 	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	String *string
 }
 
 // map[string]interface{}AsOutputValue is a convenience function that returns map[string]interface{} wrapped in OutputValue
@@ -35,6 +34,7 @@ func StringAsOutputValue(v *string) OutputValue {
 		String: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *OutputValue) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src OutputValue) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *OutputValue) GetActualInstance() interface{} {
+func (obj *OutputValue) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *OutputValue) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj OutputValue) GetActualInstanceValue() interface{} {
+func (obj OutputValue) GetActualInstanceValue() (interface{}) {
 	if obj.MapmapOfStringAny != nil {
 		return *obj.MapmapOfStringAny
 	}
@@ -166,3 +166,5 @@ func (v *NullableOutputValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

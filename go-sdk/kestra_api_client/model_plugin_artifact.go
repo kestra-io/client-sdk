@@ -18,12 +18,12 @@ var _ MappedNullable = &PluginArtifact{}
 
 // PluginArtifact struct for PluginArtifact
 type PluginArtifact struct {
-	GroupId              *string `json:"groupId,omitempty"`
-	ArtifactId           *string `json:"artifactId,omitempty"`
-	Extension            *string `json:"extension,omitempty"`
-	Classifier           *string `json:"classifier,omitempty"`
-	Version              *string `json:"version,omitempty"`
-	Uri                  *string `json:"uri,omitempty"`
+	GroupId *string `json:"groupId,omitempty"`
+	ArtifactId *string `json:"artifactId,omitempty"`
+	Extension *string `json:"extension,omitempty"`
+	Classifier *string `json:"classifier,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -239,7 +239,7 @@ func (o *PluginArtifact) SetUri(v string) {
 }
 
 func (o PluginArtifact) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -335,3 +335,5 @@ func (v *NullablePluginArtifact) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

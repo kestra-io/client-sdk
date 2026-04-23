@@ -19,19 +19,19 @@ type QueryFilterOp string
 
 // List of QueryFilter.Op
 const (
-	QUERYFILTEROP_EQUALS                   QueryFilterOp = "EQUALS"
-	QUERYFILTEROP_NOT_EQUALS               QueryFilterOp = "NOT_EQUALS"
-	QUERYFILTEROP_GREATER_THAN             QueryFilterOp = "GREATER_THAN"
-	QUERYFILTEROP_LESS_THAN                QueryFilterOp = "LESS_THAN"
+	QUERYFILTEROP_EQUALS QueryFilterOp = "EQUALS"
+	QUERYFILTEROP_NOT_EQUALS QueryFilterOp = "NOT_EQUALS"
+	QUERYFILTEROP_GREATER_THAN QueryFilterOp = "GREATER_THAN"
+	QUERYFILTEROP_LESS_THAN QueryFilterOp = "LESS_THAN"
 	QUERYFILTEROP_GREATER_THAN_OR_EQUAL_TO QueryFilterOp = "GREATER_THAN_OR_EQUAL_TO"
-	QUERYFILTEROP_LESS_THAN_OR_EQUAL_TO    QueryFilterOp = "LESS_THAN_OR_EQUAL_TO"
-	QUERYFILTEROP_IN                       QueryFilterOp = "IN"
-	QUERYFILTEROP_NOT_IN                   QueryFilterOp = "NOT_IN"
-	QUERYFILTEROP_STARTS_WITH              QueryFilterOp = "STARTS_WITH"
-	QUERYFILTEROP_ENDS_WITH                QueryFilterOp = "ENDS_WITH"
-	QUERYFILTEROP_CONTAINS                 QueryFilterOp = "CONTAINS"
-	QUERYFILTEROP_REGEX                    QueryFilterOp = "REGEX"
-	QUERYFILTEROP_PREFIX                   QueryFilterOp = "PREFIX"
+	QUERYFILTEROP_LESS_THAN_OR_EQUAL_TO QueryFilterOp = "LESS_THAN_OR_EQUAL_TO"
+	QUERYFILTEROP_IN QueryFilterOp = "IN"
+	QUERYFILTEROP_NOT_IN QueryFilterOp = "NOT_IN"
+	QUERYFILTEROP_STARTS_WITH QueryFilterOp = "STARTS_WITH"
+	QUERYFILTEROP_ENDS_WITH QueryFilterOp = "ENDS_WITH"
+	QUERYFILTEROP_CONTAINS QueryFilterOp = "CONTAINS"
+	QUERYFILTEROP_REGEX QueryFilterOp = "REGEX"
+	QUERYFILTEROP_PREFIX QueryFilterOp = "PREFIX"
 )
 
 // All allowed values of QueryFilterOp enum
@@ -129,3 +129,4 @@ func (v *NullableQueryFilterOp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

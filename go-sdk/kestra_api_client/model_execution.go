@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+	"fmt"
 )
 
 // checks if the Execution type satisfies the MappedNullable interface at compile time
@@ -20,26 +20,26 @@ var _ MappedNullable = &Execution{}
 
 // Execution struct for Execution
 type Execution struct {
-	Labels               []Label                `json:"labels,omitempty"`
-	Id                   string                 `json:"id"`
-	Namespace            string                 `json:"namespace"`
-	FlowId               string                 `json:"flowId"`
-	FlowRevision         int32                  `json:"flowRevision"`
-	TaskRunList          []TaskRun              `json:"taskRunList,omitempty"`
-	Inputs               map[string]interface{} `json:"inputs,omitempty"`
-	Outputs              map[string]interface{} `json:"outputs,omitempty"`
-	Variables            map[string]interface{} `json:"variables,omitempty"`
-	State                State                  `json:"state"`
-	ParentId             *string                `json:"parentId,omitempty"`
-	OriginalId           *string                `json:"originalId,omitempty"`
-	Trigger              *ExecutionTrigger      `json:"trigger,omitempty"`
-	Deleted              bool                   `json:"deleted"`
-	Metadata             *ExecutionMetadata     `json:"metadata,omitempty"`
-	ScheduleDate         NullableTime           `json:"scheduleDate,omitempty"`
-	TraceParent          *string                `json:"traceParent,omitempty"`
-	Fixtures             []TaskFixture          `json:"fixtures,omitempty"`
-	Kind                 NullableExecutionKind  `json:"kind,omitempty"`
-	Breakpoints          []Breakpoint           `json:"breakpoints,omitempty"`
+	Labels []Label `json:"labels,omitempty"`
+	Id string `json:"id"`
+	Namespace string `json:"namespace"`
+	FlowId string `json:"flowId"`
+	FlowRevision int32 `json:"flowRevision"`
+	TaskRunList []TaskRun `json:"taskRunList,omitempty"`
+	Inputs map[string]interface{} `json:"inputs,omitempty"`
+	Outputs map[string]interface{} `json:"outputs,omitempty"`
+	Variables map[string]interface{} `json:"variables,omitempty"`
+	State State `json:"state"`
+	ParentId *string `json:"parentId,omitempty"`
+	OriginalId *string `json:"originalId,omitempty"`
+	Trigger *ExecutionTrigger `json:"trigger,omitempty"`
+	Deleted bool `json:"deleted"`
+	Metadata *ExecutionMetadata `json:"metadata,omitempty"`
+	ScheduleDate NullableTime `json:"scheduleDate,omitempty"`
+	TraceParent *string `json:"traceParent,omitempty"`
+	Fixtures []TaskFixture `json:"fixtures,omitempty"`
+	Kind NullableExecutionKind `json:"kind,omitempty"`
+	Breakpoints []Breakpoint `json:"breakpoints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -532,7 +532,6 @@ func (o *Execution) HasScheduleDate() bool {
 func (o *Execution) SetScheduleDate(v time.Time) {
 	o.ScheduleDate.Set(&v)
 }
-
 // SetScheduleDateNil sets the value for ScheduleDate to be an explicit nil
 func (o *Execution) SetScheduleDateNil() {
 	o.ScheduleDate.Set(nil)
@@ -640,7 +639,6 @@ func (o *Execution) HasKind() bool {
 func (o *Execution) SetKind(v ExecutionKind) {
 	o.Kind.Set(&v)
 }
-
 // SetKindNil sets the value for Kind to be an explicit nil
 func (o *Execution) SetKindNil() {
 	o.Kind.Set(nil)
@@ -685,7 +683,7 @@ func (o *Execution) SetBreakpoints(v []Breakpoint) {
 }
 
 func (o Execution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -768,10 +766,10 @@ func (o *Execution) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -851,3 +849,5 @@ func (v *NullableExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

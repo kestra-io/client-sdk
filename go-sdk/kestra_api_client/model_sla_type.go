@@ -19,7 +19,7 @@ type SLAType string
 
 // List of SLA.Type
 const (
-	SLATYPE_MAX_DURATION        SLAType = "MAX_DURATION"
+	SLATYPE_MAX_DURATION SLAType = "MAX_DURATION"
 	SLATYPE_EXECUTION_ASSERTION SLAType = "EXECUTION_ASSERTION"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableSLAType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

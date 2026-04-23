@@ -19,26 +19,27 @@ var _ MappedNullable = &MiscControllerConfiguration{}
 
 // MiscControllerConfiguration struct for MiscControllerConfiguration
 type MiscControllerConfiguration struct {
-	Uuid                      *string                    `json:"uuid,omitempty"`
-	Version                   *string                    `json:"version,omitempty"`
-	Edition                   *EditionProviderEdition    `json:"edition,omitempty"`
-	CommitId                  *string                    `json:"commitId,omitempty"`
-	ChartDefaultDuration      *string                    `json:"chartDefaultDuration,omitempty"`
-	CommitDate                *time.Time                 `json:"commitDate,omitempty"`
-	IsCustomDashboardsEnabled *bool                      `json:"isCustomDashboardsEnabled,omitempty"`
-	IsAnonymousUsageEnabled   *bool                      `json:"isAnonymousUsageEnabled,omitempty"`
-	IsUiAnonymousUsageEnabled *bool                      `json:"isUiAnonymousUsageEnabled,omitempty"`
-	IsTemplateEnabled         *bool                      `json:"isTemplateEnabled,omitempty"`
-	Environment               *MiscControllerEnvironment `json:"environment,omitempty"`
-	Url                       *string                    `json:"url,omitempty"`
-	Preview                   *MiscControllerPreview     `json:"preview,omitempty"`
-	SystemNamespace           *string                    `json:"systemNamespace,omitempty"`
-	HiddenLabelsPrefixes      []string                   `json:"hiddenLabelsPrefixes,omitempty"`
-	IsAiEnabled               *bool                      `json:"isAiEnabled,omitempty"`
-	IsBasicAuthInitialized    *bool                      `json:"isBasicAuthInitialized,omitempty"`
-	PluginsHash               *int64                     `json:"pluginsHash,omitempty"`
-	IsConcurrencyViewEnabled  *bool                      `json:"isConcurrencyViewEnabled,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	Uuid *string `json:"uuid,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Edition *EditionProviderEdition `json:"edition,omitempty"`
+	CommitId *string `json:"commitId,omitempty"`
+	ChartDefaultDuration *string `json:"chartDefaultDuration,omitempty"`
+	CommitDate *time.Time `json:"commitDate,omitempty"`
+	IsCustomDashboardsEnabled *bool `json:"isCustomDashboardsEnabled,omitempty"`
+	IsAnonymousUsageEnabled *bool `json:"isAnonymousUsageEnabled,omitempty"`
+	IsUiAnonymousUsageEnabled *bool `json:"isUiAnonymousUsageEnabled,omitempty"`
+	IsTemplateEnabled *bool `json:"isTemplateEnabled,omitempty"`
+	Environment *MiscControllerEnvironment `json:"environment,omitempty"`
+	Url *string `json:"url,omitempty"`
+	Preview *MiscControllerPreview `json:"preview,omitempty"`
+	SystemNamespace *string `json:"systemNamespace,omitempty"`
+	HiddenLabelsPrefixes []string `json:"hiddenLabelsPrefixes,omitempty"`
+	IsAiEnabled *bool `json:"isAiEnabled,omitempty"`
+	IsAiApiKeyConfigured *bool `json:"isAiApiKeyConfigured,omitempty"`
+	IsBasicAuthInitialized *bool `json:"isBasicAuthInitialized,omitempty"`
+	PluginsHash *int64 `json:"pluginsHash,omitempty"`
+	IsConcurrencyViewEnabled *bool `json:"isConcurrencyViewEnabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MiscControllerConfiguration MiscControllerConfiguration
@@ -572,6 +573,38 @@ func (o *MiscControllerConfiguration) SetIsAiEnabled(v bool) {
 	o.IsAiEnabled = &v
 }
 
+// GetIsAiApiKeyConfigured returns the IsAiApiKeyConfigured field value if set, zero value otherwise.
+func (o *MiscControllerConfiguration) GetIsAiApiKeyConfigured() bool {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiApiKeyConfigured
+}
+
+// GetIsAiApiKeyConfiguredOk returns a tuple with the IsAiApiKeyConfigured field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerConfiguration) GetIsAiApiKeyConfiguredOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiApiKeyConfigured) {
+		return nil, false
+	}
+	return o.IsAiApiKeyConfigured, true
+}
+
+// HasIsAiApiKeyConfigured returns a boolean if a field has been set.
+func (o *MiscControllerConfiguration) HasIsAiApiKeyConfigured() bool {
+	if o != nil && !IsNil(o.IsAiApiKeyConfigured) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiApiKeyConfigured gets a reference to the given bool and assigns it to the IsAiApiKeyConfigured field.
+func (o *MiscControllerConfiguration) SetIsAiApiKeyConfigured(v bool) {
+	o.IsAiApiKeyConfigured = &v
+}
+
 // GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field value if set, zero value otherwise.
 func (o *MiscControllerConfiguration) GetIsBasicAuthInitialized() bool {
 	if o == nil || IsNil(o.IsBasicAuthInitialized) {
@@ -669,7 +702,7 @@ func (o *MiscControllerConfiguration) SetIsConcurrencyViewEnabled(v bool) {
 }
 
 func (o MiscControllerConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -726,6 +759,9 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsAiEnabled) {
 		toSerialize["isAiEnabled"] = o.IsAiEnabled
 	}
+	if !IsNil(o.IsAiApiKeyConfigured) {
+		toSerialize["isAiApiKeyConfigured"] = o.IsAiApiKeyConfigured
+	}
 	if !IsNil(o.IsBasicAuthInitialized) {
 		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
 	}
@@ -773,6 +809,7 @@ func (o *MiscControllerConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "systemNamespace")
 		delete(additionalProperties, "hiddenLabelsPrefixes")
 		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "isAiApiKeyConfigured")
 		delete(additionalProperties, "isBasicAuthInitialized")
 		delete(additionalProperties, "pluginsHash")
 		delete(additionalProperties, "isConcurrencyViewEnabled")
@@ -817,3 +854,5 @@ func (v *NullableMiscControllerConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

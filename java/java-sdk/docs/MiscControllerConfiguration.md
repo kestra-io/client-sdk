@@ -23,6 +23,7 @@
 |**systemNamespace** | **String** |  |  [optional] |
 |**hiddenLabelsPrefixes** | **List&lt;String&gt;** |  |  [optional] |
 |**isAiEnabled** | **Boolean** |  |  [optional] |
+|**isAiApiKeyConfigured** | **Boolean** |  |  [optional] |
 |**isBasicAuthInitialized** | **Boolean** |  |  [optional] |
 |**pluginsHash** | **Long** |  |  [optional] |
 |**isConcurrencyViewEnabled** | **Boolean** |  |  [optional] |

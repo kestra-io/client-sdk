@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ## searchRoles
 
-> PagedResultsApiRoleSummary searchRoles(page, size, tenant, opts)
+> PagedResultsApiRoleSummary searchRoles(tenant, opts)
 
 Search for roles
 
@@ -294,14 +294,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.RolesApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
+  'page': 1, // Number | The current page
+  'size': 10, // Number | The current page size
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchRoles(page, size, tenant, opts).then((data) => {
+apiInstance.searchRoles(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -314,10 +314,10 @@ apiInstance.searchRoles(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
  **q** | **String**| A string filter | [optional] 
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type

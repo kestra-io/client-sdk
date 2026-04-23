@@ -19,13 +19,13 @@ var _ MappedNullable = &KVEntry{}
 
 // KVEntry struct for KVEntry
 type KVEntry struct {
-	Namespace            *string        `json:"namespace,omitempty"`
-	Key                  *string        `json:"key,omitempty"`
-	Version              *int32         `json:"version,omitempty"`
-	Description          NullableString `json:"description,omitempty"`
-	CreationDate         *time.Time     `json:"creationDate,omitempty"`
-	UpdateDate           *time.Time     `json:"updateDate,omitempty"`
-	ExpirationDate       NullableTime   `json:"expirationDate,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Version *int32 `json:"version,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	CreationDate *time.Time `json:"creationDate,omitempty"`
+	UpdateDate *time.Time `json:"updateDate,omitempty"`
+	ExpirationDate NullableTime `json:"expirationDate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,7 +176,6 @@ func (o *KVEntry) HasDescription() bool {
 func (o *KVEntry) SetDescription(v string) {
 	o.Description.Set(&v)
 }
-
 // SetDescriptionNil sets the value for Description to be an explicit nil
 func (o *KVEntry) SetDescriptionNil() {
 	o.Description.Set(nil)
@@ -283,7 +282,6 @@ func (o *KVEntry) HasExpirationDate() bool {
 func (o *KVEntry) SetExpirationDate(v time.Time) {
 	o.ExpirationDate.Set(&v)
 }
-
 // SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil
 func (o *KVEntry) SetExpirationDateNil() {
 	o.ExpirationDate.Set(nil)
@@ -295,7 +293,7 @@ func (o *KVEntry) UnsetExpirationDate() {
 }
 
 func (o KVEntry) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -395,3 +393,5 @@ func (v *NullableKVEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

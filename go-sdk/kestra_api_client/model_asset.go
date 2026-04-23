@@ -19,12 +19,12 @@ var _ MappedNullable = &Asset{}
 
 // Asset struct for Asset
 type Asset struct {
-	Namespace            *string                           `json:"namespace,omitempty" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Id                   string                            `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Type                 string                            `json:"type"`
-	DisplayName          *string                           `json:"displayName,omitempty"`
-	Description          *string                           `json:"description,omitempty"`
-	Metadata             map[string]map[string]interface{} `json:"metadata,omitempty"`
+	Namespace *string `json:"namespace,omitempty" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Type string `json:"type"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Metadata map[string]map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -226,7 +226,7 @@ func (o *Asset) SetMetadata(v map[string]map[string]interface{}) {
 }
 
 func (o Asset) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -271,10 +271,10 @@ func (o *Asset) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -340,3 +340,5 @@ func (v *NullableAsset) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

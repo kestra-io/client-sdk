@@ -12,19 +12,26 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+    "fmt"
+    "sync/atomic"
+    sse "github.com/tmaxmax/go-sse"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+
 // MiscAPIService MiscAPI service
 type MiscAPIService service
 
 type ApiConfigurationRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *MiscAPIService
 }
+
+
+
 
 func (r ApiConfigurationRequest) Execute() (*MiscControllerEEConfiguration, *http.Response, error) {
 	return r.ApiService.ConfigurationExecute(r)
@@ -35,25 +42,24 @@ Configuration Retrieve the instance configuration.
 
 Global endpoint available to all users.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiConfigurationRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiConfigurationRequest
 */
 func (a *MiscAPIService) Configuration(ctx context.Context) ApiConfigurationRequest {
 	return ApiConfigurationRequest{
 		ApiService: a,
-		ctx:        ctx,
-	}
+		ctx: ctx,
+    }
 }
 
 // Execute executes the request
-//
-//	@return MiscControllerEEConfiguration
+//  @return MiscControllerEEConfiguration
 func (a *MiscAPIService) ConfigurationExecute(r ApiConfigurationRequest) (*MiscControllerEEConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MiscControllerEEConfiguration
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MiscControllerEEConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.Configuration")
@@ -121,11 +127,223 @@ func (a *MiscAPIService) ConfigurationExecute(r ApiConfigurationRequest) (*MiscC
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGenerateRequest struct {
-	ctx        context.Context
+
+
+
+
+type ApiExpressionFiltersRequest struct {
+	ctx context.Context
 	ApiService *MiscAPIService
-	tenant     string
-	from       *string
+}
+
+
+
+
+func (r ApiExpressionFiltersRequest) Execute() ([]string, *http.Response, error) {
+	return r.ApiService.ExpressionFiltersExecute(r)
+}
+
+/*
+ExpressionFilters Retrieve the list of available Pebble expression filters.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiExpressionFiltersRequest
+*/
+func (a *MiscAPIService) ExpressionFilters(ctx context.Context) ApiExpressionFiltersRequest {
+	return ApiExpressionFiltersRequest{
+		ApiService: a,
+		ctx: ctx,
+    }
+}
+
+// Execute executes the request
+//  @return []string
+func (a *MiscAPIService) ExpressionFiltersExecute(r ApiExpressionFiltersRequest) ([]string, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.ExpressionFilters")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/pebble/filters"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+
+
+
+
+type ApiExpressionFunctionsRequest struct {
+	ctx context.Context
+	ApiService *MiscAPIService
+}
+
+
+
+
+func (r ApiExpressionFunctionsRequest) Execute() ([]string, *http.Response, error) {
+	return r.ApiService.ExpressionFunctionsExecute(r)
+}
+
+/*
+ExpressionFunctions Retrieve the list of available Pebble expression functions.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiExpressionFunctionsRequest
+*/
+func (a *MiscAPIService) ExpressionFunctions(ctx context.Context) ApiExpressionFunctionsRequest {
+	return ApiExpressionFunctionsRequest{
+		ApiService: a,
+		ctx: ctx,
+    }
+}
+
+// Execute executes the request
+//  @return []string
+func (a *MiscAPIService) ExpressionFunctionsExecute(r ApiExpressionFunctionsRequest) ([]string, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.ExpressionFunctions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/pebble/functions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+
+
+
+
+type ApiGenerateRequest struct {
+	ctx context.Context
+	ApiService *MiscAPIService
+	tenant string
+	from *string
 }
 
 // The start date
@@ -134,12 +352,14 @@ func (r ApiGenerateRequest) From(from string) ApiGenerateRequest {
 	return r
 }
 
+
 func (r ApiGenerateRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
 func (r ApiGenerateRequest) GetFrom() *string {
-	return r.from
+    return r.from
 }
+
 
 func (r ApiGenerateRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.GenerateExecute(r)
@@ -148,27 +368,26 @@ func (r ApiGenerateRequest) Execute() (string, *http.Response, error) {
 /*
 Generate Method for Generate
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiGenerateRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiGenerateRequest
 */
 func (a *MiscAPIService) Generate(ctx context.Context, tenant string) ApiGenerateRequest {
 	return ApiGenerateRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return string
+//  @return string
 func (a *MiscAPIService) GenerateExecute(r ApiGenerateRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.Generate")
@@ -240,10 +459,17 @@ func (a *MiscAPIService) GenerateExecute(r ApiGenerateRequest) (string, *http.Re
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiLicenseInfoRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *MiscAPIService
 }
+
+
+
 
 func (r ApiLicenseInfoRequest) Execute() (*MiscControllerLicenseInfo, *http.Response, error) {
 	return r.ApiService.LicenseInfoExecute(r)
@@ -254,25 +480,24 @@ LicenseInfo Retrieve license information
 
 Global endpoint, available to any authenticated user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiLicenseInfoRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiLicenseInfoRequest
 */
 func (a *MiscAPIService) LicenseInfo(ctx context.Context) ApiLicenseInfoRequest {
 	return ApiLicenseInfoRequest{
 		ApiService: a,
-		ctx:        ctx,
-	}
+		ctx: ctx,
+    }
 }
 
 // Execute executes the request
-//
-//	@return MiscControllerLicenseInfo
+//  @return MiscControllerLicenseInfo
 func (a *MiscAPIService) LicenseInfoExecute(r ApiLicenseInfoRequest) (*MiscControllerLicenseInfo, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MiscControllerLicenseInfo
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MiscControllerLicenseInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.LicenseInfo")
@@ -340,15 +565,21 @@ func (a *MiscAPIService) LicenseInfoExecute(r ApiLicenseInfoRequest) (*MiscContr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiListActionsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *MiscAPIService
-	tenant     string
+	tenant string
 }
 
+
 func (r ApiListActionsRequest) GetTenant() string {
-	return r.tenant
+    return r.tenant
 }
+
 
 func (r ApiListActionsRequest) Execute() ([]Action, *http.Response, error) {
 	return r.ApiService.ListActionsExecute(r)
@@ -359,27 +590,26 @@ ListActions Retrieve list of actions
 
 Actions are used to restrict possible operations for each permission. Each action must be one of the following: CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g. only allow a user to read a flow, but not update or delete it.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListActionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenant
+ @return ApiListActionsRequest
 */
 func (a *MiscAPIService) ListActions(ctx context.Context, tenant string) ApiListActionsRequest {
 	return ApiListActionsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
+		ctx: ctx,
+		tenant: tenant,
+    }
 }
 
 // Execute executes the request
-//
-//	@return []Action
+//  @return []Action
 func (a *MiscAPIService) ListActionsExecute(r ApiListActionsRequest) ([]Action, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Action
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Action
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.ListActions")
@@ -448,10 +678,17 @@ func (a *MiscAPIService) ListActionsExecute(r ApiListActionsRequest) ([]Action, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiMainTenantFlowsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *MiscAPIService
 }
+
+
+
 
 func (r ApiMainTenantFlowsRequest) Execute() (bool, *http.Response, error) {
 	return r.ApiService.MainTenantFlowsExecute(r)
@@ -460,25 +697,24 @@ func (r ApiMainTenantFlowsRequest) Execute() (bool, *http.Response, error) {
 /*
 MainTenantFlows Check if flows are present on the main tenant.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiMainTenantFlowsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiMainTenantFlowsRequest
 */
 func (a *MiscAPIService) MainTenantFlows(ctx context.Context) ApiMainTenantFlowsRequest {
 	return ApiMainTenantFlowsRequest{
 		ApiService: a,
-		ctx:        ctx,
-	}
+		ctx: ctx,
+    }
 }
 
 // Execute executes the request
-//
-//	@return bool
+//  @return bool
 func (a *MiscAPIService) MainTenantFlowsExecute(r ApiMainTenantFlowsRequest) (bool, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue bool
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  bool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.MainTenantFlows")
@@ -546,10 +782,17 @@ func (a *MiscAPIService) MainTenantFlowsExecute(r ApiMainTenantFlowsRequest) (bo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
+
+
 type ApiSetupConfigurationRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *MiscAPIService
 }
+
+
+
 
 func (r ApiSetupConfigurationRequest) Execute() (*SetupConfiguration, *http.Response, error) {
 	return r.ApiService.SetupConfigurationExecute(r)
@@ -558,25 +801,24 @@ func (r ApiSetupConfigurationRequest) Execute() (*SetupConfiguration, *http.Resp
 /*
 SetupConfiguration Retrieve current setup configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSetupConfigurationRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSetupConfigurationRequest
 */
 func (a *MiscAPIService) SetupConfiguration(ctx context.Context) ApiSetupConfigurationRequest {
 	return ApiSetupConfigurationRequest{
 		ApiService: a,
-		ctx:        ctx,
-	}
+		ctx: ctx,
+    }
 }
 
 // Execute executes the request
-//
-//	@return SetupConfiguration
+//  @return SetupConfiguration
 func (a *MiscAPIService) SetupConfigurationExecute(r ApiSetupConfigurationRequest) (*SetupConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SetupConfiguration
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SetupConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.SetupConfiguration")
@@ -643,3 +885,7 @@ func (a *MiscAPIService) SetupConfigurationExecute(r ApiSetupConfigurationReques
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
+
+

@@ -19,12 +19,12 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
-	Id                   string      `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
-	Description          *string     `json:"description,omitempty"`
-	Value                OutputValue `json:"value"`
-	Type                 Type        `json:"type"`
-	DisplayName          *string     `json:"displayName,omitempty"`
-	Required             *bool       `json:"required,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Description *string `json:"description,omitempty"`
+	Value OutputValue `json:"value"`
+	Type Type `json:"type"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Required *bool `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -219,7 +219,7 @@ func (o *Output) SetRequired(v bool) {
 }
 
 func (o Output) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -263,10 +263,10 @@ func (o *Output) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -332,3 +332,5 @@ func (v *NullableOutput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

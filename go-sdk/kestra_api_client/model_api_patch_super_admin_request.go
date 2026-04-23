@@ -19,7 +19,7 @@ var _ MappedNullable = &ApiPatchSuperAdminRequest{}
 
 // ApiPatchSuperAdminRequest struct for ApiPatchSuperAdminRequest
 type ApiPatchSuperAdminRequest struct {
-	SuperAdmin           bool `json:"superAdmin"`
+	SuperAdmin bool `json:"superAdmin"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +68,7 @@ func (o *ApiPatchSuperAdminRequest) SetSuperAdmin(v bool) {
 }
 
 func (o ApiPatchSuperAdminRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -99,10 +99,10 @@ func (o *ApiPatchSuperAdminRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -163,3 +163,5 @@ func (v *NullableApiPatchSuperAdminRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

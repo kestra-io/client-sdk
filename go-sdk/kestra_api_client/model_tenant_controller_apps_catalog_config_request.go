@@ -18,9 +18,9 @@ var _ MappedNullable = &TenantControllerAppsCatalogConfigRequest{}
 
 // TenantControllerAppsCatalogConfigRequest struct for TenantControllerAppsCatalogConfigRequest
 type TenantControllerAppsCatalogConfigRequest struct {
-	Title                *string `json:"title,omitempty"`
-	TitleColor           *string `json:"titleColor,omitempty"`
-	PrimaryColor         *string `json:"primaryColor,omitempty"`
+	Title *string `json:"title,omitempty"`
+	TitleColor *string `json:"titleColor,omitempty"`
+	PrimaryColor *string `json:"primaryColor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *TenantControllerAppsCatalogConfigRequest) SetPrimaryColor(v string) {
 }
 
 func (o TenantControllerAppsCatalogConfigRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableTenantControllerAppsCatalogConfigRequest) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

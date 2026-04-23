@@ -18,8 +18,8 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionDetailsApiPluginClass{
 
 // InstanceControllerApiPluginVersionDetailsApiPluginClass struct for InstanceControllerApiPluginVersionDetailsApiPluginClass
 type InstanceControllerApiPluginVersionDetailsApiPluginClass struct {
-	Name                 *string `json:"name,omitempty"`
-	Icon                 *string `json:"icon,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Icon *string `json:"icon,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) SetIcon(v stri
 }
 
 func (o InstanceControllerApiPluginVersionDetailsApiPluginClass) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableInstanceControllerApiPluginVersionDetailsApiPluginClass) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

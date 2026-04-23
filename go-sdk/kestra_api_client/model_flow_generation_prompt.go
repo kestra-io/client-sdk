@@ -19,11 +19,10 @@ var _ MappedNullable = &FlowGenerationPrompt{}
 
 // FlowGenerationPrompt struct for FlowGenerationPrompt
 type FlowGenerationPrompt struct {
-	ConversationId       string  `json:"conversationId"`
-	UserPrompt           string  `json:"userPrompt"`
-	Yaml                 *string `json:"yaml,omitempty"`
-	ProviderId           *string `json:"providerId,omitempty"`
-	Namespace            *string `json:"namespace,omitempty"`
+	ConversationId string `json:"conversationId"`
+	UserPrompt string `json:"userPrompt"`
+	Yaml *string `json:"yaml,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -128,38 +127,6 @@ func (o *FlowGenerationPrompt) SetYaml(v string) {
 	o.Yaml = &v
 }
 
-// GetProviderId returns the ProviderId field value if set, zero value otherwise.
-func (o *FlowGenerationPrompt) GetProviderId() string {
-	if o == nil || IsNil(o.ProviderId) {
-		var ret string
-		return ret
-	}
-	return *o.ProviderId
-}
-
-// GetProviderIdOk returns a tuple with the ProviderId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlowGenerationPrompt) GetProviderIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ProviderId) {
-		return nil, false
-	}
-	return o.ProviderId, true
-}
-
-// HasProviderId returns a boolean if a field has been set.
-func (o *FlowGenerationPrompt) HasProviderId() bool {
-	if o != nil && !IsNil(o.ProviderId) {
-		return true
-	}
-
-	return false
-}
-
-// SetProviderId gets a reference to the given string and assigns it to the ProviderId field.
-func (o *FlowGenerationPrompt) SetProviderId(v string) {
-	o.ProviderId = &v
-}
-
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *FlowGenerationPrompt) GetNamespace() string {
 	if o == nil || IsNil(o.Namespace) {
@@ -193,7 +160,7 @@ func (o *FlowGenerationPrompt) SetNamespace(v string) {
 }
 
 func (o FlowGenerationPrompt) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -206,9 +173,6 @@ func (o FlowGenerationPrompt) ToMap() (map[string]interface{}, error) {
 	toSerialize["userPrompt"] = o.UserPrompt
 	if !IsNil(o.Yaml) {
 		toSerialize["yaml"] = o.Yaml
-	}
-	if !IsNil(o.ProviderId) {
-		toSerialize["providerId"] = o.ProviderId
 	}
 	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
@@ -235,10 +199,10 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -260,7 +224,6 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "conversationId")
 		delete(additionalProperties, "userPrompt")
 		delete(additionalProperties, "yaml")
-		delete(additionalProperties, "providerId")
 		delete(additionalProperties, "namespace")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -303,3 +266,5 @@ func (v *NullableFlowGenerationPrompt) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -18,8 +18,8 @@ var _ MappedNullable = &SortRequest{}
 
 // SortRequest struct for SortRequest
 type SortRequest struct {
-	SortBy               *AttributeReference `json:"sortBy,omitempty"`
-	SortOrder            *SortOrder          `json:"sortOrder,omitempty"`
+	SortBy *AttributeReference `json:"sortBy,omitempty"`
+	SortOrder *SortOrder `json:"sortOrder,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *SortRequest) SetSortOrder(v SortOrder) {
 }
 
 func (o SortRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableSortRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

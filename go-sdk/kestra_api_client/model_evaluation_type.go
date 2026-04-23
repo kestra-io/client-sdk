@@ -19,8 +19,8 @@ type EvaluationType string
 
 // List of EvaluationType
 const (
-	EVALUATIONTYPE_PASS   EvaluationType = "PASS"
-	EVALUATIONTYPE_KILL   EvaluationType = "KILL"
+	EVALUATIONTYPE_PASS EvaluationType = "PASS"
+	EVALUATIONTYPE_KILL EvaluationType = "KILL"
 	EVALUATIONTYPE_CANCEL EvaluationType = "CANCEL"
 	EVALUATIONTYPE_IGNORE EvaluationType = "IGNORE"
 )
@@ -111,3 +111,4 @@ func (v *NullableEvaluationType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

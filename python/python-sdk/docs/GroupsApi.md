@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_group_members**
-> PagedResultsIAMGroupControllerApiGroupMember search_group_members(id, page, size, filters, tenant, sort=sort)
+> PagedResultsIAMGroupControllerApiGroupMember search_group_members(id, filters, tenant, page=page, size=size, sort=sort)
 
 Search for users in a group
 
@@ -502,15 +502,15 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     id = 'id_example' # str | The group id
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
     tenant = 'tenant_example' # str | 
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for users in a group
-        api_response = kestra_client.GroupsApi.search_group_members(id, page, size, filters, tenant, sort=sort)
+        api_response = kestra_client.GroupsApi.search_group_members(id, filters, tenant, page=page, size=size, sort=sort)
         print("The response of GroupsApi->search_group_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -525,10 +525,10 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The group id | 
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **str**|  | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
@@ -553,7 +553,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_groups**
-> PagedResultsApiGroupSummary search_groups(page, size, tenant, q=q, sort=sort)
+> PagedResultsApiGroupSummary search_groups(tenant, q=q, page=page, size=size, sort=sort)
 
 Search for groups
 
@@ -573,15 +573,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for groups
-        api_response = kestra_client.GroupsApi.search_groups(page, size, tenant, q=q, sort=sort)
+        api_response = kestra_client.GroupsApi.search_groups(tenant, q=q, page=page, size=size, sort=sort)
         print("The response of GroupsApi->search_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -595,10 +595,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
  **q** | **str**| A string filter | [optional] 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type

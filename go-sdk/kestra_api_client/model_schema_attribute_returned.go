@@ -19,9 +19,9 @@ type SchemaAttributeReturned string
 
 // List of Schema.Attribute.Returned
 const (
-	SCHEMAATTRIBUTERETURNED_ALWAYS  SchemaAttributeReturned = "ALWAYS"
+	SCHEMAATTRIBUTERETURNED_ALWAYS SchemaAttributeReturned = "ALWAYS"
 	SCHEMAATTRIBUTERETURNED_DEFAULT SchemaAttributeReturned = "DEFAULT"
-	SCHEMAATTRIBUTERETURNED_NEVER   SchemaAttributeReturned = "NEVER"
+	SCHEMAATTRIBUTERETURNED_NEVER SchemaAttributeReturned = "NEVER"
 	SCHEMAATTRIBUTERETURNED_REQUEST SchemaAttributeReturned = "REQUEST"
 )
 
@@ -111,3 +111,4 @@ func (v *NullableSchemaAttributeReturned) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -19,8 +19,8 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationRole{}
 
 // IAMInvitationControllerApiInvitationRole struct for IAMInvitationControllerApiInvitationRole
 type IAMInvitationControllerApiInvitationRole struct {
-	Id                   string   `json:"id"`
-	Namespaces           []string `json:"namespaces,omitempty"`
+	Id string `json:"id"`
+	Namespaces []string `json:"namespaces,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -101,7 +101,7 @@ func (o *IAMInvitationControllerApiInvitationRole) SetNamespaces(v []string) {
 }
 
 func (o IAMInvitationControllerApiInvitationRole) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -135,10 +135,10 @@ func (o *IAMInvitationControllerApiInvitationRole) UnmarshalJSON(data []byte) (e
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -200,3 +200,5 @@ func (v *NullableIAMInvitationControllerApiInvitationRole) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

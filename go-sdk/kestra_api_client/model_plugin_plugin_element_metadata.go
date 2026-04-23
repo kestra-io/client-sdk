@@ -18,10 +18,10 @@ var _ MappedNullable = &PluginPluginElementMetadata{}
 
 // PluginPluginElementMetadata struct for PluginPluginElementMetadata
 type PluginPluginElementMetadata struct {
-	Cls                  *string `json:"cls,omitempty"`
-	Deprecated           *bool   `json:"deprecated,omitempty"`
-	Title                *string `json:"title,omitempty"`
-	Description          *string `json:"description,omitempty"`
+	Cls *string `json:"cls,omitempty"`
+	Deprecated *bool `json:"deprecated,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *PluginPluginElementMetadata) SetDescription(v string) {
 }
 
 func (o PluginPluginElementMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullablePluginPluginElementMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

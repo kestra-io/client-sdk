@@ -18,7 +18,7 @@ var _ MappedNullable = &TestSuiteControllerRunRequest{}
 
 // TestSuiteControllerRunRequest struct for TestSuiteControllerRunRequest
 type TestSuiteControllerRunRequest struct {
-	TestCases            []string `json:"testCases,omitempty"`
+	TestCases []string `json:"testCases,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *TestSuiteControllerRunRequest) SetTestCases(v []string) {
 }
 
 func (o TestSuiteControllerRunRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableTestSuiteControllerRunRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

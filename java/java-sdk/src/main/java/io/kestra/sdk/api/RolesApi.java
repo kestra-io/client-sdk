@@ -480,42 +480,32 @@ import java.util.StringJoiner;
   /**
    * Search for roles
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap());
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchRoles(tenant, q, page, size, sort, Collections.emptyMap());
   }
 
   /**
    * Search for roles
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
    * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchRoles");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchRoles");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {

@@ -11,8 +11,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
+	"fmt"
 )
 
 // checks if the UploadVersionedPluginsRequest type satisfies the MappedNullable interface at compile time
@@ -20,9 +20,9 @@ var _ MappedNullable = &UploadVersionedPluginsRequest{}
 
 // UploadVersionedPluginsRequest struct for UploadVersionedPluginsRequest
 type UploadVersionedPluginsRequest struct {
-	File                           *os.File     `json:"file"`
+	File *os.File `json:"file"`
 	ForceInstallOnExistingVersions NullableBool `json:"forceInstallOnExistingVersions,omitempty"`
-	AdditionalProperties           map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _UploadVersionedPluginsRequest UploadVersionedPluginsRequest
@@ -101,7 +101,6 @@ func (o *UploadVersionedPluginsRequest) HasForceInstallOnExistingVersions() bool
 func (o *UploadVersionedPluginsRequest) SetForceInstallOnExistingVersions(v bool) {
 	o.ForceInstallOnExistingVersions.Set(&v)
 }
-
 // SetForceInstallOnExistingVersionsNil sets the value for ForceInstallOnExistingVersions to be an explicit nil
 func (o *UploadVersionedPluginsRequest) SetForceInstallOnExistingVersionsNil() {
 	o.ForceInstallOnExistingVersions.Set(nil)
@@ -113,7 +112,7 @@ func (o *UploadVersionedPluginsRequest) UnsetForceInstallOnExistingVersions() {
 }
 
 func (o UploadVersionedPluginsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,10 +146,10 @@ func (o *UploadVersionedPluginsRequest) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -212,3 +211,5 @@ func (v *NullableUploadVersionedPluginsRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

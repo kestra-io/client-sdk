@@ -18,10 +18,10 @@ var _ MappedNullable = &UserGroup{}
 
 // UserGroup struct for UserGroup
 type UserGroup struct {
-	Value                *string        `json:"value,omitempty"`
-	Ref                  *string        `json:"ref,omitempty"`
-	Display              *string        `json:"display,omitempty"`
-	Type                 *UserGroupType `json:"type,omitempty"`
+	Value *string `json:"value,omitempty"`
+	Ref *string `json:"ref,omitempty"`
+	Display *string `json:"display,omitempty"`
+	Type *UserGroupType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *UserGroup) SetType(v UserGroupType) {
 }
 
 func (o UserGroup) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableUserGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

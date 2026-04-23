@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 ## deleteTrigger
 
-> Object deleteTrigger(namespace, flowId, triggerId, tenant)
+> Object deleteTrigger(namespace, triggerId, flowId, tenant)
 
 Delete a trigger
 
@@ -208,10 +208,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let namespace = "namespace_example"; // String | The namespace
-let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
+let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+apiInstance.deleteTrigger(namespace, triggerId, flowId, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -225,8 +225,8 @@ apiInstance.deleteTrigger(namespace, flowId, triggerId, tenant).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The namespace | 
- **flowId** | **String**| The flow id | 
  **triggerId** | **String**| The trigger id | 
+ **flowId** | **String**| The flow id | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, opts)
+> Object disabledTriggersByQuery(tenant, opts)
 
 Disable/enable triggers by query parameters
 
@@ -419,12 +419,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
-let disabled = true; // Boolean | The disabled state
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'disabled': true, // Boolean | The disabled state
   'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.disabledTriggersByQuery(disabled, tenant, opts).then((data) => {
+apiInstance.disabledTriggersByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -437,8 +437,8 @@ apiInstance.disabledTriggersByQuery(disabled, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **disabled** | **Boolean**| The disabled state | [default to true]
  **tenant** | **String**|  | 
+ **disabled** | **Boolean**| The disabled state | [optional] [default to true]
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ## restartTrigger
 
-> Object restartTrigger(namespace, flowId, triggerId, tenant)
+> Object restartTrigger(namespace, triggerId, flowId, tenant)
 
 Restart a trigger
 
@@ -686,10 +686,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let namespace = "namespace_example"; // String | The namespace
-let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
+let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
-apiInstance.restartTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+apiInstance.restartTrigger(namespace, triggerId, flowId, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -703,8 +703,8 @@ apiInstance.restartTrigger(namespace, flowId, triggerId, tenant).then((data) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The namespace | 
- **flowId** | **String**| The flow id | 
  **triggerId** | **String**| The trigger id | 
+ **flowId** | **String**| The flow id | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -723,7 +723,7 @@ Name | Type | Description  | Notes
 
 ## searchTriggers
 
-> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, opts)
+> PagedResultsTriggerControllerTriggers searchTriggers(tenant, opts)
 
 Search for triggers
 
@@ -741,14 +741,14 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
+  'size': 10, // Number | The current page size
+  'page': 1, // Number | The current page
+  'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchTriggers(page, size, tenant, opts).then((data) => {
+apiInstance.searchTriggers(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -761,11 +761,11 @@ apiInstance.searchTriggers(page, size, tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
  **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **size** | **Number**| The current page size | [optional] [default to 10]
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -783,7 +783,7 @@ Name | Type | Description  | Notes
 
 ## searchTriggersForFlow
 
-> PagedResultsTrigger searchTriggersForFlow(page, size, namespace, flowId, tenant, opts)
+> PagedResultsTrigger searchTriggersForFlow(namespace, flowId, tenant, opts)
 
 Get all triggers for a flow
 
@@ -801,16 +801,16 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let namespace = "namespace_example"; // String | The namespace
+let namespace = new KestraIoKestraSdk.ListBlueprintTagsQParameter(); // ListBlueprintTagsQParameter | The namespace
 let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'q': "q_example" // String | A string filter
+  'q': "q_example", // String | A string filter
+  'size': 10, // Number | The current page size
+  'page': 1, // Number | The current page
+  'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchTriggersForFlow(page, size, namespace, flowId, tenant, opts).then((data) => {
+apiInstance.searchTriggersForFlow(namespace, flowId, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -823,13 +823,13 @@ apiInstance.searchTriggersForFlow(page, size, namespace, flowId, tenant, opts).t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **namespace** | **String**| The namespace | 
+ **namespace** | [**ListBlueprintTagsQParameter**](.md)| The namespace | 
  **flowId** | **String**| The flow id | 
  **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **q** | **String**| A string filter | [optional] 
+ **size** | **Number**| The current page size | [optional] [default to 10]
+ **page** | **Number**| The current page | [optional] [default to 1]
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -847,7 +847,7 @@ Name | Type | Description  | Notes
 
 ## unlockTrigger
 
-> Trigger unlockTrigger(namespace, flowId, triggerId, tenant)
+> Trigger unlockTrigger(namespace, triggerId, flowId, tenant)
 
 Unlock a trigger
 
@@ -866,10 +866,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let namespace = "namespace_example"; // String | The namespace
-let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
+let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
-apiInstance.unlockTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+apiInstance.unlockTrigger(namespace, triggerId, flowId, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -883,8 +883,8 @@ apiInstance.unlockTrigger(namespace, flowId, triggerId, tenant).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The namespace | 
- **flowId** | **String**| The flow id | 
  **triggerId** | **String**| The trigger id | 
+ **flowId** | **String**| The flow id | 
  **tenant** | **String**|  | 
 
 ### Return type

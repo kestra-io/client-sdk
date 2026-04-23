@@ -18,8 +18,8 @@ var _ MappedNullable = &Name{}
 
 // Name Scim core schema.
 type Name struct {
-	FamilyName           *string `json:"familyName,omitempty"`
-	GivenName            *string `json:"givenName,omitempty"`
+	FamilyName *string `json:"familyName,omitempty"`
+	GivenName *string `json:"givenName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *Name) SetGivenName(v string) {
 }
 
 func (o Name) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

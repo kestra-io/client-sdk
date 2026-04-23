@@ -56,14 +56,14 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @throws ApiException if fails to make API call
    */
-  public void deleteLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt) throws ApiException {
-    this.deleteLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt, Collections.emptyMap());
+  public void deleteLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId) throws ApiException {
+    this.deleteLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId, Collections.emptyMap());
   }
 
   /**
@@ -71,14 +71,14 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -103,10 +103,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     localVarQueryParams.addAll(apiClient.parameterToPair("attempt", attempt));
+    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
+    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -250,15 +250,15 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt) throws ApiException {
-    return this.downloadLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt, Collections.emptyMap());
+  public File downloadLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId) throws ApiException {
+    return this.downloadLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId, Collections.emptyMap());
   }
 
   /**
@@ -266,15 +266,15 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt, Map<String, String> additionalHeaders) throws ApiException {
+  public File downloadLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -299,10 +299,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     localVarQueryParams.addAll(apiClient.parameterToPair("attempt", attempt));
+    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
+    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -348,15 +348,15 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @return List&lt;LogEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<LogEntry> listLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt) throws ApiException {
-    return this.listLogsFromExecution(executionId, tenant, minLevel, taskRunId, taskId, attempt, Collections.emptyMap());
+  public List<LogEntry> listLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId) throws ApiException {
+    return this.listLogsFromExecution(executionId, tenant, taskRunId, attempt, minLevel, taskId, Collections.emptyMap());
   }
 
   /**
@@ -364,15 +364,15 @@ import java.util.StringJoiner;
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param minLevel The min log level filter (optional)
    * @param taskRunId The taskrun id (optional)
-   * @param taskId The task id (optional)
    * @param attempt The attempt number (optional)
+   * @param minLevel The min log level filter (optional)
+   * @param taskId The task id (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;LogEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<LogEntry> listLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable String taskId, @jakarta.annotation.Nullable Integer attempt, Map<String, String> additionalHeaders) throws ApiException {
+  public List<LogEntry> listLogsFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer attempt, @jakarta.annotation.Nullable Level minLevel, @jakarta.annotation.Nullable String taskId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -397,10 +397,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     localVarQueryParams.addAll(apiClient.parameterToPair("attempt", attempt));
+    localVarQueryParams.addAll(apiClient.parameterToPair("minLevel", minLevel));
+    localVarQueryParams.addAll(apiClient.parameterToPair("taskId", taskId));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -444,42 +444,32 @@ import java.util.StringJoiner;
   /**
    * Search for logs
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @return PagedResultsLogEntry
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsLogEntry searchLogs(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchLogs(page, size, tenant, sort, filters, Collections.emptyMap());
+  public PagedResultsLogEntry searchLogs(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchLogs(tenant, filters, size, page, sort, Collections.emptyMap());
   }
 
   /**
    * Search for logs
    * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
    * @param tenant  (required)
-   * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
+   * @param size The current page size (optional, default to 10)
+   * @param page The current page (optional, default to 1)
+   * @param sort The sort of current page (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsLogEntry
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsLogEntry searchLogs(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsLogEntry searchLogs(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchLogs");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchLogs");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -497,10 +487,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

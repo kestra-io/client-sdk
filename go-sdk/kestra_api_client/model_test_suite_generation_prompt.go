@@ -19,10 +19,10 @@ var _ MappedNullable = &TestSuiteGenerationPrompt{}
 
 // TestSuiteGenerationPrompt struct for TestSuiteGenerationPrompt
 type TestSuiteGenerationPrompt struct {
-	ConversationId       string  `json:"conversationId"`
-	UserPrompt           string  `json:"userPrompt"`
-	Yaml                 *string `json:"yaml,omitempty"`
-	ProviderId           *string `json:"providerId,omitempty"`
+	ConversationId string `json:"conversationId"`
+	UserPrompt string `json:"userPrompt"`
+	Yaml *string `json:"yaml,omitempty"`
+	ProviderId *string `json:"providerId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,7 +160,7 @@ func (o *TestSuiteGenerationPrompt) SetProviderId(v string) {
 }
 
 func (o TestSuiteGenerationPrompt) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -199,10 +199,10 @@ func (o *TestSuiteGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -266,3 +266,5 @@ func (v *NullableTestSuiteGenerationPrompt) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

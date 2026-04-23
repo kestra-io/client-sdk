@@ -18,7 +18,7 @@ var _ MappedNullable = &KVControllerApiDeleteBulkRequest{}
 
 // KVControllerApiDeleteBulkRequest struct for KVControllerApiDeleteBulkRequest
 type KVControllerApiDeleteBulkRequest struct {
-	Keys                 []string `json:"keys,omitempty"`
+	Keys []string `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *KVControllerApiDeleteBulkRequest) SetKeys(v []string) {
 }
 
 func (o KVControllerApiDeleteBulkRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableKVControllerApiDeleteBulkRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

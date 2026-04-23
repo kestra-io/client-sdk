@@ -18,8 +18,8 @@ var _ MappedNullable = &InstanceControllerApiActiveService{}
 
 // InstanceControllerApiActiveService struct for InstanceControllerApiActiveService
 type InstanceControllerApiActiveService struct {
-	Type                 *ServiceType `json:"type,omitempty"`
-	Total                *int64       `json:"total,omitempty"`
+	Type *ServiceType `json:"type,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *InstanceControllerApiActiveService) SetTotal(v int64) {
 }
 
 func (o InstanceControllerApiActiveService) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableInstanceControllerApiActiveService) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

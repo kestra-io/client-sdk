@@ -19,14 +19,14 @@ var _ MappedNullable = &BlueprintControllerApiBlueprintItemWithSource{}
 
 // BlueprintControllerApiBlueprintItemWithSource struct for BlueprintControllerApiBlueprintItemWithSource
 type BlueprintControllerApiBlueprintItemWithSource struct {
-	Id                   *string                  `json:"id,omitempty"`
-	Title                *string                  `json:"title,omitempty"`
-	Description          *string                  `json:"description,omitempty"`
-	IncludedTasks        []string                 `json:"includedTasks,omitempty"`
-	Tags                 []string                 `json:"tags,omitempty"`
-	PublishedAt          *time.Time               `json:"publishedAt,omitempty"`
-	Source               *string                  `json:"source,omitempty"`
-	Kind                 *BlueprintControllerKind `json:"kind,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IncludedTasks []string `json:"includedTasks,omitempty"`
+	Tags []string `json:"tags,omitempty"`
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+	Source *string `json:"source,omitempty"`
+	Kind *BlueprintControllerKind `json:"kind,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,7 +306,7 @@ func (o *BlueprintControllerApiBlueprintItemWithSource) SetKind(v BlueprintContr
 }
 
 func (o BlueprintControllerApiBlueprintItemWithSource) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -410,3 +410,5 @@ func (v *NullableBlueprintControllerApiBlueprintItemWithSource) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

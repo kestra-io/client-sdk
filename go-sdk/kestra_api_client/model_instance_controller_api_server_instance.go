@@ -18,10 +18,10 @@ var _ MappedNullable = &InstanceControllerApiServerInstance{}
 
 // InstanceControllerApiServerInstance struct for InstanceControllerApiServerInstance
 type InstanceControllerApiServerInstance struct {
-	Id                   *string             `json:"id,omitempty"`
-	Type                 *ServerInstanceType `json:"type,omitempty"`
-	Version              *string             `json:"version,omitempty"`
-	Hostname             *string             `json:"hostname,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *ServerInstanceType `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Hostname *string `json:"hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *InstanceControllerApiServerInstance) SetHostname(v string) {
 }
 
 func (o InstanceControllerApiServerInstance) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -261,3 +261,5 @@ func (v *NullableInstanceControllerApiServerInstance) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

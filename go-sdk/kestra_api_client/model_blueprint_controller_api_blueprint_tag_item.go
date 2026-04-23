@@ -19,9 +19,9 @@ var _ MappedNullable = &BlueprintControllerApiBlueprintTagItem{}
 
 // BlueprintControllerApiBlueprintTagItem struct for BlueprintControllerApiBlueprintTagItem
 type BlueprintControllerApiBlueprintTagItem struct {
-	Id                   *string    `json:"id,omitempty"`
-	Name                 *string    `json:"name,omitempty"`
-	PublishedAt          *time.Time `json:"publishedAt,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,7 +141,7 @@ func (o *BlueprintControllerApiBlueprintTagItem) SetPublishedAt(v time.Time) {
 }
 
 func (o BlueprintControllerApiBlueprintTagItem) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -225,3 +225,5 @@ func (v *NullableBlueprintControllerApiBlueprintTagItem) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

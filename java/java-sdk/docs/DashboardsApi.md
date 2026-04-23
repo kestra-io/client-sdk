@@ -20,7 +20,7 @@ All URIs are relative to *http://localhost*
 
 ## createDashboard
 
-> Dashboard createDashboard(tenant, body)
+> DashboardControllerDashboardResponse createDashboard(tenant, body)
 
 Create a dashboard from yaml source
 
@@ -46,7 +46,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The dashboard definition as YAML
         try {
-            Dashboard result = kestraClient.DashboardsApi().createDashboard(tenant, body);
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().createDashboard(tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#createDashboard");
@@ -69,7 +69,7 @@ public class Example {
 
 ### Return type
 
-[**Dashboard**](Dashboard.md)
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
 
 ### Authorization
 
@@ -89,7 +89,7 @@ No authorization required
 
 ## dashboard
 
-> Dashboard dashboard(id, tenant)
+> DashboardControllerDashboardResponse dashboard(id, tenant)
 
 Get a dashboard
 
@@ -115,7 +115,7 @@ public class Example {
         String id = "id_example"; // String | The dashboard id
         String tenant = "tenant_example"; // String | 
         try {
-            Dashboard result = kestraClient.DashboardsApi().dashboard(id, tenant);
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().dashboard(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#dashboard");
@@ -138,7 +138,7 @@ public class Example {
 
 ### Return type
 
-[**Dashboard**](Dashboard.md)
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
 
 ### Authorization
 
@@ -510,7 +510,7 @@ No authorization required
 
 ## searchDashboards
 
-> PagedResultsDashboard searchDashboards(page, size, tenant, q, sort)
+> PagedResultsDashboardControllerDashboardResponse searchDashboards(tenant, size, page, sort, q)
 
 Search for dashboards
 
@@ -533,13 +533,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
-        String q = "q_example"; // String | The filter query
+        Integer size = 10; // Integer | The current page size
+        Integer page = 1; // Integer | The current page
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        String q = "q_example"; // String | The filter query
         try {
-            PagedResultsDashboard result = kestraClient.DashboardsApi().searchDashboards(page, size, tenant, q, sort);
+            PagedResultsDashboardControllerDashboardResponse result = kestraClient.DashboardsApi().searchDashboards(tenant, size, page, sort, q);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#searchDashboards");
@@ -557,15 +557,15 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
-| **q** | **String**| The filter query | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **q** | **String**| The filter query | [optional] |
 
 ### Return type
 
-[**PagedResultsDashboard**](PagedResultsDashboard.md)
+[**PagedResultsDashboardControllerDashboardResponse**](PagedResultsDashboardControllerDashboardResponse.md)
 
 ### Authorization
 
@@ -585,7 +585,7 @@ No authorization required
 
 ## updateDashboard
 
-> Dashboard updateDashboard(id, tenant, body)
+> DashboardControllerDashboardResponse updateDashboard(id, tenant, body)
 
 Update a dashboard
 
@@ -612,7 +612,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The dashboard definition as YAML
         try {
-            Dashboard result = kestraClient.DashboardsApi().updateDashboard(id, tenant, body);
+            DashboardControllerDashboardResponse result = kestraClient.DashboardsApi().updateDashboard(id, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#updateDashboard");
@@ -636,7 +636,7 @@ public class Example {
 
 ### Return type
 
-[**Dashboard**](Dashboard.md)
+[**DashboardControllerDashboardResponse**](DashboardControllerDashboardResponse.md)
 
 ### Authorization
 

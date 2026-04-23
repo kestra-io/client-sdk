@@ -18,7 +18,7 @@ var _ MappedNullable = &InstanceControllerApiPluginListRequest{}
 
 // InstanceControllerApiPluginListRequest struct for InstanceControllerApiPluginListRequest
 type InstanceControllerApiPluginListRequest struct {
-	Plugins              []string `json:"plugins,omitempty"`
+	Plugins []string `json:"plugins,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *InstanceControllerApiPluginListRequest) SetPlugins(v []string) {
 }
 
 func (o InstanceControllerApiPluginListRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableInstanceControllerApiPluginListRequest) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

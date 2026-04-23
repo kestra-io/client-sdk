@@ -18,7 +18,7 @@ var _ MappedNullable = &BlueprintControllerUseBlueprintTemplateResponse{}
 
 // BlueprintControllerUseBlueprintTemplateResponse struct for BlueprintControllerUseBlueprintTemplateResponse
 type BlueprintControllerUseBlueprintTemplateResponse struct {
-	GeneratedFlowSource  *string `json:"generatedFlowSource,omitempty"`
+	GeneratedFlowSource *string `json:"generatedFlowSource,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +74,7 @@ func (o *BlueprintControllerUseBlueprintTemplateResponse) SetGeneratedFlowSource
 }
 
 func (o BlueprintControllerUseBlueprintTemplateResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableBlueprintControllerUseBlueprintTemplateResponse) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

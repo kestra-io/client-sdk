@@ -19,14 +19,14 @@ var _ MappedNullable = &IAMUserControllerApiCreateOrUpdateUserRequest{}
 
 // IAMUserControllerApiCreateOrUpdateUserRequest struct for IAMUserControllerApiCreateOrUpdateUserRequest
 type IAMUserControllerApiCreateOrUpdateUserRequest struct {
-	Tenants              []string `json:"tenants,omitempty"`
-	Groups               []string `json:"groups,omitempty"`
-	FirstName            *string  `json:"firstName,omitempty"`
-	LastName             *string  `json:"lastName,omitempty"`
-	Email                string   `json:"email"`
-	Password             *string  `json:"password,omitempty"`
-	SuperAdmin           *bool    `json:"superAdmin,omitempty"`
-	Restricted           *bool    `json:"restricted,omitempty"`
+	Tenants []string `json:"tenants,omitempty"`
+	Groups []string `json:"groups,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Email string `json:"email"`
+	Password *string `json:"password,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Restricted *bool `json:"restricted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -299,7 +299,7 @@ func (o *IAMUserControllerApiCreateOrUpdateUserRequest) SetRestricted(v bool) {
 }
 
 func (o IAMUserControllerApiCreateOrUpdateUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -351,10 +351,10 @@ func (o *IAMUserControllerApiCreateOrUpdateUserRequest) UnmarshalJSON(data []byt
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -422,3 +422,5 @@ func (v *NullableIAMUserControllerApiCreateOrUpdateUserRequest) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

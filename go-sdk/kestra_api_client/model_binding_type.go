@@ -19,7 +19,7 @@ type BindingType string
 
 // List of Binding.Type
 const (
-	BINDINGTYPE_USER  BindingType = "USER"
+	BINDINGTYPE_USER BindingType = "USER"
 	BINDINGTYPE_GROUP BindingType = "GROUP"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableBindingType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

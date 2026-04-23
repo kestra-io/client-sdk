@@ -51,8 +51,8 @@ class KVApi:
     @validate_call
     def delete_key_value(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -66,10 +66,10 @@ class KVApi:
         """Delete a key-value pair
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -81,8 +81,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._delete_key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -103,8 +103,8 @@ class KVApi:
     @validate_call
     def delete_key_value_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -118,10 +118,10 @@ class KVApi:
         """Delete a key-value pair
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -133,8 +133,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._delete_key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -154,8 +154,8 @@ class KVApi:
 
     def _delete_key_value_serialize(
         self,
-        namespace,
         key,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -174,10 +174,10 @@ class KVApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
         if key is not None:
             _path_params['key'] = key
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -404,8 +404,8 @@ class KVApi:
     @validate_call
     def key_value(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -419,10 +419,10 @@ class KVApi:
         """Get value for a key
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -434,8 +434,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -456,8 +456,8 @@ class KVApi:
     @validate_call
     def key_value_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -471,10 +471,10 @@ class KVApi:
         """Get value for a key
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -486,8 +486,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
         )
 
@@ -507,8 +507,8 @@ class KVApi:
 
     def _key_value_serialize(
         self,
-        namespace,
         key,
+        namespace,
         tenant,
     ) -> RequestSerialized:
 
@@ -527,10 +527,10 @@ class KVApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
         if key is not None:
             _path_params['key'] = key
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -575,11 +575,11 @@ class KVApi:
     @validate_call
     def list_all_keys(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -592,16 +592,16 @@ class KVApi:
         """List all keys
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param size: The current page size
+        :type size: int
+                :param sort: The sort of current page
+        :type sort: List[str]
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -611,11 +611,11 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._list_all_keys_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
-            sort=sort,
             filters=filters,
+            size=size,
+            sort=sort,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -635,11 +635,11 @@ class KVApi:
     @validate_call
     def list_all_keys_with_http_info(
         self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
         tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        size: Annotated[Optional[StrictInt], Field(description="The current page size")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        page: Annotated[Optional[StrictInt], Field(description="The current page")] = None,
         _request_timeout: Union[
         None,
         Annotated[StrictFloat, Field(gt=0)],
@@ -652,16 +652,16 @@ class KVApi:
         """List all keys
 
 
-        :param page: The current page (required)
-        :type page: int
-                :param size: The current page size (required)
-        :type size: int
-                :param tenant: (required)
+        :param tenant: (required)
         :type tenant: str
-                :param sort: The sort of current page
-        :type sort: List[str]
                 :param filters: Filters
         :type filters: List[QueryFilter]
+                :param size: The current page size
+        :type size: int
+                :param sort: The sort of current page
+        :type sort: List[str]
+                :param page: The current page
+        :type page: int
         ,
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -671,11 +671,11 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._list_all_keys_serialize(
-            page=page,
-            size=size,
             tenant=tenant,
-            sort=sort,
             filters=filters,
+            size=size,
+            sort=sort,
+            page=page,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -694,18 +694,18 @@ class KVApi:
 
     def _list_all_keys_serialize(
         self,
-        page,
-        size,
         tenant,
-        sort,
         filters,
+        size,
+        sort,
+        page,
     ) -> RequestSerialized:
 
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'sort': 'csv',
             'filters': 'csv',
+            'sort': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -721,9 +721,9 @@ class KVApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if page is not None:
+        if filters is not None:
             
-            _query_params.append(('page', page))
+            _query_params.append(('filters', filters))
             
         if size is not None:
             
@@ -733,9 +733,9 @@ class KVApi:
             
             _query_params.append(('sort', sort))
             
-        if filters is not None:
+        if page is not None:
             
-            _query_params.append(('filters', filters))
+            _query_params.append(('page', page))
             
         # process the header parameters
         # process the form parameters
@@ -1100,8 +1100,8 @@ class KVApi:
     @validate_call
     def set_key_value(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The value of the key")],
         _request_timeout: Union[
@@ -1116,10 +1116,10 @@ class KVApi:
         """Puts a key-value pair in store
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
                 :param body: The value of the key (required)
@@ -1133,8 +1133,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._set_key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
             body=body,
         )
@@ -1156,8 +1156,8 @@ class KVApi:
     @validate_call
     def set_key_value_with_http_info(
         self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The value of the key")],
         _request_timeout: Union[
@@ -1172,10 +1172,10 @@ class KVApi:
         """Puts a key-value pair in store
 
 
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param key: The key (required)
+        :param key: The key (required)
         :type key: str
+                :param namespace: The namespace id (required)
+        :type namespace: str
                 :param tenant: (required)
         :type tenant: str
                 :param body: The value of the key (required)
@@ -1189,8 +1189,8 @@ class KVApi:
         """ # noqa: E501
 
         _param = self._set_key_value_serialize(
-            namespace=namespace,
             key=key,
+            namespace=namespace,
             tenant=tenant,
             body=body,
         )
@@ -1211,8 +1211,8 @@ class KVApi:
 
     def _set_key_value_serialize(
         self,
-        namespace,
         key,
+        namespace,
         tenant,
         body,
     ) -> RequestSerialized:
@@ -1232,10 +1232,10 @@ class KVApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
         if key is not None:
             _path_params['key'] = key
+        if namespace is not None:
+            _path_params['namespace'] = namespace
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters

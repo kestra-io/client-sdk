@@ -13,20 +13,16 @@
 
 import ApiClient from "../ApiClient";
 import polyfilledEventSource from "@sanity/eventsource"
-import BulkResponse from '../model/BulkResponse';
 import ConcurrencyLimit from '../model/ConcurrencyLimit';
-import Flow from '../model/Flow';
 import FlowControllerTaskValidationType from '../model/FlowControllerTaskValidationType';
 import FlowGraph from '../model/FlowGraph';
 import FlowInterface from '../model/FlowInterface';
 import FlowTopologyGraph from '../model/FlowTopologyGraph';
-import FlowWithSource from '../model/FlowWithSource';
-import IdWithNamespace from '../model/IdWithNamespace';
+import GenerateFlowGraphFromSourceSubflowsParameter from '../model/GenerateFlowGraphFromSourceSubflowsParameter';
+import GenerateFlowGraphRevisionParameter from '../model/GenerateFlowGraphRevisionParameter';
 import PagedResultsConcurrencyLimit from '../model/PagedResultsConcurrencyLimit';
-import PagedResultsFlow from '../model/PagedResultsFlow';
-import PagedResultsSearchResultFlow from '../model/PagedResultsSearchResultFlow';
-import QueryFilter from '../model/QueryFilter';
-import Task from '../model/Task';
+import SchemasFromTypeArrayOfParameter from '../model/SchemasFromTypeArrayOfParameter';
+import UpdateFlowsInNamespaceOverrideParameter from '../model/UpdateFlowsInNamespaceOverrideParameter';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 
 /**
@@ -52,995 +48,20 @@ export default class FlowsApi {
             
 
     /**
-    * Update from multiples yaml sources
-    * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} _delete If missing flow should be deleted
-    * @param {Boolean} allowNamespaceChild If namespace child should are allowed to be updated
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} [namespace] The namespace where to update flows
-    * @param {String} [body] A list of flows source code split with \"---\"
-
-    * @return {Promise<Array.<FlowInterface>>}
-    */
-    bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter '_delete' is set
-      if (_delete === undefined || _delete === null) {
-        throw new Error("Missing the required parameter '_delete' when calling bulkUpdateFlows");
-      }
-      // verify the required parameter 'allowNamespaceChild' is set
-      if (allowNamespaceChild === undefined || allowNamespaceChild === null) {
-        throw new Error("Missing the required parameter 'allowNamespaceChild' when calling bulkUpdateFlows");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling bulkUpdateFlows");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'delete': _delete,
-        'namespace': opts['namespace'],
-        'allowNamespaceChild': allowNamespaceChild
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/x-yaml'];
-      let accepts = ['application/json'];
-      let returnType = [FlowInterface];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/bulk', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Update from multiples yaml sources
-    * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} _delete If missing flow should be deleted
-    * @param {Boolean} allowNamespaceChild If namespace child should are allowed to be updated
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {String} [opts.namespace] The namespace where to update flows
-    * @param {String} [opts.body] A list of flows source code split with \"---\"
-
-    * @return {Promise<Array.<FlowInterface>>}
-    */
-    bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts) {
-      return this.bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Create a flow from yaml source
-    * @param {String} tenant 
-    * @param {String} body The flow source code
-
-    * @return {Promise<FlowWithSource>}
-    */
-    createFlowWithHttpInfo(tenant, body) {
-      let postBody = body;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createFlow");
-      }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling createFlow");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/x-yaml'];
-      let accepts = ['application/json'];
-      let returnType = FlowWithSource;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Create a flow from yaml source
-    * @param {String} tenant 
-    * @param {String} body The flow source code
-
-    * @return {Promise<FlowWithSource>}
-    */
-    createFlow(tenant, body) {
-      return this.createFlowWithHttpInfo(tenant, body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Delete a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} tenant 
-
-    * @return {Promise<  >}
-    */
-    deleteFlowWithHttpInfo(namespace, id, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling deleteFlow");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteFlow");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteFlow");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Delete a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} tenant 
-
-    * @return {Promise<  >}
-    */
-    deleteFlow(namespace, id, tenant) {
-      return this.deleteFlowWithHttpInfo(namespace, id, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Delete flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
-      let postBody = idWithNamespace;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteFlowsByIds");
-      }
-      // verify the required parameter 'idWithNamespace' is set
-      if (idWithNamespace === undefined || idWithNamespace === null) {
-        throw new Error("Missing the required parameter 'idWithNamespace' when calling deleteFlowsByIds");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/delete/by-ids', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Delete flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    deleteFlowsByIds(tenant, idWithNamespace) {
-      return this.deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Delete flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    deleteFlowsByQueryWithHttpInfo(tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/delete/by-query', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Delete flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    deleteFlowsByQuery(tenant, opts) {
-      return this.deleteFlowsByQueryWithHttpInfo(tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Delete revisions for a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Array.<Number>} revisions 
-    * @param {String} tenant 
-
-    * @return {Promise<  >}
-    */
-    deleteRevisionsWithHttpInfo(namespace, id, revisions, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling deleteRevisions");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteRevisions");
-      }
-      // verify the required parameter 'revisions' is set
-      if (revisions === undefined || revisions === null) {
-        throw new Error("Missing the required parameter 'revisions' when calling deleteRevisions");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteRevisions");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'revisions': this.apiClient.buildCollectionParam(revisions, 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/revisions', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Delete revisions for a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Array.<Number>} revisions 
-    * @param {String} tenant 
-
-    * @return {Promise<  >}
-    */
-    deleteRevisions(namespace, id, revisions, tenant) {
-      return this.deleteRevisionsWithHttpInfo(namespace, id, revisions, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Disable flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
-      let postBody = idWithNamespace;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling disableFlowsByIds");
-      }
-      // verify the required parameter 'idWithNamespace' is set
-      if (idWithNamespace === undefined || idWithNamespace === null) {
-        throw new Error("Missing the required parameter 'idWithNamespace' when calling disableFlowsByIds");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/disable/by-ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Disable flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    disableFlowsByIds(tenant, idWithNamespace) {
-      return this.disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Disable flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    disableFlowsByQueryWithHttpInfo(tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling disableFlowsByQuery");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/disable/by-query', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Disable flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    disableFlowsByQuery(tenant, opts) {
-      return this.disableFlowsByQueryWithHttpInfo(tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Enable flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
-      let postBody = idWithNamespace;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling enableFlowsByIds");
-      }
-      // verify the required parameter 'idWithNamespace' is set
-      if (idWithNamespace === undefined || idWithNamespace === null) {
-        throw new Error("Missing the required parameter 'idWithNamespace' when calling enableFlowsByIds");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/enable/by-ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Enable flows by their IDs.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise<BulkResponse>}
-    */
-    enableFlowsByIds(tenant, idWithNamespace) {
-      return this.enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Enable flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    enableFlowsByQueryWithHttpInfo(tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling enableFlowsByQuery");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = BulkResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/enable/by-query', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Enable flows returned by the query parameters.
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
-
-    * @return {Promise<BulkResponse>}
-    */
-    enableFlowsByQuery(tenant, opts) {
-      return this.enableFlowsByQueryWithHttpInfo(tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Export flows as a ZIP archive of yaml sources.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise< Blob >}
-    */
-    exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
-      let postBody = idWithNamespace;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling exportFlowsByIds");
-      }
-      // verify the required parameter 'idWithNamespace' is set
-      if (idWithNamespace === undefined || idWithNamespace === null) {
-        throw new Error("Missing the required parameter 'idWithNamespace' when calling exportFlowsByIds");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/octet-stream'];
-      let returnType = 'Blob';
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/export/by-ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Export flows as a ZIP archive of yaml sources.
-    * @param {String} tenant 
-    * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-
-    * @return {Promise< Blob >}
-    */
-    exportFlowsByIds(tenant, idWithNamespace) {
-      return this.exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Export flows as a ZIP archive of yaml sources.
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
-
-    * @return {Promise< Blob >}
-    */
-    exportFlowsByQueryWithHttpInfo(tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling exportFlowsByQuery");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/octet-stream'];
-      let returnType = 'Blob';
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/export/by-query', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Export flows as a ZIP archive of yaml sources.
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
-
-    * @return {Promise< Blob >}
-    */
-    exportFlowsByQuery(tenant, opts) {
-      return this.exportFlowsByQueryWithHttpInfo(tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Get a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} source Include the source code
-    * @param {Boolean} allowDeleted Get flow even if deleted
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} [revision] Get latest revision by default
-
-    * @return {Promise<FlowWithSource>}
-    */
-    flowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling flow");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling flow");
-      }
-      // verify the required parameter 'source' is set
-      if (source === undefined || source === null) {
-        throw new Error("Missing the required parameter 'source' when calling flow");
-      }
-      // verify the required parameter 'allowDeleted' is set
-      if (allowDeleted === undefined || allowDeleted === null) {
-        throw new Error("Missing the required parameter 'allowDeleted' when calling flow");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling flow");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'source': source,
-        'revision': opts['revision'],
-        'allowDeleted': allowDeleted
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = FlowWithSource;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Get a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} source Include the source code
-    * @param {Boolean} allowDeleted Get flow even if deleted
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Number} [opts.revision] Get latest revision by default
-
-    * @return {Promise<FlowWithSource>}
-    */
-    flow(namespace, id, source, allowDeleted, tenant, opts) {
-      return this.flowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Get flow dependencies
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
-    * @param {Boolean} expandAll If true, expand all dependencies recursively
-    * @param {String} tenant 
-
-    * @return {Promise<FlowTopologyGraph>}
-    */
-    flowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling flowDependencies");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling flowDependencies");
-      }
-      // verify the required parameter 'destinationOnly' is set
-      if (destinationOnly === undefined || destinationOnly === null) {
-        throw new Error("Missing the required parameter 'destinationOnly' when calling flowDependencies");
-      }
-      // verify the required parameter 'expandAll' is set
-      if (expandAll === undefined || expandAll === null) {
-        throw new Error("Missing the required parameter 'expandAll' when calling flowDependencies");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling flowDependencies");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'destinationOnly': destinationOnly,
-        'expandAll': expandAll
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = FlowTopologyGraph;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/dependencies', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Get flow dependencies
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
-    * @param {Boolean} expandAll If true, expand all dependencies recursively
-    * @param {String} tenant 
-
-    * @return {Promise<FlowTopologyGraph>}
-    */
-    flowDependencies(namespace, id, destinationOnly, expandAll, tenant) {
-      return this.flowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
     * Retrieve flow dependencies
     * @param {String} namespace The flow namespace
-    * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
     * @param {String} tenant 
+    * @param {Object} opts Optional parameters
+    * @param {module:model/SchemasFromTypeArrayOfParameter} [destinationOnly] if true, list only destination dependencies, otherwise list also source dependencies
 
     * @return {Promise<FlowTopologyGraph>}
     */
-    flowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant) {
+    flowDependenciesFromNamespaceWithHttpInfo(namespace, tenant, opts) {
+      opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling flowDependenciesFromNamespace");
-      }
-      // verify the required parameter 'destinationOnly' is set
-      if (destinationOnly === undefined || destinationOnly === null) {
-        throw new Error("Missing the required parameter 'destinationOnly' when calling flowDependenciesFromNamespace");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1052,7 +73,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'destinationOnly': destinationOnly
+        'destinationOnly': opts['destinationOnly']
       };
       let headerParams = {
       };
@@ -1073,13 +94,14 @@ export default class FlowsApi {
     /**
     * Retrieve flow dependencies
     * @param {String} namespace The flow namespace
-    * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
     * @param {String} tenant 
+    * @param {Object} [opts] Optional parameters
+    * @param {module:model/SchemasFromTypeArrayOfParameter} [opts.destinationOnly] if true, list only destination dependencies, otherwise list also source dependencies
 
     * @return {Promise<FlowTopologyGraph>}
     */
-    flowDependenciesFromNamespace(namespace, destinationOnly, tenant) {
-      return this.flowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant)
+    flowDependenciesFromNamespace(namespace, tenant, opts) {
+      return this.flowDependenciesFromNamespaceWithHttpInfo(namespace, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1097,25 +119,25 @@ export default class FlowsApi {
 
     /**
     * Generate a graph for a flow
-    * @param {String} namespace The flow namespace
     * @param {String} id The flow id
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Number} [revision] The flow revision
+    * @param {module:model/GenerateFlowGraphRevisionParameter} [revision] The flow revision
     * @param {Array.<String>} [subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
-    generateFlowGraphWithHttpInfo(namespace, id, tenant, opts) {
+    generateFlowGraphWithHttpInfo(id, namespace, tenant, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling generateFlowGraph");
-      }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling generateFlowGraph");
+      }
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling generateFlowGraph");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1123,8 +145,8 @@ export default class FlowsApi {
       }
 
       let pathParams = {
-        'namespace': namespace,
         'id': id,
+        'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
@@ -1149,17 +171,17 @@ export default class FlowsApi {
 
     /**
     * Generate a graph for a flow
-    * @param {String} namespace The flow namespace
     * @param {String} id The flow id
+    * @param {String} namespace The flow namespace
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Number} [opts.revision] The flow revision
+    * @param {module:model/GenerateFlowGraphRevisionParameter} [opts.revision] The flow revision
     * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
-    generateFlowGraph(namespace, id, tenant, opts) {
-      return this.generateFlowGraphWithHttpInfo(namespace, id, tenant, opts)
+    generateFlowGraph(id, namespace, tenant, opts) {
+      return this.generateFlowGraphWithHttpInfo(id, namespace, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1180,7 +202,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [subflows] The subflow tasks to display
+    * @param {module:model/GenerateFlowGraphFromSourceSubflowsParameter} [subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
@@ -1200,7 +222,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'subflows': this.apiClient.buildCollectionParam(opts['subflows'], 'csv')
+        'subflows': opts['subflows']
       };
       let headerParams = {
       };
@@ -1223,82 +245,12 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
+    * @param {module:model/GenerateFlowGraphFromSourceSubflowsParameter} [opts.subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
     generateFlowGraphFromSource(tenant, body, opts) {
       return this.generateFlowGraphFromSourceWithHttpInfo(tenant, body, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-    * @param {Boolean} failOnError If should fail on invalid flows
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {File} [fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
-
-    * @return {Promise< Array.<String> >}
-    */
-    importFlowsWithHttpInfo(failOnError, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'failOnError' is set
-      if (failOnError === undefined || failOnError === null) {
-        throw new Error("Missing the required parameter 'failOnError' when calling importFlows");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling importFlows");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'failOnError': failOnError
-      };
-      let headerParams = {
-      };
-      let formParams = {
-        'fileUpload': opts['fileUpload']
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = ['String'];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/import', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-    * @param {Boolean} failOnError If should fail on invalid flows
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {File} [opts.fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
-
-    * @return {Promise< Array.<String> >}
-    */
-    importFlows(failOnError, tenant, opts) {
-      return this.importFlowsWithHttpInfo(failOnError, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1378,148 +330,6 @@ export default class FlowsApi {
             
 
     /**
-    * Get revisions for a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} allowDelete 
-    * @param {String} tenant 
-
-    * @return {Promise<Array.<FlowWithSource>>}
-    */
-    listFlowRevisionsWithHttpInfo(namespace, id, allowDelete, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling listFlowRevisions");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listFlowRevisions");
-      }
-      // verify the required parameter 'allowDelete' is set
-      if (allowDelete === undefined || allowDelete === null) {
-        throw new Error("Missing the required parameter 'allowDelete' when calling listFlowRevisions");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listFlowRevisions");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'allowDelete': allowDelete
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [FlowWithSource];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/revisions', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Get revisions for a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {Boolean} allowDelete 
-    * @param {String} tenant 
-
-    * @return {Promise<Array.<FlowWithSource>>}
-    */
-    listFlowRevisions(namespace, id, allowDelete, tenant) {
-      return this.listFlowRevisionsWithHttpInfo(namespace, id, allowDelete, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Retrieve all flows from a given namespace
-    * @param {String} namespace Namespace to filter flows
-    * @param {String} tenant 
-
-    * @return {Promise<Array.<Flow>>}
-    */
-    listFlowsByNamespaceWithHttpInfo(namespace, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling listFlowsByNamespace");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listFlowsByNamespace");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [Flow];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Retrieve all flows from a given namespace
-    * @param {String} namespace Namespace to filter flows
-    * @param {String} tenant 
-
-    * @return {Promise<Array.<Flow>>}
-    */
-    listFlowsByNamespace(namespace, tenant) {
-      return this.listFlowsByNamespaceWithHttpInfo(namespace, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
     * Search for flow concurrency limits
     * @param {String} tenant 
 
@@ -1561,253 +371,6 @@ export default class FlowsApi {
     */
     searchConcurrencyLimits(tenant) {
       return this.searchConcurrencyLimitsWithHttpInfo(tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Search for flows
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
-
-    * @return {Promise<PagedResultsFlow>}
-    */
-    searchFlowsWithHttpInfo(page, size, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchFlows");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchFlows");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchFlows");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsFlow;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Search for flows
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
-
-    * @return {Promise<PagedResultsFlow>}
-    */
-    searchFlows(page, size, tenant, opts) {
-      return this.searchFlowsWithHttpInfo(page, size, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Search for flows source code
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [sort] The sort of current page
-    * @param {String} [q] A string filter
-    * @param {String} [namespace] A namespace filter prefix
-
-    * @return {Promise<PagedResultsSearchResultFlow>}
-    */
-    searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchFlowsBySourceCode");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchFlowsBySourceCode");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchFlowsBySourceCode");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'q': opts['q'],
-        'namespace': opts['namespace']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsSearchResultFlow;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/source', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Search for flows source code
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {String} [opts.q] A string filter
-    * @param {String} [opts.namespace] A namespace filter prefix
-
-    * @return {Promise<PagedResultsSearchResultFlow>}
-    */
-    searchFlowsBySourceCode(page, size, tenant, opts) {
-      return this.searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Get a flow task
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} taskId The task id
-    * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} [revision] The flow revision
-
-    * @return {Promise<Task>}
-    */
-    taskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling taskFromFlow");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling taskFromFlow");
-      }
-      // verify the required parameter 'taskId' is set
-      if (taskId === undefined || taskId === null) {
-        throw new Error("Missing the required parameter 'taskId' when calling taskFromFlow");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling taskFromFlow");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'taskId': taskId,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'revision': opts['revision']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Task;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Get a flow task
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} taskId The task id
-    * @param {String} tenant 
-    * @param {Object} [opts] Optional parameters
-    * @param {Number} [opts.revision] The flow revision
-
-    * @return {Promise<Task>}
-    */
-    taskFromFlow(namespace, id, taskId, tenant, opts) {
-      return this.taskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1901,99 +464,19 @@ export default class FlowsApi {
             
 
     /**
-    * Update a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} tenant 
-    * @param {String} body The flow source code
-
-    * @return {Promise<FlowWithSource>}
-    */
-    updateFlowWithHttpInfo(namespace, id, tenant, body) {
-      let postBody = body;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateFlow");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateFlow");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateFlow");
-      }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling updateFlow");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/x-yaml'];
-      let accepts = ['application/json'];
-      let returnType = FlowWithSource;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Update a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} tenant 
-    * @param {String} body The flow source code
-
-    * @return {Promise<FlowWithSource>}
-    */
-    updateFlow(namespace, id, tenant, body) {
-      return this.updateFlowWithHttpInfo(namespace, id, tenant, body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
     * Update a complete namespace from yaml source
-    * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} _delete If missing flow should be deleted
+    * All flows will be created / updated for this namespace. Existing flows missing from `flows` will be deleted if the query delete is `true`
     * @param {String} namespace The flow namespace
     * @param {String} tenant 
-    * @param {Boolean} override If namespace of all provided flows should be overridden
-    * @param {String} body A list of flows source code
+    * @param {Object} opts Optional parameters
+    * @param {module:model/UpdateFlowsInNamespaceOverrideParameter} [override] If namespace of all provided flows should be overridden
+    * @param {Boolean} [_delete = true)] If missing flows should be deleted
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespaceWithHttpInfo(_delete, namespace, tenant, override, body) {
-      let postBody = body;
-      // verify the required parameter '_delete' is set
-      if (_delete === undefined || _delete === null) {
-        throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespace");
-      }
+    updateFlowsInNamespaceWithHttpInfo(namespace, tenant, opts) {
+      opts = opts || {};
+      let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
@@ -2002,22 +485,14 @@ export default class FlowsApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
       }
-      // verify the required parameter 'override' is set
-      if (override === undefined || override === null) {
-        throw new Error("Missing the required parameter 'override' when calling updateFlowsInNamespace");
-      }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling updateFlowsInNamespace");
-      }
 
       let pathParams = {
         'namespace': namespace,
         'tenant': tenant
       };
       let queryParams = {
-        'delete': _delete,
-        'override': override
+        'override': opts['override'],
+        'delete': opts['_delete']
       };
       let headerParams = {
       };
@@ -2025,7 +500,7 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/x-yaml'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [FlowInterface];
       return this.apiClient.callApi(
@@ -2037,101 +512,17 @@ export default class FlowsApi {
 
     /**
     * Update a complete namespace from yaml source
-    * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-    * @param {Boolean} _delete If missing flow should be deleted
+    * All flows will be created / updated for this namespace. Existing flows missing from `flows` will be deleted if the query delete is `true`
     * @param {String} namespace The flow namespace
     * @param {String} tenant 
-    * @param {Boolean} override If namespace of all provided flows should be overridden
-    * @param {String} body A list of flows source code
+    * @param {Object} [opts] Optional parameters
+    * @param {module:model/UpdateFlowsInNamespaceOverrideParameter} [opts.override] If namespace of all provided flows should be overridden
+    * @param {Boolean} [opts._delete (default to true)] If missing flows should be deleted
 
     * @return {Promise<Array.<FlowInterface>>}
     */
-    updateFlowsInNamespace(_delete, namespace, tenant, override, body) {
-      return this.updateFlowsInNamespaceWithHttpInfo(_delete, namespace, tenant, override, body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-
-
-
-
-
-
-
-            
-
-    /**
-    * Update a single task on a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} taskId The task id
-    * @param {String} tenant 
-    * @param {module:model/Task} task The task
-
-    * @return {Promise<Flow>}
-    */
-    updateTaskWithHttpInfo(namespace, id, taskId, tenant, task) {
-      let postBody = task;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateTask");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateTask");
-      }
-      // verify the required parameter 'taskId' is set
-      if (taskId === undefined || taskId === null) {
-        throw new Error("Missing the required parameter 'taskId' when calling updateTask");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateTask");
-      }
-      // verify the required parameter 'task' is set
-      if (task === undefined || task === null) {
-        throw new Error("Missing the required parameter 'task' when calling updateTask");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'taskId': taskId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Flow;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-    * Update a single task on a flow
-    * @param {String} namespace The flow namespace
-    * @param {String} id The flow id
-    * @param {String} taskId The task id
-    * @param {String} tenant 
-    * @param {module:model/Task} task The task
-
-    * @return {Promise<Flow>}
-    */
-    updateTask(namespace, id, taskId, tenant, task) {
-      return this.updateTaskWithHttpInfo(namespace, id, taskId, tenant, task)
+    updateFlowsInNamespace(namespace, tenant, opts) {
+      return this.updateFlowsInNamespaceWithHttpInfo(namespace, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

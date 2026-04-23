@@ -12,14 +12,13 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
-
 	"gopkg.in/validator.v2"
 )
 
 // PropertyString - struct for PropertyString
 type PropertyString struct {
 	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	String *string
 }
 
 // map[string]interface{}AsPropertyString is a convenience function that returns map[string]interface{} wrapped in PropertyString
@@ -35,6 +34,7 @@ func StringAsPropertyString(v *string) PropertyString {
 		String: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *PropertyString) UnmarshalJSON(data []byte) error {
@@ -101,7 +101,7 @@ func (src PropertyString) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *PropertyString) GetActualInstance() interface{} {
+func (obj *PropertyString) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (obj *PropertyString) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj PropertyString) GetActualInstanceValue() interface{} {
+func (obj PropertyString) GetActualInstanceValue() (interface{}) {
 	if obj.MapmapOfStringAny != nil {
 		return *obj.MapmapOfStringAny
 	}
@@ -166,3 +166,5 @@ func (v *NullablePropertyString) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

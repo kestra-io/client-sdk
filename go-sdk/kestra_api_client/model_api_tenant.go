@@ -19,23 +19,23 @@ var _ MappedNullable = &ApiTenant{}
 
 // ApiTenant struct for ApiTenant
 type ApiTenant struct {
-	StorageIsolation         *Isolation                        `json:"storageIsolation,omitempty"`
-	SecretIsolation          *Isolation                        `json:"secretIsolation,omitempty"`
-	Id                       string                            `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
-	Name                     string                            `json:"name"`
-	Deleted                  bool                              `json:"deleted"`
-	WorkerGroup              *WorkerGroup                      `json:"workerGroup,omitempty"`
-	StorageType              *string                           `json:"storageType,omitempty"`
-	StorageConfiguration     map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
-	SecretType               *string                           `json:"secretType,omitempty"`
-	SecretReadOnly           *bool                             `json:"secretReadOnly,omitempty"`
-	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
-	RequireExistingNamespace *bool                             `json:"requireExistingNamespace,omitempty"`
-	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
-	AppCatalogConfig         *TenantAppCatalogConfig           `json:"appCatalogConfig,omitempty"`
-	SdkDefaultAuthentication *SDKAuth                          `json:"sdkDefaultAuthentication,omitempty"`
-	Logo                     *string                           `json:"logo,omitempty"`
-	AdditionalProperties     map[string]interface{}
+	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
+	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
+	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
+	Name string `json:"name"`
+	Deleted bool `json:"deleted"`
+	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	StorageType *string `json:"storageType,omitempty"`
+	StorageConfiguration map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType *string `json:"secretType,omitempty"`
+	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
+	SecretConfiguration map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
+	RequireExistingNamespace *bool `json:"requireExistingNamespace,omitempty"`
+	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
+	AppCatalogConfig *TenantAppCatalogConfig `json:"appCatalogConfig,omitempty"`
+	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	Logo *string `json:"logo,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ApiTenant ApiTenant
@@ -549,7 +549,7 @@ func (o *ApiTenant) SetLogo(v string) {
 }
 
 func (o ApiTenant) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -623,10 +623,10 @@ func (o *ApiTenant) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -702,3 +702,5 @@ func (v *NullableApiTenant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

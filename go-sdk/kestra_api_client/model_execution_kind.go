@@ -19,8 +19,8 @@ type ExecutionKind string
 
 // List of ExecutionKind
 const (
-	EXECUTIONKIND_NORMAL     ExecutionKind = "NORMAL"
-	EXECUTIONKIND_TEST       ExecutionKind = "TEST"
+	EXECUTIONKIND_NORMAL ExecutionKind = "NORMAL"
+	EXECUTIONKIND_TEST ExecutionKind = "TEST"
 	EXECUTIONKIND_PLAYGROUND ExecutionKind = "PLAYGROUND"
 )
 
@@ -109,3 +109,4 @@ func (v *NullableExecutionKind) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

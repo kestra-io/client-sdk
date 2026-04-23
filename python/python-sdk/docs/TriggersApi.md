@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_trigger**
-> object delete_trigger(namespace, flow_id, trigger_id, tenant)
+> object delete_trigger(namespace, trigger_id, flow_id, tenant)
 
 Delete a trigger
 
@@ -242,13 +242,13 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace
-    flow_id = 'flow_id_example' # str | The flow id
     trigger_id = 'trigger_id_example' # str | The trigger id
+    flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a trigger
-        api_response = kestra_client.TriggersApi.delete_trigger(namespace, flow_id, trigger_id, tenant)
+        api_response = kestra_client.TriggersApi.delete_trigger(namespace, trigger_id, flow_id, tenant)
         print("The response of TriggersApi->delete_trigger:\n")
         pprint(api_response)
     except Exception as e:
@@ -263,8 +263,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace | 
- **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
+ **flow_id** | **str**| The flow id | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_query**
-> object disabled_triggers_by_query(disabled, tenant, filters=filters)
+> object disabled_triggers_by_query(tenant, disabled=disabled, filters=filters)
 
 Disable/enable triggers by query parameters
 
@@ -501,13 +501,13 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    disabled = True # bool | The disabled state (default to True)
     tenant = 'tenant_example' # str | 
+    disabled = True # bool | The disabled state (optional) (default to True)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Disable/enable triggers by query parameters
-        api_response = kestra_client.TriggersApi.disabled_triggers_by_query(disabled, tenant, filters=filters)
+        api_response = kestra_client.TriggersApi.disabled_triggers_by_query(tenant, disabled=disabled, filters=filters)
         print("The response of TriggersApi->disabled_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -521,8 +521,8 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **disabled** | **bool**| The disabled state | [default to True]
  **tenant** | **str**|  | 
+ **disabled** | **bool**| The disabled state | [optional] [default to True]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
@@ -803,7 +803,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restart_trigger**
-> object restart_trigger(namespace, flow_id, trigger_id, tenant)
+> object restart_trigger(namespace, trigger_id, flow_id, tenant)
 
 Restart a trigger
 
@@ -824,13 +824,13 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace
-    flow_id = 'flow_id_example' # str | The flow id
     trigger_id = 'trigger_id_example' # str | The trigger id
+    flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
 
     try:
         # Restart a trigger
-        api_response = kestra_client.TriggersApi.restart_trigger(namespace, flow_id, trigger_id, tenant)
+        api_response = kestra_client.TriggersApi.restart_trigger(namespace, trigger_id, flow_id, tenant)
         print("The response of TriggersApi->restart_trigger:\n")
         pprint(api_response)
     except Exception as e:
@@ -845,8 +845,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace | 
- **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
+ **flow_id** | **str**| The flow id | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -871,7 +871,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_triggers**
-> PagedResultsTriggerControllerTriggers search_triggers(page, size, tenant, sort=sort, filters=filters)
+> PagedResultsTriggerControllerTriggers search_triggers(tenant, filters=filters, size=size, page=page, sort=sort)
 
 Search for triggers
 
@@ -891,15 +891,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    size = 10 # int | The current page size (optional) (default to 10)
+    page = 1 # int | The current page (optional) (default to 1)
+    sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for triggers
-        api_response = kestra_client.TriggersApi.search_triggers(page, size, tenant, sort=sort, filters=filters)
+        api_response = kestra_client.TriggersApi.search_triggers(tenant, filters=filters, size=size, page=page, sort=sort)
         print("The response of TriggersApi->search_triggers:\n")
         pprint(api_response)
     except Exception as e:
@@ -913,11 +913,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **size** | **int**| The current page size | [optional] [default to 10]
+ **page** | **int**| The current page | [optional] [default to 1]
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -941,7 +941,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_triggers_for_flow**
-> PagedResultsTrigger search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
+> PagedResultsTrigger search_triggers_for_flow(namespace, flow_id, tenant, q=q, size=size, page=page, sort=sort)
 
 Get all triggers for a flow
 
@@ -961,17 +961,17 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    namespace = 'namespace_example' # str | The namespace
+    namespace = kestrapy.ListBlueprintTagsQParameter() # ListBlueprintTagsQParameter | The namespace
     flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
     q = 'q_example' # str | A string filter (optional)
+    size = 10 # int | The current page size (optional) (default to 10)
+    page = 1 # int | The current page (optional) (default to 1)
+    sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Get all triggers for a flow
-        api_response = kestra_client.TriggersApi.search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
+        api_response = kestra_client.TriggersApi.search_triggers_for_flow(namespace, flow_id, tenant, q=q, size=size, page=page, sort=sort)
         print("The response of TriggersApi->search_triggers_for_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -985,13 +985,13 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **namespace** | **str**| The namespace | 
+ **namespace** | [**ListBlueprintTagsQParameter**](.md)| The namespace | 
  **flow_id** | **str**| The flow id | 
  **tenant** | **str**|  | 
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **q** | **str**| A string filter | [optional] 
+ **size** | **int**| The current page size | [optional] [default to 10]
+ **page** | **int**| The current page | [optional] [default to 1]
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type
 
@@ -1015,7 +1015,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_trigger**
-> Trigger unlock_trigger(namespace, flow_id, trigger_id, tenant)
+> Trigger unlock_trigger(namespace, trigger_id, flow_id, tenant)
 
 Unlock a trigger
 
@@ -1036,13 +1036,13 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace
-    flow_id = 'flow_id_example' # str | The flow id
     trigger_id = 'trigger_id_example' # str | The trigger id
+    flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
 
     try:
         # Unlock a trigger
-        api_response = kestra_client.TriggersApi.unlock_trigger(namespace, flow_id, trigger_id, tenant)
+        api_response = kestra_client.TriggersApi.unlock_trigger(namespace, trigger_id, flow_id, tenant)
         print("The response of TriggersApi->unlock_trigger:\n")
         pprint(api_response)
     except Exception as e:
@@ -1057,8 +1057,8 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace | 
- **flow_id** | **str**| The flow id | 
  **trigger_id** | **str**| The trigger id | 
+ **flow_id** | **str**| The flow id | 
  **tenant** | **str**|  | 
 
 ### Return type

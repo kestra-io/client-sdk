@@ -605,25 +605,17 @@ export default class UsersApi {
 
     /**
     * Retrieve users
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} opts Optional parameters
+    * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
-    listUsersWithHttpInfo(page, size, filters, opts) {
+    listUsersWithHttpInfo(filters, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling listUsers");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling listUsers");
-      }
       // verify the required parameter 'filters' is set
       if (filters === undefined || filters === null) {
         throw new Error("Missing the required parameter 'filters' when calling listUsers");
@@ -632,8 +624,8 @@ export default class UsersApi {
       let pathParams = {
       };
       let queryParams = {
-        'page': page,
-        'size': size,
+        'page': opts['page'],
+        'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
         'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
@@ -655,16 +647,16 @@ export default class UsersApi {
 
     /**
     * Retrieve users
-    * @param {Number} page The current page
-    * @param {Number} size The current page size
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
-    listUsers(page, size, filters, opts) {
-      return this.listUsersWithHttpInfo(page, size, filters, opts)
+    listUsers(filters, opts) {
+      return this.listUsersWithHttpInfo(filters, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

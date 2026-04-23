@@ -19,7 +19,7 @@ var _ MappedNullable = &BlueprintControllerUseBlueprintTemplateRequest{}
 // BlueprintControllerUseBlueprintTemplateRequest struct for BlueprintControllerUseBlueprintTemplateRequest
 type BlueprintControllerUseBlueprintTemplateRequest struct {
 	TemplateArgumentsInputs map[string]map[string]interface{} `json:"templateArgumentsInputs,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _BlueprintControllerUseBlueprintTemplateRequest BlueprintControllerUseBlueprintTemplateRequest
@@ -74,7 +74,7 @@ func (o *BlueprintControllerUseBlueprintTemplateRequest) SetTemplateArgumentsInp
 }
 
 func (o BlueprintControllerUseBlueprintTemplateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -150,3 +150,5 @@ func (v *NullableBlueprintControllerUseBlueprintTemplateRequest) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

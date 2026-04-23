@@ -19,13 +19,13 @@ type RelationType string
 
 // List of RelationType
 const (
-	RELATIONTYPE_SEQUENTIAL      RelationType = "SEQUENTIAL"
-	RELATIONTYPE_CHOICE          RelationType = "CHOICE"
-	RELATIONTYPE_ERROR           RelationType = "ERROR"
-	RELATIONTYPE_FINALLY         RelationType = "FINALLY"
+	RELATIONTYPE_SEQUENTIAL RelationType = "SEQUENTIAL"
+	RELATIONTYPE_CHOICE RelationType = "CHOICE"
+	RELATIONTYPE_ERROR RelationType = "ERROR"
+	RELATIONTYPE_FINALLY RelationType = "FINALLY"
 	RELATIONTYPE_AFTER_EXECUTION RelationType = "AFTER_EXECUTION"
-	RELATIONTYPE_PARALLEL        RelationType = "PARALLEL"
-	RELATIONTYPE_DYNAMIC         RelationType = "DYNAMIC"
+	RELATIONTYPE_PARALLEL RelationType = "PARALLEL"
+	RELATIONTYPE_DYNAMIC RelationType = "DYNAMIC"
 )
 
 // All allowed values of RelationType enum
@@ -117,3 +117,4 @@ func (v *NullableRelationType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

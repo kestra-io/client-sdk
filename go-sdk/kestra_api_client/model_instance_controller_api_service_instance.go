@@ -19,12 +19,12 @@ var _ MappedNullable = &InstanceControllerApiServiceInstance{}
 
 // InstanceControllerApiServiceInstance struct for InstanceControllerApiServiceInstance
 type InstanceControllerApiServiceInstance struct {
-	Id                   *string                              `json:"id,omitempty"`
-	Type                 *ServiceType                         `json:"type,omitempty"`
-	State                *ServiceServiceState                 `json:"state,omitempty"`
-	Server               *InstanceControllerApiServerInstance `json:"server,omitempty"`
-	CreatedAt            *time.Time                           `json:"createdAt,omitempty"`
-	UpdatedAt            *time.Time                           `json:"updatedAt,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *ServiceType `json:"type,omitempty"`
+	State *ServiceServiceState `json:"state,omitempty"`
+	Server *InstanceControllerApiServerInstance `json:"server,omitempty"`
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -240,7 +240,7 @@ func (o *InstanceControllerApiServiceInstance) SetUpdatedAt(v time.Time) {
 }
 
 func (o InstanceControllerApiServiceInstance) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -336,3 +336,5 @@ func (v *NullableInstanceControllerApiServiceInstance) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

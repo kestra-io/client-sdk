@@ -19,10 +19,10 @@ var _ MappedNullable = &ApiSecretValue{}
 
 // ApiSecretValue struct for ApiSecretValue
 type ApiSecretValue struct {
-	Tags                 []ApiSecretTag `json:"tags,omitempty"`
-	Key                  string         `json:"key"`
-	Value                string         `json:"value"`
-	Description          *string        `json:"description,omitempty"`
+	Tags []ApiSecretTag `json:"tags,omitempty"`
+	Key string `json:"key"`
+	Value string `json:"value"`
+	Description *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,7 +160,7 @@ func (o *ApiSecretValue) SetDescription(v string) {
 }
 
 func (o ApiSecretValue) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -199,10 +199,10 @@ func (o *ApiSecretValue) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -266,3 +266,5 @@ func (v *NullableApiSecretValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -19,15 +19,15 @@ var _ MappedNullable = &AssetsControllerApiAsset{}
 
 // AssetsControllerApiAsset struct for AssetsControllerApiAsset
 type AssetsControllerApiAsset struct {
-	Namespace            *string                           `json:"namespace,omitempty"`
-	Id                   *string                           `json:"id,omitempty"`
-	Type                 *string                           `json:"type,omitempty"`
-	DisplayName          *string                           `json:"displayName,omitempty"`
-	Description          *string                           `json:"description,omitempty"`
-	Metadata             map[string]map[string]interface{} `json:"metadata,omitempty"`
-	Created              *time.Time                        `json:"created,omitempty"`
-	Updated              *time.Time                        `json:"updated,omitempty"`
-	Deleted              *bool                             `json:"deleted,omitempty"`
+	Namespace *string `json:"namespace,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *string `json:"type,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Metadata map[string]map[string]interface{} `json:"metadata,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
+	Deleted *bool `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -339,7 +339,7 @@ func (o *AssetsControllerApiAsset) SetDeleted(v bool) {
 }
 
 func (o AssetsControllerApiAsset) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -447,3 +447,5 @@ func (v *NullableAssetsControllerApiAsset) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

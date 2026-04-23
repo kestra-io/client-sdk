@@ -19,8 +19,8 @@ var _ MappedNullable = &MetricAggregations{}
 
 // MetricAggregations struct for MetricAggregations
 type MetricAggregations struct {
-	GroupBy              string              `json:"groupBy"`
-	Aggregations         []MetricAggregation `json:"aggregations"`
+	GroupBy string `json:"groupBy"`
+	Aggregations []MetricAggregation `json:"aggregations"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,7 +94,7 @@ func (o *MetricAggregations) SetAggregations(v []MetricAggregation) {
 }
 
 func (o MetricAggregations) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -127,10 +127,10 @@ func (o *MetricAggregations) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -192,3 +192,5 @@ func (v *NullableMetricAggregations) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

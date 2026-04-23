@@ -19,11 +19,11 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationCreateRequest{}
 
 // IAMInvitationControllerApiInvitationCreateRequest struct for IAMInvitationControllerApiInvitationCreateRequest
 type IAMInvitationControllerApiInvitationCreateRequest struct {
-	CreateUserIfNotExist *bool                                      `json:"createUserIfNotExist,omitempty"`
-	SuperAdmin           *bool                                      `json:"superAdmin,omitempty"`
-	Roles                []IAMInvitationControllerApiInvitationRole `json:"roles,omitempty"`
-	Groups               []string                                   `json:"groups,omitempty"`
-	Email                string                                     `json:"email"`
+	CreateUserIfNotExist *bool `json:"createUserIfNotExist,omitempty"`
+	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	Roles []IAMInvitationControllerApiInvitationRole `json:"roles,omitempty"`
+	Groups []string `json:"groups,omitempty"`
+	Email string `json:"email"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -200,7 +200,7 @@ func (o *IAMInvitationControllerApiInvitationCreateRequest) SetEmail(v string) {
 }
 
 func (o IAMInvitationControllerApiInvitationCreateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -243,10 +243,10 @@ func (o *IAMInvitationControllerApiInvitationCreateRequest) UnmarshalJSON(data [
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err
+		return err;
 	}
 
-	for _, requiredProperty := range requiredProperties {
+	for _, requiredProperty := range(requiredProperties) {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -311,3 +311,5 @@ func (v *NullableIAMInvitationControllerApiInvitationCreateRequest) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

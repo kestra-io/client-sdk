@@ -19,7 +19,7 @@ type FileAttributesFileType string
 
 // List of FileAttributes.FileType
 const (
-	FILEATTRIBUTESFILETYPE_File      FileAttributesFileType = "File"
+	FILEATTRIBUTESFILETYPE_File FileAttributesFileType = "File"
 	FILEATTRIBUTESFILETYPE_Directory FileAttributesFileType = "Directory"
 )
 
@@ -107,3 +107,4 @@ func (v *NullableFileAttributesFileType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

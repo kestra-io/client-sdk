@@ -9,12 +9,15 @@ Name | Type | Description | Notes
 **EndDate** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **Current** | [**StateType**](StateType.md) |  | 
 **Histories** | Pointer to [**[]StateHistory**](StateHistory.md) |  | [optional] 
+**GetDuration** | **string** |  | [readonly] 
+**GetStartDate** | **time.Time** |  | [readonly] 
+**GetEndDate** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewState
 
-`func NewState(current StateType, ) *State`
+`func NewState(current StateType, getDuration string, getStartDate time.Time, getEndDate time.Time, ) *State`
 
 NewState instantiates a new State object
 This constructor will assign default values to properties that have it defined,
@@ -168,6 +171,66 @@ SetHistories sets Histories field to given value.
 `func (o *State) HasHistories() bool`
 
 HasHistories returns a boolean if a field has been set.
+
+### GetGetDuration
+
+`func (o *State) GetGetDuration() string`
+
+GetGetDuration returns the GetDuration field if non-nil, zero value otherwise.
+
+### GetGetDurationOk
+
+`func (o *State) GetGetDurationOk() (*string, bool)`
+
+GetGetDurationOk returns a tuple with the GetDuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGetDuration
+
+`func (o *State) SetGetDuration(v string)`
+
+SetGetDuration sets GetDuration field to given value.
+
+
+### GetGetStartDate
+
+`func (o *State) GetGetStartDate() time.Time`
+
+GetGetStartDate returns the GetStartDate field if non-nil, zero value otherwise.
+
+### GetGetStartDateOk
+
+`func (o *State) GetGetStartDateOk() (*time.Time, bool)`
+
+GetGetStartDateOk returns a tuple with the GetStartDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGetStartDate
+
+`func (o *State) SetGetStartDate(v time.Time)`
+
+SetGetStartDate sets GetStartDate field to given value.
+
+
+### GetGetEndDate
+
+`func (o *State) GetGetEndDate() time.Time`
+
+GetGetEndDate returns the GetEndDate field if non-nil, zero value otherwise.
+
+### GetGetEndDateOk
+
+`func (o *State) GetGetEndDateOk() (*time.Time, bool)`
+
+GetGetEndDateOk returns a tuple with the GetEndDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGetEndDate
+
+`func (o *State) SetGetEndDate(v time.Time)`
+
+SetGetEndDate sets GetEndDate field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

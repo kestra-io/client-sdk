@@ -18,8 +18,8 @@ var _ MappedNullable = &FlowTopologyGraph{}
 
 // FlowTopologyGraph struct for FlowTopologyGraph
 type FlowTopologyGraph struct {
-	Nodes                []FlowNode              `json:"nodes,omitempty"`
-	Edges                []FlowTopologyGraphEdge `json:"edges,omitempty"`
+	Nodes []FlowNode `json:"nodes,omitempty"`
+	Edges []FlowTopologyGraphEdge `json:"edges,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,7 +107,7 @@ func (o *FlowTopologyGraph) SetEdges(v []FlowTopologyGraphEdge) {
 }
 
 func (o FlowTopologyGraph) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -187,3 +187,5 @@ func (v *NullableFlowTopologyGraph) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

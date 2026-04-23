@@ -20,8 +20,8 @@ type Level string
 // List of Level
 const (
 	LEVEL_ERROR Level = "ERROR"
-	LEVEL_WARN  Level = "WARN"
-	LEVEL_INFO  Level = "INFO"
+	LEVEL_WARN Level = "WARN"
+	LEVEL_INFO Level = "INFO"
 	LEVEL_DEBUG Level = "DEBUG"
 	LEVEL_TRACE Level = "TRACE"
 )
@@ -113,3 +113,4 @@ func (v *NullableLevel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

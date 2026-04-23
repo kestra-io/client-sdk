@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_namespace_secrets**
-> ApiSecretListResponseApiSecretMeta list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
+> ApiSecretListResponseApiSecretMeta list_namespace_secrets(namespace, filters, tenant, size=size, sort=sort, page=page)
 
 Get secrets for a namespace
 
@@ -621,15 +621,15 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
     tenant = 'tenant_example' # str | 
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    page = 1 # int | The current page (optional) (default to 1)
 
     try:
         # Get secrets for a namespace
-        api_response = kestra_client.NamespacesApi.list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
+        api_response = kestra_client.NamespacesApi.list_namespace_secrets(namespace, filters, tenant, size=size, sort=sort, page=page)
         print("The response of NamespacesApi->list_namespace_secrets:\n")
         pprint(api_response)
     except Exception as e:
@@ -644,11 +644,11 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace id | 
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **str**|  | 
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **page** | **int**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -870,7 +870,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_namespaces**
-> PagedResultsNamespace search_namespaces(page, size, existing, tenant, q=q, sort=sort)
+> PagedResultsNamespace search_namespaces(tenant, q=q, existing=existing, size=size, page=page, sort=sort)
 
 Search for namespaces
 
@@ -890,16 +890,16 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    existing = False # bool | Return only existing namespace (default to False)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
+    existing = kestrapy.SchemasFromTypeArrayOfParameter() # SchemasFromTypeArrayOfParameter | Return only existing namespace (optional)
+    size = 10 # int | The current page size (optional) (default to 10)
+    page = 1 # int | The current page (optional) (default to 1)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
 
     try:
         # Search for namespaces
-        api_response = kestra_client.NamespacesApi.search_namespaces(page, size, existing, tenant, q=q, sort=sort)
+        api_response = kestra_client.NamespacesApi.search_namespaces(tenant, q=q, existing=existing, size=size, page=page, sort=sort)
         print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -913,11 +913,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **existing** | **bool**| Return only existing namespace | [default to False]
  **tenant** | **str**|  | 
  **q** | **str**| A string filter | [optional] 
+ **existing** | [**SchemasFromTypeArrayOfParameter**](.md)| Return only existing namespace | [optional] 
+ **size** | **int**| The current page size | [optional] [default to 10]
+ **page** | **int**| The current page | [optional] [default to 1]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
 
 ### Return type

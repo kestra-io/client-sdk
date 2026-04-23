@@ -18,9 +18,9 @@ var _ MappedNullable = &AbstractGraph{}
 
 // AbstractGraph struct for AbstractGraph
 type AbstractGraph struct {
-	Uid                  *string                  `json:"uid,omitempty"`
-	Type                 *string                  `json:"type,omitempty"`
-	BranchType           *AbstractGraphBranchType `json:"branchType,omitempty"`
+	Uid *string `json:"uid,omitempty"`
+	Type *string `json:"type,omitempty"`
+	BranchType *AbstractGraphBranchType `json:"branchType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -140,7 +140,7 @@ func (o *AbstractGraph) SetBranchType(v AbstractGraphBranchType) {
 }
 
 func (o AbstractGraph) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -224,3 +224,5 @@ func (v *NullableAbstractGraph) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
