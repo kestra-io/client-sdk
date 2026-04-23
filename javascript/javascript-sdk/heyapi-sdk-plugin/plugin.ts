@@ -98,16 +98,20 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
     });
 
     const getDataOrThrowNode = $.func().async()
-        .generic("T")
+        .generic("T").generic("E extends Error")
         .params(
-            $.param("respPromise").type($.type("Promise").generic($.type.object().prop("data", (p) => p.type("T").optional()))),
-            $.param("message").required(false).type($.type("string")),
+            $.param("respPromise").type($.type("Promise").generic($.type.or(
+                $.type.object().prop("data", (p) => p.type("T")),
+                $.type.object().prop("error", (e) => e.type("E"))
+            ))),
         )
         .returns($.type("Promise").generic($.type("T")))
         .do(
             $.const("resp").assign($.await("respPromise")),
-            $.if($.not($("resp?").attr("data")))
-                .do($.throw("Error", true).message($("message").coalesce($.literal("Data not found")))),
+            $.if($.not($('resp')))
+                .do($.throw('Error', true).message("No response received")),
+            $.if($.expr(`"error" in resp`))
+                .do($.expr("throw resp.error")),
             $.return($("resp").attr("data")),
         );
 

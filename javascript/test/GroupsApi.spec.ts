@@ -17,13 +17,13 @@ describe('GroupsApi', () => {
         const group = await kestraClient().Groups.createGroup({
             name: `test_add_user_to_group_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
         const user = await kestraClient().Users.createUser({
             email: `test_add_user_to_group_${randomId()}@kestra.io`,
-        }).unwrap();
+        });
 
-        const member = await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id }).unwrap();
+        const member = await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id });
 
         expect(member.groups?.some(g => g.id === group.id)).toBeTruthy();
     });
@@ -33,9 +33,9 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name: `${prefix}_complete_groups`,
             description: 'An example group',
-        }).unwrap();
+        });
 
-        const results = await kestraClient().Groups.autocompleteGroups({ q: prefix }).unwrap();
+        const results = await kestraClient().Groups.autocompleteGroups({ q: prefix });
 
         expect(
             results.some(r => r.id === created.id || r.name === created.name)
@@ -47,7 +47,7 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name,
             description: 'An example group',
-        }).unwrap();
+        });
 
         expect(created.name).toBe(name);
         expect(created.id).toBeTruthy();
@@ -57,7 +57,7 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name: `test_delete_group_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
         await kestraClient().Groups.deleteGroup({ id: created.id }, { throwOnNull: false });
 
@@ -68,15 +68,15 @@ describe('GroupsApi', () => {
         const group = await kestraClient().Groups.createGroup({
             name: `test_delete_user_from_group_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
         const user = await kestraClient().Users.createUser({
             email: `test_delete_user_from_group_${randomId()}@kestra.io`,
-        }).unwrap();
+        });
 
         await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id });
 
-        const member = await kestraClient().Groups.deleteUserFromGroup({ id: group.id, userId: user.id }).unwrap();
+        const member = await kestraClient().Groups.deleteUserFromGroup({ id: group.id, userId: user.id });
 
         expect(member.groups?.some(g => g.id === group.id)).toBeFalsy();
     });
@@ -85,9 +85,9 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name: `test_get_group_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
-        const fetched = await kestraClient().Groups.group({ id: created.id }).unwrap();
+        const fetched = await kestraClient().Groups.group({ id: created.id });
 
         expect(fetched.id).toBe(created.id);
         expect(fetched.name).toBe(created.name);
@@ -97,9 +97,9 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name: `test_list_group_ids_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
-        const fetched = await kestraClient().Groups.listGroupIds({ ids: [created.id] }).unwrap();
+        const fetched = await kestraClient().Groups.listGroupIds({ ids: [created.id] });
 
         expect(Array.isArray(fetched) && fetched.length > 0).toBeTruthy();
         expect(fetched.some(g => g.id === created.id)).toBeTruthy();
@@ -109,20 +109,20 @@ describe('GroupsApi', () => {
         const group = await kestraClient().Groups.createGroup({
             name: `test_search_group_members_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
         const user = await kestraClient().Users.createUser({
             email: `test_search_group_members_${randomId()}@kestra.io`,
-        }).unwrap();
+        });
 
-        await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id }).unwrap();
+        await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id });
 
         const page = await kestraClient().Groups.searchGroupMembers({
             id: group.id,
             page: 1,
             size: 10,
             filters: [qf({ field: QF_FIELD.EMAIL, operation: QF_OP.EQUALS, value: user.email })],
-        }).unwrap();
+        });
 
         const results = page?.results ?? [];
         expect(results.some(m => m.id === user.id)).toBeTruthy();
@@ -133,13 +133,13 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name,
             description: 'An example group',
-        }).unwrap();
+        });
 
         const resultsPage = await kestraClient().Groups.searchGroups({
             page: 1,
             size: 10,
             filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: name })],
-        }).unwrap();
+        });
         const results = resultsPage?.results ?? [];
 
         expect(results.some(r => r.id === created.id)).toBeTruthy();
@@ -149,19 +149,19 @@ describe('GroupsApi', () => {
         const group = await kestraClient().Groups.createGroup({
             name: `test_set_user_membership_for_group_${randomId()}`,
             description: 'An example group',
-        }).unwrap();
+        });
 
         const user = await kestraClient().Users.createUser({
             email: `test_set_user_membership_for_group_${randomId()}@kestra.io`,
-        }).unwrap();
+        });
 
-        await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id }).unwrap();
+        await kestraClient().Groups.addUserToGroup({ id: group.id, userId: user.id });
 
         const member = await kestraClient().Groups.setUserMembershipForGroup({
             id: group.id,
             userId: user.id,
             membership: 'OWNER',
-        }).unwrap();
+        });
 
         expect(member.groups?.some(g => g.id === group.id)).toBeTruthy();
     });
@@ -170,13 +170,13 @@ describe('GroupsApi', () => {
         const created = await kestraClient().Groups.createGroup({
             name: `test_update_group_${randomId()}`,
             description: 'Before',
-        }).unwrap();
+        });
 
         const updated = await kestraClient().Groups.updateGroup({
             id: created.id,
             name: created.name,
             description: 'Updated description',
-        }).unwrap();
+        });
 
         expect(updated.description).toBe('Updated description');
     });
