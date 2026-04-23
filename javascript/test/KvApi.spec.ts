@@ -1,6 +1,6 @@
 // testApis/test_kv_api_typed.test.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import { kestraClient, randomId } from './CommonTestSetup.js';
 
 const CHILD_NAMESPACE = 'test.namespace';
 const PARENT_NAMESPACE = 'test';
@@ -12,10 +12,10 @@ describe('KVApi (typed)', () => {
 
         const value = '"hello-kestra"';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
 
         const fetched =
-            (await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT))
+            (await kestraClient().Kv.keyValue?.({ namespace, key }))
 
         expect(fetched?.type ?? 'STRING').toBe('STRING');
         expect(fetched?.value ?? fetched).toBe('hello-kestra');
@@ -26,8 +26,8 @@ describe('KVApi (typed)', () => {
         const key = `test_set_key_value_${randomId()}`;
         const value = 'true';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace, key })
 
         expect(fetched?.type ?? 'BOOLEAN').toBe('BOOLEAN');
         expect(fetched?.value ?? fetched).toBe(true);
@@ -38,8 +38,8 @@ describe('KVApi (typed)', () => {
         const key = `test_set_key_value_${randomId()}`;
         const value = '42';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace, key })
 
         expect(fetched?.type ?? 'NUMBER').toBe('NUMBER');
         expect(fetched?.value ?? fetched).toBe(42);
@@ -50,8 +50,8 @@ describe('KVApi (typed)', () => {
         const key = `test_set_key_value_${randomId()}`;
         const value = 'PT15M';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace, key })
 
         expect(fetched?.type ?? 'DURATION').toBe('DURATION');
         expect(fetched?.value ?? fetched).toBe('PT15M');
@@ -62,8 +62,8 @@ describe('KVApi (typed)', () => {
         const key = `test_set_key_value_${randomId()}`;
         const value = '2025-10-13';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace, key })
 
         expect(fetched?.type ?? 'DATE').toBe('DATE');
         expect(fetched?.value ?? fetched).toBe('2025-10-13');
@@ -74,8 +74,8 @@ describe('KVApi (typed)', () => {
         const key = `test_set_key_value_${randomId()}`;
         const value = '2025-10-14T18:02:08.000Z';
 
-        await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace, key })
 
         // server often normalizes fractional seconds
         expect(fetched?.type ?? 'DATETIME').toBe('DATETIME');
@@ -86,8 +86,8 @@ describe('KVApi (typed)', () => {
         const key = `test_get_key_value_${randomId()}`;
         const value = '"value-get"';
 
-        await kestraClient().kvApi.setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
-        const fetched = await kestraClient().kvApi.keyValue?.(CHILD_NAMESPACE, key, MAIN_TENANT)
+        await kestraClient().Kv.setKeyValue({ namespace: CHILD_NAMESPACE, key, body: value });
+        const fetched = await kestraClient().Kv.keyValue?.({ namespace: CHILD_NAMESPACE, key })
 
         expect(fetched?.type ?? 'STRING').toBe('STRING');
         expect(fetched?.value ?? fetched).toBe('value-get');
@@ -97,8 +97,8 @@ describe('KVApi (typed)', () => {
         const key = `test_list_keys_with_inheritence_${randomId()}`;
         const value = 'value-inherited';
 
-        await kestraClient().kvApi.setKeyValue(PARENT_NAMESPACE, key, MAIN_TENANT, value);
-        const entries = await kestraClient().kvApi.listKeysWithInheritence(CHILD_NAMESPACE, MAIN_TENANT);
+        await kestraClient().Kv.setKeyValue({ namespace: PARENT_NAMESPACE, key, body: value });
+        const entries = await kestraClient().Kv.listKeysWithInheritence({ namespace: CHILD_NAMESPACE });
 
         expect(entries.some(e => e.key === key)).toBeTruthy();
     });
@@ -107,13 +107,13 @@ describe('KVApi (typed)', () => {
         const key = `test_delete_key_value_${randomId()}`;
         const value = 'to-delete';
 
-        await kestraClient().kvApi.setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
-        const deleted = await kestraClient().kvApi.deleteKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        await kestraClient().Kv.setKeyValue({ namespace: CHILD_NAMESPACE, key, body: value });
+        const deleted = await kestraClient().Kv.deleteKeyValue({ namespace: CHILD_NAMESPACE, key });
 
         expect(deleted === true || deleted === null).toBeTruthy();
 
         await expect(
-            kestraClient().kvApi.keyValue(CHILD_NAMESPACE, key, MAIN_TENANT)
+            kestraClient().Kv.keyValue({ namespace: CHILD_NAMESPACE, key })
         ).rejects.toThrow();
     });
 
@@ -121,16 +121,16 @@ describe('KVApi (typed)', () => {
         const key1 = `test_delete_key_values_1_${randomId()}`;
         const key2 = `test_delete_key_values_2_${randomId()}`;
 
-        await kestraClient().kvApi.setKeyValue(CHILD_NAMESPACE, key1, MAIN_TENANT, 'v1');
-        await kestraClient().kvApi.setKeyValue(CHILD_NAMESPACE, key2, MAIN_TENANT, 'v2');
+        await kestraClient().Kv.setKeyValue({ namespace: CHILD_NAMESPACE, key: key1, body: 'v1' });
+        await kestraClient().Kv.setKeyValue({ namespace: CHILD_NAMESPACE, key: key2, body: 'v2' });
 
         const req = { keys: [key1, key2] };
-        const resp = await kestraClient().kvApi.deleteKeyValues(CHILD_NAMESPACE, MAIN_TENANT, req);
+        const resp = await kestraClient().Kv.deleteKeyValues({ namespace: CHILD_NAMESPACE, body: req });
         expect(resp).not.toBeNull();
 
         for (const k of [key1, key2]) {
             await expect(
-                kestraClient().kvApi.keyValue(CHILD_NAMESPACE, k, MAIN_TENANT)
+                kestraClient().Kv.keyValue({ namespace: CHILD_NAMESPACE, key: k })
             ).rejects.toThrow();
         }
     });
