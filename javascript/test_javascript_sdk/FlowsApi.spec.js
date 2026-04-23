@@ -5,7 +5,7 @@ import {
     kestraClient,
     getSimpleFlow,
     getCompleteFlow,
-} from "./CommonTestSetup";
+} from "./CommonTestSetup.js";
 import { describe, it, expect } from "vitest";
 
 // ----- Helpers (mirror Java helpers) -----

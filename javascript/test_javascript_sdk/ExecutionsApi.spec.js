@@ -1,7 +1,7 @@
 // @ts-check
 // ExecutionsApi.spec.js
 import { describe, it, expect } from "vitest";
-import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup";
+import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 
 // ---------- Flow YAML templates ----------
 /**
@@ -184,7 +184,7 @@ async function createFlowWithExecutionFromYaml(flowYaml) {
 /**
  * await the end of an execution
  * @param {string} executionId
- * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/model/StateType').StateTypeStatic} desiredState
  * @param {number} [timeoutMs=5000]
  * @param {number} [pollMs=100]
  * @returns
@@ -211,7 +211,7 @@ async function awaitExecution(
 /**
  * create an execution and await it to reach the desired state
  * @param {(id: string, ns: string) => string} flowTemplate
- * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/model/StateType').StateTypeStatic} desiredState
  * @returns
  */
 async function createdExecution(flowTemplate, desiredState) {
@@ -617,7 +617,7 @@ describe("ExecutionsApi", () => {
         );
         expect(Array.isArray(list)).toBe(true);
         expect(list.length).toBe(2);
-        const ids = list.map((x) => x.id);
+        const ids = list.map((/** @type {{id: string}} */ x) => x.id);
         expect(ids).toContain(secondA.id);
         expect(ids).toContain(b.id);
     });
@@ -1430,6 +1430,10 @@ tasks:
             serverSentEventSource.close();
         };
 
+        /**
+         *
+         * @param {any} executionEvent
+         */
         serverSentEventSource.onmessage = (executionEvent) => {
             const isEnd =
                 executionEvent && executionEvent.lastEventId === "end";
@@ -1446,7 +1450,7 @@ tasks:
         // but as our emitter can only throw an error on 404
         // we can safely assume that the error is a 404
         // if execution is not defined
-        serverSentEventSource.onerror = (e) => {
+        serverSentEventSource.onerror = (/** @type {any} */ e) => {
             throw new Error("Execution not found" + JSON.stringify(e));
         };
 
@@ -1527,7 +1531,9 @@ tasks:
             serverSentEventSource.close();
         };
 
-        serverSentEventSource.onmessage = (executionEvent) => {
+        serverSentEventSource.onmessage = (
+            /** @type {any} */ executionEvent,
+        ) => {
             const isEnd =
                 executionEvent && executionEvent.lastEventId === "end";
             // we are receiving a first "fake" event to force initializing the connection: ignoring it
@@ -1539,13 +1545,16 @@ tasks:
             }
         };
 
-        serverSentEventSource.onerror = (e) => {
+        serverSentEventSource.onerror = (/** @type {any} */ e) => {
             throw new Error("Execution not found" + JSON.stringify(e));
         };
 
-        serverSentEventSource.addEventListener("error", (executionEvent) => {
-            executionUpdate("error", executionEvent);
-        });
+        serverSentEventSource.addEventListener(
+            "error",
+            (/** @type {any} */ executionEvent) => {
+                executionUpdate("error", executionEvent);
+            },
+        );
 
         await awaitExecution(ex.id, "SUCCESS", 10000, 100);
         serverSentEventSource.close();
