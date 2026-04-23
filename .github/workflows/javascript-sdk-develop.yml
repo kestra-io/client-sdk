@@ -1,0 +1,153 @@
+name: Javascript SDK develop publish
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  list-versions:
+    uses: ./.github/workflows/list-versions.yml
+
+  test:
+    name: Test Javascript SDK
+    runs-on: ubuntu-latest
+    needs: list-versions
+    strategy:
+      fail-fast: false
+      matrix:
+        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: javascript/.nvmrc
+
+      - name: Compute content hash
+        id: hash
+        run: |
+          HASH=$(cat kestra-ee.yml $(find javascript/javascript-sdk -type f | sort) | sha256sum | head -c 8)
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          echo "version=2.0.0-$HASH" >> $GITHUB_OUTPUT
+
+      - name: Generate SDK
+        run: ./generate-sdks.sh ${{ steps.hash.outputs.version }} javascript
+
+      - name: Install dependencies
+        working-directory: ./javascript
+        run: npm ci
+
+      - name: Build
+        working-directory: ./javascript
+        run: npm run build
+
+      - name: GCP - Auth with github service account
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Type check
+        working-directory: ./javascript
+        run: npm run test:typecheck
+
+      - name: Select license file
+        id: license
+        uses: ./.github/actions/set-license-file
+        with:
+          kestra_version: ${{ matrix.kestra_version }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
+      - name: Test with vitest
+        working-directory: ./javascript
+        env:
+          KESTRA_VERSION: ${{ matrix.kestra_version }}
+        run: |
+          echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          sh run-tests.sh $KESTRA_VERSION
+
+  publish:
+    name: Publish to npm (develop tag)
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get OIDC Token
+        env:
+          AUDIENCE: "npm:registry.npmjs.org"
+        run: |
+          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
+          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "$TOKEN_JSON"
+          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: javascript/.nvmrc
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Compute content hash
+        id: hash
+        run: |
+          HASH=$(cat kestra-ee.yml $(find javascript/javascript-sdk -type f | sort) | sha256sum | head -c 8)
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          echo "version=2.0.0-$HASH" >> $GITHUB_OUTPUT
+
+      - name: Check if version already published
+        id: check
+        working-directory: ./javascript
+        run: |
+          if npm show @kestra-io/kestra-sdk@${{ steps.hash.outputs.version }} version 2>/dev/null; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Version ${{ steps.hash.outputs.version }} already published — skipping."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate SDK
+        if: steps.check.outputs.skip != 'true'
+        run: ./generate-sdks.sh ${{ steps.hash.outputs.version }} javascript
+
+      - name: Install dependencies
+        if: steps.check.outputs.skip != 'true'
+        working-directory: ./javascript
+        run: npm install
+
+      - name: Build
+        if: steps.check.outputs.skip != 'true'
+        working-directory: ./javascript
+        run: npm run build
+
+      # - name: Publish to npm with develop tag
+      #   if: steps.check.outputs.skip != 'true'
+      #   working-directory: ./javascript/javascript-sdk
+      #   run: npm publish --tag develop --access public
+
+      - name: Comment on commit with install instructions
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/commits/${{ github.sha }}/comments \
+            -f body="### 📦 JavaScript SDK published
+
+          Install this build with:
+          \`\`\`sh
+          npm install @kestra-io/kestra-sdk@${{ steps.hash.outputs.version }}
+          \`\`\`
