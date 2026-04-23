@@ -130,10 +130,10 @@ jobs:
         working-directory: ./javascript
         run: npm run build
 
-      # - name: Publish to npm with develop tag
-      #   if: steps.check.outputs.skip != 'true'
-      #   working-directory: ./javascript/javascript-sdk
-      #   run: npm publish --tag develop --access public
+      - name: Publish to npm with develop tag
+        if: steps.check.outputs.skip != 'true'
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --tag develop --access public
 
       - name: Comment on commit with install instructions
         if: steps.check.outputs.skip != 'true'
