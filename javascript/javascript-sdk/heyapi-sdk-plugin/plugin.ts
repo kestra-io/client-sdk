@@ -97,15 +97,16 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
         getFilePath: () => "sdk/ks-shared",
     });
 
-    const getDataOrThrowNode = $.func()
+    const getDataOrThrowNode = $.func().async()
         .generic("T")
         .params(
-            $.param("resp").type($.type.object().prop("data", (p) => p.type("T").optional())),
+            $.param("respPromise").type($.type("Promise").generic($.type.object().prop("data", (p) => p.type("T").optional()))),
             $.param("message").required(false).type($.type("string")),
         )
-        .returns($.type("T"))
+        .returns($.type("Promise").generic($.type("T")))
         .do(
-            $.if($.not($("resp").attr("data")))
+            $.const("resp").assign($.await("respPromise")),
+            $.if($.not($("resp?").attr("data")))
                 .do($.throw("Error", true).message($("message").coalesce($.literal("Data not found")))),
             $.return($("resp").attr("data")),
         );
@@ -113,42 +114,47 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
     plugin.node($.const(getDataOrThrowSymbol).export().assign(getDataOrThrowNode));
 
     // Shared helper: augments a promise with an .unwrap(message?) method.
-    const withUnwrapSymbol = plugin.symbol("withUnwrap", {
-        getFilePath: () => "sdk/ks-shared",
-    });
+    // const withUnwrapSymbol = plugin.symbol("withUnwrap", {
+    //     getFilePath: () => "sdk/ks-shared",
+    // });
 
-    const withUnwrapNode = $.func()
-        .generic("T extends Promise<{ data?: any }>")
-        .params(
-            $.param("promise").type($.type("T"))
-        )
-        .do(
-            $.return(
-                $("Object").attr("assign").call(
-                    $("promise"),
-                    $.object().prop("unwrap",
-                        $.func()
-                            .params(
-                                $.param("options").required(false)
-                                    .type($.type.object().prop("errorMessage", (p) => p.type("string").optional()))
-                            )
-                            .returns($.type("Promise<NonNullable<Awaited<T>['data']>>"))
-                            .do($.return(
-                                $("promise").attr("then").call(
-                                    $.func().params($.param("resp").type($.type("any")))
-                                        .do($.return($(getDataOrThrowSymbol).call($("resp"), $("options").attr("errorMessage").optional())))
-                                )
-                            ))
-                    )
-                )
-            )
-        );
+    // const withUnwrapNode = $.func()
+    //     .generic("T extends Promise<{ data?: any }>")
+    //     .params(
+    //         $.param("promise").type($.type("T"))
+    //     )
+    //     .do(
+    //         $.return(
+    //             $("Object").attr("assign").call(
+    //                 $("promise"),
+    //                 $.object().prop("unwrap",
+    //                     $.func()
+    //                         .params(
+    //                             $.param("options").required(false)
+    //                                 .type($.type.object().prop("errorMessage", (p) => p.type("string").optional()))
+    //                         )
+    //                         .returns($.type("Promise<NonNullable<Awaited<T>['data']>>"))
+    //                         .do($.return(
+    //                             $("promise").attr("then").call(
+    //                                 $.func().params($.param("resp").type($.type("any")))
+    //                                     .do($.return($(getDataOrThrowSymbol).call($("resp"), $("options").attr("errorMessage").optional())))
+    //                             )
+    //                         ))
+    //                 )
+    //             )
+    //         )
+    //     );
 
-    plugin.node($.const(withUnwrapSymbol).export().assign(withUnwrapNode));
+    // plugin.node($.const(withUnwrapSymbol).export().assign(withUnwrapNode));
 
     // Augments the promise with an .unwrap(message?) method that extracts resp.data or throws.
-    const wrapCallStatements = (callNode: any) => [
-        $.return($(withUnwrapSymbol).call(callNode)),
+    // const wrapCallStatements = (callNode: any) => [
+    //     $.return($(withUnwrapSymbol).call(callNode)),
+    // ];
+
+    // avoid having to unwrap the outputs
+    const unwrapCallStatementsData = (callNode: any) => [
+        $.return($(getDataOrThrowSymbol).call(callNode)),
     ];
 
     const operationsDict: Record<string, { symbol: ReturnType<typeof plugin.symbol>, methodName: string }[]> = {}
@@ -204,7 +210,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 $.type("Parameters").generic($.type.query(sym)).idx(idx);
 
             const returnStatements = (callNode: any) =>
-                isSSE ? [$.return(callNode)] : wrapCallStatements(callNode);
+                isSSE ? [$.return(callNode)] : unwrapCallStatementsData(callNode);
 
             if (!hasTenant && !bodySimplification && !isMultipart) {
                 // No tenant, no body simplification — wrap with getDataOrThrow (unless SSE)
