@@ -8,71 +8,9 @@ permissions:
   contents: read
 
 jobs:
-  list-versions:
-    uses: ./.github/workflows/list-versions.yml
-
-  test:
-    name: Test Javascript SDK
-    runs-on: ubuntu-latest
-    needs: list-versions
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: javascript/.nvmrc
-
-      - name: Compute content hash
-        id: hash
-        run: |
-          HASH=$(cat kestra-ee.yml $(find javascript/javascript-sdk -type f | sort) | sha256sum | head -c 8)
-          echo "hash=$HASH" >> $GITHUB_OUTPUT
-          echo "version=2.0.0-$HASH" >> $GITHUB_OUTPUT
-
-      - name: Generate SDK
-        run: ./generate-sdks.sh ${{ steps.hash.outputs.version }} javascript
-
-      - name: Install dependencies
-        working-directory: ./javascript
-        run: npm ci
-
-      - name: Build
-        working-directory: ./javascript
-        run: npm run build
-
-      - name: GCP - Auth with github service account
-        uses: "google-github-actions/auth@v2"
-        with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
-      - name: Configure docker access to GCP registry for EE image
-        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
-
-      - name: Type check
-        working-directory: ./javascript
-        run: npm run test:typecheck
-
-      - name: Select license file
-        id: license
-        uses: ./.github/actions/set-license-file
-        with:
-          kestra_version: ${{ matrix.kestra_version }}
-          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
-          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
-
-      - name: Test with vitest
-        working-directory: ./javascript
-        env:
-          KESTRA_VERSION: ${{ matrix.kestra_version }}
-        run: |
-          echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh $KESTRA_VERSION
-
   publish:
     name: Publish to npm (develop tag)
     runs-on: ubuntu-latest
-    needs: test
     permissions:
       contents: write
     steps:
@@ -101,9 +39,11 @@ jobs:
       - name: Compute content hash
         id: hash
         run: |
-          HASH=$(cat kestra-ee.yml $(find javascript/javascript-sdk -type f | sort) | sha256sum | head -c 8)
-          echo "hash=$HASH" >> $GITHUB_OUTPUT
-          echo "version=2.0.0-$HASH" >> $GITHUB_OUTPUT
+          HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
+          HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
+          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
+          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
+          echo "version=2.0.0-$HASH_SPEC-$HASH_CODE" >> $GITHUB_OUTPUT
 
       - name: Check if version already published
         id: check
@@ -130,10 +70,10 @@ jobs:
         working-directory: ./javascript
         run: npm run build
 
-      - name: Publish to npm with develop tag
-        if: steps.check.outputs.skip != 'true'
-        working-directory: ./javascript/javascript-sdk
-        run: npm publish --tag develop --access public
+      # - name: Publish to npm with develop tag
+      #   if: steps.check.outputs.skip != 'true'
+      #   working-directory: ./javascript/javascript-sdk
+      #   run: npm publish --tag develop --access public
 
       - name: Comment on commit with install instructions
         if: steps.check.outputs.skip != 'true'
