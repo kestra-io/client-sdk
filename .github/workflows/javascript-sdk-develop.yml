@@ -71,9 +71,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api repos/${{ github.repository }}/commits/${{ github.sha }}/comments \
-            -f body="### 📦 JavaScript SDK published
+            -f body="$(cat <<'EOF'
+          ### 📦 JavaScript SDK published
 
           Install this build with:
-          \`\`\`sh
+          ```sh
           npm install @kestra-io/kestra-sdk@${{ steps.hash.outputs.version }}
-          \`\`\`
+          ```
+          EOF
+          )"
