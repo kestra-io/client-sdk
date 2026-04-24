@@ -17,7 +17,6 @@
     "./blueprints": "./dist/blueprints.js",
     "./client": "./dist/client.js",
     "./cluster": "./dist/cluster.js",
-    "./credentials": "./dist/credentials.js",
     "./dashboards": "./dist/dashboards.js",
     "./executions": "./dist/executions.js",
     "./files": "./dist/files.js",

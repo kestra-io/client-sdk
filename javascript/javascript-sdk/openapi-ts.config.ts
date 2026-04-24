@@ -16,7 +16,7 @@ const generateHash = (str: string) => {
 };
 
 export default {
-    input: path.resolve(__dirname, "../../kestra-ee.yml"),
+    input: path.resolve(__dirname, "../../kestra-ee.sanitized.yml"),
     output: {
         path: path.resolve(__dirname, "./src/openapi"),
     },
