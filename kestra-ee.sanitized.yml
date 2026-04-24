@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.3.0
+  version: 2.0.0-SNAPSHOT
 tags:
   - name: Flows
     description: Flows api
@@ -145,17 +145,9 @@ paths:
       summary: Search for audit logs across all tenants, required to be SuperAdmin
       operationId: searchAuditLogsForAllTenants
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -164,7 +156,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -179,83 +170,15 @@ paths:
             nullable: true
             items:
               type: string
-        - name: namespace
+        - name: filters
           in: query
-          description: A namespace filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: executionId
-          in: query
-          description: An execution filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: userId
-          in: query
-          description: A user id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: id
-          in: query
-          description: A id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: resources
-          in: query
-          description: A resource filter
+          description: A list of query filters
           explode: false
           schema:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType"
-        - name: startDate
-          in: query
-          description: The start datetime
-          explode: false
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          explode: false
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: details
-          in: query
-          description: A list of auditLog details
-          explode: false
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-            nullable: true
-        - name: type
-          in: query
-          description: The event that create the audit log
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/CrudEventType"
+              $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: searchAuditLogsForAllTenants 200 response
@@ -405,6 +328,25 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/basicAuthValidationErrors:
+    get:
+      tags:
+        - Misc
+      summary: Retrieve the instance configuration.
+      description: Global endpoint available to all users.
+      operationId: basicAuthConfigErrors
+      responses:
+        "200":
+          description: getBasicAuthConfigErrors 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/configs:
     get:
       tags:
@@ -482,6 +424,31 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/instance/metrics/{serviceType}:
+    get:
+      tags:
+        - Services
+      summary: Get metrics for running services
+      operationId: metrics
+      parameters:
+        - name: serviceType
+          in: query
+          required: true
+          explode: false
+          schema:
+            $ref: "#/components/schemas/ServiceType"
+      responses:
+        "200":
+          description: metrics 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Metric"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/instance/services/active:
     get:
       tags:
@@ -510,7 +477,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -519,7 +485,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -534,24 +499,15 @@ paths:
             nullable: true
             items:
               type: string
-        - name: state
+        - name: filters
           in: query
-          description: The state filter
+          description: Filters
+          required: true
           explode: false
           schema:
             type: array
-            nullable: true
             items:
-              $ref: "#/components/schemas/Service.ServiceState"
-        - name: type
-          in: query
-          description: The server type filter
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/ServiceType"
+              $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: searchServices 200 response
@@ -596,7 +552,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -605,7 +560,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -620,13 +574,15 @@ paths:
             nullable: true
             items:
               type: string
-        - name: q
+        - name: filters
           in: query
-          description: The query
+          description: Filters
+          required: true
           explode: false
           schema:
-            type: string
-            nullable: true
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: listVersionedPlugin 200 response
@@ -977,6 +933,198 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/instance/workers/credentials:
+    get:
+      tags:
+        - Worker Auth
+      summary: List all registered workers
+      description: SuperAdmin only. Lists all workers that have registered with the controller.
+      operationId: list
+      responses:
+        "200":
+          description: list 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerList"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/workers/credentials/{id}:
+    get:
+      tags:
+        - Worker Auth
+      summary: Get worker credentials ID
+      description: SuperAdmin only. Retrieves details of a specific registered worker.
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: get 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    delete:
+      tags:
+        - Worker Auth
+      summary: Delete worker credentials
+      description: SuperAdmin only. Deletes a worker's credentials.
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: delete 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/workers/credentials/{id}/revoke:
+    post:
+      tags:
+        - Worker Auth
+      summary: Revoke worker credentials
+      description: SuperAdmin only. Revokes a worker's credentials, preventing further authentication.
+      operationId: revoke
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: revoke 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/workers/registration-tokens:
+    get:
+      tags:
+        - Worker Auth
+      summary: List all worker registration tokens
+      description: SuperAdmin only. Lists all registration tokens for worker authentication.
+      operationId: list_1
+      responses:
+        "200":
+          description: list_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiTokenList"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    post:
+      tags:
+        - Worker Auth
+      summary: Create a new worker registration token
+      description: SuperAdmin only. Creates a new registration token. The plaintext token is returned only once.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiCreateTokenRequest"
+        required: true
+      responses:
+        "200":
+          description: create 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiCreateTokenResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/workers/registration-tokens/{id}:
+    get:
+      tags:
+        - Worker Auth
+      summary: Get a worker registration token by ID
+      description: SuperAdmin only. Retrieves details of a specific registration token.
+      operationId: get_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: get_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    delete:
+      tags:
+        - Worker Auth
+      summary: Delete a worker registration token
+      description: SuperAdmin only. Deletes a registration token.
+      operationId: delete_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: delete_1 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/workers/registration-tokens/{id}/revoke:
+    post:
+      tags:
+        - Worker Auth
+      summary: Revoke a worker registration token
+      description: SuperAdmin only. Revokes a registration token, preventing further use.
+      operationId: revoke_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: revoke_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/invitation/accept/{invitationId}:
     post:
       tags:
@@ -1289,6 +1437,42 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/pebble/filters:
+    get:
+      tags:
+        - Misc
+      summary: Retrieve the list of available Pebble expression filters.
+      operationId: expressionFilters
+      responses:
+        "200":
+          description: getExpressionFilters 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/pebble/functions:
+    get:
+      tags:
+        - Misc
+      summary: Retrieve the available Pebble expression functions with their arguments and defaults.
+      operationId: expressionFunctions
+      responses:
+        "200":
+          description: getExpressionFunctions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PebbleFunction"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/plugins:
     get:
       tags:
@@ -1403,6 +1587,30 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/plugins/pluginUiManifest:
+    post:
+      tags:
+        - Plugins
+      summary: Get plugins group by subgroups
+      operationId: pluginUiManifest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/TaskWithVersion"
+        required: true
+      responses:
+        "200":
+          description: getPluginUiManifest 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PluginUiManifest"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/plugins/properties/{type}:
     get:
       tags:
@@ -1446,7 +1654,6 @@ paths:
         - name: arrayOf
           in: query
           description: If schema should be an array of requested type
-          required: true
           explode: false
           schema:
             type: boolean
@@ -1479,7 +1686,6 @@ paths:
         - name: all
           in: query
           description: Include all the properties
-          required: true
           explode: false
           schema:
             type: boolean
@@ -1539,7 +1745,6 @@ paths:
         - name: all
           in: query
           description: Include all the properties
-          required: true
           explode: false
           schema:
             type: boolean
@@ -1551,6 +1756,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DocumentationWithSchema"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/plugins/{group}/pluginUi/{path}:
+    get:
+      tags:
+        - Plugins
+      summary: Get plugins group by subgroups
+      operationId: pluginUi
+      parameters:
+        - name: group
+          in: path
+          description: The plugin group
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: path
+          description: The file path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getPluginUi 200 response
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1604,7 +1839,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -1613,7 +1847,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -1874,13 +2107,68 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/support/debug-info:
+    get:
+      tags:
+        - Misc
+      summary: Retrieve debug information for a support ticket
+      description: Returns aggregated debug information about the current Kestra instance. Available to all authenticated users.
+      operationId: supportDebugInfo
+      responses:
+        "200":
+          description: supportDebugInfo 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SupportDebugInfo"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/support/forward:
+    post:
+      tags:
+        - Misc
+      summary: Forward support ticket to configured registry proxy
+      operationId: forwardSupportTicket
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: string
+                filesPublisher:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              payload:
+                contentType: application/octet-stream
+                explode: false
+              filesPublisher:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: forwardSupportTicket 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants:
     post:
       tags:
         - Tenants
       summary: Create a tenant
       description: Superadmin-only.
-      operationId: create
+      operationId: create_1
       requestBody:
         content:
           application/json:
@@ -1889,11 +2177,14 @@ paths:
         required: true
       responses:
         "200":
-          description: create 200 response
+          description: create_1 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Tenant"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants/search:
     get:
       tags:
@@ -1912,7 +2203,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -1921,7 +2211,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -1936,6 +2225,15 @@ paths:
             nullable: true
             items:
               type: string
+        - name: filters
+          in: query
+          description: Filters
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: find 200 response
@@ -1943,13 +2241,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Tenant_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants/{id}:
     get:
       tags:
         - Tenants
       summary: Retrieve a tenant
       description: Superadmin-only.
-      operationId: get
+      operationId: get_2
       parameters:
         - name: id
           in: path
@@ -1959,11 +2260,14 @@ paths:
             type: string
       responses:
         "200":
-          description: get 200 response
+          description: get_2 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Tenant"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     put:
       tags:
         - Tenants
@@ -1990,12 +2294,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Tenant"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - Tenants
       summary: Delete a tenant and all its resources
       description: Superadmin-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc.
-      operationId: delete
+      operationId: delete_2
       parameters:
         - name: id
           in: path
@@ -2006,6 +2313,9 @@ paths:
       responses:
         "204":
           description: On success
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants/{id}/apps-catalog:
     get:
       tags:
@@ -2027,6 +2337,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     post:
       tags:
         - Tenants
@@ -2053,6 +2366,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants/{id}/apps-catalog/logo:
     post:
       tags:
@@ -2089,6 +2405,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - Tenants
@@ -2105,6 +2424,9 @@ paths:
       responses:
         "200":
           description: deleteAppsCatalogLogo 200 response
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/tenants/{id}/logo:
     post:
       tags:
@@ -2141,6 +2463,60 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiTenant"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/tenants/{id}/settings/default-dashboards:
+    get:
+      tags:
+        - Tenants
+      summary: Get default dashboards for this tenant
+      operationId: defaultDashboards
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getDefaultDashboards 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    post:
+      tags:
+        - Tenants
+      summary: Update default dashboards for the entire tenant
+      operationId: setTenantDefaultDashboards
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.SetTenantDefaultDashboardsRequest"
+        required: true
+      responses:
+        "200":
+          description: setTenantDefaultDashboards 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/users:
     get:
       tags:
@@ -2151,7 +2527,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -2160,7 +2535,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -2579,6 +2953,20 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/validate-password:
+    post:
+      tags:
+        - Auths
+      operationId: validatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validatePassword 200 response
   /api/v1/{tenant}/acls/actions:
     get:
       tags:
@@ -2633,6 +3021,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/ai/generate/dashboard:
     post:
       tags:
@@ -2650,7 +3041,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DashboardGenerationPrompt"
+              $ref: "#/components/schemas/AiController.DashboardGenerationPrompt"
         required: true
       responses:
         "200":
@@ -2659,6 +3050,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/ai/generate/flow:
     post:
       tags:
@@ -2676,7 +3070,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/FlowGenerationPrompt"
+              $ref: "#/components/schemas/AiController.FlowGenerationPrompt"
         required: true
       responses:
         "200":
@@ -2685,6 +3079,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/ai/generate/test:
     post:
       tags:
@@ -2711,6 +3108,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/ai/providers:
     get:
       tags:
@@ -2732,6 +3132,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AiController.AiProviderResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -2799,7 +3202,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -2808,28 +3210,20 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
             format: int32
             default: 10
-        - name: tags
+        - name: filters
           in: query
-          description: Tags filter
+          description: Filters
+          required: true
           explode: false
           schema:
             type: array
-            nullable: true
             items:
-              type: string
-        - name: q
-          in: query
-          description: String filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -2983,7 +3377,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -2992,7 +3385,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -3037,6 +3429,15 @@ paths:
           schema:
             type: string
             nullable: true
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -3071,6 +3472,181 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppsController.ApiAppTags"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/apps/view/{id}/file/meta:
+    get:
+      tags:
+        - Apps
+      summary: Get file meta information from an app execution
+      operationId: fileMetaFromAppExecution
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the app.
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: query
+          description: The internal storage uri
+          required: true
+          explode: false
+          schema:
+            type: string
+            format: uri
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFileMetaFromAppExecution 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileMetas"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/apps/view/{id}/file/preview:
+    get:
+      tags:
+        - Apps
+      summary: Get file preview from an app execution
+      operationId: filePreviewFromAppExecution
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the app.
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: query
+          description: The internal storage uri
+          required: true
+          explode: false
+          schema:
+            type: string
+            format: uri
+        - name: maxRows
+          in: query
+          description: The max row returns
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: encoding
+          in: query
+          description: The file encoding as Java charset name. Defaults to UTF-8
+          explode: false
+          schema:
+            type: string
+            default: UTF-8
+          example: ISO-8859-1
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFilePreviewFromAppExecution 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/apps/view/{id}/streams/{stream}:
+    get:
+      tags:
+        - Apps
+      summary: Get an event stream from a given app.
+      operationId: streamEventsFromApp
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the app.
+          required: true
+          schema:
+            type: string
+        - name: stream
+          in: path
+          description: The ID of the stream to get
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getStreamEventsFromApp 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_AppResponse_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/apps/view/{uid}/logs/download:
+    get:
+      tags:
+        - Apps
+      summary: Download logs for an app execution
+      operationId: logsFromAppExecution
+      parameters:
+        - name: uid
+          in: path
+          description: The ID of the app.
+          required: true
+          schema:
+            type: string
+        - name: executionId
+          in: query
+          description: The ID of the execution.
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: minLevel
+          in: query
+          description: The min log level filter
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/Level"
+        - name: taskIds
+          in: query
+          description: The tasks' IDs
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getLogsFromAppExecution 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -3304,7 +3880,6 @@ paths:
         - name: purge
           in: query
           description: If true, will purge instead of soft-delete
-          required: true
           explode: false
           schema:
             type: boolean
@@ -3371,7 +3946,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3381,7 +3955,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3431,7 +4004,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3441,7 +4013,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3522,7 +4093,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3532,7 +4102,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -3588,7 +4157,6 @@ paths:
         - name: allowDeleted
           in: query
           description: Get asset even if soft deleted
-          required: true
           explode: false
           schema:
             type: boolean
@@ -3647,7 +4215,6 @@ paths:
         - name: destinationOnly
           in: query
           description: If true, list only destination dependencies, otherwise list also source dependencies
-          required: true
           explode: false
           schema:
             type: boolean
@@ -3655,7 +4222,6 @@ paths:
         - name: expandAll
           in: query
           description: If true, expand all dependencies recursively
-          required: true
           explode: false
           schema:
             type: boolean
@@ -3849,17 +4415,9 @@ paths:
       summary: Search for audit logs
       operationId: searchAuditLogs
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -3868,7 +4426,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -3883,83 +4440,15 @@ paths:
             nullable: true
             items:
               type: string
-        - name: namespace
+        - name: filters
           in: query
-          description: A namespace filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: executionId
-          in: query
-          description: An execution filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: userId
-          in: query
-          description: A user id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: id
-          in: query
-          description: A id filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: resources
-          in: query
-          description: A resource filter
+          description: A list of query filters
           explode: false
           schema:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType"
-        - name: startDate
-          in: query
-          description: The start datetime
-          explode: false
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          explode: false
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: details
-          in: query
-          description: A list of auditLog details
-          explode: false
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-            nullable: true
-        - name: type
-          in: query
-          description: The event that create the audit log
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/CrudEventType"
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -4082,17 +4571,9 @@ paths:
       summary: Search for bindings
       operationId: searchBindings
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -4101,7 +4582,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -4138,6 +4618,15 @@ paths:
           schema:
             type: string
             nullable: true
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -4238,7 +4727,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -4248,7 +4736,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -4273,6 +4760,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_BlueprintController.ApiBlueprintItem_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/community/{kind}/tags:
     get:
       tags:
@@ -4308,6 +4798,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/BlueprintController.ApiBlueprintTagItem"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/community/{kind}/{id}:
     get:
       tags:
@@ -4340,6 +4833,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiBlueprintItemWithSource"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph:
     get:
       tags:
@@ -4374,6 +4870,9 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/community/{kind}/{id}/source:
     get:
       tags:
@@ -4406,6 +4905,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/custom:
     get:
       tags:
@@ -4440,7 +4942,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -4449,12 +4950,19 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
             format: int32
             default: 1
+        - name: source
+          in: query
+          description: Whether to include the flow source in the response
+          explode: false
+          schema:
+            type: boolean
+            nullable: true
+            default: false
         - name: tenant
           in: path
           required: true
@@ -4467,6 +4975,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Blueprint_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     post:
       tags:
         - Blueprints
@@ -4494,6 +5005,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiBlueprintItemWithSource"
       deprecated: true
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/custom/tags:
     get:
       tags:
@@ -4523,6 +5037,9 @@ paths:
                 type: array
                 items:
                   type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/custom/{id}:
     get:
       tags:
@@ -4549,6 +5066,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     put:
       tags:
         - Blueprints
@@ -4582,6 +5102,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/BlueprintWithFlowEntity"
       deprecated: true
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - Blueprints
@@ -4604,6 +5127,9 @@ paths:
         "200":
           description: deleteInternalBlueprints 200 response
       deprecated: true
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/custom/{id}/source:
     get:
       tags:
@@ -4630,6 +5156,9 @@ paths:
             application/yaml:
               schema:
                 type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/flow/{id}:
     get:
       tags:
@@ -4656,6 +5185,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/flows:
     post:
       tags:
@@ -4681,6 +5213,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/flows/{id}:
     get:
       tags:
@@ -4707,6 +5242,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     put:
       tags:
         - Blueprints
@@ -4737,6 +5275,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - Blueprints
@@ -4758,6 +5299,9 @@ paths:
       responses:
         "200":
           description: deleteFlowBlueprints 200 response
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/blueprints/flows/{id}/use-template:
     post:
       tags:
@@ -4789,6 +5333,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/concurrency-limit/search:
     get:
       tags:
@@ -4808,6 +5355,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_ConcurrencyLimit_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}:
     put:
       tags:
@@ -4843,6 +5393,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ConcurrencyLimit"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards:
     get:
       tags:
@@ -4853,7 +5406,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -4863,7 +5415,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -4897,7 +5448,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_Dashboard_"
+                $ref: "#/components/schemas/PagedResults_DashboardController.DashboardResponse_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     post:
       tags:
         - Dashboards
@@ -4922,7 +5476,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Dashboard"
+                $ref: "#/components/schemas/DashboardController.DashboardResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/charts/export/to-csv:
     post:
       tags:
@@ -4949,6 +5506,9 @@ paths:
               schema:
                 type: string
                 format: byte
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/charts/preview:
     post:
       tags:
@@ -4974,6 +5534,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/dashboards/settings/default-dashboards:
+    get:
+      tags:
+        - Dashboards
+      summary: Get default dashboards
+      operationId: defaultDashboards_1
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getDefaultDashboards_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSettings"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/validate:
     post:
       tags:
@@ -5000,6 +5585,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/validate/chart:
     post:
       tags:
@@ -5026,6 +5614,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/{id}:
     get:
       tags:
@@ -5050,7 +5641,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Dashboard"
+                $ref: "#/components/schemas/DashboardController.DashboardResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     put:
       tags:
         - Dashboards
@@ -5081,7 +5675,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Dashboard"
+                $ref: "#/components/schemas/DashboardController.DashboardResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - Dashboards
@@ -5102,6 +5699,9 @@ paths:
       responses:
         "200":
           description: deleteDashboard 200 response
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/{id}/charts/{chartId}:
     post:
       tags:
@@ -5140,6 +5740,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv:
     post:
       tags:
@@ -5179,6 +5782,9 @@ paths:
               schema:
                 type: string
                 format: byte
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/dependencies:
     get:
       tags:
@@ -5189,7 +5795,6 @@ paths:
         - name: destinationOnly
           in: query
           description: if true, list only destination dependencies, otherwise list also source dependencies
-          required: true
           explode: false
           schema:
             type: boolean
@@ -5206,6 +5811,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FlowTopologyGraph"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/executions:
     get:
       tags:
@@ -5230,7 +5838,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -5240,7 +5847,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -5258,7 +5864,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_Execution_"
+                $ref: "#/components/schemas/PagedResults_ApiLightExecution_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -5340,7 +5946,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5447,7 +6056,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5570,7 +6182,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5638,7 +6253,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5704,7 +6322,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5813,7 +6434,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5889,7 +6513,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -5965,7 +6592,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -6033,7 +6663,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -6065,7 +6698,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -6075,7 +6707,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -6091,9 +6722,17 @@ paths:
             nullable: true
             items:
               type: string
+          examples:
+            Sort by start date in ascending order:
+              value: state.startDate:asc
+            Sort by namespace in descending order:
+              value: namespace:desc
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -6111,7 +6750,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_Execution_"
+                $ref: "#/components/schemas/PagedResults_ApiLightExecution_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6168,7 +6807,10 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,
+            `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,
+            `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -6401,7 +7043,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiExecution"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6485,7 +7127,42 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/eval:
+    post:
+      tags:
+        - Executions
+      summary: Evaluate a variable expression for this execution
+      operationId: evalExpression
+      parameters:
+        - name: executionId
+          in: path
+          description: The execution id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The Pebble expression that should be evaluated
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: evalExpression 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecutionController.EvalResult"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6637,7 +7314,6 @@ paths:
         - name: destinationOnly
           in: query
           description: If true, list only destination dependencies, otherwise list also source dependencies
-          required: true
           explode: false
           schema:
             type: boolean
@@ -6645,7 +7321,6 @@ paths:
         - name: expandAll
           in: query
           description: If true, expand all dependencies recursively
-          required: true
           explode: false
           schema:
             type: boolean
@@ -6692,7 +7367,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6749,7 +7424,6 @@ paths:
         - name: isOnKillCascade
           in: query
           description: Specifies whether killing the execution also kill all subflow executions.
-          required: true
           explode: false
           schema:
             type: boolean
@@ -6837,6 +7511,10 @@ paths:
       responses:
         "200":
           description: pauseExecution 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncEvent"
         "204":
           description: On success
         "409":
@@ -6890,7 +7568,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6951,7 +7629,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6989,7 +7667,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7068,7 +7746,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7103,7 +7781,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Execution"
+                $ref: "#/components/schemas/ApiAsyncEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7137,7 +7815,6 @@ paths:
         - name: wait
           in: query
           description: If the server will wait the end of the execution
-          required: true
           explode: false
           schema:
             type: boolean
@@ -7243,7 +7920,6 @@ paths:
         - name: delete
           in: query
           description: If missing flow should be deleted
-          required: true
           explode: false
           schema:
             type: boolean
@@ -7258,7 +7934,6 @@ paths:
         - name: allowNamespaceChild
           in: query
           description: If namespace child should are allowed to be updated
-          required: true
           explode: false
           schema:
             type: boolean
@@ -7327,7 +8002,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -7346,6 +8023,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/flows/deprecated:
+    get:
+      tags:
+        - Flows
+      summary: List flows containing deprecated tasks
+      operationId: listDeprecated
+      parameters:
+        - name: namespace
+          in: query
+          description: A namespace filter prefix
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listDeprecated 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FlowController.FlowWithDeprecatedTasks"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7389,7 +8097,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -7482,7 +8192,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -7545,7 +8257,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -7619,7 +8333,6 @@ paths:
         - name: failOnError
           in: query
           description: If should fail on invalid flows
-          required: true
           explode: false
           schema:
             type: boolean
@@ -7666,7 +8379,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -7676,7 +8388,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -7692,9 +8403,16 @@ paths:
             nullable: true
             items:
               type: string
+          examples:
+            Sort by namespace in ascending order:
+              value: namespace:asc
+            Sort by flow ID in descending order:
+              value: id:desc
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -7726,7 +8444,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -7736,7 +8453,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -7925,12 +8641,18 @@ paths:
       parameters:
         - name: delete
           in: query
-          description: If missing flow should be deleted
-          required: true
+          description: If missing flows should be deleted
           explode: false
           schema:
             type: boolean
             default: true
+        - name: override
+          in: query
+          description: If namespace of all provided flows should be overridden
+          explode: false
+          schema:
+            type: boolean
+            default: false
         - name: namespace
           in: path
           description: The flow namespace
@@ -7942,14 +8664,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: override
-          in: query
-          description: If namespace of all provided flows should be overridden
-          required: true
-          explode: false
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: A list of flows source code
         content:
@@ -7991,7 +8705,6 @@ paths:
         - name: source
           in: query
           description: Include the source code
-          required: true
           explode: false
           schema:
             type: boolean
@@ -8007,7 +8720,6 @@ paths:
         - name: allowDeleted
           in: query
           description: Get flow even if deleted
-          required: true
           explode: false
           schema:
             type: boolean
@@ -8120,7 +8832,6 @@ paths:
         - name: destinationOnly
           in: query
           description: If true, list only destination dependencies, otherwise list also source dependencies
-          required: true
           explode: false
           schema:
             type: boolean
@@ -8128,7 +8839,6 @@ paths:
         - name: expandAll
           in: query
           description: If true, expand all dependencies recursively
-          required: true
           explode: false
           schema:
             type: boolean
@@ -8220,7 +8930,6 @@ paths:
             type: string
         - name: allowDelete
           in: query
-          required: true
           explode: false
           schema:
             type: boolean
@@ -8330,54 +9039,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/flows/{namespace}/{id}/{taskId}:
-    patch:
-      tags:
-        - Flows
-      summary: Update a single task on a flow
-      operationId: updateTask
-      parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: taskId
-          in: path
-          description: The task id
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The task
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Task"
-        required: true
-      responses:
-        "200":
-          description: updateTask 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Flow"
-      deprecated: true
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/groups:
     post:
       tags:
@@ -8416,6 +9077,15 @@ paths:
       summary: List groups for autocomplete
       operationId: autocompleteGroups
       parameters:
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -8478,17 +9148,9 @@ paths:
       summary: Search for groups
       operationId: searchGroups
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -8497,7 +9159,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -8512,6 +9173,15 @@ paths:
             nullable: true
             items:
               type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -8637,7 +9307,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -8646,7 +9315,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -9707,25 +10375,9 @@ paths:
       description: Search and filter invitations by email, status, and pagination.
       operationId: searchInvitations
       parameters:
-        - name: email
-          in: query
-          description: The email address of the invited
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: status
-          in: query
-          description: The current status of the invitations
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/Invitation.InvitationStatus"
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -9734,7 +10386,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -9749,6 +10400,15 @@ paths:
             nullable: true
             items:
               type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -9831,7 +10491,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -9840,7 +10499,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -9855,9 +10513,14 @@ paths:
             nullable: true
             items:
               type: string
+          examples:
+            Sort by key in ascending order:
+              value: key:asc
+            Sort by description in descending order:
+              value: description:desc
         - name: filters
           in: query
-          description: Filters
+          description: "Filters. PHP-style nested query is used - example: `filters[namespace][IN]=company.team`"
           explode: false
           schema:
             type: array
@@ -9889,7 +10552,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -9899,7 +10561,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -9915,9 +10576,14 @@ paths:
             nullable: true
             items:
               type: string
+          examples:
+            Sort by timestamp in ascending order:
+              value: timestamp:asc
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[timeRange][EQUALS]=P7D`, `filters[level][EQUALS]=DEBUG`
           explode: false
           schema:
             type: array
@@ -10190,7 +10856,6 @@ paths:
         - name: aggregation
           in: query
           description: "The type of aggregation: avg, sum, min or max"
-          required: true
           explode: false
           schema:
             type: string
@@ -10258,7 +10923,6 @@ paths:
         - name: aggregation
           in: query
           description: "The type of aggregation: avg, sum, min or max"
-          required: true
           explode: false
           schema:
             type: string
@@ -10402,7 +11066,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -10412,7 +11075,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -10542,7 +11204,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -10552,7 +11213,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -10571,7 +11231,6 @@ paths:
         - name: existing
           in: query
           description: Return only existing namespace
-          required: true
           explode: false
           schema:
             type: boolean
@@ -10825,7 +11484,6 @@ paths:
         - name: destinationOnly
           in: query
           description: if true, list only destination dependencies, otherwise list also source dependencies
-          required: true
           explode: false
           schema:
             type: boolean
@@ -11241,36 +11899,6 @@ paths:
         - bearerAuth: []
         - basicAuth: []
   /api/v1/{tenant}/namespaces/{namespace}/kv:
-    get:
-      tags:
-        - KV
-      summary: List all keys for a namespace
-      operationId: listKeys
-      parameters:
-        - name: namespace
-          in: path
-          description: The namespace id
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listKeys 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/KVEntry"
-      deprecated: true
-      security:
-        - bearerAuth: []
-        - basicAuth: []
     delete:
       tags:
         - KV
@@ -11439,70 +12067,6 @@ paths:
         - bearerAuth: []
         - basicAuth: []
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
-    get:
-      tags:
-        - Namespaces
-      summary: Get secrets for a namespace
-      operationId: listNamespaceSecrets
-      parameters:
-        - name: namespace
-          in: path
-          description: The namespace id
-          required: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: The current page
-          required: true
-          explode: false
-          schema:
-            type: integer
-            format: int32
-            default: 1
-        - name: size
-          in: query
-          description: The current page size
-          required: true
-          explode: false
-          schema:
-            type: integer
-            format: int32
-            default: 10
-        - name: sort
-          in: query
-          description: The sort of current page
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: filters
-          in: query
-          description: Filters
-          required: true
-          explode: false
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/QueryFilter"
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listNamespaceSecrets 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSecretListResponse_ApiSecretMeta_"
-      deprecated: true
-      security:
-        - bearerAuth: []
-        - basicAuth: []
     put:
       tags:
         - Namespaces
@@ -11609,6 +12173,66 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/outputs/{executionId}:
+    get:
+      tags:
+        - Outputs
+      summary: Get task run outputs
+      operationId: taskOutputsInformation
+      parameters:
+        - name: executionId
+          in: path
+          description: The execution id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getTaskOutputsInformation 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OutputController.TaskOutputInformation"
+  /api/v1/{tenant}/outputs/{executionId}/{taskRunId}:
+    get:
+      tags:
+        - Outputs
+      summary: Get task run outputs
+      operationId: taskRunOutputs
+      parameters:
+        - name: executionId
+          in: path
+          description: The execution id
+          required: true
+          schema:
+            type: string
+        - name: taskRunId
+          in: path
+          description: The task run id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getTaskRunOutputs 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
   /api/v1/{tenant}/roles:
     post:
       tags:
@@ -11708,17 +12332,9 @@ paths:
       summary: Search for roles
       operationId: searchRoles
       parameters:
-        - name: q
-          in: query
-          description: A string filter
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -11727,7 +12343,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -11742,6 +12357,15 @@ paths:
             nullable: true
             items:
               type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
         - name: tenant
           in: path
           required: true
@@ -11857,7 +12481,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -11866,7 +12489,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -11902,6 +12524,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiSecretListResponse_ApiSecretMeta_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/security-integrations:
     get:
       tags:
@@ -11922,6 +12547,7 @@ paths:
             application/json:
               schema:
                 type: object
+      deprecated: true
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -11951,6 +12577,63 @@ paths:
             application/json:
               schema:
                 type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/security-integrations/search:
+    get:
+      tags:
+        - SecurityIntegrations
+      summary: Retrieve security integrations filtered by Filters
+      description: Superadmin-only.
+      operationId: searchSecurityIntegration
+      parameters:
+        - name: size
+          in: query
+          description: The current page size
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: page
+          in: query
+          description: The current page
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchSecurityIntegration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_SecurityIntegration_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12326,7 +13009,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             type: integer
@@ -12335,7 +13017,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             type: integer
@@ -12551,6 +13232,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuite"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/by-ids:
     delete:
       tags:
@@ -12577,6 +13261,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/disable/by-ids:
     post:
       tags:
@@ -12603,6 +13290,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/enable/by-ids:
     post:
       tags:
@@ -12629,6 +13319,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/results/search:
     get:
       tags:
@@ -12640,7 +13333,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -12650,7 +13342,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -12699,6 +13390,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_TestSuiteRunResult_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/results/search/last:
     post:
       tags:
@@ -12725,6 +13419,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuiteController.TestsLastResultResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/results/{id}:
     get:
       tags:
@@ -12751,6 +13448,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuiteRunResult"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/run:
     post:
       tags:
@@ -12777,6 +13477,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuiteService.TestRunByQueryResult"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/search:
     get:
       tags:
@@ -12790,7 +13493,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -12800,7 +13502,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -12833,7 +13534,6 @@ paths:
         - name: includeChildNamespaces
           in: query
           description: Include child namespaces in filter or not
-          required: true
           explode: false
           schema:
             type: boolean
@@ -12850,6 +13550,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_TestSuite_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/validate:
     post:
       tags:
@@ -12879,6 +13582,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/{namespace}/{id}:
     get:
       tags:
@@ -12911,6 +13617,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuite"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     put:
       tags:
         - TestSuites
@@ -12949,6 +13658,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuite"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
     delete:
       tags:
         - TestSuites
@@ -12980,6 +13692,9 @@ paths:
             application/json:
               schema:
                 type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/tests/{namespace}/{id}/run:
     post:
       tags:
@@ -13017,12 +13732,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuiteRunResult"
-  /api/v1/{tenant}/triggers:
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/triggers/backfill/create:
     put:
       tags:
         - Triggers
-      summary: Update a trigger
-      operationId: updateTrigger
+      summary: Create a backfill
+      operationId: createBackfill
       parameters:
         - name: tenant
           in: path
@@ -13033,15 +13751,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Trigger"
+              $ref: "#/components/schemas/TriggerController.ApiCreateBackfillRequest"
         required: true
       responses:
         "200":
-          description: updateTrigger 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Trigger"
+          description: createBackfill 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13061,15 +13775,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Trigger"
+              $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
           description: deleteBackfill 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Trigger"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13082,7 +13792,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13122,7 +13834,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Trigger"
+                $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
@@ -13150,15 +13862,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Trigger"
+              $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
           description: pauseBackfill 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Trigger"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13171,7 +13879,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13211,7 +13921,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Trigger"
+                $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
@@ -13239,15 +13949,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Trigger"
+              $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
           description: unpauseBackfill 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Trigger"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13260,7 +13966,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13300,7 +14008,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Trigger"
+                $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
@@ -13332,7 +14040,9 @@ paths:
               properties:
                 filters:
                   type: array
-                  description: Filters
+                  description: >-
+                    Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+                    `filters[namespace][CONTAINS]=test`
                   items:
                     $ref: "#/components/schemas/QueryFilter"
         required: true
@@ -13364,7 +14074,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Trigger"
+                $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
@@ -13405,7 +14115,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
+                  type: string
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13419,7 +14129,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -13429,7 +14138,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -13445,9 +14153,16 @@ paths:
             nullable: true
             items:
               type: string
+          examples:
+            Sort by timestamp in ascending order:
+              value: timestamp:asc
+            Sort by trigger ID in descending order:
+              value: triggerId:desc
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13465,7 +14180,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_TriggerController.Triggers_"
+                $ref: "#/components/schemas/PagedResults_ApiTriggerAndState_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/triggers/set-disabled:
+    put:
+      tags:
+        - Triggers
+      summary: Disable/enable a trigger
+      operationId: disableTriggerById
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TriggerController.ApiDisableTriggerRequest"
+        required: true
+      responses:
+        "200":
+          description: disableTriggerById 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13478,7 +14217,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13488,7 +14229,6 @@ paths:
         - name: disabled
           in: query
           description: The disabled state
-          required: true
           explode: false
           schema:
             type: boolean
@@ -13545,7 +14285,9 @@ paths:
       parameters:
         - name: filters
           in: query
-          description: Filters
+          description: >-
+            Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,
+            `filters[namespace][CONTAINS]=test`
           explode: false
           schema:
             type: array
@@ -13585,7 +14327,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/Trigger"
+                $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         required: true
       responses:
         "200":
@@ -13607,7 +14349,6 @@ paths:
         - name: page
           in: query
           description: The current page
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -13617,7 +14358,6 @@ paths:
         - name: size
           in: query
           description: The current page size
-          required: true
           explode: false
           schema:
             minimum: 1
@@ -13665,7 +14405,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_Trigger_"
+                $ref: "#/components/schemas/PagedResults_ApiTriggerState_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13702,10 +14442,6 @@ paths:
       responses:
         "200":
           description: deleteTrigger 200 response
-          content:
-            application/json:
-              schema:
-                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13753,7 +14489,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unlock a trigger
+      summary: Unlock a trigger. Trigger will be unlocked asynchronously
       operationId: unlockTrigger
       parameters:
         - name: namespace
@@ -13785,7 +14521,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Trigger"
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/usages/all:
+    get:
+      tags:
+        - Misc
+      summary: Retrieve instance usage information
+      operationId: usages
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getUsages 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageEE"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13910,12 +14668,11 @@ components:
         - ERROR
         - FINALLY
         - AFTER_EXECUTION
-    AbstractRetry:
-      type: object
     AbstractTrigger:
       required:
         - id
         - type
+        - when
       type: object
       properties:
         id:
@@ -13941,11 +14698,13 @@ components:
                 (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
-        conditions:
-          title: List of conditions in order to limit the flow trigger.
-          type: array
-          items:
-            $ref: "#/components/schemas/Condition"
+        when:
+          title: A condition that determines whether the trigger should run.
+          type: string
+          description: >-
+            A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a
+            truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic
+            runtime values such as execution labels, flow variables, or environment conditions.
         disabled:
           type: boolean
           default: false
@@ -14062,6 +14821,27 @@ components:
           type: string
         isDefault:
           type: boolean
+    AiController.DashboardGenerationPrompt:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/DashboardGenerationPrompt"
+        - type: object
+          properties:
+            providerId:
+              type: string
+    AiController.FlowGenerationPrompt:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/FlowGenerationPrompt"
+        - type: object
+          properties:
+            providerId:
+              type: string
+    ApiAsyncEvent:
+      type: object
+      properties:
+        eventId:
+          type: string
     ApiAuth:
       type: object
       properties:
@@ -14084,6 +14864,67 @@ components:
             type: string
         existingOnly:
           type: boolean
+    ApiExecution:
+      type: object
+      properties:
+        tenantId:
+          type: string
+        id:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          type: integer
+          format: int32
+        taskRunList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiTaskRun"
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+        outputs:
+          type: object
+          additionalProperties:
+            type: object
+        labels:
+          type: array
+          items:
+            $ref: "#/components/schemas/Label"
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+        state:
+          $ref: "#/components/schemas/State"
+        parentId:
+          type: string
+        originalId:
+          type: string
+        trigger:
+          $ref: "#/components/schemas/ExecutionTrigger"
+        metadata:
+          $ref: "#/components/schemas/ExecutionMetadata"
+        scheduleDate:
+          type: string
+          format: date-time
+        traceParent:
+          type: string
+        fixtures:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskFixture"
+        kind:
+          $ref: "#/components/schemas/ExecutionKind"
+        breakpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/Breakpoint"
+        loopRun:
+          $ref: "#/components/schemas/LoopRun"
     ApiGroupSummary:
       type: object
       properties:
@@ -14098,6 +14939,47 @@ components:
           type: array
           items:
             type: string
+    ApiLightExecution:
+      type: object
+      properties:
+        tenantId:
+          type: string
+        id:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          type: integer
+          format: int32
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+        outputs:
+          type: object
+          additionalProperties:
+            type: object
+        labels:
+          type: array
+          items:
+            $ref: "#/components/schemas/Label"
+        state:
+          $ref: "#/components/schemas/State"
+        parentId:
+          type: string
+        originalId:
+          type: string
+        trigger:
+          $ref: "#/components/schemas/ExecutionTrigger"
+        scheduleDate:
+          type: string
+          format: date-time
+        kind:
+          $ref: "#/components/schemas/ExecutionKind"
+        loopRun:
+          $ref: "#/components/schemas/LoopRun"
     ApiPatchSuperAdminRequest:
       required:
         - superAdmin
@@ -14181,6 +15063,32 @@ components:
           type: string
         description:
           type: string
+    ApiTaskRun:
+      type: object
+      properties:
+        id:
+          type: string
+        taskId:
+          type: string
+        parentTaskRunId:
+          type: string
+        value:
+          type: string
+        attempts:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskRunAttempt"
+        assets:
+          $ref: "#/components/schemas/AssetsInOut"
+        state:
+          $ref: "#/components/schemas/State"
+        iteration:
+          type: integer
+          format: int32
+        dynamic:
+          type: boolean
+        forceExecution:
+          type: boolean
     ApiTenant:
       required:
         - deleted
@@ -14234,6 +15142,46 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiToken"
+    ApiTriggerAndState:
+      type: object
+      properties:
+        trigger:
+          $ref: "#/components/schemas/AbstractTrigger"
+        state:
+          $ref: "#/components/schemas/ApiTriggerState"
+    ApiTriggerState:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        triggerId:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        evaluatedAt:
+          type: string
+          format: date-time
+        nextEvaluationDate:
+          type: string
+          format: date-time
+        backfill:
+          $ref: "#/components/schemas/Backfill"
+        stopAfter:
+          type: array
+          items:
+            $ref: "#/components/schemas/State.Type"
+        disabled:
+          type: boolean
+        locked:
+          type: boolean
+        workerId:
+          type: string
+        lastTriggeredDate:
+          type: string
+          format: date-time
     ApiUser:
       type: object
       allOf:
@@ -14255,6 +15203,24 @@ components:
           type: string
         providerId:
           type: string
+    AppResponse:
+      type: object
+      properties:
+        dispatch:
+          type: string
+        stream:
+          type: string
+        layout:
+          $ref: "#/components/schemas/AppResponse.UILayout"
+    AppResponse.UIBlock:
+      type: object
+    AppResponse.UILayout:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppResponse.UIBlock"
     AppsController.ApiApp:
       type: object
       properties:
@@ -14477,7 +15443,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation_1"
+          $ref: "#/components/schemas/Relation"
     AssetTopologyGraph.Node:
       required:
         - uid
@@ -15081,11 +16047,11 @@ components:
           type: object
     Check:
       required:
-        - condition
         - message
+        - when
       type: object
       properties:
-        condition:
+        when:
           minLength: 1
           type: string
         message:
@@ -15142,14 +16108,6 @@ components:
         running:
           type: integer
           format: int32
-    Condition:
-      required:
-        - type
-      type: object
-      properties:
-        type:
-          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
-          type: string
     CreateApiTokenRequest:
       required:
         - name
@@ -15202,12 +16160,103 @@ components:
         - IMPERSONATE
         - LOGIN_FAILURE
         - ACCOUNT_LOCKED
-    Dashboard:
+    DailyExecutionStatistics:
       required:
+        - duration
+        - startDate
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        duration:
+          $ref: "#/components/schemas/DailyExecutionStatistics.Duration"
+        executionCounts:
+          type: object
+          properties:
+            CREATED:
+              type: integer
+              format: int64
+            SUBMITTED:
+              type: integer
+              format: int64
+            RUNNING:
+              type: integer
+              format: int64
+            PAUSED:
+              type: integer
+              format: int64
+            RESTARTED:
+              type: integer
+              format: int64
+            KILLING:
+              type: integer
+              format: int64
+            SUCCESS:
+              type: integer
+              format: int64
+            WARNING:
+              type: integer
+              format: int64
+            FAILED:
+              type: integer
+              format: int64
+            KILLED:
+              type: integer
+              format: int64
+            CANCELLED:
+              type: integer
+              format: int64
+            QUEUED:
+              type: integer
+              format: int64
+            RETRYING:
+              type: integer
+              format: int64
+            RETRIED:
+              type: integer
+              format: int64
+            SKIPPED:
+              type: integer
+              format: int64
+            BREAKPOINT:
+              type: integer
+              format: int64
+            RESUBMITTED:
+              type: integer
+              format: int64
+        groupBy:
+          type: string
+    DailyExecutionStatistics.Duration:
+      required:
+        - avg
+        - count
+        - max
+        - min
+        - sum
+      type: object
+      properties:
+        min:
+          type: string
+        avg:
+          type: string
+        max:
+          type: string
+        sum:
+          type: string
+        count:
+          type: integer
+          format: int64
+    DashboardController.DashboardResponse:
+      required:
+        - deleted
         - id
         - title
       type: object
       properties:
+        tenantId:
+          pattern: ^[a-z0-9][a-z0-9_-]*
+          type: string
         id:
           minLength: 1
           type: string
@@ -15222,6 +16271,16 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Chart_ChartOption_"
+        deleted:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        sourceCode:
+          type: string
     DashboardController.PreviewRequest:
       required:
         - chart
@@ -15246,7 +16305,14 @@ components:
           type: string
         yaml:
           type: string
-        providerId:
+    DashboardSettings:
+      type: object
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
           type: string
     DependsOn:
       type: object
@@ -15288,6 +16354,19 @@ components:
         - KILL
         - CANCEL
         - IGNORE
+    Event_AppResponse_:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/AppResponse"
+        id:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+        retry:
+          type: string
     Event_ExecutionStatusEvent_:
       type: object
       properties:
@@ -15390,6 +16469,19 @@ components:
           nullable: true
           items:
             $ref: "#/components/schemas/Breakpoint"
+        loopRun:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/LoopRun"
+    ExecutionController.EvalResult:
+      type: object
+      properties:
+        result:
+          type: string
+        error:
+          type: string
+        stackTrace:
+          type: string
     ExecutionController.ExecutionResponse:
       required:
         - deleted
@@ -15441,6 +16533,7 @@ components:
         - NORMAL
         - TEST
         - PLAYGROUND
+        - LOOP
     ExecutionMetadata:
       type: object
       properties:
@@ -15489,6 +16582,13 @@ components:
         logFile:
           type: string
           format: uri
+    ExecutionUsage:
+      type: object
+      properties:
+        dailyExecutionsCount:
+          type: array
+          items:
+            $ref: "#/components/schemas/DailyExecutionStatistics"
     FileAttributes:
       type: object
       properties:
@@ -15632,7 +16732,9 @@ components:
               items:
                 $ref: "#/components/schemas/Output"
             retry:
-              $ref: "#/components/schemas/AbstractRetry"
+              title: Retry
+              type: object
+              description: Retry policy applied when the flow fails.
             sla:
               type: array
               items:
@@ -15645,6 +16747,20 @@ components:
                 executes normally.
               items:
                 $ref: "#/components/schemas/Check"
+    FlowController.FlowWithDeprecatedTasks:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        revision:
+          type: integer
+          format: int32
+        deprecatedTasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/FlowService.TaskDeprecation"
     FlowController.TaskValidationType:
       type: string
       enum:
@@ -15732,8 +16848,6 @@ components:
           type: string
         yaml:
           type: string
-        providerId:
-          type: string
         namespace:
           type: string
     FlowGraph:
@@ -15780,7 +16894,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation"
+          $ref: "#/components/schemas/Relation_1"
     FlowId:
       type: object
       properties:
@@ -15849,6 +16963,16 @@ components:
       enum:
         - FLOW_TASK
         - FLOW_TRIGGER
+    FlowService.TaskDeprecation:
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskType:
+          type: string
+        replacement:
+          type: string
+          nullable: true
     FlowTopologyGraph:
       type: object
       properties:
@@ -15869,6 +16993,30 @@ components:
           type: string
         relation:
           $ref: "#/components/schemas/FlowRelation"
+    FlowUsage:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        namespacesCount:
+          type: integer
+          format: int64
+        taskTypeCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        triggerTypeCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        taskRunnerTypeCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     FlowWithSource:
       required:
         - deleted
@@ -15947,6 +17095,12 @@ components:
       enum:
         - OWNER
         - MEMBER
+    GroupUsage:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
     IAMBindingController.ApiBindingDetail:
       type: object
       properties:
@@ -16141,8 +17295,6 @@ components:
               type: array
             BLUEPRINT:
               type: array
-            TEMPLATE:
-              type: array
             NAMESPACE:
               type: array
             EXECUTION:
@@ -16210,8 +17362,6 @@ components:
             FLOW:
               type: array
             BLUEPRINT:
-              type: array
-            TEMPLATE:
               type: array
             NAMESPACE:
               type: array
@@ -17077,6 +18227,38 @@ components:
           nullable: true
           allOf:
             - $ref: "#/components/schemas/ExecutionKind"
+    LoopRun:
+      type: object
+      properties:
+        parent:
+          $ref: "#/components/schemas/Execution"
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        index:
+          type: integer
+          format: int32
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
+        parents:
+          type: array
+          items:
+            $ref: "#/components/schemas/LoopRun.Parent"
+    LoopRun.Parent:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
     Map_Object.Object_:
       type: object
       properties:
@@ -17169,7 +18351,7 @@ components:
           items:
             $ref: "#/components/schemas/Metric.Tag"
         value:
-          type: object
+          type: number
     Metric.Tag:
       type: object
       properties:
@@ -17245,6 +18427,13 @@ components:
           nullable: true
           allOf:
             - $ref: "#/components/schemas/ExecutionKind"
+    MiscController.ApiUsage:
+      type: object
+      properties:
+        flows:
+          $ref: "#/components/schemas/FlowUsage"
+        executions:
+          $ref: "#/components/schemas/ExecutionUsage"
     MiscController.Configuration:
       type: object
       properties:
@@ -17267,8 +18456,6 @@ components:
           type: boolean
         isUiAnonymousUsageEnabled:
           type: boolean
-        isTemplateEnabled:
-          type: boolean
         environment:
           $ref: "#/components/schemas/MiscController.Environment"
         url:
@@ -17282,6 +18469,8 @@ components:
           items:
             type: string
         isAiEnabled:
+          type: boolean
+        isAiApiKeyConfigured:
           type: boolean
         isBasicAuthInitialized:
           type: boolean
@@ -17324,8 +18513,8 @@ components:
               $ref: "#/components/schemas/RightSidebarConfiguration"
             inMaintenance:
               type: boolean
-            passwordRegexp:
-              type: string
+            passwordConfiguration:
+              $ref: "#/components/schemas/PasswordConfiguration"
             passwordlessEnabled:
               type: boolean
             airgapped:
@@ -17340,6 +18529,8 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/KillSwitch"
+            workerAuthEnabled:
+              type: boolean
     MiscController.Environment:
       type: object
       properties:
@@ -17512,6 +18703,20 @@ components:
           type: string
         required:
           type: boolean
+    OutputController.TaskOutputInformation:
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        value:
+          type: string
+        iteration:
+          type: integer
+          format: int32
+        inline:
+          type: boolean
     PageRequest:
       type: object
       properties:
@@ -17534,6 +18739,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ApiLightExecution_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiLightExecution"
+        total:
+          type: integer
+          format: int64
     PagedResults_ApiRoleSummary_:
       required:
         - results
@@ -17544,6 +18762,32 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiRoleSummary"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiTriggerAndState_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiTriggerAndState"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiTriggerState_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiTriggerState"
         total:
           type: integer
           format: int64
@@ -17664,7 +18908,7 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_Dashboard_:
+    PagedResults_DashboardController.DashboardResponse_:
       required:
         - results
         - total
@@ -17673,20 +18917,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/Dashboard"
-        total:
-          type: integer
-          format: int64
-    PagedResults_Execution_:
-      required:
-        - results
-        - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Execution"
+            $ref: "#/components/schemas/DashboardController.DashboardResponse"
         total:
           type: integer
           format: int64
@@ -17887,6 +19118,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_SecurityIntegration_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/SecurityIntegration"
+        total:
+          type: integer
+          format: int64
     PagedResults_Tenant_:
       required:
         - results
@@ -17926,32 +19170,51 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_TriggerController.Triggers_:
-      required:
-        - results
-        - total
+    PasswordConfiguration:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/TriggerController.Triggers"
-        total:
+        passwordMinLength:
           type: integer
-          format: int64
-    PagedResults_Trigger_:
-      required:
-        - results
-        - total
+          format: int32
+          default: 8
+        passwordRequireSpecial:
+          type: boolean
+          default: true
+        passwordMinDigits:
+          type: integer
+          format: int32
+          default: 1
+        passwordMinLowerCase:
+          type: integer
+          format: int32
+          default: 1
+        passwordMinUpperCase:
+          type: integer
+          format: int32
+          default: 1
+        passwordAllowedSpecialCharacters:
+          type: string
+          default: "!@#$%^&*"
+        passwordReset:
+          $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
+    PasswordConfiguration.PasswordReset:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Trigger"
-        total:
+        cooldown:
+          type: string
+          default: PT5M
+        rateLimit:
+          $ref: "#/components/schemas/PasswordConfiguration.RateLimit"
+    PasswordConfiguration.RateLimit:
+      type: object
+      properties:
+        maxRequests:
           type: integer
-          format: int64
+          format: int32
+          default: 10
+        window:
+          type: string
+          default: PT1H
     PatchOperation:
       type: object
       properties:
@@ -17982,12 +19245,28 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/PatchOperation"
+    PebbleFunction:
+      type: object
+      properties:
+        name:
+          type: string
+        arguments:
+          type: array
+          items:
+            $ref: "#/components/schemas/PebbleFunction.Argument"
+    PebbleFunction.Argument:
+      type: object
+      properties:
+        name:
+          type: string
+        defaultValue:
+          type: string
+          nullable: true
     Permission:
       type: string
       enum:
         - FLOW
         - BLUEPRINT
-        - TEMPLATE
         - NAMESPACE
         - EXECUTION
         - USER
@@ -18211,6 +19490,30 @@ components:
         - BUSINESS
         - DATA
         - INFRASTRUCTURE
+    PluginUiManifest:
+      type: object
+      properties:
+        manifest:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/PluginUiModuleWithGroup"
+    PluginUiModuleWithGroup:
+      type: object
+      properties:
+        uiModule:
+          type: string
+        group:
+          type: string
+        staticInfo:
+          type: object
+          additionalProperties:
+            type: object
+        styles:
+          type: array
+          items:
+            type: string
     Property_Boolean_:
       type: object
       properties:
@@ -18315,6 +19618,7 @@ components:
         - NAMESPACE
         - KIND
         - LABELS
+        - TAGS
         - METADATA
         - FLOW_ID
         - FLOW_REVISION
@@ -18327,7 +19631,10 @@ components:
         - END_DATE
         - EXPIRATION_DATE
         - STATE
+        - STATUS
+        - EMAIL
         - TIME_RANGE
+        - PARENT_ID
         - TRIGGER_EXECUTION_ID
         - TRIGGER_ID
         - TRIGGER_STATE
@@ -18337,11 +19644,19 @@ components:
         - CHILD_FILTER
         - WORKER_ID
         - EXISTING_ONLY
+        - USER_ID
+        - ACTION
+        - RESOURCES
+        - DETAILS
         - MIN_LEVEL
         - PATH
         - PARENT_PATH
         - VERSION
+        - ENABLED
         - USERNAME
+        - NAME
+        - GROUP
+        - EXPIRED_AT
       x-type: String
     QueryFilter.Op:
       type: string
@@ -18365,12 +19680,10 @@ components:
         - BINDING
         - GROUP
     Relation:
-      type: object
-      properties:
-        relationType:
-          $ref: "#/components/schemas/RelationType"
-        value:
-          type: string
+      type: string
+      enum:
+        - UPSERT
+        - USED_BY
     RelationType:
       type: string
       enum:
@@ -18382,10 +19695,12 @@ components:
         - PARALLEL
         - DYNAMIC
     Relation_1:
-      type: string
-      enum:
-        - UPSERT
-        - USED_BY
+      type: object
+      properties:
+        relationType:
+          $ref: "#/components/schemas/RelationType"
+        value:
+          type: string
     ResourceType:
       type: string
       enum:
@@ -18408,7 +19723,6 @@ components:
         - SECURITY_INTEGRATION
         - SECRET
         - SETTING
-        - TEMPLATE
         - TRIGGER
         - TENANT
         - TENANT_ACCESS
@@ -18483,8 +19797,6 @@ components:
               type: array
             BLUEPRINT:
               type: array
-            TEMPLATE:
-              type: array
             NAMESPACE:
               type: array
             EXECUTION:
@@ -18541,6 +19853,12 @@ components:
           type: boolean
         deleted:
           type: boolean
+    RoleUsage:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
     SDK.Auth:
       type: object
       properties:
@@ -18684,7 +20002,6 @@ components:
       type: string
       enum:
         - FLOW
-        - TEMPLATE
         - TASK
         - TRIGGER
         - PLUGINDEFAULT
@@ -18793,6 +20110,23 @@ components:
           type: array
           items:
             type: string
+    SecurityIntegration:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: "#/components/schemas/SecurityIntegration.Type"
+        description:
+          type: string
+        tenantId:
+          type: string
+        enabled:
+          type: boolean
+        deleted:
+          type: boolean
     SecurityIntegration.Type:
       type: string
       enum:
@@ -19008,6 +20342,7 @@ components:
         - SCHEDULER
         - WEBSERVER
         - WORKER
+        - CONTROLLER
         - INVALID
     SetupConfiguration:
       type: object
@@ -19022,8 +20357,8 @@ components:
           type: string
         secretType:
           type: string
-        passwordRegexp:
-          type: string
+        passwordConfiguration:
+          $ref: "#/components/schemas/PasswordConfiguration"
         haveAuthNotBasic:
           type: boolean
     SoftDeletable_FlowInterface_:
@@ -19067,6 +20402,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/State.History"
+        getDuration:
+          type: string
+          nullable: true
+          readOnly: true
+        getStartDate:
+          type: string
+          format: date-time
+          readOnly: true
+        getEndDate:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
     State.History:
       required:
         - date
@@ -19098,6 +20446,47 @@ components:
         - SKIPPED
         - BREAKPOINT
         - RESUBMITTED
+    SupportDebugInfo:
+      type: object
+      properties:
+        kestraVersion:
+          type: string
+        licenseId:
+          type: string
+        authType:
+          $ref: "#/components/schemas/SupportDebugInfo.AuthType"
+        deploymentType:
+          $ref: "#/components/schemas/SupportDebugInfo.DeploymentType"
+        queueType:
+          type: string
+        queueVersion:
+          type: string
+        storageType:
+          type: string
+        repositoryType:
+          type: string
+        repositoryVersion:
+          type: string
+        secretType:
+          type: string
+      description: Debug information collected automatically and attached to a support ticket.
+    SupportDebugInfo.AuthType:
+      type: string
+      description: Authentication type configured on the instance.
+      enum:
+        - OIDC_SSO
+        - LDAP
+        - BASIC_AUTH
+      x-type: String
+    SupportDebugInfo.DeploymentType:
+      type: string
+      description: Deployment type detected from active Micronaut environments.
+      enum:
+        - KUBERNETES
+        - DOCKER_COMPOSE
+        - DOCKER
+        - STANDALONE
+      x-type: String
     Task:
       required:
         - id
@@ -19129,7 +20518,9 @@ components:
         description:
           type: string
         retry:
-          $ref: "#/components/schemas/AbstractRetry"
+          title: Retry
+          type: object
+          description: Retry policy applied when the task fails.
         timeout:
           $ref: "#/components/schemas/Property_Duration_"
         disabled:
@@ -19142,7 +20533,7 @@ components:
           type: boolean
         logToFile:
           type: boolean
-        runIf:
+        when:
           type: string
         allowWarning:
           type: boolean
@@ -19237,9 +20628,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TaskRunAttempt"
-        outputs:
-          type: object
-          nullable: true
         assets:
           nullable: true
           allOf:
@@ -19267,6 +20655,13 @@ components:
           type: string
           format: uri
           nullable: true
+    TaskWithVersion:
+      type: object
+      properties:
+        cls:
+          type: string
+        version:
+          type: string
     Tenant:
       required:
         - deleted
@@ -19307,6 +20702,8 @@ components:
           type: boolean
         appCatalogConfig:
           $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+        settings:
+          $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
     Tenant.AppCatalogConfig:
@@ -19338,11 +20735,31 @@ components:
           type: string
         logo:
           type: string
+    TenantController.SetTenantDefaultDashboardsRequest:
+      type: object
+      properties:
+        defaultHomeDashboard:
+          type: string
+        defaultFlowOverviewDashboard:
+          type: string
+        defaultNamespaceOverviewDashboard:
+          type: string
     TenantInterface:
       type: object
       properties:
         tenantId:
           type: string
+    TenantPreferencesSettings:
+      type: object
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardSettings"
+    TenantUsage:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
     TestState:
       type: string
       enum:
@@ -19512,62 +20929,54 @@ components:
           type: string
         max:
           type: string
-    Trigger:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/TriggerContext"
-        - type: object
-          properties:
-            executionId:
-              type: string
-              nullable: true
-            updatedDate:
-              type: string
-              format: date-time
-              nullable: true
-            evaluateRunningDate:
-              type: string
-              format: date-time
-              nullable: true
-            workerId:
-              type: string
-              nullable: true
-    TriggerContext:
-      required:
-        - date
-        - flowId
-        - namespace
-        - triggerId
+    TriggerController.ApiCreateBackfillRequest:
       type: object
       properties:
-        disabled:
-          type: boolean
-          default: false
-        tenantId:
-          pattern: ^[a-z0-9][a-z0-9_-]
-          type: string
         namespace:
           type: string
         flowId:
           type: string
         triggerId:
           type: string
-        date:
-          type: string
-          format: date-time
-        nextExecutionDate:
-          type: string
-          format: date-time
-          nullable: true
         backfill:
-          nullable: true
-          allOf:
-            - $ref: "#/components/schemas/Backfill"
-        stopAfter:
+          $ref: "#/components/schemas/TriggerController.ApiCreateBackfillRequest.Backfill"
+    TriggerController.ApiCreateBackfillRequest.Backfill:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+        labels:
           type: array
-          nullable: true
           items:
-            $ref: "#/components/schemas/State.Type"
+            $ref: "#/components/schemas/Label"
+    TriggerController.ApiDisableTriggerRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        triggerId:
+          type: string
+        disabled:
+          type: boolean
+    TriggerController.ApiTriggerId:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        triggerId:
+          type: string
     TriggerController.SetDisabledRequest:
       required:
         - disabled
@@ -19578,16 +20987,9 @@ components:
           minItems: 1
           type: array
           items:
-            $ref: "#/components/schemas/Trigger"
+            $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         disabled:
           type: boolean
-    TriggerController.Triggers:
-      type: object
-      properties:
-        abstractTrigger:
-          $ref: "#/components/schemas/AbstractTrigger"
-        triggerContext:
-          $ref: "#/components/schemas/Trigger"
     TriggerFixture:
       required:
         - id
@@ -19606,11 +21008,9 @@ components:
       type: string
       enum:
         - STRING
-        - ENUM
         - SELECT
         - INT
         - FLOAT
-        - BOOLEAN
         - BOOL
         - DATETIME
         - DATE
@@ -19675,6 +21075,19 @@ components:
             $ref: "#/components/schemas/AssertionRunError"
         fixtures:
           $ref: "#/components/schemas/Fixtures"
+    UsageEE:
+      type: object
+      properties:
+        groups:
+          $ref: "#/components/schemas/GroupUsage"
+        users:
+          $ref: "#/components/schemas/UserUsage"
+        roles:
+          $ref: "#/components/schemas/RoleUsage"
+        tenants:
+          $ref: "#/components/schemas/TenantUsage"
+      allOf:
+        - $ref: "#/components/schemas/MiscController.ApiUsage"
     UserGroup:
       type: object
       properties:
@@ -19696,6 +21109,30 @@ components:
       enum:
         - STANDARD
         - SERVICE_ACCOUNT
+    UserUsage:
+      required:
+        - apiKeyCount
+        - basicAuthCount
+        - count
+        - oidcCount
+        - passwordlessCount
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        apiKeyCount:
+          type: integer
+          format: int64
+        oidcCount:
+          type: integer
+          format: int64
+        basicAuthCount:
+          type: integer
+          format: int64
+        passwordlessCount:
+          type: integer
+          format: int64
     UsernamePasswordCredentials:
       required:
         - password
@@ -19782,6 +21219,34 @@ components:
         url:
           type: string
           format: uri
+    WorkerCredentialController.ApiWorkerCredential:
+      type: object
+      properties:
+        id:
+          type: string
+        workerId:
+          type: string
+        workerName:
+          type: string
+        registrationTokenId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        lastSeenAt:
+          type: string
+          format: date-time
+        revoked:
+          type: boolean
+        valid:
+          type: boolean
+    WorkerCredentialController.ApiWorkerList:
+      type: object
+      properties:
+        workers:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
     WorkerGroup:
       type: object
       properties:
@@ -19795,6 +21260,56 @@ components:
         - FAIL
         - WAIT
         - CANCEL
+    WorkerRegistrationTokenController.ApiCreateTokenRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+    WorkerRegistrationTokenController.ApiCreateTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        details:
+          $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+    WorkerRegistrationTokenController.ApiRegistrationToken:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tokenPrefix:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        useCount:
+          type: integer
+          format: int32
+        revoked:
+          type: boolean
+        valid:
+          type: boolean
+    WorkerRegistrationTokenController.ApiTokenList:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
     WorkerTaskRestartStrategy:
       type: string
       enum:
