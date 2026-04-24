@@ -1,7 +1,7 @@
 // @ts-check
 // ExecutionsApi.spec.js
-import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { describe, it, expect } from "vitest";
+import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 
 // ---------- Flow YAML templates ----------
 /**
@@ -127,7 +127,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * @returns
  */
 async function createFlow(flowYaml) {
-    const created = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowYaml);
+    const created = await kestraClient().flowsApi.createFlow(
+        MAIN_TENANT,
+        flowYaml,
+    );
     await sleep(200);
     return created;
 }
@@ -151,7 +154,14 @@ async function createSimpleFlow(flowId, ns, tmpl = LOG_FLOW) {
  */
 async function createFlowWithExecution(flowId, ns) {
     await createSimpleFlow(flowId, ns);
-    return kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, null, null);
+    return kestraClient().executionsApi.createExecution(
+        ns,
+        flowId,
+        false,
+        MAIN_TENANT,
+        undefined,
+        undefined,
+    );
 }
 
 /**
@@ -161,22 +171,37 @@ async function createFlowWithExecution(flowId, ns) {
  */
 async function createFlowWithExecutionFromYaml(flowYaml) {
     const f = await createFlow(flowYaml);
-    return kestraClient().executionsApi.createExecution(f.namespace, f.id, false, MAIN_TENANT, null, null);
+    return kestraClient().executionsApi.createExecution(
+        f.namespace,
+        f.id,
+        false,
+        MAIN_TENANT,
+        undefined,
+        undefined,
+    );
 }
 
 /**
  * await the end of an execution
  * @param {string} executionId
- * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/model/StateType').StateTypeStatic} desiredState
  * @param {number} [timeoutMs=5000]
  * @param {number} [pollMs=100]
  * @returns
  */
-async function awaitExecution(executionId, desiredState, timeoutMs = 5000, pollMs = 100) {
+async function awaitExecution(
+    executionId,
+    desiredState,
+    timeoutMs = 5000,
+    pollMs = 100,
+) {
     const start = Date.now();
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        const last = await kestraClient().executionsApi.execution(executionId, MAIN_TENANT);
+        const last = await kestraClient().executionsApi.execution(
+            executionId,
+            MAIN_TENANT,
+        );
         if (last?.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) return last;
         await sleep(pollMs);
@@ -186,7 +211,7 @@ async function awaitExecution(executionId, desiredState, timeoutMs = 5000, pollM
 /**
  * create an execution and await it to reach the desired state
  * @param {(id: string, ns: string) => string} flowTemplate
- * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/model/StateType').StateTypeStatic} desiredState
  * @returns
  */
 async function createdExecution(flowTemplate, desiredState) {
@@ -206,623 +231,1159 @@ async function createdExecution(flowTemplate, desiredState) {
  */
 const qf = ({ field, operation, value }) => ({ field, operation, value });
 const QF_FIELD = {
-    NAMESPACE: 'NAMESPACE',
-    FLOW_ID: 'FLOW_ID',
-    QUERY: 'QUERY',
+    NAMESPACE: "NAMESPACE",
+    FLOW_ID: "FLOW_ID",
+    QUERY: "QUERY",
 };
 /** @type {Record<string, 'EQUALS' | 'IN'>} */
 const QF_OP = {
-    EQUALS: 'EQUALS',
-    IN: 'IN',
+    EQUALS: "EQUALS",
+    IN: "IN",
 };
 
 // ---------- tests ----------
-describe('ExecutionsApi', () => {
-    it('create_execution', async () => {
+describe("ExecutionsApi", () => {
+    it("create_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns);
 
-        const labels = ['label1:created'];
-        const inputs = { key: 'value' };
+        const labels = ["label1:created"];
+        const inputs = { key: "value" };
 
         const resp = await kestraClient().executionsApi.createExecution(
-            ns, flowId, false, MAIN_TENANT, {"labels": labels, "kind": 'NORMAL'}, inputs
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            { labels: labels, kind: "NORMAL" },
+            inputs,
         );
 
         expect(resp.flowId).toBe(flowId);
         expect(resp.namespace).toBe(ns);
+        /** @type {Array<{key: string, value: string}>} */
         const lbls = resp.labels ?? [];
-        expect(lbls.some(l => l.key === 'label1' && l.value === 'created')).toBe(true);
+        expect(
+            lbls.some((l) => l.key === "label1" && l.value === "created"),
+        ).toBe(true);
     });
 
     // --- delete execution (single) ---
-    it('delete_execution', async () => {
+    it("delete_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        await kestraClient().executionsApi.deleteExecution(ex.id, MAIN_TENANT, {});
+        await kestraClient().executionsApi.deleteExecution(
+            ex.id,
+            MAIN_TENANT,
+            {},
+        );
 
-        await expect(kestraClient().executionsApi.execution(ex.id, MAIN_TENANT)).rejects.toThrow();
+        await expect(
+            kestraClient().executionsApi.execution(ex.id, MAIN_TENANT),
+        ).rejects.toThrow();
     });
 
     // --- delete executions by ids ---
-    it('delete_executions_by_ids', async () => {
+    it("delete_executions_by_ids", async () => {
         const ns = randomId();
         const flowId = randomId();
         const e1 = await createFlowWithExecution(flowId, ns);
-        const e2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        const e3 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
+        const e2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        const e3 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
 
         const resp = await kestraClient().executionsApi.deleteExecutionsByIds(
-            MAIN_TENANT, [e1.id, e3.id], {includeNonTerminated: true, deleteLogs: false, deleteMetrics: false, deleteStorage: false});
+            MAIN_TENANT,
+            [e1.id, e3.id],
+            {
+                includeNonTerminated: true,
+                deleteLogs: false,
+                deleteMetrics: false,
+                deleteStorage: false,
+            },
+        );
         expect(resp.count).toBe(2);
 
-        await expect(kestraClient().executionsApi.execution(e1.id, MAIN_TENANT)).rejects.toThrow();
-        await expect(kestraClient().executionsApi.execution(e3.id, MAIN_TENANT)).rejects.toThrow();
-        expect(await kestraClient().executionsApi.execution(e2.id, MAIN_TENANT)).toBeTruthy();
+        await expect(
+            kestraClient().executionsApi.execution(e1.id, MAIN_TENANT),
+        ).rejects.toThrow();
+        await expect(
+            kestraClient().executionsApi.execution(e3.id, MAIN_TENANT),
+        ).rejects.toThrow();
+        expect(
+            await kestraClient().executionsApi.execution(e2.id, MAIN_TENANT),
+        ).toBeTruthy();
     });
 
     // --- delete executions by query ---
-    it('delete_executions_by_query', async () => {
+    it("delete_executions_by_query", async () => {
         const ns1 = randomId();
         const flow1 = randomId();
         const a = await createFlowWithExecution(flow1, ns1);
-        const b = await kestraClient().executionsApi.createExecution(ns1, flow1, false, MAIN_TENANT, {}, null);
+        const b = await kestraClient().executionsApi.createExecution(
+            ns1,
+            flow1,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
 
         const ns2 = randomId();
         const flow2 = randomId();
         await createFlowWithExecution(flow2, ns2);
 
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.EQUALS, value: ns1 })];
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.EQUALS,
+                value: ns1,
+            }),
+        ];
         const resp = await kestraClient().executionsApi.deleteExecutionsByQuery(
-            MAIN_TENANT, {filters: filters, includeNonTerminated: true, deleteLogs: false, deleteMetrics: false, deleteStorage: false});
+            MAIN_TENANT,
+            {
+                filters: filters,
+                includeNonTerminated: true,
+                deleteLogs: false,
+                deleteMetrics: false,
+                deleteStorage: false,
+            },
+        );
         expect(resp.count).toBe(2);
 
-        await expect(kestraClient().executionsApi.execution(a.id, MAIN_TENANT)).rejects.toThrow();
-        await expect(kestraClient().executionsApi.execution(b.id, MAIN_TENANT)).rejects.toThrow();
+        await expect(
+            kestraClient().executionsApi.execution(a.id, MAIN_TENANT),
+        ).rejects.toThrow();
+        await expect(
+            kestraClient().executionsApi.execution(b.id, MAIN_TENANT),
+        ).rejects.toThrow();
     });
 
     // --- download file from execution ---
-    it('download_file_from_execution', async () => {
+    it("download_file_from_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         const done = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(FILE_FLOW(flowId, ns));
-            return await awaitExecution(e.id, 'SUCCESS', 5000, 100);
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowId, ns),
+            );
+            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
         const uri = done?.taskRunList?.[0]?.outputs?.uri;
         expect(uri).toBeTruthy();
 
-        const file = await kestraClient().executionsApi.downloadFileFromExecution(done.id, uri, MAIN_TENANT);
+        const file =
+            await kestraClient().executionsApi.downloadFileFromExecution(
+                done.id,
+                uri,
+                MAIN_TENANT,
+            );
         // depending on generator, this might be a Buffer/string/file path.
         const txt = file?.text ?? file;
-        expect(String(txt)).toContain('Hello from file');
+        expect(String(txt)).toContain("Hello from file");
     });
 
     // --- force run by ids ---
-    it('force_run_by_ids', async () => {
+    it("force_run_by_ids", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const running = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(running.id, 'RUNNING', 1500, 100);
+        const running = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
 
-        const queued = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(queued.id, 'QUEUED', 1500, 100);
+        const queued = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
-        const bulk = await kestraClient().executionsApi.forceRunByIds(MAIN_TENANT, [queued.id]);
+        const bulk = await kestraClient().executionsApi.forceRunByIds(
+            MAIN_TENANT,
+            [queued.id],
+        );
         expect(bulk.count).toBe(1);
 
-        const after = await awaitExecution(queued.id, 'RUNNING', 1500, 100);
-        expect(after.state.current).toBe('RUNNING');
+        const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
+        expect(after.state.current).toBe("RUNNING");
     });
 
     // --- force run execution (single) ---
-    it('force_run_execution', async () => {
+    it("force_run_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const running = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(running.id, 'RUNNING', 1500, 100);
+        const running = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
 
-        const queued = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(queued.id, 'QUEUED', 1500, 100);
+        const queued = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
-        const resp = await kestraClient().executionsApi.forceRunExecution(queued.id, MAIN_TENANT);
-        const after = await awaitExecution(resp.id, 'RUNNING', 1500, 100);
-        expect(after.state.current).toBe('RUNNING');
+        const resp = await kestraClient().executionsApi.forceRunExecution(
+            queued.id,
+            MAIN_TENANT,
+        );
+        const after = await awaitExecution(resp.id, "RUNNING", 1500, 100);
+        expect(after.state.current).toBe("RUNNING");
     });
 
     // --- force run by query ---
-    it('force_run_by_query', async () => {
+    it("force_run_by_query", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const e1 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(e1.id, 'RUNNING', 1500, 100);
-        const e2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(e2.id, 'QUEUED', 1500, 100);
+        const e1 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(e1.id, "RUNNING", 1500, 100);
+        const e2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(e2.id, "QUEUED", 1500, 100);
 
-        const filters = [qf({ field: QF_FIELD.FLOW_ID, operation: QF_OP.EQUALS, value: flowId })];
-        const resp = await kestraClient().executionsApi.forceRunExecutionsByQuery(MAIN_TENANT, {filters: filters});
+        const filters = [
+            qf({
+                field: QF_FIELD.FLOW_ID,
+                operation: QF_OP.EQUALS,
+                value: flowId,
+            }),
+        ];
+        const resp =
+            await kestraClient().executionsApi.forceRunExecutionsByQuery(
+                MAIN_TENANT,
+                { filters: filters },
+            );
         expect(resp.count).toBeGreaterThanOrEqual(1);
 
-        const after = await awaitExecution(e2.id, 'RUNNING', 1500, 100);
-        expect(after.state.current).toBe('RUNNING');
+        const after = await awaitExecution(e2.id, "RUNNING", 1500, 100);
+        expect(after.state.current).toBe("RUNNING");
     });
 
     // --- get execution ---
-    it('get_execution', async () => {
+    it("get_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        const fetched = await kestraClient().executionsApi.execution(ex.id, MAIN_TENANT);
+        const fetched = await kestraClient().executionsApi.execution(
+            ex.id,
+            MAIN_TENANT,
+        );
         expect(fetched.id).toBe(ex.id);
     });
 
     // --- execution flow graph ---
-    it('execution_flow_graph', async () => {
+    it("execution_flow_graph", async () => {
         const ns = randomId();
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        const graph = await kestraClient().executionsApi.executionFlowGraph(ex.id, MAIN_TENANT, null);
+        const graph = await kestraClient().executionsApi.executionFlowGraph(
+            ex.id,
+            MAIN_TENANT,
+            undefined,
+        );
         expect(graph).toBeTruthy();
     });
 
     // --- file metadata from execution ---
-    it('file_metadatas_from_execution', async () => {
+    it("file_metadatas_from_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         const done = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(FILE_FLOW(flowId, ns));
-            return await awaitExecution(e.id, 'SUCCESS', 5000, 100);
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowId, ns),
+            );
+            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
         const uri = done?.taskRunList?.[0]?.outputs?.uri;
-        const metas = await kestraClient().executionsApi.fileMetadatasFromExecution(done.id, uri, MAIN_TENANT);
+        const metas =
+            await kestraClient().executionsApi.fileMetadatasFromExecution(
+                done.id,
+                uri,
+                MAIN_TENANT,
+            );
         expect([15, 16]).toContain(metas.size);
     });
 
     // --- flow from execution ---
-    it('flow_from_execution_by_id', async () => {
+    it("flow_from_execution_by_id", async () => {
         const ns = randomId();
         const flowId = randomId();
         const done = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(FILE_FLOW(flowId, ns));
-            return await awaitExecution(e.id, 'SUCCESS', 5000, 100);
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowId, ns),
+            );
+            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
-        const flow = await kestraClient().executionsApi.flowFromExecutionById(done.id, MAIN_TENANT);
+        const flow = await kestraClient().executionsApi.flowFromExecutionById(
+            done.id,
+            MAIN_TENANT,
+        );
         expect(flow.id).toBe(flowId);
         expect(flow.namespace).toBe(ns);
     });
 
     // --- latest executions ---
-    it('latest_executions', async () => {
+    it("latest_executions", async () => {
         const ns = randomId();
         const flowA = randomId();
         const first = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(FILE_FLOW(flowA, ns));
-            await awaitExecution(e.id, 'SUCCESS', 5000, 100);
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowA, ns),
+            );
+            await awaitExecution(e.id, "SUCCESS", 5000, 100);
             return e;
         })();
         // another run of A to ensure “latest” changes
-        const secondA = await kestraClient().executionsApi.createExecution(ns, flowA, false, MAIN_TENANT);
+        const secondA = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowA,
+            false,
+            MAIN_TENANT,
+        );
         const flowB = randomId();
         const b = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(FILE_FLOW(flowB, ns));
-            return await awaitExecution(e.id, 'SUCCESS', 5000, 100);
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowB, ns),
+            );
+            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
         const filters = [
             { id: flowA, namespace: ns },
             { id: flowB, namespace: ns },
         ];
-        const list = await kestraClient().executionsApi.latestExecutions(MAIN_TENANT, filters);
+        const list = await kestraClient().executionsApi.latestExecutions(
+            MAIN_TENANT,
+            filters,
+        );
         expect(Array.isArray(list)).toBe(true);
         expect(list.length).toBe(2);
-        const ids = list.map(x => x.id);
+        const ids = list.map((/** @type {{id: string}} */ x) => x.id);
         expect(ids).toContain(secondA.id);
         expect(ids).toContain(b.id);
     });
 
     // --- kill execution (single) ---
-    it('kill_execution', async () => {
+    it("kill_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const e = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
+        const e = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
         await sleep(200);
-        await kestraClient().executionsApi.killExecution(e.id, true, MAIN_TENANT);
+        await kestraClient().executionsApi.killExecution(
+            e.id,
+            true,
+            MAIN_TENANT,
+        );
 
-        const killed = await awaitExecution(e.id, 'KILLED', 2000, 100);
-        expect(killed.state.current).toBe('KILLED');
+        const killed = await awaitExecution(e.id, "KILLED", 2000, 100);
+        expect(killed.state.current).toBe("KILLED");
     });
 
     // --- kill by ids ---
-    it('kill_executions_by_ids', async () => {
+    it("kill_executions_by_ids", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const e1 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        const e2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        const e3 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
+        const e1 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        const e2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        const e3 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
 
-        const bulk = await kestraClient().executionsApi.killExecutionsByIds(MAIN_TENANT, [e2.id, e3.id]);
+        const bulk = await kestraClient().executionsApi.killExecutionsByIds(
+            MAIN_TENANT,
+            [e2.id, e3.id],
+        );
         expect(bulk.count).toBe(2);
 
-        const s2 = await awaitExecution(e2.id, 'KILLED', 2000, 100);
-        const s3 = await awaitExecution(e3.id, 'KILLED', 2000, 100);
-        expect(s2.state.current).toBe('KILLED');
-        expect(s3.state.current).toBe('KILLED');
+        const s2 = await awaitExecution(e2.id, "KILLED", 2000, 100);
+        const s3 = await awaitExecution(e3.id, "KILLED", 2000, 100);
+        expect(s2.state.current).toBe("KILLED");
+        expect(s3.state.current).toBe("KILLED");
 
-        const s1 = await awaitExecution(e1.id, 'SUCCESS', 4000, 100);
-        expect(s1.state.current).toBe('SUCCESS');
+        const s1 = await awaitExecution(e1.id, "SUCCESS", 4000, 100);
+        expect(s1.state.current).toBe("SUCCESS");
     });
 
     // --- kill by query ---
-    it('kill_executions_by_query', async () => {
+    it("kill_executions_by_query", async () => {
         const ns = randomId();
         const flow1 = randomId();
         const flow2 = randomId();
         await createSimpleFlow(flow1, ns, SLEEP_CONCURRENCY_FLOW);
         await createSimpleFlow(flow2, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const a = await kestraClient().executionsApi.createExecution(ns, flow1, false, MAIN_TENANT, {}, null);
-        const b = await kestraClient().executionsApi.createExecution(ns, flow1, false, MAIN_TENANT, {}, null);
-        const c = await kestraClient().executionsApi.createExecution(ns, flow2, false, MAIN_TENANT, {}, null);
+        const a = await kestraClient().executionsApi.createExecution(
+            ns,
+            flow1,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        const b = await kestraClient().executionsApi.createExecution(
+            ns,
+            flow1,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        const c = await kestraClient().executionsApi.createExecution(
+            ns,
+            flow2,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
 
-        const filters = [qf({ field: QF_FIELD.FLOW_ID, operation: QF_OP.EQUALS, value: flow1 })];
-        const bulk = await kestraClient().executionsApi.killExecutionsByQuery(MAIN_TENANT, {filters: filters});
+        const filters = [
+            qf({
+                field: QF_FIELD.FLOW_ID,
+                operation: QF_OP.EQUALS,
+                value: flow1,
+            }),
+        ];
+        const bulk = await kestraClient().executionsApi.killExecutionsByQuery(
+            MAIN_TENANT,
+            { filters: filters },
+        );
         expect(bulk.count).toBe(2);
 
-        const sA = await awaitExecution(a.id, 'KILLED', 2000, 100);
-        const sB = await awaitExecution(b.id, 'KILLED', 2000, 100);
-        const sC = await awaitExecution(c.id, 'SUCCESS', 4000, 100);
+        const sA = await awaitExecution(a.id, "KILLED", 2000, 100);
+        const sB = await awaitExecution(b.id, "KILLED", 2000, 100);
+        const sC = await awaitExecution(c.id, "SUCCESS", 4000, 100);
 
-        expect(sA.state.current).toBe('KILLED');
-        expect(sB.state.current).toBe('KILLED');
-        expect(sC.state.current).toBe('SUCCESS');
+        expect(sA.state.current).toBe("KILLED");
+        expect(sB.state.current).toBe("KILLED");
+        expect(sC.state.current).toBe("SUCCESS");
     });
 
     // --- pause (single) ---
-    it('pause_execution', async () => {
-        const e = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
+    it("pause_execution", async () => {
+        const e = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
         await kestraClient().executionsApi.pauseExecution(e.id, MAIN_TENANT);
-        const paused = await awaitExecution(e.id, 'PAUSED', 2000, 100);
-        expect(paused.state.current).toBe('PAUSED');
+        const paused = await awaitExecution(e.id, "PAUSED", 2000, 100);
+        expect(paused.state.current).toBe("PAUSED");
     });
 
     // --- pause by ids ---
-    it('pause_executions_by_ids', async () => {
-        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
-        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
-        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
+    it("pause_executions_by_ids", async () => {
+        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
-        const bulk = await kestraClient().executionsApi.pauseExecutionsByIds(MAIN_TENANT, [e1.id, e2.id]);
+        const bulk = await kestraClient().executionsApi.pauseExecutionsByIds(
+            MAIN_TENANT,
+            [e1.id, e2.id],
+        );
         expect(bulk.count).toBe(2);
 
-        const p1 = await awaitExecution(e1.id, 'PAUSED', 2000, 100);
-        const p2 = await awaitExecution(e2.id, 'PAUSED', 2000, 100);
-        expect(p1.state.current).toBe('PAUSED');
-        expect(p2.state.current).toBe('PAUSED');
+        const p1 = await awaitExecution(e1.id, "PAUSED", 2000, 100);
+        const p2 = await awaitExecution(e2.id, "PAUSED", 2000, 100);
+        expect(p1.state.current).toBe("PAUSED");
+        expect(p2.state.current).toBe("PAUSED");
 
         // let "other" finish or keep running (not paused assertion necessary here)
     });
 
     // --- pause by query ---
-    it('pause_executions_by_query', async () => {
-        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
-        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
-        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, 'RUNNING');
+    it("pause_executions_by_query", async () => {
+        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.IN, value: [e1.namespace, e2.namespace] })];
-        const bulk = await kestraClient().executionsApi.pauseExecutionsByQuery(MAIN_TENANT, {filters: filters});
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            }),
+        ];
+        const bulk = await kestraClient().executionsApi.pauseExecutionsByQuery(
+            MAIN_TENANT,
+            { filters: filters },
+        );
         expect(bulk.count).toBe(2);
 
-        const p1 = await awaitExecution(e1.id, 'PAUSED', 2000, 100);
-        const p2 = await awaitExecution(e2.id, 'PAUSED', 2000, 100);
-        const o = await awaitExecution(other.id, 'SUCCESS', 4000, 100);
+        const p1 = await awaitExecution(e1.id, "PAUSED", 2000, 100);
+        const p2 = await awaitExecution(e2.id, "PAUSED", 2000, 100);
+        const o = await awaitExecution(other.id, "SUCCESS", 4000, 100);
 
-        expect(p1.state.current).toBe('PAUSED');
-        expect(p2.state.current).toBe('PAUSED');
-        expect(o.state.current).toBe('SUCCESS');
+        expect(p1.state.current).toBe("PAUSED");
+        expect(p2.state.current).toBe("PAUSED");
+        expect(o.state.current).toBe("SUCCESS");
     });
 
     // --- replay execution (single) ---
-    it('replay_execution', async () => {
-        const e = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const replay = await kestraClient().executionsApi.replayExecution(e.id, MAIN_TENANT);
-        expect(replay.state.current).toBe('CREATED');
-        const done = await awaitExecution(replay.id, 'SUCCESS', 2000, 100);
-        expect(done.state.current).toBe('SUCCESS');
+    it("replay_execution", async () => {
+        const e = await createdExecution(LOG_FLOW, "SUCCESS");
+        const replay = await kestraClient().executionsApi.replayExecution(
+            e.id,
+            MAIN_TENANT,
+        );
+        expect(replay.state.current).toBe("CREATED");
+        const done = await awaitExecution(replay.id, "SUCCESS", 2000, 100);
+        expect(done.state.current).toBe("SUCCESS");
     });
 
     // --- replay execution with inputs (single) ---
-    it('replay_execution_with_inputs', async () => {
-        const e = await createdExecution(FAILED_FLOW, 'FAILED');
-        const inputs = { key: 'value' };
-        const taskRunId = e.taskRunList?.[0]?.id ?? null;
-        const resp = await kestraClient().executionsApi.replayExecutionWithinputs(
-            e.id, MAIN_TENANT, {taskRunId, revision: e.flowRevision}, inputs
-        );
+    it("replay_execution_with_inputs", async () => {
+        const e = await createdExecution(FAILED_FLOW, "FAILED");
+        const inputs = { key: "value" };
+        const taskRunId = e.taskRunList?.[0]?.id ?? undefined;
+        const resp =
+            await kestraClient().executionsApi.replayExecutionWithinputs(
+                e.id,
+                MAIN_TENANT,
+                { taskRunId, revision: e.flowRevision },
+                inputs,
+            );
         expect(resp.id).toBeTruthy();
     });
 
     // --- replay by ids ---
-    it('replay_executions_by_ids', async () => {
-        const e1 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const e2 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const bulk = await kestraClient().executionsApi.replayExecutionsByIds(MAIN_TENANT, [e1.id, e2.id], null);
+    it("replay_executions_by_ids", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const bulk = await kestraClient().executionsApi.replayExecutionsByIds(
+            MAIN_TENANT,
+            [e1.id, e2.id],
+            undefined,
+        );
         expect(bulk.count).toBe(2);
     });
 
     // --- replay by query ---
-    it('replay_executions_by_query', async () => {
-        const e1 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const e2 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const filters = [qf({ field: QF_FIELD.FLOW_ID, operation: QF_OP.EQUALS, value: e1.flowId })];
-        const resp = await kestraClient().executionsApi.replayExecutionsByQuery(MAIN_TENANT, {filters: filters, latestRevision:true});
+    it("replay_executions_by_query", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const filters = [
+            qf({
+                field: QF_FIELD.FLOW_ID,
+                operation: QF_OP.EQUALS,
+                value: e1.flowId,
+            }),
+        ];
+        const resp = await kestraClient().executionsApi.replayExecutionsByQuery(
+            MAIN_TENANT,
+            { filters: filters, latestRevision: true },
+        );
         expect(resp.count).toBe(1);
     });
 
     // --- restart execution (single) ---
-    it('restart_execution', async () => {
-        const e = await createdExecution(FAILED_FLOW, 'FAILED');
-        const resp = await kestraClient().executionsApi.restartExecution(e.id, MAIN_TENANT, null);
-        expect(resp.state.current).toBe('RESTARTED');
+    it("restart_execution", async () => {
+        const e = await createdExecution(FAILED_FLOW, "FAILED");
+        const resp = await kestraClient().executionsApi.restartExecution(
+            e.id,
+            MAIN_TENANT,
+            undefined,
+        );
+        expect(resp.state.current).toBe("RESTARTED");
     });
 
     // --- restart by ids ---
-    it('restart_executions_by_ids', async () => {
-        const e1 = await createdExecution(FAILED_FLOW, 'FAILED');
-        const e2 = await createdExecution(FAILED_FLOW, 'FAILED');
-        const bulk = await kestraClient().executionsApi.restartExecutionsByIds(MAIN_TENANT, [e1.id, e2.id]);
+    it("restart_executions_by_ids", async () => {
+        const e1 = await createdExecution(FAILED_FLOW, "FAILED");
+        const e2 = await createdExecution(FAILED_FLOW, "FAILED");
+        const bulk = await kestraClient().executionsApi.restartExecutionsByIds(
+            MAIN_TENANT,
+            [e1.id, e2.id],
+        );
         expect(bulk.count).toBe(2);
     });
 
     // --- restart by query ---
-    it('restart_executions_by_query', async () => {
-        const e1 = await createdExecution(FAILED_FLOW, 'FAILED');
-        const e2 = await createdExecution(FAILED_FLOW, 'FAILED');
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.IN, value: [e1.namespace, e2.namespace] })];
-        const resp = await kestraClient().executionsApi.restartExecutionsByQuery(MAIN_TENANT, {filters:filters});
+    it("restart_executions_by_query", async () => {
+        const e1 = await createdExecution(FAILED_FLOW, "FAILED");
+        const e2 = await createdExecution(FAILED_FLOW, "FAILED");
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            }),
+        ];
+        const resp =
+            await kestraClient().executionsApi.restartExecutionsByQuery(
+                MAIN_TENANT,
+                { filters: filters },
+            );
         expect(resp.count).toBe(2);
     });
 
     // --- resume execution (single) ---
-    it('resume_execution', async () => {
-        const e = await createdExecution(PAUSE_FLOW, 'PAUSED');
+    it("resume_execution", async () => {
+        const e = await createdExecution(PAUSE_FLOW, "PAUSED");
         await kestraClient().executionsApi.resumeExecution(e.id, MAIN_TENANT);
-        const done = await awaitExecution(e.id, 'SUCCESS', 2000, 100);
-        expect(done.state.current).toBe('SUCCESS');
+        const done = await awaitExecution(e.id, "SUCCESS", 2000, 100);
+        expect(done.state.current).toBe("SUCCESS");
     });
 
     // --- resume by ids ---
-    it('resume_executions_by_ids', async () => {
-        const e1 = await createdExecution(PAUSE_FLOW, 'PAUSED');
-        const e2 = await createdExecution(PAUSE_FLOW, 'PAUSED');
-        const bulk = await kestraClient().executionsApi.resumeExecutionsByIds(MAIN_TENANT, [e1.id, e2.id]);
+    it("resume_executions_by_ids", async () => {
+        const e1 = await createdExecution(PAUSE_FLOW, "PAUSED");
+        const e2 = await createdExecution(PAUSE_FLOW, "PAUSED");
+        const bulk = await kestraClient().executionsApi.resumeExecutionsByIds(
+            MAIN_TENANT,
+            [e1.id, e2.id],
+        );
         expect(bulk.count).toBe(2);
-        const d1 = await awaitExecution(e1.id, 'SUCCESS', 2000, 100);
-        const d2 = await awaitExecution(e2.id, 'SUCCESS', 2000, 100);
-        expect(d1.state.current).toBe('SUCCESS');
-        expect(d2.state.current).toBe('SUCCESS');
+        const d1 = await awaitExecution(e1.id, "SUCCESS", 2000, 100);
+        const d2 = await awaitExecution(e2.id, "SUCCESS", 2000, 100);
+        expect(d1.state.current).toBe("SUCCESS");
+        expect(d2.state.current).toBe("SUCCESS");
     });
 
     // --- resume by query ---
-    it('resume_executions_by_query', async () => {
-        const e1 = await createdExecution(PAUSE_FLOW, 'PAUSED');
-        const e2 = await createdExecution(PAUSE_FLOW, 'PAUSED');
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.IN, value: [e1.namespace, e2.namespace] })];
-        const resp = await kestraClient().executionsApi.resumeExecutionsByQuery(MAIN_TENANT, {filters: filters});
+    it("resume_executions_by_query", async () => {
+        const e1 = await createdExecution(PAUSE_FLOW, "PAUSED");
+        const e2 = await createdExecution(PAUSE_FLOW, "PAUSED");
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            }),
+        ];
+        const resp = await kestraClient().executionsApi.resumeExecutionsByQuery(
+            MAIN_TENANT,
+            { filters: filters },
+        );
         expect(resp.count).toBe(2);
-        const d1 = await awaitExecution(e1.id, 'SUCCESS', 2000, 100);
-        const d2 = await awaitExecution(e2.id, 'SUCCESS', 2000, 100);
-        expect(d1.state.current).toBe('SUCCESS');
-        expect(d2.state.current).toBe('SUCCESS');
+        const d1 = await awaitExecution(e1.id, "SUCCESS", 2000, 100);
+        const d2 = await awaitExecution(e2.id, "SUCCESS", 2000, 100);
+        expect(d1.state.current).toBe("SUCCESS");
+        expect(d2.state.current).toBe("SUCCESS");
     });
 
     // --- search executions ---
-    it('search_executions', async () => {
+    it("search_executions", async () => {
         const ns = randomId();
         const flowId = randomId();
         const e1 = await createFlowWithExecution(flowId, ns);
-        const e2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
+        const e2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
 
-        const sort = ['state.startDate:asc'];
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.EQUALS, value: [ns] })];
+        const sort = ["state.startDate:asc"];
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.EQUALS,
+                value: [ns],
+            }),
+        ];
 
-        const page1 = await kestraClient().executionsApi.searchExecutions(1, 2, MAIN_TENANT, {sort:sort, filters:filters});
+        const page1 = await kestraClient().executionsApi.searchExecutions(
+            1,
+            2,
+            MAIN_TENANT,
+            { sort: sort, filters: filters },
+        );
         expect(page1.total).toBe(5);
         expect(page1.results.length).toBe(2);
         expect(page1.results[0].id).toBe(e1.id);
         expect(page1.results[1].id).toBe(e2.id);
 
-        const page3 = await kestraClient().executionsApi.searchExecutions(3, 2, MAIN_TENANT, {sort:sort, filters:filters});
+        const page3 = await kestraClient().executionsApi.searchExecutions(
+            3,
+            2,
+            MAIN_TENANT,
+            { sort: sort, filters: filters },
+        );
         expect(page3.total).toBe(5);
         expect(page3.results.length).toBe(1);
     });
 
     // --- set labels on (single) terminated execution ---
-    it('set_labels_on_terminated_execution', async () => {
-        const e = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const labels = [{ key: 'foo', value: 'bar' }, { key: 'terminated', value: 'yes' }];
-        await kestraClient().executionsApi.setLabelsOnTerminatedExecution(e.id, MAIN_TENANT, labels);
-        const after = await kestraClient().executionsApi.execution(e.id, MAIN_TENANT);
+    it("set_labels_on_terminated_execution", async () => {
+        const e = await createdExecution(LOG_FLOW, "SUCCESS");
+        const labels = [
+            { key: "foo", value: "bar" },
+            { key: "terminated", value: "yes" },
+        ];
+        await kestraClient().executionsApi.setLabelsOnTerminatedExecution(
+            e.id,
+            MAIN_TENANT,
+            labels,
+        );
+        const after = await kestraClient().executionsApi.execution(
+            e.id,
+            MAIN_TENANT,
+        );
+        /** @type {Array<{key: string, value: string}>} */
         const lbls = after.labels ?? [];
-        expect(lbls.some(l => l.key === 'foo' && l.value === 'bar')).toBe(true);
-        expect(lbls.some(l => l.key === 'terminated' && l.value === 'yes')).toBe(true);
+        expect(lbls.some((l) => l.key === "foo" && l.value === "bar")).toBe(
+            true,
+        );
+        expect(
+            lbls.some((l) => l.key === "terminated" && l.value === "yes"),
+        ).toBe(true);
     });
 
     // --- set labels by ids ---
-    it('set_labels_on_terminated_executions_by_ids', async () => {
-        const a = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const b = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const c = await createdExecution(LOG_FLOW, 'SUCCESS');
+    it("set_labels_on_terminated_executions_by_ids", async () => {
+        const a = await createdExecution(LOG_FLOW, "SUCCESS");
+        const b = await createdExecution(LOG_FLOW, "SUCCESS");
+        const c = await createdExecution(LOG_FLOW, "SUCCESS");
 
-        const labels = [{ key: 'foo', value: 'bar' }, { key: 'terminated', value: 'yes' }];
+        const labels = [
+            { key: "foo", value: "bar" },
+            { key: "terminated", value: "yes" },
+        ];
         const req = { executionsId: [a.id, b.id], executionLabels: labels };
-        const bulk = await kestraClient().executionsApi.setLabelsOnTerminatedExecutionsByIds(MAIN_TENANT, req);
+        const bulk =
+            await kestraClient().executionsApi.setLabelsOnTerminatedExecutionsByIds(
+                MAIN_TENANT,
+                req,
+            );
         expect(bulk.count).toBe(2);
 
-        const a2 = await kestraClient().executionsApi.execution(a.id, MAIN_TENANT);
-        const b2 = await kestraClient().executionsApi.execution(b.id, MAIN_TENANT);
-        const c2 = await kestraClient().executionsApi.execution(c.id, MAIN_TENANT);
-        const has = (e, k, v) => (e.labels ?? []).some(l => l.key === k && l.value === v);
-        expect(has(a2, 'foo', 'bar') && has(a2, 'terminated', 'yes')).toBe(true);
-        expect(has(b2, 'foo', 'bar') && has(b2, 'terminated', 'yes')).toBe(true);
-        expect(!(has(c2, 'foo', 'bar') && has(c2, 'terminated', 'yes'))).toBe(true);
+        const a2 = await kestraClient().executionsApi.execution(
+            a.id,
+            MAIN_TENANT,
+        );
+        const b2 = await kestraClient().executionsApi.execution(
+            b.id,
+            MAIN_TENANT,
+        );
+        const c2 = await kestraClient().executionsApi.execution(
+            c.id,
+            MAIN_TENANT,
+        );
+
+        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
+            true,
+        );
     });
 
-    // --- set labels by query ---
-    it('set_labels_on_terminated_executions_by_query', async () => {
-        const a = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const b = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const c = await createdExecution(LOG_FLOW, 'SUCCESS');
+    /**
+     *
+     * @param {{labels?: {key:string, value: string}[]}} e
+     * @param {string} k
+     * @param {string} v
+     * @returns
+     */
+    const has = (e, k, v) =>
+        (e.labels ?? []).some((l) => l.key === k && l.value === v);
 
-        const labels = [{ key: 'foo', value: 'bar' }, { key: 'terminated', value: 'yes' }];
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.IN, value: [a.namespace, b.namespace] })];
-        const resp = await kestraClient().executionsApi.setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, labels, {filters:filters});
+    // --- set labels by query ---
+    it("set_labels_on_terminated_executions_by_query", async () => {
+        const a = await createdExecution(LOG_FLOW, "SUCCESS");
+        const b = await createdExecution(LOG_FLOW, "SUCCESS");
+        const c = await createdExecution(LOG_FLOW, "SUCCESS");
+
+        const labels = [
+            { key: "foo", value: "bar" },
+            { key: "terminated", value: "yes" },
+        ];
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [a.namespace, b.namespace],
+            }),
+        ];
+        const resp =
+            await kestraClient().executionsApi.setLabelsOnTerminatedExecutionsByQuery(
+                MAIN_TENANT,
+                labels,
+                { filters: filters },
+            );
         expect(resp.count).toBe(2);
 
-        const a2 = await kestraClient().executionsApi.execution(a.id, MAIN_TENANT);
-        const b2 = await kestraClient().executionsApi.execution(b.id, MAIN_TENANT);
-        const c2 = await kestraClient().executionsApi.execution(c.id, MAIN_TENANT);
-        const has = (e, k, v) => (e.labels ?? []).some(l => l.key === k && l.value === v);
-        expect(has(a2, 'foo', 'bar') && has(a2, 'terminated', 'yes')).toBe(true);
-        expect(has(b2, 'foo', 'bar') && has(b2, 'terminated', 'yes')).toBe(true);
-        expect(!(has(c2, 'foo', 'bar') && has(c2, 'terminated', 'yes'))).toBe(true);
+        const a2 = await kestraClient().executionsApi.execution(
+            a.id,
+            MAIN_TENANT,
+        );
+        const b2 = await kestraClient().executionsApi.execution(
+            b.id,
+            MAIN_TENANT,
+        );
+        const c2 = await kestraClient().executionsApi.execution(
+            c.id,
+            MAIN_TENANT,
+        );
+
+        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
+            true,
+        );
     });
 
     // --- trigger by GET webhook ---
-    it('trigger_execution_by_get_webhook', async () => {
+    it("trigger_execution_by_get_webhook", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createFlow(WEBHOOK_FLOW(flowId, ns));
-        const resp = await kestraClient().executionsApi.triggerExecutionByGetWebhook(ns, flowId, 'a-secret-key', MAIN_TENANT);
+        const resp =
+            await kestraClient().executionsApi.triggerExecutionByGetWebhook(
+                ns,
+                flowId,
+                "a-secret-key",
+                MAIN_TENANT,
+            );
         expect(resp).toBeTruthy();
-        const done = await awaitExecution(resp.id, 'SUCCESS', 5000, 100);
-        expect(done.state.current).toBe('SUCCESS');
+        const done = await awaitExecution(resp.id, "SUCCESS", 5000, 100);
+        expect(done.state.current).toBe("SUCCESS");
     });
 
     // --- unqueue (single) ---
-    it('unqueue_execution', async () => {
+    it("unqueue_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const running = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(running.id, 'RUNNING', 1500, 100);
-        const queued = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(queued.id, 'QUEUED', 1500, 100);
+        const running = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        const queued = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
-        const resp = await kestraClient().executionsApi.unqueueExecution(queued.id, 'RUNNING', MAIN_TENANT);
-        expect(resp.state.current).toBe('RUNNING');
-        const after = await awaitExecution(queued.id, 'RUNNING', 1500, 100);
-        expect(after.state.current).toBe('RUNNING');
+        const resp = await kestraClient().executionsApi.unqueueExecution(
+            queued.id,
+            "RUNNING",
+            MAIN_TENANT,
+        );
+        expect(resp.state.current).toBe("RUNNING");
+        const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
+        expect(after.state.current).toBe("RUNNING");
     });
 
     // --- unqueue by ids ---
-    it('unqueue_executions_by_ids', async () => {
+    it("unqueue_executions_by_ids", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const running = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(running.id, 'RUNNING', 1500, 100);
-        const q1 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(q1.id, 'QUEUED', 1500, 100);
-        const q2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(q2.id, 'QUEUED', 1500, 100);
+        const running = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        const q1 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(q1.id, "QUEUED", 1500, 100);
+        const q2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
-        const bulk = await kestraClient().executionsApi.unqueueExecutionsByIds('RUNNING', MAIN_TENANT, [q1.id, q2.id]);
+        const bulk = await kestraClient().executionsApi.unqueueExecutionsByIds(
+            "RUNNING",
+            MAIN_TENANT,
+            [q1.id, q2.id],
+        );
         expect(bulk.count).toBe(2);
 
-        const a1 = await awaitExecution(q1.id, 'RUNNING', 1500, 100);
-        const a2 = await awaitExecution(q2.id, 'RUNNING', 1500, 100);
-        expect(a1.state.current).toBe('RUNNING');
-        expect(a2.state.current).toBe('RUNNING');
+        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
+        const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
+        expect(a1.state.current).toBe("RUNNING");
+        expect(a2.state.current).toBe("RUNNING");
     });
 
     // --- unqueue by query ---
-    it('unqueue_executions_by_query', async () => {
+    it("unqueue_executions_by_query", async () => {
         const ns = randomId();
         const flowId = randomId();
         await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
 
-        const running = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(running.id, 'RUNNING', 1500, 100);
-        const q1 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(q1.id, 'QUEUED', 1500, 100);
-        const q2 = await kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, {}, null);
-        await awaitExecution(q2.id, 'QUEUED', 1500, 100);
+        const running = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        const q1 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(q1.id, "QUEUED", 1500, 100);
+        const q2 = await kestraClient().executionsApi.createExecution(
+            ns,
+            flowId,
+            false,
+            MAIN_TENANT,
+            {},
+            undefined,
+        );
+        await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
-        const filters = [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: [q1.id] })];
-        const resp = await kestraClient().executionsApi.unqueueExecutionsByQuery(MAIN_TENANT, {filters:filters, newState:'RUNNING'});
+        const filters = [
+            qf({
+                field: QF_FIELD.QUERY,
+                operation: QF_OP.EQUALS,
+                value: [q1.id],
+            }),
+        ];
+        const resp =
+            await kestraClient().executionsApi.unqueueExecutionsByQuery(
+                MAIN_TENANT,
+                { filters: filters, newState: "RUNNING" },
+            );
         expect(resp.count).toBe(1);
 
-        const a1 = await awaitExecution(q1.id, 'RUNNING', 1500, 100);
-        expect(a1.state.current).toBe('RUNNING');
+        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
+        expect(a1.state.current).toBe("RUNNING");
     });
 
     // --- update status (single) ---
-    it('update_execution_status', async () => {
-        const e = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const updated = await kestraClient().executionsApi.updateExecutionStatus(e.id, 'CANCELLED', MAIN_TENANT);
-        expect(updated.state.current).toBe('CANCELLED');
-        const fetched = await kestraClient().executionsApi.execution(e.id, MAIN_TENANT);
-        expect(fetched.state.current).toBe('CANCELLED');
+    it("update_execution_status", async () => {
+        const e = await createdExecution(LOG_FLOW, "SUCCESS");
+        const updated =
+            await kestraClient().executionsApi.updateExecutionStatus(
+                e.id,
+                "CANCELLED",
+                MAIN_TENANT,
+            );
+        expect(updated.state.current).toBe("CANCELLED");
+        const fetched = await kestraClient().executionsApi.execution(
+            e.id,
+            MAIN_TENANT,
+        );
+        expect(fetched.state.current).toBe("CANCELLED");
     });
 
     // --- update status by ids ---
-    it('update_executions_status_by_ids', async () => {
-        const e1 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const e2 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const other = await createdExecution(LOG_FLOW, 'SUCCESS');
+    it("update_executions_status_by_ids", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const other = await createdExecution(LOG_FLOW, "SUCCESS");
 
-        const bulk = await kestraClient().executionsApi.updateExecutionsStatusByIds('CANCELLED', MAIN_TENANT, [e1.id, e2.id]);
+        const bulk =
+            await kestraClient().executionsApi.updateExecutionsStatusByIds(
+                "CANCELLED",
+                MAIN_TENANT,
+                [e1.id, e2.id],
+            );
         expect(bulk.count).toBe(2);
 
-        const s1 = await kestraClient().executionsApi.execution(e1.id, MAIN_TENANT);
-        const s2 = await kestraClient().executionsApi.execution(e2.id, MAIN_TENANT);
-        const sO = await kestraClient().executionsApi.execution(other.id, MAIN_TENANT);
-        expect(s1.state.current).toBe('CANCELLED');
-        expect(s2.state.current).toBe('CANCELLED');
-        expect(sO.state.current).toBe('SUCCESS');
+        const s1 = await kestraClient().executionsApi.execution(
+            e1.id,
+            MAIN_TENANT,
+        );
+        const s2 = await kestraClient().executionsApi.execution(
+            e2.id,
+            MAIN_TENANT,
+        );
+        const sO = await kestraClient().executionsApi.execution(
+            other.id,
+            MAIN_TENANT,
+        );
+        expect(s1.state.current).toBe("CANCELLED");
+        expect(s2.state.current).toBe("CANCELLED");
+        expect(sO.state.current).toBe("SUCCESS");
     });
 
     // --- update status by query ---
-    it('update_executions_status_by_query', async () => {
-        const e1 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const e2 = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const other = await createdExecution(LOG_FLOW, 'SUCCESS');
+    it("update_executions_status_by_query", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const other = await createdExecution(LOG_FLOW, "SUCCESS");
 
-        const filters = [qf({ field: QF_FIELD.NAMESPACE, operation: QF_OP.IN, value: [e1.namespace, e2.namespace] })];
-        const bulk = await kestraClient().executionsApi.updateExecutionsStatusByQuery('CANCELLED', MAIN_TENANT, {filters:filters});
+        const filters = [
+            qf({
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            }),
+        ];
+        const bulk =
+            await kestraClient().executionsApi.updateExecutionsStatusByQuery(
+                "CANCELLED",
+                MAIN_TENANT,
+                { filters: filters },
+            );
         expect(bulk.count).toBe(2);
 
-        const s1 = await kestraClient().executionsApi.execution(e1.id, MAIN_TENANT);
-        const s2 = await kestraClient().executionsApi.execution(e2.id, MAIN_TENANT);
-        const sO = await kestraClient().executionsApi.execution(other.id, MAIN_TENANT);
-        expect(s1.state.current).toBe('CANCELLED');
-        expect(s2.state.current).toBe('CANCELLED');
-        expect(sO.state.current).toBe('SUCCESS');
+        const s1 = await kestraClient().executionsApi.execution(
+            e1.id,
+            MAIN_TENANT,
+        );
+        const s2 = await kestraClient().executionsApi.execution(
+            e2.id,
+            MAIN_TENANT,
+        );
+        const sO = await kestraClient().executionsApi.execution(
+            other.id,
+            MAIN_TENANT,
+        );
+        expect(s1.state.current).toBe("CANCELLED");
+        expect(s2.state.current).toBe("CANCELLED");
+        expect(sO.state.current).toBe("SUCCESS");
     });
 
+    /**
+     *
+     * @param {string} ns
+     * @param {string} id
+     */
     const LONG_FLOW = (ns, id) => `
 id: ${id}
 namespace: ${ns}
@@ -842,26 +1403,40 @@ tasks:
 `;
 
     // --- follow APIs (enable when your JS client exposes streaming) ---
-    it('follow_execution (SSE/WebSocket required)', async () => {
+    it("follow_execution (SSE/WebSocket required)", async () => {
         const ns = randomId();
         const id = randomId();
         const ex = await createFlowWithExecutionFromYaml(LONG_FLOW(id, ns));
-        const serverSentEventSource = kestraClient().executionsApi.followExecution(ex.id, MAIN_TENANT);
+        const serverSentEventSource =
+            kestraClient().executionsApi.followExecution(ex.id, MAIN_TENANT);
 
-        let eventContent = ''
+        let eventContent = "";
         let progress = 0;
+        /**
+         * @param {string} type
+         * @param {{type: string, data: string, lastEventId: string}} executionEvent
+         */
         const executionUpdate = (type, executionEvent) => {
-            eventContent += '\n[' + type + '] --------------------\n';
-            eventContent += JSON.stringify([executionEvent.type, ...Object.keys(JSON.parse(executionEvent.data)).sort()]) + '\n';
-            progress += 1
-        }
+            eventContent += "\n[" + type + "] --------------------\n";
+            eventContent +=
+                JSON.stringify([
+                    executionEvent.type,
+                    ...Object.keys(JSON.parse(executionEvent.data)).sort(),
+                ]) + "\n";
+            progress += 1;
+        };
         const closeSSE = () => {
-            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.onerror = () => {};
             serverSentEventSource.close();
-        }
+        };
 
+        /**
+         *
+         * @param {any} executionEvent
+         */
         serverSentEventSource.onmessage = (executionEvent) => {
-            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+            const isEnd =
+                executionEvent && executionEvent.lastEventId === "end";
             // we are receiving a first "fake" event to force initializing the connection: ignoring it
             if (executionEvent.lastEventId !== "start") {
                 executionUpdate("onmessage", executionEvent);
@@ -869,59 +1444,98 @@ tasks:
             if (isEnd) {
                 closeSSE();
             }
-        }
+        };
 
         // sse.onerror doesn't return the details of the error
         // but as our emitter can only throw an error on 404
         // we can safely assume that the error is a 404
         // if execution is not defined
-        serverSentEventSource.onerror = (e) => {
-            throw new Error('Execution not found' + JSON.stringify(e));
-        }
+        serverSentEventSource.onerror = (/** @type {any} */ e) => {
+            throw new Error("Execution not found" + JSON.stringify(e));
+        };
 
-        await awaitExecution(ex.id, 'SUCCESS', 5000, 100);
+        await awaitExecution(ex.id, "SUCCESS", 5000, 100);
         serverSentEventSource.close();
         expect(progress).toBeGreaterThan(12);
     });
 
-    const FLOW_THAT_DEPENDS_ON_ANOTHER = (ns, id, dependingNamespace, dependingId) => `
+    /**
+     *
+     * @param {string} ns
+     * @param {string} id
+     * @param {string} dependingNamespace
+     * @param {string} dependingId
+     * @returns
+     */
+    const FLOW_THAT_DEPENDS_ON_ANOTHER = (
+        ns,
+        id,
+        dependingNamespace,
+        dependingId,
+    ) => `
 id: ${id}
 namespace: ${ns}
 tasks:
   - id: log
     type: io.kestra.plugin.core.log.Log
-    message: "This flow depends on another execution: ${ dependingNamespace }/${ dependingId }"
+    message: "This flow depends on another execution: ${dependingNamespace}/${dependingId}"
   - id: exec
     type: io.kestra.plugin.core.flow.Subflow
     namespace: ${dependingNamespace}
     flowId: ${dependingId}
 `;
 
-
-    it('follow_dependencies_execution (SSE/WebSocket required)', async () => {
+    it("follow_dependencies_execution (SSE/WebSocket required)", async () => {
         const ns = randomId();
         const id = randomId();
         const flow = await createFlow(LONG_FLOW(id, ns));
         const masterId = randomId();
         const masterNamespace = randomId();
-        const ex = await createFlowWithExecutionFromYaml(FLOW_THAT_DEPENDS_ON_ANOTHER(masterNamespace, masterId, flow.namespace, flow.id));
-        const serverSentEventSource = kestraClient().executionsApi.followDependenciesExecutions(ex.id, false, true, MAIN_TENANT);
+        const ex = await createFlowWithExecutionFromYaml(
+            FLOW_THAT_DEPENDS_ON_ANOTHER(
+                masterNamespace,
+                masterId,
+                flow.namespace,
+                flow.id,
+            ),
+        );
+        const serverSentEventSource =
+            kestraClient().executionsApi.followDependenciesExecutions(
+                ex.id,
+                false,
+                true,
+                MAIN_TENANT,
+            );
 
-        let eventContent = ''
+        let eventContent = "";
         let progress = 0;
+        /**
+         *
+         * @param {string} type
+         * @param {{type: string, data?: string}} executionEvent
+         */
         const executionUpdate = (type, executionEvent) => {
-            eventContent += '\n[' + type + '] --------------------\n';
-            const d = JSON.parse(executionEvent.data)
-            eventContent += JSON.stringify([executionEvent.type, d.flowId, d.state, ...Object.keys(d).sort()]) + '\n';
-            progress += 1
-        }
+            eventContent += "\n[" + type + "] --------------------\n";
+            const d = JSON.parse(executionEvent.data ?? "{}");
+            eventContent +=
+                JSON.stringify([
+                    executionEvent.type,
+                    d.flowId,
+                    d.state,
+                    ...Object.keys(d).sort(),
+                ]) + "\n";
+            progress += 1;
+        };
         const closeSSE = () => {
-            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.onerror = () => {};
             serverSentEventSource.close();
-        }
+        };
 
-        serverSentEventSource.onmessage = (executionEvent) => {
-            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+        serverSentEventSource.onmessage = (
+            /** @type {any} */ executionEvent,
+        ) => {
+            const isEnd =
+                executionEvent && executionEvent.lastEventId === "end";
             // we are receiving a first "fake" event to force initializing the connection: ignoring it
             if (executionEvent.lastEventId !== "start") {
                 executionUpdate("onmessage", executionEvent);
@@ -929,17 +1543,20 @@ tasks:
             if (isEnd) {
                 closeSSE();
             }
-        }
+        };
 
-        serverSentEventSource.onerror = (e) => {
-            throw new Error('Execution not found' + JSON.stringify(e));
-        }
+        serverSentEventSource.onerror = (/** @type {any} */ e) => {
+            throw new Error("Execution not found" + JSON.stringify(e));
+        };
 
-        serverSentEventSource.addEventListener('error', (executionEvent) => {
-            executionUpdate("error", executionEvent);
-        })
+        serverSentEventSource.addEventListener(
+            "error",
+            (/** @type {any} */ executionEvent) => {
+                executionUpdate("error", executionEvent);
+            },
+        );
 
-        await awaitExecution(ex.id, 'SUCCESS', 10000, 100);
+        await awaitExecution(ex.id, "SUCCESS", 10000, 100);
         serverSentEventSource.close();
         expect(progress).toBeGreaterThan(5);
         expect(eventContent).toContain(flow.id);
