@@ -1,25 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
+import { kestraClient, randomId } from "./CommonTestSetup.js";
 
 describe('RolesApi', () => {
 
     it('autocomplete_roles — lists roles for autocomplete', async () => {
         const prefix = `test_autocomplete_roles_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
-
-        const roleReq = new IamRoleControllerApiRoleCreateOrUpdateRequest(perms, `${prefix}_complete_roles`);
-        roleReq.description = 'An example role';
 
         const created = await kestraClient().Roles.createRole({
-            iamRoleControllerApiRoleCreateOrUpdateRequest: roleReq,
+            permissions: { FLOW: ['READ'] },
+            name: `${prefix}_complete_roles`,
+            description: 'An example role',
         });
 
-        const auto = await kestraClient()
-        auto.q = prefix;
-
         const results = await kestraClient().Roles.autocompleteRoles({
-            apiAutocomplete: auto,
+            q: prefix,
         });
 
         expect(
@@ -31,71 +25,52 @@ describe('RolesApi', () => {
 
     it('create_role — creates a role', async () => {
         const name = `test_create_role_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
-        roleReq.description = 'An example role';
-
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+            description: 'An example role',
+        });
 
         expect(created).toHaveProperty('name', name);
     });
 
     it('delete_role — deletes a role', async () => {
         const name = `test_delete_role_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+        });
 
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
+        await kestraClient().Roles.deleteRole({ id: created.id });
 
-        await kestraClient().rolesApi.deleteRole(created.id, MAIN_TENANT);
-
-        await expect(kestraClient().rolesApi.role(created.id, MAIN_TENANT)).rejects.toThrow();
+        await expect(kestraClient().Roles.role({ id: created.id })).rejects.toThrow();
     });
 
     it('get_role — retrieves a role', async () => {
         const name = `test_get_role_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+        });
 
-        const fetched = await kestraClient().rolesApi.role(created.id, MAIN_TENANT);
+        const fetched = await kestraClient().Roles.role({ id: created.id });
         expect(fetched.id).toBe(created.id);
     });
 
     it('list_roles_from_given_ids — lists roles by ids', async () => {
         const name = `test_list_roles_from_given_ids_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+        });
 
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
-
-        const ids = new ApiIds();
-        ids.ids = [created.id];
-
-        const fetched = await kestraClient().rolesApi.listRolesFromGivenIds(
-            MAIN_TENANT,
-            ids,
-        );
+        const fetched = await kestraClient().Roles.listRolesFromGivenIds({
+            ids: [created.id],
+        });
 
         expect(Array.isArray(fetched)).toBe(true);
         expect(fetched.length).toBeGreaterThan(0);
@@ -103,22 +78,17 @@ describe('RolesApi', () => {
 
     it('search_roles — searches for roles', async () => {
         const name = `test_search_roles_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+        });
 
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
-
-        const results = await kestraClient().rolesApi.searchRoles(
-            1,
-            10000,
-            MAIN_TENANT,
-            { q: name },
-        );
+        const results = await kestraClient().Roles.searchRoles({
+            page: 1,
+            size: 10000,
+            filters: [],
+        });
 
         // search typically returns { results, total, ... }
         expect(results.results.map(x => x.id)).toContain(created.id)
@@ -126,26 +96,21 @@ describe('RolesApi', () => {
 
     it('update_role — updates a role', async () => {
         const name = `test_update_role_${randomId()}`;
-        const perms = new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions();
-        perms.FLOW = ['READ'];
 
-        const roleReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, name);
-        roleReq.description = 'Before';
+        const created = await kestraClient().Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name,
+            description: 'Before',
+        });
 
-        const created = await kestraClient().rolesApi.createRole(
-            MAIN_TENANT,
-            roleReq,
-        );
-
-        const updateReq = new IAMRoleControllerApiRoleCreateOrUpdateRequest(perms, created.name);
         const updateDesc = 'Updated description';
-        updateReq.description = updateDesc;
 
-        const updated = await kestraClient().rolesApi.updateRole(
-            created.id,
-            MAIN_TENANT,
-            updateReq,
-        );
+        const updated = await kestraClient().Roles.updateRole({
+            id: created.id,
+            permissions: { FLOW: ['READ'] },
+            name: created.name,
+            description: updateDesc,
+        });
 
         expect(updated).toHaveProperty('description', updateDesc);
     });

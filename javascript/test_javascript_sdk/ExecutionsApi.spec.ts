@@ -299,6 +299,8 @@ describe("ExecutionsApi", () => {
             return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
+        // TODO: ApiTaskRun type is missing `outputs` property
+        // @ts-expect-error
         const uri = done?.taskRunList?.[0]?.outputs?.uri;
         expect(uri).toBeTruthy();
 
@@ -364,6 +366,8 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.forceRunExecution({
             executionId: queued.id,
         });
+        // TODO: ApiAsyncEvent is missing `id` property
+        // @ts-expect-error
         const after = await awaitExecution(resp.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
     });
@@ -438,6 +442,8 @@ describe("ExecutionsApi", () => {
             return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
+        // TODO: ApiTaskRun type is missing `outputs` property
+        // @ts-expect-error
         const uri = done?.taskRunList?.[0]?.outputs?.uri;
         const metas = await kestraClient().Executions.fileMetadatasFromExecution({
             executionId: done.id ?? "",
@@ -668,7 +674,10 @@ describe("ExecutionsApi", () => {
             { executionId: e.id ?? "" },
 
         );
+        // TODO: ApiAsyncEvent is missing `state` and `id` properties
+        // @ts-expect-error
         expect(replay.state?.current).toBe("CREATED");
+        // @ts-expect-error
         const done = await awaitExecution(replay.id ?? "", "SUCCESS", 2000, 100);
         expect(done.state?.current).toBe("SUCCESS");
     });
@@ -681,6 +690,8 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.replayExecutionWithinputs(
             { executionId: e.id ?? "", taskRunId, revision: e.flowRevision, body: [inputs] },
         );
+        // TODO: ApiAsyncEvent is missing `id` property
+        // @ts-expect-error
         expect(resp.id).toBeTruthy();
     });
 
@@ -717,6 +728,8 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.restartExecution(
             { executionId: e.id ?? "" },
         );
+        // TODO: ApiAsyncEvent is missing `state` property
+        // @ts-expect-error
         expect(resp.state?.current).toBe("RESTARTED");
     });
 
@@ -976,6 +989,8 @@ describe("ExecutionsApi", () => {
             executionId: queued.id,
             state: "RUNNING",
         });
+        // TODO: ApiAsyncEvent is missing `state` property
+        // @ts-expect-error
         expect(resp.state?.current).toBe("RUNNING");
         const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
@@ -1067,6 +1082,8 @@ describe("ExecutionsApi", () => {
             executionId: e.id ?? "",
             status: "CANCELLED",
         });
+        // TODO: ApiAsyncEvent is missing `state` property
+        // @ts-expect-error
         expect(updated.state?.current).toBe("CANCELLED");
         const fetched = await kestraClient().Executions.execution({
             executionId: e.id ?? "",
