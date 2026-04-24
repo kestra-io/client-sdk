@@ -125,7 +125,7 @@ describe('KVApi (typed)', () => {
         await kestraClient().Kv.setKeyValue({ namespace: CHILD_NAMESPACE, key: key2, body: 'v2' });
 
         const req = { keys: [key1, key2] };
-        const resp = await kestraClient().Kv.deleteKeyValues({ namespace: CHILD_NAMESPACE, body: req });
+        const resp = await kestraClient().Kv.deleteKeyValues({ namespace: CHILD_NAMESPACE, ...req });
         expect(resp).not.toBeNull();
 
         for (const k of [key1, key2]) {

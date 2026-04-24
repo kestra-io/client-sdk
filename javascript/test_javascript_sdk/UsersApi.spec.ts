@@ -63,7 +63,8 @@ describe('UsersApi', () => {
         const base = `test_delete_api_token_for_user_${randomId()}`;
         const user = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        const token = await kestraClient().Users.createApiTokensForUser(user.id, {
+        const token = await kestraClient().Users.createApiTokensForUser({
+            id: user.id,
             name: base.replace(/_/g, '-'),
             description: 'token to delete',
         });
@@ -97,9 +98,9 @@ describe('UsersApi', () => {
         const base = `test_delete_user_${randomId()}`;
         const user = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        await kestraClient().Users.deleteUser(user.id);
+        await kestraClient().Users.deleteUser({ id: user.id });
 
-        await expect(kestraClient().Users.user?.(user.id))
+        await expect(kestraClient().Users.user?.({ id: user.id }))
             .rejects.toThrow();
     });
 
@@ -113,7 +114,7 @@ describe('UsersApi', () => {
         const authId = user?.auths?.[0]?.id;
         expect(authId).toBeTruthy();
 
-        const patched = await kestraClient().Users.deleteUserAuthMethod(user.id, authId);
+        const patched = await kestraClient().Users.deleteUserAuthMethod({ id: user.id, auth: authId });
         expect(patched.id).toBe(user.id);
     });
 
@@ -122,21 +123,22 @@ describe('UsersApi', () => {
         const created = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
         const fetched =
-            (await kestraClient().Users.user?.(created.id));
+            (await kestraClient().Users.user?.({ id: created.id }));
         expect(fetched.id).toBe(created.id);
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('list_api_tokens_for_user: List API tokens for a user', async () => {
         const base = `test_list_api_tokens_for_user_${randomId()}`;
         const user = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        await kestraClient().Users.createApiTokensForUser(user.id, {
+        await kestraClient().Users.createApiTokensForUser({
+            id: user.id,
             name: base.replace(/_/g, '-'),
         });
 
-        const tokens = await kestraClient().Users.listApiTokensForUser(user.id);
+        const tokens = await kestraClient().Users.listApiTokensForUser({ id: user.id });
         expect(tokens).toBeTruthy(); // shape may vary across generators
     });
 
@@ -144,11 +146,11 @@ describe('UsersApi', () => {
         const base = `test_list_users_${randomId()}`;
         const created = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        const page = await kestraClient().Users.listUsers(1, 50, { q: base });
+        const page = await kestraClient().Users.listUsers({ page: 1, size: 50, filters: [] });
         const results = page?.results ?? [];
         expect(results.some(s => s.id === created.id)).toBeTruthy();
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('patch_user: Update user details (firstName)', async () => {
@@ -158,23 +160,24 @@ describe('UsersApi', () => {
             firstName: 'Old',
         });
 
-        const updated = await kestraClient().Users.patchUser(created.id, {
+        const updated = await kestraClient().Users.patchUser({
+            id: created.id,
             firstName: 'New',
         });
 
         // firstName casing can differ depending on generator
         expect(updated.firstName).toBe('New');
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('patch_user_demo: Update user demo/restricted flag', async () => {
         const base = `test_patch_user_demo_${randomId()}`;
         const created = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        await kestraClient().Users.patchUserDemo(created.id, { restricted: true });
+        await kestraClient().Users.patchUserDemo({ id: created.id, restricted: true });
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('patch_user_password: Update user password (superadmin op)', async () => {
@@ -184,25 +187,26 @@ describe('UsersApi', () => {
             password: 'OldPass!1',
         });
 
-        const resp = await kestraClient().Users.patchUserPassword(created.id, {
+        const resp = await kestraClient().Users.patchUserPassword({
+            id: created.id,
             password: 'NewPass!1',
         });
         expect(resp).toBeTruthy();
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('patch_user_super_admin: Update user superadmin privileges', async () => {
         const base = `test_patch_user_super_admin_${randomId()}`;
         const created = await kestraClient().Users.createUser({ email: `${base}@kestra.io` });
 
-        await kestraClient().Users.patchUserSuperAdmin(created.id, { superAdmin: true });
+        await kestraClient().Users.patchUserSuperAdmin({ id: created.id, superAdmin: true });
 
         const fetched =
-            (await kestraClient().Users.user?.(created.id));
+            (await kestraClient().Users.user?.({ id: created.id }));
         expect(Boolean(fetched.superAdmin)).toBe(true);
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     // This one requires creating a *new client* authenticated as the created user.
@@ -237,7 +241,7 @@ describe('UsersApi', () => {
             newPassword: initial,
         });
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('update_user: Update a user account', async () => {
@@ -247,18 +251,19 @@ describe('UsersApi', () => {
             firstName: 'Before',
         });
 
-        const updated = await kestraClient().Users.updateUser(created.id, {
+        const updated = await kestraClient().Users.updateUser({
+            id: created.id,
             email: created.email,
             firstName: 'After',
         });
 
         expect(updated.firstName).toBe('After');
 
-        await kestraClient().Users.deleteUser(created.id);
+        await kestraClient().Users.deleteUser({ id: created.id });
     });
 
     it('update_user_groups: Update the list of groups a user belongs to for the tenant', async () => {
-        const group = await kestraClient().groupsApi.createGroup(MAIN_TENANT, {
+        const group = await kestraClient().Groups.createGroup({
             name: `test_create_group_${randomId()}`,
             description: 'An example group',
         });
@@ -269,10 +274,12 @@ describe('UsersApi', () => {
             tenants: [MAIN_TENANT],
         });
 
-        await kestraClient().Users.updateUserGroups(user.id, MAIN_TENANT, {
+        await kestraClient().Users.updateUserGroups({
+            id: user.id,
+            tenant: MAIN_TENANT,
             groupIds: [group.id],
         });
 
-        // If there’s a readback endpoint, fetch & assert here.
+        // If there's a readback endpoint, fetch & assert here.
     });
 });

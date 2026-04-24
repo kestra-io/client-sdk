@@ -35,7 +35,7 @@ describe('GroupsApi', () => {
             description: 'An example group',
         });
 
-        const results = await kestraClient().Groups.autocompleteGroups({ q: prefix });
+        const results = await kestraClient().Groups.autocompleteGroups({ q: prefix, filters: [] });
 
         expect(
             results.some(r => r.id === created.id || r.name === created.name)
@@ -59,7 +59,7 @@ describe('GroupsApi', () => {
             description: 'An example group',
         });
 
-        await kestraClient().Groups.deleteGroup({ id: created.id }, { throwOnNull: false });
+        await kestraClient().Groups.deleteGroup({ id: created.id });
 
         await expect(() => kestraClient().Groups.group({ id: created.id })).rejects.toThrow();
     });
