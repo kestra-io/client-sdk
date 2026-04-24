@@ -43,7 +43,7 @@ jobs:
           HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
           echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
           echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-          echo "version=2.0.0-$HASH_SPEC-$HASH_CODE" >> $GITHUB_OUTPUT
+          echo "version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
 
       - name: Check if version already published
         id: check
@@ -60,20 +60,11 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         run: ./generate-sdks.sh ${{ steps.hash.outputs.version }} javascript
 
-      - name: Install dependencies
+      - name: Publish to npm with develop tag
         if: steps.check.outputs.skip != 'true'
-        working-directory: ./javascript
-        run: npm install
-
-      - name: Build
-        if: steps.check.outputs.skip != 'true'
-        working-directory: ./javascript
-        run: npm run build
-
-      # - name: Publish to npm with develop tag
-      #   if: steps.check.outputs.skip != 'true'
-      #   working-directory: ./javascript/javascript-sdk
-      #   run: npm publish --tag develop --access public
+        working-directory: ./javascript/javascript-sdk
+        # run: npm publish --tag develop --access public
+        run: echo "npm publish --tag develop --access public"
 
       - name: Comment on commit with install instructions
         if: steps.check.outputs.skip != 'true'

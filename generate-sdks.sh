@@ -144,6 +144,10 @@ rm ./javascript/javascript-sdk/mocha.opts
 rm ./javascript/javascript-sdk/.babelrc
 rm ./javascript/javascript-sdk/.travis.yml
 cp -R ./javascript/template-files/* ./javascript/javascript-sdk/
+cd javascript
+npm install
+npm run build
+cd ..
 fi
 
 # Generate GoLang SDK
