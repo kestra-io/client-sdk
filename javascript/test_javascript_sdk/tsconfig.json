@@ -1,14 +1,15 @@
 {
-  "include": ["**/*.js", "../javascript_sdk/src/**/*.js"],
+  "include": ["**/*.ts"],
   "compilerOptions": {
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
     "allowJs": true,
-    "moduleResolution": "node16",
-    "target": "ES2020",
-    "module": "node16",
+    "outDir": "dist",
+    "moduleResolution": "nodenext",
+    "target": "esnext",
+    "module": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "types": ["node"]
   }
 }
