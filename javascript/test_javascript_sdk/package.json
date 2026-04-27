@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@kestra-io/kestra-sdk": "*",
-    "@sanity/eventsource": "^5.0.2",
+    "@vitest/coverage-v8": "^4.1.5",
     "typescript": "^5.9.3",
     "vitest": "^4.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0"
   }
 }
