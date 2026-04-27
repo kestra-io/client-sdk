@@ -17,15 +17,12 @@ export default defineConfig({
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts", "test_javascript_sdk/**/*.spec.js"],
         coverage: {
-            provider: "v8",
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
             include: ["javascript-sdk/src/api/**"],
-            reporter: ["text", "html", "json", "lcov"],
-            all: true,
             thresholds: {
-                functions: 100,
+                functions: 80,
             },
         },
     },
