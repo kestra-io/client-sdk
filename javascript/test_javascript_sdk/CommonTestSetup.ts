@@ -29,15 +29,15 @@ import * as ScimConfiguration from "@kestra-io/kestra-sdk/scim-configuration";
 import * as ScimGroups from "@kestra-io/kestra-sdk/scim-groups";
 import * as ScimUsers from "@kestra-io/kestra-sdk/scim-users";
 import * as Secrets from "@kestra-io/kestra-sdk/secrets";
-import * as SecurityIntegrations from "@kestra-io/kestra-sdk/securityintegrations";
-import * as ServiceAccount from "@kestra-io/kestra-sdk/serviceaccount";
+import * as SecurityIntegrations from "@kestra-io/kestra-sdk/security-integrations";
+import * as ServiceAccount from "@kestra-io/kestra-sdk/service-account";
 import * as Services from "@kestra-io/kestra-sdk/services";
 import * as TenantAccess from "@kestra-io/kestra-sdk/tenant-access";
 import * as Tenants from "@kestra-io/kestra-sdk/tenants";
-import * as TestSuites from "@kestra-io/kestra-sdk/testsuites";
+import * as TestSuites from "@kestra-io/kestra-sdk/test-suites";
 import * as Triggers from "@kestra-io/kestra-sdk/triggers";
 import * as Users from "@kestra-io/kestra-sdk/users";
-import * as WorkerGroups from "@kestra-io/kestra-sdk/workergroups";
+import * as WorkerGroups from "@kestra-io/kestra-sdk/worker-groups";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
@@ -54,24 +54,26 @@ beforeAll(async () => {
         baseURL
     });
 
-    instance.interceptors.request.use((config) => {
-        //log the request method and url for debugging purposes
-        console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
-        return config;
-    });
+    if (process.env.DEBUG) {
+        instance.interceptors.request.use((config) => {
+            //log the request method and url for debugging purposes
+            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
+            return config;
+        });
 
-    instance.interceptors.response.use((response) => {
-        return response;
-    }, (error) => {
-        if (error.response) {
-            //log the error status and url for debugging purposes
-            console.error(`[${error.response.status}] ${error.config.url}`);
-            console.error("Error data:", error.response.data);
-        } else {
-            console.error("Error:", error.message);
-        }
-        return Promise.reject(error);
-    });
+        instance.interceptors.response.use((response) => {
+            return response;
+        }, (error) => {
+            if (error.response) {
+                //log the error status and url for debugging purposes
+                console.error(`[${error.response.status}] ${error.config.url}`);
+                console.error("Error data:", error.response.data);
+            } else {
+                console.error("Error:", error.message);
+            }
+            return Promise.reject(error);
+        });
+    }
 });
 
 export function kestraClient() {
