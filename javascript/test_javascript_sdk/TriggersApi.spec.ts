@@ -55,7 +55,6 @@ async function createBackfillForTrigger(flowId: string, triggerId: string, names
             start: startIso,
             end: undefined,
         },
-        tenantId: MAIN_TENANT,
     };
 
     return kestraClient().Triggers.createBackfill(trigger);
@@ -82,7 +81,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
         // ensure trigger exists
-        await sleep(1000);
+        await sleep(4000);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);

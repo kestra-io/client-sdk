@@ -5,7 +5,7 @@
   "license": "Unlicense",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./ai": "./dist/ai.js",
     "./apps": "./dist/apps.js",
     "./assets": "./dist/assets.js",

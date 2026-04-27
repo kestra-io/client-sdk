@@ -2,7 +2,7 @@ import { defineConfig } from "tsdown"
 import { readdirSync } from "fs"
 import { join } from "path"
 
-const sdkEntries = Object.fromEntries(
+export const sdkEntries = Object.fromEntries(
     readdirSync(join(import.meta.dirname, "src/openapi/sdk"))
         .filter(f => f.endsWith(".gen.ts"))
         .map(f => {
@@ -27,8 +27,8 @@ export default defineConfig({
         resolver: "tsc",
         sourcemap: true,
     },
-    sourcemap: "inline",
-    exports: "ci-only",
+    sourcemap: "hidden",
+    exports: true,
     clean: true,
 })
 
