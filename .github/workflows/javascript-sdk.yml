@@ -14,19 +14,18 @@ on:
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
 
   push:
     tags:
-      - 'v*.*.*-javascript'
+      - "v*.*.*-javascript"
 
 permissions:
   contents: read
   id-token: write
-
 
 jobs:
   list-versions:
@@ -48,8 +47,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.12'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.12"
+          registry-url: "https://registry.npmjs.org"
 
       - name: extract current version from package.json
         id: extract_version
@@ -57,19 +56,19 @@ jobs:
           VERSION=$(node -p "require('./javascript-sdk/package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-#      - name: Generate SDK
-#        working-directory: .
-#        run: ./generate-sdks.sh ${{ steps.extract_version.outputs.version }} javascript
-#
-#      - name: fail workflow if there is any difference after SDK generation
-#        run: |
-#          if [[ -n $(git status --porcelain) ]]; then
-#            echo "There are uncommitted changes after SDK generation. Please commit the changes."
-#            git --no-pager diff
-#            exit 1
-#          else
-#            echo "No changes detected after SDK generation."
-#          fi
+      #      - name: Generate SDK
+      #        working-directory: .
+      #        run: ./generate-sdks.sh ${{ steps.extract_version.outputs.version }} javascript
+      #
+      #      - name: fail workflow if there is any difference after SDK generation
+      #        run: |
+      #          if [[ -n $(git status --porcelain) ]]; then
+      #            echo "There are uncommitted changes after SDK generation. Please commit the changes."
+      #            git --no-pager diff
+      #            exit 1
+      #          else
+      #            echo "No changes detected after SDK generation."
+      #          fi
 
       - name: Install dependencies
         run: npm install
@@ -78,7 +77,7 @@ jobs:
         run: npm run build
 
       - name: GCP - Auth with github service account
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -104,6 +103,13 @@ jobs:
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
 
+      - name: Upload test coverage results
+        if: inputs.skip-test != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report-${{ matrix.kestra_version }}
+          path: ./javascript/coverage
+
   publish:
     name: Publish to Npm
     runs-on: ubuntu-latest
@@ -117,8 +123,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.12'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.12"
+          registry-url: "https://registry.npmjs.org"
 
       - name: extract current version from package.json
         id: extract_version
