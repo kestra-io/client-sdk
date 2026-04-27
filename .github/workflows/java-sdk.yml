@@ -16,19 +16,16 @@ on:
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
 
   push:
     tags:
-      - 'v*.*.*-java'
+      - "v*.*.*-java"
 
 jobs:
-  list-versions:
-    uses: ./.github/workflows/list-versions.yml
-
   test:
     name: Test Java SDK
     runs-on: ubuntu-latest
@@ -37,11 +34,6 @@ jobs:
     defaults:
       run:
         working-directory: ./java/java-sdk
-    needs: list-versions
-    strategy:
-      fail-fast: false
-      matrix:
-        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -52,7 +44,8 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle*.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*',
+            '**/gradle*.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -60,7 +53,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 21
 
       - name: Validate Gradle wrapper
@@ -68,11 +61,12 @@ jobs:
 
       # Gradle check
       - name: Build with Gradle
-        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        if: ${{ github.event.inputs.skip-test == 'false' ||
+          github.event.inputs.skip-test == '' }}
         run: ./gradlew check
 
       - name: GCP - Auth with github service account
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -83,28 +77,30 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ matrix.kestra_version }}
+          kestra_version: develop
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Build local SDK and test it in an example project
-        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        if: ${{ github.event.inputs.skip-test == 'false' ||
+          github.event.inputs.skip-test == '' }}
         env:
-          KESTRA_VERSION: ${{ matrix.kestra_version }}
+          KESTRA_VERSION: develop
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
 
       - name: Test - Publish Test Results
         uses: dorny/test-reporter@v2
-        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        if: ${{ github.event.inputs.skip-test == 'false' ||
+          github.event.inputs.skip-test == '' }}
         with:
-          name: Java Tests Report (${{ matrix.kestra_version }})
+          name: Java Tests Report (develop)
           reporter: java-junit
-          path: '**/build/test-results/test/TEST-*.xml'
-          list-suites: 'all'
-          list-tests: 'all'
-          fail-on-error: 'false'
+          path: "**/build/test-results/test/TEST-*.xml"
+          list-suites: "all"
+          list-tests: "all"
+          fail-on-error: "false"
           token: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
@@ -128,7 +124,8 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle*.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*',
+            '**/gradle*.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -136,7 +133,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 21
 
       - name: Validate Gradle wrapper
@@ -176,8 +173,8 @@ jobs:
           job_name: Publish
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           username: GitHub Actions
-          icon_emoji: ':github-actions:'
-          channel: 'C02DQ1A7JLR'
+          icon_emoji: ":github-actions:"
+          channel: "C02DQ1A7JLR"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

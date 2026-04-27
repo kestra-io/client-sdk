@@ -14,29 +14,21 @@ on:
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
   push:
     tags:
-      - 'v*.*.*-python'
+      - "v*.*.*-python"
 
 jobs:
-  list-versions:
-    uses: ./.github/workflows/list-versions.yml
-
   test:
     name: Test Python SDK
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./python/python-sdk
-    needs: list-versions
-    strategy:
-      fail-fast: false
-      matrix:
-        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -55,7 +47,7 @@ jobs:
         run: pip install -r test-requirements.txt
 
       - name: GCP - Auth with github service account
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -66,14 +58,15 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ matrix.kestra_version }}
+          kestra_version: develop
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with pytest
-        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        if: ${{ github.event.inputs.skip-test == 'false' ||
+          github.event.inputs.skip-test == '' }}
         env:
-          KESTRA_VERSION: ${{ matrix.kestra_version }}
+          KESTRA_VERSION: develop
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION

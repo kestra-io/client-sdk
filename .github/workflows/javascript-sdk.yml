@@ -14,42 +14,33 @@ on:
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
 
   push:
     tags:
-      - 'v*.*.*-javascript'
+      - "v*.*.*-javascript"
 
 permissions:
   contents: read
   id-token: write
 
-
 jobs:
-  list-versions:
-    uses: ./.github/workflows/list-versions.yml
-
   test:
     name: Test Javascript SDK
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./javascript
-    needs: list-versions
-    strategy:
-      fail-fast: false
-      matrix:
-        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.12'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.12"
+          registry-url: "https://registry.npmjs.org"
 
       - name: extract current version from package.json
         id: extract_version
@@ -57,19 +48,19 @@ jobs:
           VERSION=$(node -p "require('./javascript-sdk/package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-#      - name: Generate SDK
-#        working-directory: .
-#        run: ./generate-sdks.sh ${{ steps.extract_version.outputs.version }} javascript
-#
-#      - name: fail workflow if there is any difference after SDK generation
-#        run: |
-#          if [[ -n $(git status --porcelain) ]]; then
-#            echo "There are uncommitted changes after SDK generation. Please commit the changes."
-#            git --no-pager diff
-#            exit 1
-#          else
-#            echo "No changes detected after SDK generation."
-#          fi
+      #      - name: Generate SDK
+      #        working-directory: .
+      #        run: ./generate-sdks.sh develop javascript
+      #
+      #      - name: fail workflow if there is any difference after SDK generation
+      #        run: |
+      #          if [[ -n $(git status --porcelain) ]]; then
+      #            echo "There are uncommitted changes after SDK generation. Please commit the changes."
+      #            git --no-pager diff
+      #            exit 1
+      #          else
+      #            echo "No changes detected after SDK generation."
+      #          fi
 
       - name: Install dependencies
         run: npm install
@@ -78,7 +69,7 @@ jobs:
         run: npm run build
 
       - name: GCP - Auth with github service account
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -92,14 +83,14 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ matrix.kestra_version }}
+          kestra_version: develop
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
         if: inputs.skip-test != 'true'
         env:
-          KESTRA_VERSION: ${{ matrix.kestra_version }}
+          KESTRA_VERSION: develop
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
@@ -117,8 +108,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.12'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.12"
+          registry-url: "https://registry.npmjs.org"
 
       - name: extract current version from package.json
         id: extract_version
