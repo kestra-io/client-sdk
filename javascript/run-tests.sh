@@ -45,7 +45,7 @@ for KESTRA_VERSION in $versions; do
   }
 
   echo "run test_javascript-sdk tests"
-  log_and_run sh -c 'cd test_javascript_sdk && npm run test'
+  log_and_run sh -c 'cd test_javascript_sdk && npm run test -- --coverage'
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down

@@ -7,20 +7,18 @@ const sdkEntries = Object.fromEntries(
         .filter(f => f.endsWith(".gen.ts"))
         .map(f => {
             // Strip "ks-" prefix and ".gen.ts" suffix: "ks-Outputs.gen.ts" → "outputs"
-            const name = f.replace(/^ks-/, "").replace(/\.gen\.ts$/, "").replace(/ /g, "-").toLowerCase()
+            const name = f.replace(/^ks-/, "").replace(/\.gen\.ts$/, "").replace(/([a-z])([A-Z])/, "$1-$2").replace(/ /g, "-").toLowerCase()
             return [name, `src/openapi/sdk/${f}`]
         })
 )
 
-const allEntries = {
-    "index": "src/index.ts",
-    "client": "src/openapi/client.gen.ts",
-    ...sdkEntries,
-}
-
 export default defineConfig({
     platform: "browser",
-    entry: allEntries,
+    entry: {
+        "index": "src/index.ts",
+        "client": "src/openapi/client.gen.ts",
+        ...sdkEntries,
+    },
     format: ["esm"],
     dts: {
         // Use tsc resolver so it respects tsconfig `moduleResolution: "bundler"`,
@@ -29,8 +27,8 @@ export default defineConfig({
         resolver: "tsc",
         sourcemap: true,
     },
-    sourcemap: "hidden",
-    exports: true,
+    sourcemap: "inline",
+    exports: "ci-only",
     clean: true,
 })
 

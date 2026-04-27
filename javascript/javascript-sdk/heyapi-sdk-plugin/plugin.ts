@@ -36,6 +36,18 @@ function detectBodySimplification(
     return { paramName, typeSymbol };
 }
 
+function pascalCase(str: string): string {
+    return str
+        // when a non capital is following a capital letter
+        // it is a new word, so we add a space in between
+        .replace(/([a-z])([A-Z])/g, "$1 $2")
+        .split(/[\s-_]+/)
+        .map((word, index) => {
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join("");
+}
+
 export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
     const addTenantToParametersSymbol = plugin.symbol("addTenantToParameters", {
         getFilePath: () => "sdk/ks-shared",
@@ -148,7 +160,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             const originalOperationSymbol = $(sym);
 
             const funcSymbol = plugin.symbol(methodName, {
-                getFilePath: () => `sdk/ks-${operation.tags?.[0] ?? "default"}`,
+                getFilePath() {
+                    const tag = operation.tags?.[0] ?? "default";
+                    return `sdk/ks-${pascalCase(tag)}`;
+                }
             })
 
             if (!operationsDict[operation.tags?.[0] ?? "default"]) {
