@@ -7,6 +7,6 @@ export default defineConfig({
         './src/KestraClient.js',
         './src/model/*.js'
     ],
-    dts: false
+    dts: false,
     sourcemap: true
 })
