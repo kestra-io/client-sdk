@@ -1,22 +1,49 @@
+# Here is the list of workflow that are handled by this main workflow:
+# - We are on `main`, and on each commit we deliver a new version of the SDKs with the develop tag,
+#   We can then update the develop branch of the APP with the new generated SDKs
+# - We just branched a release branch, `releases/v1.2.X` for instance.
+#   Once all the tests are passed and coverage is good, we publish the first available tag for this version v1.2.0
+# - We just pushed a new commit to the release branch,
+#   Once all tests pass, publish the new version with the next available patch release tag v1.2.X
+
 name: main.yml
 on:
   push:
     branches:
       - main
+      - "releases/v*"
 
   pull_request:
     branches:
       - main
+      - "releases/v*"
 
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
 
 jobs:
+  compute-version:
+    name: Compute Kestra version
+    runs-on: ubuntu-latest
+    outputs:
+      kestra_version: ${{ steps.version.outputs.kestra_version }}
+    steps:
+      - name: Compute version from branch
+        id: version
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == releases/* ]]; then
+            echo "kestra_version=${GITHUB_REF_NAME#releases/}" >> $GITHUB_OUTPUT
+          elif [[ "${GITHUB_BASE_REF}" == releases/* ]]; then
+            echo "kestra_version=${GITHUB_BASE_REF#releases/}" >> $GITHUB_OUTPUT
+          else
+            echo "kestra_version=develop" >> $GITHUB_OUTPUT
+          fi
+
   file-changes:
     name: File changes detection
     runs-on: ubuntu-latest
@@ -39,13 +66,16 @@ jobs:
             python:
               - 'python/**'
             javascript:
-              - 'javascript/**'
+              - 'javascript/javascript-sdk/**'
+              - 'kestra-ee.yml'
           token: ${{ secrets.GITHUB_TOKEN }}
 
   go:
     if: "needs.file-changes.outputs.go == 'true'"
-    needs: file-changes
+    needs: [ file-changes, compute-version ]
     uses: ./.github/workflows/go-sdk.yml
+    with:
+      kestra_version: ${{ needs.compute-version.outputs.kestra_version }}
     secrets:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
@@ -54,27 +84,35 @@ jobs:
 
   java:
     if: "needs.file-changes.outputs.java == 'true'"
-    needs: file-changes
+    needs: [ file-changes, compute-version ]
     uses: ./.github/workflows/java-sdk.yml
+    with:
+      kestra_version: ${{ needs.compute-version.outputs.kestra_version }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
       KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
   javascript:
     if: "needs.file-changes.outputs.javascript == 'true'"
-    needs: file-changes
+    needs: [ file-changes, compute-version ]
     uses: ./.github/workflows/javascript-sdk.yml
+    with:
+      kestra_version: ${{ needs.compute-version.outputs.kestra_version }}
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
       KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   python:
     if: "needs.file-changes.outputs.python == 'true'"
-    needs: file-changes
+    needs: [ file-changes, compute-version ]
     uses: ./.github/workflows/python-sdk.yml
+    with:
+      kestra_version: ${{ needs.compute-version.outputs.kestra_version }}
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}

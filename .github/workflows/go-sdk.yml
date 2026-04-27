@@ -2,6 +2,12 @@ name: GO SDK tests
 
 on:
   workflow_call:
+    inputs:
+      kestra_version:
+        description: "Kestra version to test against"
+        required: false
+        type: string
+        default: "develop"
     secrets:
       GOOGLE_SERVICE_ACCOUNT:
         required: true
@@ -49,7 +55,7 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: develop
+          kestra_version: ${{ inputs.kestra_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
@@ -57,7 +63,7 @@ jobs:
         if: ${{ github.event.inputs.skip-test == 'false' ||
           github.event.inputs.skip-test == '' }}
         env:
-          KESTRA_VERSION: develop
+          KESTRA_VERSION: ${{ inputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
