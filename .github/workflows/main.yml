@@ -1,5 +1,5 @@
 # Here is the list of workflow that are handled by this main workflow:
-# - We are on `main`, and on each commit we deliver a new version of the SDKs with the develop tag,
+# - We are on `main`, and on each commit we deliver a new version of the javascript SDK with the develop tag,
 #   We can then update the develop branch of the APP with the new generated SDKs
 # - We just branched a release branch, `releases/v1.2.X` for instance.
 #   Once all the tests are passed and coverage is good, we publish the first available tag for this version v1.2.0
