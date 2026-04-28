@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { searchAndCreateFlowsExample } from "./basicSDKUsageExample";
+import { searchAndCreateFlowsExample } from "./basicSDKUsageExample.js";
 
 describe("searchAndCreateFlowsExample", () => {
     it("should execute the search and create flows example without errors", async () => {
