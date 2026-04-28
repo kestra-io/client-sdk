@@ -211,4 +211,4 @@ jobs:
       - name: Publish to npm with latest tag
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public
+        run: npm publish --access public --force
