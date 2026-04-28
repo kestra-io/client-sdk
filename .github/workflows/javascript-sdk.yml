@@ -154,8 +154,6 @@ jobs:
           echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
           echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
 
-            - name: Check if version already published
-
       - name: Check if version already published
         id: check
         working-directory: ./javascript
