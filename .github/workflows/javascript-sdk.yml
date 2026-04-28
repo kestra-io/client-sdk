@@ -45,12 +45,6 @@ jobs:
           node-version: "22.12"
           registry-url: "https://registry.npmjs.org"
 
-      - name: extract current version from package.json
-        id: extract_version
-        run: |
-          VERSION=$(node -p "require('./javascript-sdk/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Generate SDK
         working-directory: .
         run: |
@@ -68,12 +62,6 @@ jobs:
           else
             echo "No changes detected after SDK generation."
           fi
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: build
-        run: npm run build
 
       - name: GCP - Auth with github service account
         uses: "google-github-actions/auth@v2"
