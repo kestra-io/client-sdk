@@ -10,7 +10,7 @@ log_and_run() {
 if [ $# -ge 1 ]; then
   versions="$1"
 else
-  versions=$(cat ../../COMPATIBLE_KESTRA_VERSION.properties)
+  versions="develop"
 fi
 
 echo "/n------------------------------------------------"
