@@ -2,8 +2,12 @@
   "name": "@kestra-io/kestra-sdk",
   "version": "0.0.0-dev",
   "description": "All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.",
-  "license": "Unlicense",
+  "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kestra-io/client-sdk.git"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./ai": "./dist/ai.js",
