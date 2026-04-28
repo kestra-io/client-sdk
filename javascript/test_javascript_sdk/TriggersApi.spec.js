@@ -177,7 +177,6 @@ describe("TriggersApiTest", () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const resp = await kestraClient().triggersApi.disabledTriggersByQuery(
-            true,
             MAIN_TENANT,
             {
                 filters: [
@@ -187,6 +186,7 @@ describe("TriggersApiTest", () => {
                         value: flowId,
                     },
                 ],
+                disabled: true,
             },
         );
         expect(resp).toBeTruthy();
@@ -274,10 +274,10 @@ describe("TriggersApiTest", () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const page = await kestraClient().triggersApi.searchTriggers(
-            1,
-            10,
             MAIN_TENANT,
             {
+                page: 1,
+                size: 10,
                 filters: [
                     {
                         field: "NAMESPACE",
@@ -299,11 +299,10 @@ describe("TriggersApiTest", () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const page = await kestraClient().triggersApi.searchTriggersForFlow(
-            1,
-            10,
             namespace,
             flowId,
             MAIN_TENANT,
+            { page: 1, size: 10 },
         );
         expect(page).toBeTruthy();
     });
