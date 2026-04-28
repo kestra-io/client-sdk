@@ -142,11 +142,9 @@ describe("NamespacesApi", () => {
         // signature: listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
         const resp = await kestraClient().namespacesApi.listNamespaceSecrets(
             ns.id,
-            1,
-            10,
             [{ field: "QUERY", operation: "EQUALS", value: key }],
             MAIN_TENANT,
-            undefined,
+            { page: 1, size: 10 },
         );
         const results = resp?.results ?? [];
 
@@ -204,13 +202,9 @@ describe("NamespacesApi", () => {
             { id: nsId, deleted: false },
         );
 
-        // Java sig was (page, size, existing, tenant, q, sort)
         const page = await kestraClient().namespacesApi.searchNamespaces(
-            1,
-            10,
-            false,
             MAIN_TENANT,
-            { q: nsId },
+            { page: 1, size: 10, q: nsId, existing: false },
         );
         const results = page?.results ?? [];
 
@@ -257,11 +251,9 @@ describe("NamespacesApi", () => {
 
         const list = await kestraClient().namespacesApi.listNamespaceSecrets(
             ns.id,
-            1,
-            10,
             [],
             MAIN_TENANT,
-            undefined,
+            { page: 1, size: 10 },
         );
         const results = list?.results ?? [];
         expect(

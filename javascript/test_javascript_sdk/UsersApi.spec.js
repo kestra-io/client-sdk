@@ -192,7 +192,10 @@ describe("UsersApi", () => {
         const filters = [
             qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: base }),
         ];
-        const page = await kestraClient().usersApi.listUsers(1, 50, filters);
+        const page = await kestraClient().usersApi.listUsers(filters, {
+            page: 1,
+            size: 50,
+        });
         const results = page?.results ?? [];
         expect(
             results.some(

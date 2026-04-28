@@ -538,11 +538,14 @@ describe("TestSuitesApiTest", () => {
         {
             const flowIdToSearch = flowAAA.id;
             const res = await kestraClient().testSuitesApi.searchTestSuites(
-                page,
-                size,
-                includeChildNamespaces,
                 MAIN_TENANT,
-                { sort: sort, flowId: flowIdToSearch },
+                {
+                    page,
+                    size,
+                    includeChildNamespaces,
+                    sort: sort,
+                    flowId: flowIdToSearch,
+                },
             );
             const gotIds = (res?.results ?? [])
                 .map((/** @type {{id: string}} */ r) => r.id)
@@ -554,11 +557,14 @@ describe("TestSuitesApiTest", () => {
         {
             const namespaceToSearch = namespaceYYY;
             const res = await kestraClient().testSuitesApi.searchTestSuites(
-                page,
-                size,
-                includeChildNamespaces,
                 MAIN_TENANT,
-                { sort: sort, namespace: namespaceToSearch },
+                {
+                    page,
+                    size,
+                    includeChildNamespaces,
+                    sort: sort,
+                    namespace: namespaceToSearch,
+                },
             );
             const gotIds = (res?.results ?? [])
                 .map((/** @type {{id: string}} */ r) => r.id)
@@ -791,10 +797,8 @@ describe("TestSuitesApiTest", () => {
         {
             const res =
                 await kestraClient().testSuitesApi.searchTestSuitesResults(
-                    page,
-                    size,
                     MAIN_TENANT,
-                    { sort: sort, testSuiteId: ts1.id },
+                    { page, size, sort: sort, testSuiteId: ts1.id },
                 );
             const results = res?.results ?? [];
             expect(
@@ -810,10 +814,8 @@ describe("TestSuitesApiTest", () => {
         {
             const res =
                 await kestraClient().testSuitesApi.searchTestSuitesResults(
-                    page,
-                    size,
                     MAIN_TENANT,
-                    { sort: sort, flowId: flowAAA.id },
+                    { page, size, sort: sort, flowId: flowAAA.id },
                 );
             const results = res?.results ?? [];
             expect(
@@ -832,10 +834,8 @@ describe("TestSuitesApiTest", () => {
         {
             const res =
                 await kestraClient().testSuitesApi.searchTestSuitesResults(
-                    page,
-                    size,
                     MAIN_TENANT,
-                    { sort: sort, namespace: namespaceYYY },
+                    { page, size, sort: sort, namespace: namespaceYYY },
                 );
             const results = res?.results ?? [];
             expect(

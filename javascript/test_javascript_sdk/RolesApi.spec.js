@@ -150,12 +150,11 @@ describe("RolesApi", () => {
             roleReq,
         );
 
-        const results = await kestraClient().rolesApi.searchRoles(
-            1,
-            10000,
-            MAIN_TENANT,
-            { q: name },
-        );
+        const results = await kestraClient().rolesApi.searchRoles(MAIN_TENANT, {
+            page: 1,
+            size: 10000,
+            q: name,
+        });
 
         // search typically returns { results, total, ... }
         expect(
