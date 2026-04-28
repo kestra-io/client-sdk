@@ -190,18 +190,22 @@ jobs:
           INPUT_VERSION=${{ steps.resolveVersion.outputs.kestra_version }}
           echo "Input version: $INPUT_VERSION"
 
-          # create the version prefix by removing the last part of the version (e.g., 1.2.3 -> 1.2 or 1.2.X -> 1.2)
-          VERSION_PREFIX=$(echo $INPUT_VERSION | sed 's/\.[xX]$//')
+          # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
+          VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
 
           echo "Version prefix: $VERSION_PREFIX"
 
-          # list all versions and filter those that start with the current version prefix (e.g., 1.2.) to find existing patch versions
-          VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^$INPUT_VERSION")
+          # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
+          # `|| true` so an empty grep does not abort the step under `bash -e`
+          VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${VERSION_PREFIX}\." || true)
 
           echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
 
-          # get the highest patch version
+          # get the highest patch version, default to -1 when no prior patches exist
           HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
+          if [ -z "$HIGHEST_PATCH" ]; then
+            HIGHEST_PATCH=-1
+          fi
 
           echo "Highest patch version: $HIGHEST_PATCH"
 
@@ -215,10 +219,10 @@ jobs:
           npm version $NEXT_VERSION --no-git-tag-version
 
           # set it right in the README.md "Package version: v1.2.x" to "Package version: v1.2.2"
-          sed -i "s/Package version: v[0-9]\+\.[0-9]\+\.X/Package version: v$NEXT_VERSION/g" README.md
+          sed -i "s/Package version: v[0-9]\+\.[0-9]\+\.[xX]/Package version: v$NEXT_VERSION/g" README.md
 
           # Set it right in the src/ApiClient.js 'User-Agent': 'OpenAPI-Generator/v1.2.x/Javascript' to 'User-Agent': 'OpenAPI-Generator/v1.2.2/Javascript'
-          sed -i "s/OpenAPI-Generator\/v[0-9]\+\.[0-9]\+\.X/OpenAPI-Generator\/v$NEXT_VERSION/g" src/ApiClient.js
+          sed -i "s/OpenAPI-Generator\/v[0-9]\+\.[0-9]\+\.[xX]/OpenAPI-Generator\/v$NEXT_VERSION/g" src/ApiClient.js
 
           # Re-run the build to update the generated code with the new version
           npm run build
