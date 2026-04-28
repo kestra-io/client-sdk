@@ -51,16 +51,13 @@ jobs:
           # remove the .X or .x at the end of the version
           root_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
 
-          # remove the leading "v" if present (npm versions are not v-prefixed)
-          # and append ".0" to get a valid npm version (e.g., 1.2.0 from 1.2)
-          npm_version=$(echo "$root_version" | sed 's/^v//').0
           echo "root_version=$root_version" >> $GITHUB_OUTPUT
-          echo "npm_version=$npm_version" >> $GITHUB_OUTPUT
 
       - name: Generate SDK
+        # Generate SDK with develop version to check
+        # for any difference with current code
         working-directory: .
-        run: |
-          ./generate-sdks.sh ${{ steps.extract_version.outputs.npm_version }} javascript
+        run: ./generate-sdks.sh 0.0.0-dev javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
