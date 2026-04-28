@@ -45,10 +45,22 @@ jobs:
           node-version: "22.12"
           registry-url: "https://registry.npmjs.org"
 
+      - name: extract root version
+        id: extract_version
+        run: |
+          # remove the .X or .x at the end of the version
+          root_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
+
+          # remove the leading "v" if present (npm versions are not v-prefixed)
+          # and append ".0" to get a valid npm version (e.g., 1.2.0 from 1.2)
+          npm_version=$(echo "$root_version" | sed 's/^v//').0
+          echo "root_version=$root_version" >> $GITHUB_OUTPUT
+          echo "npm_version=$npm_version" >> $GITHUB_OUTPUT
+
       - name: Generate SDK
         working-directory: .
         run: |
-          ./generate-sdks.sh ${{ inputs.kestra_version }} javascript
+          ./generate-sdks.sh ${{ steps.extract_version.outputs.npm_version }} javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
@@ -71,25 +83,18 @@ jobs:
       - name: type check
         run: npm run test:typecheck
 
-      - name: extract docker version
-        id: extract_version
-        run: |
-          # remove the .X or .x at the end of the version
-          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
-          echo "docker_version=$docker_version" >> $GITHUB_OUTPUT
-
       - name: Select license file
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ steps.extract_version.outputs.docker_version }}
+          kestra_version: ${{ steps.extract_version.outputs.root_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
         if: inputs.skip-test != 'true'
         env:
-          KESTRA_VERSION: ${{ steps.extract_version.outputs.docker_version }}
+          KESTRA_VERSION: ${{ steps.extract_version.outputs.root_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION --no-build
