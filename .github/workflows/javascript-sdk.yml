@@ -154,7 +154,7 @@ jobs:
             NEXT_PATCH=$((HIGHEST_PATCH + 1))
             NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
 
-            echo "kestra_version=NEXT_VERSION" >> $GITHUB_OUTPUT
+            echo "kestra_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
           else
             HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
             HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
