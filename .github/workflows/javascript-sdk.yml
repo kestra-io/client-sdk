@@ -45,15 +45,19 @@ jobs:
           node-version: "22.12"
           registry-url: "https://registry.npmjs.org"
 
-      - name: extract current version from package.json
+      - name: extract root version
         id: extract_version
         run: |
-          VERSION=$(node -p "require('./javascript-sdk/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          # remove the .X or .x at the end of the version
+          root_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
+
+          echo "root_version=$root_version" >> $GITHUB_OUTPUT
 
       - name: Generate SDK
+        # Generate SDK with develop version to check
+        # for any difference with current code
         working-directory: .
-        run: ./generate-sdks.sh ${{ inputs.kestra_version }} javascript
+        run: ./generate-sdks.sh 0.0.0-dev javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
@@ -64,12 +68,6 @@ jobs:
           else
             echo "No changes detected after SDK generation."
           fi
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: build
-        run: npm run build
 
       - name: GCP - Auth with github service account
         uses: "google-github-actions/auth@v2"
@@ -86,17 +84,24 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ inputs.kestra_version }}
+          kestra_version: ${{ steps.extract_version.outputs.root_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
         if: inputs.skip-test != 'true'
         env:
-          KESTRA_VERSION: ${{ inputs.kestra_version }}
+          KESTRA_VERSION: ${{ steps.extract_version.outputs.root_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh $KESTRA_VERSION
+          sh run-tests.sh $KESTRA_VERSION --no-build
+
+      - name: publish test results
+        if: inputs.skip-test != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: ./coverage
 
   publish:
     name: Publish to Npm
@@ -104,60 +109,8 @@ jobs:
     needs: test
     if: startsWith(github.ref, 'refs/heads/releases/') || github.ref ==
       'refs/heads/main'
-    defaults:
-      run:
-        working-directory: ./javascript
     steps:
       - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22.12"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: extract current version from package.json
-        id: extract_version
-        run: |
-          VERSION=$(node -p "require('./javascript-sdk/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Compute content hash
-        id: resolveVersion
-        run: |
-          if [[ "${GITHUB_REF_NAME}" == releases/* ]]; then
-            echo "kestra_version=${{inputs.kestra_version}}" >> $GITHUB_OUTPUT
-          elif [[ "${GITHUB_BASE_REF}" == releases/* ]]; then
-            echo "kestra_version=${{inputs.kestra_version}}" >> $GITHUB_OUTPUT
-          else
-            HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
-            HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
-            echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
-            echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-            echo "kestra_version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Check if version already published
-        id: check
-        working-directory: ./javascript
-        run: |
-          if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "Version ${{ steps.resolveVersion.outputs.kestra_version }} already published — skipping."
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: build
-        run: npm run build
-
-      # Trusted publishing need npm 11.+
-      - name: Upgrade npm
-        run: |
-          npm install -g npm@latest
-          npm version
 
       - name: Get OIDC Token
         env:
@@ -169,18 +122,78 @@ jobs:
           echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
           echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Compute next version
+        id: resolveVersion
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == releases/* || "${GITHUB_BASE_REF}" == releases/* ]]; then
+            INPUT_VERSION=${{ inputs.kestra_version }}
+
+            # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
+            VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
+
+            echo "Version prefix: $VERSION_PREFIX"
+
+            # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
+            # `|| true` so an empty grep does not abort the step under `bash -e`
+            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${VERSION_PREFIX}\." || true)
+
+            echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
+
+            # get the highest patch version, default to -1 when no prior patches exist
+            HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
+            if [ -z "$HIGHEST_PATCH" ]; then
+              HIGHEST_PATCH=-1
+            fi
+
+            echo "Highest patch version: $HIGHEST_PATCH"
+
+            # increment the patch version
+            NEXT_PATCH=$((HIGHEST_PATCH + 1))
+            NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
+
+            echo "kestra_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          else
+            HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
+            HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
+            echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
+            echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
+            echo "kestra_version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
+          fi
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Check if version already published
+        id: check
+        run: |
+          if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Version ${{ steps.resolveVersion.outputs.kestra_version }} already published — skipping."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Generate SDK
         if: steps.check.outputs.skip != 'true'
+        working-directory: .
         run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
           javascript
 
       - name: Publish to npm with develop tag
-        if: steps.check.outputs.skip != 'true'
+        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
         run: npm publish --tag develop --access public
 
       - name: Comment on commit with install instructions
-        if: steps.check.outputs.skip != 'true'
+        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -194,3 +207,8 @@ jobs:
           ```
           EOF
           )"
+
+      - name: Publish to npm with latest tag
+        if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public

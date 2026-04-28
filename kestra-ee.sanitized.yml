@@ -6011,7 +6011,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Change executions state by id
+      summary: Change executions state by id asynchronously
       operationId: updateExecutionsStatusByIds
       parameters:
         - name: newStatus
@@ -6037,13 +6037,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: updateExecutionsStatusByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Changed state with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6055,7 +6061,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Change executions state by query parameters
+      summary: Change executions state by query parameters asynchronously
       operationId: updateExecutionsStatusByQuery
       parameters:
         - name: filters
@@ -6084,17 +6090,17 @@ paths:
             type: string
       responses:
         "200":
-          description: On success
+          description: updateExecutionsStatusByQuery 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Changed state with errors
+                type: object
+        "202":
+          description: Accepted
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkErrorResponse"
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6144,7 +6150,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Force run a list of executions
+      summary: Force run a list of executions asynchronously
       operationId: forceRunByIds
       parameters:
         - name: tenant
@@ -6163,13 +6169,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: forceRunByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Force run with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6181,7 +6193,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Force run executions filter by query parameters
+      summary: Force run executions filter by query parameters asynchronously
       operationId: forceRunExecutionsByQuery
       parameters:
         - name: filters
@@ -6208,6 +6220,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6215,7 +6233,7 @@ paths:
     delete:
       tags:
         - Executions
-      summary: Kill a list of executions
+      summary: Kill a list of executions asynchronously
       operationId: killExecutionsByIds
       parameters:
         - name: tenant
@@ -6234,13 +6252,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: killExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Killed with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6286,7 +6310,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Set labels on a list of executions
+      summary: Set labels on a list of executions asynchronously
       operationId: setLabelsOnTerminatedExecutionsByIds
       parameters:
         - name: tenant
@@ -6303,13 +6327,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: setLabelsOnTerminatedExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Killed with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6321,7 +6351,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Set label on executions filter by query parameters
+      summary: Set label on executions filter by query parameters asynchronously
       operationId: setLabelsOnTerminatedExecutionsByQuery
       parameters:
         - name: filters
@@ -6357,6 +6387,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6396,7 +6432,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Pause a list of running executions
+      summary: Pause a list of running executions asynchronously
       operationId: pauseExecutionsByIds
       parameters:
         - name: tenant
@@ -6415,13 +6451,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: pauseExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Paused with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6433,7 +6475,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Pause executions filter by query parameters
+      summary: Pause executions filter by query parameters asynchronously
       operationId: pauseExecutionsByQuery
       parameters:
         - name: filters
@@ -6460,6 +6502,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6467,7 +6515,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Create new executions from old ones. Keep the flow revision
+      summary: Create new executions from old ones asynchronously. Keep the flow revision
       operationId: replayExecutionsByIds
       parameters:
         - name: latestRevision
@@ -6494,13 +6542,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: replayExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Replayed with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6512,7 +6566,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Create new executions from old ones filter by query parameters. Keep the flow revision
+      summary: Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision
       operationId: replayExecutionsByQuery
       parameters:
         - name: filters
@@ -6547,6 +6601,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6554,7 +6614,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Restart a list of executions
+      summary: Restart a list of executions asynchronously
       operationId: restartExecutionsByIds
       parameters:
         - name: tenant
@@ -6573,13 +6633,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: restartExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Restarted with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6591,7 +6657,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Restart executions filter by query parameters
+      summary: Restart executions filter by query parameters asynchronously
       operationId: restartExecutionsByQuery
       parameters:
         - name: filters
@@ -6618,6 +6684,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6625,7 +6697,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Resume a list of paused executions
+      summary: Resume a list of paused executions asynchronously
       operationId: resumeExecutionsByIds
       parameters:
         - name: tenant
@@ -6644,13 +6716,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: resumeExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Resumed with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6662,7 +6740,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Resume executions filter by query parameters
+      summary: Resume executions filter by query parameters asynchronously
       operationId: resumeExecutionsByQuery
       parameters:
         - name: filters
@@ -6689,6 +6767,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6762,7 +6846,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Unqueue a list of executions
+      summary: Unqueue a list of executions asynchronously
       operationId: unqueueExecutionsByIds
       parameters:
         - name: state
@@ -6788,13 +6872,19 @@ paths:
         required: true
       responses:
         "200":
-          description: On success
+          description: unqueueExecutionsByIds 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BulkResponse"
-        "422":
-          description: Unqueued with errors
+                type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
           content:
             application/json:
               schema:
@@ -6806,7 +6896,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Unqueue executions filter by query parameters
+      summary: Unqueue executions filter by query parameters asynchronously
       operationId: unqueueExecutionsByQuery
       parameters:
         - name: filters
@@ -6841,6 +6931,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7127,11 +7223,13 @@ paths:
             type: string
       responses:
         "200":
-          description: updateExecutionStatus 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution state cannot be changed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7367,11 +7465,13 @@ paths:
             type: string
       responses:
         "200":
-          description: forceRunExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be force-run
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7439,13 +7539,11 @@ paths:
             type: string
       responses:
         "200":
-          description: killExecution 200 response
+          description: On success
           content:
             text/json:
               schema:
-                type: object
-        "202":
-          description: Execution kill was requested successfully
+                $ref: "#/components/schemas/Execution"
         "404":
           description: if the executions is not found
         "409":
@@ -7482,15 +7580,17 @@ paths:
         required: true
       responses:
         "200":
-          description: setLabelsOnTerminatedExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/Execution"
         "400":
           description: If the execution is not terminated
         "404":
           description: If the execution cannot be found
+        "409":
+          description: If labels cannot be applied
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7514,13 +7614,11 @@ paths:
             type: string
       responses:
         "200":
-          description: pauseExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
-        "204":
-          description: On success
+                $ref: "#/components/schemas/Execution"
         "409":
           description: if the executions is not running
       security:
@@ -7568,11 +7666,13 @@ paths:
             type: string
       responses:
         "200":
-          description: replayExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7629,11 +7729,13 @@ paths:
         required: true
       responses:
         "200":
-          description: replayExecutionWithinputs 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7667,11 +7769,13 @@ paths:
             type: string
       responses:
         "200":
-          description: restartExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be restarted
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7705,13 +7809,11 @@ paths:
         required: true
       responses:
         "200":
-          description: resumeExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                type: object
-        "204":
-          description: On success
+                $ref: "#/components/schemas/Execution"
         "409":
           description: if the executions is not paused
       security:
@@ -7746,11 +7848,13 @@ paths:
         required: true
       responses:
         "200":
-          description: updateTaskRunState 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the task run state cannot be changed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7770,10 +7874,11 @@ paths:
         - name: state
           in: query
           description: The new state of the execution
-          required: true
           explode: false
           schema:
-            $ref: "#/components/schemas/State.Type"
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/State.Type"
         - name: tenant
           in: path
           required: true
@@ -7781,11 +7886,13 @@ paths:
             type: string
       responses:
         "200":
-          description: unqueueExecution 200 response
+          description: On success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiAsyncEvent"
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be unqueued
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -8283,6 +8390,43 @@ paths:
               schema:
                 type: string
                 format: byte
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/flows/expressions:
+    post:
+      tags:
+        - Flows
+      summary: Get available Pebble expressions for a flow
+      description: Returns a categorized map of expression strings available for autocompletion in the No-Code editor.
+      operationId: expressions
+      parameters:
+        - name: taskId
+          in: query
+          description: Optional task ID to scope outputs to prior tasks
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The flow source code
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Categorized expressions map
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpressionContext"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13759,7 +13903,13 @@ paths:
         required: true
       responses:
         "200":
-          description: createBackfill 200 response
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the backfill cannot be created
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13783,7 +13933,13 @@ paths:
         required: true
       responses:
         "200":
-          description: deleteBackfill 200 response
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the backfill cannot be deleted
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13791,7 +13947,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Delete backfill for given triggers
+      summary: Delete backfill for triggers matching query asynchronously
       operationId: deleteBackfillByQuery
       parameters:
         - name: filters
@@ -13816,7 +13972,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13824,7 +13986,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Delete backfill for given triggers
+      summary: Delete backfill for given triggers asynchronously
       operationId: deleteBackfillByIds
       parameters:
         - name: tenant
@@ -13846,7 +14008,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13870,7 +14038,13 @@ paths:
         required: true
       responses:
         "200":
-          description: pauseBackfill 200 response
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the backfill cannot be paused
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13878,7 +14052,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Pause backfill for given triggers
+      summary: Pause backfill for triggers matching query asynchronously
       operationId: pauseBackfillByQuery
       parameters:
         - name: filters
@@ -13903,7 +14077,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13911,7 +14091,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Pause backfill for given triggers
+      summary: Pause backfill for given triggers asynchronously
       operationId: pauseBackfillByIds
       parameters:
         - name: tenant
@@ -13933,7 +14113,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13957,7 +14143,13 @@ paths:
         required: true
       responses:
         "200":
-          description: unpauseBackfill 200 response
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the backfill cannot be resumed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13965,7 +14157,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unpause backfill for given triggers
+      summary: Unpause backfill for triggers matching query asynchronously
       operationId: unpauseBackfillByQuery
       parameters:
         - name: filters
@@ -13990,7 +14182,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13998,7 +14196,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unpause backfill for given triggers
+      summary: Unpause backfill for given triggers asynchronously
       operationId: unpauseBackfillByIds
       parameters:
         - name: tenant
@@ -14020,7 +14218,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14028,7 +14232,7 @@ paths:
     delete:
       tags:
         - Triggers
-      summary: Delete triggers by query parameters
+      summary: Delete triggers by query parameters asynchronously
       operationId: deleteTriggersByQuery
       parameters:
         - name: tenant
@@ -14056,7 +14260,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14064,7 +14274,7 @@ paths:
     delete:
       tags:
         - Triggers
-      summary: Delete given triggers
+      summary: Delete given triggers asynchronously
       operationId: deleteTriggersByIds
       parameters:
         - name: tenant
@@ -14086,7 +14296,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14208,7 +14424,13 @@ paths:
         required: true
       responses:
         "200":
-          description: disableTriggerById 200 response
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the trigger state cannot be changed
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14216,7 +14438,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Disable/enable triggers by query parameters
+      summary: Disable/enable triggers by query parameters asynchronously
       operationId: disabledTriggersByQuery
       parameters:
         - name: filters
@@ -14248,7 +14470,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14256,7 +14484,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Disable/enable given triggers
+      summary: Disable/enable given triggers asynchronously
       operationId: disabledTriggersByIds
       parameters:
         - name: tenant
@@ -14276,7 +14504,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14284,7 +14518,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unlock triggers by query parameters
+      summary: Unlock triggers by query parameters asynchronously
       operationId: unlockTriggersByQuery
       parameters:
         - name: filters
@@ -14309,7 +14543,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14317,7 +14557,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unlock given triggers
+      summary: Unlock given triggers asynchronously
       operationId: unlockTriggersByIds
       parameters:
         - name: tenant
@@ -14339,7 +14579,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14446,6 +14692,10 @@ paths:
       responses:
         "200":
           description: deleteTrigger 200 response
+        "204":
+          description: On success
+        "409":
+          description: If the trigger cannot be deleted
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14481,11 +14731,13 @@ paths:
             type: string
       responses:
         "200":
-          description: restartTrigger 200 response
+          description: On success
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the trigger cannot be restarted
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14493,7 +14745,7 @@ paths:
     post:
       tags:
         - Triggers
-      summary: Unlock a trigger. Trigger will be unlocked asynchronously
+      summary: Unlock a trigger
       operationId: unlockTrigger
       parameters:
         - name: namespace
@@ -14521,11 +14773,13 @@ paths:
             type: string
       responses:
         "200":
-          description: unlockTrigger 200 response
+          description: On success
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTriggerState"
+        "409":
+          description: If the trigger is already unlocked
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14841,11 +15095,14 @@ components:
           properties:
             providerId:
               type: string
-    ApiAsyncEvent:
+    ApiAsyncOperationResponse:
       type: object
       properties:
-        eventId:
+        operationId:
           type: string
+        totalItems:
+          type: integer
+          format: int32
     ApiAuth:
       type: object
       properties:
@@ -16593,6 +16850,32 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
+    ExpressionContext:
+      type: object
+      properties:
+        categories:
+          type: object
+          properties:
+            TASK_OUTPUTS:
+              type: array
+            EXECUTION_CONTEXT:
+              type: array
+            INPUTS:
+              type: array
+            VARIABLES:
+              type: array
+            SECRETS:
+              type: array
+            KV_PAIRS:
+              type: array
+            NAMESPACE_FILES:
+              type: array
+            FILTERS:
+              type: array
+            FUNCTIONS:
+              type: array
+            APP_CONTEXT:
+              type: array
     FileAttributes:
       type: object
       properties:

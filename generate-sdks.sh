@@ -120,6 +120,7 @@ fi
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 cd javascript
+npm version $VERSION --no-git-tag-version --workspace @kestra-io/kestra-sdk
 npm install
 npm run build
 cd ..
