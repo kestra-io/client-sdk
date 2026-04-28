@@ -334,7 +334,7 @@ describe("ExecutionsApi", () => {
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
-        const bulk = await kestraClient().Executions.forceRunByIds({
+        const bulk: any = await kestraClient().Executions.forceRunByIds({
             body: [queued.id],
         });
         expect(bulk.count).toBe(1);
@@ -366,8 +366,7 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.forceRunExecution({
             executionId: queued.id,
         });
-        // TODO: ApiAsyncEvent is missing `id` property
-        // @ts-expect-error
+
         const after = await awaitExecution(resp.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
     });
@@ -398,7 +397,7 @@ describe("ExecutionsApi", () => {
                 value: flowId,
             }),
         ];
-        const resp = await kestraClient().Executions.forceRunExecutionsByQuery({
+        const resp: any = await kestraClient().Executions.forceRunExecutionsByQuery({
             filters: filters,
         });
         expect(resp.count).toBeGreaterThanOrEqual(1);
@@ -552,7 +551,7 @@ describe("ExecutionsApi", () => {
             wait: false,
         });
 
-        const bulk = await kestraClient().Executions.killExecutionsByIds({
+        const bulk: any = await kestraClient().Executions.killExecutionsByIds({
             body: [e2.id, e3.id],
         });
         expect(bulk.count).toBe(2);
@@ -597,7 +596,7 @@ describe("ExecutionsApi", () => {
                 value: flow1,
             }),
         ];
-        const bulk = await kestraClient().Executions.killExecutionsByQuery({
+        const bulk: any = await kestraClient().Executions.killExecutionsByQuery({
             filters: filters,
         });
         expect(bulk.count).toBe(2);
@@ -627,7 +626,7 @@ describe("ExecutionsApi", () => {
         const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
         const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
-        const bulk = await kestraClient().Executions.pauseExecutionsByIds({
+        const bulk: any = await kestraClient().Executions.pauseExecutionsByIds({
             body: [e1.id ?? "", e2.id ?? ""],
         });
         expect(bulk.count).toBe(2);
@@ -653,7 +652,7 @@ describe("ExecutionsApi", () => {
                 value: [e1.namespace, e2.namespace],
             }),
         ];
-        const bulk = await kestraClient().Executions.pauseExecutionsByQuery(
+        const bulk: any = await kestraClient().Executions.pauseExecutionsByQuery(
             { filters: filters },
         );
         expect(bulk.count).toBe(2);
@@ -674,10 +673,9 @@ describe("ExecutionsApi", () => {
             { executionId: e.id ?? "" },
 
         );
-        // TODO: ApiAsyncEvent is missing `state` and `id` properties
-        // @ts-expect-error
+
         expect(replay.state?.current).toBe("CREATED");
-        // @ts-expect-error
+
         const done = await awaitExecution(replay.id ?? "", "SUCCESS", 2000, 100);
         expect(done.state?.current).toBe("SUCCESS");
     });
@@ -690,8 +688,7 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.replayExecutionWithinputs(
             { executionId: e.id ?? "", taskRunId, revision: e.flowRevision, body: [inputs] },
         );
-        // TODO: ApiAsyncEvent is missing `id` property
-        // @ts-expect-error
+
         expect(resp.id).toBeTruthy();
     });
 
@@ -699,7 +696,7 @@ describe("ExecutionsApi", () => {
     it("replay_executions_by_ids", async () => {
         const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
         const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
-        const bulk = await kestraClient().Executions.replayExecutionsByIds({
+        const bulk: any = await kestraClient().Executions.replayExecutionsByIds({
             body: [e1.id ?? "", e2.id ?? ""]
         });
         expect(bulk.count).toBe(2);
@@ -716,7 +713,7 @@ describe("ExecutionsApi", () => {
                 value: e1.flowId,
             }),
         ];
-        const resp = await kestraClient().Executions.replayExecutionsByQuery(
+        const resp: any = await kestraClient().Executions.replayExecutionsByQuery(
             { filters: filters, latestRevision: true },
         );
         expect(resp.count).toBe(1);
@@ -728,8 +725,7 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient().Executions.restartExecution(
             { executionId: e.id ?? "" },
         );
-        // TODO: ApiAsyncEvent is missing `state` property
-        // @ts-expect-error
+
         expect(resp.state?.current).toBe("RESTARTED");
     });
 
@@ -737,7 +733,7 @@ describe("ExecutionsApi", () => {
     it("restart_executions_by_ids", async () => {
         const e1 = await createdExecution(FAILED_FLOW, "FAILED");
         const e2 = await createdExecution(FAILED_FLOW, "FAILED");
-        const bulk = await kestraClient().Executions.restartExecutionsByIds(
+        const bulk: any = await kestraClient().Executions.restartExecutionsByIds(
             { body: [e1.id ?? "", e2.id ?? ""] },
         );
         expect(bulk.count).toBe(2);
@@ -754,7 +750,7 @@ describe("ExecutionsApi", () => {
                 value: [e1.namespace, e2.namespace],
             }),
         ];
-        const resp = await kestraClient().Executions.restartExecutionsByQuery(
+        const resp: any = await kestraClient().Executions.restartExecutionsByQuery(
             { filters: filters },
         );
         expect(resp.count).toBe(2);
@@ -775,7 +771,7 @@ describe("ExecutionsApi", () => {
     it("resume_executions_by_ids", async () => {
         const e1 = await createdExecution(PAUSE_FLOW, "PAUSED");
         const e2 = await createdExecution(PAUSE_FLOW, "PAUSED");
-        const bulk = await kestraClient().Executions.resumeExecutionsByIds(
+        const bulk: any = await kestraClient().Executions.resumeExecutionsByIds(
             { body: [e1.id ?? "", e2.id ?? ""] },
         );
         expect(bulk.count).toBe(2);
@@ -796,7 +792,7 @@ describe("ExecutionsApi", () => {
                 value: [e1.namespace, e2.namespace],
             }),
         ];
-        const resp = await kestraClient().Executions.resumeExecutionsByQuery(
+        const resp: any = await kestraClient().Executions.resumeExecutionsByQuery(
             { filters: filters },
         );
         expect(resp.count).toBe(2);
@@ -880,7 +876,7 @@ describe("ExecutionsApi", () => {
             { key: "foo", value: "bar" },
             { key: "terminated", value: "yes" },
         ];
-        const bulk =
+        const bulk: any =
             await kestraClient().Executions.setLabelsOnTerminatedExecutionsByIds({ executionsId: [a.id ?? "", b.id ?? ""], executionLabels: labels });
         expect(bulk.count).toBe(2);
 
@@ -922,7 +918,7 @@ describe("ExecutionsApi", () => {
                 value: [a.namespace, b.namespace],
             }),
         ];
-        const resp =
+        const resp: any =
             await kestraClient().Executions.setLabelsOnTerminatedExecutionsByQuery({
                 filters: filters,
                 body: labels
@@ -989,8 +985,6 @@ describe("ExecutionsApi", () => {
             executionId: queued.id,
             state: "RUNNING",
         });
-        // TODO: ApiAsyncEvent is missing `state` property
-        // @ts-expect-error
         expect(resp.state?.current).toBe("RUNNING");
         const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
@@ -1021,7 +1015,7 @@ describe("ExecutionsApi", () => {
         });
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
-        const bulk = await kestraClient().Executions.unqueueExecutionsByIds({
+        const bulk: any = await kestraClient().Executions.unqueueExecutionsByIds({
             state: "RUNNING",
             body: [q1.id, q2.id],
         });
@@ -1065,7 +1059,7 @@ describe("ExecutionsApi", () => {
                 value: [q1.id],
             }),
         ];
-        const resp = await kestraClient().Executions.unqueueExecutionsByQuery({
+        const resp: any = await kestraClient().Executions.unqueueExecutionsByQuery({
             filters: filters,
             newState: "RUNNING",
         });
@@ -1082,8 +1076,7 @@ describe("ExecutionsApi", () => {
             executionId: e.id ?? "",
             status: "CANCELLED",
         });
-        // TODO: ApiAsyncEvent is missing `state` property
-        // @ts-expect-error
+
         expect(updated.state?.current).toBe("CANCELLED");
         const fetched = await kestraClient().Executions.execution({
             executionId: e.id ?? "",
@@ -1097,7 +1090,7 @@ describe("ExecutionsApi", () => {
         const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
         const other = await createdExecution(LOG_FLOW, "SUCCESS");
 
-        const bulk = await kestraClient().Executions.updateExecutionsStatusByIds({
+        const bulk: any = await kestraClient().Executions.updateExecutionsStatusByIds({
             newStatus: "CANCELLED",
             body: [e1.id ?? "", e2.id ?? ""],
         });
@@ -1130,7 +1123,7 @@ describe("ExecutionsApi", () => {
                 value: [e1.namespace, e2.namespace],
             }),
         ];
-        const bulk = await kestraClient().Executions.updateExecutionsStatusByQuery({
+        const bulk: any = await kestraClient().Executions.updateExecutionsStatusByQuery({
             newStatus: "CANCELLED",
             filters: filters,
         });
