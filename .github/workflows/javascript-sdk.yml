@@ -94,6 +94,13 @@ jobs:
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION --no-build
 
+      - name: publish test results
+        if: inputs.skip-test != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: ./coverage
+
   publish:
     name: Publish to Npm
     runs-on: ubuntu-latest
