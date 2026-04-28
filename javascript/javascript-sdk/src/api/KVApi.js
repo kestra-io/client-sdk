@@ -44,21 +44,21 @@ export default class KVApi {
 
     /**
     * Delete a key-value pair
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
 
     * @return {Promise< Boolean >}
     */
-    deleteKeyValueWithHttpInfo(key, namespace, tenant) {
+    deleteKeyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
-      // verify the required parameter 'key' is set
-      if (key === undefined || key === null) {
-        throw new Error("Missing the required parameter 'key' when calling deleteKeyValue");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling deleteKeyValue");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling deleteKeyValue");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -66,8 +66,8 @@ export default class KVApi {
       }
 
       let pathParams = {
-        'key': key,
         'namespace': namespace,
+        'key': key,
         'tenant': tenant
       };
       let queryParams = {
@@ -90,14 +90,14 @@ export default class KVApi {
 
     /**
     * Delete a key-value pair
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
 
     * @return {Promise< Boolean >}
     */
-    deleteKeyValue(key, namespace, tenant) {
-      return this.deleteKeyValueWithHttpInfo(key, namespace, tenant)
+    deleteKeyValue(namespace, key, tenant) {
+      return this.deleteKeyValueWithHttpInfo(namespace, key, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -185,21 +185,21 @@ export default class KVApi {
 
     /**
     * Get value for a key
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
 
     * @return {Promise<KVControllerKvDetail>}
     */
-    keyValueWithHttpInfo(key, namespace, tenant) {
+    keyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
-      // verify the required parameter 'key' is set
-      if (key === undefined || key === null) {
-        throw new Error("Missing the required parameter 'key' when calling keyValue");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling keyValue");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling keyValue");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -207,8 +207,8 @@ export default class KVApi {
       }
 
       let pathParams = {
-        'key': key,
         'namespace': namespace,
+        'key': key,
         'tenant': tenant
       };
       let queryParams = {
@@ -231,14 +231,14 @@ export default class KVApi {
 
     /**
     * Get value for a key
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
 
     * @return {Promise<KVControllerKvDetail>}
     */
-    keyValue(key, namespace, tenant) {
-      return this.keyValueWithHttpInfo(key, namespace, tenant)
+    keyValue(namespace, key, tenant) {
+      return this.keyValueWithHttpInfo(namespace, key, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -258,10 +258,10 @@ export default class KVApi {
     * List all keys
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
+    * @param {Number} [page = 1)] The current page
     * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Number} [page = 1)] The current page
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<PagedResultsKVEntry>}
     */
@@ -277,10 +277,10 @@ export default class KVApi {
         'tenant': tenant
       };
       let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
+        'page': opts['page'],
         'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'page': opts['page']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -302,10 +302,10 @@ export default class KVApi {
     * List all keys
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {Number} [opts.page (default to 1)] The current page
     * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsKVEntry>}
     */
@@ -456,22 +456,22 @@ export default class KVApi {
 
     /**
     * Puts a key-value pair in store
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
     * @param {String} body The value of the key
 
     * @return {Promise<  >}
     */
-    setKeyValueWithHttpInfo(key, namespace, tenant, body) {
+    setKeyValueWithHttpInfo(namespace, key, tenant, body) {
       let postBody = body;
-      // verify the required parameter 'key' is set
-      if (key === undefined || key === null) {
-        throw new Error("Missing the required parameter 'key' when calling setKeyValue");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling setKeyValue");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling setKeyValue");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -483,8 +483,8 @@ export default class KVApi {
       }
 
       let pathParams = {
-        'key': key,
         'namespace': namespace,
+        'key': key,
         'tenant': tenant
       };
       let queryParams = {
@@ -507,15 +507,15 @@ export default class KVApi {
 
     /**
     * Puts a key-value pair in store
-    * @param {String} key The key
     * @param {String} namespace The namespace id
+    * @param {String} key The key
     * @param {String} tenant 
     * @param {String} body The value of the key
 
     * @return {Promise<  >}
     */
-    setKeyValue(key, namespace, tenant, body) {
-      return this.setKeyValueWithHttpInfo(key, namespace, tenant, body)
+    setKeyValue(namespace, key, tenant, body) {
+      return this.setKeyValueWithHttpInfo(namespace, key, tenant, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

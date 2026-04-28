@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## deleteKeyValue
 
-> Boolean deleteKeyValue(key, namespace, tenant)
+> Boolean deleteKeyValue(namespace, key, tenant)
 
 Delete a key-value pair
 
@@ -34,10 +34,10 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let key = "key_example"; // String | The key
 let namespace = "namespace_example"; // String | The namespace id
+let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteKeyValue(key, namespace, tenant).then((data) => {
+apiInstance.deleteKeyValue(namespace, key, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -50,8 +50,8 @@ apiInstance.deleteKeyValue(key, namespace, tenant).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **String**| The key | 
  **namespace** | **String**| The namespace id | 
+ **key** | **String**| The key | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## keyValue
 
-> KVControllerKvDetail keyValue(key, namespace, tenant)
+> KVControllerKvDetail keyValue(namespace, key, tenant)
 
 Get value for a key
 
@@ -142,10 +142,10 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let key = "key_example"; // String | The key
 let namespace = "namespace_example"; // String | The namespace id
+let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
-apiInstance.keyValue(key, namespace, tenant).then((data) => {
+apiInstance.keyValue(namespace, key, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -158,8 +158,8 @@ apiInstance.keyValue(key, namespace, tenant).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **String**| The key | 
  **namespace** | **String**| The namespace id | 
+ **key** | **String**| The key | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -198,10 +198,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.KVApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
+  'page': 1, // Number | The current page
   'size': 10, // Number | The current page size
   'sort': ["null"], // [String] | The sort of current page
-  'page': 1 // Number | The current page
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.listAllKeys(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -217,10 +217,10 @@ apiInstance.listAllKeys(tenant, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+ **page** | **Number**| The current page | [optional] [default to 1]
  **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **page** | **Number**| The current page | [optional] [default to 1]
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 ## setKeyValue
 
-> setKeyValue(key, namespace, tenant, body)
+> setKeyValue(namespace, key, tenant, body)
 
 Puts a key-value pair in store
 
@@ -360,11 +360,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.KVApi();
-let key = "key_example"; // String | The key
 let namespace = "namespace_example"; // String | The namespace id
+let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The value of the key
-apiInstance.setKeyValue(key, namespace, tenant, body).then(() => {
+apiInstance.setKeyValue(namespace, key, tenant, body).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -377,8 +377,8 @@ apiInstance.setKeyValue(key, namespace, tenant, body).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **String**| The key | 
  **namespace** | **String**| The namespace id | 
+ **key** | **String**| The key | 
  **tenant** | **String**|  | 
  **body** | **String**| The value of the key | 
 

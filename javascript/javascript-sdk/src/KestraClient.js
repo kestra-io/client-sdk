@@ -1,20 +1,17 @@
-import ApiClient from "./ApiClient"
+import ApiClient from "./ApiClient";
 
-import ExecutionsApi from './api/ExecutionsApi';
-import FlowsApi from './api/FlowsApi';
-import GroupsApi from './api/GroupsApi';
-import KVApi from './api/KVApi';
-import NamespacesApi from './api/NamespacesApi';
-import RolesApi from './api/RolesApi';
-import ServicesApi from './api/ServiceAccountApi';
-import TriggersApi from './api/TriggersApi';
-import UsersApi from './api/UsersApi';
-import {ServiceAccountApi} from "./index";
+import ExecutionsApi from "./api/ExecutionsApi";
+import FlowsApi from "./api/FlowsApi";
+import GroupsApi from "./api/GroupsApi";
+import KVApi from "./api/KVApi";
+import NamespacesApi from "./api/NamespacesApi";
+import RolesApi from "./api/RolesApi";
+import ServiceAccountApi from "./api/ServiceAccountApi";
+import TriggersApi from "./api/TriggersApi";
+import UsersApi from "./api/UsersApi";
 import TestSuitesApi from "./api/TestSuitesApi";
 
-
 class KestraClient {
-
     /**
      * Constructs a new KestraClient.
      * @param {String} host The base path to the Kestra server.
@@ -27,14 +24,16 @@ class KestraClient {
 
         this.apiClient.basePath = host;
         if (accessToken) {
-            this.apiClient.authentications.bearerAuth.accessToken = accessToken
+            this.apiClient.authentications.bearerAuth.accessToken = accessToken;
         }
         if (username && password) {
             this.apiClient.authentications.basicAuth.username = username;
             this.apiClient.authentications.basicAuth.password = password;
         } else {
             if (username || password) {
-                console.error("Username or password is provided, but not both.");
+                console.error(
+                    "Username or password is provided, but not both.",
+                );
             }
         }
 
@@ -49,9 +48,7 @@ class KestraClient {
         this.triggersApi = new TriggersApi(this.apiClient);
         this.usersApi = new UsersApi(this.apiClient);
         this.testSuitesApi = new TestSuitesApi(this.apiClient);
-
     }
-
 }
 
 export default KestraClient;

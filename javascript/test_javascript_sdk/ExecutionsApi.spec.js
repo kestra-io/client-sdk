@@ -156,11 +156,9 @@ async function createFlowWithExecution(flowId, ns) {
     await createSimpleFlow(flowId, ns);
     return kestraClient().executionsApi.createExecution(
         ns,
-        flowId,
-        false,
         MAIN_TENANT,
-        undefined,
-        undefined,
+        flowId,
+        { wait: false },
     );
 }
 
@@ -173,11 +171,9 @@ async function createFlowWithExecutionFromYaml(flowYaml) {
     const f = await createFlow(flowYaml);
     return kestraClient().executionsApi.createExecution(
         f.namespace,
-        f.id,
-        false,
         MAIN_TENANT,
-        undefined,
-        undefined,
+        f.id,
+        { wait: false },
     );
 }
 

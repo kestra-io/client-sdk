@@ -21,7 +21,6 @@ import Namespace from '../model/Namespace';
 import NamespaceControllerApiInheritedPluginDefaultFromNamespace from '../model/NamespaceControllerApiInheritedPluginDefaultFromNamespace';
 import PagedResultsNamespace from '../model/PagedResultsNamespace';
 import QueryFilter from '../model/QueryFilter';
-import SchemasFromTypeArrayOfParameter from '../model/SchemasFromTypeArrayOfParameter';
 
 /**
 * Namespaces service.
@@ -640,9 +639,9 @@ export default class NamespacesApi {
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
+    * @param {Number} [page = 1)] The current page
     * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Number} [page = 1)] The current page
 
     * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
@@ -667,10 +666,10 @@ export default class NamespacesApi {
         'tenant': tenant
       };
       let queryParams = {
+        'page': opts['page'],
         'size': opts['size'],
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(filters, 'csv'),
-        'page': opts['page']
+        'filters': this.apiClient.buildCollectionParam(filters, 'csv')
       };
       let headerParams = {
       };
@@ -694,9 +693,9 @@ export default class NamespacesApi {
     * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.page (default to 1)] The current page
     * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Number} [opts.page (default to 1)] The current page
 
     * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
@@ -933,10 +932,10 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {String} [q] A string filter
-    * @param {module:model/SchemasFromTypeArrayOfParameter} [existing] Return only existing namespace
-    * @param {Number} [size = 10)] The current page size
     * @param {Number} [page = 1)] The current page
+    * @param {Number} [size = 10)] The current page size
     * @param {Array.<String>} [sort] The sort of current page
+    * @param {Boolean} [existing = false)] Return only existing namespace
 
     * @return {Promise<PagedResultsNamespace>}
     */
@@ -953,10 +952,10 @@ export default class NamespacesApi {
       };
       let queryParams = {
         'q': opts['q'],
-        'existing': opts['existing'],
-        'size': opts['size'],
         'page': opts['page'],
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
+        'size': opts['size'],
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
+        'existing': opts['existing']
       };
       let headerParams = {
       };
@@ -979,10 +978,10 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {String} [opts.q] A string filter
-    * @param {module:model/SchemasFromTypeArrayOfParameter} [opts.existing] Return only existing namespace
-    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Number} [opts.page (default to 1)] The current page
+    * @param {Number} [opts.size (default to 10)] The current page size
     * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Boolean} [opts.existing (default to false)] Return only existing namespace
 
     * @return {Promise<PagedResultsNamespace>}
     */

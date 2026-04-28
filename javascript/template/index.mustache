@@ -5,6 +5,8 @@ import ApiClient from './ApiClient';
 {{/models}}{{#apiInfo}}{{#apis}}import {{importPath}} from './{{#apiPackage}}{{.}}/{{/apiPackage}}{{importPath}}';
 {{/apis}}{{/apiInfo}}
 
+export {default as default} from './KestraClient';
+
 {{#emitJSDoc}}/**{{#projectDescription}}
 * {{.}}.<br>{{/projectDescription}}
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.

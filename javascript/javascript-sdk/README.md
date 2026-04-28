@@ -113,17 +113,17 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new KestraIoKestraSdk.ExecutionsApi()
 var namespace = "namespace_example"; // {String} The flow namespace
-var tenant = "tenant_example"; // {String} 
 var id = "id_example"; // {String} The flow id
+var tenant = "tenant_example"; // {String} 
 var opts = {
+  'labels': ["null"], // {[String]} The labels as a list of 'key:value'
   'wait': false, // {Boolean} If the server will wait the end of the execution
+  'revision': 56, // {Number} The flow revision or latest if null
   'scheduleDate': new Date("2013-10-20T19:20:30+01:00"), // {Date} Schedule the flow on a specific date
   'breakpoints': "breakpoints_example", // {String} Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-  'kind': new KestraIoKestraSdk.ExecutionKind(), // {ExecutionKind} Specific execution kind
-  'labels': new KestraIoKestraSdk.CreateExecutionLabelsParameter(), // {CreateExecutionLabelsParameter} The labels as a list of 'key:value'
-  'revision': 56 // {Number} The flow revision or latest if null
+  'kind': new KestraIoKestraSdk.ExecutionKind() // {ExecutionKind} Specific execution kind
 };
-api.createExecution(namespace, tenant, id, opts).then(function(data) {
+api.createExecution(namespace, id, tenant, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -187,13 +187,36 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *KestraIoKestraSdk.ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
+*KestraIoKestraSdk.FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
+*KestraIoKestraSdk.FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
+*KestraIoKestraSdk.FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
+*KestraIoKestraSdk.FlowsApi* | [**deleteFlowsByIds**](docs/FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
+*KestraIoKestraSdk.FlowsApi* | [**deleteFlowsByQuery**](docs/FlowsApi.md#deleteFlowsByQuery) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+*KestraIoKestraSdk.FlowsApi* | [**deleteRevisions**](docs/FlowsApi.md#deleteRevisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
+*KestraIoKestraSdk.FlowsApi* | [**disableFlowsByIds**](docs/FlowsApi.md#disableFlowsByIds) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
+*KestraIoKestraSdk.FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
+*KestraIoKestraSdk.FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
+*KestraIoKestraSdk.FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
+*KestraIoKestraSdk.FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
+*KestraIoKestraSdk.FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+*KestraIoKestraSdk.FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+*KestraIoKestraSdk.FlowsApi* | [**flowDependencies**](docs/FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
 *KestraIoKestraSdk.FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *KestraIoKestraSdk.FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *KestraIoKestraSdk.FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
+*KestraIoKestraSdk.FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+*KestraIoKestraSdk.FlowsApi* | [**listDeprecated**](docs/FlowsApi.md#listDeprecated) | **GET** /api/v1/{tenant}/flows/deprecated | List flows containing deprecated tasks
 *KestraIoKestraSdk.FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
+*KestraIoKestraSdk.FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
+*KestraIoKestraSdk.FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *KestraIoKestraSdk.FlowsApi* | [**searchConcurrencyLimits**](docs/FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
+*KestraIoKestraSdk.FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
+*KestraIoKestraSdk.FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+*KestraIoKestraSdk.FlowsApi* | [**taskFromFlow**](docs/FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *KestraIoKestraSdk.FlowsApi* | [**updateConcurrencyLimit**](docs/FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
+*KestraIoKestraSdk.FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *KestraIoKestraSdk.FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
+*KestraIoKestraSdk.FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 *KestraIoKestraSdk.FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *KestraIoKestraSdk.FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *KestraIoKestraSdk.FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -396,8 +419,12 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.BulkErrorResponse](docs/BulkErrorResponse.md)
  - [KestraIoKestraSdk.BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [KestraIoKestraSdk.BulkResponse](docs/BulkResponse.md)
+ - [KestraIoKestraSdk.Cache](docs/Cache.md)
  - [KestraIoKestraSdk.ChartChartOption](docs/ChartChartOption.md)
  - [KestraIoKestraSdk.ChartFiltersOverrides](docs/ChartFiltersOverrides.md)
+ - [KestraIoKestraSdk.Check](docs/Check.md)
+ - [KestraIoKestraSdk.CheckBehavior](docs/CheckBehavior.md)
+ - [KestraIoKestraSdk.CheckStyle](docs/CheckStyle.md)
  - [KestraIoKestraSdk.Concurrency](docs/Concurrency.md)
  - [KestraIoKestraSdk.ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [KestraIoKestraSdk.ConcurrencyLimit](docs/ConcurrencyLimit.md)
@@ -407,7 +434,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [KestraIoKestraSdk.CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [KestraIoKestraSdk.CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
- - [KestraIoKestraSdk.CreateExecutionLabelsParameter](docs/CreateExecutionLabelsParameter.md)
  - [KestraIoKestraSdk.CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [KestraIoKestraSdk.CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [KestraIoKestraSdk.CrudEventType](docs/CrudEventType.md)
@@ -417,7 +443,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.DashboardControllerDashboardResponse](docs/DashboardControllerDashboardResponse.md)
  - [KestraIoKestraSdk.DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [KestraIoKestraSdk.DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
- - [KestraIoKestraSdk.DeleteExecutionsByIdsDeleteLogsParameter](docs/DeleteExecutionsByIdsDeleteLogsParameter.md)
  - [KestraIoKestraSdk.DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [KestraIoKestraSdk.DependsOn](docs/DependsOn.md)
  - [KestraIoKestraSdk.DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -445,9 +470,10 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.FileMetas](docs/FileMetas.md)
  - [KestraIoKestraSdk.Filter](docs/Filter.md)
  - [KestraIoKestraSdk.Fixtures](docs/Fixtures.md)
+ - [KestraIoKestraSdk.Flow](docs/Flow.md)
+ - [KestraIoKestraSdk.FlowControllerFlowWithDeprecatedTasks](docs/FlowControllerFlowWithDeprecatedTasks.md)
  - [KestraIoKestraSdk.FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [KestraIoKestraSdk.FlowForExecution](docs/FlowForExecution.md)
- - [KestraIoKestraSdk.FlowFromExecutionRevisionParameter](docs/FlowFromExecutionRevisionParameter.md)
  - [KestraIoKestraSdk.FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
  - [KestraIoKestraSdk.FlowGraph](docs/FlowGraph.md)
  - [KestraIoKestraSdk.FlowGraphCluster](docs/FlowGraphCluster.md)
@@ -456,12 +482,12 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.FlowInterface](docs/FlowInterface.md)
  - [KestraIoKestraSdk.FlowNode](docs/FlowNode.md)
  - [KestraIoKestraSdk.FlowRelation](docs/FlowRelation.md)
+ - [KestraIoKestraSdk.FlowServiceTaskDeprecation](docs/FlowServiceTaskDeprecation.md)
  - [KestraIoKestraSdk.FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [KestraIoKestraSdk.FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [KestraIoKestraSdk.FlowUsage](docs/FlowUsage.md)
+ - [KestraIoKestraSdk.FlowWithSource](docs/FlowWithSource.md)
  - [KestraIoKestraSdk.ForwardSupportTicketRequest](docs/ForwardSupportTicketRequest.md)
- - [KestraIoKestraSdk.GenerateFlowGraphFromSourceSubflowsParameter](docs/GenerateFlowGraphFromSourceSubflowsParameter.md)
- - [KestraIoKestraSdk.GenerateFlowGraphRevisionParameter](docs/GenerateFlowGraphRevisionParameter.md)
  - [KestraIoKestraSdk.GroupIdentifier](docs/GroupIdentifier.md)
  - [KestraIoKestraSdk.GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [KestraIoKestraSdk.GroupUsage](docs/GroupUsage.md)
@@ -504,6 +530,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.IAMUserControllerApiUserAuth](docs/IAMUserControllerApiUserAuth.md)
  - [KestraIoKestraSdk.IAMUserControllerApiUserSummary](docs/IAMUserControllerApiUserSummary.md)
  - [KestraIoKestraSdk.IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
+ - [KestraIoKestraSdk.IdWithNamespace](docs/IdWithNamespace.md)
  - [KestraIoKestraSdk.IdentityProvider](docs/IdentityProvider.md)
  - [KestraIoKestraSdk.ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
  - [KestraIoKestraSdk.InputObject](docs/InputObject.md)
@@ -538,7 +565,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.Label](docs/Label.md)
  - [KestraIoKestraSdk.LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [KestraIoKestraSdk.Level](docs/Level.md)
- - [KestraIoKestraSdk.ListBlueprintTagsQParameter](docs/ListBlueprintTagsQParameter.md)
  - [KestraIoKestraSdk.LogEntry](docs/LogEntry.md)
  - [KestraIoKestraSdk.MapObjectObject](docs/MapObjectObject.md)
  - [KestraIoKestraSdk.MeControllerApiMe](docs/MeControllerApiMe.md)
@@ -582,6 +608,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.PagedResultsConcurrencyLimit](docs/PagedResultsConcurrencyLimit.md)
  - [KestraIoKestraSdk.PagedResultsDashboardControllerDashboardResponse](docs/PagedResultsDashboardControllerDashboardResponse.md)
  - [KestraIoKestraSdk.PagedResultsExecution](docs/PagedResultsExecution.md)
+ - [KestraIoKestraSdk.PagedResultsFlow](docs/PagedResultsFlow.md)
  - [KestraIoKestraSdk.PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [KestraIoKestraSdk.PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
  - [KestraIoKestraSdk.PagedResultsIAMInvitationControllerApiInvitationDetail](docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md)
@@ -595,6 +622,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.PagedResultsMapStringObject](docs/PagedResultsMapStringObject.md)
  - [KestraIoKestraSdk.PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [KestraIoKestraSdk.PagedResultsNamespace](docs/PagedResultsNamespace.md)
+ - [KestraIoKestraSdk.PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
  - [KestraIoKestraSdk.PagedResultsTenant](docs/PagedResultsTenant.md)
  - [KestraIoKestraSdk.PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [KestraIoKestraSdk.PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
@@ -616,6 +644,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
  - [KestraIoKestraSdk.PropertyBoolean](docs/PropertyBoolean.md)
  - [KestraIoKestraSdk.PropertyDouble](docs/PropertyDouble.md)
+ - [KestraIoKestraSdk.PropertyDuration](docs/PropertyDuration.md)
  - [KestraIoKestraSdk.PropertyListAsset](docs/PropertyListAsset.md)
  - [KestraIoKestraSdk.PropertyListAssetIdentifier](docs/PropertyListAssetIdentifier.md)
  - [KestraIoKestraSdk.PropertyListString](docs/PropertyListString.md)
@@ -647,14 +676,12 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.SchemaAttributeType](docs/SchemaAttributeType.md)
  - [KestraIoKestraSdk.SchemaAttributeUniqueness](docs/SchemaAttributeUniqueness.md)
  - [KestraIoKestraSdk.SchemaType](docs/SchemaType.md)
- - [KestraIoKestraSdk.SchemasFromTypeArrayOfParameter](docs/SchemasFromTypeArrayOfParameter.md)
  - [KestraIoKestraSdk.ScimExtension](docs/ScimExtension.md)
  - [KestraIoKestraSdk.ScimResource](docs/ScimResource.md)
  - [KestraIoKestraSdk.ScimResourceWithOptionalId](docs/ScimResourceWithOptionalId.md)
  - [KestraIoKestraSdk.ScimUser](docs/ScimUser.md)
- - [KestraIoKestraSdk.SearchBlueprintsSizeParameter](docs/SearchBlueprintsSizeParameter.md)
- - [KestraIoKestraSdk.SearchInternalBlueprintsSizeParameter](docs/SearchInternalBlueprintsSizeParameter.md)
  - [KestraIoKestraSdk.SearchRequest](docs/SearchRequest.md)
+ - [KestraIoKestraSdk.SearchResultFlow](docs/SearchResultFlow.md)
  - [KestraIoKestraSdk.SecurityIntegrationType](docs/SecurityIntegrationType.md)
  - [KestraIoKestraSdk.ServerConfig](docs/ServerConfig.md)
  - [KestraIoKestraSdk.ServerConfigLiveness](docs/ServerConfigLiveness.md)
@@ -681,6 +708,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.SupportDebugInfo](docs/SupportDebugInfo.md)
  - [KestraIoKestraSdk.SupportDebugInfoAuthType](docs/SupportDebugInfoAuthType.md)
  - [KestraIoKestraSdk.SupportDebugInfoDeploymentType](docs/SupportDebugInfoDeploymentType.md)
+ - [KestraIoKestraSdk.Task](docs/Task.md)
  - [KestraIoKestraSdk.TaskFixture](docs/TaskFixture.md)
  - [KestraIoKestraSdk.TaskForExecution](docs/TaskForExecution.md)
  - [KestraIoKestraSdk.TaskRun](docs/TaskRun.md)
@@ -712,7 +740,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.Type](docs/Type.md)
  - [KestraIoKestraSdk.UnitTest](docs/UnitTest.md)
  - [KestraIoKestraSdk.UnitTestResult](docs/UnitTestResult.md)
- - [KestraIoKestraSdk.UpdateFlowsInNamespaceOverrideParameter](docs/UpdateFlowsInNamespaceOverrideParameter.md)
  - [KestraIoKestraSdk.UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
  - [KestraIoKestraSdk.UsageEE](docs/UsageEE.md)
  - [KestraIoKestraSdk.UserGroup](docs/UserGroup.md)

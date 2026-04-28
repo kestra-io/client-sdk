@@ -522,9 +522,9 @@ let namespace = "namespace_example"; // String | The namespace id
 let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'page': 1, // Number | The current page
   'size': 10, // Number | The current page size
-  'sort': ["null"], // [String] | The sort of current page
-  'page': 1 // Number | The current page
+  'sort': ["null"] // [String] | The sort of current page
 };
 apiInstance.listNamespaceSecrets(namespace, filters, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -542,9 +542,9 @@ Name | Type | Description  | Notes
  **namespace** | **String**| The namespace id | 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **String**|  | 
+ **page** | **Number**| The current page | [optional] [default to 1]
  **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **page** | **Number**| The current page | [optional] [default to 1]
 
 ### Return type
 
@@ -745,10 +745,10 @@ let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'existing': new KestraIoKestraSdk.SchemasFromTypeArrayOfParameter(), // SchemasFromTypeArrayOfParameter | Return only existing namespace
-  'size': 10, // Number | The current page size
   'page': 1, // Number | The current page
-  'sort': ["null"] // [String] | The sort of current page
+  'size': 10, // Number | The current page size
+  'sort': ["null"], // [String] | The sort of current page
+  'existing': false // Boolean | Return only existing namespace
 };
 apiInstance.searchNamespaces(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -765,10 +765,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
  **q** | **String**| A string filter | [optional] 
- **existing** | [**SchemasFromTypeArrayOfParameter**](.md)| Return only existing namespace | [optional] 
- **size** | **Number**| The current page size | [optional] [default to 10]
  **page** | **Number**| The current page | [optional] [default to 1]
+ **size** | **Number**| The current page size | [optional] [default to 10]
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **existing** | **Boolean**| Return only existing namespace | [optional] [default to false]
 
 ### Return type
 

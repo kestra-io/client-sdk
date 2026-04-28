@@ -13,14 +13,14 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The ListBlueprintTagsQParameter model module.
- * @module model/ListBlueprintTagsQParameter
+ * The PropertyDuration model module.
+ * @module model/PropertyDuration
   */
-class ListBlueprintTagsQParameter {
+class PropertyDuration {
     /**
-     * Constructs a new <code>ListBlueprintTagsQParameter</code>.
-     * @alias module:model/ListBlueprintTagsQParameter
-     * @param {(module:model/String)} instance The actual instance to initialize ListBlueprintTagsQParameter.
+     * Constructs a new <code>PropertyDuration</code>.
+     * @alias module:model/PropertyDuration
+     * @param {(module:model/Object|module:model/String)} instance The actual instance to initialize PropertyDuration.
      */
     constructor(instance = null) {
         if (instance === null) {
@@ -30,15 +30,11 @@ class ListBlueprintTagsQParameter {
         var match = 0;
         var errorMessages = [];
         try {
-            // validate string
-            if (!(typeof instance === 'string')) {
-                throw new Error("Invalid value. Must be string. Input: " + JSON.stringify(instance));
-            }
             this.actualInstance = instance;
             match++;
         } catch(err) {
-            // json data failed to deserialize into String
-            errorMessages.push("Failed to construct String: " + err)
+            // json data failed to deserialize into Object
+            errorMessages.push("Failed to construct Object: " + err)
         }
 
         try {
@@ -54,10 +50,10 @@ class ListBlueprintTagsQParameter {
         }
 
         if (match > 1) {
-            throw new Error("Multiple matches found constructing `ListBlueprintTagsQParameter` with oneOf schemas String. Input: " + JSON.stringify(instance));
+            throw new Error("Multiple matches found constructing `PropertyDuration` with oneOf schemas Object, String. Input: " + JSON.stringify(instance));
         } else if (match === 0) {
             this.actualInstance = null; // clear the actual instance in case there are multiple matches
-            throw new Error("No match found constructing `ListBlueprintTagsQParameter` with oneOf schemas String. Details: " +
+            throw new Error("No match found constructing `PropertyDuration` with oneOf schemas Object, String. Details: " +
                             errorMessages.join(", "));
         } else { // only 1 match
             // the input is valid
@@ -65,30 +61,30 @@ class ListBlueprintTagsQParameter {
     }
 
     /**
-     * Constructs a <code>ListBlueprintTagsQParameter</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>PropertyDuration</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/ListBlueprintTagsQParameter} obj Optional instance to populate.
-     * @return {module:model/ListBlueprintTagsQParameter} The populated <code>ListBlueprintTagsQParameter</code> instance.
+     * @param {module:model/PropertyDuration} obj Optional instance to populate.
+     * @return {module:model/PropertyDuration} The populated <code>PropertyDuration</code> instance.
      */
     static constructFromObject(data, obj) {
-        return new ListBlueprintTagsQParameter(data);
+        return new PropertyDuration(data);
     }
 
     /**
-     * Gets the actual instance, which can be <code>String</code>.
-     * @return {(module:model/String)} The actual instance.
+     * Gets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @return {(module:model/Object|module:model/String)} The actual instance.
      */
     getActualInstance() {
         return this.actualInstance;
     }
 
     /**
-     * Sets the actual instance, which can be <code>String</code>.
-     * @param {(module:model/String)} obj The actual instance.
+     * Sets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @param {(module:model/Object|module:model/String)} obj The actual instance.
      */
     setActualInstance(obj) {
-       this.actualInstance = ListBlueprintTagsQParameter.constructFromObject(obj).getActualInstance();
+       this.actualInstance = PropertyDuration.constructFromObject(obj).getActualInstance();
     }
 
     /**
@@ -100,17 +96,27 @@ class ListBlueprintTagsQParameter {
     }
 
     /**
-     * Create an instance of ListBlueprintTagsQParameter from a JSON string.
+     * Create an instance of PropertyDuration from a JSON string.
      * @param {string} json_string JSON string.
-     * @return {module:model/ListBlueprintTagsQParameter} An instance of ListBlueprintTagsQParameter.
+     * @return {module:model/PropertyDuration} An instance of PropertyDuration.
      */
     static fromJSON = function(json_string){
-        return ListBlueprintTagsQParameter.constructFromObject(JSON.parse(json_string));
+        return PropertyDuration.constructFromObject(JSON.parse(json_string));
     }
 }
 
+/**
+ * @member {String} expression
+ */
+PropertyDuration.prototype['expression'] = undefined;
 
-ListBlueprintTagsQParameter.OneOf = ["String"];
+/**
+ * @member {String} value
+ */
+PropertyDuration.prototype['value'] = undefined;
 
-export default ListBlueprintTagsQParameter;
+
+PropertyDuration.OneOf = ["Object", "String"];
+
+export default PropertyDuration;
 

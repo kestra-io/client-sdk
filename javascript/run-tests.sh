@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# remember where the script has been run from
+original_dir=$(pwd)
+
+# Move to the script directory
+cd "$(dirname "$0")"
+
+# On exit, move back to the original directory
+trap "cd $original_dir" EXIT
 
 set -e
 

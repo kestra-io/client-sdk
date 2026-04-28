@@ -97,8 +97,12 @@ import Breakpoint from './model/Breakpoint';
 import BulkErrorResponse from './model/BulkErrorResponse';
 import BulkImportAppsRequest from './model/BulkImportAppsRequest';
 import BulkResponse from './model/BulkResponse';
+import Cache from './model/Cache';
 import ChartChartOption from './model/ChartChartOption';
 import ChartFiltersOverrides from './model/ChartFiltersOverrides';
+import Check from './model/Check';
+import CheckBehavior from './model/CheckBehavior';
+import CheckStyle from './model/CheckStyle';
 import Concurrency from './model/Concurrency';
 import ConcurrencyBehavior from './model/ConcurrencyBehavior';
 import ConcurrencyLimit from './model/ConcurrencyLimit';
@@ -108,7 +112,6 @@ import ConvertibleMultiValuesString from './model/ConvertibleMultiValuesString';
 import ConvertibleValuesListString from './model/ConvertibleValuesListString';
 import CreateApiTokenRequest from './model/CreateApiTokenRequest';
 import CreateApiTokenResponse from './model/CreateApiTokenResponse';
-import CreateExecutionLabelsParameter from './model/CreateExecutionLabelsParameter';
 import CreateNamespaceFileRequest from './model/CreateNamespaceFileRequest';
 import CreateSecurityIntegrationRequest from './model/CreateSecurityIntegrationRequest';
 import CrudEventType from './model/CrudEventType';
@@ -118,7 +121,6 @@ import DailyExecutionStatisticsExecutionCounts from './model/DailyExecutionStati
 import DashboardControllerDashboardResponse from './model/DashboardControllerDashboardResponse';
 import DashboardControllerPreviewRequest from './model/DashboardControllerPreviewRequest';
 import DashboardGenerationPrompt from './model/DashboardGenerationPrompt';
-import DeleteExecutionsByIdsDeleteLogsParameter from './model/DeleteExecutionsByIdsDeleteLogsParameter';
 import DeleteTriggersByQueryRequest from './model/DeleteTriggersByQueryRequest';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
@@ -146,9 +148,10 @@ import FileAttributesFileType from './model/FileAttributesFileType';
 import FileMetas from './model/FileMetas';
 import Filter from './model/Filter';
 import Fixtures from './model/Fixtures';
+import Flow from './model/Flow';
+import FlowControllerFlowWithDeprecatedTasks from './model/FlowControllerFlowWithDeprecatedTasks';
 import FlowControllerTaskValidationType from './model/FlowControllerTaskValidationType';
 import FlowForExecution from './model/FlowForExecution';
-import FlowFromExecutionRevisionParameter from './model/FlowFromExecutionRevisionParameter';
 import FlowGenerationPrompt from './model/FlowGenerationPrompt';
 import FlowGraph from './model/FlowGraph';
 import FlowGraphCluster from './model/FlowGraphCluster';
@@ -157,12 +160,12 @@ import FlowId from './model/FlowId';
 import FlowInterface from './model/FlowInterface';
 import FlowNode from './model/FlowNode';
 import FlowRelation from './model/FlowRelation';
+import FlowServiceTaskDeprecation from './model/FlowServiceTaskDeprecation';
 import FlowTopologyGraph from './model/FlowTopologyGraph';
 import FlowTopologyGraphEdge from './model/FlowTopologyGraphEdge';
 import FlowUsage from './model/FlowUsage';
+import FlowWithSource from './model/FlowWithSource';
 import ForwardSupportTicketRequest from './model/ForwardSupportTicketRequest';
-import GenerateFlowGraphFromSourceSubflowsParameter from './model/GenerateFlowGraphFromSourceSubflowsParameter';
-import GenerateFlowGraphRevisionParameter from './model/GenerateFlowGraphRevisionParameter';
 import GroupIdentifier from './model/GroupIdentifier';
 import GroupIdentifierMembership from './model/GroupIdentifierMembership';
 import GroupUsage from './model/GroupUsage';
@@ -205,6 +208,7 @@ import IAMUserControllerApiUser from './model/IAMUserControllerApiUser';
 import IAMUserControllerApiUserAuth from './model/IAMUserControllerApiUserAuth';
 import IAMUserControllerApiUserSummary from './model/IAMUserControllerApiUserSummary';
 import IAMUserGroupControllerApiUpdateUserGroupsRequest from './model/IAMUserGroupControllerApiUpdateUserGroupsRequest';
+import IdWithNamespace from './model/IdWithNamespace';
 import IdentityProvider from './model/IdentityProvider';
 import ImportPluginDefaultsRequest from './model/ImportPluginDefaultsRequest';
 import InputObject from './model/InputObject';
@@ -239,7 +243,6 @@ import KillSwitch from './model/KillSwitch';
 import Label from './model/Label';
 import LeftSidebarConfiguration from './model/LeftSidebarConfiguration';
 import Level from './model/Level';
-import ListBlueprintTagsQParameter from './model/ListBlueprintTagsQParameter';
 import LogEntry from './model/LogEntry';
 import MapObjectObject from './model/MapObjectObject';
 import MeControllerApiMe from './model/MeControllerApiMe';
@@ -283,6 +286,7 @@ import PagedResultsBlueprintControllerApiBlueprintItem from './model/PagedResult
 import PagedResultsConcurrencyLimit from './model/PagedResultsConcurrencyLimit';
 import PagedResultsDashboardControllerDashboardResponse from './model/PagedResultsDashboardControllerDashboardResponse';
 import PagedResultsExecution from './model/PagedResultsExecution';
+import PagedResultsFlow from './model/PagedResultsFlow';
 import PagedResultsIAMBindingControllerApiBindingDetail from './model/PagedResultsIAMBindingControllerApiBindingDetail';
 import PagedResultsIAMGroupControllerApiGroupMember from './model/PagedResultsIAMGroupControllerApiGroupMember';
 import PagedResultsIAMInvitationControllerApiInvitationDetail from './model/PagedResultsIAMInvitationControllerApiInvitationDetail';
@@ -296,6 +300,7 @@ import PagedResultsLogEntry from './model/PagedResultsLogEntry';
 import PagedResultsMapStringObject from './model/PagedResultsMapStringObject';
 import PagedResultsMetricEntry from './model/PagedResultsMetricEntry';
 import PagedResultsNamespace from './model/PagedResultsNamespace';
+import PagedResultsSearchResultFlow from './model/PagedResultsSearchResultFlow';
 import PagedResultsTenant from './model/PagedResultsTenant';
 import PagedResultsTestSuite from './model/PagedResultsTestSuite';
 import PagedResultsTestSuiteRunResult from './model/PagedResultsTestSuiteRunResult';
@@ -317,6 +322,7 @@ import PluginSchema from './model/PluginSchema';
 import PluginSubGroupPluginCategory from './model/PluginSubGroupPluginCategory';
 import PropertyBoolean from './model/PropertyBoolean';
 import PropertyDouble from './model/PropertyDouble';
+import PropertyDuration from './model/PropertyDuration';
 import PropertyListAsset from './model/PropertyListAsset';
 import PropertyListAssetIdentifier from './model/PropertyListAssetIdentifier';
 import PropertyListString from './model/PropertyListString';
@@ -348,14 +354,12 @@ import SchemaAttributeReturned from './model/SchemaAttributeReturned';
 import SchemaAttributeType from './model/SchemaAttributeType';
 import SchemaAttributeUniqueness from './model/SchemaAttributeUniqueness';
 import SchemaType from './model/SchemaType';
-import SchemasFromTypeArrayOfParameter from './model/SchemasFromTypeArrayOfParameter';
 import ScimExtension from './model/ScimExtension';
 import ScimResource from './model/ScimResource';
 import ScimResourceWithOptionalId from './model/ScimResourceWithOptionalId';
 import ScimUser from './model/ScimUser';
-import SearchBlueprintsSizeParameter from './model/SearchBlueprintsSizeParameter';
-import SearchInternalBlueprintsSizeParameter from './model/SearchInternalBlueprintsSizeParameter';
 import SearchRequest from './model/SearchRequest';
+import SearchResultFlow from './model/SearchResultFlow';
 import SecurityIntegrationType from './model/SecurityIntegrationType';
 import ServerConfig from './model/ServerConfig';
 import ServerConfigLiveness from './model/ServerConfigLiveness';
@@ -382,6 +386,7 @@ import StateType from './model/StateType';
 import SupportDebugInfo from './model/SupportDebugInfo';
 import SupportDebugInfoAuthType from './model/SupportDebugInfoAuthType';
 import SupportDebugInfoDeploymentType from './model/SupportDebugInfoDeploymentType';
+import Task from './model/Task';
 import TaskFixture from './model/TaskFixture';
 import TaskForExecution from './model/TaskForExecution';
 import TaskRun from './model/TaskRun';
@@ -413,7 +418,6 @@ import TriggerFixture from './model/TriggerFixture';
 import Type from './model/Type';
 import UnitTest from './model/UnitTest';
 import UnitTestResult from './model/UnitTestResult';
-import UpdateFlowsInNamespaceOverrideParameter from './model/UpdateFlowsInNamespaceOverrideParameter';
 import UploadVersionedPluginsRequest from './model/UploadVersionedPluginsRequest';
 import UsageEE from './model/UsageEE';
 import UserGroup from './model/UserGroup';
@@ -438,6 +442,8 @@ import TestSuitesApi from './api/TestSuitesApi';
 import TriggersApi from './api/TriggersApi';
 import UsersApi from './api/UsersApi';
 
+
+export {default as default} from './KestraClient';
 
 /**
 * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.&lt;br/&gt; Endpoints designated as Superadmin-only are not tenant-scoped..<br>
@@ -987,6 +993,12 @@ export {
     BulkResponse,
 
     /**
+     * The Cache model constructor.
+     * @property {module:model/Cache}
+     */
+    Cache,
+
+    /**
      * The ChartChartOption model constructor.
      * @property {module:model/ChartChartOption}
      */
@@ -997,6 +1009,24 @@ export {
      * @property {module:model/ChartFiltersOverrides}
      */
     ChartFiltersOverrides,
+
+    /**
+     * The Check model constructor.
+     * @property {module:model/Check}
+     */
+    Check,
+
+    /**
+     * The CheckBehavior model constructor.
+     * @property {module:model/CheckBehavior}
+     */
+    CheckBehavior,
+
+    /**
+     * The CheckStyle model constructor.
+     * @property {module:model/CheckStyle}
+     */
+    CheckStyle,
 
     /**
      * The Concurrency model constructor.
@@ -1053,12 +1083,6 @@ export {
     CreateApiTokenResponse,
 
     /**
-     * The CreateExecutionLabelsParameter model constructor.
-     * @property {module:model/CreateExecutionLabelsParameter}
-     */
-    CreateExecutionLabelsParameter,
-
-    /**
      * The CreateNamespaceFileRequest model constructor.
      * @property {module:model/CreateNamespaceFileRequest}
      */
@@ -1111,12 +1135,6 @@ export {
      * @property {module:model/DashboardGenerationPrompt}
      */
     DashboardGenerationPrompt,
-
-    /**
-     * The DeleteExecutionsByIdsDeleteLogsParameter model constructor.
-     * @property {module:model/DeleteExecutionsByIdsDeleteLogsParameter}
-     */
-    DeleteExecutionsByIdsDeleteLogsParameter,
 
     /**
      * The DeleteTriggersByQueryRequest model constructor.
@@ -1281,6 +1299,18 @@ export {
     Fixtures,
 
     /**
+     * The Flow model constructor.
+     * @property {module:model/Flow}
+     */
+    Flow,
+
+    /**
+     * The FlowControllerFlowWithDeprecatedTasks model constructor.
+     * @property {module:model/FlowControllerFlowWithDeprecatedTasks}
+     */
+    FlowControllerFlowWithDeprecatedTasks,
+
+    /**
      * The FlowControllerTaskValidationType model constructor.
      * @property {module:model/FlowControllerTaskValidationType}
      */
@@ -1291,12 +1321,6 @@ export {
      * @property {module:model/FlowForExecution}
      */
     FlowForExecution,
-
-    /**
-     * The FlowFromExecutionRevisionParameter model constructor.
-     * @property {module:model/FlowFromExecutionRevisionParameter}
-     */
-    FlowFromExecutionRevisionParameter,
 
     /**
      * The FlowGenerationPrompt model constructor.
@@ -1347,6 +1371,12 @@ export {
     FlowRelation,
 
     /**
+     * The FlowServiceTaskDeprecation model constructor.
+     * @property {module:model/FlowServiceTaskDeprecation}
+     */
+    FlowServiceTaskDeprecation,
+
+    /**
      * The FlowTopologyGraph model constructor.
      * @property {module:model/FlowTopologyGraph}
      */
@@ -1365,22 +1395,16 @@ export {
     FlowUsage,
 
     /**
+     * The FlowWithSource model constructor.
+     * @property {module:model/FlowWithSource}
+     */
+    FlowWithSource,
+
+    /**
      * The ForwardSupportTicketRequest model constructor.
      * @property {module:model/ForwardSupportTicketRequest}
      */
     ForwardSupportTicketRequest,
-
-    /**
-     * The GenerateFlowGraphFromSourceSubflowsParameter model constructor.
-     * @property {module:model/GenerateFlowGraphFromSourceSubflowsParameter}
-     */
-    GenerateFlowGraphFromSourceSubflowsParameter,
-
-    /**
-     * The GenerateFlowGraphRevisionParameter model constructor.
-     * @property {module:model/GenerateFlowGraphRevisionParameter}
-     */
-    GenerateFlowGraphRevisionParameter,
 
     /**
      * The GroupIdentifier model constructor.
@@ -1635,6 +1659,12 @@ export {
     IAMUserGroupControllerApiUpdateUserGroupsRequest,
 
     /**
+     * The IdWithNamespace model constructor.
+     * @property {module:model/IdWithNamespace}
+     */
+    IdWithNamespace,
+
+    /**
      * The IdentityProvider model constructor.
      * @property {module:model/IdentityProvider}
      */
@@ -1837,12 +1867,6 @@ export {
      * @property {module:model/Level}
      */
     Level,
-
-    /**
-     * The ListBlueprintTagsQParameter model constructor.
-     * @property {module:model/ListBlueprintTagsQParameter}
-     */
-    ListBlueprintTagsQParameter,
 
     /**
      * The LogEntry model constructor.
@@ -2103,6 +2127,12 @@ export {
     PagedResultsExecution,
 
     /**
+     * The PagedResultsFlow model constructor.
+     * @property {module:model/PagedResultsFlow}
+     */
+    PagedResultsFlow,
+
+    /**
      * The PagedResultsIAMBindingControllerApiBindingDetail model constructor.
      * @property {module:model/PagedResultsIAMBindingControllerApiBindingDetail}
      */
@@ -2179,6 +2209,12 @@ export {
      * @property {module:model/PagedResultsNamespace}
      */
     PagedResultsNamespace,
+
+    /**
+     * The PagedResultsSearchResultFlow model constructor.
+     * @property {module:model/PagedResultsSearchResultFlow}
+     */
+    PagedResultsSearchResultFlow,
 
     /**
      * The PagedResultsTenant model constructor.
@@ -2305,6 +2341,12 @@ export {
      * @property {module:model/PropertyDouble}
      */
     PropertyDouble,
+
+    /**
+     * The PropertyDuration model constructor.
+     * @property {module:model/PropertyDuration}
+     */
+    PropertyDuration,
 
     /**
      * The PropertyListAsset model constructor.
@@ -2493,12 +2535,6 @@ export {
     SchemaType,
 
     /**
-     * The SchemasFromTypeArrayOfParameter model constructor.
-     * @property {module:model/SchemasFromTypeArrayOfParameter}
-     */
-    SchemasFromTypeArrayOfParameter,
-
-    /**
      * The ScimExtension model constructor.
      * @property {module:model/ScimExtension}
      */
@@ -2523,22 +2559,16 @@ export {
     ScimUser,
 
     /**
-     * The SearchBlueprintsSizeParameter model constructor.
-     * @property {module:model/SearchBlueprintsSizeParameter}
-     */
-    SearchBlueprintsSizeParameter,
-
-    /**
-     * The SearchInternalBlueprintsSizeParameter model constructor.
-     * @property {module:model/SearchInternalBlueprintsSizeParameter}
-     */
-    SearchInternalBlueprintsSizeParameter,
-
-    /**
      * The SearchRequest model constructor.
      * @property {module:model/SearchRequest}
      */
     SearchRequest,
+
+    /**
+     * The SearchResultFlow model constructor.
+     * @property {module:model/SearchResultFlow}
+     */
+    SearchResultFlow,
 
     /**
      * The SecurityIntegrationType model constructor.
@@ -2695,6 +2725,12 @@ export {
      * @property {module:model/SupportDebugInfoDeploymentType}
      */
     SupportDebugInfoDeploymentType,
+
+    /**
+     * The Task model constructor.
+     * @property {module:model/Task}
+     */
+    Task,
 
     /**
      * The TaskFixture model constructor.
@@ -2881,12 +2917,6 @@ export {
      * @property {module:model/UnitTestResult}
      */
     UnitTestResult,
-
-    /**
-     * The UpdateFlowsInNamespaceOverrideParameter model constructor.
-     * @property {module:model/UpdateFlowsInNamespaceOverrideParameter}
-     */
-    UpdateFlowsInNamespaceOverrideParameter,
 
     /**
      * The UploadVersionedPluginsRequest model constructor.
