@@ -21,14 +21,10 @@ async function createSimpleFlow() {
  */
 async function assertFlowExist(flow) {
     await expect(
-        kestraClient().flowsApi.flow(
-            flow.namespace,
-            flow.id,
-            false, // source
-            false, // allowDeleted
-            MAIN_TENANT,
-            undefined, // revision
-        ),
+        kestraClient().flowsApi.flow(flow.namespace, flow.id, MAIN_TENANT, {
+            source: false,
+            allowDeleted: false,
+        }),
     ).resolves.toBeDefined();
 }
 
@@ -40,10 +36,11 @@ async function assertFlowDoesNotExist(flow) {
         await kestraClient().flowsApi.flow(
             flow.namespace,
             flow.id,
-            false,
-            false,
             MAIN_TENANT,
-            {},
+            {
+                source: false,
+                allowDeleted: false,
+            },
         );
         throw new Error("Expected a 404 Not Found, but the call succeeded.");
     } catch (err) {
@@ -72,12 +69,14 @@ describe("FlowsApi", () => {
             "simple_flow_description_updated",
         );
 
-        // Java: bulkUpdateFlows(false, false, MAIN_TENANT, namespace, body)
         const resp = await kestraClient().flowsApi.bulkUpdateFlows(
-            false,
-            false,
             MAIN_TENANT,
-            { namespace: namespace, body: updatedBody },
+            {
+                _delete: false,
+                allowNamespaceChild: false,
+                namespace: namespace,
+                body: updatedBody,
+            },
         );
 
         // resp is a list; check first description updated
@@ -264,10 +263,12 @@ describe("FlowsApi", () => {
         const resp = await kestraClient().flowsApi.flow(
             namespace,
             id,
-            source,
-            allowDeleted,
             MAIN_TENANT,
-            revision,
+            {
+                source,
+                allowDeleted,
+                revision,
+            },
         );
         expect(resp.id).toBe(id);
     });
@@ -282,9 +283,11 @@ describe("FlowsApi", () => {
         await kestraClient().flowsApi.flowDependencies(
             namespace,
             id,
-            destinationOnly,
-            expandAll,
             MAIN_TENANT,
+            {
+                destinationOnly,
+                expandAll,
+            },
         );
     });
 
@@ -296,8 +299,8 @@ describe("FlowsApi", () => {
 
         await kestraClient().flowsApi.flowDependenciesFromNamespace(
             namespace,
-            destinationOnly,
             MAIN_TENANT,
+            { destinationOnly },
         );
     });
 
@@ -313,7 +316,7 @@ describe("FlowsApi", () => {
             id,
             taskId,
             MAIN_TENANT,
-            revision,
+            { revision },
         );
     });
 
@@ -335,8 +338,8 @@ describe("FlowsApi", () => {
         const resp = await kestraClient().flowsApi.listFlowRevisions(
             namespace,
             id,
-            false,
             MAIN_TENANT,
+            { allowDelete: false },
         );
         expect(Array.isArray(resp)).toBe(true);
     });
@@ -385,10 +388,8 @@ describe("FlowsApi", () => {
         const namespace = flow.namespace;
 
         const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(
-            page,
-            size,
             MAIN_TENANT,
-            { sort, q, namespace },
+            { page, size, sort, q, namespace },
         );
         const ids = (resp?.results ?? []).map(
             /** @param {{model?: {id: string}}} x */
