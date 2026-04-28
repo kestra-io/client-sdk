@@ -179,8 +179,8 @@ jobs:
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
         run: |
-          # create the version prefix by removing the last part of the version (e.g., 1.2.3 -> 1.2)
-          VERSION_PREFIX=$(echo "${{ steps.resolveVersion.outputs.kestra_version }}" | awk -F. '{OFS="."; NF--; print}')
+          # create the version prefix by removing the last part of the version (e.g., 1.2.3 -> 1.2 or 1.2.X -> 1.2)
+          VERSION_PREFIX=$(echo "${{ steps.resolveVersion.outputs.kestra_version }}" | sed 's/\.[xX]$//' | rev | cut -d. -f2- | rev)
 
           # list all versions and filter those that start with the current version prefix (e.g., 1.2.) to find existing patch versions
           VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${{ steps.resolveVersion.outputs.kestra_version }}")
@@ -190,7 +190,7 @@ jobs:
 
           # increment the patch version
           NEXT_PATCH=$((HIGHEST_PATCH + 1))
-          NEXT_VERSION="${{ steps.resolveVersion.outputs.kestra_version }}.$NEXT_PATCH"
+          NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
 
           # set it right in package.json without creating a git tag
           npm version $NEXT_VERSION --no-git-tag-version
