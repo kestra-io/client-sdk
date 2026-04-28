@@ -105,7 +105,6 @@ jobs:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       KESTRA_EE_UNIT_TEST_LICENSE_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
       KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   python:
     if: "needs.file-changes.outputs.python == 'true'"
