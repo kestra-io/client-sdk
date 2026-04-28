@@ -9,8 +9,6 @@ on:
         type: string
         default: "develop"
     secrets:
-      NPM_TOKEN:
-        required: true
       GCP_SERVICE_ACCOUNT:
         required: true
       KESTRA_EE_UNIT_TEST_LICENSE_FILE:
@@ -28,7 +26,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   test:
@@ -107,6 +104,9 @@ jobs:
     name: Publish to Npm
     runs-on: ubuntu-latest
     needs: test
+    permissions:
+      contents: read
+      id-token: write
     if: |
       !cancelled() && (
         github.ref == 'refs/heads/main' ||
@@ -143,7 +143,7 @@ jobs:
 
             # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
             # `|| true` so an empty grep does not abort the step under `bash -e`
-            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${VERSION_PREFIX}\." || true)
+            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json 2>/dev/null | jq -r '.[]' 2>/dev/null | grep "^${VERSION_PREFIX}\." || true)
 
             echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
 
@@ -214,4 +214,4 @@ jobs:
       - name: Publish to npm with latest tag
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public --force
+        run: npm publish --access public
