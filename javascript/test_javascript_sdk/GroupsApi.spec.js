@@ -194,10 +194,9 @@ describe("GroupsApi", () => {
         // signature: (groupId, page, size, filters, tenant, sort)
         const page = await kestraClient().groupsApi.searchGroupMembers(
             group.id,
-            1,
-            10,
             filters,
             MAIN_TENANT,
+            { page: 1, size: 10 },
         );
 
         const results = page?.results ?? [];
@@ -219,10 +218,8 @@ describe("GroupsApi", () => {
         );
 
         const resultsPage = await kestraClient().groupsApi.searchGroups(
-            1,
-            10,
             MAIN_TENANT,
-            { q: name },
+            { page: 1, size: 10, q: name },
         );
         const results = resultsPage?.results ?? [];
 
