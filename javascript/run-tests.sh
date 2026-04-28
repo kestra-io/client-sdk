@@ -13,15 +13,18 @@ else
   versions="develop"
 fi
 
-echo "/n------------------------------------------------"
-echo "Build local SDK and test it in a docker Kestra instance"
+# if --no-build is passed as an argument, skip building the SDK
+if [[ "$@" != *"--no-build"* ]]; then
+    echo "/n------------------------------------------------"
+    echo "Build local SDK and test it in a docker Kestra instance"
 
-echo ""
-echo "install requirements"
-log_and_run npm ci
+    echo ""
+    echo "install requirements"
+    log_and_run npm ci
 
-echo "install SDK locally so it can be imported and used in e2e tests"
-log_and_run sh -c 'cd javascript-sdk && npm run build'
+    echo "install SDK locally so it can be imported and used in e2e tests"
+    log_and_run sh -c 'npm run build'
+fi
 
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then
@@ -45,7 +48,7 @@ for KESTRA_VERSION in $versions; do
   }
 
   echo "run test_javascript-sdk tests"
-  log_and_run sh -c 'cd test_javascript_sdk && npm run test -- --coverage'
+  log_and_run sh -c 'npm run test --workspace test_javascript_sdk -- --coverage'
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down
