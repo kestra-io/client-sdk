@@ -175,9 +175,48 @@ jobs:
           javascript
 
       - name: Publish to npm with develop tag
-        if: steps.check.outputs.skip != 'true'
+        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
         run: npm publish --tag develop --access public
+
+      - name: Update the version with the next available patch version
+        if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
+        working-directory: ./javascript/javascript-sdk
+        run: |
+          # create the version prefix by removing the last part of the version (e.g., 1.2.3 -> 1.2)
+          VERSION_PREFIX=$(echo "${{ steps.resolveVersion.outputs.kestra_version }}" | awk -F. '{OFS="."; NF--; print}')
+
+          # list all versions and filter those that start with the current version prefix (e.g., 1.2.) to find existing patch versions
+          VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${{ steps.resolveVersion.outputs.kestra_version }}")
+
+          # get the highest patch version
+          HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
+
+          # increment the patch version
+          NEXT_PATCH=$((HIGHEST_PATCH + 1))
+          NEXT_VERSION="${{ steps.resolveVersion.outputs.kestra_version }}.$NEXT_PATCH"
+
+          # set it right in package.json without creating a git tag
+          npm version $NEXT_VERSION --no-git-tag-version
+
+          # set it right in the README.md "Package version: v1.2.x" to "Package version: v1.2.2"
+          sed -i "s/Package version: v[0-9]\+\.[0-9]\+\.X/Package version: v$NEXT_VERSION/g" README.md
+
+          # Set it right in the src/ApiClient.js 'User-Agent': 'OpenAPI-Generator/v1.2.x/Javascript' to 'User-Agent': 'OpenAPI-Generator/v1.2.2/Javascript'
+          sed -i "s/OpenAPI-Generator\/v[0-9]\+\.[0-9]\+\.X/OpenAPI-Generator\/v$NEXT_VERSION/g" src/ApiClient.js
+
+          # Re-run the build to update the generated code with the new version
+          npm run build
+
+      - name: Publish to npm with latest tag
+        if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
+        working-directory: ./javascript/javascript-sdk
+        # run: npm publish --access public
+        run: |
+          echo "npm publish --access public ${NEXT_VERSION}"
+          cat package.json
+          cat README.md
+          cat src/ApiClient.js
 
       - name: Comment on commit with install instructions
         if: steps.check.outputs.skip != 'true'
