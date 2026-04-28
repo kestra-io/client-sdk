@@ -209,9 +209,4 @@ jobs:
       - name: Publish to npm with latest tag
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
-        # run: npm publish --access public
-        run: |
-          echo "npm publish --access public ${NEXT_VERSION}"
-          cat package.json
-          cat README.md
-          cat src/ApiClient.js
+        run: npm publish --access public
