@@ -24,7 +24,10 @@ on:
       skip-test:
         description: "Skip test"
         required: false
-        type: string
+        type: choice
+        options:
+          - "true"
+          - "false"
         default: "false"
 
 jobs:
