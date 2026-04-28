@@ -153,6 +153,7 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowsApi.md
+docs/ForwardSupportTicketRequest.md
 docs/GenerateFlowGraphFromSourceSubflowsParameter.md
 docs/GenerateFlowGraphRevisionParameter.md
 docs/GroupIdentifier.md
@@ -376,6 +377,9 @@ docs/SortRequest.md
 docs/State.md
 docs/StateHistory.md
 docs/StateType.md
+docs/SupportDebugInfo.md
+docs/SupportDebugInfoAuthType.md
+docs/SupportDebugInfoDeploymentType.md
 docs/TaskFixture.md
 docs/TaskForExecution.md
 docs/TaskRun.md
@@ -587,6 +591,7 @@ src/model/FlowRelation.js
 src/model/FlowTopologyGraph.js
 src/model/FlowTopologyGraphEdge.js
 src/model/FlowUsage.js
+src/model/ForwardSupportTicketRequest.js
 src/model/GenerateFlowGraphFromSourceSubflowsParameter.js
 src/model/GenerateFlowGraphRevisionParameter.js
 src/model/GroupIdentifier.js
@@ -805,6 +810,9 @@ src/model/SortRequest.js
 src/model/State.js
 src/model/StateHistory.js
 src/model/StateType.js
+src/model/SupportDebugInfo.js
+src/model/SupportDebugInfoAuthType.js
+src/model/SupportDebugInfoDeploymentType.js
 src/model/TaskFixture.js
 src/model/TaskForExecution.js
 src/model/TaskRun.js

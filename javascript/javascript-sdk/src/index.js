@@ -160,6 +160,7 @@ import FlowRelation from './model/FlowRelation';
 import FlowTopologyGraph from './model/FlowTopologyGraph';
 import FlowTopologyGraphEdge from './model/FlowTopologyGraphEdge';
 import FlowUsage from './model/FlowUsage';
+import ForwardSupportTicketRequest from './model/ForwardSupportTicketRequest';
 import GenerateFlowGraphFromSourceSubflowsParameter from './model/GenerateFlowGraphFromSourceSubflowsParameter';
 import GenerateFlowGraphRevisionParameter from './model/GenerateFlowGraphRevisionParameter';
 import GroupIdentifier from './model/GroupIdentifier';
@@ -378,6 +379,9 @@ import SortRequest from './model/SortRequest';
 import State from './model/State';
 import StateHistory from './model/StateHistory';
 import StateType from './model/StateType';
+import SupportDebugInfo from './model/SupportDebugInfo';
+import SupportDebugInfoAuthType from './model/SupportDebugInfoAuthType';
+import SupportDebugInfoDeploymentType from './model/SupportDebugInfoDeploymentType';
 import TaskFixture from './model/TaskFixture';
 import TaskForExecution from './model/TaskForExecution';
 import TaskRun from './model/TaskRun';
@@ -1359,6 +1363,12 @@ export {
      * @property {module:model/FlowUsage}
      */
     FlowUsage,
+
+    /**
+     * The ForwardSupportTicketRequest model constructor.
+     * @property {module:model/ForwardSupportTicketRequest}
+     */
+    ForwardSupportTicketRequest,
 
     /**
      * The GenerateFlowGraphFromSourceSubflowsParameter model constructor.
@@ -2667,6 +2677,24 @@ export {
      * @property {module:model/StateType}
      */
     StateType,
+
+    /**
+     * The SupportDebugInfo model constructor.
+     * @property {module:model/SupportDebugInfo}
+     */
+    SupportDebugInfo,
+
+    /**
+     * The SupportDebugInfoAuthType model constructor.
+     * @property {module:model/SupportDebugInfoAuthType}
+     */
+    SupportDebugInfoAuthType,
+
+    /**
+     * The SupportDebugInfoDeploymentType model constructor.
+     * @property {module:model/SupportDebugInfoDeploymentType}
+     */
+    SupportDebugInfoDeploymentType,
 
     /**
      * The TaskFixture model constructor.
