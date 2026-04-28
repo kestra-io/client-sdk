@@ -105,8 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     permissions:
-      # add permission to workflow to comment on a commit
-      contents: write
+      contents: read
       id-token: write
     if: |
       !cancelled() && (
@@ -115,6 +114,16 @@ jobs:
       )
     steps:
       - uses: actions/checkout@v6
+
+      - name: Get OIDC Token
+        env:
+          AUDIENCE: "npm:registry.npmjs.org"
+        run: |
+          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
+          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "$TOKEN_JSON"
+          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
 
       - uses: actions/setup-node@v6
         with:
@@ -134,7 +143,7 @@ jobs:
 
             # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
             # `|| true` so an empty grep does not abort the step under `bash -e`
-            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json | jq -r '.[]' | grep "^${VERSION_PREFIX}\." || true)
+            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json 2>/dev/null | jq -r '.[]' 2>/dev/null | grep "^${VERSION_PREFIX}\." || true)
 
             echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
 
@@ -205,4 +214,4 @@ jobs:
       - name: Publish to npm with latest tag
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public --force
+        run: npm publish --access public
