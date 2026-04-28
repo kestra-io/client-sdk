@@ -9,8 +9,6 @@ on:
         type: string
         default: "develop"
     secrets:
-      NPM_TOKEN:
-        required: true
       GCP_SERVICE_ACCOUNT:
         required: true
       KESTRA_EE_UNIT_TEST_LICENSE_FILE:
@@ -28,7 +26,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   test:
@@ -107,8 +104,14 @@ jobs:
     name: Publish to Npm
     runs-on: ubuntu-latest
     needs: test
-    if: startsWith(github.ref, 'refs/heads/releases/') || github.ref ==
-      'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write
+    if: |
+      !cancelled() && (
+        github.ref == 'refs/heads/main' ||
+        (needs.test.result == 'success' && startsWith(github.ref, 'refs/heads/releases/'))
+      )
     steps:
       - uses: actions/checkout@v6
 
