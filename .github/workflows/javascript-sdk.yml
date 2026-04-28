@@ -53,7 +53,11 @@ jobs:
 
       - name: Generate SDK
         working-directory: .
-        run: ./generate-sdks.sh ${{ inputs.kestra_version }} javascript
+        run: |
+          # remove the .X at the end of the version to avoid generating a version with .X
+          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.X$//')
+
+          ./generate-sdks.sh $docker_version javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
