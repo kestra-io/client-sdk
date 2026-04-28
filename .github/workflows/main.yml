@@ -99,7 +99,7 @@ jobs:
     if: "needs.file-changes.outputs.javascript == 'true'"
     needs: [ file-changes, compute-version ]
     permissions:
-      contents: read
+      contents: write
       id-token: write
     uses: ./.github/workflows/javascript-sdk.yml
     with:
