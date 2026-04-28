@@ -29,7 +29,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Array.<module:model/InputObject>} inputs
   * @property {Array.<module:model/Output>} outputs
   * @property {Boolean} disabled
-  * @property {MapObjectObject} labels
+  * @property {MapObjectObject} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
   * @property {Object} variables
   * @property {WorkerGroup} workerGroup
   * @property {Boolean} deleted
@@ -111,7 +111,7 @@ class FlowForExecution {
                 obj['disabled'] = ApiClient.convertToType(data['disabled'], 'Boolean');
             }
             if (data.hasOwnProperty('labels')) {
-                obj['labels'] = MapObjectObject.constructFromObject(data['labels']);
+                obj['labels'] = ApiClient.convertToType(data['labels'], MapObjectObject);
             }
             if (data.hasOwnProperty('variables')) {
                 obj['variables'] = ApiClient.convertToType(data['variables'], Object);
@@ -294,6 +294,7 @@ FlowForExecution.prototype['outputs'] = undefined;
 FlowForExecution.prototype['disabled'] = undefined;
 
 /**
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
  * @member {module:model/MapObjectObject} labels
  */
 FlowForExecution.prototype['labels'] = undefined;

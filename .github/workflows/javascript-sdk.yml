@@ -136,17 +136,6 @@ jobs:
             echo "kestra_version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
           fi
 
-      - name: Check if version already published
-        id: check
-        working-directory: ./javascript
-        run: |
-          if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "Version ${{ steps.resolveVersion.outputs.kestra_version }} already published — skipping."
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Install dependencies
         run: npm install
 
@@ -168,6 +157,19 @@ jobs:
           echo "$TOKEN_JSON"
           echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
           echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
+
+            - name: Check if version already published
+
+      - name: Check if version already published
+        id: check
+        working-directory: ./javascript
+        run: |
+          if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Version ${{ steps.resolveVersion.outputs.kestra_version }} already published — skipping."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Generate SDK
         if: steps.check.outputs.skip != 'true'
