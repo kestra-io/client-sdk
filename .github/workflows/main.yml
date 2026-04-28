@@ -26,6 +26,10 @@ on:
         type: string
         default: "false"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   compute-version:
     name: Compute Kestra version
