@@ -100,9 +100,6 @@ jobs:
     needs: test
     if: startsWith(github.ref, 'refs/heads/releases/') || github.ref ==
       'refs/heads/main'
-    defaults:
-      run:
-        working-directory: ./javascript
     steps:
       - uses: actions/checkout@v6
 
@@ -118,14 +115,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: "22.12"
+          node-version: "22.18"
           registry-url: "https://registry.npmjs.org"
-
-      - name: extract current version from package.json
-        id: extract_version
-        run: |
-          VERSION=$(node -p "require('./javascript-sdk/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Compute content hash
         id: resolveVersion
@@ -142,12 +133,6 @@ jobs:
             echo "kestra_version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
           fi
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: build
-        run: npm run build
-
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
         run: |
@@ -156,7 +141,6 @@ jobs:
 
       - name: Check if version already published
         id: check
-        working-directory: ./javascript
         run: |
           if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
             echo "skip=true" >> $GITHUB_OUTPUT
@@ -167,6 +151,7 @@ jobs:
 
       - name: Generate SDK
         if: steps.check.outputs.skip != 'true'
+        working-directory: .
         run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
           javascript
 
@@ -174,6 +159,22 @@ jobs:
         if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
         run: npm publish --tag develop --access public
+
+      - name: Comment on commit with install instructions
+        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/commits/${{ github.sha }}/comments \
+            -f body="$(cat <<'EOF'
+          ### 📦 JavaScript SDK published
+
+          Install this build with:
+          ```sh
+          npm install @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }}
+          ```
+          EOF
+          )"
 
       - name: Update the version with the next available patch version
         if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
@@ -213,19 +214,3 @@ jobs:
           cat package.json
           cat README.md
           cat src/ApiClient.js
-
-      - name: Comment on commit with install instructions
-        if: steps.check.outputs.skip != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api repos/${{ github.repository }}/commits/${{ github.sha }}/comments \
-            -f body="$(cat <<'EOF'
-          ### 📦 JavaScript SDK published
-
-          Install this build with:
-          ```sh
-          npm install @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }}
-          ```
-          EOF
-          )"
