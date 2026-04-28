@@ -2,6 +2,12 @@ name: Python SDK release
 
 on:
   workflow_call:
+    inputs:
+      kestra_version:
+        description: "Kestra version to test against"
+        required: false
+        type: string
+        default: "develop"
     secrets:
       PYPI_API_TOKEN:
         required: true
@@ -14,29 +20,18 @@ on:
   workflow_dispatch:
     inputs:
       skip-test:
-        description: 'Skip test'
+        description: "Skip test"
         required: false
         type: string
         default: "false"
-  push:
-    tags:
-      - 'v*.*.*-python'
 
 jobs:
-  list-versions:
-    uses: ./.github/workflows/list-versions.yml
-
   test:
     name: Test Python SDK
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./python/python-sdk
-    needs: list-versions
-    strategy:
-      fail-fast: false
-      matrix:
-        kestra_version: ${{ fromJSON(needs.list-versions.outputs.versions) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -55,7 +50,7 @@ jobs:
         run: pip install -r test-requirements.txt
 
       - name: GCP - Auth with github service account
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
@@ -66,14 +61,15 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ matrix.kestra_version }}
+          kestra_version: ${{ inputs.kestra_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with pytest
-        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        if: ${{ github.event.inputs.skip-test == 'false' ||
+          github.event.inputs.skip-test == '' }}
         env:
-          KESTRA_VERSION: ${{ matrix.kestra_version }}
+          KESTRA_VERSION: ${{ inputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
@@ -82,7 +78,7 @@ jobs:
     name: Publish to Pip
     runs-on: ubuntu-latest
     needs: test
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/heads/releases/')
     defaults:
       run:
         working-directory: ./python/python-sdk
@@ -98,9 +94,9 @@ jobs:
         run: python -m pip install build --user
 
       - name: Build a binary wheel and a source tarball
-        env:
-          VERSION: ${{ github.ref_name }}
-        run: python -m build --sdist --wheel --outdir dist/ .
+        run: |
+          VERSION=${GITHUB_REF_NAME#releases/v}
+          VERSION=$VERSION python -m build --sdist --wheel --outdir dist/ .
 
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
