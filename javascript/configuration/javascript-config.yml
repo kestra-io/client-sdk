@@ -1,5 +1,5 @@
 generatorName: javascript
-inputSpec: /local/kestra-ee.yml
+inputSpec: /local/kestra-ee.sanitized.yml
 outputDir: /local/javascript/javascript-sdk
 
 globalProperties:
