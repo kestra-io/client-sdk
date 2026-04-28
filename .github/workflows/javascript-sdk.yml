@@ -48,8 +48,8 @@ jobs:
       - name: Generate SDK
         working-directory: .
         run: |
-          # remove the .X at the end of the version to avoid generating a version with .X
-          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.X$//')
+          # remove the .X or .x at the end of the version
+          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
 
           ./generate-sdks.sh $docker_version javascript
 
