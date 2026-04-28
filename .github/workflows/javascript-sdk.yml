@@ -48,10 +48,7 @@ jobs:
       - name: Generate SDK
         working-directory: .
         run: |
-          # remove the .X or .x at the end of the version
-          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
-
-          ./generate-sdks.sh $docker_version javascript
+          ./generate-sdks.sh ${{ inputs.kestra_version }} javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
@@ -74,18 +71,25 @@ jobs:
       - name: type check
         run: npm run test:typecheck
 
+      - name: extract docker version
+        id: extract_version
+        run: |
+          # remove the .X or .x at the end of the version
+          docker_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
+          echo "docker_version=$docker_version" >> $GITHUB_OUTPUT
+
       - name: Select license file
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ inputs.kestra_version }}
+          kestra_version: ${{ steps.extract_version.outputs.docker_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
         if: inputs.skip-test != 'true'
         env:
-          KESTRA_VERSION: ${{ inputs.kestra_version }}
+          KESTRA_VERSION: ${{ steps.extract_version.outputs.docker_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION --no-build
