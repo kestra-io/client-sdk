@@ -1,22 +1,18 @@
 name: GO SDK tests
 
 on:
-  workflow_call:
-    inputs:
-      kestra_version:
-        description: "Kestra version to test against"
-        required: false
-        type: string
-        default: "develop"
-    secrets:
-      GOOGLE_SERVICE_ACCOUNT:
-        required: true
-      GCP_SERVICE_ACCOUNT:
-        required: true
-      KESTRA_EE_UNIT_TEST_LICENSE_FILE:
-        required: true
-      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE:
-        required: true
+  push:
+    branches:
+      - main
+      - "releases/v*"
+    paths:
+      - 'go-sdk/**'
+  pull_request:
+    branches:
+      - main
+      - "releases/v*"
+    paths:
+      - 'go-sdk/**'
   workflow_dispatch:
     inputs:
       skip-test:
@@ -40,6 +36,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
+
       - uses: actions/setup-go@v5
 
       - name: build
@@ -58,15 +58,14 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ inputs.kestra_version }}
+          kestra_version: ${{ steps.version.outputs.kestra_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Build local SDK and test it in an example project
-        if: ${{ github.event.inputs.skip-test == 'false' ||
-          github.event.inputs.skip-test == '' }}
+        if: inputs.skip-test != 'true'
         env:
-          KESTRA_VERSION: ${{ inputs.kestra_version }}
+          KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION

@@ -1,21 +1,20 @@
 name: Javascript SDK release
 
 on:
-  workflow_call:
-    inputs:
-      kestra_version:
-        description: "Kestra version to test against"
-        required: false
-        type: string
-        default: "develop"
-    secrets:
-      GCP_SERVICE_ACCOUNT:
-        required: true
-      KESTRA_EE_UNIT_TEST_LICENSE_FILE:
-        required: true
-      KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE:
-        required: true
-
+  push:
+    branches:
+      - main
+      - "releases/v*"
+    paths:
+      - 'javascript/javascript-sdk/**'
+      - 'kestra-ee.yml'
+  pull_request:
+    branches:
+      - main
+      - "releases/v*"
+    paths:
+      - 'javascript/javascript-sdk/**'
+      - 'kestra-ee.yml'
   workflow_dispatch:
     inputs:
       skip-test:
@@ -40,6 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
+
       - uses: actions/setup-node@v6
         with:
           node-version: "22.18"
@@ -49,7 +52,7 @@ jobs:
         id: extract_version
         run: |
           # remove the .X or .x at the end of the version
-          root_version=$(echo "${{ inputs.kestra_version }}" | sed 's/\.[xX]$//')
+          root_version=$(echo "${{ steps.version.outputs.kestra_version }}" | sed 's/\.[xX]$//')
 
           echo "root_version=$root_version" >> $GITHUB_OUTPUT
 
@@ -118,6 +121,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Compute Kestra version
+        id: version
+        uses: ./.github/actions/compute-version
+
       - name: Get OIDC Token
         env:
           AUDIENCE: "npm:registry.npmjs.org"
@@ -137,7 +144,7 @@ jobs:
         id: resolveVersion
         run: |
           if [[ "${GITHUB_REF_NAME}" == releases/* || "${GITHUB_BASE_REF}" == releases/* ]]; then
-            INPUT_VERSION=${{ inputs.kestra_version }}
+            INPUT_VERSION=${{ steps.version.outputs.kestra_version }}
 
             # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
             VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
