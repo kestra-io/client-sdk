@@ -6,15 +6,15 @@ on:
       - main
       - "releases/v*"
     paths:
-      - 'javascript/javascript-sdk/**'
-      - 'kestra-ee.yml'
+      - "javascript/javascript-sdk/**"
+      - "kestra-ee.yml"
   pull_request:
     branches:
       - main
       - "releases/v*"
     paths:
-      - 'javascript/javascript-sdk/**'
-      - 'kestra-ee.yml'
+      - "javascript/javascript-sdk/**"
+      - "kestra-ee.yml"
   workflow_dispatch:
     inputs:
       skip-test:
@@ -106,18 +106,14 @@ jobs:
           name: coverage-report
           path: ./coverage
 
-  publish:
-    name: Publish to Npm
+  publish-release:
+    name: Publish Release to Npm
     runs-on: ubuntu-latest
     needs: test
     permissions:
       contents: write
       id-token: write
-    if: |
-      !cancelled() && (
-        github.ref == 'refs/heads/main' ||
-        (needs.test.result == 'success' && startsWith(github.ref, 'refs/heads/releases/'))
-      )
+    if: startsWith(github.ref, 'refs/heads/releases/')
     steps:
       - uses: actions/checkout@v6
 
@@ -143,46 +139,93 @@ jobs:
       - name: Compute next version
         id: resolveVersion
         run: |
-          if [[ "${GITHUB_REF_NAME}" == releases/* || "${GITHUB_BASE_REF}" == releases/* ]]; then
-            INPUT_VERSION=${{ steps.version.outputs.kestra_version }}
+          INPUT_VERSION=${{ steps.version.outputs.kestra_version }}
 
-            # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
-            VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
+          # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
+          VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
 
-            echo "Version prefix: $VERSION_PREFIX"
+          echo "Version prefix: $VERSION_PREFIX"
 
-            # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
-            # `|| true` so an empty grep does not abort the step under `bash -e`
-            VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json 2>/dev/null | jq -r '.[]' 2>/dev/null | grep "^${VERSION_PREFIX}\." || true)
+          # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
+          # `|| true` so an empty grep does not abort the step under `bash -e`
+          VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json 2>/dev/null | jq -r '.[]' 2>/dev/null | grep "^${VERSION_PREFIX}\." || true)
 
-            echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
+          echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
 
-            # get the highest patch version, default to -1 when no prior patches exist
-            HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
-            if [ -z "$HIGHEST_PATCH" ]; then
-              HIGHEST_PATCH=-1
-            fi
-
-            echo "Highest patch version: $HIGHEST_PATCH"
-
-            # increment the patch version
-            NEXT_PATCH=$((HIGHEST_PATCH + 1))
-            NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
-
-            echo "kestra_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
-          else
-            HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
-            HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
-            echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
-            echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-            echo "kestra_version=2.0.0-develop.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
+          # get the highest patch version, default to -1 when no prior patches exist
+          HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
+          if [ -z "$HIGHEST_PATCH" ]; then
+            HIGHEST_PATCH=-1
           fi
+
+          echo "Highest patch version: $HIGHEST_PATCH"
+
+          # increment the patch version
+          NEXT_PATCH=$((HIGHEST_PATCH + 1))
+          NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
+
+          echo "kestra_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "kestra_tag=v$VERSION_PREFIX" >> $GITHUB_OUTPUT
 
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
         run: |
           npm install -g npm@latest
           npm version
+
+      - name: Generate SDK
+        working-directory: .
+        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
+          javascript
+
+      - name: Publish to npm with latest tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public
+
+      - name: Add version tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm npm dist-tag add @kestra-io/kestra-sdk@${{
+          steps.resolveVersion.outputs.kestra_version }} --tag ${{
+          steps.resolveVersion.outputs.kestra_tag }} --access public
+
+  publish-develop:
+    name: Publish Develop to Npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get OIDC Token
+        env:
+          AUDIENCE: "npm:registry.npmjs.org"
+        run: |
+          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
+          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "$TOKEN_JSON"
+          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve Next Develop Version
+        id: resolveVersion
+        run: |
+          HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
+          HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
+          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
+          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
+          echo "kestra_version=2.0.0-dev.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
+
+      - name: Generate SDK with develop version
+        working-directory: .
+        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
+          javascript
 
       - name: Check if version already published
         id: check
@@ -194,11 +237,15 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate SDK
-        if: steps.check.outputs.skip != 'true'
-        working-directory: .
-        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
-          javascript
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Publish to npm with develop tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --tag develop --access public
 
       - name: Publish to npm with develop tag
         if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
@@ -220,8 +267,3 @@ jobs:
           ```
           EOF
           )"
-
-      - name: Publish to npm with latest tag
-        if: steps.check.outputs.skip != 'true' && github.ref != 'refs/heads/main'
-        working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public
