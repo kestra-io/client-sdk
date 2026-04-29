@@ -317,6 +317,13 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}) {
         credentials: "include" as RequestCredentials,
         timeout: 15000,
         retry: { limit: 0 },
+        // Pass string bodies (YAML, plain text) through unchanged; only JSON-encode objects/arrays.
+        // The default jsonBodySerializer would JSON.stringify a YAML string into a quoted JSON string,
+        // which the server cannot parse as YAML.
+        bodySerializer: (body: unknown): unknown => {
+            if (typeof body === "string") return body
+            return JSON.stringify(body, (_key, value) => (typeof value === "bigint" ? value.toString() : value))
+        },
         querySerializer(query) {
             const queryParameters = new URLSearchParams()
             for (const key in query) {
