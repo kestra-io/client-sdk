@@ -435,7 +435,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
 
 let axiosInstance: AxiosInstance | null = null;
 
-export function useAxios(): AxiosInstance {
+export function useClient(): AxiosInstance {
     return new Proxy({} as AxiosInstance, {
         get(_target, prop) {
             if (!axiosInstance) {
