@@ -244,10 +244,6 @@ jobs:
           npm version
 
       - name: Publish to npm with develop tag
-        working-directory: ./javascript/javascript-sdk
-        run: npm publish --tag develop --access public
-
-      - name: Publish to npm with develop tag
         if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
         working-directory: ./javascript/javascript-sdk
         run: npm publish --tag develop --access public
