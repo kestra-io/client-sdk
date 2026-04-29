@@ -16296,13 +16296,6 @@ components:
                 (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
-        conditions:
-          title: List of conditions in order to limit the flow trigger.
-          type: array
-          description: "**DEPRECATED**, use `when` instead."
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/Condition"
         when:
           title: A condition that determines whether the trigger should run.
           type: string
@@ -18057,14 +18050,6 @@ components:
         running:
           type: integer
           format: int32
-    Condition:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
-          type: string
     CreateApiTokenRequest:
       required:
       - name
@@ -21480,10 +21465,6 @@ components:
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
         triggers:
-          type: array
-          items:
-            $ref: "#/components/schemas/Plugin.PluginElementMetadata"
-        conditions:
           type: array
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
