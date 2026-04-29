@@ -50,15 +50,15 @@ function pascalCase(str: string): string {
 
 export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
     const addTenantToParametersSymbol = plugin.symbol("addTenantToParameters", {
-        getFilePath: () => "sdk/ks-shared",
+        getFilePath: () => "sdk/shared",
     });
 
     const setGlobalTenantSymbol = plugin.symbol("setSelectedTenant", {
-        getFilePath: () => "sdk/ks-shared",
+        getFilePath: () => "sdk/shared",
     });
 
     const globalTenantSymbol = plugin.symbol("globalTenant", {
-        getFilePath: () => "sdk/ks-shared",
+        getFilePath: () => "sdk/shared",
     });
 
     const tenantNode = $.let(globalTenantSymbol).assign($.literal("main"))
@@ -91,7 +91,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     // Helper: resolves tenant — uses provided value or falls back to globalTenant
     const resolveTenantSymbol = plugin.symbol("resolveTenant", {
-        getFilePath: () => "sdk/ks-shared",
+        getFilePath: () => "sdk/shared",
     });
 
     const resolveTenantNode = $.func()
@@ -106,7 +106,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     // Shared helper: extracts response.data or throws
     const getDataOrThrowSymbol = plugin.symbol("getDataOrThrow", {
-        getFilePath: () => "sdk/ks-shared",
+        getFilePath: () => "sdk/shared",
     });
 
     const getDataOrThrowNode = $.func().async()
@@ -162,7 +162,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             const funcSymbol = plugin.symbol(methodName, {
                 getFilePath() {
                     const tag = operation.tags?.[0] ?? "default";
-                    return `sdk/ks-${pascalCase(tag)}`;
+                    return `sdk/${pascalCase(tag)}`;
                 }
             })
 

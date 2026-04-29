@@ -109,7 +109,7 @@ interface QueueItem {
     reject: (reason: unknown) => void
 }
 
-export const configureAxios = (
+export const configureBrowserClient = (
     clientConfig: Config<ClientOptions> = {},
     options: {
         oss?: boolean,
@@ -147,7 +147,7 @@ export const configureAxios = (
 
     const doLogout = () => {
         beforeLogout?.()
-        authStore?.logout().catch(() => {})
+        authStore?.logout().catch(() => { })
         const currentPath = window.location.pathname
         router?.push({
             name: "login",
@@ -316,7 +316,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}) {
     client.setConfig({
         credentials: "include" as RequestCredentials,
         timeout: 15000,
-        retry: 0,
+        retry: { limit: 0 },
         querySerializer(query) {
             const queryParameters = new URLSearchParams()
             for (const key in query) {
