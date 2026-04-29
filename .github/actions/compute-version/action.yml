@@ -1,0 +1,22 @@
+name: Compute Kestra Version
+description: Computes the Kestra version from the current branch name
+
+outputs:
+  kestra_version:
+    description: The computed Kestra version
+    value: ${{ steps.version.outputs.kestra_version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Compute version from branch
+      id: version
+      shell: bash
+      run: |
+        if [[ "${GITHUB_REF_NAME}" == releases/* ]]; then
+          echo "kestra_version=${GITHUB_REF_NAME#releases/}" >> $GITHUB_OUTPUT
+        elif [[ "${GITHUB_BASE_REF}" == releases/* ]]; then
+          echo "kestra_version=${GITHUB_BASE_REF#releases/}" >> $GITHUB_OUTPUT
+        else
+          echo "kestra_version=develop" >> $GITHUB_OUTPUT
+        fi
