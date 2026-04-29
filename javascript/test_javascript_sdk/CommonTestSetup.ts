@@ -41,7 +41,7 @@ import * as WorkerGroups from "@kestra-io/kestra-sdk/worker-groups";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
-export const baseURL = "http://localhost:9903";
+export const baseUrl = "http://localhost:9903";
 export const username = "root@root.com";
 export const password = "Root!1234";
 export const MAIN_TENANT = "main";
@@ -51,73 +51,67 @@ beforeAll(async () => {
         auth: () => {
             return username + ":" + password;
         },
-        baseURL
+        baseUrl,
     });
 
     if (process.env.DEBUG) {
         instance.interceptors.request.use((config) => {
             //log the request method and url for debugging purposes
-            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
+            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers.get("Content-Type"));
             return config;
         });
 
         instance.interceptors.response.use((response) => {
-            return response;
-        }, (error) => {
-            if (error.response) {
-                //log the error status and url for debugging purposes
-                console.error(`[${error.response.status}] ${error.config.url}`);
-                console.error("Error data:", error.response.data);
-            } else {
-                console.error("Error:", error.message);
+            // when error log the response status and data for debugging purposes
+            if (!response.ok) {
+                console.error(`[${response.status}] ${response.url}`, response.statusText);
             }
-            return Promise.reject(error);
+            return response;
         });
     }
+    setSelectedTenant(MAIN_TENANT);
 });
 
-export function kestraClient() {
-    setSelectedTenant(MAIN_TENANT);
-    return {
-        Ai,
-        Apps,
-        AuditLogs,
-        Auths,
-        Banners,
-        Bindings,
-        Blueprints,
-        BlueprintTags,
-        Cluster,
-        Dashboards,
-        Executions,
-        Files,
-        Flows,
-        Groups,
-        Invitations,
-        Kv,
-        Login,
-        Logs,
-        Maintenance,
-        Metrics,
-        Misc,
-        Namespaces,
-        Plugins,
-        Roles,
-        ScimConfiguration,
-        ScimGroups,
-        ScimUsers,
-        Secrets,
-        SecurityIntegrations,
-        ServiceAccount,
-        Services,
-        TenantAccess,
-        Tenants,
-        TestSuites,
-        Triggers,
-        Users,
-        WorkerGroups,
-    };
-}
+export const kestraClient = {
+    Ai,
+    Apps,
+    AuditLogs,
+    Auths,
+    Banners,
+    Bindings,
+    Blueprints,
+    BlueprintTags,
+    Cluster,
+    Dashboards,
+    Executions,
+    Files,
+    Flows,
+    Groups,
+    Invitations,
+    Kv,
+    Login,
+    Logs,
+    Maintenance,
+    Metrics,
+    Misc,
+    Namespaces,
+    Plugins,
+    Roles,
+    ScimConfiguration,
+    ScimGroups,
+    ScimUsers,
+    Secrets,
+    SecurityIntegrations,
+    ServiceAccount,
+    Services,
+    TenantAccess,
+    Tenants,
+    TestSuites,
+    Triggers,
+    Users,
+    WorkerGroups,
+};
+
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);
 }

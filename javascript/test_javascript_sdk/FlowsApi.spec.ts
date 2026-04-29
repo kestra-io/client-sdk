@@ -6,13 +6,13 @@ import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 // ---------- helpers ----------
 async function createSimpleFlow() {
     const body = getSimpleFlow();
-    const flow = await kestraClient().Flows.createFlow({ body });
+    const flow = await kestraClient.Flows.createFlow({ body });
     await assertFlowExist(flow);
     return flow;
 }
 
 async function assertFlowExist(flow: { namespace: string; id: string }) {
-    const result = await kestraClient().Flows.flow({
+    const result = await kestraClient.Flows.flow({
         namespace: flow.namespace,
         id: flow.id,
     });
@@ -21,7 +21,7 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
 
 async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
     try {
-        await kestraClient().Flows.flow({
+        await kestraClient.Flows.flow({
             namespace: flow.namespace,
             id: flow.id,
         });
@@ -36,7 +36,7 @@ describe('FlowsApi', () => {
     // Update from multiples yaml sources
     it('bulk_update_flows: Update from multiple yaml sources', async () => {
         const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        const flow = await kestraClient().Flows.createFlow({ body: flowBody });
+        const flow = await kestraClient.Flows.createFlow({ body: flowBody });
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
@@ -44,7 +44,7 @@ describe('FlowsApi', () => {
         const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        const resp = await kestraClient().Flows.bulkUpdateFlows({
+        const resp = await kestraClient.Flows.bulkUpdateFlows({
             delete: false,
             allowNamespaceChild: false,
             namespace,
@@ -59,14 +59,14 @@ describe('FlowsApi', () => {
     // Create a flow from yaml source (simple)
     it('create_flow: simple', async () => {
         const body = getSimpleFlow();
-        const flow = await kestraClient().Flows.createFlow({ body });
+        const flow = await kestraClient.Flows.createFlow({ body });
         await assertFlowExist(flow);
     });
 
     // Create a flow from yaml source (full)
     it('create_flow: full', async () => {
         const body = getCompleteFlow();
-        const flow = await kestraClient().Flows.createFlow({ body });
+        const flow = await kestraClient.Flows.createFlow({ body });
         await assertFlowExist(flow);
     });
 
@@ -74,7 +74,7 @@ describe('FlowsApi', () => {
     it('delete_flow', async () => {
         const flow = await createSimpleFlow();
 
-        await kestraClient().Flows.deleteFlow({ namespace: flow.namespace, id: flow.id });
+        await kestraClient.Flows.deleteFlow({ namespace: flow.namespace, id: flow.id });
 
         await assertFlowDoesNotExist(flow);
     });
@@ -84,7 +84,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
 
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().Flows.deleteFlowsByIds({ body: idWithNamespace });
+        await kestraClient.Flows.deleteFlowsByIds({ body: idWithNamespace });
 
         await assertFlowDoesNotExist(flow);
     });
@@ -93,7 +93,7 @@ describe('FlowsApi', () => {
     it('delete_flows_by_query', async () => {
         const flow = await createSimpleFlow();
 
-        await kestraClient().Flows.deleteFlowsByQuery({
+        await kestraClient.Flows.deleteFlowsByQuery({
             filters: [
                 { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any },
             ],
@@ -106,7 +106,7 @@ describe('FlowsApi', () => {
     it('disable_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().Flows.disableFlowsByIds({ body: idWithNamespace });
+        await kestraClient.Flows.disableFlowsByIds({ body: idWithNamespace });
     });
 
     // Disable flows returned by the query parameters (placeholder like Java)
@@ -114,27 +114,27 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         void flow;
         // TODO when endpoint signature is available:
-        // await kestraClient().Flows.disableFlowsByQuery({ filters: [...] });
+        // await kestraClient.Flows.disableFlowsByQuery({ filters: [...] });
     });
 
     // Enable flows by their IDs
     it('enable_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().Flows.enableFlowsByIds({ body: idWithNamespace });
+        await kestraClient.Flows.enableFlowsByIds({ body: idWithNamespace });
     });
 
     // Enable flows returned by the query parameters (placeholder like Java)
     it('enable_flows_by_query', async () => {
         // TODO when endpoint signature is available:
-        // await kestraClient().Flows.enableFlowsByQuery({ filters: [...] });
+        // await kestraClient.Flows.enableFlowsByQuery({ filters: [...] });
     });
 
     // Export flows as ZIP by IDs
     it('export_flows_by_ids', async () => {
         const flow = await createSimpleFlow();
         const idWithNamespace = [{ id: flow.id, namespace: flow.namespace }];
-        await kestraClient().Flows.exportFlowsByIds({ body: idWithNamespace });
+        await kestraClient.Flows.exportFlowsByIds({ body: idWithNamespace });
     });
 
     // Export flows as ZIP by query (placeholder like Java)
@@ -142,7 +142,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         void flow;
         // TODO when endpoint signature is available:
-        // await kestraClient().Flows.exportFlowsByQuery({ filters: [...] });
+        // await kestraClient.Flows.exportFlowsByQuery({ filters: [...] });
     });
 
     // Generate a graph for a flow
@@ -150,13 +150,13 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        await kestraClient().Flows.generateFlowGraph({ namespace, id });
+        await kestraClient.Flows.generateFlowGraph({ namespace, id });
     });
 
     // Generate a graph for a flow source
     it('generate_flow_graph_from_source', async () => {
         const body = getSimpleFlow();
-        await kestraClient().Flows.generateFlowGraphFromSource({ body });
+        await kestraClient.Flows.generateFlowGraphFromSource({ body });
     });
 
     // Get a flow
@@ -164,7 +164,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        const resp = await kestraClient().Flows.flow({ namespace, id });
+        const resp = await kestraClient.Flows.flow({ namespace, id });
         expect(resp.id).toBe(id);
     });
 
@@ -173,7 +173,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        await kestraClient().Flows.flowDependencies({ namespace, id, destinationOnly: true, expandAll: false });
+        await kestraClient.Flows.flowDependencies({ namespace, id, destinationOnly: true, expandAll: false });
     });
 
     // Retrieve flow dependencies for a namespace
@@ -181,7 +181,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace } = flow;
 
-        await kestraClient().Flows.flowDependenciesFromNamespace({ namespace, destinationOnly: true });
+        await kestraClient.Flows.flowDependenciesFromNamespace({ namespace, destinationOnly: true });
     });
 
     // Get a flow task
@@ -190,13 +190,13 @@ describe('FlowsApi', () => {
         const { namespace, id } = flow;
         const taskId = (flow as any).tasks?.[0]?.id;
 
-        await kestraClient().Flows.taskFromFlow({ namespace, id, taskId });
+        await kestraClient.Flows.taskFromFlow({ namespace, id, taskId });
     });
 
     // List all distinct namespaces
     it('list_distinct_namespaces', async () => {
         await createSimpleFlow();
-        const resp = await kestraClient().Flows.listDistinctNamespaces({});
+        const resp = await kestraClient.Flows.listDistinctNamespaces({});
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -204,7 +204,7 @@ describe('FlowsApi', () => {
     it('list_flow_revisions', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const resp = await kestraClient().Flows.listFlowRevisions({ namespace, id });
+        const resp = await kestraClient.Flows.listFlowRevisions({ namespace, id });
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -212,7 +212,7 @@ describe('FlowsApi', () => {
     it('list_flows_by_namespace', async () => {
         const flow = await createSimpleFlow();
         const { namespace } = flow;
-        const resp = await kestraClient().Flows.listFlowsByNamespace({ namespace });
+        const resp = await kestraClient.Flows.listFlowsByNamespace({ namespace });
         expect(Array.isArray(resp)).toBe(true);
     });
 
@@ -221,13 +221,13 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         void flow;
         // TODO when endpoint/signature ready:
-        // const resp = getDataOrThrow(await kestraClient().Flows.searchFlows({ page: 1, size: 10, namespace: flow.namespace }));
+        // const resp = getDataOrThrow(await kestraClient.Flows.searchFlows({ page: 1, size: 10, namespace: flow.namespace }));
     });
 
     // Search for flows source code
     it('search_flows_by_source_code', async () => {
         const flow = await createSimpleFlow();
-        const resp = await kestraClient().Flows.searchFlowsBySourceCode({
+        const resp = await kestraClient.Flows.searchFlowsBySourceCode({
             page: 1,
             size: 10000,
             q: flow.id,
@@ -240,7 +240,7 @@ describe('FlowsApi', () => {
     // Update a flow
     it('update_flow', async () => {
         const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
-        const flow = await kestraClient().Flows.createFlow({ body: flowBody });
+        const flow = await kestraClient.Flows.createFlow({ body: flowBody });
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
@@ -248,20 +248,20 @@ describe('FlowsApi', () => {
         const id = flowId;
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
-        const resp = await kestraClient().Flows.updateFlow({ namespace, id, body: updatedBody });
+        const resp = await kestraClient.Flows.updateFlow({ namespace, id, body: updatedBody });
         expect(resp.description).toBe('simple_flow_description_updated');
     });
 
     // Validate flows (simple)
     it('validate_flows_simple', async () => {
         const body = getSimpleFlow();
-        await kestraClient().Flows.validateFlows({ body });
+        await kestraClient.Flows.validateFlows({ body });
     });
 
     // Validate flows (complete)
     it('validate_flows_complete', async () => {
         const body = getCompleteFlow();
-        await kestraClient().Flows.validateFlows({ body });
+        await kestraClient.Flows.validateFlows({ body });
     });
 
     // Validate a task
@@ -273,7 +273,7 @@ describe('FlowsApi', () => {
             message: 'strange---string',
         };
 
-        const resp = await kestraClient().Flows.validateTask({ section, body: taskObj });
+        const resp = await kestraClient.Flows.validateTask({ section, body: taskObj });
         expect((resp as any).constraints ?? []).toHaveLength(0);
         expect((resp as any).warnings ?? []).toHaveLength(0);
     });
@@ -287,7 +287,7 @@ describe('FlowsApi', () => {
             message: 'strange---string',
         };
 
-        const resp = await kestraClient().Flows.validateTask({ section, body: taskObj });
+        const resp = await kestraClient.Flows.validateTask({ section, body: taskObj });
         const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
@@ -306,7 +306,7 @@ describe('FlowsApi', () => {
             type: 'io.kestra.plugin.core.trigger.Schedule',
             cron: '0 9 1 * *',
         };
-        const resp = await kestraClient().Flows.validateTrigger({ body: triggerObj });
+        const resp = await kestraClient.Flows.validateTrigger({ body: triggerObj });
         expect((resp as any).constraints ?? []).toHaveLength(0);
         expect((resp as any).warnings ?? []).toHaveLength(0);
     });
@@ -319,7 +319,7 @@ describe('FlowsApi', () => {
             cron: '0 9 1 * *',
         };
 
-        const resp = await kestraClient().Flows.validateTrigger({ body: triggerObj });
+        const resp = await kestraClient.Flows.validateTrigger({ body: triggerObj });
         const raw = (resp as any)?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
