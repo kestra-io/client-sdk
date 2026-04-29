@@ -184,7 +184,7 @@ jobs:
 
       - name: Add version tag
         working-directory: ./javascript/javascript-sdk
-        run: npm npm dist-tag add @kestra-io/kestra-sdk@${{
+        run: npm dist-tag add @kestra-io/kestra-sdk@${{
           steps.resolveVersion.outputs.kestra_version }} --tag ${{
           steps.resolveVersion.outputs.kestra_tag }} --access public
 
