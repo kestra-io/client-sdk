@@ -59,7 +59,6 @@
     "dev": "node scripts/dev.mjs",
     "typecheck": "vue-tsc --noEmit",
     "generate:openapi": "openapi-ts",
-    "postinstall": "openapi-ts",
     "prebuild": "openapi-ts"
   },
   "dependencies": {
