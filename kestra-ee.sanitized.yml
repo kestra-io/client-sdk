@@ -19614,10 +19614,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
-        conditions:
-          type: array
-          items:
-            $ref: "#/components/schemas/Plugin.PluginElementMetadata"
         controllers:
           type: array
           items:
