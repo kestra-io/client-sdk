@@ -11,7 +11,7 @@ export async function searchAndCreateFlowsExample() {
         auth: () => {
             return username + ":" + password;
         },
-        baseURL,
+        baseUrl: baseURL,
     });
 
     const searchRes = await Flows.searchFlows({
