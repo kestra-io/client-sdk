@@ -301,6 +301,8 @@ export const configureAxios = (
         }
     })
 
+    axiosInstance = instance
+
     return instance;
 };
 
