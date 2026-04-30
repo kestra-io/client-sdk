@@ -66,10 +66,21 @@ function serializeQueryValue(val: unknown) {
 
 export type FetchClient = typeof client
 
+// @hey-api/client-fetch defaults to jsonBodySerializer for ALL bodies. Override
+// with a type-aware serializer: strings (YAML, plain text) are passed through
+// unchanged; objects/arrays go through JSON.stringify as usual.
+const smartBodySerializer = (body: unknown): string | FormData | URLSearchParams | undefined => {
+    if (body === undefined || body === null) return undefined
+    if (typeof body === "string") return body
+    if (body instanceof FormData || body instanceof URLSearchParams) return body
+    return JSON.stringify(body)
+}
+
 export function configureClient(clientConfig: Config<ClientOptions> = {}): FetchClient {
     client.setConfig({
         credentials: "include",
         headers: { "Content-Type": "application/json" },
+        bodySerializer: smartBodySerializer,
         querySerializer(query) {
             const queryParameters = new URLSearchParams();
             for (const key in query) {

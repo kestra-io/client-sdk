@@ -1,4 +1,4 @@
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureClient } from "@kestra-io/kestra-sdk";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
 
 const baseUrl = "http://localhost:9903";
@@ -7,7 +7,7 @@ const password = "Root!1234";
 const tenantId = "main";
 
 export async function searchAndCreateFlowsExample() {
-    client.setConfig({
+    configureClient({
         auth: () => {
             return username + ":" + password;
         },
