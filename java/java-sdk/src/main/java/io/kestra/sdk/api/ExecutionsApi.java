@@ -43,6 +43,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ExecutionsApi extends BaseApi {
 
@@ -716,7 +717,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String key,
-            @jakarta.annotation.Nullable String path) throws ApiException {
+            @jakarta.annotation.Nonnull String path) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "executions", "webhook", namespace, id, key, path),
                 null, null, null,
@@ -729,7 +730,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String key,
-            @jakarta.annotation.Nullable String path) throws ApiException {
+            @jakarta.annotation.Nonnull String path) throws ApiException {
         return invoke("POST",
                 tenantPath(tenant, "executions", "webhook", namespace, id, key, path),
                 null, null, null,
@@ -742,7 +743,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String key,
-            @jakarta.annotation.Nullable String path) throws ApiException {
+            @jakarta.annotation.Nonnull String path) throws ApiException {
         return invoke("PUT",
                 tenantPath(tenant, "executions", "webhook", namespace, id, key, path),
                 null, null, null,
@@ -768,12 +769,26 @@ public class ExecutionsApi extends BaseApi {
 
     private <T> Flux<T> sseFlux(String path, List<Pair> queryParams, Class<T> eventType) {
         return Flux.create(sink -> {
-            CloseableHttpResponse response = null;
-            BufferedReader reader = null;
+            AtomicReference<CloseableHttpResponse> responseRef = new AtomicReference<>();
+            AtomicReference<BufferedReader> readerRef = new AtomicReference<>();
+
+            sink.onDispose(() -> {
+                try {
+                    BufferedReader r = readerRef.get();
+                    if (r != null) r.close();
+                } catch (IOException ignored) {}
+                try {
+                    CloseableHttpResponse resp = responseRef.get();
+                    if (resp != null) resp.close();
+                } catch (IOException ignored) {}
+            });
+
             try {
-                response = openStream(path, queryParams);
-                reader = new BufferedReader(
+                CloseableHttpResponse response = openStream(path, queryParams);
+                responseRef.set(response);
+                BufferedReader reader = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
+                readerRef.set(reader);
 
                 String line;
                 StringBuilder dataBuffer = new StringBuilder();
@@ -805,19 +820,13 @@ public class ExecutionsApi extends BaseApi {
                 }
             } catch (ApiException e) {
                 sink.error(e);
-            } finally {
-                try {
-                    if (reader != null) reader.close();
-                    if (response != null) response.close();
-                } catch (IOException ignored) {
-                }
             }
         });
     }
 
     public Flux<Execution> followExecution(
             @jakarta.annotation.Nonnull String executionId,
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+            @jakarta.annotation.Nonnull String tenant) {
         return sseFlux(
                 tenantPath(tenant, "executions", executionId, "follow"),
                 null,
@@ -829,7 +838,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Boolean destinationOnly,
-            @jakarta.annotation.Nullable Boolean expandAll) throws ApiException {
+            @jakarta.annotation.Nullable Boolean expandAll) {
         return sseFlux(
                 tenantPath(tenant, "executions", executionId, "follow-dependencies"),
                 queryParams("destinationOnly", destinationOnly, "expandAll", expandAll),
@@ -845,7 +854,7 @@ public class ExecutionsApi extends BaseApi {
     public <T> T invokeAPI(String url, String method, Object request,
                            TypeReference<T> returnType,
                            Map<String, String> additionalHeaders) throws ApiException {
-        String path = url.replace(apiClient.getBaseURL(), "");
+        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
         return apiClient.invokeAPI(
                 path, method,
                 Collections.emptyList(), Collections.emptyList(), "",

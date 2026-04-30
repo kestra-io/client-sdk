@@ -124,8 +124,8 @@ public class TriggersApi extends BaseApi {
 
     public PagedResultsApiTriggerState searchTriggersForFlow(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable String namespace,
-            @jakarta.annotation.Nullable String flowId,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String flowId,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
             @jakarta.annotation.Nullable String q,
@@ -383,7 +383,7 @@ public class TriggersApi extends BaseApi {
     public <T> T invokeAPI(String url, String method, Object request,
                            TypeReference<T> returnType,
                            Map<String, String> additionalHeaders) throws ApiException {
-        String path = url.replace(apiClient.getBaseURL(), "");
+        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
         return apiClient.invokeAPI(
                 path, method,
                 Collections.emptyList(), Collections.emptyList(), "",

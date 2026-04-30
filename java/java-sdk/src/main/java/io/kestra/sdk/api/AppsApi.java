@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AppsApi extends BaseApi {
 
@@ -353,10 +354,22 @@ public class AppsApi extends BaseApi {
             @jakarta.annotation.Nonnull String stream,
             @jakarta.annotation.Nonnull String tenant) {
         return Flux.create(sink -> {
-            CloseableHttpResponse response = null;
-            BufferedReader reader = null;
+            AtomicReference<CloseableHttpResponse> responseRef = new AtomicReference<>();
+            AtomicReference<BufferedReader> readerRef = new AtomicReference<>();
+
+            sink.onDispose(() -> {
+                try {
+                    BufferedReader r = readerRef.get();
+                    if (r != null) r.close();
+                } catch (IOException ignored) {}
+                try {
+                    CloseableHttpResponse resp = responseRef.get();
+                    if (resp != null) resp.close();
+                } catch (IOException ignored) {}
+            });
+
             try {
-                response = apiClient.openEventStream(
+                CloseableHttpResponse response = apiClient.openEventStream(
                         tenantPath(tenant, "apps", "view", id, "streams", stream),
                         Collections.emptyList(),
                         Collections.emptyList(),
@@ -365,8 +378,10 @@ public class AppsApi extends BaseApi {
                         new HashMap<>(),
                         AUTH
                 );
-                reader = new BufferedReader(
+                responseRef.set(response);
+                BufferedReader reader = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
+                readerRef.set(reader);
 
                 String line;
                 StringBuilder dataBuffer = new StringBuilder();
@@ -400,12 +415,6 @@ public class AppsApi extends BaseApi {
                 }
             } catch (ApiException e) {
                 sink.error(e);
-            } finally {
-                try {
-                    if (reader != null) reader.close();
-                    if (response != null) response.close();
-                } catch (IOException ignored) {
-                }
             }
         });
     }
@@ -418,14 +427,14 @@ public class AppsApi extends BaseApi {
     public <T> T invokeAPI(String url, String method, Object request,
                            TypeReference<T> returnType,
                            Map<String, String> additionalHeaders) throws ApiException {
-        String path = url.replace(apiClient.getBaseURL(), "");
+        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
         return apiClient.invokeAPI(
                 path, method,
                 Collections.emptyList(), Collections.emptyList(), "",
                 request,
                 additionalHeaders != null ? additionalHeaders : new HashMap<>(),
                 new HashMap<>(), new HashMap<>(),
-                YAML, JSON, AUTH, returnType
+                JSON, JSON, AUTH, returnType
         );
     }
 }

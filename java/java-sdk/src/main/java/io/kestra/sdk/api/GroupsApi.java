@@ -270,7 +270,7 @@ public class GroupsApi extends BaseApi {
     public <T> T invokeAPI(String url, String method, Object request,
                            TypeReference<T> returnType,
                            Map<String, String> additionalHeaders) throws ApiException {
-        String path = url.replace(apiClient.getBaseURL(), "");
+        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
         return apiClient.invokeAPI(
                 path, method,
                 Collections.emptyList(), Collections.emptyList(), "",

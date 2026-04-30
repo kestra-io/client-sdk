@@ -116,8 +116,8 @@ public class DashboardsApiTest {
     // ========================================================================
 
     @Test
-    void defaultDashboards1_basic() throws ApiException {
-        DashboardSettings settings = api().defaultDashboards1(TENANT);
+    void defaultDashboards_basic() throws ApiException {
+        DashboardSettings settings = api().defaultDashboards(TENANT);
         assertThat(settings).isNotNull();
     }
 

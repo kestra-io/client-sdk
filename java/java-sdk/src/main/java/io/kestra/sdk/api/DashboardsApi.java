@@ -207,7 +207,7 @@ public class DashboardsApi extends BaseApi {
     // Settings
     // ========================================================================
 
-    public DashboardSettings defaultDashboards1(
+    public DashboardSettings defaultDashboards(
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("GET",
                 tenantPath(tenant, "dashboards", "settings", "default-dashboards"),
@@ -248,14 +248,14 @@ public class DashboardsApi extends BaseApi {
     public <T> T invokeAPI(String url, String method, Object request,
                            TypeReference<T> returnType,
                            Map<String, String> additionalHeaders) throws ApiException {
-        String path = url.replace(apiClient.getBaseURL(), "");
+        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
         return apiClient.invokeAPI(
                 path, method,
                 Collections.emptyList(), Collections.emptyList(), "",
                 request,
                 additionalHeaders != null ? additionalHeaders : new HashMap<>(),
                 new HashMap<>(), new HashMap<>(),
-                JSON, YAML, AUTH, returnType
+                JSON, JSON, AUTH, returnType
         );
     }
 }
