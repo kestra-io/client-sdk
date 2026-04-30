@@ -60,7 +60,7 @@ jobs:
           java-version: 21
 
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/wrapper-validation@v6
 
       # Gradle check
       - name: Build with Gradle
@@ -137,7 +137,7 @@ jobs:
           java-version: 21
 
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/wrapper-validation@v6
 
       # Publish
       - name: Publish - Release package to Maven Central
