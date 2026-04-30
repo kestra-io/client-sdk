@@ -326,14 +326,32 @@ function serializeQueryValue(val: unknown) {
 export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
     const instance = axios.create(axiosConfig)
 
-    // Axios omits Content-Type for body-less requests, which causes servers that
-    // expect application/json (e.g. Kestra) to reject them with 401/415.
-    // Force application/json for POST/PUT/PATCH when the body is strictly absent.
     instance.interceptors.request.use((config) => {
+        // Axios omits Content-Type for body-less requests, which causes servers that
+        // expect application/json (e.g. Kestra) to reject them with 401/415.
+        // Force application/json for POST/PUT/PATCH when the body is strictly absent.
         const method = config.method?.toLowerCase()
         if (method === "post" || method === "put" || method === "patch") {
             if (config.data == null) {
                 config.headers["Content-Type"] = "application/json"
+            }
+        }
+
+        // hey-api sets responseType:'blob'/'text' so Axios decodes the response body
+        // correctly, but does NOT set the Accept request header. Without an explicit
+        // Accept header, Kestra performs content negotiation and may return 404 when
+        // it finds no handler matching the client's implicit "Accept: application/json".
+        // Note: Axios injects a default "application/json, text/plain, */*" Accept header,
+        // so we must override whenever responseType indicates a non-JSON response — not
+        // only when the header is absent.
+        const axiosDefaultAccept = "application/json, text/plain, */*"
+        const currentAccept = config.headers["Accept"]
+        const hasCustomAccept = currentAccept && currentAccept !== axiosDefaultAccept
+        if (!hasCustomAccept) {
+            if (config.responseType === "blob") {
+                config.headers["Accept"] = "application/octet-stream"
+            } else if (config.responseType === "text") {
+                config.headers["Accept"] = "text/plain"
             }
         }
         return config

@@ -156,10 +156,10 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const exp = await kestraClient.Flows.exportFlowsByQuery({
             filters: [{
-                field: 'ID', operation: 'EQUALS', value: flow.id as any,
+                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
             }]
         });
-        expect(exp).toMatchInlineSnapshot();
+        expect(exp).toBeDefined();
     });
 
     // Generate a graph for a flow

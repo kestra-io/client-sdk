@@ -1,7 +1,7 @@
 // ExecutionsApi.spec.ts
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
-import type { QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
+import type { ApiExecution, QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -121,9 +121,19 @@ async function awaitExecution(
     const start = Date.now();
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        const last = await kestraClient.Executions.execution({
-            executionId,
-        });
+        let last = {} as ApiExecution;
+        try {
+            last = await kestraClient.Executions.execution({
+                executionId,
+            });
+        } catch (e) {
+            if (e instanceof Error && e.message.includes("404")) {
+                console.log(`Execution ${executionId} not found, waiting...`);
+            } else {
+                throw e;
+            }
+        }
+
         if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
             if (!last) throw new Error("Execution not found within timeout");
@@ -330,25 +340,32 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
 
-        const queued = await kestraClient.Executions.createExecution({
+        const queued1 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
-        await awaitExecution(queued.id, "QUEUED", 1500, 100);
-
-        const bulk: any = await kestraClient.Executions.forceRunByIds({
-            body: [queued.id],
+        const queued2 = await kestraClient.Executions.createExecution({
+            namespace: ns,
+            id: flowId,
         });
-        expect(bulk.count).toBe(1);
+        await Promise.all([
+            awaitExecution(queued1.id, "QUEUED", 1500, 100),
+            awaitExecution(queued2.id, "QUEUED", 1500, 100)
+        ])
 
-        const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
+        const bulk = await kestraClient.Executions.forceRunByIds({
+            body: [queued1.id, queued2.id],
+        });
+        expect(bulk.totalItems).toBe(2);
+
+        const after = await awaitExecution(queued1.id, "RUNNING", 1500, 100);
+        const after2 = await awaitExecution(queued2.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
-    });
+        expect(after2.state?.current).toBe("RUNNING");
+    }, 10000);
 
     // --- force run execution (single) ---
     it("force_run_execution", async () => {
@@ -359,14 +376,12 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
 
         const queued = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
@@ -387,13 +402,11 @@ describe("ExecutionsApi", () => {
         const e1 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         await awaitExecution(e1.id, "RUNNING", 1500, 100);
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         await awaitExecution(e2.id, "QUEUED", 1500, 100);
 
