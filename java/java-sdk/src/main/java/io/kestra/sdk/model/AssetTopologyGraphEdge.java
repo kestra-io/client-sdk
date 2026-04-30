@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.Relation1;
+import io.kestra.sdk.model.Relation;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -41,7 +41,7 @@ public class AssetTopologyGraphEdge {
   @jakarta.annotation.Nullable  private String target;
 
   public static final String JSON_PROPERTY_RELATION = "relation";
-  @jakarta.annotation.Nullable  private Relation1 relation;
+  @jakarta.annotation.Nullable  private Relation relation;
 
   public AssetTopologyGraphEdge() {
   }
@@ -94,7 +94,7 @@ public class AssetTopologyGraphEdge {
     this.target = target;
   }
 
-  public AssetTopologyGraphEdge relation(@jakarta.annotation.Nullable Relation1 relation) {
+  public AssetTopologyGraphEdge relation(@jakarta.annotation.Nullable Relation relation) {
     
     this.relation = relation;
     return this;
@@ -107,14 +107,14 @@ public class AssetTopologyGraphEdge {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Relation1 getRelation() {
+  public Relation getRelation() {
     return relation;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RELATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRelation(@jakarta.annotation.Nullable Relation1 relation) {
+  public void setRelation(@jakarta.annotation.Nullable Relation relation) {
     this.relation = relation;
   }
 

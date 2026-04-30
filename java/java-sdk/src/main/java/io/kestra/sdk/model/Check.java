@@ -28,15 +28,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Check
  */
 @JsonPropertyOrder({
-  Check.JSON_PROPERTY_CONDITION,
+  Check.JSON_PROPERTY_WHEN,
   Check.JSON_PROPERTY_MESSAGE,
   Check.JSON_PROPERTY_STYLE,
   Check.JSON_PROPERTY_BEHAVIOR
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Check {
-  public static final String JSON_PROPERTY_CONDITION = "condition";
-  @jakarta.annotation.Nonnull  private String condition;
+  public static final String JSON_PROPERTY_WHEN = "when";
+  @jakarta.annotation.Nonnull  private String when;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @jakarta.annotation.Nonnull  private String message;
@@ -50,28 +50,28 @@ public class Check {
   public Check() {
   }
 
-  public Check condition(@jakarta.annotation.Nonnull String condition) {
+  public Check when(@jakarta.annotation.Nonnull String when) {
     
-    this.condition = condition;
+    this.when = when;
     return this;
   }
 
   /**
-   * Get condition
-   * @return condition
+   * Get when
+   * @return when
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONDITION)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_WHEN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getCondition() {
-    return condition;
+  public String getWhen() {
+    return when;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONDITION)
+  @JsonProperty(JSON_PROPERTY_WHEN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCondition(@jakarta.annotation.Nonnull String condition) {
-    this.condition = condition;
+  public void setWhen(@jakarta.annotation.Nonnull String when) {
+    this.when = when;
   }
 
   public Check message(@jakarta.annotation.Nonnull String message) {
@@ -155,7 +155,7 @@ public class Check {
       return false;
     }
     Check check = (Check) o;
-    return Objects.equals(this.condition, check.condition) &&
+    return Objects.equals(this.when, check.when) &&
         Objects.equals(this.message, check.message) &&
         Objects.equals(this.style, check.style) &&
         Objects.equals(this.behavior, check.behavior);
@@ -163,14 +163,14 @@ public class Check {
 
   @Override
   public int hashCode() {
-    return Objects.hash(condition, message, style, behavior);
+    return Objects.hash(when, message, style, behavior);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Check {\n");
-    sb.append("    condition: ").append(toIndentedString(condition)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    style: ").append(toIndentedString(style)).append("\n");
     sb.append("    behavior: ").append(toIndentedString(behavior)).append("\n");

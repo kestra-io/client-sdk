@@ -34,10 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiRoleSummary {
   public static final String JSON_PROPERTY_ID = "id";
-  @jakarta.annotation.Nullable  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @jakarta.annotation.Nullable  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
   @jakarta.annotation.Nullable  private Boolean isDefault;
@@ -48,7 +48,7 @@ public class ApiRoleSummary {
   public ApiRoleSummary() {
   }
 
-  public ApiRoleSummary id(@jakarta.annotation.Nullable String id) {
+  public ApiRoleSummary id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -58,8 +58,8 @@ public class ApiRoleSummary {
    * Get id
    * @return id
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -67,12 +67,12 @@ public class ApiRoleSummary {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@jakarta.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ApiRoleSummary name(@jakarta.annotation.Nullable String name) {
+  public ApiRoleSummary name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -82,8 +82,8 @@ public class ApiRoleSummary {
    * Get name
    * @return name
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -91,8 +91,8 @@ public class ApiRoleSummary {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@jakarta.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 

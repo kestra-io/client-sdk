@@ -12,7 +12,7 @@
 |**queueType** | **String** |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |
 |**secretType** | **String** |  |  [optional] |
-|**passwordRegexp** | **String** |  |  [optional] |
+|**passwordConfiguration** | [**PasswordConfiguration**](PasswordConfiguration.md) |  |  [optional] |
 |**haveAuthNotBasic** | **Boolean** |  |  [optional] |
 
 

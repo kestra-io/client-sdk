@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.Trigger;
+import io.kestra.sdk.model.TriggerControllerApiTriggerId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TriggerControllerSetDisabledRequest {
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @jakarta.annotation.Nonnull  private List<Trigger> triggers = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<TriggerControllerApiTriggerId> triggers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nonnull  private Boolean disabled;
@@ -45,13 +45,13 @@ public class TriggerControllerSetDisabledRequest {
   public TriggerControllerSetDisabledRequest() {
   }
 
-  public TriggerControllerSetDisabledRequest triggers(@jakarta.annotation.Nonnull List<Trigger> triggers) {
+  public TriggerControllerSetDisabledRequest triggers(@jakarta.annotation.Nonnull List<TriggerControllerApiTriggerId> triggers) {
     
     this.triggers = triggers;
     return this;
   }
 
-  public TriggerControllerSetDisabledRequest addTriggersItem(Trigger triggersItem) {
+  public TriggerControllerSetDisabledRequest addTriggersItem(TriggerControllerApiTriggerId triggersItem) {
     if (this.triggers == null) {
       this.triggers = new ArrayList<>();
     }
@@ -66,14 +66,14 @@ public class TriggerControllerSetDisabledRequest {
   @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<Trigger> getTriggers() {
+  public List<TriggerControllerApiTriggerId> getTriggers() {
     return triggers;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTriggers(@jakarta.annotation.Nonnull List<Trigger> triggers) {
+  public void setTriggers(@jakarta.annotation.Nonnull List<TriggerControllerApiTriggerId> triggers) {
     this.triggers = triggers;
   }
 

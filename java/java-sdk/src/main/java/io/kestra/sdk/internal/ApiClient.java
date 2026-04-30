@@ -1013,7 +1013,8 @@ public class ApiClient extends JavaTimeFormatter {
     if (isSuccessfulStatus(statusCode)) {
       return this.deserialize(response, returnType);
     } else {
-      String message = EntityUtils.toString(response.getEntity());
+      HttpEntity entity = response.getEntity();
+      String message = entity != null ? EntityUtils.toString(entity) : "HTTP " + statusCode;
       throw new ApiException(message, statusCode, responseHeaders, message);
     }
   }
@@ -1095,8 +1096,7 @@ public class ApiClient extends JavaTimeFormatter {
       } else {
         throw new ApiException("method " + method + " does not support a request body");
       }
-    } else {
-      // for empty body
+    } else if (isBodyAllowed(method)) {
       builder.setEntity(new StringEntity("", contentTypeObj));
     }
 

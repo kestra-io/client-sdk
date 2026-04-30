@@ -8,7 +8,6 @@ All URIs are relative to *http://localhost*
 | [**deleteKeyValues**](KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace. |
 | [**keyValue**](KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
 | [**listAllKeys**](KvApi.md#listAllKeys) | **GET** /api/v1/{tenant}/kv | List all keys |
-| [**listKeys**](KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace |
 | [**listKeysWithInheritence**](KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces |
 | [**setKeyValue**](KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store |
 
@@ -232,7 +231,7 @@ public class Example {
 
 ## listAllKeys
 
-> PagedResultsKVEntry listAllKeys(page, size, tenant, sort, filters)
+> PagedResultsKVEntry listAllKeys(tenant, page, size, sort, filters)
 
 List all keys
 
@@ -256,13 +255,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - example: `filters[namespace][IN]=company.team`
         try {
-            PagedResultsKVEntry result = kestraClient.KvApi().listAllKeys(page, size, tenant, sort, filters);
+            PagedResultsKVEntry result = kestraClient.KvApi().listAllKeys(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling KvApi#listAllKeys");
@@ -280,11 +279,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - example: &#x60;filters[namespace][IN]&#x3D;company.team&#x60; | [optional] |
 
 ### Return type
 
@@ -304,76 +303,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | listAllKeys 200 response |  -  |
-
-
-## listKeys
-
-> List&lt;KVEntry&gt; listKeys(namespace, tenant)
-
-List all keys for a namespace
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The namespace id
-        String tenant = "tenant_example"; // String | 
-        try {
-            List<KVEntry> result = kestraClient.KvApi().listKeys(namespace, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#listKeys");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**List&lt;KVEntry&gt;**](KVEntry.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listKeys 200 response |  -  |
 
 
 ## listKeysWithInheritence

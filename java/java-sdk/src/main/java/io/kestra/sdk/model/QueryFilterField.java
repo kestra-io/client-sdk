@@ -35,6 +35,8 @@ public enum QueryFilterField {
   
   LABELS("LABELS"),
   
+  TAGS("TAGS"),
+  
   METADATA("METADATA"),
   
   FLOW_ID("FLOW_ID"),
@@ -59,7 +61,13 @@ public enum QueryFilterField {
   
   STATE("STATE"),
   
+  STATUS("STATUS"),
+  
+  EMAIL("EMAIL"),
+  
   TIME_RANGE("TIME_RANGE"),
+  
+  PARENT_ID("PARENT_ID"),
   
   TRIGGER_EXECUTION_ID("TRIGGER_EXECUTION_ID"),
   
@@ -79,6 +87,14 @@ public enum QueryFilterField {
   
   EXISTING_ONLY("EXISTING_ONLY"),
   
+  USER_ID("USER_ID"),
+  
+  ACTION("ACTION"),
+  
+  RESOURCES("RESOURCES"),
+  
+  DETAILS("DETAILS"),
+  
   MIN_LEVEL("MIN_LEVEL"),
   
   PATH("PATH"),
@@ -87,7 +103,15 @@ public enum QueryFilterField {
   
   VERSION("VERSION"),
   
+  ENABLED("ENABLED"),
+  
   USERNAME("USERNAME"),
+  
+  NAME("NAME"),
+  
+  GROUP("GROUP"),
+  
+  EXPIRED_AT("EXPIRED_AT"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 

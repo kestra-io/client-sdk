@@ -16,12 +16,14 @@ All URIs are relative to *http://localhost*
 | [**enableFlowsByQuery**](FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters. |
 | [**exportFlowsByIds**](FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources. |
 | [**exportFlowsByQuery**](FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources. |
+| [**expressions**](FlowsApi.md#expressions) | **POST** /api/v1/{tenant}/flows/expressions | Get available Pebble expressions for a flow |
 | [**flow**](FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow |
 | [**flowDependencies**](FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies |
 | [**flowDependenciesFromNamespace**](FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies |
 | [**generateFlowGraph**](FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow |
 | [**generateFlowGraphFromSource**](FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source |
 | [**importFlows**](FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.  |
+| [**listDeprecated**](FlowsApi.md#listDeprecated) | **GET** /api/v1/{tenant}/flows/deprecated | List flows containing deprecated tasks |
 | [**listDistinctNamespaces**](FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces |
 | [**listFlowRevisions**](FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow |
 | [**listFlowsByNamespace**](FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace |
@@ -32,7 +34,6 @@ All URIs are relative to *http://localhost*
 | [**updateConcurrencyLimit**](FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit |
 | [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
 | [**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source |
-| [**updateTask**](FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow |
 | [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
 | [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task |
 | [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger |
@@ -41,7 +42,7 @@ All URIs are relative to *http://localhost*
 
 ## bulkUpdateFlows
 
-> List&lt;FlowInterface&gt; bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body)
+> List&lt;FlowInterface&gt; bulkUpdateFlows(tenant, delete, namespace, allowNamespaceChild, body)
 
 Update from multiples yaml sources
 
@@ -67,13 +68,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Boolean delete = true; // Boolean | If missing flow should be deleted
-        Boolean allowNamespaceChild = false; // Boolean | If namespace child should are allowed to be updated
         String tenant = "tenant_example"; // String | 
+        Boolean delete = true; // Boolean | If missing flow should be deleted
         String namespace = "namespace_example"; // String | The namespace where to update flows
+        Boolean allowNamespaceChild = false; // Boolean | If namespace child should are allowed to be updated
         String body = "body_example"; // String | A list of flows source code split with \"---\"
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body);
+            List<FlowInterface> result = kestraClient.FlowsApi().bulkUpdateFlows(tenant, delete, namespace, allowNamespaceChild, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#bulkUpdateFlows");
@@ -91,10 +92,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
-| **allowNamespaceChild** | **Boolean**| If namespace child should are allowed to be updated | [default to false] |
 | **tenant** | **String**|  | |
+| **delete** | **Boolean**| If missing flow should be deleted | [optional] [default to true] |
 | **namespace** | **String**| The namespace where to update flows | [optional] |
+| **allowNamespaceChild** | **Boolean**| If namespace child should are allowed to be updated | [optional] [default to false] |
 | **body** | **String**| A list of flows source code split with \&quot;---\&quot; | [optional] |
 
 ### Return type
@@ -356,7 +357,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             BulkResponse result = kestraClient.FlowsApi().deleteFlowsByQuery(tenant, filters);
             System.out.println(result);
@@ -377,7 +378,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -569,7 +570,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             BulkResponse result = kestraClient.FlowsApi().disableFlowsByQuery(tenant, filters);
             System.out.println(result);
@@ -590,7 +591,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -709,7 +710,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             BulkResponse result = kestraClient.FlowsApi().enableFlowsByQuery(tenant, filters);
             System.out.println(result);
@@ -730,7 +731,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -849,7 +850,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             byte[] result = kestraClient.FlowsApi().exportFlowsByQuery(tenant, filters);
             System.out.println(result);
@@ -870,7 +871,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -892,9 +893,83 @@ public class Example {
 | **200** | exportFlowsByQuery 200 response |  -  |
 
 
+## expressions
+
+> ExpressionContext expressions(tenant, body, taskId)
+
+Get available Pebble expressions for a flow
+
+Returns a categorized map of expression strings available for autocompletion in the No-Code editor.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The flow source code
+        String taskId = "taskId_example"; // String | Optional task ID to scope outputs to prior tasks
+        try {
+            ExpressionContext result = kestraClient.FlowsApi().expressions(tenant, body, taskId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#expressions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **body** | **String**| The flow source code | |
+| **taskId** | **String**| Optional task ID to scope outputs to prior tasks | [optional] |
+
+### Return type
+
+[**ExpressionContext**](ExpressionContext.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Categorized expressions map |  -  |
+
+
 ## flow
 
-> FlowWithSource flow(namespace, id, source, allowDeleted, tenant, revision)
+> FlowWithSource flow(namespace, id, tenant, source, revision, allowDeleted)
 
 Get a flow
 
@@ -920,12 +995,12 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
-        Boolean source = false; // Boolean | Include the source code
-        Boolean allowDeleted = false; // Boolean | Get flow even if deleted
         String tenant = "tenant_example"; // String | 
+        Boolean source = false; // Boolean | Include the source code
         Integer revision = 56; // Integer | Get latest revision by default
+        Boolean allowDeleted = false; // Boolean | Get flow even if deleted
         try {
-            FlowWithSource result = kestraClient.FlowsApi().flow(namespace, id, source, allowDeleted, tenant, revision);
+            FlowWithSource result = kestraClient.FlowsApi().flow(namespace, id, tenant, source, revision, allowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flow");
@@ -945,10 +1020,10 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **source** | **Boolean**| Include the source code | [default to false] |
-| **allowDeleted** | **Boolean**| Get flow even if deleted | [default to false] |
 | **tenant** | **String**|  | |
+| **source** | **Boolean**| Include the source code | [optional] [default to false] |
 | **revision** | **Integer**| Get latest revision by default | [optional] |
+| **allowDeleted** | **Boolean**| Get flow even if deleted | [optional] [default to false] |
 
 ### Return type
 
@@ -972,7 +1047,7 @@ public class Example {
 
 ## flowDependencies
 
-> FlowTopologyGraph flowDependencies(namespace, id, destinationOnly, expandAll, tenant)
+> FlowTopologyGraph flowDependencies(namespace, id, tenant, destinationOnly, expandAll)
 
 Get flow dependencies
 
@@ -998,11 +1073,11 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
+        String tenant = "tenant_example"; // String | 
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
-        String tenant = "tenant_example"; // String | 
         try {
-            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependencies(namespace, id, destinationOnly, expandAll, tenant);
+            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependencies(namespace, id, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flowDependencies");
@@ -1022,9 +1097,9 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
 | **tenant** | **String**|  | |
+| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
+| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false] |
 
 ### Return type
 
@@ -1048,7 +1123,7 @@ public class Example {
 
 ## flowDependenciesFromNamespace
 
-> FlowTopologyGraph flowDependenciesFromNamespace(namespace, destinationOnly, tenant)
+> FlowTopologyGraph flowDependenciesFromNamespace(namespace, tenant, destinationOnly)
 
 Retrieve flow dependencies
 
@@ -1073,10 +1148,10 @@ public class Example {
         .build();
 
         String namespace = "namespace_example"; // String | The flow namespace
-        Boolean destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
         String tenant = "tenant_example"; // String | 
+        Boolean destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
         try {
-            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependenciesFromNamespace(namespace, destinationOnly, tenant);
+            FlowTopologyGraph result = kestraClient.FlowsApi().flowDependenciesFromNamespace(namespace, tenant, destinationOnly);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#flowDependenciesFromNamespace");
@@ -1095,8 +1170,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
-| **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
 | **tenant** | **String**|  | |
+| **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
 
 ### Return type
 
@@ -1268,7 +1343,7 @@ public class Example {
 
 ## importFlows
 
-> List&lt;String&gt; importFlows(failOnError, tenant, fileUpload)
+> List&lt;String&gt; importFlows(tenant, failOnError, fileUpload)
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 
@@ -1292,11 +1367,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Boolean failOnError = false; // Boolean | If should fail on invalid flows
         String tenant = "tenant_example"; // String | 
+        Boolean failOnError = false; // Boolean | If should fail on invalid flows
         File fileUpload = new File("/path/to/file"); // File | The file to import, can be a ZIP archive or a multi-objects YAML file
         try {
-            List<String> result = kestraClient.FlowsApi().importFlows(failOnError, tenant, fileUpload);
+            List<String> result = kestraClient.FlowsApi().importFlows(tenant, failOnError, fileUpload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#importFlows");
@@ -1314,8 +1389,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **failOnError** | **Boolean**| If should fail on invalid flows | [default to false] |
 | **tenant** | **String**|  | |
+| **failOnError** | **Boolean**| If should fail on invalid flows | [optional] [default to false] |
 | **fileUpload** | **File**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] |
 
 ### Return type
@@ -1336,6 +1411,76 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | On success |  -  |
+
+
+## listDeprecated
+
+> List&lt;FlowControllerFlowWithDeprecatedTasks&gt; listDeprecated(tenant, namespace)
+
+List flows containing deprecated tasks
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        String namespace = "namespace_example"; // String | A namespace filter prefix
+        try {
+            List<FlowControllerFlowWithDeprecatedTasks> result = kestraClient.FlowsApi().listDeprecated(tenant, namespace);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#listDeprecated");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **namespace** | **String**| A namespace filter prefix | [optional] |
+
+### Return type
+
+[**List&lt;FlowControllerFlowWithDeprecatedTasks&gt;**](FlowControllerFlowWithDeprecatedTasks.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | listDeprecated 200 response |  -  |
 
 
 ## listDistinctNamespaces
@@ -1410,7 +1555,7 @@ public class Example {
 
 ## listFlowRevisions
 
-> List&lt;FlowWithSource&gt; listFlowRevisions(namespace, id, allowDelete, tenant)
+> List&lt;FlowWithSource&gt; listFlowRevisions(namespace, id, tenant, allowDelete)
 
 Get revisions for a flow
 
@@ -1436,10 +1581,10 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
-        Boolean allowDelete = false; // Boolean | 
         String tenant = "tenant_example"; // String | 
+        Boolean allowDelete = false; // Boolean | 
         try {
-            List<FlowWithSource> result = kestraClient.FlowsApi().listFlowRevisions(namespace, id, allowDelete, tenant);
+            List<FlowWithSource> result = kestraClient.FlowsApi().listFlowRevisions(namespace, id, tenant, allowDelete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listFlowRevisions");
@@ -1459,8 +1604,8 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **allowDelete** | **Boolean**|  | [default to false] |
 | **tenant** | **String**|  | |
+| **allowDelete** | **Boolean**|  | [optional] [default to false] |
 
 ### Return type
 
@@ -1565,6 +1710,7 @@ Search for flow concurrency limits
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.FlowsApi;
 
@@ -1605,7 +1751,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1621,7 +1767,7 @@ No authorization required
 
 ## searchFlows
 
-> PagedResultsFlow searchFlows(page, size, tenant, sort, filters)
+> PagedResultsFlow searchFlows(tenant, page, size, sort, filters)
 
 Search for flows
 
@@ -1645,13 +1791,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            PagedResultsFlow result = kestraClient.FlowsApi().searchFlows(page, size, tenant, sort, filters);
+            PagedResultsFlow result = kestraClient.FlowsApi().searchFlows(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchFlows");
@@ -1669,11 +1815,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -1697,7 +1843,7 @@ public class Example {
 
 ## searchFlowsBySourceCode
 
-> PagedResultsSearchResultFlow searchFlowsBySourceCode(page, size, tenant, sort, q, namespace)
+> PagedResultsSearchResultFlow searchFlowsBySourceCode(tenant, page, size, sort, q, namespace)
 
 Search for flows source code
 
@@ -1721,14 +1867,14 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            PagedResultsSearchResultFlow result = kestraClient.FlowsApi().searchFlowsBySourceCode(page, size, tenant, sort, q, namespace);
+            PagedResultsSearchResultFlow result = kestraClient.FlowsApi().searchFlowsBySourceCode(tenant, page, size, sort, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchFlowsBySourceCode");
@@ -1746,9 +1892,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -1862,6 +2008,7 @@ Update a flow concurrency limit
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.FlowsApi;
 
@@ -1908,7 +2055,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1998,7 +2145,7 @@ public class Example {
 
 ## updateFlowsInNamespace
 
-> List&lt;FlowInterface&gt; updateFlowsInNamespace(delete, namespace, tenant, override, body)
+> List&lt;FlowInterface&gt; updateFlowsInNamespace(namespace, tenant, body, delete, override)
 
 Update a complete namespace from yaml source
 
@@ -2024,13 +2171,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Boolean delete = true; // Boolean | If missing flow should be deleted
         String namespace = "namespace_example"; // String | The flow namespace
         String tenant = "tenant_example"; // String | 
-        Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         String body = "body_example"; // String | A list of flows source code
+        Boolean delete = true; // Boolean | If missing flows should be deleted
+        Boolean override = false; // Boolean | If namespace of all provided flows should be overridden
         try {
-            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(delete, namespace, tenant, override, body);
+            List<FlowInterface> result = kestraClient.FlowsApi().updateFlowsInNamespace(namespace, tenant, body, delete, override);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlowsInNamespace");
@@ -2048,11 +2195,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
 | **namespace** | **String**| The flow namespace | |
 | **tenant** | **String**|  | |
-| **override** | **Boolean**| If namespace of all provided flows should be overridden | [default to false] |
 | **body** | **String**| A list of flows source code | |
+| **delete** | **Boolean**| If missing flows should be deleted | [optional] [default to true] |
+| **override** | **Boolean**| If namespace of all provided flows should be overridden | [optional] [default to false] |
 
 ### Return type
 
@@ -2072,82 +2219,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | updateFlowsInNamespace 200 response |  -  |
-
-
-## updateTask
-
-> Flow updateTask(namespace, id, taskId, tenant, task)
-
-Update a single task on a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        String taskId = "taskId_example"; // String | The task id
-        String tenant = "tenant_example"; // String | 
-        Task task = new Task(); // Task | The task
-        try {
-            Flow result = kestraClient.FlowsApi().updateTask(namespace, id, taskId, tenant, task);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#updateTask");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **taskId** | **String**| The task id | |
-| **tenant** | **String**|  | |
-| **task** | [**Task**](Task.md)| The task | |
-
-### Return type
-
-[**Flow**](Flow.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | updateTask 200 response |  -  |
 
 
 ## validateFlows

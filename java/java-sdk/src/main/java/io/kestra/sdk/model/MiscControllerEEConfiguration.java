@@ -27,6 +27,7 @@ import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.MiscControllerTenantConfigurationInfo;
+import io.kestra.sdk.model.PasswordConfiguration;
 import io.kestra.sdk.model.RightSidebarConfiguration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -48,13 +49,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
-  MiscControllerEEConfiguration.JSON_PROPERTY_IS_TEMPLATE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_ENVIRONMENT,
   MiscControllerEEConfiguration.JSON_PROPERTY_URL,
   MiscControllerEEConfiguration.JSON_PROPERTY_PREVIEW,
   MiscControllerEEConfiguration.JSON_PROPERTY_SYSTEM_NAMESPACE,
   MiscControllerEEConfiguration.JSON_PROPERTY_HIDDEN_LABELS_PREFIXES,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
   MiscControllerEEConfiguration.JSON_PROPERTY_PLUGINS_HASH,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED,
@@ -70,12 +71,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
-  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_CONFIGURATION,
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORDLESS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_AIRGAPPED,
   MiscControllerEEConfiguration.JSON_PROPERTY_FEATURE_GATING,
   MiscControllerEEConfiguration.JSON_PROPERTY_FEATURES,
-  MiscControllerEEConfiguration.JSON_PROPERTY_KILL_SWITCHES
+  MiscControllerEEConfiguration.JSON_PROPERTY_KILL_SWITCHES,
+  MiscControllerEEConfiguration.JSON_PROPERTY_WORKER_AUTH_ENABLED
 })
 @JsonTypeName("MiscController.EEConfiguration")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -107,9 +109,6 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
   @jakarta.annotation.Nullable  private Boolean isUiAnonymousUsageEnabled;
 
-  public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
-  @jakarta.annotation.Nullable  private Boolean isTemplateEnabled;
-
   public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
   @jakarta.annotation.Nullable  private MiscControllerEnvironment environment;
 
@@ -127,6 +126,9 @@ public class MiscControllerEEConfiguration {
 
   public static final String JSON_PROPERTY_IS_AI_ENABLED = "isAiEnabled";
   @jakarta.annotation.Nullable  private Boolean isAiEnabled;
+
+  public static final String JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED = "isAiApiKeyConfigured";
+  @jakarta.annotation.Nullable  private Boolean isAiApiKeyConfigured;
 
   public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
   @jakarta.annotation.Nullable  private Boolean isBasicAuthInitialized;
@@ -173,8 +175,8 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
   @jakarta.annotation.Nullable  private Boolean inMaintenance;
 
-  public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @jakarta.annotation.Nullable  private String passwordRegexp;
+  public static final String JSON_PROPERTY_PASSWORD_CONFIGURATION = "passwordConfiguration";
+  @jakarta.annotation.Nullable  private PasswordConfiguration passwordConfiguration;
 
   public static final String JSON_PROPERTY_PASSWORDLESS_ENABLED = "passwordlessEnabled";
   @jakarta.annotation.Nullable  private Boolean passwordlessEnabled;
@@ -190,6 +192,9 @@ public class MiscControllerEEConfiguration {
 
   public static final String JSON_PROPERTY_KILL_SWITCHES = "killSwitches";
   @jakarta.annotation.Nullable  private List<KillSwitch> killSwitches = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_WORKER_AUTH_ENABLED = "workerAuthEnabled";
+  @jakarta.annotation.Nullable  private Boolean workerAuthEnabled;
 
   public MiscControllerEEConfiguration() {
   }
@@ -410,30 +415,6 @@ public class MiscControllerEEConfiguration {
     this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
   }
 
-  public MiscControllerEEConfiguration isTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
-    
-    this.isTemplateEnabled = isTemplateEnabled;
-    return this;
-  }
-
-  /**
-   * Get isTemplateEnabled
-   * @return isTemplateEnabled
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getIsTemplateEnabled() {
-    return isTemplateEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
-    this.isTemplateEnabled = isTemplateEnabled;
-  }
-
   public MiscControllerEEConfiguration environment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
     
     this.environment = environment;
@@ -584,6 +565,30 @@ public class MiscControllerEEConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
     this.isAiEnabled = isAiEnabled;
+  }
+
+  public MiscControllerEEConfiguration isAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
+    return this;
+  }
+
+  /**
+   * Get isAiApiKeyConfigured
+   * @return isAiApiKeyConfigured
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsAiApiKeyConfigured() {
+    return isAiApiKeyConfigured;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_AI_API_KEY_CONFIGURED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsAiApiKeyConfigured(@jakarta.annotation.Nullable Boolean isAiApiKeyConfigured) {
+    this.isAiApiKeyConfigured = isAiApiKeyConfigured;
   }
 
   public MiscControllerEEConfiguration isBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
@@ -962,28 +967,28 @@ public class MiscControllerEEConfiguration {
     this.inMaintenance = inMaintenance;
   }
 
-  public MiscControllerEEConfiguration passwordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
+  public MiscControllerEEConfiguration passwordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
     
-    this.passwordRegexp = passwordRegexp;
+    this.passwordConfiguration = passwordConfiguration;
     return this;
   }
 
   /**
-   * Get passwordRegexp
-   * @return passwordRegexp
+   * Get passwordConfiguration
+   * @return passwordConfiguration
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getPasswordRegexp() {
-    return passwordRegexp;
+  public PasswordConfiguration getPasswordConfiguration() {
+    return passwordConfiguration;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
-    this.passwordRegexp = passwordRegexp;
+  public void setPasswordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    this.passwordConfiguration = passwordConfiguration;
   }
 
   public MiscControllerEEConfiguration passwordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
@@ -1122,6 +1127,30 @@ public class MiscControllerEEConfiguration {
     this.killSwitches = killSwitches;
   }
 
+  public MiscControllerEEConfiguration workerAuthEnabled(@jakarta.annotation.Nullable Boolean workerAuthEnabled) {
+    
+    this.workerAuthEnabled = workerAuthEnabled;
+    return this;
+  }
+
+  /**
+   * Get workerAuthEnabled
+   * @return workerAuthEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_AUTH_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getWorkerAuthEnabled() {
+    return workerAuthEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_AUTH_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerAuthEnabled(@jakarta.annotation.Nullable Boolean workerAuthEnabled) {
+    this.workerAuthEnabled = workerAuthEnabled;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -1140,13 +1169,13 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.isCustomDashboardsEnabled, miscControllerEEConfiguration.isCustomDashboardsEnabled) &&
         Objects.equals(this.isAnonymousUsageEnabled, miscControllerEEConfiguration.isAnonymousUsageEnabled) &&
         Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerEEConfiguration.isUiAnonymousUsageEnabled) &&
-        Objects.equals(this.isTemplateEnabled, miscControllerEEConfiguration.isTemplateEnabled) &&
         Objects.equals(this.environment, miscControllerEEConfiguration.environment) &&
         Objects.equals(this.url, miscControllerEEConfiguration.url) &&
         Objects.equals(this.preview, miscControllerEEConfiguration.preview) &&
         Objects.equals(this.systemNamespace, miscControllerEEConfiguration.systemNamespace) &&
         Objects.equals(this.hiddenLabelsPrefixes, miscControllerEEConfiguration.hiddenLabelsPrefixes) &&
         Objects.equals(this.isAiEnabled, miscControllerEEConfiguration.isAiEnabled) &&
+        Objects.equals(this.isAiApiKeyConfigured, miscControllerEEConfiguration.isAiApiKeyConfigured) &&
         Objects.equals(this.isBasicAuthInitialized, miscControllerEEConfiguration.isBasicAuthInitialized) &&
         Objects.equals(this.pluginsHash, miscControllerEEConfiguration.pluginsHash) &&
         Objects.equals(this.isConcurrencyViewEnabled, miscControllerEEConfiguration.isConcurrencyViewEnabled) &&
@@ -1162,17 +1191,18 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
         Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
         Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
-        Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp) &&
+        Objects.equals(this.passwordConfiguration, miscControllerEEConfiguration.passwordConfiguration) &&
         Objects.equals(this.passwordlessEnabled, miscControllerEEConfiguration.passwordlessEnabled) &&
         Objects.equals(this.airgapped, miscControllerEEConfiguration.airgapped) &&
         Objects.equals(this.featureGating, miscControllerEEConfiguration.featureGating) &&
         Objects.equals(this.features, miscControllerEEConfiguration.features) &&
-        Objects.equals(this.killSwitches, miscControllerEEConfiguration.killSwitches);
+        Objects.equals(this.killSwitches, miscControllerEEConfiguration.killSwitches) &&
+        Objects.equals(this.workerAuthEnabled, miscControllerEEConfiguration.workerAuthEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled, airgapped, featureGating, features, killSwitches);
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordConfiguration, passwordlessEnabled, airgapped, featureGating, features, killSwitches, workerAuthEnabled);
   }
 
   @Override
@@ -1188,13 +1218,13 @@ public class MiscControllerEEConfiguration {
     sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
     sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
     sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
-    sb.append("    isTemplateEnabled: ").append(toIndentedString(isTemplateEnabled)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    preview: ").append(toIndentedString(preview)).append("\n");
     sb.append("    systemNamespace: ").append(toIndentedString(systemNamespace)).append("\n");
     sb.append("    hiddenLabelsPrefixes: ").append(toIndentedString(hiddenLabelsPrefixes)).append("\n");
     sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
+    sb.append("    isAiApiKeyConfigured: ").append(toIndentedString(isAiApiKeyConfigured)).append("\n");
     sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
     sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
     sb.append("    isConcurrencyViewEnabled: ").append(toIndentedString(isConcurrencyViewEnabled)).append("\n");
@@ -1210,12 +1240,13 @@ public class MiscControllerEEConfiguration {
     sb.append("    leftSidebar: ").append(toIndentedString(leftSidebar)).append("\n");
     sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
     sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
-    sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    passwordConfiguration: ").append(toIndentedString(passwordConfiguration)).append("\n");
     sb.append("    passwordlessEnabled: ").append(toIndentedString(passwordlessEnabled)).append("\n");
     sb.append("    airgapped: ").append(toIndentedString(airgapped)).append("\n");
     sb.append("    featureGating: ").append(toIndentedString(featureGating)).append("\n");
     sb.append("    features: ").append(toIndentedString(features)).append("\n");
     sb.append("    killSwitches: ").append(toIndentedString(killSwitches)).append("\n");
+    sb.append("    workerAuthEnabled: ").append(toIndentedString(workerAuthEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

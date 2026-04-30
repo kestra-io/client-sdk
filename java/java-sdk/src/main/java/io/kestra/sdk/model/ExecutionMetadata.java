@@ -36,7 +36,7 @@ public class ExecutionMetadata {
   @jakarta.annotation.Nullable  private Integer attemptNumber;
 
   public static final String JSON_PROPERTY_ORIGINAL_CREATED_DATE = "originalCreatedDate";
-  @jakarta.annotation.Nullable  private OffsetDateTime originalCreatedDate;
+  @jakarta.annotation.Nonnull  private OffsetDateTime originalCreatedDate;
 
   public ExecutionMetadata() {
   }
@@ -65,7 +65,7 @@ public class ExecutionMetadata {
     this.attemptNumber = attemptNumber;
   }
 
-  public ExecutionMetadata originalCreatedDate(@jakarta.annotation.Nullable OffsetDateTime originalCreatedDate) {
+  public ExecutionMetadata originalCreatedDate(@jakarta.annotation.Nonnull OffsetDateTime originalCreatedDate) {
     
     this.originalCreatedDate = originalCreatedDate;
     return this;
@@ -75,8 +75,8 @@ public class ExecutionMetadata {
    * Get originalCreatedDate
    * @return originalCreatedDate
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getOriginalCreatedDate() {
     return originalCreatedDate;
@@ -84,8 +84,8 @@ public class ExecutionMetadata {
 
 
   @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOriginalCreatedDate(@jakarta.annotation.Nullable OffsetDateTime originalCreatedDate) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOriginalCreatedDate(@jakarta.annotation.Nonnull OffsetDateTime originalCreatedDate) {
     this.originalCreatedDate = originalCreatedDate;
   }
 
