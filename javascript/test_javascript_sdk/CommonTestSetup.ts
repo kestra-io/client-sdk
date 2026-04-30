@@ -23,6 +23,7 @@ import * as Maintenance from "@kestra-io/kestra-sdk";
 import * as Metrics from "@kestra-io/kestra-sdk/metrics";
 import * as Misc from "@kestra-io/kestra-sdk/misc";
 import * as Namespaces from "@kestra-io/kestra-sdk/namespaces";
+import * as Outputs from "@kestra-io/kestra-sdk/outputs";
 import * as Plugins from "@kestra-io/kestra-sdk/plugins";
 import * as Roles from "@kestra-io/kestra-sdk/roles";
 import * as ScimConfiguration from "@kestra-io/kestra-sdk/scim-configuration";
@@ -41,7 +42,7 @@ import * as WorkerGroups from "@kestra-io/kestra-sdk/worker-groups";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
-export const baseUrl = "http://localhost:9903";
+export const baseURL = "http://localhost:9903";
 export const username = "root@root.com";
 export const password = "Root!1234";
 export const MAIN_TENANT = "main";
@@ -51,7 +52,7 @@ beforeAll(async () => {
         auth: () => {
             return username + ":" + password;
         },
-        baseUrl,
+        baseURL,
     });
 
     if (process.env.DEBUG) {
@@ -84,6 +85,7 @@ export const kestraClient = {
     Cluster,
     Dashboards,
     Executions,
+    Outputs,
     Files,
     Flows,
     Groups,
