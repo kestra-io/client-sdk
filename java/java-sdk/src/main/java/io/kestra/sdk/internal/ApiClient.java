@@ -109,7 +109,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected ThreadLocal<Integer> lastStatusCode = new ThreadLocal<>();
   protected ThreadLocal<Map<String, List<String>>> lastResponseHeaders = new ThreadLocal<>();
 
-  protected DateFormat dateFormat;
+  protected ThreadLocal<DateFormat> dateFormat;
 
   // Methods that can have a request body
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
@@ -127,7 +127,7 @@ public class ApiClient extends JavaTimeFormatter {
     objectMapper.registerModule(new RFC3339JavaTimeModule());
     objectMapper.setDateFormat(ApiClient.buildDefaultDateFormat());
 
-    dateFormat = ApiClient.buildDefaultDateFormat();
+    dateFormat = ThreadLocal.withInitial(ApiClient::buildDefaultDateFormat);
 
     // Set default User-Agent.
     setUserAgent("OpenAPI-Generator/v1.0.5/java");
@@ -449,7 +449,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return Date format
    */
   public DateFormat getDateFormat() {
-    return dateFormat;
+    return dateFormat.get();
   }
 
   /**
@@ -457,10 +457,9 @@ public class ApiClient extends JavaTimeFormatter {
    * @param dateFormat Date format
    * @return API client
    */
-  public ApiClient setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-    // Also set the date format for model (de)serialization with Date properties.
-    this.objectMapper.setDateFormat((DateFormat) dateFormat.clone());
+  public ApiClient setDateFormat(DateFormat newDateFormat) {
+    this.dateFormat = ThreadLocal.withInitial(() -> (DateFormat) newDateFormat.clone());
+    this.objectMapper.setDateFormat((DateFormat) newDateFormat.clone());
     return this;
   }
 
@@ -471,7 +470,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public Date parseDate(String str) {
     try {
-      return dateFormat.parse(str);
+      return dateFormat.get().parse(str);
     } catch (java.text.ParseException e) {
       throw new RuntimeException(e);
     }
@@ -483,7 +482,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return Date in string format
    */
   public String formatDate(Date date) {
-    return dateFormat.format(date);
+    return dateFormat.get().format(date);
   }
 
   /**
