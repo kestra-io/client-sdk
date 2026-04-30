@@ -20,7 +20,7 @@ All URIs are relative to *http://localhost*
 
 ## asset
 
-> AssetsControllerApiAsset asset(id, allowDeleted, tenant)
+> AssetsControllerApiAsset asset(id, tenant, allowDeleted)
 
 Retrieve an asset
 
@@ -45,10 +45,10 @@ public class Example {
         .build();
 
         String id = "id_example"; // String | The ID of the asset
-        Boolean allowDeleted = false; // Boolean | Get asset even if soft deleted
         String tenant = "tenant_example"; // String | 
+        Boolean allowDeleted = false; // Boolean | Get asset even if soft deleted
         try {
-            AssetsControllerApiAsset result = kestraClient.AssetsApi().asset(id, allowDeleted, tenant);
+            AssetsControllerApiAsset result = kestraClient.AssetsApi().asset(id, tenant, allowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#asset");
@@ -67,8 +67,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The ID of the asset | |
-| **allowDeleted** | **Boolean**| Get asset even if soft deleted | [default to false] |
 | **tenant** | **String**|  | |
+| **allowDeleted** | **Boolean**| Get asset even if soft deleted | [optional] [default to false] |
 
 ### Return type
 
@@ -92,7 +92,7 @@ public class Example {
 
 ## assetDependencies
 
-> AssetTopologyGraph assetDependencies(id, destinationOnly, expandAll, tenant)
+> AssetTopologyGraph assetDependencies(id, tenant, destinationOnly, expandAll)
 
 Get an asset dependencies
 
@@ -117,11 +117,11 @@ public class Example {
         .build();
 
         String id = "id_example"; // String | The asset id
+        String tenant = "tenant_example"; // String | 
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
-        String tenant = "tenant_example"; // String | 
         try {
-            AssetTopologyGraph result = kestraClient.AssetsApi().assetDependencies(id, destinationOnly, expandAll, tenant);
+            AssetTopologyGraph result = kestraClient.AssetsApi().assetDependencies(id, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#assetDependencies");
@@ -140,9 +140,9 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The asset id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
 | **tenant** | **String**|  | |
+| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
+| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false] |
 
 ### Return type
 
@@ -516,7 +516,7 @@ public class Example {
 
 ## deleteAssetsByQuery
 
-> BulkResponse deleteAssetsByQuery(filters, purge, tenant)
+> BulkResponse deleteAssetsByQuery(filters, tenant, purge)
 
 Delete assets by query
 
@@ -541,10 +541,10 @@ public class Example {
         .build();
 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        Boolean purge = false; // Boolean | If true, will purge instead of soft-delete
         String tenant = "tenant_example"; // String | 
+        Boolean purge = false; // Boolean | If true, will purge instead of soft-delete
         try {
-            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByQuery(filters, purge, tenant);
+            BulkResponse result = kestraClient.AssetsApi().deleteAssetsByQuery(filters, tenant, purge);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#deleteAssetsByQuery");
@@ -563,8 +563,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
-| **purge** | **Boolean**| If true, will purge instead of soft-delete | [default to false] |
 | **tenant** | **String**|  | |
+| **purge** | **Boolean**| If true, will purge instead of soft-delete | [optional] [default to false] |
 
 ### Return type
 
@@ -589,7 +589,7 @@ public class Example {
 
 ## searchAssetLineageEvents
 
-> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(page, size, filters, tenant, sort)
+> PagedResultsAssetsControllerApiAssetLineageEvent searchAssetLineageEvents(filters, tenant, page, size, sort)
 
 Search for asset lineage events
 
@@ -613,13 +613,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.AssetsApi().searchAssetLineageEvents(page, size, filters, tenant, sort);
+            PagedResultsAssetsControllerApiAssetLineageEvent result = kestraClient.AssetsApi().searchAssetLineageEvents(filters, tenant, page, size, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssetLineageEvents");
@@ -637,10 +637,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
@@ -665,7 +665,7 @@ public class Example {
 
 ## searchAssetUsages
 
-> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(page, size, filters, tenant, sort)
+> PagedResultsAssetsControllerApiAssetUsage searchAssetUsages(filters, tenant, page, size, sort)
 
 Search for asset usages
 
@@ -689,13 +689,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAssetUsage result = kestraClient.AssetsApi().searchAssetUsages(page, size, filters, tenant, sort);
+            PagedResultsAssetsControllerApiAssetUsage result = kestraClient.AssetsApi().searchAssetUsages(filters, tenant, page, size, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssetUsages");
@@ -713,10 +713,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
@@ -741,7 +741,7 @@ public class Example {
 
 ## searchAssets
 
-> PagedResultsAssetsControllerApiAsset searchAssets(page, size, filters, tenant, sort)
+> PagedResultsAssetsControllerApiAsset searchAssets(filters, tenant, page, size, sort)
 
 Search for assets
 
@@ -765,13 +765,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsAssetsControllerApiAsset result = kestraClient.AssetsApi().searchAssets(page, size, filters, tenant, sort);
+            PagedResultsAssetsControllerApiAsset result = kestraClient.AssetsApi().searchAssets(filters, tenant, page, size, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AssetsApi#searchAssets");
@@ -789,10 +789,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

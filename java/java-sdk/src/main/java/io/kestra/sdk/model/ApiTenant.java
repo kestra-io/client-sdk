@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.TenantAppCatalogConfig;
+import io.kestra.sdk.model.TenantPreferencesSettings;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiTenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   ApiTenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
   ApiTenant.JSON_PROPERTY_APP_CATALOG_CONFIG,
+  ApiTenant.JSON_PROPERTY_SETTINGS,
   ApiTenant.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION,
   ApiTenant.JSON_PROPERTY_LOGO
 })
@@ -92,6 +94,9 @@ public class ApiTenant {
 
   public static final String JSON_PROPERTY_APP_CATALOG_CONFIG = "appCatalogConfig";
   @jakarta.annotation.Nullable  private TenantAppCatalogConfig appCatalogConfig;
+
+  public static final String JSON_PROPERTY_SETTINGS = "settings";
+  @jakarta.annotation.Nullable  private TenantPreferencesSettings settings;
 
   public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
   @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
@@ -454,6 +459,30 @@ public class ApiTenant {
     this.appCatalogConfig = appCatalogConfig;
   }
 
+  public ApiTenant settings(@jakarta.annotation.Nullable TenantPreferencesSettings settings) {
+    
+    this.settings = settings;
+    return this;
+  }
+
+  /**
+   * Get settings
+   * @return settings
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TenantPreferencesSettings getSettings() {
+    return settings;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSettings(@jakarta.annotation.Nullable TenantPreferencesSettings settings) {
+    this.settings = settings;
+  }
+
   public ApiTenant sdkDefaultAuthentication(@jakarta.annotation.Nullable SDKAuth sdkDefaultAuthentication) {
     
     this.sdkDefaultAuthentication = sdkDefaultAuthentication;
@@ -525,13 +554,14 @@ public class ApiTenant {
         Objects.equals(this.requireExistingNamespace, apiTenant.requireExistingNamespace) &&
         Objects.equals(this.outputsInInternalStorage, apiTenant.outputsInInternalStorage) &&
         Objects.equals(this.appCatalogConfig, apiTenant.appCatalogConfig) &&
+        Objects.equals(this.settings, apiTenant.settings) &&
         Objects.equals(this.sdkDefaultAuthentication, apiTenant.sdkDefaultAuthentication) &&
         Objects.equals(this.logo, apiTenant.logo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, sdkDefaultAuthentication, logo);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, logo);
   }
 
   @Override
@@ -552,6 +582,7 @@ public class ApiTenant {
     sb.append("    requireExistingNamespace: ").append(toIndentedString(requireExistingNamespace)).append("\n");
     sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
     sb.append("    appCatalogConfig: ").append(toIndentedString(appCatalogConfig)).append("\n");
+    sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
     sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
     sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
     sb.append("}");

@@ -19,7 +19,6 @@
 |**aliases** | **List&lt;String&gt;** |  |  [optional] |
 |**tasks** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**triggers** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
-|**conditions** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**controllers** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**storages** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**secrets** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |

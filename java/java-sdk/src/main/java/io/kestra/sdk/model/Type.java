@@ -27,15 +27,11 @@ public enum Type {
   
   STRING("STRING"),
   
-  ENUM("ENUM"),
-  
   SELECT("SELECT"),
   
   INT("INT"),
   
   FLOAT("FLOAT"),
-  
-  BOOLEAN("BOOLEAN"),
   
   BOOL("BOOL"),
   

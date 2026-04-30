@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**condition** | **String** |  |  |
+|**when** | **String** |  |  |
 |**message** | **String** |  |  |
 |**style** | **CheckStyle** |  |  [optional] |
 |**behavior** | **CheckBehavior** |  |  [optional] |

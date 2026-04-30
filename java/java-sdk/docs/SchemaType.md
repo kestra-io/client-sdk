@@ -7,8 +7,6 @@
 
 * `FLOW` (value: `"FLOW"`)
 
-* `TEMPLATE` (value: `"TEMPLATE"`)
-
 * `TASK` (value: `"TASK"`)
 
 * `TRIGGER` (value: `"TRIGGER"`)

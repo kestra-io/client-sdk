@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**triggers** | [**List&lt;Trigger&gt;**](Trigger.md) |  |  |
+|**triggers** | [**List&lt;TriggerControllerApiTriggerId&gt;**](TriggerControllerApiTriggerId.md) |  |  |
 |**disabled** | **Boolean** |  |  |
 
 

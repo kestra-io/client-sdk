@@ -14,9 +14,13 @@ All URIs are relative to *http://localhost*
 | [**deleteApp**](AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app |
 | [**disableApp**](AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app. |
 | [**enableApp**](AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app. |
+| [**fileMetaFromAppExecution**](AppsApi.md#fileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution |
+| [**filePreviewFromAppExecution**](AppsApi.md#filePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution |
 | [**listTags**](AppsApi.md#listTags) | **GET** /api/v1/{tenant}/apps/tags | Get all the app tags |
+| [**logsFromAppExecution**](AppsApi.md#logsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution |
 | [**searchApps**](AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps |
 | [**searchAppsFromCatalog**](AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog |
+| [**streamEventsFromApp**](AppsApi.md#streamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app. |
 | [**updateApp**](AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app |
 
 
@@ -721,6 +725,154 @@ public class Example {
 | **200** | enableApp 200 response |  -  |
 
 
+## fileMetaFromAppExecution
+
+> FileMetas fileMetaFromAppExecution(id, path, tenant)
+
+Get file meta information from an app execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AppsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The ID of the app.
+        URI path = new URI(); // URI | The internal storage uri
+        String tenant = "tenant_example"; // String | 
+        try {
+            FileMetas result = kestraClient.AppsApi().fileMetaFromAppExecution(id, path, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AppsApi#fileMetaFromAppExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the app. | |
+| **path** | **URI**| The internal storage uri | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**FileMetas**](FileMetas.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFileMetaFromAppExecution 200 response |  -  |
+
+
+## filePreviewFromAppExecution
+
+> Object filePreviewFromAppExecution(id, path, tenant, maxRows, encoding)
+
+Get file preview from an app execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AppsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The ID of the app.
+        URI path = new URI(); // URI | The internal storage uri
+        String tenant = "tenant_example"; // String | 
+        Integer maxRows = 56; // Integer | The max row returns
+        String encoding = "UTF-8"; // String | The file encoding as Java charset name. Defaults to UTF-8
+        try {
+            Object result = kestraClient.AppsApi().filePreviewFromAppExecution(id, path, tenant, maxRows, encoding);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AppsApi#filePreviewFromAppExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the app. | |
+| **path** | **URI**| The internal storage uri | |
+| **tenant** | **String**|  | |
+| **maxRows** | **Integer**| The max row returns | [optional] |
+| **encoding** | **String**| The file encoding as Java charset name. Defaults to UTF-8 | [optional] [default to UTF-8] |
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFilePreviewFromAppExecution 200 response |  -  |
+
+
 ## listTags
 
 > AppsControllerApiAppTags listTags(tenant)
@@ -789,9 +941,85 @@ public class Example {
 | **200** | listTags 200 response |  -  |
 
 
+## logsFromAppExecution
+
+> File logsFromAppExecution(uid, executionId, tenant, minLevel, taskIds)
+
+Download logs for an app execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AppsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String uid = "uid_example"; // String | The ID of the app.
+        String executionId = "executionId_example"; // String | The ID of the execution.
+        String tenant = "tenant_example"; // String | 
+        Level minLevel = Level.fromValue("ERROR"); // Level | The min log level filter
+        List<String> taskIds = Arrays.asList(); // List<String> | The tasks' IDs
+        try {
+            File result = kestraClient.AppsApi().logsFromAppExecution(uid, executionId, tenant, minLevel, taskIds);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AppsApi#logsFromAppExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **uid** | **String**| The ID of the app. | |
+| **executionId** | **String**| The ID of the execution. | |
+| **tenant** | **String**|  | |
+| **minLevel** | [**Level**](.md)| The min log level filter | [optional] [enum: ERROR, WARN, INFO, DEBUG, TRACE] |
+| **taskIds** | [**List&lt;String&gt;**](String.md)| The tasks&#39; IDs | [optional] |
+
+### Return type
+
+[**File**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getLogsFromAppExecution 200 response |  -  |
+
+
 ## searchApps
 
-> PagedResultsAppsControllerApiApp searchApps(page, size, tenant, sort, tags, q, namespace, flowId)
+> PagedResultsAppsControllerApiApp searchApps(filters, tenant, page, size, sort, tags, q, namespace, flowId)
 
 Search for apps
 
@@ -815,16 +1043,17 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<String> tags = Arrays.asList(); // List<String> | A tags filter
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         String flowId = "flowId_example"; // String | A flow id filter
         try {
-            PagedResultsAppsControllerApiApp result = kestraClient.AppsApi().searchApps(page, size, tenant, sort, tags, q, namespace, flowId);
+            PagedResultsAppsControllerApiApp result = kestraClient.AppsApi().searchApps(filters, tenant, page, size, sort, tags, q, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchApps");
@@ -842,9 +1071,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
 | **q** | **String**| A string filter | [optional] |
@@ -873,7 +1103,7 @@ public class Example {
 
 ## searchAppsFromCatalog
 
-> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(page, size, tenant, tags, q)
+> PagedResultsAppsControllerApiAppCatalogItem searchAppsFromCatalog(filters, tenant, page, size)
 
 Search for apps from catalog
 
@@ -897,13 +1127,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
-        List<String> tags = Arrays.asList(); // List<String> | Tags filter
-        String q = "q_example"; // String | String filter
         try {
-            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.AppsApi().searchAppsFromCatalog(page, size, tenant, tags, q);
+            PagedResultsAppsControllerApiAppCatalogItem result = kestraClient.AppsApi().searchAppsFromCatalog(filters, tenant, page, size);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AppsApi#searchAppsFromCatalog");
@@ -921,11 +1150,10 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
-| **tags** | [**List&lt;String&gt;**](String.md)| Tags filter | [optional] |
-| **q** | **String**| String filter | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 
 ### Return type
 
@@ -945,6 +1173,78 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchAppsFromCatalog 200 response |  -  |
+
+
+## streamEventsFromApp
+
+> EventAppResponse streamEventsFromApp(id, stream, tenant)
+
+Get an event stream from a given app.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.AppsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The ID of the app.
+        String stream = "stream_example"; // String | The ID of the stream to get
+        String tenant = "tenant_example"; // String | 
+        try {
+            EventAppResponse result = kestraClient.AppsApi().streamEventsFromApp(id, stream, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AppsApi#streamEventsFromApp");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the app. | |
+| **stream** | **String**| The ID of the stream to get | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**EventAppResponse**](EventAppResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getStreamEventsFromApp 200 response |  -  |
 
 
 ## updateApp

@@ -666,7 +666,7 @@ public class Example {
 
 ## listUsers
 
-> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, filters, sort)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(filters, page, size, sort)
 
 Retrieve users
 
@@ -690,12 +690,12 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMUserControllerApiUserSummary result = kestraClient.UsersApi().listUsers(page, size, filters, sort);
+            PagedResultsIAMUserControllerApiUserSummary result = kestraClient.UsersApi().listUsers(filters, page, size, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#listUsers");
@@ -713,9 +713,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type

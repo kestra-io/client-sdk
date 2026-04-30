@@ -1013,7 +1013,8 @@ public class ApiClient extends JavaTimeFormatter {
     if (isSuccessfulStatus(statusCode)) {
       return this.deserialize(response, returnType);
     } else {
-      String message = EntityUtils.toString(response.getEntity());
+      HttpEntity entity = response.getEntity();
+      String message = entity != null ? EntityUtils.toString(entity) : "HTTP " + statusCode;
       throw new ApiException(message, statusCode, responseHeaders, message);
     }
   }

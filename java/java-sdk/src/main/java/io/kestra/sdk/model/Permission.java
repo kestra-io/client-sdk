@@ -29,8 +29,6 @@ public enum Permission {
   
   BLUEPRINT("BLUEPRINT"),
   
-  TEMPLATE("TEMPLATE"),
-  
   NAMESPACE("NAMESPACE"),
   
   EXECUTION("EXECUTION"),

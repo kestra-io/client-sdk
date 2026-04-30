@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**source** | **String** |  |  [optional] |
 |**target** | **String** |  |  [optional] |
-|**relation** | [**Relation**](Relation.md) |  |  [optional] |
+|**relation** | [**Relation1**](Relation1.md) |  |  [optional] |
 
 
 

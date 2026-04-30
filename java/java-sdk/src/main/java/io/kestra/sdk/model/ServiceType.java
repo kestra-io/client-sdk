@@ -35,6 +35,8 @@ public enum ServiceType {
   
   WORKER("WORKER"),
   
+  CONTROLLER("CONTROLLER"),
+  
   INVALID("INVALID"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
