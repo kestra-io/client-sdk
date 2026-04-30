@@ -25,7 +25,7 @@ triggers:
     cron: "*/5 * * * *"
 `;
 
-    await kestraClient().Flows.createFlow({ body });
+    await kestraClient.Flows.createFlow({ body });
     // give the server a beat to register the trigger
     await sleep(200);
 }
@@ -57,7 +57,7 @@ async function createBackfillForTrigger(flowId: string, triggerId: string, names
         },
     };
 
-    return kestraClient().Triggers.createBackfill(trigger);
+    return kestraClient.Triggers.createBackfill(trigger);
 }
 
 // Small helper to assert an API call rejects with a specific HTTP status
@@ -85,7 +85,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.deleteBackfill(t);
+        const resp = await kestraClient.Triggers.deleteBackfill(t);
         expect(resp).toBeTruthy();
     });
 
@@ -98,7 +98,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.deleteBackfillByIds({ body: [t] });
+        const resp = await kestraClient.Triggers.deleteBackfillByIds({ body: [t] });
         expect(resp).toBeTruthy();
     });
 
@@ -110,7 +110,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().Triggers.deleteBackfillByQuery({ filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId as any }] });
+        const resp = await kestraClient.Triggers.deleteBackfillByQuery({ filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId as any }] });
         expect(resp).toBeTruthy();
     });
 
@@ -123,7 +123,7 @@ describe('TriggersApiTest', () => {
 
         const t = triggerRef(namespace, flowId, triggerId);
         const req = { triggers: [t], disabled: true };
-        const resp = await kestraClient().Triggers.disabledTriggersByIds(req);
+        const resp = await kestraClient.Triggers.disabledTriggersByIds(req);
         expect(resp).toBeTruthy();
     });
 
@@ -134,7 +134,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().Triggers.disabledTriggersByQuery({
+        const resp = await kestraClient.Triggers.disabledTriggersByQuery({
             disabled: true,
             filters: [{
                 field: 'TRIGGER_ID',
@@ -154,7 +154,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.pauseBackfill(t);
+        const resp = await kestraClient.Triggers.pauseBackfill(t);
         expect(resp).toBeTruthy();
     });
 
@@ -167,7 +167,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.pauseBackfillByIds({ body: [t] });
+        const resp = await kestraClient.Triggers.pauseBackfillByIds({ body: [t] });
         expect(resp).toBeTruthy();
     });
 
@@ -179,7 +179,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
-        const resp = await kestraClient().Triggers.pauseBackfillByQuery({
+        const resp = await kestraClient.Triggers.pauseBackfillByQuery({
             filters: [{
                 field: 'TRIGGER_ID',
                 operation: 'CONTAINS',
@@ -196,7 +196,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().Triggers.restartTrigger({ namespace, flowId, triggerId });
+        const resp = await kestraClient.Triggers.restartTrigger({ namespace, flowId, triggerId });
         expect(resp).toBeTruthy();
     });
 
@@ -206,7 +206,7 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const page = await kestraClient().Triggers.searchTriggers({
+        const page = await kestraClient.Triggers.searchTriggers({
             page: 1,
             size: 10,
             filters: [{
@@ -226,7 +226,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const page = await kestraClient().Triggers.searchTriggersForFlow({
+        const page = await kestraClient.Triggers.searchTriggersForFlow({
             page: 1,
             size: 10,
             namespace,
@@ -244,7 +244,7 @@ describe('TriggersApiTest', () => {
 
         // Expecting 409 if not locked
         await expectRejectStatus(
-            kestraClient().Triggers.unlockTrigger({ namespace, flowId, triggerId }),
+            kestraClient.Triggers.unlockTrigger({ namespace, flowId, triggerId }),
             409
         );
     });
@@ -257,7 +257,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.unlockTriggersByIds({ body: [t] });
+        const resp = await kestraClient.Triggers.unlockTriggersByIds({ body: [t] });
         expect(resp).toBeTruthy();
     });
 
@@ -268,7 +268,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().Triggers.unlockTriggersByQuery();
+        const resp = await kestraClient.Triggers.unlockTriggersByQuery();
         expect(resp).toBeTruthy();
     });
 
@@ -281,7 +281,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.unpauseBackfill(t);
+        const resp = await kestraClient.Triggers.unpauseBackfill(t);
         expect(resp).toBeTruthy();
     });
 
@@ -294,7 +294,7 @@ describe('TriggersApiTest', () => {
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
-        const resp = await kestraClient().Triggers.unpauseBackfillByIds({ body: [t] });
+        const resp = await kestraClient.Triggers.unpauseBackfillByIds({ body: [t] });
         expect(resp).toBeTruthy();
     });
 
@@ -305,7 +305,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().Triggers.unpauseBackfillByQuery();
+        const resp = await kestraClient.Triggers.unpauseBackfillByQuery();
         expect(resp).toBeTruthy();
     });
 });

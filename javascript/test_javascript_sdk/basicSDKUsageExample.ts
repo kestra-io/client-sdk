@@ -1,7 +1,7 @@
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
 
-const baseURL = "http://localhost:9903";
+const baseUrl = "http://localhost:9903";
 const username = "root@root.com";
 const password = "Root!1234";
 const tenantId = "main";
@@ -11,7 +11,7 @@ export async function searchAndCreateFlowsExample() {
         auth: () => {
             return username + ":" + password;
         },
-        baseURL,
+        baseUrl,
     });
 
     const searchRes = await Flows.searchFlows({
