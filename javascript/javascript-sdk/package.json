@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "nprogress": "0.2.0",
-    "axios": "1.13.6"
+    "ky": "^1.8.2"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.96.0",

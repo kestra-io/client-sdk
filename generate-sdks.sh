@@ -1,12 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
-VERSION=$1
-LANGUAGES=$2
+LANGUAGES=$1
+VERSION=${2:-}
 TEMPLATE_FLAG="${3:-}"
 
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
+
+# if version is not provided, use 0.0.0-dev as default
+if [ -z "$VERSION" ]; then
+  VERSION="0.0.0-dev"
+  echo "No version provided, using default: $VERSION"
+fi
 
 # Cross-platform sed in-place with extended regex
 sed_inplace() {
