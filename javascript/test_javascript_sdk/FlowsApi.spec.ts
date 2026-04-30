@@ -112,9 +112,13 @@ describe('FlowsApi', () => {
     // Disable flows returned by the query parameters (placeholder like Java)
     it('disable_flows_by_query', async () => {
         const flow = await createSimpleFlow();
-        void flow;
-        // TODO when endpoint signature is available:
-        // await kestraClient.Flows.disableFlowsByQuery({ filters: [...] });
+
+        const resp = await kestraClient.Flows.disableFlowsByQuery({
+            filters: [{
+                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+            }]
+        });
+        expect(resp.count).toBe(1);
     });
 
     // Enable flows by their IDs
@@ -126,8 +130,18 @@ describe('FlowsApi', () => {
 
     // Enable flows returned by the query parameters (placeholder like Java)
     it('enable_flows_by_query', async () => {
-        // TODO when endpoint signature is available:
-        // await kestraClient.Flows.enableFlowsByQuery({ filters: [...] });
+        const flow = await createSimpleFlow();
+
+        await kestraClient.Flows.disableFlowsByQuery({
+            filters: [{
+                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+            }]
+        });
+        await kestraClient.Flows.enableFlowsByQuery({
+            filters: [{
+                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+            }]
+        });
     });
 
     // Export flows as ZIP by IDs
@@ -140,9 +154,12 @@ describe('FlowsApi', () => {
     // Export flows as ZIP by query (placeholder like Java)
     it('export_flows_by_query', async () => {
         const flow = await createSimpleFlow();
-        void flow;
-        // TODO when endpoint signature is available:
-        // await kestraClient.Flows.exportFlowsByQuery({ filters: [...] });
+        const exp = await kestraClient.Flows.exportFlowsByQuery({
+            filters: [{
+                field: 'ID', operation: 'EQUALS', value: flow.id as any,
+            }]
+        });
+        expect(exp).toMatchInlineSnapshot();
     });
 
     // Generate a graph for a flow
