@@ -220,8 +220,12 @@ describe('FlowsApi', () => {
     it('search_flows', async () => {
         const flow = await createSimpleFlow();
         void flow;
-        // TODO when endpoint/signature ready:
-        // const resp = getDataOrThrow(await kestraClient.Flows.searchFlows({ page: 1, size: 10, namespace: flow.namespace }));
+
+        const resp = await kestraClient.Flows.searchFlows({
+            page: 1, size: 10, filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any }],
+        });
+
+        expect(resp.results).toHaveLength(1);
     });
 
     // Search for flows source code
