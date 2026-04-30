@@ -35,8 +35,6 @@ import java.util.Map;
 
 public class FlowsApi extends BaseApi {
 
-    private static final String[] AUTH = {"basicAuth", "bearerAuth"};
-    private static final String JSON = "application/json";
     private static final String YAML = "application/x-yaml";
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
@@ -49,118 +47,57 @@ public class FlowsApi extends BaseApi {
         super(apiClient);
     }
 
-    // ---- Path builders ----
-
-    private String tenantPath(String tenant, String... segments) {
-        StringBuilder sb = new StringBuilder("/api/v1/");
-        sb.append(esc(tenant));
-        for (String s : segments) {
-            sb.append("/").append(esc(s));
-        }
-        return sb.toString();
-    }
-
-    private String esc(String value) {
-        return apiClient.escapeString(apiClient.parameterToString(value));
-    }
-
-    // ---- Query param builders ----
-
-    private List<Pair> queryParams(Object... keyValues) {
-        List<Pair> params = new ArrayList<>();
-        for (int i = 0; i < keyValues.length; i += 2) {
-            String key = (String) keyValues[i];
-            Object value = keyValues[i + 1];
-            if (value != null) {
-                params.addAll(apiClient.parameterToPair(key, value));
-            }
-        }
-        return params;
-    }
-
-    private List<Pair> filterParams(@jakarta.annotation.Nullable List<QueryFilter> filters) {
-        if (filters == null || filters.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return apiClient.parameterToPairs("csv", "filters", filters);
-    }
-
-    private List<Pair> csvParams(String name, @jakarta.annotation.Nullable List<String> values) {
-        if (values == null || values.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return apiClient.parameterToPairs("csv", name, values);
-    }
-
     // ---- HTTP helpers ----
 
     private <T> T get(String path, List<Pair> queryParams, List<Pair> collectionQueryParams,
                       TypeReference<T> returnType) throws ApiException {
         return invoke("GET", path, null, queryParams, collectionQueryParams,
-                null, JSON, null, returnType);
+                JSON, null, returnType);
     }
 
     private <T> T get(String path, List<Pair> queryParams, List<Pair> collectionQueryParams,
                       String accept, TypeReference<T> returnType) throws ApiException {
         return invoke("GET", path, null, queryParams, collectionQueryParams,
-                null, accept, null, returnType);
+                accept, null, returnType);
     }
 
     private <T> T postYaml(String path, String body, List<Pair> queryParams,
                            TypeReference<T> returnType) throws ApiException {
         return invoke("POST", path, body, queryParams, Collections.emptyList(),
-                null, JSON, YAML, returnType);
+                JSON, YAML, returnType);
     }
 
     private <T> T postJson(String path, Object body, List<Pair> queryParams,
                            TypeReference<T> returnType) throws ApiException {
         return invoke("POST", path, body, queryParams, Collections.emptyList(),
-                null, JSON, JSON, returnType);
+                JSON, JSON, returnType);
     }
 
     private <T> T putYaml(String path, String body, TypeReference<T> returnType) throws ApiException {
         return invoke("PUT", path, body, Collections.emptyList(), Collections.emptyList(),
-                null, JSON, YAML, returnType);
+                JSON, YAML, returnType);
     }
 
     private <T> T putJson(String path, Object body, TypeReference<T> returnType) throws ApiException {
         return invoke("PUT", path, body, Collections.emptyList(), Collections.emptyList(),
-                null, JSON, JSON, returnType);
+                JSON, JSON, returnType);
     }
 
     private void delete(String path, List<Pair> queryParams) throws ApiException {
         invoke("DELETE", path, null, queryParams, Collections.emptyList(),
-                null, null, null, null);
+                null, null, null);
     }
 
     private <T> T deleteWithBody(String path, Object body, String contentType,
                                  TypeReference<T> returnType) throws ApiException {
         return invoke("DELETE", path, body, Collections.emptyList(), Collections.emptyList(),
-                null, JSON, contentType, returnType);
+                JSON, contentType, returnType);
     }
 
     private <T> T deleteWithQuery(String path, List<Pair> queryParams, List<Pair> collectionQueryParams,
                                   TypeReference<T> returnType) throws ApiException {
         return invoke("DELETE", path, null, queryParams, collectionQueryParams,
-                null, JSON, null, returnType);
-    }
-
-    private <T> T invoke(String method, String path, Object body,
-                         List<Pair> queryParams, List<Pair> collectionQueryParams,
-                         Map<String, Object> formParams,
-                         String accept, String contentType,
-                         TypeReference<T> returnType) throws ApiException {
-        return apiClient.invokeAPI(
-                path, method,
-                queryParams != null ? queryParams : Collections.emptyList(),
-                collectionQueryParams != null ? collectionQueryParams : Collections.emptyList(),
-                "",
-                body,
-                new HashMap<>(),
-                new HashMap<>(),
-                formParams != null ? formParams : new HashMap<>(),
-                accept, contentType, AUTH, returnType
-        );
+                JSON, null, returnType);
     }
 
     // ========================================================================
@@ -260,7 +197,7 @@ public class FlowsApi extends BaseApi {
         return invoke("POST",
                 tenantPath(tenant, "flows", "disable", "by-query"),
                 null, Collections.emptyList(), collectionParams,
-                null, JSON, null,
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -280,7 +217,7 @@ public class FlowsApi extends BaseApi {
         return invoke("POST",
                 tenantPath(tenant, "flows", "enable", "by-query"),
                 null, Collections.emptyList(), collectionParams,
-                null, JSON, null,
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -396,7 +333,7 @@ public class FlowsApi extends BaseApi {
         return invoke("POST",
                 tenantPath(tenant, "flows", "export", "by-ids"),
                 ids, Collections.emptyList(), Collections.emptyList(),
-                null, OCTET_STREAM, JSON,
+                OCTET_STREAM, JSON,
                 new TypeReference<>() {});
     }
 
@@ -422,7 +359,7 @@ public class FlowsApi extends BaseApi {
                 tenantPath(tenant, "flows", "import"),
                 null,
                 queryParams("failOnError", failOnError), Collections.emptyList(),
-                formParams, JSON, MULTIPART,
+                JSON, MULTIPART, formParams,
                 new TypeReference<>() {});
     }
 
@@ -450,7 +387,7 @@ public class FlowsApi extends BaseApi {
         return invoke("POST",
                 tenantPath(tenant, "flows", "graph"),
                 body, Collections.emptyList(), csvParams("subflows", subflows),
-                null, JSON, YAML,
+                JSON, YAML,
                 new TypeReference<>() {});
     }
 
@@ -564,22 +501,4 @@ public class FlowsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    // ========================================================================
-    // BaseApi override
-    // ========================================================================
-
-    @Override
-    public <T> T invokeAPI(String url, String method, Object request,
-                           TypeReference<T> returnType,
-                           Map<String, String> additionalHeaders) throws ApiException {
-        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
-        return apiClient.invokeAPI(
-                path, method,
-                Collections.emptyList(), Collections.emptyList(), "",
-                request,
-                additionalHeaders != null ? additionalHeaders : new HashMap<>(),
-                new HashMap<>(), new HashMap<>(),
-                JSON, JSON, AUTH, returnType
-        );
-    }
 }

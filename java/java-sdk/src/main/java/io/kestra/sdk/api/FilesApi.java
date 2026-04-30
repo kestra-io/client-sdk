@@ -21,8 +21,6 @@ import java.util.Map;
 
 public class FilesApi extends BaseApi {
 
-    private static final String[] AUTH = {"basicAuth", "bearerAuth"};
-    private static final String JSON = "application/json";
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
 
@@ -45,44 +43,6 @@ public class FilesApi extends BaseApi {
         return sb.toString();
     }
 
-    private String esc(String value) {
-        return apiClient.escapeString(apiClient.parameterToString(value));
-    }
-
-    // ---- Query param builders ----
-
-    private List<Pair> queryParams(Object... keyValues) {
-        List<Pair> params = new ArrayList<>();
-        for (int i = 0; i < keyValues.length; i += 2) {
-            String key = (String) keyValues[i];
-            Object value = keyValues[i + 1];
-            if (value != null) {
-                params.addAll(apiClient.parameterToPair(key, value));
-            }
-        }
-        return params;
-    }
-
-    // ---- HTTP helpers ----
-
-    private <T> T invoke(String method, String path, Object body,
-                         List<Pair> queryParams,
-                         String accept, String contentType,
-                         Map<String, Object> formParams,
-                         TypeReference<T> returnType) throws ApiException {
-        return apiClient.invokeAPI(
-                path, method,
-                queryParams != null ? queryParams : Collections.emptyList(),
-                Collections.emptyList(),
-                "",
-                body,
-                new HashMap<>(),
-                new HashMap<>(),
-                formParams != null ? formParams : new HashMap<>(),
-                accept, contentType, AUTH, returnType
-        );
-    }
-
     // ========================================================================
     // Directories
     // ========================================================================
@@ -92,8 +52,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable String path) throws ApiException {
         invoke("POST", nsFilesPath(tenant, namespace, "directory"),
-                null, queryParams("path", path),
-                null, null, null, null);
+                null, queryParams("path", path), Collections.emptyList(),
+                null, null, null);
     }
 
     public List<FileAttributes> listNamespaceDirectoryFiles(
@@ -101,8 +61,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable String path) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace, "directory"),
-                null, queryParams("path", path),
-                JSON, null, null,
+                null, queryParams("path", path), Collections.emptyList(),
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -120,7 +80,7 @@ public class FilesApi extends BaseApi {
             formParams.put("fileContent", fileContent);
         }
         invoke("POST", nsFilesPath(tenant, namespace),
-                null, queryParams("path", path),
+                null, queryParams("path", path), Collections.emptyList(),
                 null, MULTIPART, formParams, null);
     }
 
@@ -130,8 +90,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer revision) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace),
-                null, queryParams("path", path, "revision", revision),
-                OCTET_STREAM, null, null,
+                null, queryParams("path", path, "revision", revision), Collections.emptyList(),
+                OCTET_STREAM, null,
                 new TypeReference<>() {});
     }
 
@@ -140,8 +100,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable String path) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace, "stats"),
-                null, queryParams("path", path),
-                JSON, null, null,
+                null, queryParams("path", path), Collections.emptyList(),
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -150,8 +110,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable String path) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace, "revisions"),
-                null, queryParams("path", path),
-                JSON, null, null,
+                null, queryParams("path", path), Collections.emptyList(),
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -161,8 +121,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull URI to,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         invoke("PUT", nsFilesPath(tenant, namespace),
-                null, queryParams("from", from, "to", to),
-                null, null, null, null);
+                null, queryParams("from", from, "to", to), Collections.emptyList(),
+                null, null, null);
     }
 
     public void deleteFileDirectory(
@@ -170,8 +130,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String path,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         invoke("DELETE", nsFilesPath(tenant, namespace),
-                null, queryParams("path", path),
-                null, null, null, null);
+                null, queryParams("path", path), Collections.emptyList(),
+                null, null, null);
     }
 
     // ========================================================================
@@ -183,8 +143,8 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String q,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace, "search"),
-                null, queryParams("q", q),
-                JSON, null, null,
+                null, queryParams("q", q), Collections.emptyList(),
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -192,27 +152,9 @@ public class FilesApi extends BaseApi {
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("GET", nsFilesPath(tenant, namespace, "export"),
-                null, null,
-                OCTET_STREAM, null, null,
+                null, null, Collections.emptyList(),
+                OCTET_STREAM, null,
                 new TypeReference<>() {});
     }
 
-    // ========================================================================
-    // BaseApi override
-    // ========================================================================
-
-    @Override
-    public <T> T invokeAPI(String url, String method, Object request,
-                           TypeReference<T> returnType,
-                           Map<String, String> additionalHeaders) throws ApiException {
-        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
-        return apiClient.invokeAPI(
-                path, method,
-                Collections.emptyList(), Collections.emptyList(), "",
-                request,
-                additionalHeaders != null ? additionalHeaders : new HashMap<>(),
-                new HashMap<>(), new HashMap<>(),
-                JSON, JSON, AUTH, returnType
-        );
-    }
 }

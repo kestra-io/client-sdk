@@ -19,14 +19,9 @@ import io.kestra.sdk.model.Role;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RolesApi extends BaseApi {
-
-    private static final String[] AUTH = {"basicAuth", "bearerAuth"};
-    private static final String JSON = "application/json";
 
     public RolesApi() {
         super(Configuration.getDefaultApiClient());
@@ -34,49 +29,6 @@ public class RolesApi extends BaseApi {
 
     public RolesApi(ApiClient apiClient) {
         super(apiClient);
-    }
-
-    // ---- Path builders ----
-
-    private String tenantPath(String tenant, String... segments) {
-        StringBuilder sb = new StringBuilder("/api/v1/");
-        sb.append(esc(tenant));
-        for (String s : segments) {
-            sb.append("/").append(esc(s));
-        }
-        return sb.toString();
-    }
-
-    private String esc(String value) {
-        return apiClient.escapeString(apiClient.parameterToString(value));
-    }
-
-    // ---- Query param builders ----
-
-    private List<Pair> queryParams(Object... keyValues) {
-        List<Pair> params = new ArrayList<>();
-        for (int i = 0; i < keyValues.length; i += 2) {
-            String key = (String) keyValues[i];
-            Object value = keyValues[i + 1];
-            if (value != null) {
-                params.addAll(apiClient.parameterToPair(key, value));
-            }
-        }
-        return params;
-    }
-
-    private List<Pair> filterParams(@jakarta.annotation.Nullable List<QueryFilter> filters) {
-        if (filters == null || filters.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return apiClient.parameterToPairs("csv", "filters", filters);
-    }
-
-    private List<Pair> csvParams(String name, @jakarta.annotation.Nullable List<String> values) {
-        if (values == null || values.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return apiClient.parameterToPairs("csv", name, values);
     }
 
     // ---- HTTP helpers ----
@@ -101,23 +53,6 @@ public class RolesApi extends BaseApi {
     private void delete(String path) throws ApiException {
         invoke("DELETE", path, null, Collections.emptyList(), Collections.emptyList(),
                 null, null, null);
-    }
-
-    private <T> T invoke(String method, String path, Object body,
-                         List<Pair> queryParams, List<Pair> collectionQueryParams,
-                         String accept, String contentType,
-                         TypeReference<T> returnType) throws ApiException {
-        return apiClient.invokeAPI(
-                path, method,
-                queryParams != null ? queryParams : Collections.emptyList(),
-                collectionQueryParams != null ? collectionQueryParams : Collections.emptyList(),
-                "",
-                body,
-                new HashMap<>(),
-                new HashMap<>(),
-                new HashMap<>(),
-                accept, contentType, AUTH, returnType
-        );
     }
 
     // ========================================================================
@@ -196,22 +131,4 @@ public class RolesApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    // ========================================================================
-    // BaseApi override
-    // ========================================================================
-
-    @Override
-    public <T> T invokeAPI(String url, String method, Object request,
-                           TypeReference<T> returnType,
-                           Map<String, String> additionalHeaders) throws ApiException {
-        String baseUrl = apiClient.getBaseURL(); String path = url.startsWith(baseUrl) ? url.substring(baseUrl.length()) : url;
-        return apiClient.invokeAPI(
-                path, method,
-                Collections.emptyList(), Collections.emptyList(), "",
-                request,
-                additionalHeaders != null ? additionalHeaders : new HashMap<>(),
-                new HashMap<>(), new HashMap<>(),
-                JSON, JSON, AUTH, returnType
-        );
-    }
 }
