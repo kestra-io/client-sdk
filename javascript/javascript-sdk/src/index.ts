@@ -1,8 +1,6 @@
-import axios from "axios"
-import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosProgressEvent, AxiosInstance } from "axios"
 import NProgress from "nprogress"
 import { client } from "./openapi/client.gen"
-import type { ClientOptions, Config } from "./openapi/client"
+import type { Config, ClientOptions } from "./openapi/client"
 
 export * from "./openapi/index"
 
@@ -49,263 +47,6 @@ const increaseProgress = () => {
     }, latencyThreshold + 50)
 }
 
-const isEmptyBody = (data: unknown): boolean => {
-    if (data == null) return true
-    if (data instanceof FormData) return [...data.keys()].length === 0
-    if (typeof data === "object") return Object.keys(data as object).length === 0
-    return false
-}
-
-const responseInterceptor = (response: AxiosResponse): AxiosResponse => {
-    increaseProgress()
-    return response
-}
-
-const errorResponseInterceptor = (error: AxiosError): Promise<AxiosError> => {
-    increaseProgress()
-    return Promise.reject(error)
-}
-
-const progressInterceptor = (progressEvent: AxiosProgressEvent) => {
-    if (progressEvent?.loaded && progressEvent?.total && typeof document !== "undefined") {
-        NProgress.inc(Math.floor(progressEvent.loaded * 1.0) / progressEvent.total)
-    }
-}
-
-interface QueueItem {
-    config: AxiosRequestConfig
-    resolve: (value: AxiosResponse | Promise<AxiosResponse>) => void
-}
-
-export const configureAxios = (
-    clientConfig: Config<ClientOptions> = {},
-    options: {
-        oss?: boolean,
-        router?: {
-            push: (location: { name: string, query?: Record<string, string> }) => void;
-            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
-            afterEach: (callback: () => void) => void;
-        },
-        coreStore?: {
-            message?: {
-                variant?: string;
-                response?: any;
-                content?: any;
-            };
-            error?: any;
-        },
-        authStore?: {
-            isLogged?: boolean;
-            logout: () => Promise<void>;
-        },
-        beforeLogout?: () => void
-        isImpersonating?: () => boolean
-        onAuthTimeout?: () => void
-    } = {}
-): AxiosInstance => {
-    const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
-
-    const instance = configureClient(clientConfig, {
-        timeout: 15000,
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-        onDownloadProgress: progressInterceptor,
-        onUploadProgress: progressInterceptor
-    })
-
-    instance.interceptors.request.use((config) => {
-        initProgress()
-        // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
-        // the Content-Type header. Replace that empty sentinel with a real empty
-        // FormData so the server receives a well-formed empty multipart body.
-        if (String(config.headers?.["Content-Type"]).startsWith("multipart/form-data") && isEmptyBody(config.data)) {
-            config.data = new FormData()
-        }
-        return config
-    })
-
-    instance.interceptors.response.use(responseInterceptor, errorResponseInterceptor)
-
-    let toRefreshQueue: QueueItem[] = []
-    let refreshing = false
-
-    instance.interceptors.response.use(
-        (response) => response,
-        async (errorResponse: AxiosError & QueueItem & { config: { showMessageOnError: boolean } }) => {
-
-            if (errorResponse?.code === "ERR_BAD_RESPONSE" && !errorResponse?.response?.data) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse,
-                    }
-                }
-                return Promise.reject(errorResponse)
-            }
-
-            if (errorResponse.response === undefined) {
-                return Promise.reject(errorResponse)
-            }
-
-            if (errorResponse.response.status === 404) {
-                if (coreStore) {
-                    coreStore.error = errorResponse.response.status
-                }
-                return Promise.reject(errorResponse)
-            }
-
-            if (errorResponse.response.status === 401
-                && (oss || !authStore?.isLogged)) {
-                onAuthTimeout?.()
-                return Promise.reject(errorResponse)
-            }
-
-            const impersonate = isImpersonating ? isImpersonating() : false
-
-            // Authentication expired
-            if (errorResponse.response.status === 401 &&
-                authStore?.isLogged && !oss &&
-                !document.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
-                && !impersonate) {
-
-                // Keep original request
-                const originalRequest = errorResponse.config
-
-                if (!originalRequest) {
-                    return Promise.reject(errorResponse)
-                }
-
-                // Prevent refresh attempts on refresh token endpoint itself
-                if (originalRequest.url?.includes("/oauth/access_token")) {
-                    refreshing = false
-                    toRefreshQueue = []
-
-                    beforeLogout?.()
-
-                    delete instance.defaults.headers.common["Authorization"]
-                    authStore?.logout().catch(() => { })
-
-                    const currentPath = window.location.pathname
-                    const isLoginPath = currentPath.includes("/login")
-
-                    router?.push({
-                        name: "login",
-                        query: (isLoginPath ? {} : { from: currentPath })
-                    })
-
-                    return Promise.reject(errorResponse)
-                }
-
-                if (!refreshing) {
-
-                    // if we already tried refreshing the token,
-                    // the user simply does not have access to this feature
-                    if (originalRequest.headers[REFRESHED_HEADER] === "1") {
-                        return Promise.reject(errorResponse)
-                    }
-
-                    refreshing = true
-
-                    try {
-                        await instance.post("/oauth/access_token?grant_type=refresh_token", null, {
-                            headers: { "Content-Type": "application/json" },
-                            timeout: 5000
-                        })
-
-                        // Process queued requests
-                        const queuePromises = toRefreshQueue.map(({ config, resolve }) =>
-                            instance.request(config).then(resolve).catch(error => {
-                                console.warn("Queued request failed after token refresh:", error)
-                                throw error
-                            })
-                        )
-
-                        await Promise.allSettled(queuePromises)
-                        toRefreshQueue = []
-                        refreshing = false
-
-                        // Retry original request
-                        originalRequest.headers[REFRESHED_HEADER] = "1"
-
-                        return instance(originalRequest)
-
-                    } catch (refreshError) {
-                        console.warn("Token refresh failed:", refreshError)
-
-                        refreshing = false
-                        toRefreshQueue = []
-
-                        beforeLogout?.()
-                        delete instance.defaults.headers.common["Authorization"]
-                        authStore?.logout().catch(() => { })
-
-                        const currentPath = window.location.pathname
-                        const isLoginPath = currentPath.includes("/login")
-
-                        router?.push({
-                            name: "login",
-                            query: (isLoginPath ? {} : { from: currentPath })
-                        })
-
-                        return Promise.reject(errorResponse)
-                    }
-                } else {
-                    // Add request to queue with a Promise that resolves when refresh is complete
-                    return new Promise((resolve, reject) => {
-                        toRefreshQueue.push({
-                            config: originalRequest,
-                            resolve: (response) => resolve(response)
-                        })
-
-                        // Set a timeout for queued requests
-                        setTimeout(() => {
-                            reject(new Error("Token refresh timeout"))
-                        }, 10000)
-                    })
-                }
-            }
-
-            if (errorResponse.response.status === 400) {
-                return Promise.reject(errorResponse.response.data)
-            }
-
-            if (errorResponse.response.data && errorResponse?.config?.showMessageOnError !== false) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse.response.data
-                    }
-                }
-                return Promise.reject(errorResponse)
-            }
-
-            return Promise.reject(errorResponse);
-        });
-
-    router?.beforeEach((_to, _from, next) => {
-        if (pendingRoute) {
-            requestsTotal--;
-        }
-        pendingRoute = true;
-        initProgress();
-
-        next();
-    });
-
-    router?.afterEach(() => {
-        if (pendingRoute) {
-            increaseProgress();
-            pendingRoute = false;
-        }
-    })
-
-    axiosInstance = instance
-
-    return instance;
-};
-
 function canBeJsonified(str: any): boolean {
     if (typeof str !== "string" && typeof str !== "object") return false;
     try {
@@ -323,24 +64,23 @@ function serializeQueryValue(val: unknown) {
     return val?.toString();
 }
 
-export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
-    const instance = axios.create(axiosConfig)
+export type FetchClient = typeof client
 
-    // Axios omits Content-Type for body-less requests, which causes servers that
-    // expect application/json (e.g. Kestra) to reject them with 401/415.
-    // Force application/json for POST/PUT/PATCH when the body is strictly absent.
-    instance.interceptors.request.use((config) => {
-        const method = config.method?.toLowerCase()
-        if (method === "post" || method === "put" || method === "patch") {
-            if (config.data == null) {
-                config.headers["Content-Type"] = "application/json"
-            }
-        }
-        return config
-    })
+// @hey-api/client-fetch defaults to jsonBodySerializer for ALL bodies. Override
+// with a type-aware serializer: strings (YAML, plain text) are passed through
+// unchanged; objects/arrays go through JSON.stringify as usual.
+const smartBodySerializer = (body: unknown): string | FormData | URLSearchParams | undefined => {
+    if (body === undefined || body === null) return undefined
+    if (typeof body === "string") return body
+    if (body instanceof FormData || body instanceof URLSearchParams) return body
+    return JSON.stringify(body)
+}
 
+export function configureClient(clientConfig: Config<ClientOptions> = {}): FetchClient {
     client.setConfig({
-        axios: instance,
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        bodySerializer: smartBodySerializer,
         querySerializer(query) {
             const queryParameters = new URLSearchParams();
             for (const key in query) {
@@ -361,8 +101,8 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                     const toCamel = (s: string) => {
                         const parts = String(s || "")
                             .trim()
-                            .split(/[^A-Za-z0-9]+/g) // split on any non-alphanumeric: _, -, spaces, etc.
-                            .filter(Boolean); // remove empties from multiple separators
+                            .split(/[^A-Za-z0-9]+/g)
+                            .filter(Boolean);
 
                         if (parts.length === 0) return "";
 
@@ -399,9 +139,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                                 }
                             }
                         } else {
-                            const ser = serializeQueryValue(
-                                qf.value,
-                            );
+                            const ser = serializeQueryValue(qf.value);
                             if (ser !== undefined) {
                                 queryParameters.append(`filters[${keyField}][${op}]`, ser);
                             }
@@ -426,23 +164,293 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
         ...clientConfig,
     })
 
-    instance.defaults.paramsSerializer = {
-        indexes: null
-    };
+    // Force Content-Type: application/json for body-less POST/PUT/PATCH so Kestra
+    // doesn't reject them with 401/415. Also fix empty multipart sentinels.
+    client.interceptors.request.use((request) => {
+        const method = request.method
+        const ct = request.headers.get("Content-Type") ?? ""
 
-    return instance
+        if (ct.startsWith("multipart/form-data") && request.body === null) {
+            const headers = new Headers(request.headers)
+            // Remove the header so the browser can set it with the correct boundary
+            headers.delete("Content-Type")
+            return new Request(request, { body: new FormData(), headers })
+        }
+
+        if (["POST", "PUT", "PATCH"].includes(method) && request.body === null) {
+            const headers = new Headers(request.headers)
+            headers.set("Content-Type", "application/json")
+            return new Request(request, { headers })
+        }
+
+        return request
+    })
+
+    // Per-request 15 s timeout via AbortController
+    client.interceptors.request.use((request) => {
+        if (request.signal) return request
+        const controller = new AbortController()
+        setTimeout(() => controller.abort(), 15000)
+        return new Request(request, { signal: controller.signal })
+    })
+
+    return client
 }
 
-let axiosInstance: AxiosInstance | null = null;
+export const configureFetch = (
+    clientConfig: Config<ClientOptions> = {},
+    options: {
+        oss?: boolean,
+        router?: {
+            push: (location: { name: string, query?: Record<string, string> }) => void;
+            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
+            afterEach: (callback: () => void) => void;
+        },
+        coreStore?: {
+            message?: {
+                variant?: string;
+                response?: any;
+                content?: any;
+            };
+            error?: any;
+        },
+        authStore?: {
+            isLogged?: boolean;
+            logout: () => Promise<void>;
+        },
+        beforeLogout?: () => void
+        isImpersonating?: () => boolean
+        onAuthTimeout?: () => void
+    } = {}
+): FetchClient => {
+    const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
 
-export function useClient(): AxiosInstance {
-    return new Proxy({} as AxiosInstance, {
-        get(_target, prop) {
-            if (!axiosInstance) {
-                throw new Error("Axios instance not initialized. Please call configureAxios first.")
-            }
-            const value = (axiosInstance as any)[prop]
-            return typeof value === "function" ? value.bind(axiosInstance) : value
+    configureClient(clientConfig)
+
+    // NProgress: start on every request
+    client.interceptors.request.use((request) => {
+        initProgress()
+        return request
+    })
+
+    // NProgress: track download progress via ReadableStream, complete on done
+    client.interceptors.response.use((response) => {
+        const total = parseInt(response.headers.get("Content-Length") ?? "0", 10)
+
+        if (!response.body) {
+            increaseProgress()
+            return response
         }
+
+        const reader = response.body.getReader()
+        let loaded = 0
+        const stream = new ReadableStream({
+            start(controller) {
+                function read() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            controller.close()
+                            increaseProgress()
+                            return
+                        }
+                        loaded += value.byteLength
+                        if (total > 0) {
+                            NProgress.set(loaded / total)
+                        } else {
+                            NProgress.inc()
+                        }
+                        controller.enqueue(value)
+                        read()
+                    }).catch((err) => {
+                        controller.error(err)
+                        increaseProgress()
+                    })
+                }
+                read()
+            },
+        })
+
+        return new Response(stream, {
+            headers: response.headers,
+            status: response.status,
+            statusText: response.statusText,
+        })
+    })
+
+    interface QueueItem {
+        retry: () => Promise<Response>
+        resolve: (value: Response) => void
+    }
+
+    let toRefreshQueue: QueueItem[] = []
+    let refreshing = false
+
+    client.interceptors.error.use(async (error, response, request) => {
+        increaseProgress()
+
+        if (!response) {
+            // Network error or response-less failure
+            if (coreStore && error) {
+                coreStore.message = {
+                    variant: "error",
+                    response,
+                    content: error,
+                }
+            }
+            return Promise.reject(error)
+        }
+
+        const status = response.status
+
+        if (status === 404) {
+            if (coreStore) {
+                coreStore.error = status
+            }
+            return Promise.reject(error)
+        }
+
+        if (status === 401 && (oss || !authStore?.isLogged)) {
+            onAuthTimeout?.()
+            return Promise.reject(error)
+        }
+
+        const impersonate = isImpersonating ? isImpersonating() : false
+
+        if (
+            status === 401 &&
+            authStore?.isLogged &&
+            !oss &&
+            !document.cookie.split("; ").map((c) => c.split("=")[0]).includes("JWT") &&
+            !impersonate
+        ) {
+            if (!request) return Promise.reject(error)
+
+            // Already retried after a token refresh — give up
+            if (request.headers.get(REFRESHED_HEADER) === "1") {
+                return Promise.reject(error)
+            }
+
+            // Refresh token endpoint itself failed — log out
+            if (request.url?.includes("/oauth/access_token")) {
+                refreshing = false
+                toRefreshQueue = []
+
+                beforeLogout?.()
+                authStore?.logout().catch(() => {})
+
+                const currentPath = window.location.pathname
+                const isLoginPath = currentPath.includes("/login")
+                router?.push({
+                    name: "login",
+                    query: isLoginPath ? {} : { from: currentPath },
+                })
+
+                return Promise.reject(error)
+            }
+
+            if (!refreshing) {
+                refreshing = true
+
+                try {
+                    await fetch("/oauth/access_token?grant_type=refresh_token", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        credentials: "include",
+                        signal: AbortSignal.timeout(5000),
+                    })
+
+                    // Replay queued requests
+                    const queuePromises = toRefreshQueue.map(({ retry, resolve }) =>
+                        retry().then(resolve).catch((err) => {
+                            console.warn("Queued request failed after token refresh:", err)
+                            throw err
+                        })
+                    )
+                    await Promise.allSettled(queuePromises)
+                    toRefreshQueue = []
+                    refreshing = false
+
+                    // Retry original request, flagged to prevent infinite refresh loop
+                    const retryHeaders = new Headers(request.headers)
+                    retryHeaders.set(REFRESHED_HEADER, "1")
+                    return fetch(new Request(request, { headers: retryHeaders }))
+
+                } catch (refreshError) {
+                    console.warn("Token refresh failed:", refreshError)
+                    refreshing = false
+                    toRefreshQueue = []
+
+                    beforeLogout?.()
+                    authStore?.logout().catch(() => {})
+
+                    const currentPath = window.location.pathname
+                    const isLoginPath = currentPath.includes("/login")
+                    router?.push({
+                        name: "login",
+                        query: isLoginPath ? {} : { from: currentPath },
+                    })
+
+                    return Promise.reject(refreshError)
+                }
+            } else {
+                return new Promise<Response>((resolve, reject) => {
+                    toRefreshQueue.push({
+                        retry: () => fetch(request.clone()),
+                        resolve,
+                    })
+                    setTimeout(() => reject(new Error("Token refresh timeout")), 10000)
+                })
+            }
+        }
+
+        if (status === 400) {
+            const data = await response.clone().json().catch(() => null)
+            return Promise.reject(data)
+        }
+
+        // Generic error: show message in UI
+        const data = await response.clone().json().catch(() => null)
+        if (data && coreStore) {
+            coreStore.message = {
+                variant: "error",
+                response,
+                content: data,
+            }
+        }
+
+        return Promise.reject(error)
+    })
+
+    router?.beforeEach((_to, _from, next) => {
+        if (pendingRoute) {
+            requestsTotal--
+        }
+        pendingRoute = true
+        initProgress()
+        next()
+    })
+
+    router?.afterEach(() => {
+        if (pendingRoute) {
+            increaseProgress()
+            pendingRoute = false
+        }
+    })
+
+    fetchClientInstance = client
+    return client
+}
+
+let fetchClientInstance: FetchClient | null = null
+
+export function useClient(): FetchClient {
+    return new Proxy({} as FetchClient, {
+        get(_target, prop) {
+            if (!fetchClientInstance) {
+                throw new Error("Fetch client not initialized. Please call configureFetch first.")
+            }
+            const value = (fetchClientInstance as any)[prop]
+            return typeof value === "function" ? value.bind(fetchClientInstance) : value
+        },
     })
 }
