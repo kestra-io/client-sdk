@@ -96,10 +96,10 @@ async function createSimpleFlow(flowId: string, ns: string, tmpl: (id: string, n
 
 async function createFlowWithExecution(flowId: string, ns: string) {
     await createSimpleFlow(flowId, ns);
-    return await kestraClient.Executions.createExecution({
+    return kestraClient.Executions.createExecution({
         namespace: ns,
         id: flowId,
-        wait: false,
+        wait: true,
     });
 }
 
@@ -108,7 +108,7 @@ async function createFlowWithExecutionFromYaml(flowYaml: string) {
     return await kestraClient.Executions.createExecution({
         namespace: f.namespace,
         id: f.id,
-        wait: false,
+        wait: true,
     });
 }
 
@@ -165,7 +165,7 @@ describe("ExecutionsApi", () => {
         const resp = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
             labels,
             kind: "NORMAL",
             body: [inputs],
@@ -204,13 +204,13 @@ describe("ExecutionsApi", () => {
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
 
         const e3 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
 
 
@@ -253,7 +253,7 @@ describe("ExecutionsApi", () => {
         const b = await kestraClient.Executions.createExecution({
             namespace: ns1,
             id: flow1,
-            wait: false,
+            wait: true,
         });
 
         const ns2 = randomId();
@@ -292,21 +292,28 @@ describe("ExecutionsApi", () => {
     it("download_file_from_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
-        const done = await (async () => {
-            const e = await createFlowWithExecutionFromYaml(
-                FILE_FLOW(flowId, ns),
-            );
-            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
-        })();
 
-        // TODO: ApiTaskRun type is missing `outputs` property
-        // @ts-expect-error
-        const uri = done?.taskRunList?.[0]?.outputs?.uri;
+        const e = await createFlowWithExecutionFromYaml(
+            FILE_FLOW(flowId, ns),
+        );
+        const done = await awaitExecution(e.id, "SUCCESS", 5000, 100);
+
+        const taskRunId = done.taskRunList?.[0]?.id ?? null;
+
+        if (!taskRunId) throw new Error("Task run not found");
+
+        const outputs = await kestraClient.Outputs.taskRunOutputs({
+            taskRunId: taskRunId,
+            executionId: e.id,
+        })
+        if (!outputs) throw new Error("Output URI not found");
+        expect(outputs).toMatchInlineSnapshot();
+        const uri = outputs.uri.uri as string;
         expect(uri).toBeTruthy();
 
         const file =
             await kestraClient.Executions.downloadFileFromExecution({
-                executionId: done.id ?? "",
+                executionId: e.id ?? "",
                 path: uri,
             });
         // depending on generator, this might be a Buffer/string/file path.
@@ -323,14 +330,14 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
 
         const queued = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
@@ -352,14 +359,14 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
 
         const queued = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
@@ -380,13 +387,13 @@ describe("ExecutionsApi", () => {
         const e1 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(e1.id, "RUNNING", 1500, 100);
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(e2.id, "QUEUED", 1500, 100);
 
@@ -484,7 +491,7 @@ describe("ExecutionsApi", () => {
         const secondA = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowA,
-            wait: false,
+            wait: true,
         });
         const flowB = randomId();
         const b = await (async () => {
@@ -517,7 +524,7 @@ describe("ExecutionsApi", () => {
         const e = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         await sleep(200);
         await kestraClient.Executions.killExecution({
@@ -538,17 +545,17 @@ describe("ExecutionsApi", () => {
         const e1 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
         const e3 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: false,
+            wait: true,
         });
 
         const bulk: any = await kestraClient.Executions.killExecutionsByIds({
@@ -576,17 +583,17 @@ describe("ExecutionsApi", () => {
         const a = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow1,
-            wait: false,
+            wait: true,
         });
         const b = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow1,
-            wait: false,
+            wait: true,
         });
         const c = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow2,
-            wait: false,
+            wait: true,
         });
 
         const filters = [
@@ -808,11 +815,11 @@ describe("ExecutionsApi", () => {
         const flowId = randomId();
         const e1 = await createFlowWithExecution(flowId, ns);
         const e2 = await kestraClient.Executions.createExecution(
-            { namespace: ns, id: flowId, wait: false },
+            { namespace: ns, id: flowId, wait: true },
         );
         await Promise.all(new Array(3).fill(1)
             .map(() => kestraClient.Executions.createExecution(
-                { namespace: ns, id: flowId, wait: false },
+                { namespace: ns, id: flowId, wait: true },
             ))
         );
 
@@ -971,13 +978,13 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const queued = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
@@ -999,19 +1006,19 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const q1 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(q1.id, "QUEUED", 1500, 100);
         const q2 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
@@ -1036,19 +1043,19 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const q1 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(q1.id, "QUEUED", 1500, 100);
         const q2 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: false,
+            wait: true,
         });
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
