@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -125,6 +127,117 @@ public class TestSuitesApiTest {
 
         ValidateConstraintViolation result = api().validateTestSuite(TENANT,
                 testSuiteYaml(randomId(), ns, flowId));
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Update
+    // ========================================================================
+
+    @Test
+    void updateTestSuite_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String suiteId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
+
+        String updatedYaml = testSuiteYaml(suiteId, ns, flowId).replace("Basic test case", "Updated test case");
+        TestSuite result = api().updateTestSuite(ns, suiteId, TENANT, updatedYaml);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(suiteId);
+    }
+
+    // ========================================================================
+    // Bulk operations
+    // ========================================================================
+
+    @Test
+    void deleteTestSuitesByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String suiteId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
+
+        TestSuiteControllerTestSuiteBulkRequest request = new TestSuiteControllerTestSuiteBulkRequest()
+                .ids(List.of(new TestSuiteControllerTestSuiteApiId().namespace(ns).id(suiteId)));
+
+        BulkResponse result = api().deleteTestSuitesByIds(TENANT, request);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void enableTestSuitesByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String suiteId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
+
+        TestSuiteControllerTestSuiteBulkRequest request = new TestSuiteControllerTestSuiteBulkRequest()
+                .ids(List.of(new TestSuiteControllerTestSuiteApiId().namespace(ns).id(suiteId)));
+
+        BulkResponse result = api().enableTestSuitesByIds(TENANT, request);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void disableTestSuitesByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String suiteId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
+
+        TestSuiteControllerTestSuiteBulkRequest request = new TestSuiteControllerTestSuiteBulkRequest()
+                .ids(List.of(new TestSuiteControllerTestSuiteApiId().namespace(ns).id(suiteId)));
+
+        BulkResponse result = api().disableTestSuitesByIds(TENANT, request);
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Run
+    // ========================================================================
+
+    @Test
+    void runTestSuite_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String suiteId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
+
+        TestSuiteRunResult result = api().runTestSuite(ns, suiteId, TENANT, null);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void runTestSuitesByQuery_basic() throws ApiException {
+        TestSuiteServiceRunByQueryRequest request = new TestSuiteServiceRunByQueryRequest();
+
+        TestSuiteServiceTestRunByQueryResult result = api().runTestSuitesByQuery(TENANT, request);
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Results details
+    // ========================================================================
+
+    @Test
+    void testsLastResult_basic() throws ApiException {
+        TestSuiteControllerSearchTestsLastResult request = new TestSuiteControllerSearchTestsLastResult();
+
+        TestSuiteControllerTestsLastResultResponse result = api().testsLastResult(TENANT, request);
 
         assertThat(result).isNotNull();
     }

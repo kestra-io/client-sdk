@@ -199,4 +199,119 @@ public class ServiceAccountApiTest {
         Object tokens = api().listApiTokensForServiceAccountWithTenant(sa.getId(), TENANT);
         assertThat(tokens).isNotNull();
     }
+
+    // ========================================================================
+    // Delete API token (tenant-scoped)
+    // ========================================================================
+
+    @Test
+    void deleteApiTokenForServiceAccountWithTenant_basic() throws ApiException {
+        IAMServiceAccountControllerApiServiceAccountRequest saRequest =
+                new IAMServiceAccountControllerApiServiceAccountRequest()
+                        .name("sa-del-token-" + randomId())
+                        .description("Delete token test");
+
+        IAMServiceAccountControllerApiServiceAccountResponse sa =
+                api().createServiceAccountForTenant(TENANT, saRequest);
+
+        CreateApiTokenRequest tokenRequest = new CreateApiTokenRequest()
+                .name("token-to-delete-" + randomId());
+
+        @SuppressWarnings("unchecked")
+        java.util.Map<String, Object> tokenResp =
+                (java.util.Map<String, Object>) api().createApiTokensForServiceAccountWithTenant(sa.getId(), TENANT, tokenRequest);
+        assertThat(tokenResp).isNotNull();
+        String tokenId = (String) tokenResp.get("id");
+        assertThat(tokenId).isNotBlank();
+
+        assertThatCode(() -> api().deleteApiTokenForServiceAccountWithTenant(sa.getId(), tokenId, TENANT))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // API tokens (Superadmin-scoped)
+    // ========================================================================
+
+    @Test
+    void createApiTokensForServiceAccount_superadmin() throws ApiException {
+        IAMServiceAccountControllerApiCreateServiceAccountRequest saRequest =
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                        .name("sa-sa-token-" + randomId())
+                        .description("Superadmin token test");
+
+        IAMServiceAccountControllerApiServiceAccountDetail sa = api().createServiceAccount(saRequest);
+
+        CreateApiTokenRequest tokenRequest = new CreateApiTokenRequest()
+                .name("sa-token-" + randomId());
+
+        Object tokenResp = api().createApiTokensForServiceAccount(sa.getId(), tokenRequest);
+        assertThat(tokenResp).isNotNull();
+    }
+
+    @Test
+    void listApiTokensForServiceAccount_superadmin() throws ApiException {
+        IAMServiceAccountControllerApiCreateServiceAccountRequest saRequest =
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                        .name("sa-sa-list-" + randomId())
+                        .description("Superadmin list token test");
+
+        IAMServiceAccountControllerApiServiceAccountDetail sa = api().createServiceAccount(saRequest);
+
+        CreateApiTokenRequest tokenRequest = new CreateApiTokenRequest()
+                .name("sa-list-token-" + randomId());
+
+        api().createApiTokensForServiceAccount(sa.getId(), tokenRequest);
+
+        Object tokens = api().listApiTokensForServiceAccount(sa.getId());
+        assertThat(tokens).isNotNull();
+    }
+
+    @Test
+    void deleteApiTokenForServiceAccount_superadmin() throws ApiException {
+        IAMServiceAccountControllerApiCreateServiceAccountRequest saRequest =
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                        .name("sa-sa-del-" + randomId())
+                        .description("Superadmin delete token test");
+
+        IAMServiceAccountControllerApiServiceAccountDetail sa = api().createServiceAccount(saRequest);
+
+        CreateApiTokenRequest tokenRequest = new CreateApiTokenRequest()
+                .name("sa-del-token-" + randomId());
+
+        @SuppressWarnings("unchecked")
+        java.util.Map<String, Object> tokenResp =
+                (java.util.Map<String, Object>) api().createApiTokensForServiceAccount(sa.getId(), tokenRequest);
+        assertThat(tokenResp).isNotNull();
+        String tokenId = (String) tokenResp.get("id");
+        assertThat(tokenId).isNotBlank();
+
+        assertThatCode(() -> api().deleteApiTokenForServiceAccount(sa.getId(), tokenId))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Patch superadmin
+    // ========================================================================
+
+    @Test
+    void patchServiceAccountSuperAdmin_basic() throws ApiException {
+        IAMServiceAccountControllerApiCreateServiceAccountRequest saRequest =
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                        .name("sa-superadmin-" + randomId())
+                        .description("Superadmin patch test");
+
+        IAMServiceAccountControllerApiServiceAccountDetail sa = api().createServiceAccount(saRequest);
+
+        ApiPatchSuperAdminRequest patchRequest = new ApiPatchSuperAdminRequest()
+                .superAdmin(true);
+
+        assertThatCode(() -> api().patchServiceAccountSuperAdmin(sa.getId(), patchRequest))
+                .doesNotThrowAnyException();
+
+        // Reset back to non-superadmin
+        ApiPatchSuperAdminRequest resetRequest = new ApiPatchSuperAdminRequest()
+                .superAdmin(false);
+        assertThatCode(() -> api().patchServiceAccountSuperAdmin(sa.getId(), resetRequest))
+                .doesNotThrowAnyException();
+    }
 }

@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -145,5 +147,78 @@ public class AppsApiTest {
         AppsControllerApiAppTags result = api().listTags(TENANT);
 
         assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Bulk operations
+    // ========================================================================
+
+    @Test
+    void bulkDeleteApps_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        AppsControllerApiBulkOperationRequest request = new AppsControllerApiBulkOperationRequest()
+                .uids(List.of(created.getUid()));
+
+        assertThatCode(() -> api().bulkDeleteApps(TENANT, request))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void bulkEnableApps_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        AppsControllerApiBulkOperationRequest request = new AppsControllerApiBulkOperationRequest()
+                .uids(List.of(created.getUid()));
+
+        assertThatCode(() -> api().bulkEnableApps(TENANT, request))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void bulkDisableApps_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        AppsControllerApiBulkOperationRequest request = new AppsControllerApiBulkOperationRequest()
+                .uids(List.of(created.getUid()));
+
+        assertThatCode(() -> api().bulkDisableApps(TENANT, request))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void bulkExportApps_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        AppsControllerApiBulkOperationRequest request = new AppsControllerApiBulkOperationRequest()
+                .uids(List.of(created.getUid()));
+
+        byte[] result = api().bulkExportApps(TENANT, request);
+
+        assertThat(result).isNotNull();
+        assertThat(result.length).isGreaterThan(0);
+    }
+
+    @Test
+    void bulkImportApps_noFile() throws ApiException {
+        // Import with null file requires fileUpload → 500
+        assertThatThrownBy(() -> api().bulkImportApps(TENANT, null))
+                .isInstanceOf(ApiException.class);
     }
 }

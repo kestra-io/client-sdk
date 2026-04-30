@@ -37,6 +37,42 @@ public class ExecutionsApiTest {
         return executionId;
     }
 
+    static String failingFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: fail
+                    type: io.kestra.plugin.core.execution.Fail
+                """.formatted(id, ns);
+    }
+
+    static String sleepFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: wait
+                    type: io.kestra.plugin.core.flow.Sleep
+                    duration: PT10S
+                """.formatted(id, ns);
+    }
+
+    static String webhookFlowYaml(String id, String ns, String key) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: hello
+                    type: io.kestra.plugin.core.log.Log
+                    message: Webhook triggered!
+                triggers:
+                  - id: webhook
+                    type: io.kestra.plugin.core.trigger.Webhook
+                    key: %s
+                """.formatted(id, ns, key);
+    }
+
     // ========================================================================
     // Create & Get
     // ========================================================================
@@ -128,6 +164,7 @@ public class ExecutionsApiTest {
         FlowGraph result = api().executionFlowGraph(executionId, TENANT, null);
 
         assertThat(result).isNotNull();
+        assertThat(result.getNodes()).isNotEmpty();
     }
 
     @Test
@@ -139,6 +176,7 @@ public class ExecutionsApiTest {
         FlowForExecution result = api().flowFromExecution(TENANT, ns, flowId, null);
 
         assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(flowId);
     }
 
     @Test
@@ -151,6 +189,7 @@ public class ExecutionsApiTest {
         FlowForExecution result = api().flowFromExecutionById(executionId, TENANT);
 
         assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(flowId);
     }
 
     // ========================================================================
@@ -181,6 +220,63 @@ public class ExecutionsApiTest {
     }
 
     // ========================================================================
+    // Kill
+    // ========================================================================
+
+    @Test
+    void killExecution_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(sleepFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+        sleep(500);
+
+        // Wait until execution is RUNNING before killing
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.RUNNING;
+        });
+
+        Execution result = api().killExecution(executionId, TENANT, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(executionId);
+
+        // Wait for the execution to reach KILLED state
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.KILLED || state == StateType.CANCELLED;
+        });
+    }
+
+    @Test
+    void killExecutionsByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(sleepFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp1 = executeFlow(ns, flowId);
+        ExecutionControllerExecutionResponse resp2 = executeFlow(ns, flowId);
+        String execId1 = resp1.getId();
+        String execId2 = resp2.getId();
+        sleep(500);
+
+        // Wait until at least one execution is RUNNING
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(execId1, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.RUNNING;
+        });
+
+        assertThatCode(() -> api().killExecutionsByIds(TENANT, List.of(execId1, execId2)))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
     // Labels
     // ========================================================================
 
@@ -197,6 +293,22 @@ public class ExecutionsApiTest {
         assertThat(result).isNotNull();
     }
 
+    @Test
+    void setLabelsOnTerminatedExecutionsByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        Label label = new Label().key("team").value("platform");
+        ExecutionControllerSetLabelsByIdsRequest request = new ExecutionControllerSetLabelsByIdsRequest()
+                .executionsId(List.of(executionId))
+                .executionLabels(List.of(label));
+
+        assertThatCode(() -> api().setLabelsOnTerminatedExecutionsByIds(TENANT, request))
+                .doesNotThrowAnyException();
+    }
+
     // ========================================================================
     // Eval
     // ========================================================================
@@ -211,6 +323,7 @@ public class ExecutionsApiTest {
         ExecutionControllerEvalResult result = api().evalExpression(executionId, TENANT, "{{ execution.id }}");
 
         assertThat(result).isNotNull();
+        assertThat(result.getResult()).contains(executionId);
     }
 
     // ========================================================================
@@ -250,6 +363,292 @@ public class ExecutionsApiTest {
 
         assertThat(result).isNotNull();
         assertThat(result).isNotEmpty();
+    }
+
+    // ========================================================================
+    // Restart
+    // ========================================================================
+
+    @Test
+    void restartExecution_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(failingFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.FAILED;
+        });
+        sleep(500);
+
+        Execution result = api().restartExecution(executionId, TENANT, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotBlank();
+    }
+
+    // ========================================================================
+    // Update execution status
+    // ========================================================================
+
+    @Test
+    void updateExecutionStatus_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        // Change a SUCCESS execution to WARNING
+        Execution result = api().updateExecutionStatus(executionId, StateType.WARNING, TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(executionId);
+    }
+
+    // ========================================================================
+    // Webhooks
+    // ========================================================================
+
+    @Test
+    void triggerExecutionByGetWebhook_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        String key = randomId();
+        createFlow(webhookFlowYaml(flowId, ns, key));
+        sleep(500);
+
+        WebhookResponse result = api().triggerExecutionByGetWebhook(TENANT, ns, flowId, key);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotBlank();
+        assertThat(result.getFlowId()).isEqualTo(flowId);
+        assertThat(result.getNamespace()).isEqualTo(ns);
+    }
+
+
+    // ========================================================================
+    // Kill by query
+    // ========================================================================
+
+    @Test
+    void killExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().killExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Delete by query
+    // ========================================================================
+
+    @Test
+    void deleteExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().deleteExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent")), null, null, null, null))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Pause / Resume
+    // ========================================================================
+
+    @Test
+    void pauseExecution_notPaused() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(sleepFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.RUNNING;
+        });
+
+        Execution result = api().pauseExecution(executionId, TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(executionId);
+
+        // Resume
+        Execution resumed = api().resumeExecution(executionId, TENANT);
+        assertThat(resumed).isNotNull();
+        assertThat(resumed.getId()).isEqualTo(executionId);
+    }
+
+    @Test
+    void pauseExecutionsByIds_basic() throws ApiException {
+        assertThatThrownBy(() -> api().pauseExecutionsByIds(TENANT, List.of("nonexistent")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void pauseExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().pauseExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void resumeExecutionsByIds_basic() throws ApiException {
+        assertThatThrownBy(() -> api().resumeExecutionsByIds(TENANT, List.of("nonexistent")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void resumeExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().resumeExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Restart by bulk
+    // ========================================================================
+
+    @Test
+    void restartExecutionsByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(failingFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            return exec.getState() != null && exec.getState().getCurrent() == StateType.FAILED;
+        });
+
+        assertThatCode(() -> api().restartExecutionsByIds(TENANT, List.of(executionId)))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void restartExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().restartExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Replay bulk
+    // ========================================================================
+
+    @Test
+    void replayExecutionWithInputs_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        Execution result = api().replayExecutionWithInputs(executionId, TENANT, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotBlank();
+    }
+
+    @Test
+    void replayExecutionsByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        assertThatCode(() -> api().replayExecutionsByIds(TENANT, List.of(executionId), null))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void replayExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().replayExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent")), null))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Force run
+    // ========================================================================
+
+    @Test
+    void forceRunExecution_notQueued() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        // Force-run on a terminated execution should fail (409)
+        assertThatThrownBy(() -> api().forceRunExecution(executionId, TENANT))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void forceRunByIds_basic() throws ApiException {
+        assertThatThrownBy(() -> api().forceRunByIds(TENANT, List.of("nonexistent")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void forceRunExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().forceRunExecutionsByQuery(TENANT, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Unqueue
+    // ========================================================================
+
+    @Test
+    void unqueueExecution_notQueued() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        assertThatThrownBy(() -> api().unqueueExecution(executionId, TENANT, null))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void unqueueExecutionsByIds_basic() throws ApiException {
+        assertThatThrownBy(() -> api().unqueueExecutionsByIds(TENANT, StateType.SUCCESS, List.of("nonexistent")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void unqueueExecutionsByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().unqueueExecutionsByQuery(TENANT, null, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Labels by query
+    // ========================================================================
+
+    @Test
+    void setLabelsOnTerminatedExecutionsByQuery_basic() throws ApiException {
+        Label label = new Label().key("env").value("staging");
+        assertThatCode(() -> api().setLabelsOnTerminatedExecutionsByQuery(TENANT, List.of(label), List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Change status bulk
+    // ========================================================================
+
+    @Test
+    void updateExecutionsStatusByIds_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        String executionId = executeAndWaitForTermination(ns, flowId);
+
+        assertThatCode(() -> api().updateExecutionsStatusByIds(TENANT, StateType.WARNING, List.of(executionId)))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void updateExecutionsStatusByQuery_basic() throws ApiException {
+        assertThatCode(() -> api().updateExecutionsStatusByQuery(TENANT, StateType.WARNING, List.of(nsFilter("nonexistent"))))
+                .doesNotThrowAnyException();
     }
 
     // ========================================================================

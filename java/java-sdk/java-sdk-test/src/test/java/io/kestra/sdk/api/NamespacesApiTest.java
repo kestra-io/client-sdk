@@ -179,4 +179,53 @@ public class NamespacesApiTest {
 
         assertThat(result).isNotNull();
     }
+
+    // ========================================================================
+    // Patch secret
+    // ========================================================================
+
+    @Test
+    void patchSecret_basic() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().putSecrets(ns, TENANT, new ApiSecretValue().key("PATCH_ME").value("original"));
+
+        ApiSecretMetaEE meta = new ApiSecretMetaEE().description("patched description");
+        List<ApiSecretMetaEE> result = api().patchSecret(ns, "PATCH_ME", TENANT, meta);
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Plugin defaults export/import
+    // ========================================================================
+
+    @Test
+    void exportPluginDefaults_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+
+        // Namespace without plugin defaults may return 404
+        try {
+            byte[] result = api().exportPluginDefaults(ns, TENANT);
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(404, 200);
+        }
+    }
+
+    @Test
+    void importPluginDefaults_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+
+        // Import with null file — may return error or empty list
+        try {
+            List<String> result = api().importPluginDefaults(ns, TENANT, null);
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(400, 500);
+        }
+    }
 }

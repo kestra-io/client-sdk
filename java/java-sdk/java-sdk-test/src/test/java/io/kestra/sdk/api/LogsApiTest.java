@@ -63,9 +63,12 @@ public class LogsApiTest {
     void listLogsFromExecution_withTaskId() throws ApiException {
         String executionId = createExecutionWithLogs();
 
-        List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, null, null, "hello", null);
-
-        assertThat(logs).isNotNull();
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            List<LogEntry> logs = api().listLogsFromExecution(executionId, TENANT, null, null, "hello", null);
+            assertThat(logs).isNotNull().isNotEmpty();
+            assertThat(logs).allSatisfy(log ->
+                    assertThat(log.getTaskId()).isEqualTo("hello"));
+        });
     }
 
     // ========================================================================
@@ -94,6 +97,8 @@ public class LogsApiTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
+        assertThat(result.getResults()).allSatisfy(log ->
+                assertThat(log.getExecutionId()).isNotEmpty());
     }
 
     @Test
@@ -122,6 +127,25 @@ public class LogsApiTest {
         String executionId = createExecutionWithLogs();
 
         assertThatCode(() -> api().deleteLogsFromExecution(executionId, TENANT, Level.TRACE, null, null, null))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void deleteLogsFromFlow_basic() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        // Execute the flow to generate logs
+        ExecutionControllerExecutionResponse exec = client().executions()
+                .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+
+        await().atMost(Duration.ofSeconds(10)).until(() -> {
+            ApiExecution e = client().executions().execution(exec.getId(), TENANT);
+            return e.getState().getCurrent().equals(StateType.SUCCESS);
+        });
+
+        assertThatCode(() -> api().deleteLogsFromFlow(ns, flowId, "hello", TENANT))
                 .doesNotThrowAnyException();
     }
 }

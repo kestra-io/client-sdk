@@ -150,4 +150,60 @@ public class GroupsApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
     }
+
+    // ========================================================================
+    // Member management
+    // ========================================================================
+
+    static UsersApi usersApi() {
+        return client().users();
+    }
+
+    static IAMUserControllerApiUser createTestUser() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("grp-" + randomId() + "@test.com")
+                        .firstName("Group")
+                        .lastName("Member")
+                        .password("TestPass!1234");
+        return usersApi().createUser(request);
+    }
+
+    @Test
+    void addUserToGroup_basic() throws ApiException {
+        IAMGroupControllerApiGroupDetail group = createTestGroup("add-member-" + randomId());
+        IAMUserControllerApiUser user = createTestUser();
+
+        IAMGroupControllerApiGroupMember result = api().addUserToGroup(group.getId(), user.getId(), TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(user.getId());
+    }
+
+    @Test
+    void deleteUserFromGroup_basic() throws ApiException {
+        IAMGroupControllerApiGroupDetail group = createTestGroup("del-member-" + randomId());
+        IAMUserControllerApiUser user = createTestUser();
+
+        api().addUserToGroup(group.getId(), user.getId(), TENANT);
+
+        IAMGroupControllerApiGroupMember result = api().deleteUserFromGroup(group.getId(), user.getId(), TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(user.getId());
+    }
+
+    @Test
+    void setUserMembershipForGroup_basic() throws ApiException {
+        IAMGroupControllerApiGroupDetail group = createTestGroup("membership-" + randomId());
+        IAMUserControllerApiUser user = createTestUser();
+
+        api().addUserToGroup(group.getId(), user.getId(), TENANT);
+
+        IAMGroupControllerApiGroupMember result =
+                api().setUserMembershipForGroup(group.getId(), user.getId(), GroupIdentifierMembership.OWNER, TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(user.getId());
+    }
 }

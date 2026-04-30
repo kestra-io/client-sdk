@@ -5,6 +5,7 @@ import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -29,6 +30,8 @@ public class KvApiTest {
 
         KVControllerKvDetail detail = api().keyValue(ns, "mykey", TENANT);
         assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.STRING);
+        assertThat(detail.getValue()).isEqualTo("hello world");
     }
 
     @Test
@@ -40,6 +43,36 @@ public class KvApiTest {
 
         KVControllerKvDetail detail = api().keyValue(ns, "count", TENANT);
         assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.NUMBER);
+        assertThat(((Number) detail.getValue()).intValue()).isEqualTo(42);
+    }
+
+    @Test
+    void setAndGetKeyValue_jsonObject() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "obj", TENANT, "{\"foo\":\"bar\"}");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "obj", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.JSON);
+        assertThat(detail.getValue()).isInstanceOf(Map.class);
+        assertThat(((Map<?, ?>) detail.getValue()).get("foo")).isEqualTo("bar");
+    }
+
+    @Test
+    void setAndGetKeyValue_jsonArray() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "arr", TENANT, "[1,2,3]");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "arr", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.JSON);
+        assertThat(detail.getValue()).isInstanceOf(List.class);
+        assertThat((List<?>) detail.getValue()).hasSize(3);
     }
 
     @Test
@@ -52,6 +85,7 @@ public class KvApiTest {
 
         KVControllerKvDetail detail = api().keyValue(ns, "key1", TENANT);
         assertThat(detail).isNotNull();
+        assertThat(detail.getValue()).isEqualTo("second");
     }
 
     @Test

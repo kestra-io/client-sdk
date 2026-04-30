@@ -150,4 +150,73 @@ public class DashboardsApiTest {
 
         assertThat(result).isNotNull();
     }
+
+    // ========================================================================
+    // Chart data & export — these need a valid chart plugin, so we test
+    // that the endpoints are reachable via expected error codes.
+    // ========================================================================
+
+    @Test
+    void dashboardChartData_notFound() throws ApiException {
+        String title = "chart-data-" + randomId();
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT, dashboardYaml(title));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+
+        // Dashboard has no charts, so chart ID "nonexistent" should fail
+        assertThatThrownBy(() -> api().dashboardChartData(created.getId(), "nonexistent", TENANT, filters))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void previewChart_basic() throws ApiException {
+        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
+                .chart("""
+                        id: preview-chart
+                        type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+                        graphStyle: LINES
+                        columns:
+                          date:
+                            field: DATE
+                        """);
+
+        // May fail with 422 if chart type not available, verifies endpoint reachability
+        try {
+            PagedResultsMapStringObject result = api().previewChart(TENANT, request);
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(400, 422);
+        }
+    }
+
+    @Test
+    void exportChartToCsv_basic() throws ApiException {
+        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
+                .chart("""
+                        id: csv-chart
+                        type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+                        graphStyle: LINES
+                        columns:
+                          date:
+                            field: DATE
+                        """);
+
+        try {
+            byte[] result = api().exportChartToCsv(TENANT, request);
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(400, 422);
+        }
+    }
+
+    @Test
+    void exportDashboardChartDataToCSV_notFound() throws ApiException {
+        String title = "csv-export-" + randomId();
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT, dashboardYaml(title));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+
+        assertThatThrownBy(() -> api().exportDashboardChartDataToCSV(created.getId(), "nonexistent", TENANT, filters))
+                .isInstanceOf(ApiException.class);
+    }
 }

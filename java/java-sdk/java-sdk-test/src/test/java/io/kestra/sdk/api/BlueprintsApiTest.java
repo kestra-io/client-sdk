@@ -112,4 +112,93 @@ public class BlueprintsApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
     }
+
+    // ========================================================================
+    // Community blueprint details
+    // ========================================================================
+
+    @Test
+    void blueprint_basic() throws ApiException {
+        PagedResultsBlueprintControllerApiBlueprintItem search =
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+
+        if (search.getResults() != null && !search.getResults().isEmpty()) {
+            String bpId = search.getResults().get(0).getId();
+
+            BlueprintControllerApiBlueprintItemWithSource result =
+                    api().blueprint(bpId, BlueprintControllerKind.FLOW, TENANT);
+
+            assertThat(result).isNotNull();
+            assertThat(result.getId()).isEqualTo(bpId);
+        }
+    }
+
+    @Test
+    void blueprintGraph_basic() throws ApiException {
+        PagedResultsBlueprintControllerApiBlueprintItem search =
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+
+        if (search.getResults() != null && !search.getResults().isEmpty()) {
+            String bpId = search.getResults().get(0).getId();
+
+            java.util.Map<String, Object> result =
+                    api().blueprintGraph(bpId, BlueprintControllerKind.FLOW, TENANT);
+
+            assertThat(result).isNotNull();
+        }
+    }
+
+    @Test
+    void blueprintSource_basic() throws ApiException {
+        PagedResultsBlueprintControllerApiBlueprintItem search =
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+
+        if (search.getResults() != null && !search.getResults().isEmpty()) {
+            String bpId = search.getResults().get(0).getId();
+
+            String result = api().blueprintSource(bpId, BlueprintControllerKind.FLOW, TENANT);
+
+            assertThat(result).isNotNull().isNotBlank();
+        }
+    }
+
+    // ========================================================================
+    // Use template
+    // ========================================================================
+
+    @Test
+    void useBlueprintTemplate_notTemplate() throws ApiException {
+        BlueprintControllerFlowBlueprintCreateOrUpdate request =
+                new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                        .title("use-tpl-" + randomId())
+                        .source(logFlowYaml(randomId(), randomId()));
+
+        BlueprintControllerApiFlowBlueprint created = api().createFlowBlueprint(TENANT, request);
+
+        BlueprintControllerUseBlueprintTemplateRequest useRequest =
+                new BlueprintControllerUseBlueprintTemplateRequest();
+
+        // Non-template blueprints can't be used as templates → 422
+        assertThatThrownBy(() -> api().useBlueprintTemplate(created.getId(), TENANT, useRequest))
+                .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // flowBlueprint (singular path)
+    // ========================================================================
+
+    @Test
+    void flowBlueprint_basic() throws ApiException {
+        BlueprintControllerFlowBlueprintCreateOrUpdate request =
+                new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                        .title("flow-bp-" + randomId())
+                        .source(logFlowYaml(randomId(), randomId()));
+
+        BlueprintControllerApiFlowBlueprint created = api().createFlowBlueprint(TENANT, request);
+
+        BlueprintControllerApiFlowBlueprint result = api().flowBlueprint(created.getId(), TENANT);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(created.getId());
+    }
 }

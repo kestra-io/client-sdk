@@ -159,4 +159,132 @@ public class UsersApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getFirstName()).isEqualTo("Patched");
     }
+
+    // ========================================================================
+    // Autocomplete (tenant-scoped)
+    // ========================================================================
+
+    @Test
+    void autocompleteUsers_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("auto-" + randomId() + "@test.com")
+                        .firstName("Auto")
+                        .lastName("Complete")
+                        .password("TestPass!1234");
+
+        api().createUser(request);
+
+        IAMTenantAccessControllerUserApiAutocomplete autocomplete =
+                new IAMTenantAccessControllerUserApiAutocomplete().q("auto");
+
+        List<IAMTenantAccessControllerApiUserTenantAccess> result =
+                api().autocompleteUsers(TENANT, autocomplete);
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // User groups (tenant-scoped)
+    // ========================================================================
+
+    @Test
+    void updateUserGroups_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest userRequest =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("groups-" + randomId() + "@test.com")
+                        .firstName("Groups")
+                        .lastName("User")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser user = api().createUser(userRequest);
+
+        GroupsApi groupsApi = client().groups();
+        IAMGroupControllerApiCreateGroupRequest groupRequest =
+                new IAMGroupControllerApiCreateGroupRequest()
+                        .name("user-grp-" + randomId())
+                        .description("Test group for user");
+        IAMGroupControllerApiGroupDetail group = groupsApi.createGroup(TENANT, groupRequest);
+
+        IAMUserGroupControllerApiUpdateUserGroupsRequest updateRequest =
+                new IAMUserGroupControllerApiUpdateUserGroupsRequest()
+                        .groupIds(List.of(group.getId()));
+
+        assertThatThrownBy(() -> api().updateUserGroups(user.getId(), TENANT, updateRequest))
+                .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // Delete API token
+    // ========================================================================
+
+    @Test
+    void deleteApiTokenForUser_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("del-token-" + randomId() + "@test.com")
+                        .firstName("DelToken")
+                        .lastName("User")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser created = api().createUser(request);
+
+        CreateApiTokenRequest tokenRequest = new CreateApiTokenRequest()
+                .name("token-to-delete-" + randomId());
+
+        CreateApiTokenResponse tokenResp = api().createApiTokensForUser(created.getId(), tokenRequest);
+        assertThat(tokenResp).isNotNull();
+        assertThat(tokenResp.getId()).isNotBlank();
+
+        assertThatCode(() -> api().deleteApiTokenForUser(created.getId(), tokenResp.getId()))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Impersonation
+    // ========================================================================
+
+    @Test
+    void impersonate_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("impersonate-" + randomId() + "@test.com")
+                        .firstName("Impersonate")
+                        .lastName("User")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser created = api().createUser(request);
+
+        Object result = api().impersonate(created.getId());
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Patch superadmin
+    // ========================================================================
+
+    @Test
+    void patchUserSuperAdmin_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("superadmin-" + randomId() + "@test.com")
+                        .firstName("Super")
+                        .lastName("Admin")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser created = api().createUser(request);
+
+        ApiPatchSuperAdminRequest patchRequest = new ApiPatchSuperAdminRequest()
+                .superAdmin(true);
+
+        assertThatCode(() -> api().patchUserSuperAdmin(created.getId(), patchRequest))
+                .doesNotThrowAnyException();
+
+        // Reset back to non-superadmin
+        ApiPatchSuperAdminRequest resetRequest = new ApiPatchSuperAdminRequest()
+                .superAdmin(false);
+        assertThatCode(() -> api().patchUserSuperAdmin(created.getId(), resetRequest))
+                .doesNotThrowAnyException();
+    }
 }

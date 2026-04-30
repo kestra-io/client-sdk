@@ -652,7 +652,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return True if MIME type is boolean
    */
   public boolean isJsonMime(String mime) {
-    String jsonMime = "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
+    String jsonMime = "(?i)^(application/json|text/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
@@ -849,8 +849,8 @@ public class ApiClient extends JavaTimeFormatter {
       }
 
       return objectMapper.readValue(content, valueType);
-    } else if (mimeType.toLowerCase().startsWith("text/")) {
-      // convert input stream to string
+    } else if (mimeType.toLowerCase().startsWith("text/")
+            || mimeType.toLowerCase().contains("yaml")) {
       return (T) EntityUtils.toString(entity);
     } else {
       Map<String, List<String>> responseHeaders = transformResponseHeaders(response.getHeaders());

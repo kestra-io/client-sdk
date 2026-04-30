@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -51,5 +53,101 @@ public class AssetsApiTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
+    }
+
+    // ========================================================================
+    // CRUD
+    // ========================================================================
+
+    static String assetYaml(String id) {
+        return """
+                id: %s
+                name: Test Asset %s
+                type: TABLE
+                """.formatted(id, id);
+    }
+
+    @Test
+    void createAsset_basic() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset result = api().createAsset(TENANT, assetYaml(id));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotBlank();
+    }
+
+    @Test
+    void asset_getById() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        AssetsControllerApiAsset result = api().asset(created.getId(), TENANT, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(created.getId());
+    }
+
+    @Test
+    void deleteAsset_basic() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        assertThatCode(() -> api().deleteAsset(created.getId(), TENANT))
+                .doesNotThrowAnyException();
+    }
+
+    // ========================================================================
+    // Dependencies
+    // ========================================================================
+
+    @Test
+    void assetDependencies_basic() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        AssetTopologyGraph result = api().assetDependencies(created.getId(), TENANT, null, null);
+
+        assertThat(result).isNotNull();
+    }
+
+    // ========================================================================
+    // Bulk delete
+    // ========================================================================
+
+    @Test
+    void deleteAssetsByIds_basic() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        BulkResponse result = api().deleteAssetsByIds(TENANT, List.of(created.getId()));
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void deleteAssetsByQuery_basic() throws ApiException {
+        QueryFilter filter = nsFilter("nonexistent");
+
+        BulkResponse result = api().deleteAssetsByQuery(TENANT, List.of(filter), null);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void deleteAssetLineageEventsByQuery_basic() throws ApiException {
+        QueryFilter filter = nsFilter("nonexistent");
+
+        BulkResponse result = api().deleteAssetLineageEventsByQuery(TENANT, List.of(filter));
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void deleteAssetUsagesByQuery_basic() throws ApiException {
+        QueryFilter filter = nsFilter("nonexistent");
+
+        BulkResponse result = api().deleteAssetUsagesByQuery(TENANT, List.of(filter));
+
+        assertThat(result).isNotNull();
     }
 }
