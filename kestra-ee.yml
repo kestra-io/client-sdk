@@ -16663,6 +16663,15 @@ components:
           format: date-time
       description: Response containing OAuth2 credential details.
     ApiExecution:
+      required:
+      - flowId
+      - flowRevision
+      - id
+      - metadata
+      - namespace
+      - originalId
+      - state
+      - tenantId
       type: object
       properties:
         tenantId:
@@ -16724,6 +16733,9 @@ components:
         loopRun:
           $ref: "#/components/schemas/LoopRun"
     ApiGroupSummary:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
@@ -16777,6 +16789,14 @@ components:
           items:
             $ref: "#/components/schemas/ApiInheritedCredentialsResponse.InheritedCredential"
     ApiLightExecution:
+      required:
+      - flowId
+      - flowRevision
+      - id
+      - namespace
+      - originalId
+      - state
+      - tenantId
       type: object
       properties:
         tenantId:
@@ -16825,6 +16845,9 @@ components:
         superAdmin:
           type: boolean
     ApiRoleSummary:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
@@ -16901,6 +16924,10 @@ components:
         description:
           type: string
     ApiTaskRun:
+      required:
+      - id
+      - state
+      - taskId
       type: object
       properties:
         id:
@@ -16957,6 +16984,11 @@ components:
           description: Result message
       description: Response from testing a credential connection.
     ApiToken:
+      required:
+      - iat
+      - id
+      - name
+      - prefix
       type: object
       properties:
         id:
@@ -16981,6 +17013,8 @@ components:
         expired:
           type: boolean
     ApiTokenList:
+      required:
+      - results
       type: object
       properties:
         total:
@@ -16991,6 +17025,9 @@ components:
           items:
             $ref: "#/components/schemas/ApiToken"
     ApiTriggerAndState:
+      required:
+      - state
+      - trigger
       type: object
       properties:
         trigger:
@@ -16998,6 +17035,11 @@ components:
         state:
           $ref: "#/components/schemas/ApiTriggerState"
     ApiTriggerState:
+      required:
+      - flowId
+      - namespace
+      - triggerId
+      - updatedAt
       type: object
       properties:
         namespace:
@@ -18065,6 +18107,10 @@ components:
         extended:
           type: boolean
     CreateApiTokenResponse:
+      required:
+      - fullToken
+      - id
+      - name
       type: object
       properties:
         id:
@@ -18393,7 +18439,9 @@ components:
       - flowId
       - flowRevision
       - id
+      - metadata
       - namespace
+      - originalId
       - state
       type: object
       properties:
@@ -18457,6 +18505,11 @@ components:
           allOf:
           - $ref: "#/components/schemas/LoopRun"
     ExecutionController.ApiValidateExecutionInputsResponse:
+      required:
+      - checks
+      - id
+      - inputs
+      - namespace
       type: object
       properties:
         id:
@@ -18472,6 +18525,10 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure:
+      required:
+      - behavior
+      - message
+      - style
       type: object
       properties:
         message:
@@ -18481,6 +18538,9 @@ components:
         behavior:
           $ref: "#/components/schemas/Check.Behavior"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
+      required:
+      - errors
+      - input
       type: object
       properties:
         input:
@@ -18496,6 +18556,8 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
+      required:
+      - message
       type: object
       properties:
         message:
@@ -18523,6 +18585,12 @@ components:
             type: string
             format: uri
     ExecutionController.LastExecutionResponse:
+      required:
+      - flowId
+      - id
+      - namespace
+      - startDate
+      - status
       type: object
       properties:
         id:
@@ -18537,6 +18605,9 @@ components:
         status:
           $ref: "#/components/schemas/State.Type"
     ExecutionController.SetLabelsByIdsRequest:
+      required:
+      - executionLabels
+      - executionsId
       type: object
       properties:
         executionsId:
@@ -18548,6 +18619,9 @@ components:
           items:
             $ref: "#/components/schemas/Label"
     ExecutionController.StateRequest:
+      required:
+      - state
+      - taskRunId
       type: object
       properties:
         taskRunId:
@@ -18562,6 +18636,8 @@ components:
       - PLAYGROUND
       - LOOP
     ExecutionMetadata:
+      required:
+      - originalCreatedDate
       type: object
       properties:
         attemptNumber:
@@ -18581,6 +18657,12 @@ components:
         id:
           type: string
     ExecutionStatusEvent:
+      required:
+      - executionId
+      - flowId
+      - namespace
+      - state
+      - tenantId
       type: object
       properties:
         executionId:
@@ -22536,6 +22618,10 @@ components:
     State:
       required:
       - current
+      - getDuration
+      - getEndDate
+      - getStartDate
+      - histories
       type: object
       properties:
         duration:
@@ -22559,7 +22645,6 @@ components:
             $ref: "#/components/schemas/State.History"
         getDuration:
           type: string
-          nullable: true
           readOnly: true
         getStartDate:
           type: string
@@ -22568,7 +22653,6 @@ components:
         getEndDate:
           type: string
           format: date-time
-          nullable: true
           readOnly: true
     State.History:
       required:
@@ -22602,6 +22686,14 @@ components:
       - BREAKPOINT
       - RESUBMITTED
     SupportDebugInfo:
+      required:
+      - authType
+      - deploymentType
+      - kestraVersion
+      - queueType
+      - repositoryType
+      - secretType
+      - storageType
       type: object
       properties:
         kestraVersion:
