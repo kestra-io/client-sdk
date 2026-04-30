@@ -164,9 +164,7 @@ describe('NamespacesApi', () => {
 
         await kestraClient.Namespaces.deleteSecret({ namespace: ns.id, key });
 
-        // TODO: listNamespaceSecrets does not exist in the SDK
-        // @ts-expect-error
-        const list = await kestraClient.Namespaces.listNamespaceSecrets(ns.id, 1, 10, [], MAIN_TENANT, null);
+        const list = await kestraClient.Secrets.listSecrets({ filters: [{ field: "NAMESPACE", operation: "EQUALS", value: ns.id as any }], page: 1, size: 10 });
         const results = list?.results ?? [];
         expect(results.some((m: any) => m.key === key)).toBeFalsy();
     });
