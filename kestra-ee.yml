@@ -13648,6 +13648,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OutputController.TaskOutputInformation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/outputs/{executionId}/{taskRunId}:
     get:
       tags:
@@ -13681,6 +13684,9 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/roles:
     post:
       tags:
