@@ -55,10 +55,10 @@ beforeAll(async () => {
     });
 
     if (process.env.DEBUG) {
-        instance.interceptors.request.use((config) => {
+        instance.interceptors.request.use((request) => {
             //log the request method and url for debugging purposes
-            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers.get("Content-Type"));
-            return config;
+            console.log(`[${request.method?.toUpperCase()}] ${request.url}`, request.headers.get("Content-Type"));
+            return request;
         });
 
         instance.interceptors.response.use((response) => {
