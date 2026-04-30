@@ -420,7 +420,8 @@ describe("ExecutionsApi", () => {
         const resp: any = await kestraClient.Executions.forceRunExecutionsByQuery({
             filters: filters,
         });
-        expect(resp.count).toBeGreaterThanOrEqual(1);
+
+        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
 
         const after = await awaitExecution(e2.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
