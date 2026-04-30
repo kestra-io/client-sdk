@@ -6,7 +6,7 @@ import type { QueryFilter, QueryFilterField, QueryFilterOp } from '@kestra-io/ke
 const qf = (query: Omit<QueryFilter, 'value'> & { value?: any }) => query as QueryFilter;
 const QF_FIELD: Record<string, QueryFilterField> = {
     QUERY: 'QUERY',
-    EMAIL: 'EMAIL',
+    USERNAME: 'USERNAME',
 };
 const QF_OP: Record<string, QueryFilterOp> = {
     EQUALS: 'EQUALS',
@@ -69,12 +69,7 @@ describe('GroupsApi', () => {
 
         await kestraClient.Groups.deleteGroup({ id: created.id });
 
-        await expect(() => {
-            if (!created.id) {
-                throw new Error('Failed to create group');
-            }
-            kestraClient.Groups.group({ id: created.id });
-        }).rejects.toThrow();
+        await expect(kestraClient.Groups.group({ id: created.id })).rejects.toThrow();
     });
 
     it('delete_user_from_group: Remove a user from a group', async () => {
@@ -150,7 +145,7 @@ describe('GroupsApi', () => {
             id: group.id,
             page: 1,
             size: 10,
-            filters: [qf({ field: QF_FIELD.EMAIL, operation: QF_OP.EQUALS, value: user.email })],
+            filters: [qf({ field: QF_FIELD.USERNAME, operation: QF_OP.EQUALS, value: user.email })],
         });
 
         const results = page?.results ?? [];

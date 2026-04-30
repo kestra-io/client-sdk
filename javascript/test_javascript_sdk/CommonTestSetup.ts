@@ -55,7 +55,7 @@ beforeAll(async () => {
         baseURL,
     });
 
-    if (process.env.DEBUG) {
+    if (process.env.DEBUG || true) {
         instance.interceptors.request.use((config) => {
             //log the request method and url for debugging purposes
             console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);

@@ -506,12 +506,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: searchServices 200 response
@@ -581,12 +581,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: listVersionedPlugin 200 response
@@ -1868,12 +1868,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: Service account successfully created
@@ -2556,12 +2556,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: listUsers 200 response
@@ -3222,12 +3222,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3436,12 +3436,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3875,12 +3875,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: purge
           in: query
           description: If true, will purge instead of soft-delete
@@ -3919,12 +3919,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3977,12 +3977,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4035,12 +4035,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4066,12 +4066,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4124,12 +4124,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4625,12 +4625,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9228,12 +9228,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9324,12 +9324,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9480,12 +9480,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -10551,12 +10551,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12508,12 +12508,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12654,12 +12654,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12764,12 +12764,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -13190,12 +13190,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14316,12 +14316,12 @@ paths:
         - name: filters
           in: query
           description: A list of filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true

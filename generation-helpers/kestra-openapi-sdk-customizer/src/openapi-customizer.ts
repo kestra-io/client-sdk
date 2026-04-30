@@ -51,7 +51,7 @@ function stripDeprecatedParametersFromOperation(op: any, counters: { removedPara
         op.parameters = op.parameters.filter((p: any) => !(p && typeof p === "object" && p.deprecated === true));
         const localyRemovedParameters = before - op.parameters.length;
         counters.removedParameters += localyRemovedParameters;
-        if(localyRemovedParameters > 0){
+        if (localyRemovedParameters > 0) {
             console.debug(`strip parameters in params: ${JSON.stringify(removed)}`)
         }
     }
@@ -173,7 +173,7 @@ export function sanitizeOpenAPI(
                 }
 
                 // Remove deprecated parameters on operation
-                if(removeDeprecatedParameters){
+                if (removeDeprecatedParameters) {
                     stripDeprecatedParametersFromOperation(op, counters);
                 }
 
@@ -213,6 +213,9 @@ export function sanitizeOpenAPI(
 
     // 6) Replace Flow.labels property schema
     replaceFlowLabelsSpec(spec)
+
+    // 7) Normalize QueryFilter array query params to prevent broken querySerializer generation
+    normalizeQueryFilterParams(spec)
 
     return counters;
 }
@@ -316,6 +319,53 @@ export function normalizeGetOperationIds(spec: any): number {
     }
 
     return renamed;
+}
+
+/**
+ * Normalize QueryFilter array query parameters so hey-api does not generate
+ * a broken `querySerializer: { array: { explode: false } }`.
+ *
+ * When a `filters` query parameter has `required: true` and a non-nullable schema,
+ * hey-api emits that serializer which converts each QueryFilter object to "[object Object]".
+ * Endpoints whose schema is already `nullable: true` (optional) use the default
+ * bracket-style serialization correctly.
+ *
+ * Fix: for every query parameter whose schema items point to QueryFilter and that
+ * has `required: true` without `nullable`, remove `required` and add `nullable: true`
+ * so hey-api treats it the same way as the working endpoints.
+ */
+export function normalizeQueryFilterParams(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    let normalized = 0;
+
+    for (const pathItem of Object.values(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op?.parameters) continue;
+
+            for (const param of op.parameters) {
+                if (!param || typeof param !== "object") continue;
+                if (param.in !== "query") continue;
+
+                const schema = param.schema;
+                if (!schema || schema.type !== "array") continue;
+                if (!schema.items?.["$ref"]?.endsWith("/QueryFilter")) continue;
+
+                if (param.required === true && !schema.nullable) {
+                    delete param.required;
+                    schema.nullable = true;
+                    normalized += 1;
+                    console.debug(`normalizeQueryFilterParams: fixed filters param in ${op.operationId}`);
+                }
+            }
+        }
+    }
+
+    return normalized;
 }
 
 export function replaceFlowLabelsSpec(spec: any) {
