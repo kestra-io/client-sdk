@@ -212,18 +212,20 @@ describe("FlowsApi", () => {
     // Export flows as ZIP by query (placeholder like Java)
     it("export_flows_by_query", async () => {
         const flow = await createSimpleFlow();
-        const filters = undefined;
-        const q = undefined;
-        const scope = undefined;
-        const namespace = flow.namespace;
-        const labels = undefined;
-        void filters;
-        void q;
-        void scope;
-        void namespace;
-        void labels;
-        // TODO when endpoint signature is available:
-        // const zip = await kestraClient().flowsApi.exportFlowsByQuery(MAIN_TENANT, filters, q, scope, namespace, labels);
+        const zip = await kestraClient().flowsApi.exportFlowsByQuery(
+            MAIN_TENANT,
+            {
+                filters: [
+                    {
+                        field: "NAMESPACE",
+                        operation: "EQUALS",
+                        value: flow.namespace,
+                    },
+                ],
+            },
+        );
+
+        expect(zip).toBeDefined();
     });
 
     // Generate a graph for a flow
