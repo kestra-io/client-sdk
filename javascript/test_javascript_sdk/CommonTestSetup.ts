@@ -56,18 +56,23 @@ beforeAll(async () => {
     });
 
     if (process.env.DEBUG) {
-        instance.interceptors.request.use((request) => {
+        instance.interceptors.request.use((config) => {
             //log the request method and url for debugging purposes
-            console.log(`[${request.method?.toUpperCase()}] ${request.url}`, request.headers.get("Content-Type"));
-            return request;
+            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
+            return config;
         });
 
         instance.interceptors.response.use((response) => {
-            // when error log the response status and data for debugging purposes
-            if (!response.ok) {
-                console.error(`[${response.status}] ${response.url}`, response.statusText);
-            }
             return response;
+        }, (error) => {
+            if (error.response) {
+                //log the error status and url for debugging purposes
+                console.error(`[${error.response.status}] ${error.config.url}`);
+                console.error("Error data:", error.response.data);
+            } else {
+                console.error("Error:", error.message);
+            }
+            return Promise.reject(error);
         });
     }
     setSelectedTenant(MAIN_TENANT);
