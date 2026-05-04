@@ -84,7 +84,8 @@ public class NamespacesApiTest {
         PagedResultsNamespace result = api().searchNamespaces(TENANT, id, 1, 10, null, null);
 
         assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+        assertThat(result.getResults()).anyMatch(ns -> id.equals(ns.getId()));
     }
 
     @Test
@@ -98,10 +99,40 @@ public class NamespacesApiTest {
 
     @Test
     void searchNamespaces_existingOnly() throws ApiException {
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, null, 1, 10, null, true);
+        String id = randomId();
+        api().createNamespace(TENANT, new Namespace().id(id));
+
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, id, 1, 10, null, true);
 
         assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+        assertThat(result.getResults()).anyMatch(ns -> id.equals(ns.getId()));
+    }
+
+    @Test
+    void searchNamespaces_withSort() throws ApiException {
+        String prefix = "sortns" + randomId().substring(0, 6);
+        String id1 = prefix + "aaa";
+        String id2 = prefix + "zzz";
+        api().createNamespace(TENANT, new Namespace().id(id2));
+        api().createNamespace(TENANT, new Namespace().id(id1));
+
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, prefix, 1, 10, List.of("id:asc"), null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> ids = result.getResults().stream().map(Namespace::getId).toList();
+        int idx1 = ids.indexOf(id1);
+        int idx2 = ids.indexOf(id2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void searchNamespaces_noResults() throws ApiException {
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, "nonexistent_ns_" + randomId(), 1, 10, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
     }
 
     @Test

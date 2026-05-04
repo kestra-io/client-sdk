@@ -8,6 +8,7 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.kestra.TestUtils.*;
@@ -148,6 +149,125 @@ public class ExecutionsApiTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    void searchExecutions_withNamespaceFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                    List.of(nsFilter(ns)));
+            assertThat(result.getResults()).isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(exec ->
+                    assertThat(exec.getNamespace()).isEqualTo(ns));
+        });
+    }
+
+    @Test
+    void searchExecutions_withFlowIdFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                    List.of(flowIdFilter(flowId)));
+            assertThat(result.getResults()).isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(exec ->
+                    assertThat(exec.getFlowId()).isEqualTo(flowId));
+        });
+    }
+
+    @Test
+    void searchExecutions_withStateFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                    List.of(stateFilter("SUCCESS"), nsFilter(ns)));
+            assertThat(result.getResults()).isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(exec ->
+                    assertThat(exec.getState().getCurrent()).isEqualTo(StateType.SUCCESS));
+        });
+    }
+
+    @Test
+    void searchExecutions_withLabels() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYamlWithLabels(flowId, ns, Map.of("team", "sdk", "env", "test")));
+        api().createExecution(TENANT, ns, flowId, List.of("team:sdk", "env:test"), null, null, null, null, null);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            PagedResultsApiLightExecution r = api().searchExecutions(TENANT, 1, 10, null, List.of(nsFilter(ns)));
+            if (r.getResults() == null || r.getResults().isEmpty()) return false;
+            ApiLightExecution exec = r.getResults().get(0);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.SUCCESS || state == StateType.FAILED
+                    || state == StateType.WARNING || state == StateType.CANCELLED;
+        });
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                    List.of(labelsFilter(Map.of("team", "sdk")), nsFilter(ns)));
+            assertThat(result.getResults()).isNotEmpty();
+        });
+    }
+
+    @Test
+    void searchExecutions_multipleFilters() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                    List.of(nsFilter(ns), flowIdFilter(flowId), stateFilter("SUCCESS")));
+            assertThat(result.getResults()).isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(exec -> {
+                assertThat(exec.getNamespace()).isEqualTo(ns);
+                assertThat(exec.getFlowId()).isEqualTo(flowId);
+                assertThat(exec.getState().getCurrent()).isEqualTo(StateType.SUCCESS);
+            });
+        });
+    }
+
+    @Test
+    void searchExecutions_noResults() throws ApiException {
+        PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10, null,
+                List.of(nsFilter("nonexistent_ns_" + randomId())));
+
+        assertThat(result.getTotal()).isEqualTo(0);
+        assertThat(result.getResults()).isEmpty();
+    }
+
+    @Test
+    void searchExecutions_withSort() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        executeAndWaitForTermination(ns, flowId);
+        sleep(500);
+        executeAndWaitForTermination(ns, flowId);
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            PagedResultsApiLightExecution result = api().searchExecutions(TENANT, 1, 10,
+                    List.of("state.startDate:desc"), List.of(nsFilter(ns)));
+            assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+            for (int i = 0; i < result.getResults().size() - 1; i++) {
+                assertThat(result.getResults().get(i).getState().getStartDate())
+                        .isAfterOrEqualTo(result.getResults().get(i + 1).getState().getStartDate());
+            }
+        });
     }
 
     // ========================================================================

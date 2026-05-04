@@ -10,6 +10,7 @@ import io.kestra.sdk.model.QueryFilterOp;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.UUID;
 
 public class TestUtils {
@@ -167,5 +168,77 @@ public class TestUtils {
                 .field(QueryFilterField.NAMESPACE)
                 .operation(QueryFilterOp.EQUALS)
                 .value(ns);
+    }
+
+    public static QueryFilter queryFilter(String q) {
+        return new QueryFilter()
+                .field(QueryFilterField.QUERY)
+                .operation(QueryFilterOp.EQUALS)
+                .value(q);
+    }
+
+    public static QueryFilter flowIdFilter(String flowId) {
+        return new QueryFilter()
+                .field(QueryFilterField.FLOW_ID)
+                .operation(QueryFilterOp.EQUALS)
+                .value(flowId);
+    }
+
+    public static QueryFilter stateFilter(String state) {
+        return new QueryFilter()
+                .field(QueryFilterField.STATE)
+                .operation(QueryFilterOp.EQUALS)
+                .value(state);
+    }
+
+    public static QueryFilter nameFilter(String name) {
+        return new QueryFilter()
+                .field(QueryFilterField.NAME)
+                .operation(QueryFilterOp.EQUALS)
+                .value(name);
+    }
+
+    public static QueryFilter labelsFilter(Map<String, String> labels) {
+        return new QueryFilter()
+                .field(QueryFilterField.LABELS)
+                .operation(QueryFilterOp.EQUALS)
+                .value(labels);
+    }
+
+    public static QueryFilter minLevelFilter(String level) {
+        return new QueryFilter()
+                .field(QueryFilterField.MIN_LEVEL)
+                .operation(QueryFilterOp.EQUALS)
+                .value(level);
+    }
+
+    public static QueryFilter executionIdFilter(String executionId) {
+        return new QueryFilter()
+                .field(QueryFilterField.EXECUTION_ID)
+                .operation(QueryFilterOp.EQUALS)
+                .value(executionId);
+    }
+
+    public static QueryFilter typeFilter(String type) {
+        return new QueryFilter()
+                .field(QueryFilterField.TYPE)
+                .operation(QueryFilterOp.EQUALS)
+                .value(type);
+    }
+
+    public static String logFlowYamlWithLabels(String id, String ns, Map<String, String> labels) {
+        StringBuilder labelsYaml = new StringBuilder();
+        labels.forEach((k, v) -> labelsYaml.append("  ").append(k).append(": ").append(v).append("\n"));
+        return """
+                id: %s
+                namespace: %s
+                description: a test flow with labels
+                labels:
+                %s
+                tasks:
+                  - id: hello
+                    type: io.kestra.plugin.core.log.Log
+                    message: Hello World!
+                """.formatted(id, ns, labelsYaml.toString().stripTrailing());
     }
 }

@@ -90,16 +90,46 @@ public class TestSuitesApiTest {
     }
 
     @Test
-    void searchTestSuites_withNamespace() throws ApiException {
+    void searchTestSuites_withNamespaceAndFlowId() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
         createFlow(logFlowYaml(flowId, ns));
         api().createTestSuite(TENANT, testSuiteYaml(randomId(), ns, flowId));
 
-        PagedResultsTestSuite result = api().searchTestSuites(TENANT, 1, 10, null, ns, null, null);
+        PagedResultsTestSuite byNs = api().searchTestSuites(TENANT, 1, 10, null, ns, null, null);
+        assertThat(byNs).isNotNull();
+        assertThat(byNs.getResults()).isNotNull();
+
+        PagedResultsTestSuite byFlowId = api().searchTestSuites(TENANT, 1, 10, null, ns, flowId, null);
+        assertThat(byFlowId).isNotNull();
+        assertThat(byFlowId.getResults()).isNotNull().isNotEmpty();
+        assertThat(byFlowId.getResults()).allSatisfy(ts ->
+                assertThat(ts.getFlowId()).isEqualTo(flowId));
+    }
+
+    @Test
+    void searchTestSuites_withSort() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        String suiteId1 = "aaa" + randomId();
+        String suiteId2 = "zzz" + randomId();
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId2, ns, flowId));
+        api().createTestSuite(TENANT, testSuiteYaml(suiteId1, ns, flowId));
+
+        PagedResultsTestSuite sorted = api().searchTestSuites(TENANT, 1, 10, List.of("id:asc"), ns, null, null);
+        assertThat(sorted.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> ids = sorted.getResults().stream().map(TestSuite::getId).toList();
+        assertThat(ids.indexOf(suiteId1)).isLessThan(ids.indexOf(suiteId2));
+    }
+
+    @Test
+    void searchTestSuites_noResults() throws ApiException {
+        PagedResultsTestSuite result = api().searchTestSuites(TENANT, 1, 10, null, "nonexistent_ns_" + randomId(), null, null);
 
         assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
+        assertThat(result.getResults()).isEmpty();
     }
 
     // ========================================================================
@@ -107,13 +137,33 @@ public class TestSuitesApiTest {
     // ========================================================================
 
     @Test
-    void searchTestSuitesResults_basic() throws ApiException {
+    void searchTestSuitesResults_allParams() throws ApiException {
         PagedResultsTestSuiteRunResult result =
                 api().searchTestSuitesResults(TENANT, 1, 10, null, null, null, null);
-
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
+
+        PagedResultsTestSuiteRunResult sorted =
+                api().searchTestSuitesResults(TENANT, 1, 10, List.of("id:asc"), null, null, null);
+        assertThat(sorted).isNotNull();
+        assertThat(sorted.getResults()).isNotNull();
+
+        PagedResultsTestSuiteRunResult byNs =
+                api().searchTestSuitesResults(TENANT, 1, 10, null, null, "nonexistent_ns", null);
+        assertThat(byNs).isNotNull();
+        assertThat(byNs.getResults()).isEmpty();
+
+        PagedResultsTestSuiteRunResult byTestSuiteId =
+                api().searchTestSuitesResults(TENANT, 1, 10, null, "nonexistent_suite", null, null);
+        assertThat(byTestSuiteId).isNotNull();
+        assertThat(byTestSuiteId.getResults()).isEmpty();
+
+        PagedResultsTestSuiteRunResult byFlowId =
+                api().searchTestSuitesResults(TENANT, 1, 10, null, null, null, "nonexistent_flow");
+        assertThat(byFlowId).isNotNull();
+        assertThat(byFlowId.getResults()).isEmpty();
     }
+
 
     // ========================================================================
     // Validation
@@ -172,7 +222,7 @@ public class TestSuitesApiTest {
     }
 
     @Test
-    void enableTestSuitesByIds_basic() throws ApiException {
+    void enableDisableTestSuitesByIds_basic() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
         String suiteId = randomId();
@@ -182,25 +232,11 @@ public class TestSuitesApiTest {
         TestSuiteControllerTestSuiteBulkRequest request = new TestSuiteControllerTestSuiteBulkRequest()
                 .ids(List.of(new TestSuiteControllerTestSuiteApiId().namespace(ns).id(suiteId)));
 
-        BulkResponse result = api().enableTestSuitesByIds(TENANT, request);
+        BulkResponse disabled = api().disableTestSuitesByIds(TENANT, request);
+        assertThat(disabled).isNotNull();
 
-        assertThat(result).isNotNull();
-    }
-
-    @Test
-    void disableTestSuitesByIds_basic() throws ApiException {
-        String ns = randomId();
-        String flowId = randomId();
-        String suiteId = randomId();
-        createFlow(logFlowYaml(flowId, ns));
-        api().createTestSuite(TENANT, testSuiteYaml(suiteId, ns, flowId));
-
-        TestSuiteControllerTestSuiteBulkRequest request = new TestSuiteControllerTestSuiteBulkRequest()
-                .ids(List.of(new TestSuiteControllerTestSuiteApiId().namespace(ns).id(suiteId)));
-
-        BulkResponse result = api().disableTestSuitesByIds(TENANT, request);
-
-        assertThat(result).isNotNull();
+        BulkResponse enabled = api().enableTestSuitesByIds(TENANT, request);
+        assertThat(enabled).isNotNull();
     }
 
     // ========================================================================

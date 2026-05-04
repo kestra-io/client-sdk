@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -109,6 +111,48 @@ public class DashboardsApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
         assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
+    }
+
+    @Test
+    void searchDashboards_withQuery() throws ApiException {
+        String title = "dashboard-" + randomId();
+        api().createDashboard(TENANT, dashboardYaml(title));
+
+        PagedResultsDashboardControllerDashboardResponse result =
+                api().searchDashboards(TENANT, 1, 10, title, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void searchDashboards_withSort() throws ApiException {
+        String prefix = "sortdash" + randomId().substring(0, 6);
+        String title1 = prefix + "aaa";
+        String title2 = prefix + "zzz";
+        api().createDashboard(TENANT, dashboardYaml(title2));
+        api().createDashboard(TENANT, dashboardYaml(title1));
+
+        PagedResultsDashboardControllerDashboardResponse result =
+                api().searchDashboards(TENANT, 1, 10, prefix, List.of("title:asc"));
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> titles = result.getResults().stream()
+                .map(DashboardControllerDashboardResponse::getTitle)
+                .toList();
+        int idx1 = titles.indexOf(title1);
+        int idx2 = titles.indexOf(title2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void searchDashboards_noResults() throws ApiException {
+        PagedResultsDashboardControllerDashboardResponse result =
+                api().searchDashboards(TENANT, 1, 10, "nonexistent_dashboard_" + randomId(), null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
     }
 
     // ========================================================================

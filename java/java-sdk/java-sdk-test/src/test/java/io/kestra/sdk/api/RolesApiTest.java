@@ -107,6 +107,59 @@ public class RolesApiTest {
         assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
     }
 
+    @Test
+    void searchRoles_withNameFilter() throws ApiException {
+        String name = "name-filter-" + randomId();
+        IAMRoleControllerApiRoleDetail created = createTestRole(name);
+
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(nameFilter(name)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults())
+                .extracting(ApiRoleSummary::getId)
+                .contains(created.getId());
+    }
+
+    @Test
+    void searchRoles_withQueryFilter() throws ApiException {
+        String name = "query-filter-" + randomId();
+        createTestRole(name);
+
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(queryFilter(name)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    void searchRoles_withSort() throws ApiException {
+        String name1 = "aaa" + randomId();
+        String name2 = "zzz" + randomId();
+        createTestRole(name2);
+        createTestRole(name1);
+
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 100, List.of("name:asc"), null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> names = result.getResults().stream()
+                .map(ApiRoleSummary::getName)
+                .toList();
+        int idx1 = names.indexOf(name1);
+        int idx2 = names.indexOf(name2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void searchRoles_noResults() throws ApiException {
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null,
+                List.of(nameFilter("nonexistent_role_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
     // ========================================================================
     // Autocomplete & List by IDs
     // ========================================================================

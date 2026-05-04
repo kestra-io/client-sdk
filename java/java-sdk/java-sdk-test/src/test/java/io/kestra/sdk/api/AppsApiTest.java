@@ -138,6 +138,143 @@ public class AppsApiTest {
         assertThat(result.getResults()).isNotNull();
     }
 
+    @Test
+    void searchApps_withNamespace() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, null, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults())
+                .anyMatch(app -> app.getUid().equals(created.getUid()));
+    }
+
+    @Test
+    void searchApps_withFlowId() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, flowId, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults())
+                .anyMatch(app -> app.getUid().equals(created.getUid()));
+    }
+
+    @Test
+    void searchApps_withQuery() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        String appId1 = "searchq" + randomId();
+        String appId2 = "other" + randomId();
+        api().createApp(TENANT, appYaml(appId1, ns, flowId));
+        api().createApp(TENANT, appYaml(appId2, ns, flowId));
+
+        PagedResultsAppsControllerApiApp result = api().searchApps(
+                TENANT, 1, 10, "Test App " + appId1, ns, null, null, null, null);
+
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).allSatisfy(app ->
+                assertThat(app.getName()).contains(appId1));
+    }
+
+    @Test
+    void searchApps_withSort() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        String appId1 = "aaa" + randomId();
+        String appId2 = "zzz" + randomId();
+        api().createApp(TENANT, appYaml(appId2, ns, flowId));
+        api().createApp(TENANT, appYaml(appId1, ns, flowId));
+
+        PagedResultsAppsControllerApiApp result = api().searchApps(
+                TENANT, 1, 10, null, ns, null, List.of("id:asc"), null, null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> ids = result.getResults().stream().map(AppsControllerApiApp::getId).toList();
+        int idx1 = ids.indexOf(appId1);
+        int idx2 = ids.indexOf(appId2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void searchApps_withTags() throws ApiException {
+        PagedResultsAppsControllerApiApp all = api().searchApps(TENANT, 1, 10, null, null, null, null, null, null);
+
+        if (all.getResults() != null && !all.getResults().isEmpty()) {
+            AppsControllerApiApp first = all.getResults().stream()
+                    .filter(a -> a.getTags() != null && !a.getTags().isEmpty())
+                    .findFirst().orElse(null);
+
+            if (first != null) {
+                String tag = first.getTags().get(0);
+
+                PagedResultsAppsControllerApiApp result = api().searchApps(
+                        TENANT, 1, 10, null, null, null, null, List.of(tag), null);
+
+                assertThat(result.getResults()).isNotEmpty();
+                assertThat(result.getResults()).allSatisfy(app ->
+                        assertThat(app.getTags()).contains(tag));
+            }
+        }
+    }
+
+    @Test
+    void searchApps_withFilters() throws ApiException {
+        String ns1 = randomId();
+        String ns2 = randomId();
+        String flowId1 = randomId();
+        String flowId2 = randomId();
+        createFlow(logFlowYaml(flowId1, ns1));
+        createFlow(logFlowYaml(flowId2, ns2));
+
+        api().createApp(TENANT, appYaml(randomId(), ns1, flowId1));
+        api().createApp(TENANT, appYaml(randomId(), ns2, flowId2));
+
+        PagedResultsAppsControllerApiApp result = api().searchApps(
+                TENANT, 1, 10, null, null, null, null, null, List.of(nsFilter(ns1)));
+
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).allSatisfy(app ->
+                assertThat(app.getNamespace()).isEqualTo(ns1));
+    }
+
+    @Test
+    void searchAppsFromCatalog_withFilters() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        PagedResultsAppsControllerApiAppCatalogItem result =
+                api().searchAppsFromCatalog(TENANT, 1, 10, List.of(nsFilter(ns)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    void searchApps_noResults() throws ApiException {
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, "nonexistent_ns_" + randomId(), null, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
     // ========================================================================
     // Tags
     // ========================================================================

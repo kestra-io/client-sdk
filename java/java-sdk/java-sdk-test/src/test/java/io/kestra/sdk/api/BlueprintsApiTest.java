@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -33,6 +35,39 @@ public class BlueprintsApiTest {
                 api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, "hello", null, null, 1, 5);
 
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    void searchBlueprints_withSort() throws ApiException {
+        PagedResultsBlueprintControllerApiBlueprintItem result =
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, "title:asc", null, 1, 10);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull();
+        if (result.getResults().size() >= 2) {
+            String first = result.getResults().get(0).getTitle();
+            String second = result.getResults().get(1).getTitle();
+            assertThat(first.compareToIgnoreCase(second)).isLessThanOrEqualTo(0);
+        }
+    }
+
+    @Test
+    void searchBlueprints_withTags() throws ApiException {
+        PagedResultsBlueprintControllerApiBlueprintItem allResults =
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+
+        if (allResults.getResults() != null && !allResults.getResults().isEmpty()
+                && allResults.getResults().get(0).getTags() != null
+                && !allResults.getResults().get(0).getTags().isEmpty()) {
+            String tag = allResults.getResults().get(0).getTags().get(0);
+
+            PagedResultsBlueprintControllerApiBlueprintItem result =
+                    api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, List.of(tag), 1, 10);
+
+            assertThat(result.getResults()).isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(bp ->
+                    assertThat(bp.getTags()).contains(tag));
+        }
     }
 
     // ========================================================================
@@ -106,11 +141,68 @@ public class BlueprintsApiTest {
     // ========================================================================
 
     @Test
-    void searchInternalBlueprints_basic() throws ApiException {
-        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, null, null, 1, 10, null);
+    void searchInternalBlueprints_withSort() throws ApiException {
+        String title1 = "aaa-bp-" + randomId();
+        String title2 = "zzz-bp-" + randomId();
+        api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                .title(title2).source(logFlowYaml(randomId(), randomId())));
+        api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                .title(title1).source(logFlowYaml(randomId(), randomId())));
+
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, "title:asc", null, 1, 100, null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> titles = result.getResults().stream().map(Blueprint::getTitle).toList();
+        int idx1 = titles.indexOf(title1);
+        int idx2 = titles.indexOf(title2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void searchInternalBlueprints_withTags() throws ApiException {
+        String tag = "sdktest" + randomId().substring(0, 8);
+        api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                .title("tagged-bp-" + randomId())
+                .source(logFlowYaml(randomId(), randomId()))
+                .tags(List.of(tag)));
+        api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                .title("untagged-bp-" + randomId())
+                .source(logFlowYaml(randomId(), randomId())));
+
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, null, List.of(tag), 1, 10, null);
+
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).allSatisfy(bp ->
+                assertThat(bp.getTags()).contains(tag));
+    }
+
+    @Test
+    void searchInternalBlueprints_withSource() throws ApiException {
+        api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                .title("source-bp-" + randomId())
+                .source(logFlowYaml(randomId(), randomId())));
+
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, null, null, 1, 10, true);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
+    }
+
+    @Test
+    void searchInternalBlueprints_basic() throws ApiException {
+        BlueprintControllerFlowBlueprintCreateOrUpdate request =
+                new BlueprintControllerFlowBlueprintCreateOrUpdate()
+                        .title("internal-bp-" + randomId())
+                        .source(logFlowYaml(randomId(), randomId()))
+                        .description("Internal blueprint for search test");
+
+        BlueprintControllerApiFlowBlueprint created = api().createFlowBlueprint(TENANT, request);
+
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, created.getTitle(), null, null, 1, 10, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
     }
 
     // ========================================================================

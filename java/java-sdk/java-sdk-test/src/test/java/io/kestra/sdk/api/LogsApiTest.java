@@ -110,6 +110,122 @@ public class LogsApiTest {
         assertThat(result.getResults().size()).isLessThanOrEqualTo(5);
     }
 
+    @Test
+    void searchLogs_withNamespaceFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        ExecutionControllerExecutionResponse exec = client().executions()
+                .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+
+        await().atMost(Duration.ofSeconds(10)).until(() -> {
+            ApiExecution e = client().executions().execution(exec.getId(), TENANT);
+            return e.getState().getCurrent().equals(StateType.SUCCESS);
+        });
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, null, List.of(nsFilter(ns)));
+            assertThat(result).isNotNull();
+            assertThat(result.getResults()).isNotNull().isNotEmpty();
+        });
+    }
+
+    @Test
+    void searchLogs_withFlowIdAndNamespaceFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        ExecutionControllerExecutionResponse exec = client().executions()
+                .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+
+        await().atMost(Duration.ofSeconds(10)).until(() -> {
+            ApiExecution e = client().executions().execution(exec.getId(), TENANT);
+            return e.getState().getCurrent().equals(StateType.SUCCESS);
+        });
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, null,
+                    List.of(nsFilter(ns), flowIdFilter(flowId)));
+            assertThat(result).isNotNull();
+            assertThat(result.getResults()).isNotNull().isNotEmpty();
+        });
+    }
+
+    @Test
+    void searchLogs_withExecutionIdFilter() throws ApiException {
+        String executionId = createExecutionWithLogs();
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, null, List.of(executionIdFilter(executionId)));
+            assertThat(result).isNotNull();
+            assertThat(result.getResults()).isNotNull().isNotEmpty();
+            assertThat(result.getResults()).allSatisfy(log ->
+                    assertThat(log.getExecutionId()).isEqualTo(executionId));
+        });
+    }
+
+    @Test
+    void searchLogs_withFlowIdFilter() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        ExecutionControllerExecutionResponse exec = client().executions()
+                .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+
+        await().atMost(Duration.ofSeconds(10)).until(() -> {
+            ApiExecution e = client().executions().execution(exec.getId(), TENANT);
+            return e.getState().getCurrent().equals(StateType.SUCCESS);
+        });
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, null, List.of(flowIdFilter(flowId), nsFilter(ns)));
+            assertThat(result).isNotNull();
+            assertThat(result.getResults()).isNotNull().isNotEmpty();
+        });
+    }
+
+    @Test
+    void searchLogs_withSort() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        client().executions().createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+        client().executions().createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+
+        await().atMost(Duration.ofSeconds(15)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, List.of("timestamp:desc"),
+                    List.of(nsFilter(ns)));
+
+            assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+            for (int i = 0; i < result.getResults().size() - 1; i++) {
+                assertThat(result.getResults().get(i).getTimestamp())
+                        .isAfterOrEqualTo(result.getResults().get(i + 1).getTimestamp());
+            }
+        });
+    }
+
+    @Test
+    void searchLogs_withMinLevelFilter() throws ApiException {
+        String executionId = createExecutionWithLogs();
+
+        await().atMost(Duration.ofSeconds(10)).pollInterval(Duration.ofMillis(500)).untilAsserted(() -> {
+            PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 25, null,
+                    List.of(executionIdFilter(executionId), minLevelFilter("INFO")));
+            assertThat(result).isNotNull();
+            assertThat(result.getResults()).isNotNull().isNotEmpty();
+        });
+    }
+
+    @Test
+    void searchLogs_noResults() throws ApiException {
+        PagedResultsLogEntry result = api().searchLogs(TENANT, 1, 10, null,
+                List.of(nsFilter("nonexistent_ns_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isEmpty();
+    }
+
     // ========================================================================
     // Delete logs
     // ========================================================================

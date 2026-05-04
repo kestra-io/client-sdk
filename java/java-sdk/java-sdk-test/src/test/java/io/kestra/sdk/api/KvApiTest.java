@@ -149,6 +149,41 @@ public class KvApiTest {
     }
 
     @Test
+    void listAllKeys_withNamespaceFilter() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "filtered_key", TENANT, "\"filtered_value\"");
+
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, List.of(nsFilter(ns)));
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).anyMatch(e -> "filtered_key".equals(e.getKey()));
+    }
+
+    @Test
+    void listAllKeys_withSort() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "zzz_key", TENANT, "\"val1\"");
+        api().setKeyValue(ns, "aaa_key", TENANT, "\"val2\"");
+
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, List.of("key:asc"), List.of(nsFilter(ns)));
+
+        assertThat(result.getResults()).hasSize(2);
+        assertThat(result.getResults().get(0).getKey()).isEqualTo("aaa_key");
+        assertThat(result.getResults().get(1).getKey()).isEqualTo("zzz_key");
+    }
+
+    @Test
+    void listAllKeys_noResults() throws ApiException {
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
+    @Test
     void listKeysWithInheritance_basic() throws ApiException {
         String parentNs = randomId();
         String childNs = parentNs + "." + randomId();

@@ -55,6 +55,63 @@ public class AssetsApiTest {
         assertThat(result.getResults()).isNotNull();
     }
 
+    @Test
+    void searchAssets_withTypeFilter() throws ApiException {
+        String id = randomId();
+        api().createAsset(TENANT, assetYaml(id));
+
+        PagedResultsAssetsControllerApiAsset result =
+                api().searchAssets(TENANT, 1, 10, null, List.of(typeFilter("TABLE")));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    void searchAssets_withSort() throws ApiException {
+        String id1 = "aaa" + randomId();
+        String id2 = "zzz" + randomId();
+        api().createAsset(TENANT, assetYaml(id2));
+        api().createAsset(TENANT, assetYaml(id1));
+
+        PagedResultsAssetsControllerApiAsset result =
+                api().searchAssets(TENANT, 1, 100, List.of("id:asc"), List.of(typeFilter("TABLE")));
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> ids = result.getResults().stream()
+                .map(AssetsControllerApiAsset::getId)
+                .toList();
+        assertThat(ids).contains(id1, id2);
+        assertThat(ids.indexOf(id1)).isLessThan(ids.indexOf(id2));
+    }
+
+    @Test
+    void searchAssetLineageEvents_withFilters() throws ApiException {
+        PagedResultsAssetsControllerApiAssetLineageEvent result =
+                api().searchAssetLineageEvents(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
+    @Test
+    void searchAssetUsages_withFilters() throws ApiException {
+        PagedResultsAssetsControllerApiAssetUsage result =
+                api().searchAssetUsages(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
+    @Test
+    void searchAssets_noResults() throws ApiException {
+        PagedResultsAssetsControllerApiAsset result =
+                api().searchAssets(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
     // ========================================================================
     // CRUD
     // ========================================================================

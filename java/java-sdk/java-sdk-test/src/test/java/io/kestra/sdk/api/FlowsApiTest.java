@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -539,6 +540,31 @@ public class FlowsApiTest {
         assertThat(result.getResults()).isEmpty();
     }
 
+    @Test
+    void searchFlows_withLabels() throws ApiException {
+        String ns = randomId();
+        String id = randomId();
+        createFlow(logFlowYamlWithLabels(id, ns, Map.of("team", "sdk", "env", "test")));
+
+        PagedResultsFlow result = api().searchFlows(TENANT, 1, 10, null,
+                List.of(nsFilter(ns), labelsFilter(Map.of("team", "sdk"))));
+
+        assertThat(result.getTotal()).isEqualTo(1);
+        assertThat(result.getResults().get(0).getId()).isEqualTo(id);
+    }
+
+    @Test
+    void searchFlows_withLabels_noMatch() throws ApiException {
+        String ns = randomId();
+        String id = randomId();
+        createFlow(logFlowYamlWithLabels(id, ns, Map.of("team", "sdk")));
+
+        PagedResultsFlow result = api().searchFlows(TENANT, 1, 10, null,
+                List.of(nsFilter(ns), labelsFilter(Map.of("team", "other"))));
+
+        assertThat(result.getTotal()).isEqualTo(0);
+    }
+
     // ========================================================================
     // Search — searchFlowsBySourceCode
     // ========================================================================
@@ -563,6 +589,43 @@ public class FlowsApiTest {
                 TENANT, 1, 10, null, f.getId(), ns);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
+    }
+
+    @Test
+    void searchFlowsBySourceCode_withQueryAndNamespace() throws ApiException {
+        String ns = randomId();
+        String id1 = randomId();
+        String id2 = randomId();
+        createFlow(logFlowYamlWithDescription(id1, ns, "Hello World unique marker"));
+        createFlow(logFlowYamlWithDescription(id2, ns, "Goodbye World different text"));
+
+        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, "Hello World unique marker", ns);
+
+        assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
+        assertThat(result.getResults()).allSatisfy(r ->
+                assertThat(r.getModel()).isNotNull());
+    }
+
+    @Test
+    void searchFlowsBySourceCode_withSort() throws ApiException {
+        String ns = randomId();
+        String id1 = "aaa" + randomId();
+        String id2 = "zzz" + randomId();
+        createFlow(logFlowYaml(id1, ns));
+        createFlow(logFlowYaml(id2, ns));
+
+        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, List.of("id:asc"), null, ns);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> ids = result.getResults().stream()
+                .map(r -> r.getModel().getId())
+                .toList();
+        int idx1 = ids.indexOf(id1);
+        int idx2 = ids.indexOf(id2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
     }
 
     @Test

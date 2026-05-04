@@ -106,6 +106,90 @@ public class GroupsApiTest {
     }
 
     @Test
+    void searchGroups_withNameFilter() throws ApiException {
+        String name = "name-filter-" + randomId();
+        createTestGroup(name);
+
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(nameFilter(name)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+        assertThat(result.getResults())
+                .extracting(ApiGroupSummary::getName)
+                .contains(name);
+    }
+
+    @Test
+    void searchGroups_withQueryFilter() throws ApiException {
+        String prefix = "qfgrp" + randomId();
+        createTestGroup(prefix);
+
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(queryFilter(prefix)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void searchGroups_withSort() throws ApiException {
+        String name1 = "aaa" + randomId();
+        String name2 = "zzz" + randomId();
+        createTestGroup(name2);
+        createTestGroup(name1);
+
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 100, List.of("name:asc"), null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> names = result.getResults().stream()
+                .map(ApiGroupSummary::getName)
+                .toList();
+        int idx1 = names.indexOf(name1);
+        int idx2 = names.indexOf(name2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    @Disabled("Server returns 500 for sort on group members — property mapping not configured")
+    void searchGroupMembers_withSort() throws ApiException {
+        IAMGroupControllerApiGroupDetail group = createTestGroup("members-sort-" + randomId());
+        IAMUserControllerApiUser user1 = createTestUser();
+        IAMUserControllerApiUser user2 = createTestUser();
+        api().addUserToGroup(group.getId(), user1.getId(), TENANT);
+        api().addUserToGroup(group.getId(), user2.getId(), TENANT);
+
+        PagedResultsIAMGroupControllerApiGroupMember result =
+                api().searchGroupMembers(group.getId(), TENANT, 1, 10, List.of("username:asc"), null);
+
+        assertThat(result.getResults()).hasSize(2);
+    }
+
+    @Test
+    void searchGroupMembers_withFilters() throws ApiException {
+        IAMGroupControllerApiGroupDetail group = createTestGroup("members-filter-" + randomId());
+        IAMUserControllerApiUser user1 = createTestUser();
+        IAMUserControllerApiUser user2 = createTestUser();
+        api().addUserToGroup(group.getId(), user1.getId(), TENANT);
+        api().addUserToGroup(group.getId(), user2.getId(), TENANT);
+
+        PagedResultsIAMGroupControllerApiGroupMember result =
+                api().searchGroupMembers(group.getId(), TENANT, 1, 10, null, List.of(queryFilter(user1.getEmail())));
+
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).allSatisfy(m ->
+                assertThat(m.getUsername()).isEqualTo(user1.getEmail()));
+    }
+
+    @Test
+    void searchGroups_noResults() throws ApiException {
+        PagedResultsApiGroupSummary result = api().searchGroups(
+                TENANT, 1, 10, null, List.of(nameFilter("nonexistent_group_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults() == null || result.getResults().isEmpty() || result.getTotal() == 0).isTrue();
+    }
+
+    @Test
     void autocompleteGroups_basic() throws ApiException {
         IAMGroupControllerApiGroupDetail created = createTestGroup("autocomplete-" + randomId());
 

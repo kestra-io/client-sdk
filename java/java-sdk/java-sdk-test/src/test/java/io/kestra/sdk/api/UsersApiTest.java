@@ -111,6 +111,57 @@ public class UsersApiTest {
         assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
     }
 
+    @Test
+    void listUsers_withQueryFilter() throws ApiException {
+        String email = "filter-" + randomId() + "@test.com";
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email(email)
+                        .firstName("Filter")
+                        .lastName("User")
+                        .password("TestPass!1234");
+
+        api().createUser(request);
+
+        PagedResultsIAMUserControllerApiUserSummary result =
+                api().listUsers(1, 10, null, List.of(queryFilter(email)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    @Disabled("Server stores users in JSON 'value' column — sort on 'username' yields SQL error")
+    void listUsers_withSort() throws ApiException {
+        String email1 = "aaa" + randomId() + "@test.com";
+        String email2 = "zzz" + randomId() + "@test.com";
+        api().createUser(new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(email2).firstName("Zzz").lastName("User").password("TestPass!1234"));
+        api().createUser(new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(email1).firstName("Aaa").lastName("User").password("TestPass!1234"));
+
+        PagedResultsIAMUserControllerApiUserSummary result =
+                api().listUsers(1, 100, List.of("username:asc"), null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+        List<String> usernames = result.getResults().stream()
+                .map(IAMUserControllerApiUserSummary::getUsername)
+                .toList();
+        int idx1 = usernames.indexOf(email1);
+        int idx2 = usernames.indexOf(email2);
+        assertThat(idx1).isGreaterThanOrEqualTo(0);
+        assertThat(idx2).isGreaterThan(idx1);
+    }
+
+    @Test
+    void listUsers_noResults() throws ApiException {
+        PagedResultsIAMUserControllerApiUserSummary result =
+                api().listUsers(1, 10, null, List.of(queryFilter("nonexistent_user_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
     // ========================================================================
     // API tokens
     // ========================================================================

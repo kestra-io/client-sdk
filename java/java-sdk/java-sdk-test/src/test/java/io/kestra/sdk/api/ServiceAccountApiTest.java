@@ -105,6 +105,46 @@ public class ServiceAccountApiTest {
         assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
     }
 
+    @Test
+    void listServiceAccounts_withQueryFilter() throws ApiException {
+        String uniqueName = "sa-search-" + randomId();
+        IAMServiceAccountControllerApiCreateServiceAccountRequest request =
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                        .name(uniqueName)
+                        .description("Search test");
+
+        api().createServiceAccount(request);
+
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
+                api().listServiceAccounts(1, 10, null, List.of(nameFilter(uniqueName)));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+    }
+
+    @Test
+    @Disabled("Server stores service accounts in JSON 'value' column — sort on 'name' yields SQL error")
+    void listServiceAccounts_withSort() throws ApiException {
+        String name1 = "aaa" + randomId();
+        String name2 = "zzz" + randomId();
+        api().createServiceAccount(new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name2).description("sorttest"));
+        api().createServiceAccount(new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name1).description("sorttest"));
+
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
+                api().listServiceAccounts(1, 100, List.of("name:asc"), null);
+
+        assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
+    }
+
+    @Test
+    void listServiceAccounts_noResults() throws ApiException {
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
+                api().listServiceAccounts(1, 10, null, List.of(nameFilter("nonexistent_sa_" + randomId())));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
     // ========================================================================
     // Tenant-scoped
     // ========================================================================

@@ -559,6 +559,12 @@ public class ApiClient extends JavaTimeFormatter {
         return sb.toString();
     }
 
+    private static String filterFieldName(String field) {
+        if ("query".equalsIgnoreCase(field)) return "q";
+        if ("min_level".equalsIgnoreCase(field)) return "level";
+        return toCamelCaseFromFolder(field);
+    }
+
   /**
    * Formats the specified collection query parameters to a list of {@code Pair} objects.
    *
@@ -581,7 +587,7 @@ public class ApiClient extends JavaTimeFormatter {
         for (Object o : value) {
             if (o instanceof QueryFilter queryFilter) {
                 String baseFilterQuery = "filters[" +
-                    ("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString())) +
+                    filterFieldName(queryFilter.getField().toString()) +
                     "][" +
                     queryFilter.getOperation() +
                     "]";
