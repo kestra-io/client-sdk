@@ -2,7 +2,6 @@
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 import type { ApiExecution, QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
-import { fa, pr } from "../javascript-sdk/dist/sdk.gen-ByFxcIkP.js";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -550,26 +549,31 @@ describe("ExecutionsApi", () => {
         const e1 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
         const e3 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
+
+        await Promise.all([
+            awaitExecution(e1.id, "RUNNING", 2000, 100),
+            awaitExecution(e2.id, "RUNNING", 2000, 100),
+            awaitExecution(e3.id, "RUNNING", 2000, 100),
+        ]);
 
         const bulk: any = await kestraClient.Executions.killExecutionsByIds({
             body: [e2.id, e3.id],
         });
-        expect(bulk.count).toBe(2);
+        expect(bulk.totalItems).toBe(2);
 
-        const s2 = await awaitExecution(e2.id, "KILLED", 2000, 100);
-        const s3 = await awaitExecution(e3.id, "KILLED", 2000, 100);
+        const [s2, s3] = await Promise.all([
+            awaitExecution(e2.id, "KILLED", 2000, 100),
+            awaitExecution(e3.id, "KILLED", 2000, 100)
+        ]);
         expect(s2.state?.current).toBe("KILLED");
         expect(s3.state?.current).toBe("KILLED");
 
@@ -598,6 +602,12 @@ describe("ExecutionsApi", () => {
             id: flow2,
         });
 
+        await Promise.all([
+            awaitExecution(a.id, "RUNNING", 2000, 100),
+            awaitExecution(b.id, "RUNNING", 2000, 100),
+            awaitExecution(c.id, "RUNNING", 2000, 100)
+        ]);
+
         const filters = [
             qf({
                 field: QF_FIELD.FLOW_ID,
@@ -606,9 +616,12 @@ describe("ExecutionsApi", () => {
             }),
         ];
 
-        await Promise.all([awaitExecution(a.id, "RUNNING", 2000, 100), awaitExecution(b.id, "RUNNING", 2000, 100)]);
+        await Promise.all([
+            awaitExecution(a.id, "RUNNING", 2000, 100),
+            awaitExecution(b.id, "RUNNING", 2000, 100)
+        ]);
 
-        const bulk: any = await kestraClient.Executions.killExecutionsByQuery({
+        const bulk = await kestraClient.Executions.killExecutionsByQuery({
             filters: filters,
         });
         expect(bulk.totalItems).toBe(2);
