@@ -18862,7 +18862,7 @@ components:
           pluginDefaults:
             type: array
             items:
-              $ref: "#/components/schemas/PluginDefault"
+              $ref: "#/components/schemas/FlowPluginDefault"
           concurrency:
             $ref: "#/components/schemas/Concurrency"
           outputs:
@@ -19100,6 +19100,16 @@ components:
           type: string
         id:
           type: string
+    FlowPluginDefault:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+        values:
+          type: object
+          additionalProperties: false
     FlowRelation:
       type: string
       enum:
