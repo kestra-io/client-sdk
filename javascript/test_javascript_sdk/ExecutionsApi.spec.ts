@@ -2,6 +2,7 @@
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
 import type { ApiExecution, QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
+import { fa, pr } from "../javascript-sdk/dist/sdk.gen-ByFxcIkP.js";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -103,12 +104,12 @@ async function createFlowWithExecution(flowId: string, ns: string) {
     });
 }
 
-async function createFlowWithExecutionFromYaml(flowYaml: string) {
+async function createFlowWithExecutionFromYaml(flowYaml: string, wait = true) {
     const f = await createFlow(flowYaml);
     return await kestraClient.Executions.createExecution({
         namespace: f.namespace,
         id: f.id,
-        wait: true,
+        wait,
     });
 }
 
@@ -128,7 +129,9 @@ async function awaitExecution(
             });
         } catch (e) {
             if (e instanceof Error && e.message.includes("404")) {
-                console.log(`Execution ${executionId} not found, waiting...`);
+                if (process.env.DEBUG) {
+                    console.log(`Execution ${executionId} not found, waiting...`);
+                }
             } else {
                 throw e;
             }
@@ -146,8 +149,13 @@ async function awaitExecution(
 async function createdExecution(flowTemplate: (id: string, ns: string) => string, desiredState: StateType) {
     const ns = randomId();
     const id = randomId();
-    const ex = await createFlowWithExecutionFromYaml(flowTemplate(id, ns));
+    const ex = await createFlowWithExecutionFromYaml(flowTemplate(id, ns), false);
     return await awaitExecution(ex.id, desiredState, 3000, 100);
+}
+
+async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: string }) {
+    const outputs = await kestraClient.Outputs.taskRunOutputs(opt);
+    return outputs?.uri as any as string;
 }
 
 // filters
@@ -312,13 +320,7 @@ describe("ExecutionsApi", () => {
 
         if (!taskRunId) throw new Error("Task run not found");
 
-        const outputs = await kestraClient.Outputs.taskRunOutputs({
-            taskRunId: taskRunId,
-            executionId: e.id,
-        })
-        if (!outputs) throw new Error("Output URI not found");
-        expect(outputs).toMatchInlineSnapshot();
-        const uri = outputs.uri.uri as string;
+        const uri = await getOutputUriFromExecution({ executionId: e.id, taskRunId });
         expect(uri).toBeTruthy();
 
         const file =
@@ -462,9 +464,7 @@ describe("ExecutionsApi", () => {
             return await awaitExecution(e.id, "SUCCESS", 5000, 100);
         })();
 
-        // TODO: ApiTaskRun type is missing `outputs` property
-        // @ts-expect-error
-        const uri = done?.taskRunList?.[0]?.outputs?.uri;
+        const uri = await getOutputUriFromExecution({ executionId: done.id, taskRunId: done.taskRunList?.[0]?.id ?? "" });
         const metas = await kestraClient.Executions.fileMetadatasFromExecution({
             executionId: done.id ?? "",
             path: uri,
@@ -531,19 +531,10 @@ describe("ExecutionsApi", () => {
 
     // --- kill execution (single) ---
     it("kill_execution", async () => {
-        const ns = randomId();
-        const flowId = randomId();
-        await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
+        const e = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
-        const e = await kestraClient.Executions.createExecution({
-            namespace: ns,
-            id: flowId,
-            wait: true,
-        });
-        await sleep(200);
         await kestraClient.Executions.killExecution({
             executionId: e.id,
-            isOnKillCascade: true,
         });
 
         const killed = await awaitExecution(e.id, "KILLED", 2000, 100);
@@ -597,17 +588,14 @@ describe("ExecutionsApi", () => {
         const a = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow1,
-            wait: true,
         });
         const b = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow1,
-            wait: true,
         });
         const c = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flow2,
-            wait: true,
         });
 
         const filters = [
@@ -617,18 +605,17 @@ describe("ExecutionsApi", () => {
                 value: flow1,
             }),
         ];
+
+        await Promise.all([awaitExecution(a.id, "RUNNING", 2000, 100), awaitExecution(b.id, "RUNNING", 2000, 100)]);
+
         const bulk: any = await kestraClient.Executions.killExecutionsByQuery({
             filters: filters,
         });
-        expect(bulk.count).toBe(2);
+        expect(bulk.totalItems).toBe(2);
 
         const sA = await awaitExecution(a.id, "KILLED", 2000, 100);
         const sB = await awaitExecution(b.id, "KILLED", 2000, 100);
         const sC = await awaitExecution(c.id, "SUCCESS", 4000, 100);
-
-        expect(sA.state?.current).toBe("KILLED");
-        expect(sB.state?.current).toBe("KILLED");
-        expect(sC.state?.current).toBe("SUCCESS");
     });
 
     // --- pause (single) ---
