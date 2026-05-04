@@ -336,6 +336,24 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                 config.headers["Content-Type"] = "application/json"
             }
         }
+
+        // hey-api sets responseType:'blob'/'text' so Axios decodes the response body
+        // correctly, but does NOT set the Accept request header. Without an explicit
+        // Accept header, Kestra performs content negotiation and may return 404 when
+        // it finds no handler matching the client's implicit "Accept: application/json".
+        // Note: Axios injects a default "application/json, text/plain, */*" Accept header,
+        // so we must override whenever responseType indicates a non-JSON response — not
+        // only when the header is absent.
+        const axiosDefaultAccept = "application/json, text/plain, */*"
+        const currentAccept = config.headers["Accept"]
+        const hasCustomAccept = currentAccept && currentAccept !== axiosDefaultAccept
+        if (!hasCustomAccept) {
+            if (config.responseType === "blob") {
+                config.headers["Accept"] = "application/octet-stream"
+            } else if (config.responseType === "text") {
+                config.headers["Accept"] = "text/*"
+            }
+        }
         return config
     })
 
@@ -435,6 +453,18 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
 
 let axiosInstance: AxiosInstance | null = null;
 
+/**
+ * Set a mock instance of axios controlled in tests
+ * @param mockClient
+ */
+export function setMockClient(mockClient: any) {
+    axiosInstance = mockClient;
+}
+
+/**
+ * Get the current Axios client instance
+ * @returns AxiosInstance
+ */
 export function useClient(): AxiosInstance {
     return new Proxy({} as AxiosInstance, {
         get(_target, prop) {
