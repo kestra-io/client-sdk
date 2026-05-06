@@ -19992,6 +19992,7 @@ components:
         - ID
         - ASSET_ID
         - TYPE
+        - ACTION
         - CREATED
         - UPDATED
         - START_DATE
@@ -20012,7 +20013,6 @@ components:
         - WORKER_ID
         - EXISTING_ONLY
         - USER_ID
-        - ACTION
         - RESOURCES
         - DETAILS
         - MIN_LEVEL
