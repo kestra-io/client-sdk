@@ -71,6 +71,38 @@ async function expectRejectStatus(promise: Promise<any>, expectedStatus: string 
     }
 }
 
+async function ensureTriggerExists(namespace: string, flowId: string, triggerId: string) {
+    const maxRetries = 5;
+    const delayMs = 1000;
+
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const page = await kestraClient.Triggers.searchTriggersForFlow({
+                page: 1,
+                size: 1,
+                namespace,
+                flowId,
+            });
+            if (page?.results?.length > 0) {
+                if (page.results[0].triggerId === triggerId) {
+                    return; // Trigger exists, exit the function
+                }
+            }
+        } catch (err: any) {
+            if (err?.status === 404) {
+                // Not found, will retry
+            } else {
+                // Other error, rethrow
+                throw err;
+            }
+        } finally {
+            // Wait before the next attempt
+            await sleep(delayMs);
+        }
+    }
+    throw new Error(`Trigger ${namespace}/${flowId}/${triggerId} not found after ${maxRetries} attempts`);
+}
+
 // --- tests ----------------------------------------------------------------
 
 describe('TriggersApiTest', () => {
@@ -81,7 +113,8 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
         // ensure trigger exists
-        await sleep(4000);
+        await ensureTriggerExists(namespace, flowId, triggerId);
+
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
@@ -95,6 +128,7 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
@@ -108,6 +142,7 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const resp = await kestraClient.Triggers.deleteBackfillByQuery({ filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId as any }] });
@@ -151,6 +186,7 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
@@ -164,6 +200,7 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
