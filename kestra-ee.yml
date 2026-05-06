@@ -22375,44 +22375,6 @@ components:
       type: string
       enum:
       - SCIM
-    ServerConfig:
-      required:
-      - terminationGracePeriod
-      type: object
-      properties:
-        workerTaskRestartStrategy:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/WorkerTaskRestartStrategy"
-        terminationGracePeriod:
-          type: string
-          default: 5m
-        liveness:
-          $ref: "#/components/schemas/ServerConfig.Liveness"
-    ServerConfig.Liveness:
-      required:
-      - enabled
-      - heartbeatInterval
-      - initialDelay
-      - interval
-      - timeout
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          default: true
-        interval:
-          type: string
-          default: 5s
-        timeout:
-          type: string
-          default: 45s
-        initialDelay:
-          type: string
-          default: 45s
-        heartbeatInterval:
-          type: string
-          default: 3s
     ServerInstance:
       required:
       - hostname
@@ -22482,8 +22444,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServiceInstance.TimestampedEvent"
-        config:
-          $ref: "#/components/schemas/ServerConfig"
         props:
           type: object
           additionalProperties:
@@ -23600,12 +23560,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
-    WorkerTaskRestartStrategy:
-      type: string
-      enum:
-      - NEVER
-      - IMMEDIATELY
-      - AFTER_TERMINATION_GRACE_PERIOD
   securitySchemes:
     basicAuth:
       type: http
