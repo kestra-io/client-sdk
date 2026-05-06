@@ -1,4 +1,6 @@
 kestra:
+  migration:
+    auto: true
   repository:
     type: h2
   storage:

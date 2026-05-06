@@ -2,8 +2,9 @@
 
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import type { TestSuite } from '@kestra-io/kestra-sdk';
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // ---------------- YAML templates ----------------
 
@@ -50,7 +51,7 @@ testCases:
         equalTo: 'Hi there'
 `;
 
-const LOG_FLOW = (id, ns) => `
+const LOG_FLOW = (id: string, ns: string) => `
 id: ${id}
 namespace: ${ns}
 
@@ -75,42 +76,42 @@ outputs:
 
 // ---------------- helpers ----------------
 
-function getTestSuiteYaml(template, testSuiteId, namespace, flowId) {
+function getTestSuiteYaml(template: string, testSuiteId: string, namespace: string, flowId: string): string {
     return template
         .replace('%testSuiteId%', testSuiteId)
         .replace('%namespace%', namespace)
         .replace('%flowId%', flowId);
 }
 
-async function createSimpleFlow(flowId, namespace) {
+async function createSimpleFlow(flowId: string, namespace: string) {
     return createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
 }
 
-async function createSimpleFlowFromBody(flowBody) {
-    const flow = await kestraClient().Flows.createFlow({ body: flowBody });
+async function createSimpleFlowFromBody(flowBody: string) {
+    const flow = await kestraClient.Flows.createFlow({ body: flowBody });
     // small delay like the Java helper did
     await sleep(200);
     return flow;
 }
 
-async function assertTestSuiteExists(testSuite) {
+async function assertTestSuiteExists(testSuite: TestSuite) {
     await expect(
-        kestraClient().TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT })
+        kestraClient.TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT })
     ).resolves.toBeTruthy();
 }
 
-async function assertTestSuiteDoesNotExist(testSuite) {
+async function assertTestSuiteDoesNotExist(testSuite: TestSuite) {
     try {
-        await kestraClient().TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT });
         throw new Error('Expected 404 but request succeeded');
-    } catch (err) {
+    } catch (err: any) {
         const status = err?.status ?? err?.response?.status ?? err?.code ?? err?.data?.code;
         expect(status).toBe(404);
     }
 }
 
-async function isTestSuiteDisabled(testSuite) {
-    const ts = await kestraClient().TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT });
+async function isTestSuiteDisabled(testSuite: TestSuite): Promise<boolean> {
+    const ts = await kestraClient.TestSuites.testSuite({ namespace: testSuite.namespace, id: testSuite.id, tenant: MAIN_TENANT });
     return !!ts?.disabled;
 }
 
@@ -125,7 +126,7 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        const resp = await kestraClient().TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const resp = await kestraClient.TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
 
         expect(resp.id).toBe(testSuiteId);
         expect(resp.flowId).toBe(flowId);
@@ -154,8 +155,8 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        await kestraClient().TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
-        const fetched = await kestraClient().TestSuites.testSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const fetched = await kestraClient.TestSuites.testSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
 
         expect(fetched.id).toBe(testSuiteId);
         expect(fetched.flowId).toBe(flowId);
@@ -171,10 +172,10 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        const created = await kestraClient().TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const created = await kestraClient.TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
         await assertTestSuiteExists(created);
 
-        await kestraClient().TestSuites.deleteTestSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.deleteTestSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
         await assertTestSuiteDoesNotExist(created);
     });
 
@@ -186,15 +187,15 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        const created = await kestraClient().TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const created = await kestraClient.TestSuites.createTestSuite({ body: yaml, tenant: MAIN_TENANT });
         await assertTestSuiteExists(created);
 
         yaml = yaml
             .replace('assert flow is returning the input value as output', 'updated testsuite description')
             .replace('test_case_1 description', 'updated testcase description');
 
-        await kestraClient().TestSuites.updateTestSuite({ namespace, id: testSuiteId, body: yaml, tenant: MAIN_TENANT });
-        const fetched = await kestraClient().TestSuites.testSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.updateTestSuite({ namespace, id: testSuiteId, body: yaml, tenant: MAIN_TENANT });
+        const fetched = await kestraClient.TestSuites.testSuite({ namespace, id: testSuiteId, tenant: MAIN_TENANT });
 
         expect(fetched.id).toBe(testSuiteId);
         expect(fetched.description).toBe('updated testsuite description');
@@ -209,7 +210,7 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        const vr = await kestraClient().TestSuites.validateTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const vr = await kestraClient.TestSuites.validateTestSuite({ body: yaml, tenant: MAIN_TENANT });
 
         expect(vr?.warnings ?? []).toHaveLength(0);
         expect(vr?.infos ?? []).toHaveLength(0);
@@ -225,7 +226,7 @@ describe('TestSuitesApiTest', () => {
 
         await createSimpleFlow(flowId, namespace);
 
-        const vr = await kestraClient().TestSuites.validateTestSuite({ body: yaml, tenant: MAIN_TENANT });
+        const vr = await kestraClient.TestSuites.validateTestSuite({ body: yaml, tenant: MAIN_TENANT });
 
         // Normalize to an array of strings
         const constraintsRaw = vr?.constraints ?? [];
@@ -250,15 +251,15 @@ describe('TestSuitesApiTest', () => {
         const namespace = randomId();
         const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts3 = await kestraClient().TestSuites.createTestSuite({
+        const ts3 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
@@ -271,7 +272,7 @@ describe('TestSuitesApiTest', () => {
             { id: ts1.id, namespace: ts1.namespace },
             { id: ts3.id, namespace: ts3.namespace },
         ];
-        await kestraClient().TestSuites.deleteTestSuitesByIds({ ids: idsToDelete, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.deleteTestSuitesByIds({ ids: idsToDelete, tenant: MAIN_TENANT });
 
         await assertTestSuiteExists(ts2);
         await assertTestSuiteDoesNotExist(ts1);
@@ -283,15 +284,15 @@ describe('TestSuitesApiTest', () => {
         const namespace = randomId();
         const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts3 = await kestraClient().TestSuites.createTestSuite({
+        const ts3 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
@@ -304,7 +305,7 @@ describe('TestSuitesApiTest', () => {
             { id: ts1.id, namespace: ts1.namespace },
             { id: ts3.id, namespace: ts3.namespace },
         ];
-        await kestraClient().TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: MAIN_TENANT });
 
         expect(await isTestSuiteDisabled(ts1)).toBe(true);
         expect(await isTestSuiteDisabled(ts2)).toBe(false);
@@ -316,15 +317,15 @@ describe('TestSuitesApiTest', () => {
         const namespace = randomId();
         const flow = await createSimpleFlowFromBody(LOG_FLOW(flowId, namespace));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
-        const ts3 = await kestraClient().TestSuites.createTestSuite({
+        const ts3 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.id),
             tenant: MAIN_TENANT,
         });
@@ -339,7 +340,7 @@ describe('TestSuitesApiTest', () => {
             { id: ts1.id, namespace: ts1.namespace },
             { id: ts3.id, namespace: ts3.namespace },
         ];
-        await kestraClient().TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.disableTestSuitesByIds({ ids: idsToDisable, tenant: MAIN_TENANT });
 
         expect(await isTestSuiteDisabled(ts1)).toBe(true);
         expect(await isTestSuiteDisabled(ts2)).toBe(false);
@@ -347,7 +348,7 @@ describe('TestSuitesApiTest', () => {
 
         // enable ts1
         const idsToEnable = [{ id: ts1.id, namespace: ts1.namespace }];
-        await kestraClient().TestSuites.enableTestSuitesByIds({ ids: idsToEnable, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.enableTestSuitesByIds({ ids: idsToEnable, tenant: MAIN_TENANT });
 
         expect(await isTestSuiteDisabled(ts1)).toBe(false);
         expect(await isTestSuiteDisabled(ts2)).toBe(false);
@@ -362,19 +363,19 @@ describe('TestSuitesApiTest', () => {
         const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
         const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        await kestraClient().TestSuites.createTestSuite({
+        await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
             tenant: MAIN_TENANT,
         });
-        const ts4 = await kestraClient().TestSuites.createTestSuite({
+        const ts4 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
             tenant: MAIN_TENANT,
         });
@@ -386,7 +387,7 @@ describe('TestSuitesApiTest', () => {
         // by flowId
         {
             const flowIdToSearch = flowAAA.id;
-            const res = await kestraClient().TestSuites.searchTestSuites({
+            const res = await kestraClient.TestSuites.searchTestSuites({
                 page, size, includeChildNamespaces, tenant: MAIN_TENANT, flowId: flowIdToSearch,
             });
             const gotIds = (res?.results ?? []).map((r) => r.id).sort();
@@ -396,7 +397,7 @@ describe('TestSuitesApiTest', () => {
         // by namespace
         {
             const namespaceToSearch = namespaceYYY;
-            const res = await kestraClient().TestSuites.searchTestSuites({
+            const res = await kestraClient.TestSuites.searchTestSuites({
                 page, size, includeChildNamespaces, tenant: MAIN_TENANT, namespace: namespaceToSearch,
             });
             const gotIds = (res?.results ?? []).map((r) => r.id).sort();
@@ -409,12 +410,12 @@ describe('TestSuitesApiTest', () => {
         const flowId = randomId();
         await createSimpleFlow(flowId, namespace);
 
-        const ts = await kestraClient().TestSuites.createTestSuite({
+        const ts = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
             tenant: MAIN_TENANT,
         });
 
-        const run = await kestraClient().TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
+        const run = await kestraClient.TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
 
         expect(run.testSuiteId).toBe(ts.id);
         expect(run.state).toBe('SUCCESS');
@@ -426,12 +427,12 @@ describe('TestSuitesApiTest', () => {
         const flowId = randomId();
         await createSimpleFlow(flowId, namespace);
 
-        const ts = await kestraClient().TestSuites.createTestSuite({
+        const ts = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(FAILING_SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
             tenant: MAIN_TENANT,
         });
 
-        const run = await kestraClient().TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
+        const run = await kestraClient.TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
 
         expect(run.testSuiteId).toBe(ts.id);
         expect(run.state).toBe('FAILED');
@@ -454,26 +455,26 @@ describe('TestSuitesApiTest', () => {
         const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
         const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        await kestraClient().TestSuites.createTestSuite({
+        await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
             tenant: MAIN_TENANT,
         });
-        const ts4 = await kestraClient().TestSuites.createTestSuite({
+        const ts4 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
             tenant: MAIN_TENANT,
         });
 
         // by flowId
         {
-            const res = await kestraClient().TestSuites.runTestSuitesByQuery({
+            const res = await kestraClient.TestSuites.runTestSuitesByQuery({
                 flowId: flowAAA.id,
                 includeChildNamespaces: false,
                 tenant: MAIN_TENANT,
@@ -484,7 +485,7 @@ describe('TestSuitesApiTest', () => {
 
         // by namespace
         {
-            const res = await kestraClient().TestSuites.runTestSuitesByQuery({
+            const res = await kestraClient.TestSuites.runTestSuitesByQuery({
                 namespace: namespaceYYY,
                 includeChildNamespaces: false,
                 tenant: MAIN_TENANT,
@@ -502,36 +503,36 @@ describe('TestSuitesApiTest', () => {
         const flowBBB = await createSimpleFlowFromBody(LOG_FLOW(`flowbbb_${randomId()}`, namespaceXXX));
         const flowCCC = await createSimpleFlowFromBody(LOG_FLOW(`flowccc_${randomId()}`, namespaceYYY));
 
-        const ts1 = await kestraClient().TestSuites.createTestSuite({
+        const ts1 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite111_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        const ts2 = await kestraClient().TestSuites.createTestSuite({
+        const ts2 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite222_${randomId()}`, namespaceXXX, flowAAA.id),
             tenant: MAIN_TENANT,
         });
-        const ts3 = await kestraClient().TestSuites.createTestSuite({
+        const ts3 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite333_${randomId()}`, namespaceXXX, flowBBB.id),
             tenant: MAIN_TENANT,
         });
-        const ts4 = await kestraClient().TestSuites.createTestSuite({
+        const ts4 = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, `testsuite444_${randomId()}`, namespaceYYY, flowCCC.id),
             tenant: MAIN_TENANT,
         });
 
         // run all of them
-        await kestraClient().TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: MAIN_TENANT });
-        await kestraClient().TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: MAIN_TENANT });
-        await kestraClient().TestSuites.runTestSuite({ namespace: ts2.namespace, id: ts2.id, tenant: MAIN_TENANT });
-        await kestraClient().TestSuites.runTestSuite({ namespace: ts3.namespace, id: ts3.id, tenant: MAIN_TENANT });
-        await kestraClient().TestSuites.runTestSuite({ namespace: ts4.namespace, id: ts4.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.runTestSuite({ namespace: ts2.namespace, id: ts2.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.runTestSuite({ namespace: ts3.namespace, id: ts3.id, tenant: MAIN_TENANT });
+        await kestraClient.TestSuites.runTestSuite({ namespace: ts4.namespace, id: ts4.id, tenant: MAIN_TENANT });
 
         const page = 1;
         const size = 1000;
 
         // by testSuiteId
         {
-            const res = await kestraClient().TestSuites.searchTestSuitesResults({
+            const res = await kestraClient.TestSuites.searchTestSuitesResults({
                 page, size, tenant: MAIN_TENANT, testSuiteId: ts1.id,
             });
             const results = res?.results ?? [];
@@ -541,7 +542,7 @@ describe('TestSuitesApiTest', () => {
 
         // by flowId
         {
-            const res = await kestraClient().TestSuites.searchTestSuitesResults({
+            const res = await kestraClient.TestSuites.searchTestSuitesResults({
                 page, size, tenant: MAIN_TENANT, flowId: flowAAA.id,
             });
             const results = res?.results ?? [];
@@ -552,7 +553,7 @@ describe('TestSuitesApiTest', () => {
 
         // by namespace
         {
-            const res = await kestraClient().TestSuites.searchTestSuitesResults({
+            const res = await kestraClient.TestSuites.searchTestSuitesResults({
                 page, size, tenant: MAIN_TENANT, namespace: namespaceYYY,
             });
             const results = res?.results ?? [];
@@ -567,14 +568,14 @@ describe('TestSuitesApiTest', () => {
         const flowId = randomId();
         await createSimpleFlow(flowId, namespace);
 
-        const ts = await kestraClient().TestSuites.createTestSuite({
+        const ts = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
             tenant: MAIN_TENANT,
         });
 
-        const run = await kestraClient().TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
+        const run = await kestraClient.TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
 
-        const fetched = await kestraClient().TestSuites.testResult({ id: run.id, tenant: MAIN_TENANT });
+        const fetched = await kestraClient.TestSuites.testResult({ id: run.id, tenant: MAIN_TENANT });
         expect(fetched.id).toBe(run.id);
     });
 
@@ -583,15 +584,15 @@ describe('TestSuitesApiTest', () => {
         const flowId = randomId();
         await createSimpleFlow(flowId, namespace);
 
-        const ts = await kestraClient().TestSuites.createTestSuite({
+        const ts = await kestraClient.TestSuites.createTestSuite({
             body: getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId),
             tenant: MAIN_TENANT,
         });
 
-        const r1 = await kestraClient().TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
-        const r2 = await kestraClient().TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
+        const r1 = await kestraClient.TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
+        const r2 = await kestraClient.TestSuites.runTestSuite({ namespace, id: ts.id, tenant: MAIN_TENANT });
 
-        const fetched = await kestraClient().TestSuites.testsLastResult({
+        const fetched = await kestraClient.TestSuites.testsLastResult({
             testSuiteIds: [{ id: ts.id, namespace: ts.namespace }],
             tenant: MAIN_TENANT,
         });

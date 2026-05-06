@@ -506,12 +506,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: searchServices 200 response
@@ -581,12 +581,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: listVersionedPlugin 200 response
@@ -1868,12 +1868,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: Service account successfully created
@@ -2556,12 +2556,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
       responses:
         "200":
           description: listUsers 200 response
@@ -3222,12 +3222,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3436,12 +3436,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3875,12 +3875,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: purge
           in: query
           description: If true, will purge instead of soft-delete
@@ -3919,12 +3919,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -3977,12 +3977,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4035,12 +4035,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4066,12 +4066,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4124,12 +4124,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -4625,12 +4625,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9228,12 +9228,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9324,12 +9324,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -9480,12 +9480,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -10551,12 +10551,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12348,6 +12348,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OutputController.TaskOutputInformation"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/outputs/{executionId}/{taskRunId}:
     get:
       tags:
@@ -12381,6 +12384,9 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/roles:
     post:
       tags:
@@ -12508,12 +12514,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12654,12 +12660,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -12764,12 +12770,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -13190,12 +13196,12 @@ paths:
         - name: filters
           in: query
           description: Filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14316,12 +14322,12 @@ paths:
         - name: filters
           in: query
           description: A list of filters
-          required: true
           explode: false
           schema:
             type: array
             items:
               $ref: "#/components/schemas/QueryFilter"
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -15126,6 +15132,15 @@ components:
         existingOnly:
           type: boolean
     ApiExecution:
+      required:
+        - flowId
+        - flowRevision
+        - id
+        - metadata
+        - namespace
+        - originalId
+        - state
+        - tenantId
       type: object
       properties:
         tenantId:
@@ -15187,6 +15202,9 @@ components:
         loopRun:
           $ref: "#/components/schemas/LoopRun"
     ApiGroupSummary:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -15201,6 +15219,14 @@ components:
           items:
             type: string
     ApiLightExecution:
+      required:
+        - flowId
+        - flowRevision
+        - id
+        - namespace
+        - originalId
+        - state
+        - tenantId
       type: object
       properties:
         tenantId:
@@ -15249,6 +15275,9 @@ components:
         superAdmin:
           type: boolean
     ApiRoleSummary:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -15325,6 +15354,10 @@ components:
         description:
           type: string
     ApiTaskRun:
+      required:
+        - id
+        - state
+        - taskId
       type: object
       properties:
         id:
@@ -15370,6 +15403,11 @@ components:
         name:
           type: string
     ApiToken:
+      required:
+        - iat
+        - id
+        - name
+        - prefix
       type: object
       properties:
         id:
@@ -15394,6 +15432,8 @@ components:
         expired:
           type: boolean
     ApiTokenList:
+      required:
+        - results
       type: object
       properties:
         total:
@@ -15404,6 +15444,9 @@ components:
           items:
             $ref: "#/components/schemas/ApiToken"
     ApiTriggerAndState:
+      required:
+        - state
+        - trigger
       type: object
       properties:
         trigger:
@@ -15411,6 +15454,11 @@ components:
         state:
           $ref: "#/components/schemas/ApiTriggerState"
     ApiTriggerState:
+      required:
+        - flowId
+        - namespace
+        - triggerId
+        - updatedAt
       type: object
       properties:
         namespace:
@@ -16384,6 +16432,10 @@ components:
         extended:
           type: boolean
     CreateApiTokenResponse:
+      required:
+        - fullToken
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16671,7 +16723,9 @@ components:
         - flowId
         - flowRevision
         - id
+        - metadata
         - namespace
+        - originalId
         - state
       type: object
       properties:
@@ -16757,6 +16811,12 @@ components:
               type: string
               format: uri
     ExecutionController.LastExecutionResponse:
+      required:
+        - flowId
+        - id
+        - namespace
+        - startDate
+        - status
       type: object
       properties:
         id:
@@ -16771,6 +16831,9 @@ components:
         status:
           $ref: "#/components/schemas/State.Type"
     ExecutionController.SetLabelsByIdsRequest:
+      required:
+        - executionLabels
+        - executionsId
       type: object
       properties:
         executionsId:
@@ -16782,6 +16845,9 @@ components:
           items:
             $ref: "#/components/schemas/Label"
     ExecutionController.StateRequest:
+      required:
+        - state
+        - taskRunId
       type: object
       properties:
         taskRunId:
@@ -16796,6 +16862,8 @@ components:
         - PLAYGROUND
         - LOOP
     ExecutionMetadata:
+      required:
+        - originalCreatedDate
       type: object
       properties:
         attemptNumber:
@@ -16815,6 +16883,12 @@ components:
         id:
           type: string
     ExecutionStatusEvent:
+      required:
+        - executionId
+        - flowId
+        - namespace
+        - state
+        - tenantId
       type: object
       properties:
         executionId:
@@ -17007,7 +17081,7 @@ components:
             pluginDefaults:
               type: array
               items:
-                $ref: "#/components/schemas/PluginDefault"
+                $ref: "#/components/schemas/FlowPluginDefault"
             concurrency:
               $ref: "#/components/schemas/Concurrency"
             outputs:
@@ -17245,6 +17319,16 @@ components:
           type: string
         id:
           type: string
+    FlowPluginDefault:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+        values:
+          type: object
+          additionalProperties: false
     FlowRelation:
       type: string
       enum:
@@ -19908,6 +19992,7 @@ components:
         - ID
         - ASSET_ID
         - TYPE
+        - ACTION
         - CREATED
         - UPDATED
         - START_DATE
@@ -19928,7 +20013,6 @@ components:
         - WORKER_ID
         - EXISTING_ONLY
         - USER_ID
-        - ACTION
         - RESOURCES
         - DETAILS
         - MIN_LEVEL
@@ -20414,44 +20498,6 @@ components:
       type: string
       enum:
         - SCIM
-    ServerConfig:
-      required:
-        - terminationGracePeriod
-      type: object
-      properties:
-        workerTaskRestartStrategy:
-          nullable: true
-          allOf:
-            - $ref: "#/components/schemas/WorkerTaskRestartStrategy"
-        terminationGracePeriod:
-          type: string
-          default: 5m
-        liveness:
-          $ref: "#/components/schemas/ServerConfig.Liveness"
-    ServerConfig.Liveness:
-      required:
-        - enabled
-        - heartbeatInterval
-        - initialDelay
-        - interval
-        - timeout
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          default: true
-        interval:
-          type: string
-          default: 5s
-        timeout:
-          type: string
-          default: 45s
-        initialDelay:
-          type: string
-          default: 45s
-        heartbeatInterval:
-          type: string
-          default: 3s
     ServerInstance:
       required:
         - hostname
@@ -20521,8 +20567,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServiceInstance.TimestampedEvent"
-        config:
-          $ref: "#/components/schemas/ServerConfig"
         props:
           type: object
           additionalProperties:
@@ -20664,6 +20708,10 @@ components:
     State:
       required:
         - current
+        - getDuration
+        - getEndDate
+        - getStartDate
+        - histories
       type: object
       properties:
         duration:
@@ -20687,7 +20735,6 @@ components:
             $ref: "#/components/schemas/State.History"
         getDuration:
           type: string
-          nullable: true
           readOnly: true
         getStartDate:
           type: string
@@ -20696,7 +20743,6 @@ components:
         getEndDate:
           type: string
           format: date-time
-          nullable: true
           readOnly: true
     State.History:
       required:
@@ -20730,6 +20776,14 @@ components:
         - BREAKPOINT
         - RESUBMITTED
     SupportDebugInfo:
+      required:
+        - authType
+        - deploymentType
+        - kestraVersion
+        - queueType
+        - repositoryType
+        - secretType
+        - storageType
       type: object
       properties:
         kestraVersion:
@@ -21593,12 +21647,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
-    WorkerTaskRestartStrategy:
-      type: string
-      enum:
-        - NEVER
-        - IMMEDIATELY
-        - AFTER_TERMINATION_GRACE_PERIOD
   securitySchemes:
     basicAuth:
       type: http
