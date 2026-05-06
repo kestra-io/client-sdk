@@ -453,6 +453,18 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
 
 let axiosInstance: AxiosInstance | null = null;
 
+/**
+ * Set a mock instance of axios controlled in tests
+ * @param mockClient
+ */
+export function setMockClient(mockClient: any) {
+    axiosInstance = mockClient;
+}
+
+/**
+ * Get the current Axios client instance
+ * @returns AxiosInstance
+ */
 export function useClient(): AxiosInstance {
     return new Proxy({} as AxiosInstance, {
         get(_target, prop) {
