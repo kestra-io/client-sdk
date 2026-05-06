@@ -754,9 +754,10 @@ describe("ExecutionsApi", () => {
             { executionId: e.id },
         );
 
-        // this execution should always be in the restarted state after being restated
-        const e2 = await awaitExecution(resp.id, "RESTARTED", 2000, 100);
-        expect(e2.state?.current).toBe("RESTARTED");
+        // RESTARTED is a transient state — the executor immediately resumes the
+        // execution, so by the time the API responds we may already be past it.
+        // Assert RESTARTED appears in the state history instead.
+        expect(resp.state?.histories?.map((h) => h.state)).toContain("RESTARTED");
     });
 
     // --- restart by ids ---
