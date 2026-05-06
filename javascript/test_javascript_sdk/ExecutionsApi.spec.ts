@@ -163,11 +163,7 @@ async function createdExecution(flowTemplate: (id: string, ns: string) => string
 }
 
 async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: string }) {
-    const outputs = await kestraClient.Outputs.taskRunOutputs(opt, {
-        // FIXME: remove once the spec is fixed.
-        // the api should know when security is required
-        security: [{ scheme: "basic", type: "http" }],
-    });
+    const outputs = await kestraClient.Outputs.taskRunOutputs(opt);
     return outputs?.uri as any as string;
 }
 
