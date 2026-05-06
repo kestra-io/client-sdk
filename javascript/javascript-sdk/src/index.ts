@@ -351,7 +351,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
             if (config.responseType === "blob") {
                 config.headers["Accept"] = "application/octet-stream"
             } else if (config.responseType === "text") {
-                config.headers["Accept"] = "text/plain"
+                config.headers["Accept"] = "text/plain, text/json, application/json"
             }
         }
         return config
