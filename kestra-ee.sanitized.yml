@@ -12348,6 +12348,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OutputController.TaskOutputInformation"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/outputs/{executionId}/{taskRunId}:
     get:
       tags:
@@ -12381,6 +12384,9 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/roles:
     post:
       tags:
@@ -17075,7 +17081,7 @@ components:
             pluginDefaults:
               type: array
               items:
-                $ref: "#/components/schemas/PluginDefault"
+                $ref: "#/components/schemas/FlowPluginDefault"
             concurrency:
               $ref: "#/components/schemas/Concurrency"
             outputs:
@@ -17313,6 +17319,16 @@ components:
           type: string
         id:
           type: string
+    FlowPluginDefault:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+        values:
+          type: object
+          additionalProperties: false
     FlowRelation:
       type: string
       enum:

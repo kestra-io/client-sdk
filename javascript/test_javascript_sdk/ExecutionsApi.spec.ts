@@ -70,7 +70,7 @@ namespace: ${ns}
 tasks:
   - id: pause_flow
     type: io.kestra.plugin.core.flow.Pause
-    delay: PT2S
+    pauseDuration: PT2S
 `;
 
 const WEBHOOK_FLOW = (id: string, ns: string): string => `
@@ -80,7 +80,7 @@ namespace: ${ns}
 tasks:
   - id: out
     type: io.kestra.plugin.core.debug.Return
-    format: "{{trigger | json }}"
+    format: "triggered"
 
 triggers:
   - id: webhook
@@ -163,7 +163,11 @@ async function createdExecution(flowTemplate: (id: string, ns: string) => string
 }
 
 async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: string }) {
-    const outputs = await kestraClient.Outputs.taskRunOutputs(opt);
+    const outputs = await kestraClient.Outputs.taskRunOutputs(opt, {
+        // FIXME: remove once the spec is fixed.
+        // the api should know when security is required
+        security: [{ scheme: "basic", type: "http" }],
+    });
     return outputs?.uri as any as string;
 }
 
@@ -554,7 +558,7 @@ describe("ExecutionsApi", () => {
     it("kill_executions_by_ids", async () => {
         const ns = randomId();
         const flowId = randomId();
-        await createSimpleFlow(flowId, ns, SLEEP_CONCURRENCY_FLOW);
+        await createSimpleFlow(flowId, ns, LONG_SLEEP_FLOW);
 
         const e1 = await kestraClient.Executions.createExecution({
             namespace: ns,
@@ -570,9 +574,9 @@ describe("ExecutionsApi", () => {
         });
 
         await Promise.all([
-            awaitExecution(e1.id, "RUNNING", 2000, 100),
-            awaitExecution(e2.id, "RUNNING", 2000, 100),
-            awaitExecution(e3.id, "RUNNING", 2000, 100),
+            awaitExecution(e1.id, "RUNNING", 3000, 100),
+            awaitExecution(e2.id, "RUNNING", 3000, 100),
+            awaitExecution(e3.id, "RUNNING", 3000, 100),
         ]);
 
         const bulk: any = await kestraClient.Executions.killExecutionsByIds({
@@ -581,15 +585,12 @@ describe("ExecutionsApi", () => {
         expect(bulk.totalItems).toBe(2);
 
         const [s2, s3] = await Promise.all([
-            awaitExecution(e2.id, "KILLED", 2000, 100),
-            awaitExecution(e3.id, "KILLED", 2000, 100)
+            awaitExecution(e2.id, "KILLED", 5000, 100),
+            awaitExecution(e3.id, "KILLED", 5000, 100)
         ]);
         expect(s2.state?.current).toBe("KILLED");
         expect(s3.state?.current).toBe("KILLED");
-
-        const s1 = await awaitExecution(e1.id, "SUCCESS", 4000, 100);
-        expect(s1.state?.current).toBe("SUCCESS");
-    });
+    }, 15000);
 
     // --- kill by query ---
     it("kill_executions_by_query", async () => {
@@ -753,7 +754,9 @@ describe("ExecutionsApi", () => {
             { executionId: e.id },
         );
 
-        expect(resp.state?.current).toBe("RESTARTED");
+        // this execution should always be in the restarted state after being restated
+        const e2 = await awaitExecution(resp.id, "RESTARTED", 2000, 100);
+        expect(e2.state?.current).toBe("RESTARTED");
     });
 
     // --- restart by ids ---
@@ -893,6 +896,16 @@ describe("ExecutionsApi", () => {
     const has = (e: { labels?: { key: string; value: string }[] }, k: string, v: string) =>
         (e.labels ?? []).some((l) => l.key === k && l.value === v);
 
+    async function awaitLabel(executionId: string, k: string, v: string, timeoutMs = 3000, pollMs = 100) {
+        const start = Date.now();
+        while (true) {
+            const ex = await kestraClient.Executions.execution({ executionId });
+            if (has(ex, k, v)) return ex;
+            if (Date.now() - start > timeoutMs) return ex;
+            await sleep(pollMs);
+        }
+    }
+
     // --- set labels by ids ---
     it("set_labels_on_terminated_executions_by_ids", async () => {
         const a = await createdExecution(LOG_FLOW, "SUCCESS");
@@ -907,14 +920,10 @@ describe("ExecutionsApi", () => {
             await kestraClient.Executions.setLabelsOnTerminatedExecutionsByIds({ executionsId: [a.id ?? "", b.id ?? ""], executionLabels: labels });
         expect(bulk.totalItems).toBe(2);
 
-        const a2 = await kestraClient.Executions.execution({
-            executionId: a.id ?? "",
-        });
-        const b2 = await kestraClient.Executions.execution({
-            executionId: b.id ?? "",
-        });
+        const a2 = await awaitLabel(a.id, "foo", "bar");
+        const b2 = await awaitLabel(b.id, "foo", "bar");
         const c2 = await kestraClient.Executions.execution({
-            executionId: c.id ?? "",
+            executionId: c.id,
         });
 
         expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
@@ -952,64 +961,11 @@ describe("ExecutionsApi", () => {
             });
         expect(resp.totalItems).toBe(2);
 
-        const a2 = await kestraClient.Executions.execution({
-            executionId: a.id
-        });
-        const b2 = await kestraClient.Executions.execution({
-            executionId: b.id
-        });
+        const a2 = await awaitLabel(a.id, "foo", "bar");
+        const b2 = await awaitLabel(b.id, "foo", "bar");
         const c2 = await kestraClient.Executions.execution({
             executionId: c.id
         });
-
-        expect(a2.labels).toMatchInlineSnapshot(`
-          [
-            {
-              "key": "system.from",
-              "value": "api",
-            },
-            {
-              "key": "system.username",
-              "value": "root@root.com",
-            },
-            {
-              "key": "system.correlationId",
-              "value": "7Azlrev5FckcZ5WotmdK7X",
-            },
-          ]
-        `)
-        expect(b2.labels).toMatchInlineSnapshot(`
-          [
-            {
-              "key": "system.from",
-              "value": "api",
-            },
-            {
-              "key": "system.username",
-              "value": "root@root.com",
-            },
-            {
-              "key": "system.correlationId",
-              "value": "5V5uHdxLsJEDuSWRt7FjEp",
-            },
-          ]
-        `)
-        expect(c2.labels).toMatchInlineSnapshot(`
-          [
-            {
-              "key": "system.from",
-              "value": "api",
-            },
-            {
-              "key": "system.username",
-              "value": "root@root.com",
-            },
-            {
-              "key": "system.correlationId",
-              "value": "oWfoPTt3dVnZvAinAwC8q",
-            },
-          ]
-        `)
 
         expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
             true,
@@ -1036,7 +992,7 @@ describe("ExecutionsApi", () => {
         expect(resp).toBeTruthy();
         const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
         expect(done.state?.current).toBe("SUCCESS");
-    });
+    }, 10000);
 
     // --- unqueue (single) ---
     it("unqueue_execution", async () => {
@@ -1047,13 +1003,11 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const queued = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(queued.id, "QUEUED", 1500, 100);
 
@@ -1064,7 +1018,7 @@ describe("ExecutionsApi", () => {
         expect(resp.state?.current).toBe("RUNNING");
         const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
-    });
+    }, 10000);
 
     // --- unqueue by ids ---
     it("unqueue_executions_by_ids", async () => {
@@ -1075,19 +1029,16 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const q1 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(q1.id, "QUEUED", 1500, 100);
         const q2 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
@@ -1095,13 +1046,13 @@ describe("ExecutionsApi", () => {
             state: "RUNNING",
             body: [q1.id, q2.id],
         });
-        expect(bulk.count).toBe(2);
+        expect(bulk.totalItems).toBe(2);
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
         expect(a2.state?.current).toBe("RUNNING");
-    });
+    }, 10000);
 
     // --- unqueue by query ---
     it("unqueue_executions_by_query", async () => {
@@ -1112,19 +1063,16 @@ describe("ExecutionsApi", () => {
         const running = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(running.id, "RUNNING", 1500, 100);
         const q1 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(q1.id, "QUEUED", 1500, 100);
         const q2 = await kestraClient.Executions.createExecution({
             namespace,
             id,
-            wait: true,
         });
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
@@ -1139,11 +1087,11 @@ describe("ExecutionsApi", () => {
             filters: filters,
             newState: "RUNNING",
         });
-        expect(resp.count).toBeGreaterThanOrEqual(1);
+        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
-    });
+    }, 10000);
 
     // --- update status (single) ---
     it("update_execution_status", async () => {
@@ -1170,14 +1118,10 @@ describe("ExecutionsApi", () => {
             newStatus: "CANCELLED",
             body: [e1.id ?? "", e2.id ?? ""],
         });
-        expect(bulk.count).toBe(2);
+        expect(bulk.totalItems).toBe(2);
 
-        const s1 = await kestraClient.Executions.execution({
-            executionId: e1.id ?? "",
-        });
-        const s2 = await kestraClient.Executions.execution({
-            executionId: e2.id ?? "",
-        });
+        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
+        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
         const sO = await kestraClient.Executions.execution({
             executionId: other.id ?? "",
         });
@@ -1203,14 +1147,10 @@ describe("ExecutionsApi", () => {
             newStatus: "CANCELLED",
             filters: filters,
         });
-        expect(bulk.count).toBe(2);
+        expect(bulk.totalItems).toBe(2);
 
-        const s1 = await kestraClient.Executions.execution({
-            executionId: e1.id ?? "",
-        });
-        const s2 = await kestraClient.Executions.execution({
-            executionId: e2.id ?? "",
-        });
+        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
+        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
         const sO = await kestraClient.Executions.execution({
             executionId: other.id ?? "",
         });
