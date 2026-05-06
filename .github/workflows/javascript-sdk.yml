@@ -60,7 +60,7 @@ jobs:
         # Generate SDK with develop version to check
         # for any difference with current code
         working-directory: .
-        run: ./generate-sdks.sh 0.0.0-dev javascript
+        run: ./generate-sdks.sh javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |

@@ -9,7 +9,7 @@ TEMPLATE_FLAG="${3:-}"
 # language and version have been inversed, so we need to swap them
 if [[ "$LANGUAGES" =~ ^v?[0-9]+(\.[0-9]+)*$ ]]; then
   VERSION="$LANGUAGES"
-  LANGUAGES="$VERSION"
+  LANGUAGES="${2:-}"
   echo "Language and version have been inversed, swapping them. Language: $LANGUAGES, Version: $VERSION"
 fi
 
