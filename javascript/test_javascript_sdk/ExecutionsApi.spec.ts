@@ -164,7 +164,7 @@ async function createdExecution(flowTemplate: (id: string, ns: string) => string
 
 async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: string }) {
     const outputs = await kestraClient.Outputs.taskRunOutputs(opt);
-    return outputs?.uri as any as string;
+    return outputs?.uri as string;
 }
 
 // filters
@@ -428,7 +428,7 @@ describe("ExecutionsApi", () => {
                 value: flowId,
             }),
         ];
-        const resp: any = await kestraClient.Executions.forceRunExecutionsByQuery({
+        const resp = await kestraClient.Executions.forceRunExecutionsByQuery({
             filters: filters,
         });
 
@@ -1174,6 +1174,34 @@ tasks:
     message: Good Bye! 👋
 `;
 
-    it.skip("follow_execution (SSE/WebSocket required)", async () => { });
+    it("follow_execution (SSE/WebSocket required)", async () => {
+        const e = await createFlowWithExecutionFromYaml(LONG_FLOW(randomId(), randomId()), false);
+        const { stream } = await kestraClient.Executions.followExecution({
+            executionId: e.id
+        })
+        const result = await (async () => {
+            const successfulTaskIds: Set<string> = new Set();
+            for await (const evt of stream) {
+                if (evt) {
+                    const successfulTaskRuns = evt.taskRunList?.filter((t) => t.state?.current === "SUCCESS");
+                    if (successfulTaskRuns?.length) {
+                        for (const t of successfulTaskRuns) {
+                            successfulTaskIds.add(t.taskId);
+                        }
+                    }
+                }
+            }
+            return successfulTaskIds;
+        })();
+
+        expect(result).toMatchInlineSnapshot(`
+          Set {
+            "long-sleep",
+            "message",
+            "long-sleep-again",
+            "final-message",
+          }
+        `);
+    });
     it.skip("follow_dependencies_execution (SSE/WebSocket required)", async () => { });
 });
