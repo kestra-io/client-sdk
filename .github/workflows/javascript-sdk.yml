@@ -224,8 +224,8 @@ jobs:
 
       - name: Generate SDK with develop version
         working-directory: .
-        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
-          javascript
+        run: |
+          ./generate-sdks.sh javascript ${{ steps.resolveVersion.outputs.kestra_version }}
 
       - name: Check if version already published
         id: check
