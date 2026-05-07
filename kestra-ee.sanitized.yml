@@ -3597,7 +3597,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_AppResponse_"
+                $ref: "#/components/schemas/AppResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7393,7 +7393,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_Execution_"
+                $ref: "#/components/schemas/Execution"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7438,7 +7438,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_ExecutionStatusEvent_"
+                $ref: "#/components/schemas/ExecutionStatusEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
