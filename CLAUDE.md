@@ -5,6 +5,7 @@
 ### After modifying the JavaScript SDK source, always run:
 
 ```bash
+git merge main                    # sync with main first
 ./generate-sdks.sh javascript
 ```
 
