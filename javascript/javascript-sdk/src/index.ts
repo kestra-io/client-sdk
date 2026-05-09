@@ -336,15 +336,17 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         ...clientConfig,
     })
 
-    // Restore Content-Type for body-bearing POST/PUT/PATCH and set Accept for non-JSON responses.
-    // Only set application/json when there IS a body — bodyless requests must not get it,
-    // as some Kestra endpoints reject bodyless POSTs that carry Content-Type: application/json.
+    // Restore Content-Type for POST/PUT/PATCH and set Accept for non-JSON responses.
+    // The fetch client deletes Content-Type for body-less requests (opts.body === undefined),
+    // but Kestra requires Content-Type: application/json on all POST/PUT/PATCH, even without a body.
+    // FormData bodies are safe: the Request constructor sets multipart/form-data automatically,
+    // so headers.has("content-type") is true for those and we won't override it.
     client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
         const headers = new Headers(request.headers)
         let modified = false
 
         const method = request.method.toLowerCase()
-        if (["post", "put", "patch"].includes(method) && !headers.has("content-type") && request.body !== null) {
+        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
             headers.set("content-type", "application/json")
             modified = true
         }
