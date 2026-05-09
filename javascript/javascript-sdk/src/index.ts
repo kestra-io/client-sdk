@@ -385,9 +385,13 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
             response.statusText ||
             "Request failed"
 
-        const hasStatusPrefix = rawMessage.startsWith(`${status} `) || rawMessage.startsWith(`${status}:`)
+        const hasStatusPrefix =
+            rawMessage === String(status) ||
+            rawMessage.startsWith(`${status} `) ||
+            rawMessage.startsWith(`${status}:`)
         const message = hasStatusPrefix ? rawMessage : `${status} ${rawMessage}`
         const normalizedError = error instanceof Error ? error : new Error(message)
+        normalizedError.message = message
 
         if (asObject) {
             Object.assign(normalizedError as Error & Record<string, unknown>, asObject)
