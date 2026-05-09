@@ -98,34 +98,10 @@ export const configureAxios = (
         ...clientConfig,
     })
 
-    // Progress + header fixups on every outgoing request
-    client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
+    // Track outgoing requests for NProgress
+    client.interceptors.request.use((request: Request): Request => {
         initProgress()
-
-        const headers = new Headers(request.headers)
-        let modified = false
-
-        // Restore Content-Type for body-less POST/PUT/PATCH — the fetch client strips it
-        // for empty bodies, but Kestra requires application/json on these methods.
-        const method = request.method.toLowerCase()
-        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
-            headers.set("content-type", "application/json")
-            modified = true
-        }
-
-        // Set an explicit Accept header for non-JSON responses so Kestra content
-        // negotiation does not fall back to a JSON handler and return 404.
-        if (!headers.has("accept")) {
-            if (opts.parseAs === "blob") {
-                headers.set("accept", "application/octet-stream")
-                modified = true
-            } else if (opts.parseAs === "text") {
-                headers.set("accept", "text/plain, text/json, application/json")
-                modified = true
-            }
-        }
-
-        return modified ? new Request(request, { headers }) : request
+        return request
     })
 
     // NProgress: count completed responses (non-error path)
@@ -349,6 +325,31 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
             return queryParameters.toString()
         },
         ...clientConfig,
+    })
+
+    // Restore Content-Type for body-less POST/PUT/PATCH and set Accept for non-JSON responses.
+    // This runs for all callers (configureAxios and direct configureClient usage in tests).
+    client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
+        const headers = new Headers(request.headers)
+        let modified = false
+
+        const method = request.method.toLowerCase()
+        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
+            headers.set("content-type", "application/json")
+            modified = true
+        }
+
+        if (!headers.has("accept")) {
+            if (opts.parseAs === "blob") {
+                headers.set("accept", "application/octet-stream")
+                modified = true
+            } else if (opts.parseAs === "text") {
+                headers.set("accept", "text/plain, text/json, application/json")
+                modified = true
+            }
+        }
+
+        return modified ? new Request(request, { headers }) : request
     })
 
     fetchClient = client
