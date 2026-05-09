@@ -248,6 +248,9 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         // bodies (YAML, text/plain). Override to pass strings through as-is.
         bodySerializer: (body: unknown): unknown => {
             if (typeof body === "string") return body
+            // buildClientParams initialises params.body as {} even for no-body operations.
+            // Return '' so the client treats it as an absent body (no Content-Type, no body sent).
+            if (body !== null && typeof body === "object" && !Array.isArray(body) && Object.keys(body as Record<string, unknown>).length === 0) return ""
             return JSON.stringify(body, (_key, value) => (typeof value === "bigint" ? value.toString() : value))
         },
         querySerializer(query) {

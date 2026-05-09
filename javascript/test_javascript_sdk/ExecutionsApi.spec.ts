@@ -337,9 +337,9 @@ describe("ExecutionsApi", () => {
                 executionId: e.id ?? "",
                 path: uri,
             });
-        // depending on generator, this might be a Buffer/string/file path.
-        const txt = file?.text ?? file;
-        expect(String(txt)).toContain("Hello from file");
+        // The fetch client returns the file as a Blob (auto-detected from Content-Type).
+        const content = file instanceof Blob ? await file.text() : String(file ?? "");
+        expect(content).toContain("Hello from file");
     });
 
     // --- force run by ids ---
