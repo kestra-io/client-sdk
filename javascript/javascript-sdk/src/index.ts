@@ -244,6 +244,12 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
     client.interceptors.error.clear()
 
     client.setConfig({
+        // The default jsonBodySerializer JSON-stringifies everything, including plain string
+        // bodies (YAML, text/plain). Override to pass strings through as-is.
+        bodySerializer: (body: unknown): unknown => {
+            if (typeof body === "string") return body
+            return JSON.stringify(body, (_key, value) => (typeof value === "bigint" ? value.toString() : value))
+        },
         querySerializer(query) {
             const queryParameters = new URLSearchParams()
             for (const key in query) {
