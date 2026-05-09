@@ -388,9 +388,6 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         const hasStatusPrefix = rawMessage.startsWith(`${status} `) || rawMessage.startsWith(`${status}:`)
         const message = hasStatusPrefix ? rawMessage : `${status} ${rawMessage}`
         const normalizedError = error instanceof Error ? error : new Error(message)
-        if (!(error instanceof Error)) {
-            normalizedError.message = message
-        }
 
         if (asObject) {
             Object.assign(normalizedError as Error & Record<string, unknown>, asObject)
@@ -398,7 +395,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
 
         const normalizedWithStatus = normalizedError as Error & { status: number }
         normalizedWithStatus.status = status
-        return normalizedError
+        return normalizedWithStatus
     })
 
     fetchClient = client
