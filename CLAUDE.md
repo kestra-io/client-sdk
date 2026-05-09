@@ -17,3 +17,18 @@ This script:
 Forgetting this step will leave `package-lock.json` out of sync, causing CI failures.
 
 The `dist/` and `src/openapi/` directories are in `.gitignore` (they are regenerated at build time), but `package-lock.json` IS tracked and must be committed when dependencies change.
+
+### To run the integration tests:
+
+```bash
+cd javascript
+./run-tests.sh [kestra-version]   # default version: develop
+```
+
+This script:
+1. Runs `npm ci` and `npm run build` to build the SDK (skip with `--no-build`)
+2. Spins up a Kestra instance via `docker compose -f docker-compose-ci.yml up`
+3. Runs `npm run test --workspace test_javascript_sdk -- --coverage`
+4. Tears down the Kestra container
+
+Run the tests after any SDK change to catch regressions.
