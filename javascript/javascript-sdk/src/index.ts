@@ -385,7 +385,8 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
             response.statusText ||
             "Request failed"
 
-        const message = rawMessage.includes(String(status)) ? rawMessage : `${status} ${rawMessage}`
+        const hasStatusPrefix = new RegExp(`^${status}(\\s|:)`).test(rawMessage)
+        const message = hasStatusPrefix ? rawMessage : `${status} ${rawMessage}`
         const normalizedError = error instanceof Error ? error : new Error(message)
         normalizedError.message = message
 
@@ -393,7 +394,8 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
             Object.assign(normalizedError as Error & Record<string, unknown>, asObject)
         }
 
-        ;(normalizedError as Error & { status: number }).status = status
+        const normalizedWithStatus = normalizedError as Error & { status: number }
+        normalizedWithStatus.status = status
         return normalizedError
     })
 
