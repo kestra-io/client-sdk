@@ -1,8 +1,6 @@
-import axios from "axios"
-import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosProgressEvent, AxiosInstance } from "axios"
 import NProgress from "nprogress"
 import { client } from "./openapi/client.gen"
-import type { ClientOptions, Config } from "./openapi/client"
+import type { Client, ClientOptions, Config, ResolvedRequestOptions } from "./openapi/client"
 
 export * from "./openapi/index"
 
@@ -49,32 +47,21 @@ const increaseProgress = () => {
     }, latencyThreshold + 50)
 }
 
-const isEmptyBody = (data: unknown): boolean => {
-    if (data == null) return true
-    if (data instanceof FormData) return [...data.keys()].length === 0
-    if (typeof data === "object") return Object.keys(data as object).length === 0
-    return false
-}
-
-const responseInterceptor = (response: AxiosResponse): AxiosResponse => {
-    increaseProgress()
-    return response
-}
-
-const errorResponseInterceptor = (error: AxiosError): Promise<AxiosError> => {
-    increaseProgress()
-    return Promise.reject(error)
-}
-
-const progressInterceptor = (progressEvent: AxiosProgressEvent) => {
-    if (progressEvent?.loaded && progressEvent?.total && typeof document !== "undefined") {
-        NProgress.inc(Math.floor(progressEvent.loaded * 1.0) / progressEvent.total)
+function canBeJsonified(str: any): boolean {
+    if (typeof str !== "string" && typeof str !== "object") return false
+    try {
+        const type = str.toString()
+        return type === "[object Object]" || type === "[object Array]"
+    } catch (err) {
+        return false
     }
 }
 
-interface QueueItem {
-    config: AxiosRequestConfig
-    resolve: (value: AxiosResponse | Promise<AxiosResponse>) => void
+function serializeQueryValue(val: unknown) {
+    if (canBeJsonified(val)) {
+        return JSON.stringify(val)
+    }
+    return val?.toString()
 }
 
 export const configureAxios = (
@@ -102,268 +89,190 @@ export const configureAxios = (
         isImpersonating?: () => boolean
         onAuthTimeout?: () => void
     } = {}
-): AxiosInstance => {
+): Client => {
     const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
 
-    const instance = configureClient(clientConfig, {
-        timeout: 15000,
+    configureClient({
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-        onDownloadProgress: progressInterceptor,
-        onUploadProgress: progressInterceptor
+        ...clientConfig,
     })
 
-    instance.interceptors.request.use((config) => {
+    // Progress + header fixups on every outgoing request
+    client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
         initProgress()
-        // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
-        // the Content-Type header. Replace that empty sentinel with a real empty
-        // FormData so the server receives a well-formed empty multipart body.
-        if (String(config.headers?.["Content-Type"]).startsWith("multipart/form-data") && isEmptyBody(config.data)) {
-            config.data = new FormData()
+
+        const headers = new Headers(request.headers)
+        let modified = false
+
+        // Restore Content-Type for body-less POST/PUT/PATCH — the fetch client strips it
+        // for empty bodies, but Kestra requires application/json on these methods.
+        const method = request.method.toLowerCase()
+        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
+            headers.set("content-type", "application/json")
+            modified = true
         }
-        return config
+
+        // Set an explicit Accept header for non-JSON responses so Kestra content
+        // negotiation does not fall back to a JSON handler and return 404.
+        if (!headers.has("accept")) {
+            if (opts.parseAs === "blob") {
+                headers.set("accept", "application/octet-stream")
+                modified = true
+            } else if (opts.parseAs === "text") {
+                headers.set("accept", "text/plain, text/json, application/json")
+                modified = true
+            }
+        }
+
+        return modified ? new Request(request, { headers }) : request
     })
 
-    instance.interceptors.response.use(responseInterceptor, errorResponseInterceptor)
+    // NProgress: count completed responses (non-error path)
+    client.interceptors.response.use((response: Response): Response => {
+        increaseProgress()
+        return response
+    })
 
-    let toRefreshQueue: QueueItem[] = []
-    let refreshing = false
+    // NProgress: count completed responses (error path) + error messages
+    client.interceptors.error.use((error: unknown, response: Response | undefined): unknown => {
+        // Response interceptors didn't fire for network errors (no response object)
+        if (!response) {
+            increaseProgress()
+            return error
+        }
 
-    instance.interceptors.response.use(
-        (response) => response,
-        async (errorResponse: AxiosError & QueueItem & { config: { showMessageOnError: boolean } }) => {
+        if (response.status === 404 && coreStore) {
+            coreStore.error = response.status
+            return error
+        }
 
-            if (errorResponse?.code === "ERR_BAD_RESPONSE" && !errorResponse?.response?.data) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse,
-                    }
-                }
-                return Promise.reject(errorResponse)
+        if (response.status === 400) {
+            return error
+        }
+
+        if (error && coreStore) {
+            coreStore.message = {
+                variant: "error",
+                response,
+                content: error,
             }
+        }
 
-            if (errorResponse.response === undefined) {
-                return Promise.reject(errorResponse)
-            }
+        return error
+    })
 
-            if (errorResponse.response.status === 404) {
-                if (coreStore) {
-                    coreStore.error = errorResponse.response.status
-                }
-                return Promise.reject(errorResponse)
-            }
+    // Token refresh: intercept 401 responses before the error path runs
+    let refreshPromise: Promise<void> | null = null
 
-            if (errorResponse.response.status === 401
-                && (oss || !authStore?.isLogged)) {
-                onAuthTimeout?.()
-                return Promise.reject(errorResponse)
-            }
+    client.interceptors.response.use(async (response: Response, request: Request, opts: ResolvedRequestOptions): Promise<Response> => {
+        if (response.status !== 401) {
+            return response
+        }
 
-            const impersonate = isImpersonating ? isImpersonating() : false
+        if (oss || !authStore?.isLogged) {
+            onAuthTimeout?.()
+            return response
+        }
 
-            // Authentication expired
-            if (errorResponse.response.status === 401 &&
-                authStore?.isLogged && !oss &&
-                !document.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
-                && !impersonate) {
+        const impersonate = isImpersonating ? isImpersonating() : false
+        const hasJwtCookie = document.cookie.split("; ").some(c => c.split("=")[0] === "JWT")
 
-                // Keep original request
-                const originalRequest = errorResponse.config
+        if (hasJwtCookie || impersonate) {
+            return response
+        }
 
-                if (!originalRequest) {
-                    return Promise.reject(errorResponse)
-                }
+        // Already retried once — don't loop
+        if (request.headers.get(REFRESHED_HEADER)) {
+            beforeLogout?.()
+            authStore?.logout().catch(() => { })
 
-                // Prevent refresh attempts on refresh token endpoint itself
-                if (originalRequest.url?.includes("/oauth/access_token")) {
-                    refreshing = false
-                    toRefreshQueue = []
+            const currentPath = window.location.pathname
+            const isLoginPath = currentPath.includes("/login")
+            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
 
-                    beforeLogout?.()
+            return response
+        }
 
-                    delete instance.defaults.headers.common["Authorization"]
-                    authStore?.logout().catch(() => { })
+        // Don't attempt to refresh when the refresh endpoint itself returns 401
+        if (request.url.includes("/oauth/access_token")) {
+            beforeLogout?.()
+            authStore?.logout().catch(() => { })
 
-                    const currentPath = window.location.pathname
-                    const isLoginPath = currentPath.includes("/login")
+            const currentPath = window.location.pathname
+            const isLoginPath = currentPath.includes("/login")
+            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
 
-                    router?.push({
-                        name: "login",
-                        query: (isLoginPath ? {} : { from: currentPath })
-                    })
+            return response
+        }
 
-                    return Promise.reject(errorResponse)
-                }
+        // Deduplicate concurrent refreshes: all 401s wait on the same promise
+        if (!refreshPromise) {
+            const baseUrl = ((opts.baseUrl as string | undefined) ?? "").replace(/\/$/, "")
+            refreshPromise = fetch(`${baseUrl}/oauth/access_token?grant_type=refresh_token`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                signal: AbortSignal.timeout(5000),
+            }).then((r) => {
+                if (!r.ok) throw new Error("Token refresh failed")
+            }).finally(() => {
+                refreshPromise = null
+            })
+        }
 
-                if (!refreshing) {
+        try {
+            await refreshPromise
+        } catch {
+            beforeLogout?.()
+            authStore?.logout().catch(() => { })
 
-                    // if we already tried refreshing the token,
-                    // the user simply does not have access to this feature
-                    if (originalRequest.headers[REFRESHED_HEADER] === "1") {
-                        return Promise.reject(errorResponse)
-                    }
+            const currentPath = window.location.pathname
+            const isLoginPath = currentPath.includes("/login")
+            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
 
-                    refreshing = true
+            return response
+        }
 
-                    try {
-                        await instance.post("/oauth/access_token?grant_type=refresh_token", null, {
-                            headers: { "Content-Type": "application/json" },
-                            timeout: 5000
-                        })
-
-                        // Process queued requests
-                        const queuePromises = toRefreshQueue.map(({ config, resolve }) =>
-                            instance.request(config).then(resolve).catch(error => {
-                                console.warn("Queued request failed after token refresh:", error)
-                                throw error
-                            })
-                        )
-
-                        await Promise.allSettled(queuePromises)
-                        toRefreshQueue = []
-                        refreshing = false
-
-                        // Retry original request
-                        originalRequest.headers[REFRESHED_HEADER] = "1"
-
-                        return instance(originalRequest)
-
-                    } catch (refreshError) {
-                        console.warn("Token refresh failed:", refreshError)
-
-                        refreshing = false
-                        toRefreshQueue = []
-
-                        beforeLogout?.()
-                        delete instance.defaults.headers.common["Authorization"]
-                        authStore?.logout().catch(() => { })
-
-                        const currentPath = window.location.pathname
-                        const isLoginPath = currentPath.includes("/login")
-
-                        router?.push({
-                            name: "login",
-                            query: (isLoginPath ? {} : { from: currentPath })
-                        })
-
-                        return Promise.reject(errorResponse)
-                    }
-                } else {
-                    // Add request to queue with a Promise that resolves when refresh is complete
-                    return new Promise((resolve, reject) => {
-                        toRefreshQueue.push({
-                            config: originalRequest,
-                            resolve: (response) => resolve(response)
-                        })
-
-                        // Set a timeout for queued requests
-                        setTimeout(() => {
-                            reject(new Error("Token refresh timeout"))
-                        }, 10000)
-                    })
-                }
-            }
-
-            if (errorResponse.response.status === 400) {
-                return Promise.reject(errorResponse.response.data)
-            }
-
-            if (errorResponse.response.data && errorResponse?.config?.showMessageOnError !== false) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse.response.data
-                    }
-                }
-                return Promise.reject(errorResponse)
-            }
-
-            return Promise.reject(errorResponse);
-        });
+        // Retry the original request, marking it so we don't loop
+        const retryHeaders = new Headers(request.headers)
+        retryHeaders.set(REFRESHED_HEADER, "1")
+        const _fetch = opts.fetch ?? globalThis.fetch
+        return _fetch(new Request(request, { headers: retryHeaders }))
+    })
 
     router?.beforeEach((_to, _from, next) => {
         if (pendingRoute) {
-            requestsTotal--;
+            requestsTotal--
         }
-        pendingRoute = true;
-        initProgress();
-
-        next();
-    });
+        pendingRoute = true
+        initProgress()
+        next()
+    })
 
     router?.afterEach(() => {
         if (pendingRoute) {
-            increaseProgress();
-            pendingRoute = false;
+            increaseProgress()
+            pendingRoute = false
         }
     })
 
-    axiosInstance = instance
+    fetchClient = client
 
-    return instance;
-};
-
-function canBeJsonified(str: any): boolean {
-    if (typeof str !== "string" && typeof str !== "object") return false;
-    try {
-        const type = str.toString();
-        return type === "[object Object]" || type === "[object Array]";
-    } catch (err) {
-        return false;
-    }
+    return client
 }
 
-function serializeQueryValue(val: unknown) {
-    if (canBeJsonified(val)) {
-        return JSON.stringify(val);
-    }
-    return val?.toString();
-}
-
-export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
-    const instance = axios.create(axiosConfig)
-
-    instance.interceptors.request.use((config) => {
-        // Axios omits Content-Type for body-less requests, which causes servers that
-        // expect application/json (e.g. Kestra) to reject them with 401/415.
-        // Force application/json for POST/PUT/PATCH when the body is strictly absent.
-        const method = config.method?.toLowerCase()
-        if (method === "post" || method === "put" || method === "patch") {
-            if (config.data == null) {
-                config.headers["Content-Type"] = "application/json"
-            }
-        }
-
-        // hey-api sets responseType:'blob'/'text' so Axios decodes the response body
-        // correctly, but does NOT set the Accept request header. Without an explicit
-        // Accept header, Kestra performs content negotiation and may return 404 when
-        // it finds no handler matching the client's implicit "Accept: application/json".
-        // Note: Axios injects a default "application/json, text/plain, */*" Accept header,
-        // so we must override whenever responseType indicates a non-JSON response — not
-        // only when the header is absent.
-        const axiosDefaultAccept = "application/json, text/plain, */*"
-        const currentAccept = config.headers["Accept"]
-        const hasCustomAccept = currentAccept && currentAccept !== axiosDefaultAccept
-        if (!hasCustomAccept) {
-            if (config.responseType === "blob") {
-                config.headers["Accept"] = "application/octet-stream"
-            } else if (config.responseType === "text") {
-                config.headers["Accept"] = "text/plain, text/json, application/json"
-            }
-        }
-        return config
-    })
+export function configureClient(clientConfig: Config<ClientOptions> = {}): Client {
+    client.interceptors.request.clear()
+    client.interceptors.response.clear()
+    client.interceptors.error.clear()
 
     client.setConfig({
-        axios: instance,
         querySerializer(query) {
-            const queryParameters = new URLSearchParams();
+            const queryParameters = new URLSearchParams()
             for (const key in query) {
-                const param = query[key];
-                if (query[key] === undefined) {
+                const param = query[key]
+                if (param === undefined) {
                     continue
                 }
                 const looksLikeQueryFilterArray =
@@ -373,18 +282,18 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                     param[0] != null &&
                     "field" in param[0] &&
                     "operation" in param[0] &&
-                    "value" in param[0];
+                    "value" in param[0]
 
                 if (looksLikeQueryFilterArray) {
                     const toCamel = (s: string) => {
                         const parts = String(s || "")
                             .trim()
-                            .split(/[^A-Za-z0-9]+/g) // split on any non-alphanumeric: _, -, spaces, etc.
-                            .filter(Boolean); // remove empties from multiple separators
+                            .split(/[^A-Za-z0-9]+/g)
+                            .filter(Boolean)
 
-                        if (parts.length === 0) return "";
+                        if (parts.length === 0) return ""
 
-                        const [first, ...rest] = parts;
+                        const [first, ...rest] = parts
                         return (
                             first.toLowerCase() +
                             rest
@@ -394,16 +303,16 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                                         p.slice(1).toLowerCase(),
                                 )
                                 .join("")
-                        );
-                    };
+                        )
+                    }
 
                     for (const qf of param) {
-                        const fieldStr = String(qf.field);
-                        const op = String(qf.operation);
+                        const fieldStr = String(qf.field)
+                        const op = String(qf.operation)
                         const keyField =
                             fieldStr.toLowerCase() === "query"
                                 ? "q"
-                                : toCamel(fieldStr);
+                                : toCamel(fieldStr)
 
                         if (
                             typeof qf.value === "object" &&
@@ -411,17 +320,15 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                             !Array.isArray(qf.value)
                         ) {
                             for (const [k, v] of Object.entries(qf.value)) {
-                                const ser = serializeQueryValue(v);
+                                const ser = serializeQueryValue(v)
                                 if (ser !== undefined) {
-                                    queryParameters.append(`filters[${keyField}][${op}][${k}]`, ser);
+                                    queryParameters.append(`filters[${keyField}][${op}][${k}]`, ser)
                                 }
                             }
                         } else {
-                            const ser = serializeQueryValue(
-                                qf.value,
-                            );
+                            const ser = serializeQueryValue(qf.value)
                             if (ser !== undefined) {
-                                queryParameters.append(`filters[${keyField}][${op}]`, ser);
+                                queryParameters.append(`filters[${keyField}][${op}]`, ser)
                             }
                         }
                     }
@@ -429,50 +336,46 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                     param.forEach((value: any) => {
                         const ser = serializeQueryValue(value)
                         if (ser !== undefined) {
-                            queryParameters.append(key, ser);
+                            queryParameters.append(key, ser)
                         }
-                    });
+                    })
                 } else {
                     const ser = serializeQueryValue(param)
                     if (ser !== undefined) {
-                        queryParameters.append(key, ser);
+                        queryParameters.append(key, ser)
                     }
                 }
             }
-            return queryParameters.toString();
+            return queryParameters.toString()
         },
         ...clientConfig,
     })
 
-    instance.defaults.paramsSerializer = {
-        indexes: null
-    };
+    fetchClient = client
 
-    return instance
+    return client
 }
 
-let axiosInstance: AxiosInstance | null = null;
+let fetchClient: Client | null = null
 
 /**
- * Set a mock instance of axios controlled in tests
- * @param mockClient
+ * Set a mock client instance controlled in tests
  */
 export function setMockClient(mockClient: any) {
-    axiosInstance = mockClient;
+    fetchClient = mockClient
 }
 
 /**
- * Get the current Axios client instance
- * @returns AxiosInstance
+ * Get the current fetch client instance
  */
-export function useClient(): AxiosInstance {
-    return new Proxy({} as AxiosInstance, {
+export function useClient(): Client {
+    return new Proxy({} as Client, {
         get(_target, prop) {
-            if (!axiosInstance) {
-                throw new Error("Axios instance not initialized. Please call configureAxios first.")
+            if (!fetchClient) {
+                throw new Error("Client not initialized. Please call configureAxios or configureClient first.")
             }
-            const value = (axiosInstance as any)[prop]
-            return typeof value === "function" ? value.bind(axiosInstance) : value
+            const value = (fetchClient as any)[prop]
+            return typeof value === "function" ? value.bind(fetchClient) : value
         }
     })
 }

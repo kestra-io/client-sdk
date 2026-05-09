@@ -9,7 +9,7 @@ const defaultConfig: KestraSdkPlugin["Config"] = {
             return operation.operationId
         }
     },
-    dependencies: ["@hey-api/typescript", "@hey-api/client-axios", "@hey-api/sdk"],
+    dependencies: ["@hey-api/typescript", "@hey-api/client-fetch", "@hey-api/sdk"],
     handler,
     name: "ks-sdk",
 };

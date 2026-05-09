@@ -234,15 +234,13 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             }
 
             if (isMultipart && !hasTenant && !bodySimplification) {
-                // Multipart but no tenant and no body simplification
-                // Re-export with body added to spread of parameters with value empty object
                 const functionNode = $.func()
                     .params(
                         $.param(paramId).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
+                        ...returnStatements(originalOperationSymbol.call($(paramId), $(optionsId)))
                     );
 
                 plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
@@ -297,9 +295,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             // Has tenant path param
             const isTenantOnlyRequiredParam = Object.values(pathParams).filter((p: any) => p.name !== "tenant" && p.required).length === 0;
 
-            const parametersArguments = isMultipart ? $.object()
-                .prop("body", $.array())
-                .spread($(paramId)) : $(paramId);
+            const parametersArguments = $(paramId);
 
             if (!bodySimplification) {
                 // Tenant but no body simplification — existing behavior
