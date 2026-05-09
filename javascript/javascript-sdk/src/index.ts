@@ -333,14 +333,15 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         ...clientConfig,
     })
 
-    // Restore Content-Type for body-less POST/PUT/PATCH and set Accept for non-JSON responses.
-    // This runs for all callers (configureAxios and direct configureClient usage in tests).
+    // Restore Content-Type for body-bearing POST/PUT/PATCH and set Accept for non-JSON responses.
+    // Only set application/json when there IS a body — bodyless requests must not get it,
+    // as some Kestra endpoints reject bodyless POSTs that carry Content-Type: application/json.
     client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
         const headers = new Headers(request.headers)
         let modified = false
 
         const method = request.method.toLowerCase()
-        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
+        if (["post", "put", "patch"].includes(method) && !headers.has("content-type") && request.body !== null) {
             headers.set("content-type", "application/json")
             modified = true
         }
@@ -356,6 +357,17 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         }
 
         return modified ? new Request(request, { headers }) : request
+    })
+
+    // Enrich thrown errors with the HTTP status so callers can check err?.status.
+    // The fetch client throws the parsed response body on error, which may not include
+    // the HTTP status code itself.
+    client.interceptors.error.use((error: unknown, response: Response | undefined): unknown => {
+        if (!response) return error
+        if (error !== null && typeof error === "object") {
+            return Object.assign(Object.create(Object.getPrototypeOf(error)), error, { status: response.status })
+        }
+        return { message: String(error), status: response.status }
     })
 
     fetchClient = client
