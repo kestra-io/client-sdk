@@ -96,7 +96,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType"
+              $ref: "#/components/schemas/Resource"
         - name: startDate
           in: query
           description: The start datetime
@@ -2971,16 +2971,13 @@ paths:
       responses:
         "200":
           description: validatePassword 200 response
-  /api/v1/{tenant}/acls/actions:
+  /api/v1/{tenant}/acls/templates:
     get:
       tags:
         - Misc
-      summary: Retrieve list of actions
-      description: >-
-        Actions are used to restrict possible operations for each permission. Each action must be one of the following:
-        CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g.
-        only allow a user to read a flow, but not update or delete it.
-      operationId: listActions
+      summary: Retrieve managed role templates
+      description: Returns the predefined permission templates for managed roles.
+      operationId: listTemplates
       parameters:
         - name: tenant
           in: path
@@ -2989,13 +2986,22 @@ paths:
             type: string
       responses:
         "200":
-          description: listActions 200 response
+          description: listTemplates 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Action"
+                type: object
+                properties:
+                  ADMIN:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  VIEWER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  EDITOR:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  LAUNCHER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  DEVELOPER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -4302,7 +4308,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType"
+              $ref: "#/components/schemas/Resource"
         - name: startDate
           in: query
           description: The start datetime
@@ -7874,11 +7880,10 @@ paths:
         - name: state
           in: query
           description: The new state of the execution
+          required: true
           explode: false
           schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/State.Type"
+            $ref: "#/components/schemas/State.Type"
         - name: tenant
           in: path
           required: true
@@ -9998,7 +10003,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ResourceType_1"
+                  $ref: "#/components/schemas/ResourceType"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -10027,7 +10032,7 @@ paths:
           content:
             application/scim+json:
               schema:
-                $ref: "#/components/schemas/ResourceType_1"
+                $ref: "#/components/schemas/ResourceType"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -13610,7 +13615,7 @@ paths:
       tags:
         - TestSuites
       summary: Run multiple TestSuites by query
-      description: Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE permission with the EXECUTE action.
       operationId: runTestSuitesByQuery
       parameters:
         - name: tenant
@@ -13854,7 +13859,7 @@ paths:
       tags:
         - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
+      description: Executes all test cases in the specified test. Requires TESTSUITE permission with the EXECUTE action.
       operationId: runTestSuite
       parameters:
         - name: namespace
@@ -15072,10 +15077,39 @@ components:
     Action:
       type: string
       enum:
-        - READ
+        - VIEW
+        - LIST
         - CREATE
         - UPDATE
         - DELETE
+        - EXECUTE
+        - RESTART
+        - KILL
+        - REPLAY
+        - PAUSE
+        - RESUME
+        - UNQUEUE
+        - FORCE_RUN
+        - FOLLOW
+        - CHANGE_LABELS
+        - ACCESS_LOGS
+        - ACCESS_OUTPUTS
+        - ACCESS_FILES
+        - EXPORT
+        - IMPORT
+        - DISABLE
+        - ENABLE
+        - VALIDATE
+        - UNLOCK
+        - BACKFILL
+        - MANAGE_FILES
+        - EXPORT_PLUGIN_DEFAULTS
+        - IMPORT_PLUGIN_DEFAULTS
+        - MANAGE_MEMBERS
+        - MANAGE_GROUP_MEMBERSHIP
+        - USE
+        - IMPERSONATE
+        - UNKNOWN
     AiController.AiProviderResponse:
       type: object
       properties:
@@ -15931,7 +15965,7 @@ components:
       type: object
       properties:
         resource:
-          $ref: "#/components/schemas/ResourceType"
+          $ref: "#/components/schemas/Resource"
         type:
           nullable: true
           allOf:
@@ -15945,10 +15979,10 @@ components:
         - type
       type: object
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/Resource"
         resourceType:
-          $ref: "#/components/schemas/ResourceType"
+          $ref: "#/components/schemas/Resource"
         type:
           type: string
         id:
@@ -17664,11 +17698,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -17678,37 +17734,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
@@ -17732,11 +17784,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -17746,37 +17820,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
@@ -17942,8 +18012,8 @@ components:
     IAMTenantAccessController.ApiUserPermission:
       type: object
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/Resource"
         actions:
           type: array
           items:
@@ -18631,6 +18701,11 @@ components:
         value:
           type: string
     Map_Object.Object_:
+      type: object
+      properties:
+        empty:
+          type: boolean
+    Map_Resource.List_Action__:
       type: object
       properties:
         empty:
@@ -19633,34 +19708,6 @@ components:
         defaultValue:
           type: string
           nullable: true
-    Permission:
-      type: string
-      enum:
-        - FLOW
-        - BLUEPRINT
-        - NAMESPACE
-        - EXECUTION
-        - USER
-        - GROUP
-        - ROLE
-        - BINDING
-        - AUDITLOG
-        - SECRET
-        - KVSTORE
-        - IMPERSONATE
-        - SETTING
-        - APP
-        - ASSET
-        - APPEXECUTION
-        - TEST
-        - DASHBOARD
-        - TENANT_ACCESS
-        - SERVICE_ACCOUNT
-        - INVITATION
-        - GROUP_MEMBERSHIP
-        - CREDENTIAL
-        - AI_COPILOT
-        - UNKNOWN
     Plugin:
       type: object
       properties:
@@ -20068,48 +20115,44 @@ components:
           $ref: "#/components/schemas/RelationType"
         value:
           type: string
-    ResourceType:
+    Resource:
       type: string
       enum:
-        - AUDITLOG
-        - APP
-        - ASSET
-        - APP_EXECUTION
-        - BLUEPRINT
-        - BINDING
-        - DASHBOARD
-        - EXECUTION
         - FLOW
-        - KILL_SWITCH
-        - KV_STORE
-        - GROUP
-        - INVITATION
-        - NAMESPACE
-        - NAMESPACE_FILE
-        - ROLE
-        - SECURITY_INTEGRATION
-        - SECRET
-        - SETTING
+        - EXECUTION
         - TRIGGER
-        - TENANT
-        - TENANT_ACCESS
-        - TESTSUITE
-        - TESTSUITE_RUN
-        - VERSIONED_PLUGIN
-        - USER
+        - NAMESPACE
+        - KVSTORE
+        - DASHBOARD
+        - SECRET
         - CREDENTIAL
+        - BLUEPRINT
+        - APP
+        - AUDITLOG
+        - SYSTEM_SETTINGS
+        - TENANT_SETTINGS
+        - TESTSUITE
+        - ASSET
+        - USER
+        - GROUP
+        - ROLE
+        - BINDING
+        - SERVICE_ACCOUNT
+        - INVITATION
+        - COPILOT
+        - APP_EXECUTION
+        - NAMESPACE_FILE
+        - TESTSUITE_RUN
+        - TENANT_ACCESS
+        - SECURITY_INTEGRATION
+        - MCP_SERVER
+        - KILL_SWITCH
+        - TENANT
+        - VERSIONED_PLUGIN
         - WORKER_GROUP
         - INSTANCE
         - UNKNOWN
-    ResourceType.SchemaExtensionConfiguration:
-      type: object
-      properties:
-        schemaUrn:
-          minLength: 1
-          type: string
-        required:
-          type: boolean
-    ResourceType_1:
+    ResourceType:
       type: object
       allOf:
         - $ref: "#/components/schemas/ScimResourceWithOptionalId"
@@ -20134,6 +20177,14 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
+    ResourceType.SchemaExtensionConfiguration:
+      type: object
+      properties:
+        schemaUrn:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
     RightSidebarConfiguration:
       type: object
       properties:
@@ -20162,11 +20213,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -20176,37 +20249,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
