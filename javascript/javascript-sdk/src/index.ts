@@ -1,5 +1,6 @@
 import NProgress from "nprogress"
 import { client } from "./openapi/client.gen"
+import { formDataBodySerializer } from "./openapi/client"
 import type { Client, ClientOptions, Config, ResolvedRequestOptions } from "./openapi/client"
 
 export * from "./openapi/index"
@@ -339,14 +340,17 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
     // Restore Content-Type for POST/PUT/PATCH and set Accept for non-JSON responses.
     // The fetch client deletes Content-Type for body-less requests (opts.body === undefined),
     // but Kestra requires Content-Type: application/json on all POST/PUT/PATCH, even without a body.
-    // FormData bodies are safe: the Request constructor sets multipart/form-data automatically,
-    // so headers.has("content-type") is true for those and we won't override it.
+    // Exception: endpoints that use formDataBodySerializer (e.g. createExecution, resumeExecution)
+    // set 'Content-Type: null' to let the browser supply the multipart boundary automatically.
+    // When no body is provided for those endpoints, we must not inject application/json —
+    // Kestra will reject the request with 401 if Content-Type doesn't match multipart/form-data.
     client.interceptors.request.use((request: Request, opts: ResolvedRequestOptions): Request => {
         const headers = new Headers(request.headers)
         let modified = false
 
         const method = request.method.toLowerCase()
-        if (["post", "put", "patch"].includes(method) && !headers.has("content-type")) {
+        const isFormDataEndpoint = opts.bodySerializer === formDataBodySerializer.bodySerializer
+        if (["post", "put", "patch"].includes(method) && !headers.has("content-type") && !isFormDataEndpoint) {
             headers.set("content-type", "application/json")
             modified = true
         }
