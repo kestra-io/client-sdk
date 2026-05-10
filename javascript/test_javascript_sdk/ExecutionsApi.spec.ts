@@ -137,7 +137,11 @@ async function awaitExecution(
                 executionId,
             });
         } catch (e) {
-            if (e instanceof Error && e.message.includes("404")) {
+            // The fetch client throws parsed response bodies (plain objects with .status),
+            // not Error instances, so check both forms.
+            const is404 = (e instanceof Error && e.message.includes("404")) ||
+                (e !== null && typeof e === "object" && (e as any).status === 404)
+            if (is404) {
                 if (process.env.DEBUG) {
                     console.log(`Execution ${executionId} not found, waiting...`);
                 }
