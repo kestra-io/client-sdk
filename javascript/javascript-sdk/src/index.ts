@@ -368,15 +368,38 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         return modified ? new Request(request, { headers }) : request
     })
 
-    // Enrich thrown errors with the HTTP status so callers can check err?.status.
-    // The fetch client throws the parsed response body on error, which may not include
-    // the HTTP status code itself.
+    // Enrich thrown errors with the HTTP status while preserving Error semantics.
+    // The fetch client throws parsed response data (often plain objects/strings),
+    // but many existing call sites and tests expect thrown values to be Error instances.
     client.interceptors.error.use((error: unknown, response: Response | undefined): unknown => {
         if (!response) return error
-        if (error !== null && typeof error === "object") {
-            return Object.assign(Object.create(Object.getPrototypeOf(error)), error, { status: response.status })
+
+        const status = response.status
+        const asObject = error !== null && typeof error === "object" ? error as Record<string, unknown> : undefined
+        const rawMessage =
+            (error instanceof Error && error.message) ||
+            (typeof error === "string" ? error : undefined) ||
+            (typeof asObject?.message === "string" ? asObject.message : undefined) ||
+            (typeof asObject?.detail === "string" ? asObject.detail : undefined) ||
+            (typeof asObject?.title === "string" ? asObject.title : undefined) ||
+            response.statusText ||
+            "Request failed"
+
+        const hasStatusPrefix =
+            rawMessage === String(status) ||
+            rawMessage.startsWith(`${status} `) ||
+            rawMessage.startsWith(`${status}:`)
+        const message = hasStatusPrefix ? rawMessage : `${status} ${rawMessage}`
+        const normalizedError = error instanceof Error ? error : new Error(message)
+        normalizedError.message = message
+
+        if (asObject) {
+            Object.assign(normalizedError as Error & Record<string, unknown>, asObject)
         }
-        return { message: String(error), status: response.status }
+
+        const normalizedWithStatus = normalizedError as Error & { status: number }
+        normalizedWithStatus.status = status
+        return normalizedWithStatus
     })
 
     fetchClient = client
