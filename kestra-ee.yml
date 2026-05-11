@@ -7948,7 +7948,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/change-status:
+  /api/v1/{tenant}/executions/{executionId}/actions/change-status:
     post:
       tags:
       - Executions
@@ -7985,7 +7985,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/eval:
+  /api/v1/{tenant}/executions/{executionId}/actions/eval:
     post:
       tags:
       - Executions
@@ -8020,7 +8020,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}:
+  /api/v1/{tenant}/executions/{executionId}/actions/eval/{taskRunId}:
     post:
       tags:
       - Executions
@@ -8058,6 +8058,507 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExecutionController.EvalResult"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/force-run:
+    post:
+      tags:
+      - Executions
+      summary: Force run an execution
+      operationId: forceRunExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be force-run
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/kill:
+    delete:
+      tags:
+      - Executions
+      summary: Kill an execution
+      operationId: killExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: isOnKillCascade
+        in: query
+        description: Specifies whether killing the execution also kill all subflow
+          executions.
+        explode: false
+        schema:
+          type: boolean
+          default: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            text/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is already finished
+        "404":
+          description: if the executions is not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/labels:
+    post:
+      tags:
+      - Executions
+      summary: Add or update labels of a terminated execution
+      operationId: setLabelsOnTerminatedExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The labels to add to the execution
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Label"
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "404":
+          description: If the execution cannot be found
+        "400":
+          description: If the execution is not terminated
+        "409":
+          description: If labels cannot be applied
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/pause:
+    post:
+      tags:
+      - Executions
+      summary: Pause a running execution.
+      operationId: pauseExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is not running
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/replay:
+    post:
+      tags:
+      - Executions
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      operationId: replayExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: breakpoints
+        in: query
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs:
+    post:
+      tags:
+      - Executions
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      operationId: replayExecutionWithinputs
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: breakpoints
+        in: query
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs (multipart map)
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              additionalProperties: true
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
+  /api/v1/{tenant}/executions/{executionId}/actions/restart:
+    post:
+      tags:
+      - Executions
+      summary: Restart a new execution from an old one
+      operationId: restartExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be restarted
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/resume:
+    post:
+      tags:
+      - Executions
+      summary: Resume a paused execution.
+      operationId: resumeExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is not paused
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
+  /api/v1/{tenant}/executions/{executionId}/actions/resume-from-breakpoint:
+    post:
+      tags:
+      - Executions
+      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+      operationId: resumeExecutionFromBreakpoint
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: breakpoints
+        in: query
+        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: If the executions is not in the 'BREAKPOINT' state or has no
+            breakpoint
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/resume/validate:
+    post:
+      tags:
+      - Executions
+      summary: Validate inputs to resume a paused execution.
+      operationId: validateResumeExecutionInputs
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "204":
+          description: On success
+        "409":
+          description: if the executions is not paused
+        "200":
+          description: validateResumeExecutionInputs 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/state:
+    post:
+      tags:
+      - Executions
+      summary: Change state for a taskrun in an execution
+      operationId: updateTaskRunState
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the taskRun id and state to apply
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecutionController.StateRequest"
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the task run state cannot be changed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/unqueue:
+    post:
+      tags:
+      - Executions
+      summary: Unqueue an execution
+      operationId: unqueueExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: The new state of the execution
+        required: true
+        explode: false
+        schema:
+          $ref: "#/components/schemas/State.Type"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be unqueued
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8291,36 +8792,6 @@ paths:
       x-sdk-customization:
         x-replace-follow-dependencies-execution: "true"
         x-skipped: "true"
-  /api/v1/{tenant}/executions/{executionId}/force-run:
-    post:
-      tags:
-      - Executions
-      summary: Force run an execution
-      operationId: forceRunExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be force-run
-      security:
-      - bearerAuth: []
-      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/graph:
     get:
       tags:
@@ -8355,477 +8826,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FlowGraph"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/kill:
-    delete:
-      tags:
-      - Executions
-      summary: Kill an execution
-      operationId: killExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: isOnKillCascade
-        in: query
-        description: Specifies whether killing the execution also kill all subflow
-          executions.
-        explode: false
-        schema:
-          type: boolean
-          default: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            text/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is already finished
-        "404":
-          description: if the executions is not found
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/labels:
-    post:
-      tags:
-      - Executions
-      summary: Add or update labels of a terminated execution
-      operationId: setLabelsOnTerminatedExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The labels to add to the execution
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/Label"
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "404":
-          description: If the execution cannot be found
-        "400":
-          description: If the execution is not terminated
-        "409":
-          description: If labels cannot be applied
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/pause:
-    post:
-      tags:
-      - Executions
-      summary: Pause a running execution.
-      operationId: pauseExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is not running
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/replay:
-    post:
-      tags:
-      - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
-      operationId: replayExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: the original execution id to clone
-        required: true
-        schema:
-          type: string
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: breakpoints
-        in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be replayed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/replay-with-inputs:
-    post:
-      tags:
-      - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
-      operationId: replayExecutionWithinputs
-      parameters:
-      - name: executionId
-        in: path
-        description: the original execution id to clone
-        required: true
-        schema:
-          type: string
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: breakpoints
-        in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs (multipart map)
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              additionalProperties: true
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be replayed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-sdk-customization:
-        x-multipart: "true"
-  /api/v1/{tenant}/executions/{executionId}/restart:
-    post:
-      tags:
-      - Executions
-      summary: Restart a new execution from an old one
-      operationId: restartExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be restarted
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/resume:
-    post:
-      tags:
-      - Executions
-      summary: Resume a paused execution.
-      operationId: resumeExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is not paused
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-sdk-customization:
-        x-multipart: "true"
-  /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint:
-    post:
-      tags:
-      - Executions
-      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-      operationId: resumeExecutionFromBreakpoint
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: breakpoints
-        in: query
-        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: If the executions is not in the 'BREAKPOINT' state or has no
-            breakpoint
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/resume/validate:
-    post:
-      tags:
-      - Executions
-      summary: Validate inputs to resume a paused execution.
-      operationId: validateResumeExecutionInputs
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "204":
-          description: On success
-        "409":
-          description: if the executions is not paused
-        "200":
-          description: validateResumeExecutionInputs 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/state:
-    post:
-      tags:
-      - Executions
-      summary: Change state for a taskrun in an execution
-      operationId: updateTaskRunState
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: the taskRun id and state to apply
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ExecutionController.StateRequest"
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the task run state cannot be changed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/unqueue:
-    post:
-      tags:
-      - Executions
-      summary: Unqueue an execution
-      operationId: unqueueExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: state
-        in: query
-        description: The new state of the execution
-        required: true
-        explode: false
-        schema:
-          $ref: "#/components/schemas/State.Type"
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be unqueued
       security:
       - bearerAuth: []
       - basicAuth: []
