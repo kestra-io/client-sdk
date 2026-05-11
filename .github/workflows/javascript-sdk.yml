@@ -60,7 +60,7 @@ jobs:
         # Generate SDK with develop version to check
         # for any difference with current code
         working-directory: .
-        run: ./generate-sdks.sh 0.0.0-dev javascript
+        run: ./generate-sdks.sh javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |
@@ -224,8 +224,8 @@ jobs:
 
       - name: Generate SDK with develop version
         working-directory: .
-        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
-          javascript
+        run: |
+          ./generate-sdks.sh javascript ${{ steps.resolveVersion.outputs.kestra_version }}
 
       - name: Check if version already published
         id: check

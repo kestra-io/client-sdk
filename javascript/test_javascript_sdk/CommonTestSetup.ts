@@ -23,6 +23,7 @@ import * as Maintenance from "@kestra-io/kestra-sdk";
 import * as Metrics from "@kestra-io/kestra-sdk/metrics";
 import * as Misc from "@kestra-io/kestra-sdk/misc";
 import * as Namespaces from "@kestra-io/kestra-sdk/namespaces";
+import * as Outputs from "@kestra-io/kestra-sdk/outputs";
 import * as Plugins from "@kestra-io/kestra-sdk/plugins";
 import * as Roles from "@kestra-io/kestra-sdk/roles";
 import * as ScimConfiguration from "@kestra-io/kestra-sdk/scim-configuration";
@@ -51,7 +52,7 @@ beforeAll(async () => {
         auth: () => {
             return username + ":" + password;
         },
-        baseURL
+        baseURL,
     });
 
     if (process.env.DEBUG) {
@@ -74,50 +75,50 @@ beforeAll(async () => {
             return Promise.reject(error);
         });
     }
+    setSelectedTenant(MAIN_TENANT);
 });
 
-export function kestraClient() {
-    setSelectedTenant(MAIN_TENANT);
-    return {
-        Ai,
-        Apps,
-        AuditLogs,
-        Auths,
-        Banners,
-        Bindings,
-        Blueprints,
-        BlueprintTags,
-        Cluster,
-        Dashboards,
-        Executions,
-        Files,
-        Flows,
-        Groups,
-        Invitations,
-        Kv,
-        Login,
-        Logs,
-        Maintenance,
-        Metrics,
-        Misc,
-        Namespaces,
-        Plugins,
-        Roles,
-        ScimConfiguration,
-        ScimGroups,
-        ScimUsers,
-        Secrets,
-        SecurityIntegrations,
-        ServiceAccount,
-        Services,
-        TenantAccess,
-        Tenants,
-        TestSuites,
-        Triggers,
-        Users,
-        WorkerGroups,
-    };
-}
+export const kestraClient = {
+    Ai,
+    Apps,
+    AuditLogs,
+    Auths,
+    Banners,
+    Bindings,
+    Blueprints,
+    BlueprintTags,
+    Cluster,
+    Dashboards,
+    Executions,
+    Outputs,
+    Files,
+    Flows,
+    Groups,
+    Invitations,
+    Kv,
+    Login,
+    Logs,
+    Maintenance,
+    Metrics,
+    Misc,
+    Namespaces,
+    Plugins,
+    Roles,
+    ScimConfiguration,
+    ScimGroups,
+    ScimUsers,
+    Secrets,
+    SecurityIntegrations,
+    ServiceAccount,
+    Services,
+    TenantAccess,
+    Tenants,
+    TestSuites,
+    Triggers,
+    Users,
+    WorkerGroups,
+};
+
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);
 }
