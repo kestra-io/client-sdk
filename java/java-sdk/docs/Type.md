@@ -7,15 +7,11 @@
 
 * `STRING` (value: `"STRING"`)
 
-* `ENUM` (value: `"ENUM"`)
-
 * `SELECT` (value: `"SELECT"`)
 
 * `INT` (value: `"INT"`)
 
 * `FLOAT` (value: `"FLOAT"`)
-
-* `BOOLEAN` (value: `"BOOLEAN"`)
 
 * `BOOL` (value: `"BOOL"`)
 

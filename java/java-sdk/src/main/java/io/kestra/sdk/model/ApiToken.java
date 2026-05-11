@@ -40,19 +40,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiToken {
   public static final String JSON_PROPERTY_ID = "id";
-  @jakarta.annotation.Nullable  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @jakarta.annotation.Nullable  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_PREFIX = "prefix";
-  @jakarta.annotation.Nullable  private String prefix;
+  @jakarta.annotation.Nonnull  private String prefix;
 
   public static final String JSON_PROPERTY_IAT = "iat";
-  @jakarta.annotation.Nullable  private OffsetDateTime iat;
+  @jakarta.annotation.Nonnull  private OffsetDateTime iat;
 
   public static final String JSON_PROPERTY_EXP = "exp";
   @jakarta.annotation.Nullable  private OffsetDateTime exp;
@@ -69,7 +69,7 @@ public class ApiToken {
   public ApiToken() {
   }
 
-  public ApiToken id(@jakarta.annotation.Nullable String id) {
+  public ApiToken id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -79,8 +79,8 @@ public class ApiToken {
    * Get id
    * @return id
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -88,12 +88,12 @@ public class ApiToken {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@jakarta.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ApiToken name(@jakarta.annotation.Nullable String name) {
+  public ApiToken name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -103,8 +103,8 @@ public class ApiToken {
    * Get name
    * @return name
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -112,8 +112,8 @@ public class ApiToken {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@jakarta.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
@@ -141,7 +141,7 @@ public class ApiToken {
     this.description = description;
   }
 
-  public ApiToken prefix(@jakarta.annotation.Nullable String prefix) {
+  public ApiToken prefix(@jakarta.annotation.Nonnull String prefix) {
     
     this.prefix = prefix;
     return this;
@@ -151,8 +151,8 @@ public class ApiToken {
    * Get prefix
    * @return prefix
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREFIX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PREFIX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPrefix() {
     return prefix;
@@ -160,12 +160,12 @@ public class ApiToken {
 
 
   @JsonProperty(JSON_PROPERTY_PREFIX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrefix(@jakarta.annotation.Nullable String prefix) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPrefix(@jakarta.annotation.Nonnull String prefix) {
     this.prefix = prefix;
   }
 
-  public ApiToken iat(@jakarta.annotation.Nullable OffsetDateTime iat) {
+  public ApiToken iat(@jakarta.annotation.Nonnull OffsetDateTime iat) {
     
     this.iat = iat;
     return this;
@@ -175,8 +175,8 @@ public class ApiToken {
    * Get iat
    * @return iat
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IAT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getIat() {
     return iat;
@@ -184,8 +184,8 @@ public class ApiToken {
 
 
   @JsonProperty(JSON_PROPERTY_IAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIat(@jakarta.annotation.Nullable OffsetDateTime iat) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIat(@jakarta.annotation.Nonnull OffsetDateTime iat) {
     this.iat = iat;
   }
 

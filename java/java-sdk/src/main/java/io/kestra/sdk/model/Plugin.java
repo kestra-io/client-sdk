@@ -45,7 +45,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_ALIASES,
   Plugin.JSON_PROPERTY_TASKS,
   Plugin.JSON_PROPERTY_TRIGGERS,
-  Plugin.JSON_PROPERTY_CONDITIONS,
   Plugin.JSON_PROPERTY_CONTROLLERS,
   Plugin.JSON_PROPERTY_STORAGES,
   Plugin.JSON_PROPERTY_SECRETS,
@@ -97,9 +96,6 @@ public class Plugin {
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONTROLLERS = "controllers";
   @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
@@ -469,38 +465,6 @@ public class Plugin {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTriggers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
     this.triggers = triggers;
-  }
-
-  public Plugin conditions(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
-    
-    this.conditions = conditions;
-    return this;
-  }
-
-  public Plugin addConditionsItem(PluginPluginElementMetadata conditionsItem) {
-    if (this.conditions == null) {
-      this.conditions = new ArrayList<>();
-    }
-    this.conditions.add(conditionsItem);
-    return this;
-  }
-
-  /**
-   * Get conditions
-   * @return conditions
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginPluginElementMetadata> getConditions() {
-    return conditions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConditions(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
-    this.conditions = conditions;
   }
 
   public Plugin controllers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
@@ -932,7 +896,6 @@ public class Plugin {
         Objects.equals(this.aliases, plugin.aliases) &&
         Objects.equals(this.tasks, plugin.tasks) &&
         Objects.equals(this.triggers, plugin.triggers) &&
-        Objects.equals(this.conditions, plugin.conditions) &&
         Objects.equals(this.controllers, plugin.controllers) &&
         Objects.equals(this.storages, plugin.storages) &&
         Objects.equals(this.secrets, plugin.secrets) &&
@@ -950,7 +913,7 @@ public class Plugin {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, title, description, license, longDescription, group, version, manifest, guides, aliases, tasks, triggers, conditions, controllers, storages, secrets, taskRunners, apps, appBlocks, charts, dataFilters, dataFiltersKPI, logExporters, additionalPlugins, categories, subGroup);
+    return Objects.hash(name, title, description, license, longDescription, group, version, manifest, guides, aliases, tasks, triggers, controllers, storages, secrets, taskRunners, apps, appBlocks, charts, dataFilters, dataFiltersKPI, logExporters, additionalPlugins, categories, subGroup);
   }
 
   @Override
@@ -969,7 +932,6 @@ public class Plugin {
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
-    sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
     sb.append("    controllers: ").append(toIndentedString(controllers)).append("\n");
     sb.append("    storages: ").append(toIndentedString(storages)).append("\n");
     sb.append("    secrets: ").append(toIndentedString(secrets)).append("\n");

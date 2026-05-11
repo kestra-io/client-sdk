@@ -27,8 +27,6 @@ public enum SchemaType {
   
   FLOW("FLOW"),
   
-  TEMPLATE("TEMPLATE"),
-  
   TASK("TASK"),
   
   TRIGGER("TRIGGER"),

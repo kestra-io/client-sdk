@@ -13,7 +13,6 @@ All URIs are relative to *http://localhost*
 | [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults |
 | [**inheritedSecrets**](NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
 | [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables |
-| [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace |
 | [**namespace**](NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace |
 | [**patchSecret**](NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace |
 | [**putSecrets**](NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace |
@@ -656,84 +655,6 @@ public class Example {
 | **200** | inheritedVariables 200 response |  -  |
 
 
-## listNamespaceSecrets
-
-> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
-
-Get secrets for a namespace
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.NamespacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The namespace id
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        try {
-            ApiSecretListResponseApiSecretMeta result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NamespacesApi#listNamespaceSecrets");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
-| **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-
-### Return type
-
-[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listNamespaceSecrets 200 response |  -  |
-
-
 ## namespace
 
 > Namespace namespace(id, tenant)
@@ -952,7 +873,7 @@ public class Example {
 
 ## searchNamespaces
 
-> PagedResultsNamespace searchNamespaces(page, size, existing, tenant, q, sort)
+> PagedResultsNamespace searchNamespaces(tenant, q, page, size, sort, existing)
 
 Search for namespaces
 
@@ -976,14 +897,14 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        Boolean existing = false; // Boolean | Return only existing namespace
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        Boolean existing = false; // Boolean | Return only existing namespace
         try {
-            PagedResultsNamespace result = kestraClient.NamespacesApi().searchNamespaces(page, size, existing, tenant, q, sort);
+            PagedResultsNamespace result = kestraClient.NamespacesApi().searchNamespaces(tenant, q, page, size, sort, existing);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#searchNamespaces");
@@ -1001,12 +922,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **existing** | **Boolean**| Return only existing namespace | [default to false] |
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **existing** | **Boolean**| Return only existing namespace | [optional] [default to false] |
 
 ### Return type
 

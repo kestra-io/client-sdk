@@ -39,7 +39,7 @@ public class ApiTokenList {
   @jakarta.annotation.Nullable  private Integer total;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @jakarta.annotation.Nullable  private List<ApiToken> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<ApiToken> results = new ArrayList<>();
 
   public ApiTokenList() {
   }
@@ -68,7 +68,7 @@ public class ApiTokenList {
     this.total = total;
   }
 
-  public ApiTokenList results(@jakarta.annotation.Nullable List<ApiToken> results) {
+  public ApiTokenList results(@jakarta.annotation.Nonnull List<ApiToken> results) {
     
     this.results = results;
     return this;
@@ -86,8 +86,8 @@ public class ApiTokenList {
    * Get results
    * @return results
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ApiToken> getResults() {
     return results;
@@ -95,8 +95,8 @@ public class ApiTokenList {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResults(@jakarta.annotation.Nullable List<ApiToken> results) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResults(@jakarta.annotation.Nonnull List<ApiToken> results) {
     this.results = results;
   }
 

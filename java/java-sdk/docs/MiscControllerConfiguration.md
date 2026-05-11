@@ -16,13 +16,13 @@
 |**isCustomDashboardsEnabled** | **Boolean** |  |  [optional] |
 |**isAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
 |**isUiAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
-|**isTemplateEnabled** | **Boolean** |  |  [optional] |
 |**environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  |  [optional] |
 |**url** | **String** |  |  [optional] |
 |**preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  |  [optional] |
 |**systemNamespace** | **String** |  |  [optional] |
 |**hiddenLabelsPrefixes** | **List&lt;String&gt;** |  |  [optional] |
 |**isAiEnabled** | **Boolean** |  |  [optional] |
+|**isAiApiKeyConfigured** | **Boolean** |  |  [optional] |
 |**isBasicAuthInitialized** | **Boolean** |  |  [optional] |
 |**pluginsHash** | **Long** |  |  [optional] |
 |**isConcurrencyViewEnabled** | **Boolean** |  |  [optional] |

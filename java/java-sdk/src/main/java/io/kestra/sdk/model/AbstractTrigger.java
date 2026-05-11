@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AssetsDeclaration;
-import io.kestra.sdk.model.Condition;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.TheLabelsToPassToTheExecutionCreated;
@@ -39,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTrigger.JSON_PROPERTY_TYPE,
   AbstractTrigger.JSON_PROPERTY_VERSION,
   AbstractTrigger.JSON_PROPERTY_DESCRIPTION,
-  AbstractTrigger.JSON_PROPERTY_CONDITIONS,
+  AbstractTrigger.JSON_PROPERTY_WHEN,
   AbstractTrigger.JSON_PROPERTY_DISABLED,
   AbstractTrigger.JSON_PROPERTY_WORKER_GROUP,
   AbstractTrigger.JSON_PROPERTY_LOG_LEVEL,
@@ -64,8 +63,8 @@ public class AbstractTrigger {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
 
-  public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @jakarta.annotation.Nullable  private List<Condition> conditions = new ArrayList<>();
+  public static final String JSON_PROPERTY_WHEN = "when";
+  @jakarta.annotation.Nonnull  private String when;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nullable  private Boolean disabled = false;
@@ -193,36 +192,28 @@ public class AbstractTrigger {
     this.description = description;
   }
 
-  public AbstractTrigger conditions(@jakarta.annotation.Nullable List<Condition> conditions) {
+  public AbstractTrigger when(@jakarta.annotation.Nonnull String when) {
     
-    this.conditions = conditions;
-    return this;
-  }
-
-  public AbstractTrigger addConditionsItem(Condition conditionsItem) {
-    if (this.conditions == null) {
-      this.conditions = new ArrayList<>();
-    }
-    this.conditions.add(conditionsItem);
+    this.when = when;
     return this;
   }
 
   /**
-   * Get conditions
-   * @return conditions
+   * A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (&#x60;true&#x60;, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.
+   * @return when
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_WHEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<Condition> getConditions() {
-    return conditions;
+  public String getWhen() {
+    return when;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConditions(@jakarta.annotation.Nullable List<Condition> conditions) {
-    this.conditions = conditions;
+  @JsonProperty(JSON_PROPERTY_WHEN)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWhen(@jakarta.annotation.Nonnull String when) {
+    this.when = when;
   }
 
   public AbstractTrigger disabled(@jakarta.annotation.Nullable Boolean disabled) {
@@ -462,7 +453,7 @@ public class AbstractTrigger {
         Objects.equals(this.type, abstractTrigger.type) &&
         Objects.equals(this.version, abstractTrigger.version) &&
         Objects.equals(this.description, abstractTrigger.description) &&
-        Objects.equals(this.conditions, abstractTrigger.conditions) &&
+        Objects.equals(this.when, abstractTrigger.when) &&
         Objects.equals(this.disabled, abstractTrigger.disabled) &&
         Objects.equals(this.workerGroup, abstractTrigger.workerGroup) &&
         Objects.equals(this.logLevel, abstractTrigger.logLevel) &&
@@ -476,7 +467,7 @@ public class AbstractTrigger {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, conditions, disabled, workerGroup, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
+    return Objects.hash(id, type, version, description, when, disabled, workerGroup, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
   }
 
   @Override
@@ -487,7 +478,7 @@ public class AbstractTrigger {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
     sb.append("    logLevel: ").append(toIndentedString(logLevel)).append("\n");

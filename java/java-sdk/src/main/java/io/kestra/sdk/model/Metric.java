@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.MetricTag;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Metric {
   @jakarta.annotation.Nullable  private List<MetricTag> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @jakarta.annotation.Nullable  private Object value;
+  @jakarta.annotation.Nullable  private BigDecimal value;
 
   public Metric() {
   }
@@ -188,7 +189,7 @@ public class Metric {
     this.tags = tags;
   }
 
-  public Metric value(@jakarta.annotation.Nullable Object value) {
+  public Metric value(@jakarta.annotation.Nullable BigDecimal value) {
     
     this.value = value;
     return this;
@@ -201,14 +202,14 @@ public class Metric {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Object getValue() {
+  public BigDecimal getValue() {
     return value;
   }
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@jakarta.annotation.Nullable Object value) {
+  public void setValue(@jakarta.annotation.Nullable BigDecimal value) {
     this.value = value;
   }
 

@@ -671,7 +671,7 @@ public class Flow {
   }
 
   /**
-   * Get retry
+   * Retry policy applied when the flow fails.
    * @return retry
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETRY)

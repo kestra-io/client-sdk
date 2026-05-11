@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
 | [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
 | [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
+| [**evalExpression**](ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution |
 | [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
 | [**executionFlowGraph**](ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
 | [**fileMetadatasFromExecution**](ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
@@ -16,48 +17,48 @@ All URIs are relative to *http://localhost*
 | [**flowFromExecutionById**](ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
 | [**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
 | [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
-| [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
+| [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions asynchronously |
 | [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
-| [**forceRunExecutionsByQuery**](ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters |
+| [**forceRunExecutionsByQuery**](ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters asynchronously |
 | [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
-| [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions |
+| [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions asynchronously |
 | [**killExecutionsByQuery**](ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters |
 | [**latestExecutions**](ExecutionsApi.md#latestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
 | [**pauseExecution**](ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution. |
-| [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions |
-| [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters |
+| [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions asynchronously |
+| [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters asynchronously |
 | [**replayExecution**](ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id |
 | [**replayExecutionWithinputs**](ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
-| [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision |
-| [**replayExecutionsByQuery**](ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision |
+| [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones asynchronously. Keep the flow revision |
+| [**replayExecutionsByQuery**](ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision |
 | [**restartExecution**](ExecutionsApi.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one |
-| [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions |
-| [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters |
+| [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions asynchronously |
+| [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters asynchronously |
 | [**resumeExecution**](ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution. |
-| [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions |
-| [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters |
+| [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions asynchronously |
+| [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters asynchronously |
 | [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions |
 | [**searchExecutionsByFlowId**](ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow |
 | [**setLabelsOnTerminatedExecution**](ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution |
-| [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions |
-| [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters |
+| [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions asynchronously |
+| [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters asynchronously |
 | [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger |
 | [**triggerExecutionByGetWebhookWithPath**](ExecutionsApi.md#triggerExecutionByGetWebhookWithPath) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger |
 | [**triggerExecutionByPostWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPostWebhookWithPath) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger |
 | [**triggerExecutionByPutWebhookWithPath**](ExecutionsApi.md#triggerExecutionByPutWebhookWithPath) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger |
 | [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution |
-| [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions |
-| [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters |
+| [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions asynchronously |
+| [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters asynchronously |
 | [**updateExecutionStatus**](ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution |
-| [**updateExecutionsStatusByIds**](ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id |
-| [**updateExecutionsStatusByQuery**](ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters |
+| [**updateExecutionsStatusByIds**](ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id asynchronously |
+| [**updateExecutionsStatusByQuery**](ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters asynchronously |
 | [**updateTaskRunState**](ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution |
 
 
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind)
+> ExecutionControllerExecutionResponse createExecution(namespace, id, tenant, labels, wait, revision, scheduleDate, breakpoints, kind)
 
 Create a new execution for a flow
 
@@ -83,15 +84,15 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
-        Boolean wait = false; // Boolean | If the server will wait the end of the execution
         String tenant = "tenant_example"; // String | 
         List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
+        Boolean wait = false; // Boolean | If the server will wait the end of the execution
         Integer revision = 56; // Integer | The flow revision or latest if null
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            ExecutionControllerExecutionResponse result = kestraClient.ExecutionsApi().createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = kestraClient.ExecutionsApi().createExecution(namespace, id, tenant, labels, wait, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -111,13 +112,13 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
-| **wait** | **Boolean**| If the server will wait the end of the execution | [default to false] |
 | **tenant** | **String**|  | |
 | **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
+| **wait** | **Boolean**| If the server will wait the end of the execution | [optional] [default to false] |
 | **revision** | **Integer**| The flow revision or latest if null | [optional] |
 | **scheduleDate** | **OffsetDateTime**| Schedule the flow on a specific date | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
-| **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] [enum: NORMAL, TEST, PLAYGROUND] |
+| **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] [enum: NORMAL, TEST, PLAYGROUND, LOOP] |
 
 ### Return type
 
@@ -322,7 +323,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
         Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
@@ -347,7 +348,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
 | **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
 | **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
@@ -445,9 +446,81 @@ public class Example {
 | **200** | downloadFileFromExecution 200 response |  -  |
 
 
+## evalExpression
+
+> ExecutionControllerEvalResult evalExpression(executionId, tenant, body)
+
+Evaluate a variable expression for this execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.ExecutionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | The Pebble expression that should be evaluated
+        try {
+            ExecutionControllerEvalResult result = kestraClient.ExecutionsApi().evalExpression(executionId, tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExecutionsApi#evalExpression");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **tenant** | **String**|  | |
+| **body** | **String**| The Pebble expression that should be evaluated | |
+
+### Return type
+
+[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: text/plain
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | evalExpression 200 response |  -  |
+
+
 ## execution
 
-> Execution execution(executionId, tenant)
+> ApiExecution execution(executionId, tenant)
 
 Get an execution
 
@@ -474,7 +547,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = kestraClient.ExecutionsApi().execution(executionId, tenant);
+            ApiExecution result = kestraClient.ExecutionsApi().execution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#execution");
@@ -497,7 +570,7 @@ public class Example {
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ApiExecution**](ApiExecution.md)
 
 ### Authorization
 
@@ -805,7 +878,7 @@ public class Example {
 
 ## followDependenciesExecutions
 
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
+> EventExecutionStatusEvent followDependenciesExecutions(executionId, tenant, destinationOnly, expandAll)
 
 Follow all execution dependencies executions
 
@@ -830,11 +903,11 @@ public class Example {
         .build();
 
         String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
-        String tenant = "tenant_example"; // String | 
         try {
-            EventExecutionStatusEvent result = kestraClient.ExecutionsApi().followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant);
+            EventExecutionStatusEvent result = kestraClient.ExecutionsApi().followDependenciesExecutions(executionId, tenant, destinationOnly, expandAll);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#followDependenciesExecutions");
@@ -853,9 +926,9 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
 | **tenant** | **String**|  | |
+| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [optional] [default to false] |
+| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [optional] [default to false] |
 
 ### Return type
 
@@ -949,9 +1022,9 @@ public class Example {
 
 ## forceRunByIds
 
-> BulkResponse forceRunByIds(tenant, requestBody)
+> Object forceRunByIds(tenant, requestBody)
 
-Force run a list of executions
+Force run a list of executions asynchronously
 
 ### Example
 
@@ -976,7 +1049,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().forceRunByIds(tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().forceRunByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#forceRunByIds");
@@ -999,7 +1072,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -1014,8 +1087,9 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Force run with errors |  -  |
+| **200** | forceRunByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## forceRunExecution
@@ -1085,14 +1159,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | forceRunExecution 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution cannot be force-run |  -  |
 
 
 ## forceRunExecutionsByQuery
 
 > Object forceRunExecutionsByQuery(tenant, filters)
 
-Force run executions filter by query parameters
+Force run executions filter by query parameters asynchronously
 
 ### Example
 
@@ -1115,7 +1190,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().forceRunExecutionsByQuery(tenant, filters);
             System.out.println(result);
@@ -1136,7 +1211,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -1156,11 +1231,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | forceRunExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## killExecution
 
-> Object killExecution(executionId, isOnKillCascade, tenant)
+> Execution killExecution(executionId, tenant, isOnKillCascade)
 
 Kill an execution
 
@@ -1185,10 +1261,10 @@ public class Example {
         .build();
 
         String executionId = "executionId_example"; // String | The execution id
-        Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         String tenant = "tenant_example"; // String | 
+        Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         try {
-            Object result = kestraClient.ExecutionsApi().killExecution(executionId, isOnKillCascade, tenant);
+            Execution result = kestraClient.ExecutionsApi().killExecution(executionId, tenant, isOnKillCascade);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecution");
@@ -1207,12 +1283,12 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [default to true] |
 | **tenant** | **String**|  | |
+| **isOnKillCascade** | **Boolean**| Specifies whether killing the execution also kill all subflow executions. | [optional] [default to true] |
 
 ### Return type
 
-**Object**
+[**Execution**](Execution.md)
 
 ### Authorization
 
@@ -1227,17 +1303,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | killExecution 200 response |  -  |
-| **202** | Execution kill was requested successfully |  -  |
+| **200** | On success |  -  |
 | **404** | if the executions is not found |  -  |
 | **409** | if the executions is already finished |  -  |
 
 
 ## killExecutionsByIds
 
-> BulkResponse killExecutionsByIds(tenant, requestBody)
+> Object killExecutionsByIds(tenant, requestBody)
 
-Kill a list of executions
+Kill a list of executions asynchronously
 
 ### Example
 
@@ -1262,7 +1337,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().killExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().killExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecutionsByIds");
@@ -1285,7 +1360,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -1300,8 +1375,9 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Killed with errors |  -  |
+| **200** | killExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## killExecutionsByQuery
@@ -1331,7 +1407,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().killExecutionsByQuery(tenant, filters);
             System.out.println(result);
@@ -1352,7 +1428,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -1446,7 +1522,7 @@ public class Example {
 
 ## pauseExecution
 
-> pauseExecution(executionId, tenant)
+> Execution pauseExecution(executionId, tenant)
 
 Pause a running execution.
 
@@ -1473,7 +1549,8 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            kestraClient.ExecutionsApi().pauseExecution(executionId, tenant);
+            Execution result = kestraClient.ExecutionsApi().pauseExecution(executionId, tenant);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecution");
             System.err.println("Status code: " + e.getCode());
@@ -1495,7 +1572,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**Execution**](Execution.md)
 
 ### Authorization
 
@@ -1504,22 +1581,21 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | pauseExecution 200 response |  -  |
-| **204** | On success |  -  |
+| **200** | On success |  -  |
 | **409** | if the executions is not running |  -  |
 
 
 ## pauseExecutionsByIds
 
-> BulkResponse pauseExecutionsByIds(tenant, requestBody)
+> Object pauseExecutionsByIds(tenant, requestBody)
 
-Pause a list of running executions
+Pause a list of running executions asynchronously
 
 ### Example
 
@@ -1544,7 +1620,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().pauseExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().pauseExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByIds");
@@ -1567,7 +1643,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -1582,15 +1658,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Paused with errors |  -  |
+| **200** | pauseExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## pauseExecutionsByQuery
 
 > Object pauseExecutionsByQuery(tenant, filters)
 
-Pause executions filter by query parameters
+Pause executions filter by query parameters asynchronously
 
 ### Example
 
@@ -1613,7 +1690,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().pauseExecutionsByQuery(tenant, filters);
             System.out.println(result);
@@ -1634,7 +1711,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -1654,6 +1731,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | pauseExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## replayExecution
@@ -1729,7 +1807,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | replayExecution 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution cannot be replayed |  -  |
 
 
 ## replayExecutionWithinputs
@@ -1805,14 +1884,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | replayExecutionWithinputs 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution cannot be replayed |  -  |
 
 
 ## replayExecutionsByIds
 
-> BulkResponse replayExecutionsByIds(tenant, requestBody, latestRevision)
+> Object replayExecutionsByIds(tenant, requestBody, latestRevision)
 
-Create new executions from old ones. Keep the flow revision
+Create new executions from old ones asynchronously. Keep the flow revision
 
 ### Example
 
@@ -1838,7 +1918,7 @@ public class Example {
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().replayExecutionsByIds(tenant, requestBody, latestRevision);
+            Object result = kestraClient.ExecutionsApi().replayExecutionsByIds(tenant, requestBody, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionsByIds");
@@ -1862,7 +1942,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -1877,15 +1957,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Replayed with errors |  -  |
+| **200** | replayExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## replayExecutionsByQuery
 
 > Object replayExecutionsByQuery(tenant, filters, latestRevision)
 
-Create new executions from old ones filter by query parameters. Keep the flow revision
+Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision
 
 ### Example
 
@@ -1908,7 +1989,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
             Object result = kestraClient.ExecutionsApi().replayExecutionsByQuery(tenant, filters, latestRevision);
@@ -1930,7 +2011,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **latestRevision** | **Boolean**| If latest revision should be used | [optional] [default to false] |
 
 ### Return type
@@ -1951,6 +2032,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | replayExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## restartExecution
@@ -2022,14 +2104,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | restartExecution 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution cannot be restarted |  -  |
 
 
 ## restartExecutionsByIds
 
-> BulkResponse restartExecutionsByIds(tenant, requestBody)
+> Object restartExecutionsByIds(tenant, requestBody)
 
-Restart a list of executions
+Restart a list of executions asynchronously
 
 ### Example
 
@@ -2054,7 +2137,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().restartExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().restartExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#restartExecutionsByIds");
@@ -2077,7 +2160,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -2092,15 +2175,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Restarted with errors |  -  |
+| **200** | restartExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## restartExecutionsByQuery
 
 > Object restartExecutionsByQuery(tenant, filters)
 
-Restart executions filter by query parameters
+Restart executions filter by query parameters asynchronously
 
 ### Example
 
@@ -2123,7 +2207,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().restartExecutionsByQuery(tenant, filters);
             System.out.println(result);
@@ -2144,7 +2228,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -2164,11 +2248,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | restartExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## resumeExecution
 
-> Object resumeExecution(executionId, tenant)
+> Execution resumeExecution(executionId, tenant)
 
 Resume a paused execution.
 
@@ -2195,7 +2280,7 @@ public class Example {
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = kestraClient.ExecutionsApi().resumeExecution(executionId, tenant);
+            Execution result = kestraClient.ExecutionsApi().resumeExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecution");
@@ -2218,7 +2303,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**Execution**](Execution.md)
 
 ### Authorization
 
@@ -2233,16 +2318,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | resumeExecution 200 response |  -  |
-| **204** | On success |  -  |
+| **200** | On success |  -  |
 | **409** | if the executions is not paused |  -  |
 
 
 ## resumeExecutionsByIds
 
-> BulkResponse resumeExecutionsByIds(tenant, requestBody)
+> Object resumeExecutionsByIds(tenant, requestBody)
 
-Resume a list of paused executions
+Resume a list of paused executions asynchronously
 
 ### Example
 
@@ -2267,7 +2351,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().resumeExecutionsByIds(tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().resumeExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByIds");
@@ -2290,7 +2374,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -2305,15 +2389,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Resumed with errors |  -  |
+| **200** | resumeExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## resumeExecutionsByQuery
 
 > Object resumeExecutionsByQuery(tenant, filters)
 
-Resume executions filter by query parameters
+Resume executions filter by query parameters asynchronously
 
 ### Example
 
@@ -2336,7 +2421,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().resumeExecutionsByQuery(tenant, filters);
             System.out.println(result);
@@ -2357,7 +2442,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -2377,11 +2462,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | resumeExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## searchExecutions
 
-> PagedResultsExecution searchExecutions(page, size, tenant, sort, filters)
+> PagedResultsApiLightExecution searchExecutions(tenant, page, size, sort, filters)
 
 Search for executions
 
@@ -2405,13 +2491,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutions(page, size, tenant, sort, filters);
+            PagedResultsApiLightExecution result = kestraClient.ExecutionsApi().searchExecutions(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutions");
@@ -2429,15 +2515,15 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
-[**PagedResultsExecution**](PagedResultsExecution.md)
+[**PagedResultsApiLightExecution**](PagedResultsApiLightExecution.md)
 
 ### Authorization
 
@@ -2457,7 +2543,7 @@ public class Example {
 
 ## searchExecutionsByFlowId
 
-> PagedResultsExecution searchExecutionsByFlowId(namespace, flowId, page, size, tenant)
+> PagedResultsApiLightExecution searchExecutionsByFlowId(namespace, flowId, tenant, page, size)
 
 Search for executions for a flow
 
@@ -2483,11 +2569,11 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String flowId = "flowId_example"; // String | The flow id
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         try {
-            PagedResultsExecution result = kestraClient.ExecutionsApi().searchExecutionsByFlowId(namespace, flowId, page, size, tenant);
+            PagedResultsApiLightExecution result = kestraClient.ExecutionsApi().searchExecutionsByFlowId(namespace, flowId, tenant, page, size);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutionsByFlowId");
@@ -2507,13 +2593,13 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **flowId** | **String**| The flow id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 
 ### Return type
 
-[**PagedResultsExecution**](PagedResultsExecution.md)
+[**PagedResultsApiLightExecution**](PagedResultsApiLightExecution.md)
 
 ### Authorization
 
@@ -2533,7 +2619,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecution
 
-> Object setLabelsOnTerminatedExecution(executionId, tenant, label)
+> Execution setLabelsOnTerminatedExecution(executionId, tenant, label)
 
 Add or update labels of a terminated execution
 
@@ -2561,7 +2647,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
         try {
-            Object result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecution(executionId, tenant, label);
+            Execution result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecution(executionId, tenant, label);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecution");
@@ -2585,7 +2671,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**Execution**](Execution.md)
 
 ### Authorization
 
@@ -2600,16 +2686,17 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | setLabelsOnTerminatedExecution 200 response |  -  |
+| **200** | On success |  -  |
 | **400** | If the execution is not terminated |  -  |
 | **404** | If the execution cannot be found |  -  |
+| **409** | If labels cannot be applied |  -  |
 
 
 ## setLabelsOnTerminatedExecutionsByIds
 
-> BulkResponse setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest)
+> Object setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest)
 
-Set labels on a list of executions
+Set labels on a list of executions asynchronously
 
 ### Example
 
@@ -2634,7 +2721,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = new ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
+            Object result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByIds");
@@ -2657,7 +2744,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -2672,15 +2759,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Killed with errors |  -  |
+| **200** | setLabelsOnTerminatedExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## setLabelsOnTerminatedExecutionsByQuery
 
 > Object setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters)
 
-Set label on executions filter by query parameters
+Set label on executions filter by query parameters asynchronously
 
 ### Example
 
@@ -2704,7 +2792,7 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
             Object result = kestraClient.ExecutionsApi().setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters);
             System.out.println(result);
@@ -2726,7 +2814,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
@@ -2746,6 +2834,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | setLabelsOnTerminatedExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## triggerExecutionByGetWebhook
@@ -3052,7 +3141,7 @@ public class Example {
 
 ## unqueueExecution
 
-> Execution unqueueExecution(executionId, state, tenant)
+> Execution unqueueExecution(executionId, tenant, state)
 
 Unqueue an execution
 
@@ -3077,10 +3166,10 @@ public class Example {
         .build();
 
         String executionId = "executionId_example"; // String | The execution id
-        StateType state = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         String tenant = "tenant_example"; // String | 
+        StateType state = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         try {
-            Execution result = kestraClient.ExecutionsApi().unqueueExecution(executionId, state, tenant);
+            Execution result = kestraClient.ExecutionsApi().unqueueExecution(executionId, tenant, state);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecution");
@@ -3099,8 +3188,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **state** | [**StateType**](.md)| The new state of the execution | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
+| **state** | [**StateType**](.md)| The new state of the execution | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 
 ### Return type
 
@@ -3119,14 +3208,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | unqueueExecution 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution cannot be unqueued |  -  |
 
 
 ## unqueueExecutionsByIds
 
-> BulkResponse unqueueExecutionsByIds(state, tenant, requestBody)
+> Object unqueueExecutionsByIds(state, tenant, requestBody)
 
-Unqueue a list of executions
+Unqueue a list of executions asynchronously
 
 ### Example
 
@@ -3152,7 +3242,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().unqueueExecutionsByIds(state, tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().unqueueExecutionsByIds(state, tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByIds");
@@ -3176,7 +3266,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -3191,15 +3281,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Unqueued with errors |  -  |
+| **200** | unqueueExecutionsByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## unqueueExecutionsByQuery
 
 > Object unqueueExecutionsByQuery(tenant, filters, newState)
 
-Unqueue executions filter by query parameters
+Unqueue executions filter by query parameters asynchronously
 
 ### Example
 
@@ -3222,7 +3313,7 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         StateType newState = StateType.fromValue("CREATED"); // StateType | The new state of the unqueued executions
         try {
             Object result = kestraClient.ExecutionsApi().unqueueExecutionsByQuery(tenant, filters, newState);
@@ -3244,7 +3335,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 | **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 
 ### Return type
@@ -3265,6 +3356,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | unqueueExecutionsByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## updateExecutionStatus
@@ -3336,14 +3428,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | updateExecutionStatus 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the execution state cannot be changed |  -  |
 
 
 ## updateExecutionsStatusByIds
 
-> BulkResponse updateExecutionsStatusByIds(newStatus, tenant, requestBody)
+> Object updateExecutionsStatusByIds(newStatus, tenant, requestBody)
 
-Change executions state by id
+Change executions state by id asynchronously
 
 ### Example
 
@@ -3369,7 +3462,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().updateExecutionsStatusByIds(newStatus, tenant, requestBody);
+            Object result = kestraClient.ExecutionsApi().updateExecutionsStatusByIds(newStatus, tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByIds");
@@ -3393,7 +3486,7 @@ public class Example {
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -3408,15 +3501,16 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Changed state with errors |  -  |
+| **200** | updateExecutionsStatusByIds 200 response |  -  |
+| **202** | Accepted |  -  |
+| **400** | Validation errors |  -  |
 
 
 ## updateExecutionsStatusByQuery
 
-> BulkResponse updateExecutionsStatusByQuery(newStatus, tenant, filters)
+> Object updateExecutionsStatusByQuery(newStatus, tenant, filters)
 
-Change executions state by query parameters
+Change executions state by query parameters asynchronously
 
 ### Example
 
@@ -3440,9 +3534,9 @@ public class Example {
 
         StateType newStatus = StateType.fromValue("CREATED"); // StateType | The new state of the executions
         String tenant = "tenant_example"; // String | 
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`
         try {
-            BulkResponse result = kestraClient.ExecutionsApi().updateExecutionsStatusByQuery(newStatus, tenant, filters);
+            Object result = kestraClient.ExecutionsApi().updateExecutionsStatusByQuery(newStatus, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByQuery");
@@ -3462,11 +3556,11 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED] |
 | **tenant** | **String**|  | |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[timeRange][EQUALS]&#x3D;PT168H&#x60;, &#x60;filters[scope][EQUALS]&#x3D;USER&#x60;, &#x60;filters[state][IN]&#x3D;FAILED,CANCELLED&#x60;, &#x60;filters[labels][NOT_EQUALS][foo]&#x3D;bar&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60; | [optional] |
 
 ### Return type
 
-[**BulkResponse**](BulkResponse.md)
+**Object**
 
 ### Authorization
 
@@ -3481,8 +3575,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | On success |  -  |
-| **422** | Changed state with errors |  -  |
+| **200** | updateExecutionsStatusByQuery 200 response |  -  |
+| **202** | Accepted |  -  |
 
 
 ## updateTaskRunState
@@ -3554,5 +3648,6 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | updateTaskRunState 200 response |  -  |
+| **200** | On success |  -  |
+| **409** | if the task run state cannot be changed |  -  |
 
