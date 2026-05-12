@@ -1729,6 +1729,25 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/triggers:
+    get:
+      tags:
+      - Plugins
+      summary: Get list of trigger plugins grouped by category
+      description: "Feeds the 'Add Trigger' catalog UI. Returns one entry per non-internal,\
+        \ non-deprecated trigger class, classified as core (bundled with Kestra Core),\
+        \ realtime (implements RealtimeTriggerInterface) or app (implements PollingTriggerInterface)."
+      operationId: listTriggerPlugins
+      responses:
+        "200":
+          description: listTriggerPlugins 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_PluginController.ApiTriggerPlugin_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/{cls}:
     get:
       tags:
@@ -21484,6 +21503,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_PluginController.ApiTriggerPlugin_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginController.ApiTriggerPlugin"
+        total:
+          type: integer
+          format: int64
     PagedResults_SearchResult_Flow__:
       required:
       - results
@@ -21781,6 +21813,23 @@ components:
           type: array
           items:
             type: string
+    PluginController.ApiTriggerPlugin:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        group:
+          $ref: "#/components/schemas/TriggerPluginCategory"
+        ee:
+          type: boolean
+        icon:
+          type: string
+        deprecated:
+          type: boolean
     PluginDefault:
       required:
       - type
@@ -23388,6 +23437,14 @@ components:
           type: object
           additionalProperties:
             type: object
+    TriggerPluginCategory:
+      type: string
+      enum:
+      - CORE
+      - REALTIME
+      - APP
+      - UNKNOWN
+      x-type: String
     Type:
       type: string
       enum:
