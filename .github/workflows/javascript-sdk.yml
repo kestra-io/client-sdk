@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
-          path: ./coverage
+          path: ./javascript/coverage
 
   publish-release:
     name: Publish Release to Npm
