@@ -7,6 +7,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   pull_request:
@@ -15,6 +16,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   workflow_dispatch:
