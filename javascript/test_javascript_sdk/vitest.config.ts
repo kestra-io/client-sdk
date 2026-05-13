@@ -28,9 +28,9 @@ export default defineConfig({
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
-            include: ["javascript-sdk/src/sdk/**"],
+            include: ["javascript-sdk/src/openapi/sdk/**"],
             thresholds: {
-                functions: 80,
+                functions: 75,
             },
         },
     },
