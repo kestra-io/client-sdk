@@ -1674,6 +1674,26 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/plugins/triggers:
+    get:
+      tags:
+        - Plugins
+      summary: Get list of trigger plugins grouped by category
+      description: >-
+        Feeds the 'Add Trigger' catalog UI. Returns one entry per non-internal, non-deprecated trigger class, classified
+        as core (bundled with Kestra Core), realtime (implements RealtimeTriggerInterface) or app (implements
+        PollingTriggerInterface).
+      operationId: listTriggerPlugins
+      responses:
+        "200":
+          description: listTriggerPlugins 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_PluginController.ApiTriggerPlugin_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/plugins/{cls}:
     get:
       tags:
@@ -3603,7 +3623,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_AppResponse_"
+                $ref: "#/components/schemas/AppResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6833,6 +6853,14 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
+        - name: dateFilter
+          in: query
+          description: Which execution date field the time interval is applied to
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
         - name: tenant
           in: path
           required: true
@@ -7812,7 +7840,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_Execution_"
+                $ref: "#/components/schemas/Execution"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7857,7 +7885,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/Event_ExecutionStatusEvent_"
+                $ref: "#/components/schemas/ExecutionStatusEvent"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -16906,6 +16934,12 @@ components:
         originalCreatedDate:
           type: string
           format: date-time
+    ExecutionRepositoryInterface.DateFilter:
+      type: string
+      enum:
+        - START_DATE
+        - END_DATE
+        - START_OR_END_DATE
     ExecutionRepositoryInterface.FlowFilter:
       required:
         - id
@@ -19551,6 +19585,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_PluginController.ApiTriggerPlugin_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginController.ApiTriggerPlugin"
+        total:
+          type: integer
+          format: int64
     PagedResults_SearchResult_Flow__:
       required:
         - results
@@ -19848,6 +19895,23 @@ components:
           type: array
           items:
             type: string
+    PluginController.ApiTriggerPlugin:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        group:
+          $ref: "#/components/schemas/TriggerPluginCategory"
+        ee:
+          type: boolean
+        icon:
+          type: string
+        deprecated:
+          type: boolean
     PluginDefault:
       required:
         - type
@@ -21410,6 +21474,14 @@ components:
           type: object
           additionalProperties:
             type: object
+    TriggerPluginCategory:
+      type: string
+      enum:
+        - CORE
+        - REALTIME
+        - APP
+        - UNKNOWN
+      x-type: String
     Type:
       type: string
       enum:
