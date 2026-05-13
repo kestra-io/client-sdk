@@ -1,10 +1,12 @@
 package test
 
 import (
+	"context"
 	"os"
 	"strings"
 	"testing"
 
+	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,17 +33,17 @@ func openTempFile(t *testing.T, path string) *os.File {
 
 func TestFilesAPI_All(t *testing.T) {
 	t.Run("createNamespaceDirectoryTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "create_namespace_directory"
 		path := "testdir"
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceDirectory(ctx, namespace, MAIN_TENANT).Path(path).Execute()
+		err := KestraTestClient().Files().CreateNamespaceDirectory(ctx, namespace, MAIN_TENANT, &path)
 		require.NoError(t, err)
 	})
 
 	t.Run("createNamespaceFileTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "create_namespace_file"
 		path := "file.txt"
@@ -50,15 +52,12 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, path, file, "file.txt")
 		require.NoError(t, err)
 	})
 
 	t.Run("fileContentTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "file_content"
 		path := "file.txt"
@@ -67,15 +66,10 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, path, file, "file.txt")
 		require.NoError(t, err)
 
-		response, _, err := KestraTestApiClient().FilesAPI.FileContent(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			Execute()
+		response, err := KestraTestClient().Files().FileContent(ctx, namespace, MAIN_TENANT, path, nil)
 		require.NoError(t, err)
 		require.NotNil(t, response)
 
@@ -85,7 +79,7 @@ func TestFilesAPI_All(t *testing.T) {
 	})
 
 	t.Run("fileMetadatasTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "file_metadatas"
 		path := "file.txt"
@@ -94,15 +88,10 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, path, file, "file.txt")
 		require.NoError(t, err)
 
-		response, _, err := KestraTestApiClient().FilesAPI.FileMetadatas(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			Execute()
+		response, err := KestraTestClient().Files().FileMetadatas(ctx, namespace, MAIN_TENANT, path)
 		require.NoError(t, err)
 		require.NotNil(t, response)
 		require.NotNil(t, response.GetSize())
@@ -113,7 +102,7 @@ func TestFilesAPI_All(t *testing.T) {
 	})
 
 	t.Run("listNamespaceDirectoryFilesTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "list_namespace_directory_files"
 		path := ""
@@ -122,24 +111,19 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path("file.txt").
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, "file.txt", file, "file.txt")
 		require.NoError(t, err)
 
-		response, _, err := KestraTestApiClient().FilesAPI.ListNamespaceDirectoryFiles(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			Execute()
+		response, err := KestraTestClient().Files().ListNamespaceDirectoryFiles(ctx, namespace, MAIN_TENANT, kestra_api_client.PtrString(path))
 		require.NoError(t, err)
 		require.NotNil(t, response)
 		require.NotEmpty(t, response)
 	})
 
 	t.Run("moveFileDirectoryTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		namespace := "move_file_directory"
+		namespace := "move_file_directory_" + randomId()
 		fromPath := "/file_to_move.txt"
 		toPath := "/moved_file.txt"
 
@@ -147,27 +131,19 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path(fromPath[1:]).
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, fromPath[1:], file, "file_to_move.txt")
 		require.NoError(t, err)
 
-		_, err = KestraTestApiClient().FilesAPI.MoveFileDirectory(ctx, namespace, MAIN_TENANT).
-			From(fromPath).
-			To(toPath).
-			Execute()
+		err = KestraTestClient().Files().MoveFileDirectory(ctx, namespace, MAIN_TENANT, fromPath, toPath)
 		require.NoError(t, err)
 
-		search, _, err := KestraTestApiClient().FilesAPI.SearchNamespaceFiles(ctx, namespace, MAIN_TENANT).
-			Q("moved_file").
-			Execute()
+		search, err := KestraTestClient().Files().SearchNamespaceFiles(ctx, namespace, MAIN_TENANT, kestra_api_client.PtrString("moved_file"))
 		require.NoError(t, err)
 		require.NotNil(t, search)
 	})
 
 	t.Run("deleteFileDirectoryTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "delete_file_directory"
 		path := "file_to_delete.txt"
@@ -176,29 +152,24 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, path, file, "file_to_delete.txt")
 		require.NoError(t, err)
 
-		_, err = KestraTestApiClient().FilesAPI.DeleteFileDirectory(ctx, namespace, MAIN_TENANT).
-			Path(path).
-			Execute()
+		err = KestraTestClient().Files().DeleteFileDirectory(ctx, namespace, MAIN_TENANT, path)
 		require.NoError(t, err)
 	})
 
 	t.Run("exportNamespaceFilesTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "export_namespace_files"
-		response, _, err := KestraTestApiClient().FilesAPI.ExportNamespaceFiles(ctx, namespace, MAIN_TENANT).Execute()
+		response, err := KestraTestClient().Files().ExportNamespaceFiles(ctx, namespace, MAIN_TENANT)
 		require.NoError(t, err)
 		require.NotEmpty(t, response)
 	})
 
 	t.Run("searchNamespaceFilesTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		namespace := "search_namespace_files"
 		q := "file"
@@ -207,15 +178,10 @@ func TestFilesAPI_All(t *testing.T) {
 		file := openTempFile(t, pathOnDisk)
 		defer func() { _ = file.Close() }()
 
-		_, err := KestraTestApiClient().FilesAPI.CreateNamespaceFile(ctx, namespace, MAIN_TENANT).
-			Path("search_file.txt").
-			FileContent(file).
-			Execute()
+		err := KestraTestClient().Files().CreateNamespaceFile(ctx, namespace, MAIN_TENANT, "search_file.txt", file, "search_file.txt")
 		require.NoError(t, err)
 
-		response, _, err := KestraTestApiClient().FilesAPI.SearchNamespaceFiles(ctx, namespace, MAIN_TENANT).
-			Q(q).
-			Execute()
+		response, err := KestraTestClient().Files().SearchNamespaceFiles(ctx, namespace, MAIN_TENANT, kestra_api_client.PtrString(q))
 		require.NoError(t, err)
 		require.NotNil(t, response)
 

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
@@ -16,130 +17,111 @@ func truncateServiceAccountName(name string) string {
 
 func TestServiceAccountAPI_All(t *testing.T) {
 	t.Run("createServiceAccountTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test-create-service-account-" + randomId()
-		req := kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{
-			Name:        name,
-			Description: strPtr("service account created by tests"),
+		req := map[string]interface{}{
+			"name":        name,
+			"description": "service account created by tests",
 		}
 
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(req).
-			Execute()
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 		require.NotEmpty(t, created.GetId())
 	})
 
 	t.Run("createServiceAccountForTenantTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		fullName := "test-create-service-account-for-tenant-" + randomId()
 		name := truncateServiceAccountName(fullName)
-		req := kestra_api_client.IAMServiceAccountControllerApiServiceAccountRequest{
-			Name:        name,
-			Description: strPtr("service account for tenant"),
+		req := map[string]interface{}{
+			"name":        name,
+			"description": "service account for tenant",
 		}
 
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccountForTenant(ctx, MAIN_TENANT).
-			IAMServiceAccountControllerApiServiceAccountRequest(req).
-			Execute()
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccountForTenant(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 		require.NotEmpty(t, created.GetId())
 	})
 
 	t.Run("deleteServiceAccountTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test-delete-service-account-" + randomId()
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name},
-			).
-			Execute()
-		require.NoError(t, err)
-
-		_, err = KestraTestApiClient().ServiceAccountAPI.DeleteServiceAccount(ctx, created.GetId()).Execute()
-		require.NoError(t, err)
-
-		_, httpResp, err := KestraTestApiClient().ServiceAccountAPI.ServiceAccount(ctx, created.GetId()).Execute()
-		require.Error(t, err)
-		if httpResp != nil {
-			require.Equal(t, 404, httpResp.StatusCode)
+		req := map[string]interface{}{
+			"name": name,
 		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
+		require.NoError(t, err)
+
+		err = KestraTestClient().ServiceAccount().DeleteServiceAccount(ctx, created.GetId())
+		require.NoError(t, err)
+
+		_, err = KestraTestClient().ServiceAccount().ServiceAccount(ctx, created.GetId())
+		require.Error(t, err)
 	})
 
 	t.Run("deleteServiceAccountForTenantTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		fullName := "test-delete-service-account-for-tenant-" + randomId()
 		name := truncateServiceAccountName(fullName)
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccountForTenant(ctx, MAIN_TENANT).
-			IAMServiceAccountControllerApiServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiServiceAccountRequest{Name: name},
-			).
-			Execute()
-		require.NoError(t, err)
-
-		_, err = KestraTestApiClient().ServiceAccountAPI.DeleteServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT).Execute()
-		require.NoError(t, err)
-
-		_, httpResp, err := KestraTestApiClient().ServiceAccountAPI.ServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT).Execute()
-		require.Error(t, err)
-		if httpResp != nil {
-			require.Equal(t, 404, httpResp.StatusCode)
+		req := map[string]interface{}{
+			"name": name,
 		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccountForTenant(ctx, MAIN_TENANT, req)
+		require.NoError(t, err)
+
+		err = KestraTestClient().ServiceAccount().DeleteServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT)
+		require.NoError(t, err)
+
+		_, err = KestraTestClient().ServiceAccount().ServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT)
+		require.Error(t, err)
 	})
 
 	t.Run("getServiceAccountTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test-get-service-account-" + randomId()
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name": name,
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().ServiceAccountAPI.ServiceAccount(ctx, created.GetId()).Execute()
+		fetched, err := KestraTestClient().ServiceAccount().ServiceAccount(ctx, created.GetId())
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), fetched.GetId())
 	})
 
 	t.Run("getServiceAccountForTenantTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		fullName := "test-get-service-account-for-tenant-" + randomId()
 		name := truncateServiceAccountName(fullName)
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccountForTenant(ctx, MAIN_TENANT).
-			IAMServiceAccountControllerApiServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiServiceAccountRequest{Name: name},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name": name,
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccountForTenant(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().ServiceAccountAPI.ServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT).Execute()
+		fetched, err := KestraTestClient().ServiceAccount().ServiceAccountForTenant(ctx, created.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), fetched.GetId())
 	})
 
 	t.Run("listServiceAccountsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test-list-service-accounts-" + randomId()
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name": name,
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 
-		page, _, err := KestraTestApiClient().ServiceAccountAPI.ListServiceAccounts(ctx).
-			Page(1).
-			Size(50).
-			Filters([]kestra_api_client.QueryFilter{}).
-			Execute()
+		page, err := KestraTestClient().ServiceAccount().ListServiceAccounts(ctx, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, page)
 		require.NotNil(t, page.GetResults())
@@ -155,70 +137,146 @@ func TestServiceAccountAPI_All(t *testing.T) {
 	})
 
 	t.Run("patchServiceAccountDetailsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		fullName := "test-patch-service-account-details-" + randomId()
 		name := truncateServiceAccountName(fullName)
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name, Description: strPtr("old")},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name":        name,
+			"description": "old",
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 
-		patchReq := kestra_api_client.IAMServiceAccountControllerApiPatchServiceAccountRequest{
-			Name:        name,
-			Description: strPtr("new"),
+		patchReq := map[string]interface{}{
+			"name":        name,
+			"description": "new",
 		}
-		patched, _, err := KestraTestApiClient().ServiceAccountAPI.PatchServiceAccountDetails(ctx, created.GetId()).
-			IAMServiceAccountControllerApiPatchServiceAccountRequest(patchReq).
-			Execute()
+		patched, err := KestraTestClient().ServiceAccount().PatchServiceAccountDetails(ctx, created.GetId(), patchReq)
 		require.NoError(t, err)
 		require.Equal(t, "new", patched.GetDescription())
 	})
 
 	t.Run("patchServiceAccountSuperAdminTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		fullName := "test-patch-service-account-super-admin-" + randomId()
 		name := truncateServiceAccountName(fullName)
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name": name,
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 
-		patch := kestra_api_client.ApiPatchSuperAdminRequest{SuperAdmin: true}
-		_, err = KestraTestApiClient().ServiceAccountAPI.PatchServiceAccountSuperAdmin(ctx, created.GetId()).
-			ApiPatchSuperAdminRequest(patch).
-			Execute()
+		patch := map[string]interface{}{"superAdmin": true}
+		err = KestraTestClient().ServiceAccount().PatchServiceAccountSuperAdmin(ctx, created.GetId(), patch)
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().ServiceAccountAPI.ServiceAccount(ctx, created.GetId()).Execute()
+		fetched, err := KestraTestClient().ServiceAccount().ServiceAccount(ctx, created.GetId())
 		require.NoError(t, err)
 		require.True(t, fetched.GetSuperAdmin())
 	})
 
 	t.Run("updateServiceAccountTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test-update-service-account-" + randomId()
-		created, _, err := KestraTestApiClient().ServiceAccountAPI.CreateServiceAccount(ctx).
-			IAMServiceAccountControllerApiCreateServiceAccountRequest(
-				kestra_api_client.IAMServiceAccountControllerApiCreateServiceAccountRequest{Name: name, Description: strPtr("Before")},
-			).
-			Execute()
+		req := map[string]interface{}{
+			"name":        name,
+			"description": "Before",
+		}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
 		require.NoError(t, err)
 
-		updateReq := kestra_api_client.IAMServiceAccountControllerApiServiceAccountRequest{
-			Name:        created.GetName(),
-			Description: strPtr("After"),
+		updateReq := map[string]interface{}{
+			"name":        created.GetName(),
+			"description": "After",
 		}
-		updated, _, err := KestraTestApiClient().ServiceAccountAPI.UpdateServiceAccount(ctx, created.GetId(), MAIN_TENANT).
-			IAMServiceAccountControllerApiServiceAccountRequest(updateReq).
-			Execute()
+		updated, err := KestraTestClient().ServiceAccount().UpdateServiceAccount(ctx, created.GetId(), MAIN_TENANT, updateReq)
 		require.NoError(t, err)
 		require.Equal(t, "After", updated.GetDescription())
 	})
+
+	t.Run("createAndListApiTokensForServiceAccountTest", func(t *testing.T) {
+		ctx := context.Background()
+		name := "test-api-tokens-sa-" + randomId()
+		req := map[string]interface{}{"name": name}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
+		require.NoError(t, err)
+
+		tokenReq := map[string]interface{}{
+			"name":        "test-token-" + randomId(),
+			"description": "test token",
+		}
+		tokenResp, err := KestraTestClient().ServiceAccount().CreateApiTokensForServiceAccount(ctx, created.GetId(), tokenReq)
+		require.NoError(t, err)
+		require.NotNil(t, tokenResp)
+
+		tokens, err := KestraTestClient().ServiceAccount().ListApiTokensForServiceAccount(ctx, created.GetId())
+		require.NoError(t, err)
+		require.NotNil(t, tokens)
+	})
+
+	t.Run("deleteApiTokenForServiceAccountTest", func(t *testing.T) {
+		ctx := context.Background()
+		name := "test-delete-api-token-sa-" + randomId()
+		req := map[string]interface{}{"name": name}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
+		require.NoError(t, err)
+
+		tokenReq := map[string]interface{}{
+			"name": "test-token-" + randomId(),
+		}
+		tokenResp, err := KestraTestClient().ServiceAccount().CreateApiTokensForServiceAccount(ctx, created.GetId(), tokenReq)
+		require.NoError(t, err)
+
+		tokenId, ok := tokenResp["id"].(string)
+		require.True(t, ok, "token response should contain string id")
+
+		err = KestraTestClient().ServiceAccount().DeleteApiTokenForServiceAccount(ctx, created.GetId(), tokenId)
+		require.NoError(t, err)
+	})
+
+	t.Run("createAndListApiTokensForServiceAccountWithTenantTest", func(t *testing.T) {
+		ctx := context.Background()
+		fullName := "test-api-tokens-sa-tenant-" + randomId()
+		name := truncateServiceAccountName(fullName)
+		req := map[string]interface{}{"name": name}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccountForTenant(ctx, MAIN_TENANT, req)
+		require.NoError(t, err)
+
+		tokenReq := map[string]interface{}{
+			"name":        "test-token-" + randomId(),
+			"description": "test token",
+		}
+		tokenResp, err := KestraTestClient().ServiceAccount().CreateApiTokensForServiceAccountWithTenant(ctx, created.GetId(), MAIN_TENANT, tokenReq)
+		require.NoError(t, err)
+		require.NotNil(t, tokenResp)
+
+		tokens, err := KestraTestClient().ServiceAccount().ListApiTokensForServiceAccountWithTenant(ctx, created.GetId(), MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotNil(t, tokens)
+	})
+
+	t.Run("deleteApiTokenForServiceAccountWithTenantTest", func(t *testing.T) {
+		ctx := context.Background()
+		fullName := "test-delete-api-token-sa-tenant-" + randomId()
+		name := truncateServiceAccountName(fullName)
+		req := map[string]interface{}{"name": name}
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccountForTenant(ctx, MAIN_TENANT, req)
+		require.NoError(t, err)
+
+		tokenReq := map[string]interface{}{
+			"name": "test-token-" + randomId(),
+		}
+		tokenResp, err := KestraTestClient().ServiceAccount().CreateApiTokensForServiceAccountWithTenant(ctx, created.GetId(), MAIN_TENANT, tokenReq)
+		require.NoError(t, err)
+
+		tokenId, ok := tokenResp["id"].(string)
+		require.True(t, ok, "token response should contain string id")
+
+		err = KestraTestClient().ServiceAccount().DeleteApiTokenForServiceAccountWithTenant(ctx, created.GetId(), tokenId, MAIN_TENANT)
+		require.NoError(t, err)
+	})
 }
+

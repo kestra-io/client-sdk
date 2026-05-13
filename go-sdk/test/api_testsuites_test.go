@@ -57,17 +57,47 @@ testCases:
 `, id, ns, flowId)
 }
 
+// createSimpleFlowNew creates a simple flow using the new hand-written API.
+func createSimpleFlowNew(ctx context.Context, id string, ns string) {
+	flowYaml := fmt.Sprintf(`
+id: %s
+namespace: %s
+description: simple_flow_description
+
+inputs:
+  - id: inputA
+    type: STRING
+    defaults: 'default_value'
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "Hello World! {{ inputs.inputA }}"
+  - id: return
+    type: io.kestra.plugin.core.debug.Return
+    format: "{{ inputs.inputA }}"
+outputs:
+  - id: flow_output
+    type: STRING
+    value: "{{ outputs.return.value }}"
+`, id, ns)
+	_, err := KestraTestClient().Flows().CreateFlow(ctx, MAIN_TENANT, flowYaml)
+	if err != nil {
+		panic(fmt.Sprintf("error while inserting test flow with id: '%s', error: %s", id, err))
+	}
+}
+
 func TestTestSuitesAPI_All(t *testing.T) {
 
 	t.Run("createTestSuiteTest", func(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		res, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		res, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 
 		require.NoError(t, err)
 		require.EqualValues(t, testSuiteId, res.Id)
@@ -89,13 +119,13 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		createSimpleFlowNew(ctx, flowId, namespace)
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 
-		res, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		res, err := KestraTestClient().TestSuites().TestSuite(ctx, namespace, testSuiteId, MAIN_TENANT)
 		require.NoError(t, err)
 
 		require.EqualValues(t, testSuiteId, res.Id)
@@ -107,15 +137,15 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 		assertTestSuiteExists(t, ctx, namespace, testSuiteId)
 
-		_, _, err = KestraTestApiClient().TestSuitesAPI.DeleteTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		_, err = KestraTestClient().TestSuites().DeleteTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT)
 		require.NoError(t, err)
 
 		assertTestSuiteDoesNotExist(t, ctx, namespace, testSuiteId)
@@ -124,11 +154,11 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 		assertTestSuiteExists(t, ctx, namespace, testSuiteId)
 
@@ -136,10 +166,10 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteYaml = strings.ReplaceAll(testSuiteYaml, "assert flow is returning the input value as output", "updated testsuite description")
 		testSuiteYaml = strings.ReplaceAll(testSuiteYaml, "test_case_1 description", "updated testcase description")
 
-		_, _, err = KestraTestApiClient().TestSuitesAPI.UpdateTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		_, err = KestraTestClient().TestSuites().UpdateTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 
-		fetchedTestSuite, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		fetchedTestSuite, err := KestraTestClient().TestSuites().TestSuite(ctx, namespace, testSuiteId, MAIN_TENANT)
 		require.NoError(t, err)
 		require.EqualValues(t, testSuiteId, fetchedTestSuite.GetId())
 		require.EqualValues(t, "updated testsuite description", fetchedTestSuite.GetDescription())
@@ -149,11 +179,11 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		validations, _, err := KestraTestApiClient().TestSuitesAPI.ValidateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		validations, err := KestraTestClient().TestSuites().ValidateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 
 		require.NoError(t, err)
 		require.Len(t, validations.GetWarnings(), 0)
@@ -165,11 +195,11 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := INVALID_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		validations, _, err := KestraTestApiClient().TestSuitesAPI.ValidateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		validations, err := KestraTestClient().TestSuites().ValidateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 
 		require.NoError(t, err)
 		require.Contains(t, validations.GetConstraints(), "testCases: must not be empty")
@@ -181,14 +211,14 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId3 := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
-		createSimpleFlow(ctx, flowId, namespace)
+		ctx := context.Background()
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		testSuite1, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId)).Execute()
+		testSuite1, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId))
 		require.NoError(t, err)
-		testSuite2, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId)).Execute()
+		testSuite2, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId))
 		require.NoError(t, err)
-		testSuite3, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId)).Execute()
+		testSuite3, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId))
 		require.NoError(t, err)
 		assertTestSuiteExists(t, ctx, namespace, testSuite1.Id)
 		assertTestSuiteExists(t, ctx, namespace, testSuite2.Id)
@@ -199,7 +229,8 @@ func TestTestSuitesAPI_All(t *testing.T) {
 				{Id: testSuiteId1, Namespace: namespace},
 				{Id: testSuiteId3, Namespace: namespace},
 			}}
-		_, _, err = KestraTestApiClient().TestSuitesAPI.DeleteTestSuitesByIds(ctx, MAIN_TENANT).TestSuiteControllerTestSuiteBulkRequest(deleteByIdsRequest).Execute()
+		_, err = KestraTestClient().TestSuites().DeleteTestSuitesByIds(ctx, MAIN_TENANT, deleteByIdsRequest)
+		require.NoError(t, err)
 
 		assertTestSuiteExists(t, ctx, namespace, testSuite2.Id)
 		assertTestSuiteDoesNotExist(t, ctx, namespace, testSuite1.Id)
@@ -211,14 +242,14 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId3 := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
-		createSimpleFlow(ctx, flowId, namespace)
+		ctx := context.Background()
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		testSuite1, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId)).Execute()
+		testSuite1, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId))
 		require.NoError(t, err)
-		testSuite2, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId)).Execute()
+		testSuite2, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId))
 		require.NoError(t, err)
-		testSuite3, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId)).Execute()
+		testSuite3, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId))
 		require.NoError(t, err)
 		assertTestSuiteEnabled(t, ctx, testSuite1)
 		assertTestSuiteEnabled(t, ctx, testSuite2)
@@ -229,7 +260,8 @@ func TestTestSuitesAPI_All(t *testing.T) {
 				{Id: testSuiteId1, Namespace: namespace},
 				{Id: testSuiteId3, Namespace: namespace},
 			}}
-		_, _, err = KestraTestApiClient().TestSuitesAPI.DisableTestSuitesByIds(ctx, MAIN_TENANT).TestSuiteControllerTestSuiteBulkRequest(bulkByIdsRequest).Execute()
+		_, err = KestraTestClient().TestSuites().DisableTestSuitesByIds(ctx, MAIN_TENANT, bulkByIdsRequest)
+		require.NoError(t, err)
 
 		assertTestSuiteEnabled(t, ctx, testSuite2)
 		assertTestSuiteDisabled(t, ctx, testSuite1)
@@ -241,14 +273,14 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId3 := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
-		createSimpleFlow(ctx, flowId, namespace)
+		ctx := context.Background()
+		createSimpleFlowNew(ctx, flowId, namespace)
 
-		testSuite1, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId)).Execute()
+		testSuite1, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId1, namespace, flowId))
 		require.NoError(t, err)
-		testSuite2, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId)).Execute()
+		testSuite2, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId2, namespace, flowId))
 		require.NoError(t, err)
-		testSuite3, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId)).Execute()
+		testSuite3, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId3, namespace, flowId))
 		require.NoError(t, err)
 
 		disableAllReq := kestra_api_client.TestSuiteControllerTestSuiteBulkRequest{
@@ -257,7 +289,8 @@ func TestTestSuitesAPI_All(t *testing.T) {
 				{Id: testSuiteId2, Namespace: namespace},
 				{Id: testSuiteId3, Namespace: namespace},
 			}}
-		_, _, err = KestraTestApiClient().TestSuitesAPI.DisableTestSuitesByIds(ctx, MAIN_TENANT).TestSuiteControllerTestSuiteBulkRequest(disableAllReq).Execute()
+		_, err = KestraTestClient().TestSuites().DisableTestSuitesByIds(ctx, MAIN_TENANT, disableAllReq)
+		require.NoError(t, err)
 		assertTestSuiteDisabled(t, ctx, testSuite1)
 		assertTestSuiteDisabled(t, ctx, testSuite2)
 		assertTestSuiteDisabled(t, ctx, testSuite3)
@@ -267,7 +300,8 @@ func TestTestSuitesAPI_All(t *testing.T) {
 				{Id: testSuiteId1, Namespace: namespace},
 				{Id: testSuiteId3, Namespace: namespace},
 			}}
-		_, _, err = KestraTestApiClient().TestSuitesAPI.EnableTestSuitesByIds(ctx, MAIN_TENANT).TestSuiteControllerTestSuiteBulkRequest(enableRequest).Execute()
+		_, err = KestraTestClient().TestSuites().EnableTestSuitesByIds(ctx, MAIN_TENANT, enableRequest)
+		require.NoError(t, err)
 
 		assertTestSuiteDisabled(t, ctx, testSuite2)
 		assertTestSuiteEnabled(t, ctx, testSuite1)
@@ -283,22 +317,22 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId2 := randomId()
 		testSuiteId3 := randomId()
 		testSuiteId4 := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		createSimpleFlow(ctx, flowIdAAA, namespaceXXX)
-		createSimpleFlow(ctx, flowIdBBB, namespaceXXX)
-		createSimpleFlow(ctx, flowIdCCC, namespaceYYY)
+		createSimpleFlowNew(ctx, flowIdAAA, namespaceXXX)
+		createSimpleFlowNew(ctx, flowIdBBB, namespaceXXX)
+		createSimpleFlowNew(ctx, flowIdCCC, namespaceYYY)
 
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId1, namespaceXXX, flowIdAAA)).Execute()
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId1, namespaceXXX, flowIdAAA))
 		require.NoError(t, err)
-		_, _, err = KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId2, namespaceXXX, flowIdAAA)).Execute()
+		_, err = KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId2, namespaceXXX, flowIdAAA))
 		require.NoError(t, err)
-		_, _, err = KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId3, namespaceXXX, flowIdBBB)).Execute()
+		_, err = KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId3, namespaceXXX, flowIdBBB))
 		require.NoError(t, err)
-		_, _, err = KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(SIMPLE_TEST_SUITE(testSuiteId4, namespaceYYY, flowIdCCC)).Execute()
+		_, err = KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, SIMPLE_TEST_SUITE(testSuiteId4, namespaceYYY, flowIdCCC))
 		require.NoError(t, err)
 
-		searchByFlowAAA, _, err := KestraTestApiClient().TestSuitesAPI.SearchTestSuites(ctx, MAIN_TENANT).FlowId(flowIdAAA).Execute()
+		searchByFlowAAA, err := KestraTestClient().TestSuites().SearchTestSuites(ctx, MAIN_TENANT, nil, nil, nil, nil, kestra_api_client.PtrString(flowIdAAA), nil)
 		require.NoError(t, err)
 		foundIds := []string{}
 		for _, found := range searchByFlowAAA.GetResults() {
@@ -306,7 +340,7 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		}
 		require.ElementsMatch(t, []string{testSuiteId1, testSuiteId2}, foundIds)
 
-		searchByNamespaceYYY, _, err := KestraTestApiClient().TestSuitesAPI.SearchTestSuites(ctx, MAIN_TENANT).Namespace(namespaceYYY).Execute()
+		searchByNamespaceYYY, err := KestraTestClient().TestSuites().SearchTestSuites(ctx, MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrString(namespaceYYY), nil, nil)
 		require.NoError(t, err)
 		foundIds = []string{}
 		for _, found := range searchByNamespaceYYY.GetResults() {
@@ -319,13 +353,13 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		createSimpleFlowNew(ctx, flowId, namespace)
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 
-		res, _, err := KestraTestApiClient().TestSuitesAPI.RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		res, err := KestraTestClient().TestSuites().RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT, nil)
 		require.NoError(t, err)
 
 		require.EqualValues(t, testSuiteId, res.GetTestSuiteId())
@@ -337,13 +371,13 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
-		ctx := GetAuthContext()
+		ctx := context.Background()
 		testSuiteYaml := FAILING_SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
-		createSimpleFlow(ctx, flowId, namespace)
-		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		createSimpleFlowNew(ctx, flowId, namespace)
+		_, err := KestraTestClient().TestSuites().CreateTestSuite(ctx, MAIN_TENANT, testSuiteYaml)
 		require.NoError(t, err)
 
-		res, _, err := KestraTestApiClient().TestSuitesAPI.RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		res, err := KestraTestClient().TestSuites().RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT, nil)
 		require.NoError(t, err)
 
 		require.EqualValues(t, testSuiteId, res.GetTestSuiteId())
@@ -372,20 +406,20 @@ func TestTestSuitesAPI_All(t *testing.T) {
 	})
 }
 func assertTestSuiteExists(t *testing.T, ctx context.Context, namespace string, id string) {
-	_, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, namespace, id, MAIN_TENANT).Execute()
+	_, err := KestraTestClient().TestSuites().TestSuite(ctx, namespace, id, MAIN_TENANT)
 	require.NoError(t, err)
 }
 func assertTestSuiteDoesNotExist(t *testing.T, ctx context.Context, namespace string, id string) {
-	_, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, namespace, id, MAIN_TENANT).Execute()
-	require.ErrorContains(t, err, "404 Not Found")
+	_, err := KestraTestClient().TestSuites().TestSuite(ctx, namespace, id, MAIN_TENANT)
+	require.ErrorContains(t, err, "API error 404")
 }
 func assertTestSuiteDisabled(t *testing.T, ctx context.Context, testSuite *kestra_api_client.TestSuite) {
-	res, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, testSuite.Namespace, testSuite.Id, MAIN_TENANT).Execute()
+	res, err := KestraTestClient().TestSuites().TestSuite(ctx, testSuite.Namespace, testSuite.Id, MAIN_TENANT)
 	require.NoError(t, err)
 	require.True(t, res.GetDisabled())
 }
 func assertTestSuiteEnabled(t *testing.T, ctx context.Context, testSuite *kestra_api_client.TestSuite) {
-	res, _, err := KestraTestApiClient().TestSuitesAPI.TestSuite(ctx, testSuite.Namespace, testSuite.Id, MAIN_TENANT).Execute()
+	res, err := KestraTestClient().TestSuites().TestSuite(ctx, testSuite.Namespace, testSuite.Id, MAIN_TENANT)
 	require.NoError(t, err)
 	require.False(t, res.GetDisabled())
 }
