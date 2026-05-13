@@ -3,6 +3,7 @@ import { setSelectedTenant } from "@kestra-io/kestra-sdk/shared";
 import { configureClient } from "@kestra-io/kestra-sdk";
 import * as Ai from "@kestra-io/kestra-sdk/ai";
 import * as Apps from "@kestra-io/kestra-sdk/apps";
+import * as Assets from "@kestra-io/kestra-sdk/assets";
 import * as AuditLogs from "@kestra-io/kestra-sdk/audit-logs";
 import * as Auths from "@kestra-io/kestra-sdk/auths";
 import * as Banners from "@kestra-io/kestra-sdk/banners";
@@ -39,6 +40,8 @@ import * as TestSuites from "@kestra-io/kestra-sdk/test-suites";
 import * as Triggers from "@kestra-io/kestra-sdk/triggers";
 import * as Users from "@kestra-io/kestra-sdk/users";
 import * as WorkerGroups from "@kestra-io/kestra-sdk/worker-groups";
+import * as KillSwitches from "@kestra-io/kestra-sdk/kill-switches";
+import * as WorkerAuth from "@kestra-io/kestra-sdk/worker-auth";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
@@ -81,6 +84,7 @@ beforeAll(async () => {
 export const kestraClient = {
     Ai,
     Apps,
+    Assets,
     AuditLogs,
     Auths,
     Banners,
@@ -117,6 +121,8 @@ export const kestraClient = {
     Triggers,
     Users,
     WorkerGroups,
+    KillSwitches,
+    WorkerAuth,
 };
 
 export function randomId() {
