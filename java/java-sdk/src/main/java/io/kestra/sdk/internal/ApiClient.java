@@ -109,7 +109,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected ThreadLocal<Integer> lastStatusCode = new ThreadLocal<>();
   protected ThreadLocal<Map<String, List<String>>> lastResponseHeaders = new ThreadLocal<>();
 
-  protected DateFormat dateFormat;
+  protected ThreadLocal<DateFormat> dateFormat;
 
   // Methods that can have a request body
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
@@ -127,7 +127,7 @@ public class ApiClient extends JavaTimeFormatter {
     objectMapper.registerModule(new RFC3339JavaTimeModule());
     objectMapper.setDateFormat(ApiClient.buildDefaultDateFormat());
 
-    dateFormat = ApiClient.buildDefaultDateFormat();
+    dateFormat = ThreadLocal.withInitial(ApiClient::buildDefaultDateFormat);
 
     // Set default User-Agent.
     setUserAgent("OpenAPI-Generator/v1.0.5/java");
@@ -449,7 +449,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return Date format
    */
   public DateFormat getDateFormat() {
-    return dateFormat;
+    return dateFormat.get();
   }
 
   /**
@@ -457,10 +457,9 @@ public class ApiClient extends JavaTimeFormatter {
    * @param dateFormat Date format
    * @return API client
    */
-  public ApiClient setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-    // Also set the date format for model (de)serialization with Date properties.
-    this.objectMapper.setDateFormat((DateFormat) dateFormat.clone());
+  public ApiClient setDateFormat(DateFormat newDateFormat) {
+    this.dateFormat = ThreadLocal.withInitial(() -> (DateFormat) newDateFormat.clone());
+    this.objectMapper.setDateFormat((DateFormat) newDateFormat.clone());
     return this;
   }
 
@@ -471,7 +470,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public Date parseDate(String str) {
     try {
-      return dateFormat.parse(str);
+      return dateFormat.get().parse(str);
     } catch (java.text.ParseException e) {
       throw new RuntimeException(e);
     }
@@ -483,7 +482,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return Date in string format
    */
   public String formatDate(Date date) {
-    return dateFormat.format(date);
+    return dateFormat.get().format(date);
   }
 
   /**
@@ -560,6 +559,12 @@ public class ApiClient extends JavaTimeFormatter {
         return sb.toString();
     }
 
+    private static String filterFieldName(String field) {
+        if ("query".equalsIgnoreCase(field)) return "q";
+        if ("min_level".equalsIgnoreCase(field)) return "level";
+        return toCamelCaseFromFolder(field);
+    }
+
   /**
    * Formats the specified collection query parameters to a list of {@code Pair} objects.
    *
@@ -582,7 +587,7 @@ public class ApiClient extends JavaTimeFormatter {
         for (Object o : value) {
             if (o instanceof QueryFilter queryFilter) {
                 String baseFilterQuery = "filters[" +
-                    ("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString())) +
+                    filterFieldName(queryFilter.getField().toString()) +
                     "][" +
                     queryFilter.getOperation() +
                     "]";
@@ -653,7 +658,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return True if MIME type is boolean
    */
   public boolean isJsonMime(String mime) {
-    String jsonMime = "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
+    String jsonMime = "(?i)^(application/json|text/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
@@ -850,8 +855,8 @@ public class ApiClient extends JavaTimeFormatter {
       }
 
       return objectMapper.readValue(content, valueType);
-    } else if (mimeType.toLowerCase().startsWith("text/")) {
-      // convert input stream to string
+    } else if (mimeType.toLowerCase().startsWith("text/")
+            || mimeType.toLowerCase().contains("yaml")) {
       return (T) EntityUtils.toString(entity);
     } else {
       Map<String, List<String>> responseHeaders = transformResponseHeaders(response.getHeaders());
@@ -1013,7 +1018,8 @@ public class ApiClient extends JavaTimeFormatter {
     if (isSuccessfulStatus(statusCode)) {
       return this.deserialize(response, returnType);
     } else {
-      String message = EntityUtils.toString(response.getEntity());
+      HttpEntity entity = response.getEntity();
+      String message = entity != null ? EntityUtils.toString(entity) : "HTTP " + statusCode;
       throw new ApiException(message, statusCode, responseHeaders, message);
     }
   }
@@ -1095,8 +1101,7 @@ public class ApiClient extends JavaTimeFormatter {
       } else {
         throw new ApiException("method " + method + " does not support a request body");
       }
-    } else {
-      // for empty body
+    } else if (isBodyAllowed(method)) {
       builder.setEntity(new StringEntity("", contentTypeObj));
     }
 

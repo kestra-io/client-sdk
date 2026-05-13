@@ -24,6 +24,7 @@ import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionMetadata;
 import io.kestra.sdk.model.ExecutionTrigger;
 import io.kestra.sdk.model.Label;
+import io.kestra.sdk.model.LoopRun;
 import io.kestra.sdk.model.State;
 import io.kestra.sdk.model.TaskFixture;
 import io.kestra.sdk.model.TaskRun;
@@ -63,6 +64,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerExecutionResponse.JSON_PROPERTY_FIXTURES,
   ExecutionControllerExecutionResponse.JSON_PROPERTY_KIND,
   ExecutionControllerExecutionResponse.JSON_PROPERTY_BREAKPOINTS,
+  ExecutionControllerExecutionResponse.JSON_PROPERTY_LOOP_RUN,
   ExecutionControllerExecutionResponse.JSON_PROPERTY_URL
 })
 @JsonTypeName("ExecutionController.ExecutionResponse")
@@ -102,7 +104,7 @@ public class ExecutionControllerExecutionResponse {
   @jakarta.annotation.Nullable  private String parentId;
 
   public static final String JSON_PROPERTY_ORIGINAL_ID = "originalId";
-  @jakarta.annotation.Nullable  private String originalId;
+  @jakarta.annotation.Nonnull  private String originalId;
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
   @jakarta.annotation.Nullable  private ExecutionTrigger trigger;
@@ -111,7 +113,7 @@ public class ExecutionControllerExecutionResponse {
   @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @jakarta.annotation.Nullable  private ExecutionMetadata metadata;
+  @jakarta.annotation.Nonnull  private ExecutionMetadata metadata;
 
   public static final String JSON_PROPERTY_SCHEDULE_DATE = "scheduleDate";
   @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> scheduleDate = JsonNullable.<OffsetDateTime>undefined();
@@ -127,6 +129,9 @@ public class ExecutionControllerExecutionResponse {
 
   public static final String JSON_PROPERTY_BREAKPOINTS = "breakpoints";
   @jakarta.annotation.Nullable  private JsonNullable<List<Breakpoint>> breakpoints = JsonNullable.<List<Breakpoint>>undefined();
+
+  public static final String JSON_PROPERTY_LOOP_RUN = "loopRun";
+  @jakarta.annotation.Nullable  private JsonNullable<LoopRun> loopRun = JsonNullable.<LoopRun>undefined();
 
   public static final String JSON_PROPERTY_URL = "url";
   @jakarta.annotation.Nullable  private URI url;
@@ -414,7 +419,7 @@ public class ExecutionControllerExecutionResponse {
     this.parentId = parentId;
   }
 
-  public ExecutionControllerExecutionResponse originalId(@jakarta.annotation.Nullable String originalId) {
+  public ExecutionControllerExecutionResponse originalId(@jakarta.annotation.Nonnull String originalId) {
     
     this.originalId = originalId;
     return this;
@@ -424,8 +429,8 @@ public class ExecutionControllerExecutionResponse {
    * Get originalId
    * @return originalId
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOriginalId() {
     return originalId;
@@ -433,8 +438,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOriginalId(@jakarta.annotation.Nullable String originalId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOriginalId(@jakarta.annotation.Nonnull String originalId) {
     this.originalId = originalId;
   }
 
@@ -486,7 +491,7 @@ public class ExecutionControllerExecutionResponse {
     this.deleted = deleted;
   }
 
-  public ExecutionControllerExecutionResponse metadata(@jakarta.annotation.Nullable ExecutionMetadata metadata) {
+  public ExecutionControllerExecutionResponse metadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
     
     this.metadata = metadata;
     return this;
@@ -496,8 +501,8 @@ public class ExecutionControllerExecutionResponse {
    * Get metadata
    * @return metadata
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ExecutionMetadata getMetadata() {
     return metadata;
@@ -505,8 +510,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadata(@jakarta.annotation.Nullable ExecutionMetadata metadata) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetadata(@jakarta.annotation.Nonnull ExecutionMetadata metadata) {
     this.metadata = metadata;
   }
 
@@ -682,6 +687,37 @@ public class ExecutionControllerExecutionResponse {
     this.breakpoints = JsonNullable.<List<Breakpoint>>of(breakpoints);
   }
 
+  public ExecutionControllerExecutionResponse loopRun(@jakarta.annotation.Nullable LoopRun loopRun) {
+    this.loopRun = JsonNullable.<LoopRun>of(loopRun);
+    
+    return this;
+  }
+
+  /**
+   * Get loopRun
+   * @return loopRun
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public LoopRun getLoopRun() {
+        return loopRun.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_LOOP_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<LoopRun> getLoopRun_JsonNullable() {
+    return loopRun;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_LOOP_RUN)
+  public void setLoopRun_JsonNullable(JsonNullable<LoopRun> loopRun) {
+    this.loopRun = loopRun;
+  }
+
+  public void setLoopRun(@jakarta.annotation.Nullable LoopRun loopRun) {
+    this.loopRun = JsonNullable.<LoopRun>of(loopRun);
+  }
+
   public ExecutionControllerExecutionResponse url(@jakarta.annotation.Nullable URI url) {
     
     this.url = url;
@@ -735,6 +771,7 @@ public class ExecutionControllerExecutionResponse {
         equalsNullable(this.fixtures, executionControllerExecutionResponse.fixtures) &&
         equalsNullable(this.kind, executionControllerExecutionResponse.kind) &&
         equalsNullable(this.breakpoints, executionControllerExecutionResponse.breakpoints) &&
+        equalsNullable(this.loopRun, executionControllerExecutionResponse.loopRun) &&
         Objects.equals(this.url, executionControllerExecutionResponse.url);
   }
 
@@ -744,7 +781,7 @@ public class ExecutionControllerExecutionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, hashCodeNullable(scheduleDate), traceParent, hashCodeNullable(fixtures), hashCodeNullable(kind), hashCodeNullable(breakpoints), url);
+    return Objects.hash(labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, hashCodeNullable(scheduleDate), traceParent, hashCodeNullable(fixtures), hashCodeNullable(kind), hashCodeNullable(breakpoints), hashCodeNullable(loopRun), url);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -778,6 +815,7 @@ public class ExecutionControllerExecutionResponse {
     sb.append("    fixtures: ").append(toIndentedString(fixtures)).append("\n");
     sb.append("    kind: ").append(toIndentedString(kind)).append("\n");
     sb.append("    breakpoints: ").append(toIndentedString(breakpoints)).append("\n");
+    sb.append("    loopRun: ").append(toIndentedString(loopRun)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");
     return sb.toString();

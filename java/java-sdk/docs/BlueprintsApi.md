@@ -38,6 +38,7 @@ Retrieves details of a specific community blueprint.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -82,7 +83,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -111,6 +112,7 @@ Retrieves the topology graph representation of a specific community blueprint.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -155,7 +157,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -184,6 +186,7 @@ Retrieves the YAML source code for a specific community blueprint.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -228,7 +231,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -255,6 +258,7 @@ Create a Flow Blueprint
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -297,7 +301,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -326,6 +330,7 @@ Creates a new internal (custom) blueprint for the current tenant. Requires BLUEP
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -368,7 +373,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -397,6 +402,7 @@ Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT permission.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -438,7 +444,7 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -467,6 +473,7 @@ Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRIN
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -508,7 +515,7 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -537,6 +544,7 @@ Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -579,7 +587,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -608,6 +616,7 @@ Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -650,7 +659,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -679,6 +688,7 @@ Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT 
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -721,7 +731,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -750,6 +760,7 @@ Retrieves the YAML source code for a specific internal (custom) blueprint. Requi
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -792,7 +803,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -808,7 +819,7 @@ No authorization required
 
 ## searchBlueprints
 
-> PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(page, size, kind, tenant, q, sort, tags)
+> PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(kind, tenant, q, sort, tags, page, size)
 
 List all blueprints
 
@@ -821,6 +832,7 @@ Lists all community blueprints of the specified kind. Community blueprints are s
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -833,15 +845,15 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 1; // Integer | The current page size
         BlueprintControllerKind kind = BlueprintControllerKind.fromValue("APP"); // BlueprintControllerKind | The blueprint kind
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
         String sort = "sort_example"; // String | The sort of current page
         List<String> tags = Arrays.asList(); // List<String> | A tags filter
+        Integer page = 1; // Integer | The current page
+        Integer size = 1; // Integer | The current page size
         try {
-            PagedResultsBlueprintControllerApiBlueprintItem result = kestraClient.BlueprintsApi().searchBlueprints(page, size, kind, tenant, q, sort, tags);
+            PagedResultsBlueprintControllerApiBlueprintItem result = kestraClient.BlueprintsApi().searchBlueprints(kind, tenant, q, sort, tags, page, size);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#searchBlueprints");
@@ -859,13 +871,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 1] |
 | **kind** | [**BlueprintControllerKind**](.md)| The blueprint kind | [enum: APP, DASHBOARD, FLOW] |
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
 | **sort** | **String**| The sort of current page | [optional] |
 | **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 1] |
 
 ### Return type
 
@@ -873,7 +885,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -889,7 +901,7 @@ No authorization required
 
 ## searchInternalBlueprints
 
-> PagedResultsBlueprint searchInternalBlueprints(page, size, tenant, q, sort, tags)
+> PagedResultsBlueprint searchInternalBlueprints(tenant, q, sort, tags, page, size, source)
 
 List all internal blueprints
 
@@ -902,6 +914,7 @@ Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRIN
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -914,14 +927,15 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        Integer page = 1; // Integer | The current page
-        Integer size = 1; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
         String sort = "sort_example"; // String | The sort of current page
         List<String> tags = Arrays.asList(); // List<String> | A tags filter
+        Integer page = 1; // Integer | The current page
+        Integer size = 1; // Integer | The current page size
+        Boolean source = false; // Boolean | Whether to include the flow source in the response
         try {
-            PagedResultsBlueprint result = kestraClient.BlueprintsApi().searchInternalBlueprints(page, size, tenant, q, sort, tags);
+            PagedResultsBlueprint result = kestraClient.BlueprintsApi().searchInternalBlueprints(tenant, q, sort, tags, page, size, source);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BlueprintsApi#searchInternalBlueprints");
@@ -939,12 +953,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 1] |
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
 | **sort** | **String**| The sort of current page | [optional] |
 | **tags** | [**List&lt;String&gt;**](String.md)| A tags filter | [optional] |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 1] |
+| **source** | **Boolean**| Whether to include the flow source in the response | [optional] [default to false] |
 
 ### Return type
 
@@ -952,7 +967,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -979,6 +994,7 @@ Update a Flow Blueprint
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -1023,7 +1039,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1052,6 +1068,7 @@ Updates an existing internal (custom) blueprint for the current tenant. Requires
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -1096,7 +1113,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1123,6 +1140,7 @@ Use a Flow Blueprint template to generate a Flow source
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.BlueprintsApi;
 
@@ -1167,7 +1185,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

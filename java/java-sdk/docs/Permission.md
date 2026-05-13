@@ -9,8 +9,6 @@
 
 * `BLUEPRINT` (value: `"BLUEPRINT"`)
 
-* `TEMPLATE` (value: `"TEMPLATE"`)
-
 * `NAMESPACE` (value: `"NAMESPACE"`)
 
 * `EXECUTION` (value: `"EXECUTION"`)

@@ -139,6 +139,12 @@ export const configureAxios = (
         return error
     })
 
+    function navigateToLogin() {
+        const currentPath = window.location.pathname
+        const isLoginPath = currentPath.includes("/login")
+        router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
+    }
+
     // Token refresh: intercept 401 responses before the error path runs
     let refreshPromise: Promise<void> | null = null
 
@@ -164,9 +170,7 @@ export const configureAxios = (
             beforeLogout?.()
             authStore?.logout().catch(() => { })
 
-            const currentPath = window.location.pathname
-            const isLoginPath = currentPath.includes("/login")
-            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
+            navigateToLogin()
 
             return response
         }
@@ -176,9 +180,7 @@ export const configureAxios = (
             beforeLogout?.()
             authStore?.logout().catch(() => { })
 
-            const currentPath = window.location.pathname
-            const isLoginPath = currentPath.includes("/login")
-            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
+            navigateToLogin()
 
             return response
         }
@@ -204,9 +206,7 @@ export const configureAxios = (
             beforeLogout?.()
             authStore?.logout().catch(() => { })
 
-            const currentPath = window.location.pathname
-            const isLoginPath = currentPath.includes("/login")
-            router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
+            navigateToLogin()
 
             return response
         }

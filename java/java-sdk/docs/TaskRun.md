@@ -15,7 +15,6 @@
 |**parentTaskRunId** | **String** |  |  [optional] |
 |**value** | **String** |  |  [optional] |
 |**attempts** | [**List&lt;TaskRunAttempt&gt;**](TaskRunAttempt.md) |  |  [optional] |
-|**outputs** | **Object** |  |  [optional] |
 |**assets** | [**AssetsInOut**](AssetsInOut.md) |  |  [optional] |
 |**state** | [**State**](State.md) |  |  |
 |**iteration** | **Integer** |  |  [optional] |

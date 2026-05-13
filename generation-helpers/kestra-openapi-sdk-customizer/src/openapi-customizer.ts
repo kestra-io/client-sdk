@@ -217,6 +217,10 @@ export function sanitizeOpenAPI(
     // 7) Normalize QueryFilter array query params to prevent broken querySerializer generation
     normalizeQueryFilterParams(spec)
 
+    // 8) Unwrap Micronaut Event<X> wrapper schemas on SSE endpoints so the
+    //    stream type is the inner Execution/X type, not the envelope type.
+    unwrapSseEventResponses(spec)
+
     return counters;
 }
 
@@ -399,4 +403,71 @@ export function replaceFlowLabelsSpec(spec: any) {
             }
         }
     }
+}
+
+/**
+ * Unwrap Micronaut `Event<X>` wrapper schemas on SSE (`text/event-stream`) endpoints.
+ *
+ * In Micronaut, returning `Event<Execution>` from a controller generates an OpenAPI
+ * schema like `Event_Execution_` with properties `data`, `id`, `name`, `comment`,
+ * `retry`. These fields map to SSE *protocol* framing, NOT to JSON fields in the
+ * response body. The actual JSON emitted in each SSE `data:` line is the inner type
+ * (`Execution`), not the wrapper object.
+ *
+ * This function detects such wrapper schemas (named `Event_*_`, containing a `data`
+ * property that is a `$ref`, plus only the SSE-envelope sibling fields) and replaces
+ * the SSE endpoint response `$ref` with the inner data type's `$ref`, so generated
+ * SDK types correctly reflect what the stream actually yields.
+ */
+export function unwrapSseEventResponses(spec: any): number {
+    if (!spec?.paths || !spec?.components?.schemas) return 0;
+
+    const schemas: Record<string, any> = spec.components.schemas;
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    const SSE_ENVELOPE_FIELDS = new Set(["data", "id", "name", "comment", "retry"]);
+
+    /** Returns the inner $ref if the schema looks like a Micronaut Event<X> wrapper. */
+    const innerDataRef = (schemaName: string): string | null => {
+        const schema = schemas[schemaName];
+        if (!schema || schema.type !== "object" || !schema.properties) return null;
+
+        const props = Object.keys(schema.properties);
+        // All properties must be known SSE-envelope fields
+        if (!props.every((p) => SSE_ENVELOPE_FIELDS.has(p))) return null;
+
+        const dataRef = schema.properties.data?.["$ref"];
+        if (typeof dataRef !== "string") return null;
+
+        return dataRef;
+    };
+
+    let unwrapped = 0;
+
+    for (const pathItem of Object.values(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op?.responses) continue;
+
+            for (const resp of Object.values(op.responses)) {
+                if (!resp || typeof resp !== "object") continue;
+                const sseContent = (resp as any).content?.["text/event-stream"];
+                if (!sseContent) continue;
+
+                const ref: string | undefined = sseContent.schema?.["$ref"];
+                if (!ref) continue;
+
+                const schemaName = ref.replace("#/components/schemas/", "");
+                const dataRef = innerDataRef(schemaName);
+                if (!dataRef) continue;
+
+                sseContent.schema = { $ref: dataRef };
+                unwrapped += 1;
+                console.debug(`unwrapSseEventResponses: ${op.operationId} ${schemaName} -> ${dataRef}`);
+            }
+        }
+    }
+
+    return unwrapped;
 }

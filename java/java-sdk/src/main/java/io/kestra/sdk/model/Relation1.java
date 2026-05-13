@@ -14,47 +14,120 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.RelationType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
- * Gets or Sets Relation_1
+ * Relation1
  */
-public enum Relation1 {
-  
-  UPSERT("UPSERT"),
-  
-  USED_BY("USED_BY"),
-  
-  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+@JsonPropertyOrder({
+  Relation1.JSON_PROPERTY_RELATION_TYPE,
+  Relation1.JSON_PROPERTY_VALUE
+})
+@JsonTypeName("Relation_1")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+public class Relation1 {
+  public static final String JSON_PROPERTY_RELATION_TYPE = "relationType";
+  @jakarta.annotation.Nullable  private RelationType relationType;
 
-  private String value;
+  public static final String JSON_PROPERTY_VALUE = "value";
+  @jakarta.annotation.Nullable  private String value;
 
-  Relation1(String value) {
-    this.value = value;
+  public Relation1() {
   }
 
-  @JsonValue
+  public Relation1 relationType(@jakarta.annotation.Nullable RelationType relationType) {
+    
+    this.relationType = relationType;
+    return this;
+  }
+
+  /**
+   * Get relationType
+   * @return relationType
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RelationType getRelationType() {
+    return relationType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRelationType(@jakarta.annotation.Nullable RelationType relationType) {
+    this.relationType = relationType;
+  }
+
+  public Relation1 value(@jakarta.annotation.Nullable String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   * @return value
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
   public String getValue() {
     return value;
   }
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
+
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable String value) {
+    this.value = value;
   }
 
-  @JsonCreator
-  public static Relation1 fromValue(String value) {
-    for (Relation1 b : Relation1.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    return UNKNOWN_DEFAULT_OPEN_API;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Relation1 relation1 = (Relation1) o;
+    return Objects.equals(this.relationType, relation1.relationType) &&
+        Objects.equals(this.value, relation1.value);
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(relationType, value);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Relation1 {\n");
+    sb.append("    relationType: ").append(toIndentedString(relationType)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
 }
 

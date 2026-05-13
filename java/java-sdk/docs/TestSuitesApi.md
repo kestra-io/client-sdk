@@ -36,6 +36,7 @@ Creates a new test from a YAML definition. Requires TEST permission with the CRE
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -78,7 +79,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -107,6 +108,7 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -151,7 +153,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -180,6 +182,7 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -222,7 +225,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -251,6 +254,7 @@ Disable a test by namespace and ID. Requires TEST permission with the UPDATE act
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -293,7 +297,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -322,6 +326,7 @@ Enable a test by namespace and ID. Requires TEST permission with the UPDATE acti
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -364,7 +369,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -393,6 +398,7 @@ Executes all test cases in the specified test. Requires TEST permission with the
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -439,7 +445,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -468,6 +474,7 @@ Executes all TestSuites impacted by the specified filter. Requires TEST permissi
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -510,7 +517,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -526,7 +533,7 @@ No authorization required
 
 ## searchTestSuites
 
-> PagedResultsTestSuite searchTestSuites(page, size, includeChildNamespaces, tenant, sort, namespace, flowId)
+> PagedResultsTestSuite searchTestSuites(tenant, page, size, sort, namespace, flowId, includeChildNamespaces)
 
 Search for tests
 
@@ -539,6 +546,7 @@ Searches for tests with optional filtering by namespace and flow ID. Requires TE
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -551,15 +559,15 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        Boolean includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String namespace = "namespace_example"; // String | The namespace to filter on
         String flowId = "flowId_example"; // String | The flow id to filter on
+        Boolean includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
         try {
-            PagedResultsTestSuite result = kestraClient.TestSuitesApi().searchTestSuites(page, size, includeChildNamespaces, tenant, sort, namespace, flowId);
+            PagedResultsTestSuite result = kestraClient.TestSuitesApi().searchTestSuites(tenant, page, size, sort, namespace, flowId, includeChildNamespaces);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuites");
@@ -577,13 +585,13 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [default to true] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **namespace** | **String**| The namespace to filter on | [optional] |
 | **flowId** | **String**| The flow id to filter on | [optional] |
+| **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [optional] [default to true] |
 
 ### Return type
 
@@ -591,7 +599,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -607,7 +615,7 @@ No authorization required
 
 ## searchTestSuitesResults
 
-> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, tenant, sort, testSuiteId, namespace, flowId)
+> PagedResultsTestSuiteRunResult searchTestSuitesResults(tenant, page, size, sort, testSuiteId, namespace, flowId)
 
 Search for tests results
 
@@ -620,6 +628,7 @@ with optional filtering by namespace, test suite ID and flow ID. Requires TEST p
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -632,15 +641,15 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String testSuiteId = "testSuiteId_example"; // String | The test suite id to filter on
         String namespace = "namespace_example"; // String | The namespace to filter on
         String flowId = "flowId_example"; // String | The flow id to filter on
         try {
-            PagedResultsTestSuiteRunResult result = kestraClient.TestSuitesApi().searchTestSuitesResults(page, size, tenant, sort, testSuiteId, namespace, flowId);
+            PagedResultsTestSuiteRunResult result = kestraClient.TestSuitesApi().searchTestSuitesResults(tenant, page, size, sort, testSuiteId, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuitesResults");
@@ -658,9 +667,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **testSuiteId** | **String**| The test suite id to filter on | [optional] |
 | **namespace** | **String**| The namespace to filter on | [optional] |
@@ -672,7 +681,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -701,6 +710,7 @@ Get a test result once it was run.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -743,7 +753,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -772,6 +782,7 @@ Retrieves a test by namespace and ID. Requires TEST permission with the READ act
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -816,7 +827,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -845,6 +856,7 @@ Get multiple tests last result for a query.
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -887,7 +899,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -916,6 +928,7 @@ Updates an existing test with a new YAML definition. Requires TEST permission wi
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -962,7 +975,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -991,6 +1004,7 @@ Validates a test YAML definition without persisting it. Returns constraint viola
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.TestSuitesApi;
 
@@ -1033,7 +1047,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

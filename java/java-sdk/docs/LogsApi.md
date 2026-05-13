@@ -320,7 +320,7 @@ public class Example {
 
 ## searchLogs
 
-> PagedResultsLogEntry searchLogs(page, size, tenant, sort, filters)
+> PagedResultsLogEntry searchLogs(tenant, page, size, sort, filters)
 
 Search for logs
 
@@ -344,13 +344,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        String tenant = "tenant_example"; // String | 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[timeRange][EQUALS]=P7D`, `filters[level][EQUALS]=DEBUG`
         try {
-            PagedResultsLogEntry result = kestraClient.LogsApi().searchLogs(page, size, tenant, sort, filters);
+            PagedResultsLogEntry result = kestraClient.LogsApi().searchLogs(tenant, page, size, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#searchLogs");
@@ -368,11 +368,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **page** | **Integer**| The current page | [optional] [default to 1] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[timeRange][EQUALS]&#x3D;P7D&#x60;, &#x60;filters[level][EQUALS]&#x3D;DEBUG&#x60; | [optional] |
 
 ### Return type
 
