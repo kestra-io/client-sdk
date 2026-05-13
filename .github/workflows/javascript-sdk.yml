@@ -102,11 +102,11 @@ jobs:
           sh run-tests.sh $KESTRA_VERSION --no-build
 
       - name: publish test results
-        if: inputs.skip-test != 'true'
+        if: always() && inputs.skip-test != 'true'
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
-          path: ./coverage
+          path: ./javascript/coverage
 
   publish-release:
     name: Publish Release to Npm
@@ -177,7 +177,8 @@ jobs:
 
       - name: Generate SDK
         working-directory: .
-        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
+        run: |
+          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
           javascript
 
       - name: Publish to npm with latest tag
