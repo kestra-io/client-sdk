@@ -129,6 +129,15 @@ export const configureAxios = (
     let toRefreshQueue: QueueItem[] = []
     let refreshing = false
 
+    function navigateToLogin() {
+        const currentPath = window.location.pathname
+        const isLoginPath = currentPath.includes("/login")
+        router?.push({
+            name: "login",
+            query: isLoginPath ? {} : { from: currentPath }
+        });
+    }
+
     instance.interceptors.response.use(
         (response) => response,
         async (errorResponse: AxiosError & QueueItem & { config: { showMessageOnError: boolean } }) => {
@@ -158,6 +167,7 @@ export const configureAxios = (
             if (errorResponse.response.status === 401
                 && (oss || !authStore?.isLogged)) {
                 onAuthTimeout?.()
+                navigateToLogin()
                 return Promise.reject(errorResponse)
             }
 
@@ -186,13 +196,7 @@ export const configureAxios = (
                     delete instance.defaults.headers.common["Authorization"]
                     authStore?.logout().catch(() => { })
 
-                    const currentPath = window.location.pathname
-                    const isLoginPath = currentPath.includes("/login")
-
-                    router?.push({
-                        name: "login",
-                        query: (isLoginPath ? {} : { from: currentPath })
-                    })
+                    navigateToLogin()
 
                     return Promise.reject(errorResponse)
                 }
