@@ -102,7 +102,7 @@ jobs:
           sh run-tests.sh $KESTRA_VERSION --no-build
 
       - name: publish test results
-        if: inputs.skip-test != 'true'
+        if: always() && inputs.skip-test != 'true'
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
