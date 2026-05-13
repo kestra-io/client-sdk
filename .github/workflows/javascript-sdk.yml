@@ -177,7 +177,8 @@ jobs:
 
       - name: Generate SDK
         working-directory: .
-        run: ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }}
+        run: |
+          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
           javascript
 
       - name: Publish to npm with latest tag
