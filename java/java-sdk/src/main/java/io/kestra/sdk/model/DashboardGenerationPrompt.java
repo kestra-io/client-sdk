@@ -28,8 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   DashboardGenerationPrompt.JSON_PROPERTY_CONVERSATION_ID,
   DashboardGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
-  DashboardGenerationPrompt.JSON_PROPERTY_YAML,
-  DashboardGenerationPrompt.JSON_PROPERTY_PROVIDER_ID
+  DashboardGenerationPrompt.JSON_PROPERTY_YAML
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DashboardGenerationPrompt {
@@ -41,9 +40,6 @@ public class DashboardGenerationPrompt {
 
   public static final String JSON_PROPERTY_YAML = "yaml";
   @jakarta.annotation.Nullable  private String yaml;
-
-  public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-  @jakarta.annotation.Nullable  private String providerId;
 
   public DashboardGenerationPrompt() {
   }
@@ -120,30 +116,6 @@ public class DashboardGenerationPrompt {
     this.yaml = yaml;
   }
 
-  public DashboardGenerationPrompt providerId(@jakarta.annotation.Nullable String providerId) {
-    
-    this.providerId = providerId;
-    return this;
-  }
-
-  /**
-   * Get providerId
-   * @return providerId
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getProviderId() {
-    return providerId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProviderId(@jakarta.annotation.Nullable String providerId) {
-    this.providerId = providerId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -155,13 +127,12 @@ public class DashboardGenerationPrompt {
     DashboardGenerationPrompt dashboardGenerationPrompt = (DashboardGenerationPrompt) o;
     return Objects.equals(this.conversationId, dashboardGenerationPrompt.conversationId) &&
         Objects.equals(this.userPrompt, dashboardGenerationPrompt.userPrompt) &&
-        Objects.equals(this.yaml, dashboardGenerationPrompt.yaml) &&
-        Objects.equals(this.providerId, dashboardGenerationPrompt.providerId);
+        Objects.equals(this.yaml, dashboardGenerationPrompt.yaml);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(conversationId, userPrompt, yaml, providerId);
+    return Objects.hash(conversationId, userPrompt, yaml);
   }
 
   @Override
@@ -171,7 +142,6 @@ public class DashboardGenerationPrompt {
     sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
     sb.append("    userPrompt: ").append(toIndentedString(userPrompt)).append("\n");
     sb.append("    yaml: ").append(toIndentedString(yaml)).append("\n");
-    sb.append("    providerId: ").append(toIndentedString(providerId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

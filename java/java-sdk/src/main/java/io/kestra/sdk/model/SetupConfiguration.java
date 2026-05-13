@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.PasswordConfiguration;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfiguration.JSON_PROPERTY_QUEUE_TYPE,
   SetupConfiguration.JSON_PROPERTY_STORAGE_TYPE,
   SetupConfiguration.JSON_PROPERTY_SECRET_TYPE,
-  SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  SetupConfiguration.JSON_PROPERTY_PASSWORD_CONFIGURATION,
   SetupConfiguration.JSON_PROPERTY_HAVE_AUTH_NOT_BASIC
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -51,8 +52,8 @@ public class SetupConfiguration {
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
   @jakarta.annotation.Nullable  private String secretType;
 
-  public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @jakarta.annotation.Nullable  private String passwordRegexp;
+  public static final String JSON_PROPERTY_PASSWORD_CONFIGURATION = "passwordConfiguration";
+  @jakarta.annotation.Nullable  private PasswordConfiguration passwordConfiguration;
 
   public static final String JSON_PROPERTY_HAVE_AUTH_NOT_BASIC = "haveAuthNotBasic";
   @jakarta.annotation.Nullable  private Boolean haveAuthNotBasic;
@@ -180,28 +181,28 @@ public class SetupConfiguration {
     this.secretType = secretType;
   }
 
-  public SetupConfiguration passwordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
+  public SetupConfiguration passwordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
     
-    this.passwordRegexp = passwordRegexp;
+    this.passwordConfiguration = passwordConfiguration;
     return this;
   }
 
   /**
-   * Get passwordRegexp
-   * @return passwordRegexp
+   * Get passwordConfiguration
+   * @return passwordConfiguration
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getPasswordRegexp() {
-    return passwordRegexp;
+  public PasswordConfiguration getPasswordConfiguration() {
+    return passwordConfiguration;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @JsonProperty(JSON_PROPERTY_PASSWORD_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
-    this.passwordRegexp = passwordRegexp;
+  public void setPasswordConfiguration(@jakarta.annotation.Nullable PasswordConfiguration passwordConfiguration) {
+    this.passwordConfiguration = passwordConfiguration;
   }
 
   public SetupConfiguration haveAuthNotBasic(@jakarta.annotation.Nullable Boolean haveAuthNotBasic) {
@@ -242,13 +243,13 @@ public class SetupConfiguration {
         Objects.equals(this.queueType, setupConfiguration.queueType) &&
         Objects.equals(this.storageType, setupConfiguration.storageType) &&
         Objects.equals(this.secretType, setupConfiguration.secretType) &&
-        Objects.equals(this.passwordRegexp, setupConfiguration.passwordRegexp) &&
+        Objects.equals(this.passwordConfiguration, setupConfiguration.passwordConfiguration) &&
         Objects.equals(this.haveAuthNotBasic, setupConfiguration.haveAuthNotBasic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordRegexp, haveAuthNotBasic);
+    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordConfiguration, haveAuthNotBasic);
   }
 
   @Override
@@ -260,7 +261,7 @@ public class SetupConfiguration {
     sb.append("    queueType: ").append(toIndentedString(queueType)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
-    sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    passwordConfiguration: ").append(toIndentedString(passwordConfiguration)).append("\n");
     sb.append("    haveAuthNotBasic: ").append(toIndentedString(haveAuthNotBasic)).append("\n");
     sb.append("}");
     return sb.toString();

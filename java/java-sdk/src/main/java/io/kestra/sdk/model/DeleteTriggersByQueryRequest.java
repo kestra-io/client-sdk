@@ -56,7 +56,7 @@ public class DeleteTriggersByQueryRequest {
   }
 
   /**
-   * Filters
+   * Filters. PHP-style nested query is used - examples: &#x60;filters[flowId][EQUALS]&#x3D;hello-world&#x60;, &#x60;filters[namespace][CONTAINS]&#x3D;test&#x60;
    * @return filters
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTERS)

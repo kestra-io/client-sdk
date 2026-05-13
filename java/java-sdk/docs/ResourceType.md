@@ -43,8 +43,6 @@
 
 * `SETTING` (value: `"SETTING"`)
 
-* `TEMPLATE` (value: `"TEMPLATE"`)
-
 * `TRIGGER` (value: `"TRIGGER"`)
 
 * `TENANT` (value: `"TENANT"`)

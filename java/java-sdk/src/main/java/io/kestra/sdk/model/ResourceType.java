@@ -63,8 +63,6 @@ public enum ResourceType {
   
   SETTING("SETTING"),
   
-  TEMPLATE("TEMPLATE"),
-  
   TRIGGER("TRIGGER"),
   
   TENANT("TENANT"),

@@ -26,7 +26,7 @@
 |**triggers** | [**List&lt;AbstractTrigger&gt;**](AbstractTrigger.md) |  |  [optional] |
 |**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  [optional] |
 |**concurrency** | [**Concurrency**](Concurrency.md) |  |  [optional] |
-|**retry** | **Object** |  |  [optional] |
+|**retry** | **Object** | Retry policy applied when the flow fails. |  [optional] |
 |**sla** | [**List&lt;SLA&gt;**](SLA.md) |  |  [optional] |
 |**checks** | [**List&lt;Check&gt;**](Check.md) | A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally. |  [optional] |
 |**source** | **String** |  |  [optional] |

@@ -12,7 +12,7 @@
 |**description** | **String** |  |  [optional] |
 |**baseUnit** | **String** |  |  [optional] |
 |**tags** | [**List&lt;MetricTag&gt;**](MetricTag.md) |  |  [optional] |
-|**value** | **Object** |  |  [optional] |
+|**value** | **BigDecimal** |  |  [optional] |
 
 
 

@@ -6,11 +6,11 @@ VERSION=${2:-}
 TEMPLATE_FLAG="${3:-}"
 
 # if the language starts with "v" and a number or simply a number, it means that is the version
-# language and version have been inversed, so we need to swap them
-if [[ "$LANGUAGES" =~ ^v?[0-9]+(\.[0-9]+)*$ ]]; then
+# language and version have been inverted, so we need to swap them
+if [[ "$LANGUAGES" =~ ^v?[0-9]+[.+-] ]]; then
   VERSION="$LANGUAGES"
   LANGUAGES="${2:-}"
-  echo "Language and version have been inversed, swapping them. Language: $LANGUAGES, Version: $VERSION"
+  echo "Language and version have been inverted, swapping them. Language: $LANGUAGES, Version: $VERSION"
 fi
 
 HOST_UID=$(id -u)

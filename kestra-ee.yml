@@ -92,7 +92,7 @@ paths:
           type: array
           nullable: true
           items:
-            $ref: "#/components/schemas/ResourceType"
+            $ref: "#/components/schemas/Resource"
       - name: startDate
         in: query
         description: The start datetime
@@ -1729,6 +1729,25 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/triggers:
+    get:
+      tags:
+      - Plugins
+      summary: Get list of trigger plugins grouped by category
+      description: "Feeds the 'Add Trigger' catalog UI. Returns one entry per non-internal,\
+        \ non-deprecated trigger class, classified as core (bundled with Kestra Core),\
+        \ realtime (implements RealtimeTriggerInterface) or app (implements PollingTriggerInterface)."
+      operationId: listTriggerPlugins
+      responses:
+        "200":
+          description: listTriggerPlugins 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_PluginController.ApiTriggerPlugin_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/{cls}:
     get:
       tags:
@@ -3070,42 +3089,12 @@ paths:
       responses:
         "200":
           description: validatePassword 200 response
-  /api/v1/{tenant}/acls/actions:
-    get:
-      tags:
-      - Misc
-      summary: Retrieve list of actions
-      description: "Actions are used to restrict possible operations for each permission.\
-        \ Each action must be one of the following: CREATE, READ, UPDATE, DELETE.\
-        \ Using permissions and actions together, you can control access to resources\
-        \ e.g. only allow a user to read a flow, but not update or delete it."
-      operationId: listActions
-      parameters:
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: listActions 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Action"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
   /api/v1/{tenant}/acls/permissions:
     get:
       tags:
       - Misc
-      summary: Retrieve list of permissions
-      description: "Permissions are used to control access to resources within the\
-        \ Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE,\
-        \ APP, TEST, etc."
+      summary: Retrieve resource-to-actions mapping
+      description: Returns the full mapping of resources to their valid actions.
       operationId: listPermissions
       parameters:
       - name: tenant
@@ -3119,9 +3108,110 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Permission"
+                type: object
+                properties:
+                  FLOW:
+                    type: array
+                  EXECUTION:
+                    type: array
+                  TRIGGER:
+                    type: array
+                  NAMESPACE:
+                    type: array
+                  KVSTORE:
+                    type: array
+                  DASHBOARD:
+                    type: array
+                  SECRET:
+                    type: array
+                  CREDENTIAL:
+                    type: array
+                  BLUEPRINT:
+                    type: array
+                  APP:
+                    type: array
+                  AUDITLOG:
+                    type: array
+                  SYSTEM_SETTINGS:
+                    type: array
+                  TENANT_SETTINGS:
+                    type: array
+                  TESTSUITE:
+                    type: array
+                  ASSET:
+                    type: array
+                  USER:
+                    type: array
+                  GROUP:
+                    type: array
+                  ROLE:
+                    type: array
+                  BINDING:
+                    type: array
+                  SERVICE_ACCOUNT:
+                    type: array
+                  INVITATION:
+                    type: array
+                  COPILOT:
+                    type: array
+                  APP_EXECUTION:
+                    type: array
+                  NAMESPACE_FILE:
+                    type: array
+                  TESTSUITE_RUN:
+                    type: array
+                  TENANT_ACCESS:
+                    type: array
+                  SECURITY_INTEGRATION:
+                    type: array
+                  MCP_SERVER:
+                    type: array
+                  KILL_SWITCH:
+                    type: array
+                  TENANT:
+                    type: array
+                  VERSIONED_PLUGIN:
+                    type: array
+                  WORKER_GROUP:
+                    type: array
+                  INSTANCE:
+                    type: array
+                  UNKNOWN:
+                    type: array
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/acls/templates:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve managed role templates
+      description: Returns the predefined permission templates for managed roles.
+      operationId: listTemplates
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listTemplates 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ADMIN:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  VIEWER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  EDITOR:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  LAUNCHER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
+                  DEVELOPER:
+                    $ref: "#/components/schemas/Map_Resource.List_Action__"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -4575,7 +4665,7 @@ paths:
           type: array
           nullable: true
           items:
-            $ref: "#/components/schemas/ResourceType"
+            $ref: "#/components/schemas/Resource"
       - name: startDate
         in: query
         description: The start datetime
@@ -7431,6 +7521,14 @@ paths:
           nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which execution date field the time interval is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
       - name: tenant
         in: path
         required: true
@@ -7877,7 +7975,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/change-status:
+  /api/v1/{tenant}/executions/{executionId}/actions/change-status:
     post:
       tags:
       - Executions
@@ -7914,7 +8012,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/eval:
+  /api/v1/{tenant}/executions/{executionId}/actions/eval:
     post:
       tags:
       - Executions
@@ -7949,7 +8047,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}:
+  /api/v1/{tenant}/executions/{executionId}/actions/eval/{taskRunId}:
     post:
       tags:
       - Executions
@@ -7987,6 +8085,507 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExecutionController.EvalResult"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/force-run:
+    post:
+      tags:
+      - Executions
+      summary: Force run an execution
+      operationId: forceRunExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be force-run
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/kill:
+    delete:
+      tags:
+      - Executions
+      summary: Kill an execution
+      operationId: killExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: isOnKillCascade
+        in: query
+        description: Specifies whether killing the execution also kill all subflow
+          executions.
+        explode: false
+        schema:
+          type: boolean
+          default: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            text/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is already finished
+        "404":
+          description: if the executions is not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/labels:
+    post:
+      tags:
+      - Executions
+      summary: Add or update labels of a terminated execution
+      operationId: setLabelsOnTerminatedExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The labels to add to the execution
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Label"
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "404":
+          description: If the execution cannot be found
+        "400":
+          description: If the execution is not terminated
+        "409":
+          description: If labels cannot be applied
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/pause:
+    post:
+      tags:
+      - Executions
+      summary: Pause a running execution.
+      operationId: pauseExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is not running
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/replay:
+    post:
+      tags:
+      - Executions
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      operationId: replayExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: breakpoints
+        in: query
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs:
+    post:
+      tags:
+      - Executions
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      operationId: replayExecutionWithinputs
+      parameters:
+      - name: executionId
+        in: path
+        description: the original execution id to clone
+        required: true
+        schema:
+          type: string
+      - name: taskRunId
+        in: query
+        description: The taskrun id
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: breakpoints
+        in: query
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs (multipart map)
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              additionalProperties: true
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be replayed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
+  /api/v1/{tenant}/executions/{executionId}/actions/restart:
+    post:
+      tags:
+      - Executions
+      summary: Restart a new execution from an old one
+      operationId: restartExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: query
+        description: The flow revision to use for new execution
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be restarted
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/resume:
+    post:
+      tags:
+      - Executions
+      summary: Resume a paused execution.
+      operationId: resumeExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the executions is not paused
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
+  /api/v1/{tenant}/executions/{executionId}/actions/resume-from-breakpoint:
+    post:
+      tags:
+      - Executions
+      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+      operationId: resumeExecutionFromBreakpoint
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: breakpoints
+        in: query
+        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: If the executions is not in the 'BREAKPOINT' state or has no
+            breakpoint
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/resume/validate:
+    post:
+      tags:
+      - Executions
+      summary: Validate inputs to resume a paused execution.
+      operationId: validateResumeExecutionInputs
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inputs
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "204":
+          description: On success
+        "409":
+          description: if the executions is not paused
+        "200":
+          description: validateResumeExecutionInputs 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/state:
+    post:
+      tags:
+      - Executions
+      summary: Change state for a taskrun in an execution
+      operationId: updateTaskRunState
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: the taskRun id and state to apply
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecutionController.StateRequest"
+        required: true
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the task run state cannot be changed
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/actions/unqueue:
+    post:
+      tags:
+      - Executions
+      summary: Unqueue an execution
+      operationId: unqueueExecution
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: The new state of the execution
+        required: true
+        explode: false
+        schema:
+          $ref: "#/components/schemas/State.Type"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: On success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+        "409":
+          description: if the execution cannot be unqueued
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8220,36 +8819,6 @@ paths:
       x-sdk-customization:
         x-replace-follow-dependencies-execution: "true"
         x-skipped: "true"
-  /api/v1/{tenant}/executions/{executionId}/force-run:
-    post:
-      tags:
-      - Executions
-      summary: Force run an execution
-      operationId: forceRunExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be force-run
-      security:
-      - bearerAuth: []
-      - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/graph:
     get:
       tags:
@@ -8284,478 +8853,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FlowGraph"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/kill:
-    delete:
-      tags:
-      - Executions
-      summary: Kill an execution
-      operationId: killExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: isOnKillCascade
-        in: query
-        description: Specifies whether killing the execution also kill all subflow
-          executions.
-        explode: false
-        schema:
-          type: boolean
-          default: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            text/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is already finished
-        "404":
-          description: if the executions is not found
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/labels:
-    post:
-      tags:
-      - Executions
-      summary: Add or update labels of a terminated execution
-      operationId: setLabelsOnTerminatedExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The labels to add to the execution
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/Label"
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "404":
-          description: If the execution cannot be found
-        "400":
-          description: If the execution is not terminated
-        "409":
-          description: If labels cannot be applied
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/pause:
-    post:
-      tags:
-      - Executions
-      summary: Pause a running execution.
-      operationId: pauseExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is not running
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/replay:
-    post:
-      tags:
-      - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
-      operationId: replayExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: the original execution id to clone
-        required: true
-        schema:
-          type: string
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: breakpoints
-        in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be replayed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/replay-with-inputs:
-    post:
-      tags:
-      - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
-      operationId: replayExecutionWithinputs
-      parameters:
-      - name: executionId
-        in: path
-        description: the original execution id to clone
-        required: true
-        schema:
-          type: string
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: breakpoints
-        in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs (multipart map)
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              additionalProperties: true
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be replayed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-sdk-customization:
-        x-multipart: "true"
-  /api/v1/{tenant}/executions/{executionId}/restart:
-    post:
-      tags:
-      - Executions
-      summary: Restart a new execution from an old one
-      operationId: restartExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: revision
-        in: query
-        description: The flow revision to use for new execution
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be restarted
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/resume:
-    post:
-      tags:
-      - Executions
-      summary: Resume a paused execution.
-      operationId: resumeExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the executions is not paused
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      x-sdk-customization:
-        x-multipart: "true"
-  /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint:
-    post:
-      tags:
-      - Executions
-      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-      operationId: resumeExecutionFromBreakpoint
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: breakpoints
-        in: query
-        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: If the executions is not in the 'BREAKPOINT' state or has no
-            breakpoint
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/resume/validate:
-    post:
-      tags:
-      - Executions
-      summary: Validate inputs to resume a paused execution.
-      operationId: validateResumeExecutionInputs
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "204":
-          description: On success
-        "409":
-          description: if the executions is not paused
-        "200":
-          description: validateResumeExecutionInputs 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/state:
-    post:
-      tags:
-      - Executions
-      summary: Change state for a taskrun in an execution
-      operationId: updateTaskRunState
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: the taskRun id and state to apply
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ExecutionController.StateRequest"
-        required: true
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the task run state cannot be changed
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/unqueue:
-    post:
-      tags:
-      - Executions
-      summary: Unqueue an execution
-      operationId: unqueueExecution
-      parameters:
-      - name: executionId
-        in: path
-        description: The execution id
-        required: true
-        schema:
-          type: string
-      - name: state
-        in: query
-        description: The new state of the execution
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/State.Type"
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-        "409":
-          description: if the execution cannot be unqueued
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -10974,7 +11071,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ResourceType_1"
+                  $ref: "#/components/schemas/ResourceType"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -11003,7 +11100,7 @@ paths:
           content:
             application/scim+json:
               schema:
-                $ref: "#/components/schemas/ResourceType_1"
+                $ref: "#/components/schemas/ResourceType"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -14932,7 +15029,7 @@ paths:
       - TestSuites
       summary: Run multiple TestSuites by query
       description: Executes all TestSuites impacted by the specified filter. Requires
-        TEST permission with the CREATE action.
+        TESTSUITE permission with the EXECUTE action.
       operationId: runTestSuitesByQuery
       parameters:
       - name: tenant
@@ -15177,8 +15274,8 @@ paths:
       tags:
       - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TEST permission
-        with the CREATE action.
+      description: Executes all test cases in the specified test. Requires TESTSUITE
+        permission with the EXECUTE action.
       operationId: runTestSuite
       parameters:
       - name: namespace
@@ -16415,10 +16512,39 @@ components:
     Action:
       type: string
       enum:
-      - READ
+      - VIEW
+      - LIST
       - CREATE
       - UPDATE
       - DELETE
+      - EXECUTE
+      - RESTART
+      - KILL
+      - REPLAY
+      - PAUSE
+      - RESUME
+      - UNQUEUE
+      - FORCE_RUN
+      - FOLLOW
+      - CHANGE_LABELS
+      - ACCESS_LOGS
+      - ACCESS_OUTPUTS
+      - ACCESS_FILES
+      - EXPORT
+      - IMPORT
+      - DISABLE
+      - ENABLE
+      - VALIDATE
+      - UNLOCK
+      - BACKFILL
+      - MANAGE_FILES
+      - EXPORT_PLUGIN_DEFAULTS
+      - IMPORT_PLUGIN_DEFAULTS
+      - MANAGE_MEMBERS
+      - MANAGE_GROUP_MEMBERSHIP
+      - USE
+      - IMPERSONATE
+      - UNKNOWN
     AiController.AiProviderResponse:
       type: object
       properties:
@@ -17588,7 +17714,7 @@ components:
       type: object
       properties:
         resource:
-          $ref: "#/components/schemas/ResourceType"
+          $ref: "#/components/schemas/Resource"
         type:
           nullable: true
           allOf:
@@ -17602,10 +17728,10 @@ components:
       - type
       type: object
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/Resource"
         resourceType:
-          $ref: "#/components/schemas/ResourceType"
+          $ref: "#/components/schemas/Resource"
         type:
           type: string
         id:
@@ -18652,6 +18778,12 @@ components:
         originalCreatedDate:
           type: string
           format: date-time
+    ExecutionRepositoryInterface.DateFilter:
+      type: string
+      enum:
+      - START_DATE
+      - END_DATE
+      - START_OR_END_DATE
     ExecutionRepositoryInterface.FlowFilter:
       required:
       - id
@@ -19491,11 +19623,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -19505,37 +19659,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
@@ -19559,11 +19709,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -19573,37 +19745,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
@@ -19769,8 +19937,8 @@ components:
     IAMTenantAccessController.ApiUserPermission:
       type: object
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/Resource"
         actions:
           type: array
           items:
@@ -20458,6 +20626,11 @@ components:
         value:
           type: string
     Map_Object.Object_:
+      type: object
+      properties:
+        empty:
+          type: boolean
+    Map_Resource.List_Action__:
       type: object
       properties:
         empty:
@@ -21344,6 +21517,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_PluginController.ApiTriggerPlugin_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginController.ApiTriggerPlugin"
+        total:
+          type: integer
+          format: int64
     PagedResults_SearchResult_Flow__:
       required:
       - results
@@ -21501,34 +21687,6 @@ components:
         defaultValue:
           type: string
           nullable: true
-    Permission:
-      type: string
-      enum:
-      - FLOW
-      - BLUEPRINT
-      - NAMESPACE
-      - EXECUTION
-      - USER
-      - GROUP
-      - ROLE
-      - BINDING
-      - AUDITLOG
-      - SECRET
-      - KVSTORE
-      - IMPERSONATE
-      - SETTING
-      - APP
-      - ASSET
-      - APPEXECUTION
-      - TEST
-      - DASHBOARD
-      - TENANT_ACCESS
-      - SERVICE_ACCOUNT
-      - INVITATION
-      - GROUP_MEMBERSHIP
-      - CREDENTIAL
-      - AI_COPILOT
-      - UNKNOWN
     Plugin:
       type: object
       properties:
@@ -21669,6 +21827,23 @@ components:
           type: array
           items:
             type: string
+    PluginController.ApiTriggerPlugin:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        group:
+          $ref: "#/components/schemas/TriggerPluginCategory"
+        ee:
+          type: boolean
+        icon:
+          type: string
+        deprecated:
+          type: boolean
     PluginDefault:
       required:
       - type
@@ -21936,48 +22111,44 @@ components:
           $ref: "#/components/schemas/RelationType"
         value:
           type: string
-    ResourceType:
+    Resource:
       type: string
       enum:
-      - AUDITLOG
-      - APP
-      - ASSET
-      - APP_EXECUTION
-      - BLUEPRINT
-      - BINDING
-      - DASHBOARD
-      - EXECUTION
       - FLOW
-      - KILL_SWITCH
-      - KV_STORE
-      - GROUP
-      - INVITATION
-      - NAMESPACE
-      - NAMESPACE_FILE
-      - ROLE
-      - SECURITY_INTEGRATION
-      - SECRET
-      - SETTING
+      - EXECUTION
       - TRIGGER
-      - TENANT
-      - TENANT_ACCESS
-      - TESTSUITE
-      - TESTSUITE_RUN
-      - VERSIONED_PLUGIN
-      - USER
+      - NAMESPACE
+      - KVSTORE
+      - DASHBOARD
+      - SECRET
       - CREDENTIAL
+      - BLUEPRINT
+      - APP
+      - AUDITLOG
+      - SYSTEM_SETTINGS
+      - TENANT_SETTINGS
+      - TESTSUITE
+      - ASSET
+      - USER
+      - GROUP
+      - ROLE
+      - BINDING
+      - SERVICE_ACCOUNT
+      - INVITATION
+      - COPILOT
+      - APP_EXECUTION
+      - NAMESPACE_FILE
+      - TESTSUITE_RUN
+      - TENANT_ACCESS
+      - SECURITY_INTEGRATION
+      - MCP_SERVER
+      - KILL_SWITCH
+      - TENANT
+      - VERSIONED_PLUGIN
       - WORKER_GROUP
       - INSTANCE
       - UNKNOWN
-    ResourceType.SchemaExtensionConfiguration:
-      type: object
-      properties:
-        schemaUrn:
-          minLength: 1
-          type: string
-        required:
-          type: boolean
-    ResourceType_1:
+    ResourceType:
       type: object
       allOf:
       - $ref: "#/components/schemas/ScimResourceWithOptionalId"
@@ -22002,6 +22173,14 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
+    ResourceType.SchemaExtensionConfiguration:
+      type: object
+      properties:
+        schemaUrn:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
     RightSidebarConfiguration:
       type: object
       properties:
@@ -22030,11 +22209,33 @@ components:
           properties:
             FLOW:
               type: array
-            BLUEPRINT:
+            EXECUTION:
+              type: array
+            TRIGGER:
               type: array
             NAMESPACE:
               type: array
-            EXECUTION:
+            KVSTORE:
+              type: array
+            DASHBOARD:
+              type: array
+            SECRET:
+              type: array
+            CREDENTIAL:
+              type: array
+            BLUEPRINT:
+              type: array
+            APP:
+              type: array
+            AUDITLOG:
+              type: array
+            SYSTEM_SETTINGS:
+              type: array
+            TENANT_SETTINGS:
+              type: array
+            TESTSUITE:
+              type: array
+            ASSET:
               type: array
             USER:
               type: array
@@ -22044,37 +22245,33 @@ components:
               type: array
             BINDING:
               type: array
-            AUDITLOG:
-              type: array
-            SECRET:
-              type: array
-            KVSTORE:
-              type: array
-            IMPERSONATE:
-              type: array
-            SETTING:
-              type: array
-            APP:
-              type: array
-            ASSET:
-              type: array
-            APPEXECUTION:
-              type: array
-            TEST:
-              type: array
-            DASHBOARD:
-              type: array
-            TENANT_ACCESS:
-              type: array
             SERVICE_ACCOUNT:
               type: array
             INVITATION:
               type: array
-            GROUP_MEMBERSHIP:
+            COPILOT:
               type: array
-            CREDENTIAL:
+            APP_EXECUTION:
               type: array
-            AI_COPILOT:
+            NAMESPACE_FILE:
+              type: array
+            TESTSUITE_RUN:
+              type: array
+            TENANT_ACCESS:
+              type: array
+            SECURITY_INTEGRATION:
+              type: array
+            MCP_SERVER:
+              type: array
+            KILL_SWITCH:
+              type: array
+            TENANT:
+              type: array
+            VERSIONED_PLUGIN:
+              type: array
+            WORKER_GROUP:
+              type: array
+            INSTANCE:
               type: array
             UNKNOWN:
               type: array
@@ -23254,6 +23451,14 @@ components:
           type: object
           additionalProperties:
             type: object
+    TriggerPluginCategory:
+      type: string
+      enum:
+      - CORE
+      - REALTIME
+      - APP
+      - UNKNOWN
+      x-type: String
     Type:
       type: string
       enum:

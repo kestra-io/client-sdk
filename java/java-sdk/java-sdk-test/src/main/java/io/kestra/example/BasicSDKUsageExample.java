@@ -16,7 +16,7 @@ public class BasicSDKUsageExample {
 
     public static List<Flow> listFlows() {
         try {
-            var flows = kestraClient.flows().searchFlows(1, 50, MAIN_TENANT, null, List.of());
+            var flows = kestraClient.flows().searchFlows(MAIN_TENANT, 1, 50, null, List.of());
             logger.debug("{}", flows);
             return flows.getResults();
         } catch (

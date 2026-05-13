@@ -31,7 +31,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_F_L_O_W,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_B_L_U_E_P_R_I_N_T,
-  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_M_P_L_A_T_E,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_N_A_M_E_S_P_A_C_E,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_E_X_E_C_U_T_I_O_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_S_E_R,
@@ -64,9 +63,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   public static final String JSON_PROPERTY_B_L_U_E_P_R_I_N_T = "BLUEPRINT";
   @jakarta.annotation.Nullable  private List<String> BLUEPRINT = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_T_E_M_P_L_A_T_E = "TEMPLATE";
-  @jakarta.annotation.Nullable  private List<String> TEMPLATE = new ArrayList<>();
 
   public static final String JSON_PROPERTY_N_A_M_E_S_P_A_C_E = "NAMESPACE";
   @jakarta.annotation.Nullable  private List<String> NAMESPACE = new ArrayList<>();
@@ -202,38 +198,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBLUEPRINT(@jakarta.annotation.Nullable List<String> BLUEPRINT) {
     this.BLUEPRINT = BLUEPRINT;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions TEMPLATE(@jakarta.annotation.Nullable List<String> TEMPLATE) {
-    
-    this.TEMPLATE = TEMPLATE;
-    return this;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addTEMPLATEItem(String TEMPLATEItem) {
-    if (this.TEMPLATE == null) {
-      this.TEMPLATE = new ArrayList<>();
-    }
-    this.TEMPLATE.add(TEMPLATEItem);
-    return this;
-  }
-
-  /**
-   * Get TEMPLATE
-   * @return TEMPLATE
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_T_E_M_P_L_A_T_E)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getTEMPLATE() {
-    return TEMPLATE;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_T_E_M_P_L_A_T_E)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTEMPLATE(@jakarta.annotation.Nullable List<String> TEMPLATE) {
-    this.TEMPLATE = TEMPLATE;
   }
 
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions NAMESPACE(@jakarta.annotation.Nullable List<String> NAMESPACE) {
@@ -983,7 +947,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions = (IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) o;
     return Objects.equals(this.FLOW, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.FLOW) &&
         Objects.equals(this.BLUEPRINT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.BLUEPRINT) &&
-        Objects.equals(this.TEMPLATE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TEMPLATE) &&
         Objects.equals(this.NAMESPACE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.NAMESPACE) &&
         Objects.equals(this.EXECUTION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.EXECUTION) &&
         Objects.equals(this.USER, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.USER) &&
@@ -1011,7 +974,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, CREDENTIAL, AI_COPILOT, UNKNOWN);
+    return Objects.hash(FLOW, BLUEPRINT, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, CREDENTIAL, AI_COPILOT, UNKNOWN);
   }
 
   @Override
@@ -1020,7 +983,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     sb.append("class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {\n");
     sb.append("    FLOW: ").append(toIndentedString(FLOW)).append("\n");
     sb.append("    BLUEPRINT: ").append(toIndentedString(BLUEPRINT)).append("\n");
-    sb.append("    TEMPLATE: ").append(toIndentedString(TEMPLATE)).append("\n");
     sb.append("    NAMESPACE: ").append(toIndentedString(NAMESPACE)).append("\n");
     sb.append("    EXECUTION: ").append(toIndentedString(EXECUTION)).append("\n");
     sb.append("    USER: ").append(toIndentedString(USER)).append("\n");

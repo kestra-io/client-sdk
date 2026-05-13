@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.3.0
+- API version: 2.0.0-SNAPSHOT
 
-- Generator version: 7.21.0
+- Generator version: 7.17.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -129,9 +129,13 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**deleteApp**](docs/AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
 *AppsApi* | [**disableApp**](docs/AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
 *AppsApi* | [**enableApp**](docs/AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
+*AppsApi* | [**fileMetaFromAppExecution**](docs/AppsApi.md#fileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
+*AppsApi* | [**filePreviewFromAppExecution**](docs/AppsApi.md#filePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
 *AppsApi* | [**listTags**](docs/AppsApi.md#listTags) | **GET** /api/v1/{tenant}/apps/tags | Get all the app tags
+*AppsApi* | [**logsFromAppExecution**](docs/AppsApi.md#logsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
 *AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
 *AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
+*AppsApi* | [**streamEventsFromApp**](docs/AppsApi.md#streamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app.
 *AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
 *AssetsApi* | [**asset**](docs/AssetsApi.md#asset) | **GET** /api/v1/{tenant}/assets/{id} | Retrieve an asset
 *AssetsApi* | [**assetDependencies**](docs/AssetsApi.md#assetDependencies) | **GET** /api/v1/{tenant}/assets/{id}/dependencies | Get an asset dependencies
@@ -163,6 +167,7 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
+*DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
 *DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
 *DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
@@ -176,6 +181,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+*ExecutionsApi* | [**evalExpression**](docs/ExecutionsApi.md#evalExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval | Evaluate a variable expression for this execution
 *ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
@@ -183,41 +189,41 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
-*ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
+*ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions asynchronously
 *ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
-*ExecutionsApi* | [**forceRunExecutionsByQuery**](docs/ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
+*ExecutionsApi* | [**forceRunExecutionsByQuery**](docs/ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters asynchronously
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
-*ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
+*ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions asynchronously
 *ExecutionsApi* | [**killExecutionsByQuery**](docs/ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
 *ExecutionsApi* | [**latestExecutions**](docs/ExecutionsApi.md#latestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**pauseExecution**](docs/ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
-*ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
-*ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
+*ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions asynchronously
+*ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters asynchronously
 *ExecutionsApi* | [**replayExecution**](docs/ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionWithinputs**](docs/ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
-*ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
-*ExecutionsApi* | [**replayExecutionsByQuery**](docs/ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision
+*ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones asynchronously. Keep the flow revision
+*ExecutionsApi* | [**replayExecutionsByQuery**](docs/ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision
 *ExecutionsApi* | [**restartExecution**](docs/ExecutionsApi.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one
-*ExecutionsApi* | [**restartExecutionsByIds**](docs/ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
-*ExecutionsApi* | [**restartExecutionsByQuery**](docs/ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
+*ExecutionsApi* | [**restartExecutionsByIds**](docs/ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions asynchronously
+*ExecutionsApi* | [**restartExecutionsByQuery**](docs/ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters asynchronously
 *ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-*ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
-*ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
+*ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions asynchronously
+*ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters asynchronously
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 *ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
-*ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
-*ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
+*ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions asynchronously
+*ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters asynchronously
 *ExecutionsApi* | [**triggerExecutionByGetWebhook**](docs/ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
 *ExecutionsApi* | [**triggerExecutionByGetWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByGetWebhookWithPath) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by GET webhook trigger
 *ExecutionsApi* | [**triggerExecutionByPostWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByPostWebhookWithPath) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by POST webhook trigger
 *ExecutionsApi* | [**triggerExecutionByPutWebhookWithPath**](docs/ExecutionsApi.md#triggerExecutionByPutWebhookWithPath) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}/{path} | Trigger a new execution by PUT webhook trigger
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
-*ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
-*ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
+*ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions asynchronously
+*ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters asynchronously
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
-*ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
-*ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+*ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id asynchronously
+*ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters asynchronously
 *ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 *FilesApi* | [**createNamespaceDirectory**](docs/FilesApi.md#createNamespaceDirectory) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files/directory | Create a directory
 *FilesApi* | [**createNamespaceFile**](docs/FilesApi.md#createNamespaceFile) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files | Create a file
@@ -241,12 +247,14 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 *FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+*FlowsApi* | [**expressions**](docs/FlowsApi.md#expressions) | **POST** /api/v1/{tenant}/flows/expressions | Get available Pebble expressions for a flow
 *FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
 *FlowsApi* | [**flowDependencies**](docs/FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
 *FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
 *FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+*FlowsApi* | [**listDeprecated**](docs/FlowsApi.md#listDeprecated) | **GET** /api/v1/{tenant}/flows/deprecated | List flows containing deprecated tasks
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
@@ -257,7 +265,6 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**updateConcurrencyLimit**](docs/FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 *FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
-*FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -276,7 +283,6 @@ Class | Method | HTTP request | Description
 *KvApi* | [**deleteKeyValues**](docs/KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 *KvApi* | [**keyValue**](docs/KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 *KvApi* | [**listAllKeys**](docs/KvApi.md#listAllKeys) | **GET** /api/v1/{tenant}/kv | List all keys
-*KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 *LogsApi* | [**deleteLogsFromExecution**](docs/LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
@@ -293,7 +299,6 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesApi* | [**inheritedSecrets**](docs/NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
-*NamespacesApi* | [**listNamespaceSecrets**](docs/NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
 *NamespacesApi* | [**namespace**](docs/NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**patchSecret**](docs/NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 *NamespacesApi* | [**putSecrets**](docs/NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
@@ -336,28 +341,29 @@ Class | Method | HTTP request | Description
 *TestSuitesApi* | [**testsLastResult**](docs/TestSuitesApi.md#testsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 *TestSuitesApi* | [**updateTestSuite**](docs/TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 *TestSuitesApi* | [**validateTestSuite**](docs/TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
+*TriggersApi* | [**createBackfill**](docs/TriggersApi.md#createBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/create | Create a backfill
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
-*TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
-*TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+*TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers asynchronously
+*TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for triggers matching query asynchronously
 *TriggersApi* | [**deleteTrigger**](docs/TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
-*TriggersApi* | [**deleteTriggersByIds**](docs/TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
-*TriggersApi* | [**deleteTriggersByQuery**](docs/TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
-*TriggersApi* | [**disabledTriggersByIds**](docs/TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
-*TriggersApi* | [**disabledTriggersByQuery**](docs/TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+*TriggersApi* | [**deleteTriggersByIds**](docs/TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers asynchronously
+*TriggersApi* | [**deleteTriggersByQuery**](docs/TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters asynchronously
+*TriggersApi* | [**disableTriggerById**](docs/TriggersApi.md#disableTriggerById) | **PUT** /api/v1/{tenant}/triggers/set-disabled | Disable/enable a trigger
+*TriggersApi* | [**disabledTriggersByIds**](docs/TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers asynchronously
+*TriggersApi* | [**disabledTriggersByQuery**](docs/TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters asynchronously
 *TriggersApi* | [**exportTriggers**](docs/TriggersApi.md#exportTriggers) | **GET** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 *TriggersApi* | [**pauseBackfill**](docs/TriggersApi.md#pauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
-*TriggersApi* | [**pauseBackfillByIds**](docs/TriggersApi.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
-*TriggersApi* | [**pauseBackfillByQuery**](docs/TriggersApi.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
+*TriggersApi* | [**pauseBackfillByIds**](docs/TriggersApi.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers asynchronously
+*TriggersApi* | [**pauseBackfillByQuery**](docs/TriggersApi.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for triggers matching query asynchronously
 *TriggersApi* | [**restartTrigger**](docs/TriggersApi.md#restartTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger
 *TriggersApi* | [**searchTriggers**](docs/TriggersApi.md#searchTriggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers
 *TriggersApi* | [**searchTriggersForFlow**](docs/TriggersApi.md#searchTriggersForFlow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow
 *TriggersApi* | [**unlockTrigger**](docs/TriggersApi.md#unlockTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger
-*TriggersApi* | [**unlockTriggersByIds**](docs/TriggersApi.md#unlockTriggersByIds) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers
-*TriggersApi* | [**unlockTriggersByQuery**](docs/TriggersApi.md#unlockTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters
+*TriggersApi* | [**unlockTriggersByIds**](docs/TriggersApi.md#unlockTriggersByIds) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers asynchronously
+*TriggersApi* | [**unlockTriggersByQuery**](docs/TriggersApi.md#unlockTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters asynchronously
 *TriggersApi* | [**unpauseBackfill**](docs/TriggersApi.md#unpauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill
-*TriggersApi* | [**unpauseBackfillByIds**](docs/TriggersApi.md#unpauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers
-*TriggersApi* | [**unpauseBackfillByQuery**](docs/TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
-*TriggersApi* | [**updateTrigger**](docs/TriggersApi.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
+*TriggersApi* | [**unpauseBackfillByIds**](docs/TriggersApi.md#unpauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers asynchronously
+*TriggersApi* | [**unpauseBackfillByQuery**](docs/TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for triggers matching query asynchronously
 *UsersApi* | [**autocompleteUsers**](docs/UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
 *UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
 *UsersApi* | [**createUser**](docs/UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
@@ -389,10 +395,15 @@ Class | Method | HTTP request | Description
  - [AbstractUserTenantIdentityProvider](docs/AbstractUserTenantIdentityProvider.md)
  - [Action](docs/Action.md)
  - [AiControllerAiProviderResponse](docs/AiControllerAiProviderResponse.md)
+ - [AiControllerDashboardGenerationPrompt](docs/AiControllerDashboardGenerationPrompt.md)
+ - [AiControllerFlowGenerationPrompt](docs/AiControllerFlowGenerationPrompt.md)
+ - [ApiAsyncOperationResponse](docs/ApiAsyncOperationResponse.md)
  - [ApiAuth](docs/ApiAuth.md)
  - [ApiAutocomplete](docs/ApiAutocomplete.md)
+ - [ApiExecution](docs/ApiExecution.md)
  - [ApiGroupSummary](docs/ApiGroupSummary.md)
  - [ApiIds](docs/ApiIds.md)
+ - [ApiLightExecution](docs/ApiLightExecution.md)
  - [ApiPatchSuperAdminRequest](docs/ApiPatchSuperAdminRequest.md)
  - [ApiRoleSummary](docs/ApiRoleSummary.md)
  - [ApiSecretListResponseApiSecretMeta](docs/ApiSecretListResponseApiSecretMeta.md)
@@ -400,12 +411,17 @@ Class | Method | HTTP request | Description
  - [ApiSecretMetaEE](docs/ApiSecretMetaEE.md)
  - [ApiSecretTag](docs/ApiSecretTag.md)
  - [ApiSecretValue](docs/ApiSecretValue.md)
+ - [ApiTaskRun](docs/ApiTaskRun.md)
  - [ApiTenant](docs/ApiTenant.md)
  - [ApiTenantSummary](docs/ApiTenantSummary.md)
  - [ApiToken](docs/ApiToken.md)
  - [ApiTokenList](docs/ApiTokenList.md)
+ - [ApiTriggerAndState](docs/ApiTriggerAndState.md)
+ - [ApiTriggerState](docs/ApiTriggerState.md)
  - [ApiUser](docs/ApiUser.md)
  - [AppGenerationPrompt](docs/AppGenerationPrompt.md)
+ - [AppResponse](docs/AppResponse.md)
+ - [AppResponseUILayout](docs/AppResponseUILayout.md)
  - [AppsControllerApiApp](docs/AppsControllerApiApp.md)
  - [AppsControllerApiAppCatalogItem](docs/AppsControllerApiAppCatalogItem.md)
  - [AppsControllerApiAppSource](docs/AppsControllerApiAppSource.md)
@@ -470,25 +486,30 @@ Class | Method | HTTP request | Description
  - [Concurrency](docs/Concurrency.md)
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [ConcurrencyLimit](docs/ConcurrencyLimit.md)
- - [Condition](docs/Condition.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [Dashboard](docs/Dashboard.md)
+ - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
+ - [DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
+ - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
+ - [DashboardControllerDashboardResponse](docs/DashboardControllerDashboardResponse.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
  - [DashboardGenerationPrompt](docs/DashboardGenerationPrompt.md)
+ - [DashboardSettings](docs/DashboardSettings.md)
  - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
  - [EditionProviderEdition](docs/EditionProviderEdition.md)
  - [Email](docs/Email.md)
  - [EvaluationType](docs/EvaluationType.md)
+ - [EventAppResponse](docs/EventAppResponse.md)
  - [EventExecution](docs/EventExecution.md)
  - [EventExecutionStatusEvent](docs/EventExecutionStatusEvent.md)
  - [ExecutableTaskSubflowId](docs/ExecutableTaskSubflowId.md)
  - [Execution](docs/Execution.md)
+ - [ExecutionControllerEvalResult](docs/ExecutionControllerEvalResult.md)
  - [ExecutionControllerExecutionResponse](docs/ExecutionControllerExecutionResponse.md)
  - [ExecutionControllerLastExecutionResponse](docs/ExecutionControllerLastExecutionResponse.md)
  - [ExecutionControllerSetLabelsByIdsRequest](docs/ExecutionControllerSetLabelsByIdsRequest.md)
@@ -498,12 +519,16 @@ Class | Method | HTTP request | Description
  - [ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
  - [ExecutionStatusEvent](docs/ExecutionStatusEvent.md)
  - [ExecutionTrigger](docs/ExecutionTrigger.md)
+ - [ExecutionUsage](docs/ExecutionUsage.md)
+ - [ExpressionContext](docs/ExpressionContext.md)
+ - [ExpressionContextCategories](docs/ExpressionContextCategories.md)
  - [FileAttributes](docs/FileAttributes.md)
  - [FileAttributesFileType](docs/FileAttributesFileType.md)
  - [FileMetas](docs/FileMetas.md)
  - [Filter](docs/Filter.md)
  - [Fixtures](docs/Fixtures.md)
  - [Flow](docs/Flow.md)
+ - [FlowControllerFlowWithDeprecatedTasks](docs/FlowControllerFlowWithDeprecatedTasks.md)
  - [FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [FlowForExecution](docs/FlowForExecution.md)
  - [FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
@@ -514,11 +539,15 @@ Class | Method | HTTP request | Description
  - [FlowInterface](docs/FlowInterface.md)
  - [FlowNode](docs/FlowNode.md)
  - [FlowRelation](docs/FlowRelation.md)
+ - [FlowServiceTaskDeprecation](docs/FlowServiceTaskDeprecation.md)
  - [FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
+ - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
+ - [ForwardSupportTicketRequest](docs/ForwardSupportTicketRequest.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
+ - [GroupUsage](docs/GroupUsage.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
  - [IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
@@ -593,6 +622,8 @@ Class | Method | HTTP request | Description
  - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
  - [LogEntry](docs/LogEntry.md)
+ - [LoopRun](docs/LoopRun.md)
+ - [LoopRunParent](docs/LoopRunParent.md)
  - [MapObjectObject](docs/MapObjectObject.md)
  - [MeControllerApiMe](docs/MeControllerApiMe.md)
  - [MeControllerApiProfile](docs/MeControllerApiProfile.md)
@@ -605,6 +636,7 @@ Class | Method | HTTP request | Description
  - [MetricAggregations](docs/MetricAggregations.md)
  - [MetricEntry](docs/MetricEntry.md)
  - [MetricTag](docs/MetricTag.md)
+ - [MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
@@ -619,10 +651,14 @@ Class | Method | HTTP request | Description
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
+ - [OutputControllerTaskOutputInformation](docs/OutputControllerTaskOutputInformation.md)
  - [OutputValue](docs/OutputValue.md)
  - [PageRequest](docs/PageRequest.md)
  - [PagedResultsApiGroupSummary](docs/PagedResultsApiGroupSummary.md)
+ - [PagedResultsApiLightExecution](docs/PagedResultsApiLightExecution.md)
  - [PagedResultsApiRoleSummary](docs/PagedResultsApiRoleSummary.md)
+ - [PagedResultsApiTriggerAndState](docs/PagedResultsApiTriggerAndState.md)
+ - [PagedResultsApiTriggerState](docs/PagedResultsApiTriggerState.md)
  - [PagedResultsAppsControllerApiApp](docs/PagedResultsAppsControllerApiApp.md)
  - [PagedResultsAppsControllerApiAppCatalogItem](docs/PagedResultsAppsControllerApiAppCatalogItem.md)
  - [PagedResultsAssetsControllerApiAsset](docs/PagedResultsAssetsControllerApiAsset.md)
@@ -632,8 +668,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
  - [PagedResultsBlueprintControllerApiBlueprintItem](docs/PagedResultsBlueprintControllerApiBlueprintItem.md)
  - [PagedResultsConcurrencyLimit](docs/PagedResultsConcurrencyLimit.md)
- - [PagedResultsDashboard](docs/PagedResultsDashboard.md)
- - [PagedResultsExecution](docs/PagedResultsExecution.md)
+ - [PagedResultsDashboardControllerDashboardResponse](docs/PagedResultsDashboardControllerDashboardResponse.md)
  - [PagedResultsFlow](docs/PagedResultsFlow.md)
  - [PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
@@ -649,15 +684,19 @@ Class | Method | HTTP request | Description
  - [PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [PagedResultsNamespace](docs/PagedResultsNamespace.md)
  - [PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
+ - [PagedResultsSecurityIntegration](docs/PagedResultsSecurityIntegration.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
- - [PagedResultsTrigger](docs/PagedResultsTrigger.md)
- - [PagedResultsTriggerControllerTriggers](docs/PagedResultsTriggerControllerTriggers.md)
+ - [PasswordConfiguration](docs/PasswordConfiguration.md)
+ - [PasswordConfigurationPasswordReset](docs/PasswordConfigurationPasswordReset.md)
+ - [PasswordConfigurationRateLimit](docs/PasswordConfigurationRateLimit.md)
  - [PatchOperation](docs/PatchOperation.md)
  - [PatchOperationPath](docs/PatchOperationPath.md)
  - [PatchOperationType](docs/PatchOperationType.md)
  - [PatchRequest](docs/PatchRequest.md)
+ - [PebbleFunction](docs/PebbleFunction.md)
+ - [PebbleFunctionArgument](docs/PebbleFunctionArgument.md)
  - [Permission](docs/Permission.md)
  - [Plugin](docs/Plugin.md)
  - [PluginArtifact](docs/PluginArtifact.md)
@@ -668,6 +707,8 @@ Class | Method | HTTP request | Description
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
+ - [PluginUiManifest](docs/PluginUiManifest.md)
+ - [PluginUiModuleWithGroup](docs/PluginUiModuleWithGroup.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
  - [PropertyDuration](docs/PropertyDuration.md)
@@ -689,6 +730,7 @@ Class | Method | HTTP request | Description
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
+ - [RoleUsage](docs/RoleUsage.md)
  - [SDKAuth](docs/SDKAuth.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
@@ -707,6 +749,7 @@ Class | Method | HTTP request | Description
  - [ScimUser](docs/ScimUser.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResultFlow](docs/SearchResultFlow.md)
+ - [SecurityIntegration](docs/SecurityIntegration.md)
  - [SecurityIntegrationType](docs/SecurityIntegrationType.md)
  - [ServerConfig](docs/ServerConfig.md)
  - [ServerConfigLiveness](docs/ServerConfigLiveness.md)
@@ -730,16 +773,23 @@ Class | Method | HTTP request | Description
  - [State](docs/State.md)
  - [StateHistory](docs/StateHistory.md)
  - [StateType](docs/StateType.md)
+ - [SupportDebugInfo](docs/SupportDebugInfo.md)
+ - [SupportDebugInfoAuthType](docs/SupportDebugInfoAuthType.md)
+ - [SupportDebugInfoDeploymentType](docs/SupportDebugInfoDeploymentType.md)
  - [Task](docs/Task.md)
  - [TaskFixture](docs/TaskFixture.md)
  - [TaskForExecution](docs/TaskForExecution.md)
  - [TaskRun](docs/TaskRun.md)
  - [TaskRunAttempt](docs/TaskRunAttempt.md)
+ - [TaskWithVersion](docs/TaskWithVersion.md)
  - [Tenant](docs/Tenant.md)
  - [TenantAppCatalogConfig](docs/TenantAppCatalogConfig.md)
  - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
  - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
+ - [TenantControllerSetTenantDefaultDashboardsRequest](docs/TenantControllerSetTenantDefaultDashboardsRequest.md)
  - [TenantInterface](docs/TenantInterface.md)
+ - [TenantPreferencesSettings](docs/TenantPreferencesSettings.md)
+ - [TenantUsage](docs/TenantUsage.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
  - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
@@ -753,24 +803,33 @@ Class | Method | HTTP request | Description
  - [TestSuiteServiceTestRunByQueryResult](docs/TestSuiteServiceTestRunByQueryResult.md)
  - [TheLabelsToPassToTheExecutionCreated](docs/TheLabelsToPassToTheExecutionCreated.md)
  - [TimeWindow](docs/TimeWindow.md)
- - [Trigger](docs/Trigger.md)
- - [TriggerContext](docs/TriggerContext.md)
+ - [TriggerControllerApiCreateBackfillRequest](docs/TriggerControllerApiCreateBackfillRequest.md)
+ - [TriggerControllerApiCreateBackfillRequestBackfill](docs/TriggerControllerApiCreateBackfillRequestBackfill.md)
+ - [TriggerControllerApiDisableTriggerRequest](docs/TriggerControllerApiDisableTriggerRequest.md)
+ - [TriggerControllerApiTriggerId](docs/TriggerControllerApiTriggerId.md)
  - [TriggerControllerSetDisabledRequest](docs/TriggerControllerSetDisabledRequest.md)
- - [TriggerControllerTriggers](docs/TriggerControllerTriggers.md)
  - [TriggerFixture](docs/TriggerFixture.md)
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
  - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
+ - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)
  - [UserType](docs/UserType.md)
+ - [UserUsage](docs/UserUsage.md)
  - [UsernamePasswordCredentials](docs/UsernamePasswordCredentials.md)
  - [ValidateConstraintViolation](docs/ValidateConstraintViolation.md)
  - [ValuePathExpression](docs/ValuePathExpression.md)
  - [WebhookResponse](docs/WebhookResponse.md)
+ - [WorkerCredentialControllerApiWorkerCredential](docs/WorkerCredentialControllerApiWorkerCredential.md)
+ - [WorkerCredentialControllerApiWorkerList](docs/WorkerCredentialControllerApiWorkerList.md)
  - [WorkerGroup](docs/WorkerGroup.md)
  - [WorkerGroupFallback](docs/WorkerGroupFallback.md)
+ - [WorkerRegistrationTokenControllerApiCreateTokenRequest](docs/WorkerRegistrationTokenControllerApiCreateTokenRequest.md)
+ - [WorkerRegistrationTokenControllerApiCreateTokenResponse](docs/WorkerRegistrationTokenControllerApiCreateTokenResponse.md)
+ - [WorkerRegistrationTokenControllerApiRegistrationToken](docs/WorkerRegistrationTokenControllerApiRegistrationToken.md)
+ - [WorkerRegistrationTokenControllerApiTokenList](docs/WorkerRegistrationTokenControllerApiTokenList.md)
  - [WorkerTaskRestartStrategy](docs/WorkerTaskRestartStrategy.md)
 
 

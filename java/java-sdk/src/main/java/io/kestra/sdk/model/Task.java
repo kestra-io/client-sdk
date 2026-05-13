@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Task.JSON_PROPERTY_LOG_LEVEL,
   Task.JSON_PROPERTY_ALLOW_FAILURE,
   Task.JSON_PROPERTY_LOG_TO_FILE,
-  Task.JSON_PROPERTY_RUN_IF,
+  Task.JSON_PROPERTY_WHEN,
   Task.JSON_PROPERTY_ALLOW_WARNING,
   Task.JSON_PROPERTY_TASK_CACHE,
   Task.JSON_PROPERTY_ASSETS
@@ -86,8 +86,8 @@ public class Task {
   public static final String JSON_PROPERTY_LOG_TO_FILE = "logToFile";
   @jakarta.annotation.Nullable  private Boolean logToFile;
 
-  public static final String JSON_PROPERTY_RUN_IF = "runIf";
-  @jakarta.annotation.Nullable  private String runIf;
+  public static final String JSON_PROPERTY_WHEN = "when";
+  @jakarta.annotation.Nullable  private String when;
 
   public static final String JSON_PROPERTY_ALLOW_WARNING = "allowWarning";
   @jakarta.annotation.Nullable  private Boolean allowWarning;
@@ -204,7 +204,7 @@ public class Task {
   }
 
   /**
-   * Get retry
+   * Retry policy applied when the task fails.
    * @return retry
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETRY)
@@ -365,28 +365,28 @@ public class Task {
     this.logToFile = logToFile;
   }
 
-  public Task runIf(@jakarta.annotation.Nullable String runIf) {
+  public Task when(@jakarta.annotation.Nullable String when) {
     
-    this.runIf = runIf;
+    this.when = when;
     return this;
   }
 
   /**
-   * Get runIf
-   * @return runIf
+   * Get when
+   * @return when
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RUN_IF)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WHEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRunIf() {
-    return runIf;
+  public String getWhen() {
+    return when;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RUN_IF)
+  @JsonProperty(JSON_PROPERTY_WHEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRunIf(@jakarta.annotation.Nullable String runIf) {
-    this.runIf = runIf;
+  public void setWhen(@jakarta.annotation.Nullable String when) {
+    this.when = when;
   }
 
   public Task allowWarning(@jakarta.annotation.Nullable Boolean allowWarning) {
@@ -488,7 +488,7 @@ public class Task {
         Objects.equals(this.logLevel, task.logLevel) &&
         Objects.equals(this.allowFailure, task.allowFailure) &&
         Objects.equals(this.logToFile, task.logToFile) &&
-        Objects.equals(this.runIf, task.runIf) &&
+        Objects.equals(this.when, task.when) &&
         Objects.equals(this.allowWarning, task.allowWarning) &&
         Objects.equals(this.taskCache, task.taskCache) &&
         equalsNullable(this.assets, task.assets);
@@ -500,7 +500,7 @@ public class Task {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerGroup, logLevel, allowFailure, logToFile, runIf, allowWarning, taskCache, hashCodeNullable(assets));
+    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerGroup, logLevel, allowFailure, logToFile, when, allowWarning, taskCache, hashCodeNullable(assets));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -525,7 +525,7 @@ public class Task {
     sb.append("    logLevel: ").append(toIndentedString(logLevel)).append("\n");
     sb.append("    allowFailure: ").append(toIndentedString(allowFailure)).append("\n");
     sb.append("    logToFile: ").append(toIndentedString(logToFile)).append("\n");
-    sb.append("    runIf: ").append(toIndentedString(runIf)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("    allowWarning: ").append(toIndentedString(allowWarning)).append("\n");
     sb.append("    taskCache: ").append(toIndentedString(taskCache)).append("\n");
     sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
