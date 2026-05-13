@@ -142,7 +142,7 @@ export const TEST_DATA_PATH = "../../test-utils";
 export function get(filePath: string) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
-        : path.resolve(process.cwd(), filePath);
+        : path.resolve(import.meta.dirname, filePath);
     return readFileSync(absolute, "utf8");
 }
 

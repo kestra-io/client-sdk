@@ -3,10 +3,13 @@ import { kestraClient, randomId } from './CommonTestSetup.js';
 import type { KillSwitch, EvaluationType } from '@kestra-io/kestra-sdk';
 
 function makeKillSwitch(): KillSwitch {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     return {
         name: `test-ks-${randomId()}`,
-        startDate: new Date().toISOString(),
+        startDate: tomorrow.toISOString(),
         evaluationType: 'KILL' as EvaluationType,
+        enabled: false,
     };
 }
 
