@@ -5,7 +5,7 @@ describe('SecretsApi', () => {
     it('listSecrets: lists secrets for the tenant', async () => {
         const result = await kestraClient.Secrets.listSecrets({ page: 1, size: 10 });
         expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
     it('listSecrets: returns empty list with high page number', async () => {

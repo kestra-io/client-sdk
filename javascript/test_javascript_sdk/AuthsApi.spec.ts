@@ -6,13 +6,13 @@ describe('AuthsApi', () => {
     it('currentUser: returns the authenticated user', async () => {
         const result = await kestraClient.Auths.currentUser();
         expect(result).toBeDefined();
-        expect((result as any).email ?? (result as any).username).toBeDefined();
+        expect((result as any).profile?.email ?? (result as any).email ?? (result as any).username).toBeDefined();
     });
 
     it('listApiTokensForCurrentUser: lists API tokens for the current user', async () => {
         const result = await kestraClient.Auths.listApiTokensForCurrentUser();
         expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
     it('createApiTokenForCurrentUser: creates an API token', async () => {

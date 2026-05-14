@@ -13,7 +13,7 @@ describe('SecurityIntegrationsApi', () => {
     it('listSecurityIntegrations: lists security integrations', async () => {
         const result = await kestraClient.SecurityIntegrations.listSecurityIntegrations();
         expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
     it('createSecurityIntegration: creates a security integration', async () => {

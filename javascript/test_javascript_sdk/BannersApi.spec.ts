@@ -26,7 +26,7 @@ describe('BannersApi', () => {
     it('updateBanner: updates an existing banner', async () => {
         const created = await kestraClient.Banners.createBanner(makeBanner());
         const id = (created as any).id;
-        const updated: Banner = { message: `Updated banner ${randomId()}`, type: 'WARNING' };
+        const updated: Banner = { message: `Updated banner ${randomId()}`, type: 'WARNING', active: true };
 
         const result = await kestraClient.Banners.updateBanner({ ...updated, id });
         expect(result).toBeDefined();

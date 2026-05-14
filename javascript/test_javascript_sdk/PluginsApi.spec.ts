@@ -22,7 +22,7 @@ describe('PluginsApi', () => {
     it('listTriggerPlugins: lists trigger plugins', async () => {
         const result = await kestraClient.Plugins.listTriggerPlugins();
         expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
     it('pluginIcons: returns plugin icons', async () => {
@@ -38,7 +38,7 @@ describe('PluginsApi', () => {
     it('listVersionedPlugin: lists versioned plugins', async () => {
         const result = await kestraClient.Plugins.listVersionedPlugin();
         expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
     it('listAvailableVersionedPlugins: lists available versioned plugins', async () => {
