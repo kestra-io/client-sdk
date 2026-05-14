@@ -36,6 +36,16 @@ function detectBodySimplification(
     return { paramName, typeSymbol };
 }
 
+function computeHasRequiredParams(operation: any, excludeTenant = false): boolean {
+    return (
+        Object.values(operation.parameters?.path || {}).some(
+            (p: any) => p.required && !(excludeTenant && p.name === "tenant"),
+        ) ||
+        Object.values(operation.parameters?.query || {}).some((p: any) => p.required) ||
+        (operation.body?.required === true)
+    );
+}
+
 function pascalCase(str: string): string {
     return str
         // when a non capital is following a capital letter
@@ -216,13 +226,9 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 } else {
                     // 2-param form: (parameters, options?)
                     // Mirror the original's required-ness for the parameters param
-                    const hasRequiredParams =
-                        Object.values(operation.parameters?.path || {}).some((p: any) => p.required) ||
-                        Object.values(operation.parameters?.query || {}).some((p: any) => p.required) ||
-                        (operation.body?.required === true);
                     const functionNode = $.func()
                         .params(
-                            $.param(paramId).required(hasRequiredParams)
+                            $.param(paramId).required(computeHasRequiredParams(operation))
                                 .type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
                             $.param(optionsId).required(false)
                                 .type(operationOptionsType(originalOperationSymbol)),
@@ -238,7 +244,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 // Re-export with body added to spread of parameters with value empty object
                 const functionNode = $.func()
                     .params(
-                        $.param(paramId).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
+                        $.param(paramId).required(computeHasRequiredParams(operation)).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
@@ -281,7 +287,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
                 const functionNode = $.func()
                     .params(
-                        $.param(paramId).type(paramsType),
+                        $.param(paramId).required(computeHasRequiredParams(operation)).type(paramsType),
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
@@ -294,8 +300,8 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 return;
             }
 
-            // Has tenant path param
-            const isTenantOnlyRequiredParam = Object.values(pathParams).filter((p: any) => p.name !== "tenant" && p.required).length === 0;
+            // Has tenant path param — parameters bag is optional only if no required non-tenant params exist
+            const isTenantOnlyRequiredParam = !computeHasRequiredParams(operation, /* excludeTenant */ true);
 
             const parametersArguments = isMultipart ? $.object()
                 .prop("body", $.array())
