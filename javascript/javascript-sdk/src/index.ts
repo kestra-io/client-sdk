@@ -288,7 +288,7 @@ export const configureAxios = (
             return Promise.reject(errorResponse);
         });
 
-    router?.beforeEach((_to, _from) => {
+    router?.beforeEach(() => {
         if (pendingRoute) {
             requestsTotal--;
         }
