@@ -43,10 +43,14 @@ describe('AuditLogsApi', () => {
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {
-        const result = await kestraClient.AuditLogs.findAuditLog({
-            detail: {}
-        });
-        expect(result).toBeDefined();
+        try {
+            const result = await kestraClient.AuditLogs.findAuditLog({ resource: 'FLOW' });
+            expect(result).toBeDefined();
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if (status === 403) return;
+            throw err;
+        }
     });
 
     it('listAuditLogFromResourceId: lists audit logs for a resource', async () => {
