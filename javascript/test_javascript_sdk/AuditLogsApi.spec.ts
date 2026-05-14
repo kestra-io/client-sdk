@@ -43,7 +43,9 @@ describe('AuditLogsApi', () => {
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {
-        const result = await kestraClient.AuditLogs.findAuditLog({});
+        const result = await kestraClient.AuditLogs.findAuditLog({
+            detail: {}
+        });
         expect(result).toBeDefined();
     });
 
