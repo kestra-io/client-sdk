@@ -38,4 +38,47 @@ describe('BindingsApi', () => {
         const result = await kestraClient.Bindings.bulkCreateBinding({ body: [] });
         expect(result).toBeDefined();
     });
+
+    it('binding: retrieves a binding by id', async () => {
+        const email = randomEmail();
+        const createdUser = await kestraClient.Users.createUser({ email });
+        const userId = (createdUser as any).id;
+
+        const role = await kestraClient.Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name: `test-role-binding-get-${randomId()}`,
+        });
+        const roleId = (role as any).id;
+
+        const created = await kestraClient.Bindings.createBinding({
+            type: 'USER' as any,
+            externalId: userId,
+            roleId,
+        });
+        const bindingId = (created as any).id;
+
+        const result = await kestraClient.Bindings.binding({ id: bindingId });
+        expect(result).toBeDefined();
+    });
+
+    it('deleteBinding: deletes a binding', async () => {
+        const email = randomEmail();
+        const createdUser = await kestraClient.Users.createUser({ email });
+        const userId = (createdUser as any).id;
+
+        const role = await kestraClient.Roles.createRole({
+            permissions: { FLOW: ['READ'] },
+            name: `test-role-binding-del-${randomId()}`,
+        });
+        const roleId = (role as any).id;
+
+        const created = await kestraClient.Bindings.createBinding({
+            type: 'USER' as any,
+            externalId: userId,
+            roleId,
+        });
+        const bindingId = (created as any).id;
+
+        await kestraClient.Bindings.deleteBinding({ id: bindingId });
+    });
 });

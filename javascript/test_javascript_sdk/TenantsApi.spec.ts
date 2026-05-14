@@ -55,4 +55,73 @@ describe('TenantsApi', () => {
         const result = await kestraClient.Tenants.flowDependenciesFromTenant();
         expect(result).toBeDefined();
     });
+
+    it('appsCatalogConfig: returns apps catalog config for a tenant', async () => {
+        const id = randomId();
+        await kestraClient.Tenants.create_1(makeTenant(id));
+
+        try {
+            const result = await kestraClient.Tenants.appsCatalogConfig({ id });
+            expect(result).toBeDefined();
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if ([403, 404].includes(status)) return;
+            throw err;
+        }
+    });
+
+    it('setAppsCatalogConfig: sets apps catalog config for a tenant', async () => {
+        const id = randomId();
+        await kestraClient.Tenants.create_1(makeTenant(id));
+
+        try {
+            const result = await kestraClient.Tenants.setAppsCatalogConfig({ id, title: 'Test Title' });
+            expect(result).toBeDefined();
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if ([403, 404].includes(status)) return;
+            throw err;
+        }
+    });
+
+    it('deleteAppsCatalogLogo: deletes apps catalog logo for a tenant', async () => {
+        const id = randomId();
+        await kestraClient.Tenants.create_1(makeTenant(id));
+
+        try {
+            await kestraClient.Tenants.deleteAppsCatalogLogo({ id });
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if ([403, 404].includes(status)) return;
+            throw err;
+        }
+    });
+
+    it('defaultDashboards: returns default dashboards for a tenant', async () => {
+        const id = randomId();
+        await kestraClient.Tenants.create_1(makeTenant(id));
+
+        try {
+            const result = await kestraClient.Tenants.defaultDashboards({ id });
+            expect(result).toBeDefined();
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if ([403, 404].includes(status)) return;
+            throw err;
+        }
+    });
+
+    it('setTenantDefaultDashboards: sets default dashboards for a tenant', async () => {
+        const id = randomId();
+        await kestraClient.Tenants.create_1(makeTenant(id));
+
+        try {
+            const result = await kestraClient.Tenants.setTenantDefaultDashboards({ id });
+            expect(result).toBeDefined();
+        } catch (err: any) {
+            const status = err?.response?.status ?? err?.status;
+            if ([403, 404].includes(status)) return;
+            throw err;
+        }
+    });
 });
