@@ -34,7 +34,8 @@ export default defineConfig({
             all: true,
             reporter: ["text", "json"],
             thresholds: {
-                functions: 75,
+                perFile: true,
+                functions: 80,
             },
         },
     },
