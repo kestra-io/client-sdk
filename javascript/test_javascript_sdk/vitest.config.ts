@@ -29,9 +29,6 @@ export default defineConfig({
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
             include: ["javascript-sdk/src/openapi/sdk/**"],
-            // Include all SDK files even if never imported, so fully-untested
-            // files show up as 0% rather than being invisible.
-            all: true,
             reporter: ["text", "json"],
             thresholds: {
                 perFile: true,
