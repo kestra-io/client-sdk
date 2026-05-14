@@ -41,10 +41,12 @@ describe('PluginsApi', () => {
         expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
 
+    // Superadmin-only endpoint that may call an external registry on first request.
+    // Use a generous timeout to survive cold-start latency.
     it('listAvailableVersionedPlugins: lists available versioned plugins', async () => {
         const result = await kestraClient.Plugins.listAvailableVersionedPlugins();
         expect(result).toBeDefined();
-    });
+    }, 30000);
 
     it('schemaFromInputType: gets JSON schema for STRING input type', async () => {
         const result = await kestraClient.Plugins.schemaFromInputType({ type: 'STRING' });

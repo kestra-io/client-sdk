@@ -1223,6 +1223,25 @@ tasks:
         `);
     });
 
+    // SKIPPED: Server-side bug in Kestra's H2 queue subscriber.
+    //
+    // When followDependenciesExecutions (or followExecution) opens an SSE stream,
+    // Kestra registers a FollowExecutionEvent subscriber in the H2 queue. When the
+    // SSE connection closes (test ends), the subscriber is NOT removed from H2.
+    //
+    // Later, when any execution event arrives, H2 delivers it to the stale subscriber.
+    // The delivery throws (response writer is closed), and AbstractSubscriber treats
+    // ALL delivery errors as fatal → "fatal error while consuming messages. Initiating
+    // application shutdown." → server exits with code 0.
+    //
+    // Confirmed via docker logs:
+    //   ERROR [FollowExecutionEvent] fatal error while consuming messages.
+    //          Initiating application shutdown.
+    //   INFO  Kestra server - Shutdown initiated
+    //
+    // Fix needed in Kestra server:
+    //   1. Unsubscribe the FollowExecutionEvent subscriber when the SSE response closes.
+    //   2. Don't treat subscriber delivery failures as application-fatal errors.
     it.skip("follow_dependencies_executions (SSE/WebSocket required)", async () => {
         const ns = randomId();
         const flowId = randomId();
@@ -1233,20 +1252,31 @@ tasks:
             id: flowId,
         });
 
+        // AbortController ensures the HTTP connection is always closed cleanly,
+        // preventing Vitest from killing the worker with an open TCP connection.
+        const ac = new AbortController();
+        const abortTimer = setTimeout(() => ac.abort(), 20000);
+
         const { stream } = await kestraClient.Executions.followDependenciesExecutions({
             executionId: e.id,
             expandAll: false,
             destinationOnly: false,
-        })
+        }, { signal: ac.signal })
 
         const result = await (async () => {
             const executionIds: Set<string> = new Set();
-            for await (const evt of stream) {
-                executionIds.add(evt.executionId);
+            try {
+                for await (const evt of stream) {
+                    executionIds.add(evt.executionId);
+                }
+            } catch {
+                // AbortError if the 20s safety timer fired — proceed with what we have
+            } finally {
+                clearTimeout(abortTimer);
             }
             return Array.from(executionIds);
         })();
 
         expect(result).toContain(e.id);
-    });
+    }, 25000);
 });

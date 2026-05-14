@@ -33,7 +33,5 @@ export default defineConfig({
                 functions: 75,
             },
         },
-        maxWorkers: 1, // Avoid concurrency issues with SSE/WebSocket tests
-        testTimeout: 30000,
     },
 });
