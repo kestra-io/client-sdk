@@ -31,23 +31,22 @@ async function createApp() {
 }
 
 describe('AppsApi', () => {
-    it('searchApps: returns a paged result', async () => {
-        const result = await kestraClient.Apps.searchApps({ page: 1, size: 10 });
-        expect(result).toBeDefined();
-    });
-
     it('createApp: creates an app from YAML', async () => {
         const app = await createApp();
-        expect(app).toBeDefined();
-        expect((app as any).uid ?? (app as any).id).toBeDefined();
+        expect(app?.uid).toBeDefined();
     });
 
     it('app: retrieves the created app by uid', async () => {
         const app = await createApp();
-        const uid = (app as any).uid ?? (app as any).id;
+        const uid = app?.uid ?? ""
 
         const fetched = await kestraClient.Apps.app({ uid });
-        expect(fetched).toBeDefined();
+        expect(fetched.uid).toEqual(uid);
+    });
+
+    it('searchApps: returns a paged result', async () => {
+        const result = await kestraClient.Apps.searchApps({ page: 1, size: 10 });
+        expect(result).toBeDefined();
     });
 
     it('updateApp: updates an existing app', async () => {
