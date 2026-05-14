@@ -30,7 +30,8 @@ export default defineConfig({
             // contains:true, and tinyglobby globs from root for all:true.
             include: ["javascript-sdk/src/openapi/sdk/**"],
             thresholds: {
-                functions: 75,
+                perFile: true,
+                functions: 80,
             },
         },
     },
