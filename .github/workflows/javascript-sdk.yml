@@ -35,6 +35,9 @@ jobs:
   test:
     name: Test Javascript SDK
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
         working-directory: ./javascript
@@ -107,6 +110,14 @@ jobs:
         with:
           name: coverage-report
           path: ./javascript/coverage
+
+      - name: Comment coverage on PR
+        if: always() && github.event_name == 'pull_request' && inputs.skip-test != 'true'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json
 
   publish-release:
     name: Publish Release to Npm
