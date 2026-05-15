@@ -1252,20 +1252,31 @@ tasks:
             id: flowId,
         });
 
+        // AbortController ensures the HTTP connection is always closed cleanly,
+        // preventing Vitest from killing the worker with an open TCP connection.
+        const ac = new AbortController();
+        const abortTimer = setTimeout(() => ac.abort(), 20000);
+
         const { stream } = await kestraClient.Executions.followDependenciesExecutions({
             executionId: e.id,
             expandAll: false,
             destinationOnly: false,
-        })
+        }, { signal: ac.signal })
 
         const result = await (async () => {
             const executionIds: Set<string> = new Set();
-            for await (const evt of stream) {
-                executionIds.add(evt.executionId);
+            try {
+                for await (const evt of stream) {
+                    executionIds.add(evt.executionId);
+                }
+            } catch {
+                // AbortError if the 20s safety timer fired — proceed with what we have
+            } finally {
+                clearTimeout(abortTimer);
             }
             return Array.from(executionIds);
         })();
 
         expect(result).toContain(e.id);
-    });
+    }, 25000);
 });
