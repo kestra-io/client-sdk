@@ -71,7 +71,7 @@ export const configureAxios = (
         oss?: boolean,
         router?: {
             push: (location: { name: string, query?: Record<string, string> }) => void;
-            beforeEach: (callback: (to: any, from: any) => void) => void;
+            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
             afterEach: (callback: () => void) => void;
         },
         coreStore?: {
@@ -90,9 +90,9 @@ export const configureAxios = (
         isImpersonating?: () => boolean
         isLoggedIn?: () => boolean
         onAuthTimeout?: () => boolean | void
-        onError?: (type: "message" | "error", error: Error) => void
+        onError?: (type: "message" | "error", response: Response & { data?: any }) => void
     } = {}
-) => {
+): Client => {
     const {
         oss = false,
         router,
@@ -102,16 +102,16 @@ export const configureAxios = (
         isImpersonating = () => false,
         isLoggedIn = () => authStore?.isLogged ?? false,
         onAuthTimeout,
-        onError = (type, error: any) => {
+        onError = (type, response: Response & { data?: any }) => {
             if (coreStore) {
                 if (type === "message") {
                     coreStore.message = {
                         variant: "error",
-                        response: error.response,
-                        content: error.response?.data,
+                        response: response,
+                        content: response?.data,
                     }
                 } else {
-                    coreStore.error = error.response.status
+                    coreStore.error = response.status
                 }
             }
         }
@@ -143,8 +143,8 @@ export const configureAxios = (
             return error
         }
 
-        if (response.status === 404 && coreStore) {
-            coreStore.error = response.status
+        if (response.status === 404) {
+            onError("message", response as any)
             return error
         }
 
@@ -152,16 +152,15 @@ export const configureAxios = (
             return error
         }
 
-        if (error && coreStore) {
-            coreStore.message = {
-                variant: "error",
-                response,
-                content: error,
-            }
+        if (error) {
+            onError("message", error as any)
         }
 
         return error
     })
+
+    // Token refresh: intercept 401 responses before the error path runs
+    let refreshPromise: Promise<void> | null = null
 
     function navigateToLogin() {
         if (!router) return
@@ -173,15 +172,12 @@ export const configureAxios = (
         });
     }
 
-    // Token refresh: intercept 401 responses before the error path runs
-    let refreshPromise: Promise<void> | null = null
-
     client.interceptors.response.use(async (response: Response, request: Request, opts: ResolvedRequestOptions): Promise<Response> => {
         if (response.status !== 401) {
             return response
         }
 
-        if (oss || !authStore?.isLogged) {
+        if (oss || !isLoggedIn()) {
             onAuthTimeout?.()
             return response
         }
@@ -252,7 +248,6 @@ export const configureAxios = (
         }
         pendingRoute = true
         initProgress()
-        next()
     })
 
     router?.afterEach(() => {
