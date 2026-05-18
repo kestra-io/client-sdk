@@ -27,10 +27,6 @@ if (!existsSync(coveragePath)) {
 }
 
 const { GITHUB_REPOSITORY: repo, PR_NUMBER: prNumber } = process.env;
-if (!repo || !prNumber) {
-    console.log("GITHUB_REPOSITORY or PR_NUMBER not set — skipping comment.");
-    process.exit(0);
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -92,12 +88,12 @@ for (const [filePath, data] of Object.entries(coverage)) {
         totalFunctions++;
         if (count === 0) {
             const fn = data.fnMap[key];
-            const line = fn?.loc?.start?.line;
-            const name =
-                fn?.name && fn.name !== "(anonymous)"
-                    ? fn.name
-                    : (extractConstName(getSourceLine(filePath, line)) ??
-                      `<anonymous:${line ?? "?"}>`);
+            const declLine = fn?.decl?.start?.line;
+            const isAnonymous = !fn?.name || /^\(anonymous/.test(fn.name);
+            const name = isAnonymous
+                ? (extractConstName(getSourceLine(filePath, declLine)) ??
+                  `<anonymous:${declLine ?? "?"}>`)
+                : fn.name;
             uncovered.push(name);
         } else {
             coveredFunctions++;
@@ -164,6 +160,13 @@ writeFileSync("/tmp/coverage-body.json", JSON.stringify({ body }));
 
 let existingCommentId = null;
 try {
+    if (!repo || !prNumber) {
+        console.log(
+            "GITHUB_REPOSITORY or PR_NUMBER not set — skipping comment.",
+        );
+        console.log("Would have posted this comment:\n", body);
+        process.exit(0);
+    }
     const raw = execSync(
         `gh api "repos/${repo}/issues/${prNumber}/comments?per_page=100"`,
         { encoding: "utf8" },
