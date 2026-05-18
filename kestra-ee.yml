@@ -21924,6 +21924,8 @@ components:
           type: array
           items:
             type: string
+        sourceHash:
+          type: string
     Property_Boolean_:
       type: object
       properties:
