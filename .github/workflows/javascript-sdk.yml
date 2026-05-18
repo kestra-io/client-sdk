@@ -234,8 +234,8 @@ jobs:
           HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
           # a timestamp on 8 characters
           timestamp=$(date +%s | head -c 8)
-          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT"
-          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT"
+          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
+          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
           echo "kestra_version=2.0.0-develop.$timestamp.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
 
       - name: Generate SDK with develop version
