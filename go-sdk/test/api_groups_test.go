@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
@@ -9,22 +10,22 @@ import (
 
 func TestGroupsAPI_All(t *testing.T) {
 	t.Run("addUserToGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_add_user_to_group_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_add_user_to_group_" + randomId(),
+			"description": "An example group",
 		}
-		createdGroup, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		createdGroup, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := kestra_api_client.IAMUserControllerApiCreateOrUpdateUserRequest{
-			Email: "test_add_user_to_group_" + randomId() + "@kestra.io",
+		userReq := map[string]interface{}{
+			"email": "test_add_user_to_group_" + randomId() + "@kestra.io",
 		}
-		createdUser, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(userReq).Execute()
+		createdUser, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		member, _, err := KestraTestApiClient().GroupsAPI.AddUserToGroup(ctx, createdGroup.GetId(), createdUser.GetId(), MAIN_TENANT).Execute()
+		member, err := KestraTestClient().Groups().AddUserToGroup(ctx, createdGroup.GetId(), createdUser.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
 		found := false
@@ -38,19 +39,18 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("autocompleteGroupsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		prefix := "test_auto_" + randomId()
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        prefix + "_complete_groups",
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        prefix + "_complete_groups",
+			"description": "An example group",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		ac := kestra_api_client.ApiAutocomplete{}
-		ac.SetQ(prefix)
-		results, _, err := KestraTestApiClient().GroupsAPI.AutocompleteGroups(ctx, MAIN_TENANT).ApiAutocomplete(ac).Execute()
+		ac := map[string]interface{}{"q": prefix}
+		results, err := KestraTestClient().Groups().AutocompleteGroups(ctx, MAIN_TENANT, ac, nil)
 		require.NoError(t, err)
 
 		found := false
@@ -64,60 +64,57 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("createGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_create_group_" + randomId()
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        name,
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        name,
+			"description": "An example group",
 		}
 
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 		require.Equal(t, name, created.GetName())
 		require.NotEmpty(t, created.GetId())
 	})
 
 	t.Run("deleteGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_delete_group_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_delete_group_" + randomId(),
+			"description": "An example group",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		_, err = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, created.GetId(), MAIN_TENANT).Execute()
+		err = KestraTestClient().Groups().DeleteGroup(ctx, created.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
-		_, httpResp, err := KestraTestApiClient().GroupsAPI.Group(ctx, created.GetId(), MAIN_TENANT).Execute()
+		_, err = KestraTestClient().Groups().Group(ctx, created.GetId(), MAIN_TENANT)
 		require.Error(t, err)
-		if httpResp != nil {
-			require.Equal(t, 404, httpResp.StatusCode)
-		}
 	})
 
 	t.Run("deleteUserFromGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_delete_user_from_group_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_delete_user_from_group_" + randomId(),
+			"description": "An example group",
 		}
-		group, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := kestra_api_client.IAMUserControllerApiCreateOrUpdateUserRequest{
-			Email: "test_delete_user_from_group_" + randomId() + "@kestra.io",
+		userReq := map[string]interface{}{
+			"email": "test_delete_user_from_group_" + randomId() + "@kestra.io",
 		}
-		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(userReq).Execute()
+		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		_, _, err = KestraTestApiClient().GroupsAPI.AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT).Execute()
+		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
-		member, _, err := KestraTestApiClient().GroupsAPI.DeleteUserFromGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT).Execute()
+		member, err := KestraTestClient().Groups().DeleteUserFromGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
 		for _, g := range member.GetGroups() {
@@ -126,33 +123,33 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("getGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_get_group_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_get_group_" + randomId(),
+			"description": "An example group",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().GroupsAPI.Group(ctx, created.GetId(), MAIN_TENANT).Execute()
+		fetched, err := KestraTestClient().Groups().Group(ctx, created.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), fetched.GetId())
 		require.Equal(t, created.GetName(), fetched.GetName())
 	})
 
 	t.Run("listGroupIdsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_list_group_ids_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_list_group_ids_" + randomId(),
+			"description": "An example group",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		ids := kestra_api_client.ApiIds{Ids: []string{created.GetId()}}
-		fetched, _, err := KestraTestApiClient().GroupsAPI.ListGroupIds(ctx, MAIN_TENANT).ApiIds(ids).Execute()
+		ids := []string{created.GetId()}
+		fetched, err := KestraTestClient().Groups().ListGroupIds(ctx, MAIN_TENANT, ids)
 		require.NoError(t, err)
 		require.NotEmpty(t, fetched)
 
@@ -167,32 +164,32 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchGroupMembersTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_search_group_members_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_search_group_members_" + randomId(),
+			"description": "An example group",
 		}
-		group, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := kestra_api_client.IAMUserControllerApiCreateOrUpdateUserRequest{
-			Email: "test_search_group_members_" + randomId() + "@kestra.io",
+		userReq := map[string]interface{}{
+			"email": "test_search_group_members_" + randomId() + "@kestra.io",
 		}
-		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(userReq).Execute()
+		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		_, _, err = KestraTestApiClient().GroupsAPI.AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT).Execute()
+		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
 		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_QUERY),
-				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
+				Field:     kestra_api_client.FilterQuery,
+				Operation: kestra_api_client.OpEquals,
 				Value:     user.GetEmail(),
 			},
 		}
-		page, _, err := KestraTestApiClient().GroupsAPI.SearchGroupMembers(ctx, group.GetId(), MAIN_TENANT).Page(1).Size(10).Filters(filters).Execute()
+		page, err := KestraTestClient().Groups().SearchGroupMembers(ctx, group.GetId(), MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
 		require.NoError(t, err)
 		require.NotNil(t, page)
 		require.NotNil(t, page.GetResults())
@@ -208,17 +205,24 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchGroupsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_search_groups_" + randomId()
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        name,
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        name,
+			"description": "An example group",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		results, _, err := KestraTestApiClient().GroupsAPI.SearchGroups(ctx, MAIN_TENANT).Page(1).Size(10).Q(name).Execute()
+		filters := []kestra_api_client.QueryFilter{
+			{
+				Field:     kestra_api_client.FilterQuery,
+				Operation: kestra_api_client.OpEquals,
+				Value:     name,
+			},
+		}
+		results, err := KestraTestClient().Groups().SearchGroups(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
 		require.NoError(t, err)
 		require.NotNil(t, results)
 		require.NotNil(t, results.GetResults())
@@ -234,25 +238,25 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("setUserMembershipForGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_set_user_membership_for_group_" + randomId(),
-			Description: strPtr("An example group"),
+		groupReq := map[string]interface{}{
+			"name":        "test_set_user_membership_for_group_" + randomId(),
+			"description": "An example group",
 		}
-		group, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := kestra_api_client.IAMUserControllerApiCreateOrUpdateUserRequest{
-			Email: "test_set_user_membership_for_group_" + randomId() + "@kestra.io",
+		userReq := map[string]interface{}{
+			"email": "test_set_user_membership_for_group_" + randomId() + "@kestra.io",
 		}
-		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(userReq).Execute()
+		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		_, _, err = KestraTestApiClient().GroupsAPI.AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT).Execute()
+		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
-		member, _, err := KestraTestApiClient().GroupsAPI.SetUserMembershipForGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT).Membership(kestra_api_client.GROUPIDENTIFIERMEMBERSHIP_OWNER).Execute()
+		member, err := KestraTestClient().Groups().SetUserMembershipForGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT, kestra_api_client.PtrString("OWNER"))
 		require.NoError(t, err)
 
 		found := false
@@ -266,21 +270,21 @@ func TestGroupsAPI_All(t *testing.T) {
 	})
 
 	t.Run("updateGroupTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
-		groupReq := kestra_api_client.IAMGroupControllerApiCreateGroupRequest{
-			Name:        "test_update_group_" + randomId(),
-			Description: strPtr("Before"),
+		groupReq := map[string]interface{}{
+			"name":        "test_update_group_" + randomId(),
+			"description": "Before",
 		}
-		created, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).IAMGroupControllerApiCreateGroupRequest(groupReq).Execute()
+		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
 		updatedDesc := "Updated description"
-		updateReq := kestra_api_client.IAMGroupControllerApiUpdateGroupRequest{
-			Name:        created.GetName(),
-			Description: strPtr(updatedDesc),
+		updateReq := map[string]interface{}{
+			"name":        created.GetName(),
+			"description": updatedDesc,
 		}
-		updated, _, err := KestraTestApiClient().GroupsAPI.UpdateGroup(ctx, created.GetId(), MAIN_TENANT).IAMGroupControllerApiUpdateGroupRequest(updateReq).Execute()
+		updated, err := KestraTestClient().Groups().UpdateGroup(ctx, created.GetId(), MAIN_TENANT, updateReq)
 		require.NoError(t, err)
 		require.Equal(t, updatedDesc, updated.GetDescription())
 	})

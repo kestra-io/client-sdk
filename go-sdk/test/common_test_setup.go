@@ -1,7 +1,6 @@
 package test
 
 import (
-	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"os"
@@ -17,36 +16,13 @@ const (
 	TEST_DATA_PATH = "../../../test-utils"
 )
 
-func KestraTestApiClient() *kestra_api_client.APIClient {
-	configuration := kestra_api_client.NewConfiguration()
-
-	url := HOST
-
-	//configuration.Debug = true
-
-	configuration.Servers = []kestra_api_client.ServerConfiguration{
-		{
-			URL: url,
-		},
-	}
-
-	apiClient := kestra_api_client.NewAPIClient(configuration)
-
-	return apiClient
+func KestraTestClient() *kestra_api_client.KestraClient {
+	return kestra_api_client.NewClient(
+		HOST,
+		kestra_api_client.WithBasicAuth("root@root.com", "Root!1234"),
+	)
 }
-func GetAuthContext() context.Context {
-	username := "root@root.com"
-	password := "Root!1234"
 
-	ctx := context.Background()
-
-	basicAuth := kestra_api_client.BasicAuth{
-		UserName: username,
-		Password: password,
-	}
-	ctx = context.WithValue(ctx, kestra_api_client.ContextBasicAuth, basicAuth)
-	return ctx
-}
 func randomId() string {
 	b := make([]byte, 16)
 	_, err := rand.Read(b)

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
@@ -9,24 +10,22 @@ import (
 
 func TestRolesAPI_All(t *testing.T) {
 	t.Run("autocompleteRolesTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		prefix := "test_autocomplete_roles_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		roleReq := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        prefix + "_complete_roles",
-			Description: strPtr("An example role"),
-			Permissions: perms,
+		roleReq := map[string]interface{}{
+			"name":        prefix + "_complete_roles",
+			"description": "An example role",
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(roleReq).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, roleReq)
 		require.NoError(t, err)
 
-		ac := kestra_api_client.ApiAutocomplete{}
-		ac.SetQ(prefix)
-		results, _, err := KestraTestApiClient().RolesAPI.AutocompleteRoles(ctx, MAIN_TENANT).ApiAutocomplete(ac).Execute()
+		ac := map[string]interface{}{"q": prefix}
+		results, err := KestraTestClient().Roles().AutocompleteRoles(ctx, MAIN_TENANT, ac)
 		require.NoError(t, err)
 
 		found := false
@@ -40,87 +39,80 @@ func TestRolesAPI_All(t *testing.T) {
 	})
 
 	t.Run("createRoleTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_create_role_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		req := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Description: strPtr("An example role"),
-			Permissions: perms,
+		req := map[string]interface{}{
+			"name":        name,
+			"description": "An example role",
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 		require.Equal(t, name, created.GetName())
 		require.NotEmpty(t, created.GetId())
 	})
 
 	t.Run("deleteRoleTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_delete_role_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		req := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Permissions: perms,
+		req := map[string]interface{}{
+			"name": name,
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		_, err = KestraTestApiClient().RolesAPI.DeleteRole(ctx, created.GetId(), MAIN_TENANT).Execute()
+		err = KestraTestClient().Roles().DeleteRole(ctx, created.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
-		_, httpResp, err := KestraTestApiClient().RolesAPI.Role(ctx, created.GetId(), MAIN_TENANT).Execute()
+		_, err = KestraTestClient().Roles().Role(ctx, created.GetId(), MAIN_TENANT)
 		require.Error(t, err)
-		if httpResp != nil {
-			require.Equal(t, 404, httpResp.StatusCode)
-		}
 	})
 
 	t.Run("getRoleTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_get_role_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		req := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Permissions: perms,
+		req := map[string]interface{}{
+			"name": name,
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().RolesAPI.Role(ctx, created.GetId(), MAIN_TENANT).Execute()
+		fetched, err := KestraTestClient().Roles().Role(ctx, created.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), fetched.GetId())
 		require.Equal(t, created.GetName(), fetched.GetName())
 	})
 
 	t.Run("listRolesFromGivenIdsTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_list_roles_from_given_ids_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		req := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Permissions: perms,
+		req := map[string]interface{}{
+			"name": name,
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		ids := kestra_api_client.ApiIds{Ids: []string{created.GetId()}}
-		fetched, _, err := KestraTestApiClient().RolesAPI.ListRolesFromGivenIds(ctx, MAIN_TENANT).ApiIds(ids).Execute()
+		ids := []string{created.GetId()}
+		fetched, err := KestraTestClient().Roles().ListRolesFromGivenIds(ctx, MAIN_TENANT, ids)
 		require.NoError(t, err)
 		require.NotEmpty(t, fetched)
 
@@ -135,21 +127,27 @@ func TestRolesAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchRolesTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_search_roles_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		req := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Permissions: perms,
+		req := map[string]interface{}{
+			"name": name,
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(req).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		page, _, err := KestraTestApiClient().RolesAPI.SearchRoles(ctx, MAIN_TENANT).Page(1).Size(10).Q(name).Execute()
+		filters := []kestra_api_client.QueryFilter{
+			{
+				Field:     kestra_api_client.FilterQuery,
+				Operation: kestra_api_client.OpEquals,
+				Value:     name,
+			},
+		}
+		page, err := KestraTestClient().Roles().SearchRoles(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
 		require.NoError(t, err)
 		require.NotNil(t, page)
 		require.NotNil(t, page.GetResults())
@@ -165,28 +163,29 @@ func TestRolesAPI_All(t *testing.T) {
 	})
 
 	t.Run("updateRoleTest", func(t *testing.T) {
-		ctx := GetAuthContext()
+		ctx := context.Background()
 
 		name := "test_update_role_" + randomId()
-		perms := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions{
-			FLOW: []string{"READ"},
-		}
-		createReq := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        name,
-			Description: strPtr("Before"),
-			Permissions: perms,
+		createReq := map[string]interface{}{
+			"name":        name,
+			"description": "Before",
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
 
-		created, _, err := KestraTestApiClient().RolesAPI.CreateRole(ctx, MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(createReq).Execute()
+		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, createReq)
 		require.NoError(t, err)
 
 		updatedDesc := "Updated description"
-		updateReq := kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest{
-			Name:        created.GetName(),
-			Description: strPtr(updatedDesc),
-			Permissions: perms,
+		updateReq := map[string]interface{}{
+			"name":        created.GetName(),
+			"description": updatedDesc,
+			"permissions": map[string]interface{}{
+				"FLOW": []string{"READ"},
+			},
 		}
-		updated, _, err := KestraTestApiClient().RolesAPI.UpdateRole(ctx, created.GetId(), MAIN_TENANT).IAMRoleControllerApiRoleCreateOrUpdateRequest(updateReq).Execute()
+		updated, err := KestraTestClient().Roles().UpdateRole(ctx, created.GetId(), MAIN_TENANT, updateReq)
 		require.NoError(t, err)
 		require.Equal(t, updatedDesc, updated.GetDescription())
 	})

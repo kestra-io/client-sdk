@@ -59,7 +59,8 @@
     "dev": "node scripts/dev.mjs",
     "typecheck": "vue-tsc --noEmit",
     "generate:openapi": "openapi-ts",
-    "prebuild": "openapi-ts"
+    "prebuild": "openapi-ts",
+    "prepack": "cp ../../README_JAVASCRIPT_SDK.md README.md"
   },
   "dependencies": {
     "nprogress": "0.2.0"

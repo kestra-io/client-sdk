@@ -35,6 +35,9 @@ jobs:
   test:
     name: Test Javascript SDK
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
         working-directory: ./javascript
@@ -107,6 +110,14 @@ jobs:
         with:
           name: coverage-report
           path: ./javascript/coverage
+
+      - name: Comment coverage on PR
+        if: always() && github.event_name == 'pull_request' && inputs.skip-test != 'true'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json
 
   publish-release:
     name: Publish Release to Npm
@@ -221,9 +232,11 @@ jobs:
         run: |
           HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
           HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
-          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
-          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-          echo "kestra_version=2.0.0-dev.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
+          # a timestamp on 8 characters
+          timestamp=$(date +%s | head -c 8)
+          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT"
+          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT"
+          echo "kestra_version=2.0.0-develop.$timestamp.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
 
       - name: Generate SDK with develop version
         working-directory: .

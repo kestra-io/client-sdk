@@ -71,7 +71,7 @@ export const configureAxios = (
         oss?: boolean,
         router?: {
             push: (location: { name: string, query?: Record<string, string> }) => void;
-            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
+            beforeEach: (callback: (to: any, from: any) => void) => void;
             afterEach: (callback: () => void) => void;
         },
         coreStore?: {
@@ -88,10 +88,34 @@ export const configureAxios = (
         },
         beforeLogout?: () => void
         isImpersonating?: () => boolean
-        onAuthTimeout?: () => void
+        isLoggedIn?: () => boolean
+        onAuthTimeout?: () => boolean | void
+        onError?: (type: "message" | "error", error: Error) => void
     } = {}
-): Client => {
-    const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
+) => {
+    const {
+        oss = false,
+        router,
+        coreStore,
+        authStore,
+        beforeLogout,
+        isImpersonating = () => false,
+        isLoggedIn = () => authStore?.isLogged ?? false,
+        onAuthTimeout,
+        onError = (type, error: any) => {
+            if (coreStore) {
+                if (type === "message") {
+                    coreStore.message = {
+                        variant: "error",
+                        response: error.response,
+                        content: error.response?.data,
+                    }
+                } else {
+                    coreStore.error = error.response.status
+                }
+            }
+        }
+    } = options
 
     configureClient({
         credentials: "include",
@@ -140,9 +164,13 @@ export const configureAxios = (
     })
 
     function navigateToLogin() {
+        if (!router) return
         const currentPath = window.location.pathname
         const isLoginPath = currentPath.includes("/login")
-        router?.push({ name: "login", query: isLoginPath ? {} : { from: currentPath } })
+        router.push({
+            name: "login",
+            query: isLoginPath ? {} : { from: currentPath }
+        });
     }
 
     // Token refresh: intercept 401 responses before the error path runs
@@ -218,7 +246,7 @@ export const configureAxios = (
         return _fetch(new Request(request, { headers: retryHeaders }))
     })
 
-    router?.beforeEach((_to, _from, next) => {
+    router?.beforeEach(() => {
         if (pendingRoute) {
             requestsTotal--
         }
