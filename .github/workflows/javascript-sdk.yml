@@ -117,7 +117,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
 
   publish-release:
     name: Publish Release to Npm
