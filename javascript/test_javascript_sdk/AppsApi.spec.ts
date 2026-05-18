@@ -38,7 +38,11 @@ describe('AppsApi', () => {
 
     it('app: retrieves the created app by uid', async () => {
         const app = await createApp();
-        const uid = app?.uid ?? ""
+        const uid = app?.uid;
+
+        if (!uid) {
+            throw new Error('createApp() did not return a uid');
+        }
 
         const fetched = await kestraClient.Apps.app({ uid });
         expect(fetched.uid).toEqual(uid);
