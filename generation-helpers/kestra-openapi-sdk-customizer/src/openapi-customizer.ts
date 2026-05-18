@@ -217,7 +217,11 @@ export function sanitizeOpenAPI(
     // 7) Normalize QueryFilter array query params to prevent broken querySerializer generation
     normalizeQueryFilterParams(spec)
 
-    // 8) Unwrap Micronaut Event<X> wrapper schemas on SSE endpoints so the
+    // 8) Widen QueryFilter.value from `type: object` to any-value, since it carries
+    //    strings, numbers, booleans, and arrays depending on the operator.
+    widenQueryFilterValue(spec)
+
+    // 9) Unwrap Micronaut Event<X> wrapper schemas on SSE endpoints so the
     //    stream type is the inner Execution/X type, not the envelope type.
     unwrapSseEventResponses(spec)
 
@@ -370,6 +374,20 @@ export function normalizeQueryFilterParams(spec: any): number {
     }
 
     return normalized;
+}
+
+/**
+ * Widen `QueryFilter.value` from `type: object` (which generators turn into a
+ * map type like `{ [key: string]: unknown }`) to an empty schema so it maps to
+ * `unknown`/`Any`/`interface{}`. The value carries strings, numbers, booleans,
+ * or arrays depending on the operator, so any-value is the accurate shape.
+ */
+export function widenQueryFilterValue(spec: any): boolean {
+    const queryFilter = spec?.components?.schemas?.QueryFilter;
+    if (!queryFilter?.properties?.value) return false;
+    queryFilter.properties.value = {};
+    console.debug("widenQueryFilterValue: QueryFilter.value set to any");
+    return true;
 }
 
 export function replaceFlowLabelsSpec(spec: any) {

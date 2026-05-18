@@ -20088,8 +20088,7 @@ components:
           $ref: "#/components/schemas/QueryFilter.Field"
         operation:
           $ref: "#/components/schemas/QueryFilter.Op"
-        value:
-          type: object
+        value: {}
     QueryFilter.Field:
       type: string
       enum:
