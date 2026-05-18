@@ -16,10 +16,13 @@ import { execSync } from "child_process";
 
 const MARKER = "<!-- js-sdk-coverage-comment -->";
 
-const coveragePath = process.argv[2] ?? "javascript/coverage/coverage-final.json";
+const coveragePath =
+    process.argv[2] ?? "javascript/coverage/coverage-final.json";
 
 if (!existsSync(coveragePath)) {
-    console.log(`Coverage file not found at ${coveragePath} — skipping comment.`);
+    console.log(
+        `Coverage file not found at ${coveragePath} — skipping comment.`,
+    );
     process.exit(0);
 }
 
@@ -27,6 +30,45 @@ const { GITHUB_REPOSITORY: repo, PR_NUMBER: prNumber } = process.env;
 if (!repo || !prNumber) {
     console.log("GITHUB_REPOSITORY or PR_NUMBER not set — skipping comment.");
     process.exit(0);
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Cache of source file lines keyed by absolute file path. */
+const fileLineCache = new Map();
+
+/**
+ * Returns the source line (1-based) from a file, or "" if unreadable.
+ * @param {string} filePath
+ * @param {number|undefined} lineNumber
+ */
+function getSourceLine(filePath, lineNumber) {
+    if (lineNumber == null) return "";
+    if (!fileLineCache.has(filePath)) {
+        try {
+            fileLineCache.set(
+                filePath,
+                readFileSync(filePath, "utf8").split("\n"),
+            );
+        } catch {
+            fileLineCache.set(filePath, []);
+        }
+    }
+    return fileLineCache.get(filePath)[lineNumber - 1] ?? "";
+}
+
+/**
+ * Tries to extract the variable name from lines like:
+ *   export const generateApp = () => {}
+ *   const generateApp = async () => {}
+ * Returns null if no match.
+ * @param {string} line
+ */
+function extractConstName(line) {
+    const m = line.match(/(?:export\s+)?const\s+(\w+)\s*=/);
+    return m ? m[1] : null;
 }
 
 // ---------------------------------------------------------------------------
@@ -50,10 +92,12 @@ for (const [filePath, data] of Object.entries(coverage)) {
         totalFunctions++;
         if (count === 0) {
             const fn = data.fnMap[key];
+            const line = fn?.loc?.start?.line;
             const name =
                 fn?.name && fn.name !== "(anonymous)"
                     ? fn.name
-                    : `<anonymous:${fn?.loc?.start?.line ?? "?"}>`;
+                    : (extractConstName(getSourceLine(filePath, line)) ??
+                      `<anonymous:${line ?? "?"}>`);
             uncovered.push(name);
         } else {
             coveredFunctions++;
@@ -122,7 +166,7 @@ let existingCommentId = null;
 try {
     const raw = execSync(
         `gh api "repos/${repo}/issues/${prNumber}/comments?per_page=100"`,
-        { encoding: "utf8" }
+        { encoding: "utf8" },
     );
     const comments = JSON.parse(raw);
     const existing = comments.find((c) => c.body?.includes(MARKER));
@@ -135,13 +179,13 @@ try {
     if (existingCommentId) {
         execSync(
             `gh api "repos/${repo}/issues/comments/${existingCommentId}" -X PATCH --input /tmp/coverage-body.json`,
-            { stdio: "inherit" }
+            { stdio: "inherit" },
         );
         console.log(`Updated coverage comment (id ${existingCommentId}).`);
     } else {
         execSync(
             `gh api "repos/${repo}/issues/${prNumber}/comments" --input /tmp/coverage-body.json`,
-            { stdio: "inherit" }
+            { stdio: "inherit" },
         );
         console.log("Posted new coverage comment.");
     }
