@@ -1,7 +1,7 @@
 // ExecutionsApi.spec.ts
 import { describe, it, expect } from "vitest";
 import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
-import type { ApiExecution, QueryFilter, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
+import type { ApiExecution, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
 const FAILED_FLOW = (id: string, ns: string): string => `
@@ -189,7 +189,6 @@ async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: 
 }
 
 // filters
-const qf = (query: Omit<QueryFilter, "value"> & { value?: any }) => query as QueryFilter;
 const QF_FIELD: Record<string, QueryFilterField> = {
     NAMESPACE: "NAMESPACE",
     FLOW_ID: "FLOW_ID",
@@ -309,11 +308,11 @@ describe("ExecutionsApi", () => {
         await createFlowWithExecution(flow2, ns2);
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.EQUALS,
                 value: ns1,
-            }),
+            },
         ];
         const resp = await kestraClient.Executions.deleteExecutionsByQuery({
             filters,
@@ -443,11 +442,11 @@ describe("ExecutionsApi", () => {
         await awaitExecution(e2.id, "QUEUED", 1500, 100);
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.FLOW_ID,
                 operation: QF_OP.EQUALS,
                 value: flowId,
-            }),
+            },
         ];
         const resp = await kestraClient.Executions.forceRunExecutionsByQuery({
             filters: filters,
@@ -639,11 +638,11 @@ describe("ExecutionsApi", () => {
         ]);
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.FLOW_ID,
                 operation: QF_OP.EQUALS,
                 value: flow1,
-            }),
+            },
         ];
 
         const bulk = await kestraClient.Executions.killExecutionsByQuery({
@@ -691,11 +690,11 @@ describe("ExecutionsApi", () => {
         const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.IN,
                 value: [e1.namespace, e2.namespace],
-            }),
+            },
         ];
         const bulk: any = await kestraClient.Executions.pauseExecutionsByQuery(
             { filters: filters },
@@ -752,11 +751,11 @@ describe("ExecutionsApi", () => {
         const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
         const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.FLOW_ID,
                 operation: QF_OP.EQUALS,
                 value: e1.flowId,
-            }),
+            },
         ];
         const resp: any = await kestraClient.Executions.replayExecutionsByQuery(
             { filters: filters, latestRevision: true },
@@ -792,11 +791,11 @@ describe("ExecutionsApi", () => {
         const e1 = await createdExecution(FAILED_FLOW, "FAILED");
         const e2 = await createdExecution(FAILED_FLOW, "FAILED");
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.IN,
                 value: [e1.namespace, e2.namespace],
-            }),
+            },
         ];
         const resp: any = await kestraClient.Executions.restartExecutionsByQuery(
             { filters: filters },
@@ -834,11 +833,11 @@ describe("ExecutionsApi", () => {
         const e1 = await createdExecution(PAUSE_FLOW, "PAUSED");
         const e2 = await createdExecution(PAUSE_FLOW, "PAUSED");
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.IN,
                 value: [e1.namespace, e2.namespace],
-            }),
+            },
         ];
         const resp: any = await kestraClient.Executions.resumeExecutionsByQuery(
             { filters: filters },
@@ -866,11 +865,11 @@ describe("ExecutionsApi", () => {
 
         const sort = ["state.startDate:asc"];
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.EQUALS,
                 value: [ns],
-            }),
+            },
         ];
 
         const page1 = await kestraClient.Executions.searchExecutions(
@@ -966,11 +965,11 @@ describe("ExecutionsApi", () => {
             { key: "terminated", value: "yes" },
         ];
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.IN,
                 value: [a.namespace, b.namespace],
-            }),
+            },
         ];
         const resp =
             await kestraClient.Executions.setLabelsOnTerminatedExecutionsByQuery({
@@ -1095,11 +1094,11 @@ describe("ExecutionsApi", () => {
         await awaitExecution(q2.id, "QUEUED", 1500, 100);
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.QUERY,
                 operation: QF_OP.EQUALS,
                 value: [q1.id],
-            }),
+            },
         ];
         const resp: any = await kestraClient.Executions.unqueueExecutionsByQuery({
             filters: filters,
@@ -1155,11 +1154,11 @@ describe("ExecutionsApi", () => {
         const other = await createdExecution(LOG_FLOW, "SUCCESS");
 
         const filters = [
-            qf({
+            {
                 field: QF_FIELD.NAMESPACE,
                 operation: QF_OP.IN,
                 value: [e1.namespace, e2.namespace],
-            }),
+            },
         ];
         const bulk: any = await kestraClient.Executions.updateExecutionsStatusByQuery({
             newStatus: "CANCELLED",
