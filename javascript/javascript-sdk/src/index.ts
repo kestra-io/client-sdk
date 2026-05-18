@@ -100,10 +100,34 @@ export const configureAxios = (
         },
         beforeLogout?: () => void
         isImpersonating?: () => boolean
-        onAuthTimeout?: () => void
+        isLoggedIn?: () => boolean
+        onAuthTimeout?: () => boolean | void
+        onError?: (type: "message" | "error", error: Error) => void
     } = {}
-): AxiosInstance => {
-    const { oss = false, router, coreStore, authStore, beforeLogout, isImpersonating, onAuthTimeout } = options
+) => {
+    const {
+        oss = false,
+        router,
+        coreStore,
+        authStore,
+        beforeLogout,
+        isImpersonating = () => false,
+        isLoggedIn = () => authStore?.isLogged ?? false,
+        onAuthTimeout,
+        onError = (type, error: any) => {
+            if (coreStore) {
+                if (type === "message") {
+                    coreStore.message = {
+                        variant: "error",
+                        response: error.response,
+                        content: error.response?.data,
+                    }
+                } else {
+                    coreStore.error = error.response.status
+                }
+            }
+        }
+    } = options
 
     const instance = configureClient(clientConfig, {
         timeout: 15000,
@@ -130,9 +154,10 @@ export const configureAxios = (
     let refreshing = false
 
     function navigateToLogin() {
+        if (!router) return
         const currentPath = window.location.pathname
         const isLoginPath = currentPath.includes("/login")
-        router?.push({
+        router.push({
             name: "login",
             query: isLoginPath ? {} : { from: currentPath }
         });
@@ -143,13 +168,7 @@ export const configureAxios = (
         async (errorResponse: AxiosError & QueueItem & { config: { showMessageOnError: boolean } }) => {
 
             if (errorResponse?.code === "ERR_BAD_RESPONSE" && !errorResponse?.response?.data) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse,
-                    }
-                }
+                onError("message", errorResponse)
                 return Promise.reject(errorResponse)
             }
 
@@ -158,26 +177,24 @@ export const configureAxios = (
             }
 
             if (errorResponse.response.status === 404) {
-                if (coreStore) {
-                    coreStore.error = errorResponse.response.status
-                }
+                onError("error", errorResponse)
                 return Promise.reject(errorResponse)
             }
 
             if (errorResponse.response.status === 401
-                && (oss || !authStore?.isLogged)) {
-                onAuthTimeout?.()
-                navigateToLogin()
-                return Promise.reject(errorResponse)
+                && (oss && !isLoggedIn())) {
+                const val = onAuthTimeout?.()
+                if (val !== false) {
+                    navigateToLogin()
+                    return Promise.reject(errorResponse)
+                }
             }
-
-            const impersonate = isImpersonating ? isImpersonating() : false
 
             // Authentication expired
             if (errorResponse.response.status === 401 &&
-                authStore?.isLogged && !oss &&
+                isLoggedIn() && !oss &&
                 !document.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
-                && !impersonate) {
+                && !isImpersonating()) {
 
                 // Keep original request
                 const originalRequest = errorResponse.config
@@ -241,16 +258,11 @@ export const configureAxios = (
                         toRefreshQueue = []
 
                         beforeLogout?.()
+
                         delete instance.defaults.headers.common["Authorization"]
                         authStore?.logout().catch(() => { })
 
-                        const currentPath = window.location.pathname
-                        const isLoginPath = currentPath.includes("/login")
-
-                        router?.push({
-                            name: "login",
-                            query: (isLoginPath ? {} : { from: currentPath })
-                        })
+                        navigateToLogin()
 
                         return Promise.reject(errorResponse)
                     }
@@ -275,14 +287,7 @@ export const configureAxios = (
             }
 
             if (errorResponse.response.data && errorResponse?.config?.showMessageOnError !== false) {
-                if (coreStore) {
-                    coreStore.message = {
-                        variant: "error",
-                        response: errorResponse.response,
-                        content: errorResponse.response.data
-                    }
-                }
-                return Promise.reject(errorResponse)
+                onError("message", errorResponse)
             }
 
             return Promise.reject(errorResponse);

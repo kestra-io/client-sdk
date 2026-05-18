@@ -2,7 +2,8 @@
   "name": "kestra-client-javascript",
   "private": true,
   "scripts": {
-    "build": "cd javascript-sdk && npm run build",
+    "prebuild": "cd ../generation-helpers/kestra-openapi-sdk-customizer && npm run build && npm start ../../configurations/kestra-openapi-sdk-customizer.json ../../kestra-ee.yml",
+    "build": "npm run build --workspace @kestra-io/kestra-sdk",
     "test": "npm run test --workspace @kestra-io/kestra-sdk-test",
     "test:typecheck": "npm run typecheck --workspace @kestra-io/kestra-sdk-test"
   },
