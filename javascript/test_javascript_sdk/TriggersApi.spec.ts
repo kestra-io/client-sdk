@@ -93,14 +93,17 @@ async function ensureTriggerExists(namespace: string, flowId: string, triggerId:
                 if (found) return;
             }
         } catch (err: any) {
-            if (err?.status === 404) {
+            const status = err?.response?.status ?? err?.status;
+            if (status === 404) {
                 // Not found, will retry
             } else {
                 throw err;
             }
         }
     }
-    // Trigger not found after retries — attempt anyway (scheduler may be slow)
+    throw new Error(
+        `Trigger '${triggerId}' for flow '${namespace}.${flowId}' was not found after ${maxRetries} retries`
+    );
 }
 
 // --- tests ----------------------------------------------------------------
