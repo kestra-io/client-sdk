@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
  * Reads a vitest/istanbul coverage-final.json and posts (or updates) a sticky
- * comment on the pull request listing every uncovered function in openapi/sdk/.
+ * comment on the pull request listing every uncovered function in openapi/sdk/,
+ * and optionally lists failing tests from a vitest JSON report.
  *
- * Usage: node coverage-comment.mjs <path-to-coverage-final.json>
+ * Usage: node coverage-comment.mjs <path-to-coverage-final.json> [path-to-test-results.json]
  *
  * Required env vars:
  *   GITHUB_REPOSITORY  – e.g. "owner/repo"
@@ -18,6 +19,8 @@ const MARKER = "<!-- js-sdk-coverage-comment -->";
 
 const coveragePath =
     process.argv[2] ?? "javascript/coverage/coverage-final.json";
+const testResultsPath =
+    process.argv[3] ?? "javascript/coverage/test-results.json";
 
 if (!existsSync(coveragePath)) {
     console.log(
@@ -116,16 +119,72 @@ const pct =
         : "100.0";
 
 // ---------------------------------------------------------------------------
+// Parse test results (failing tests)
+// ---------------------------------------------------------------------------
+
+/** @type {{ suite: string; name: string; message: string }[]} */
+const failingTests = [];
+
+if (existsSync(testResultsPath)) {
+    try {
+        const results = JSON.parse(readFileSync(testResultsPath, "utf8"));
+        for (const suite of results.testResults ?? []) {
+            const suiteName = suite.testFilePath
+                ? suite.testFilePath.replace(/.*\/test_javascript_sdk\//, "")
+                : "unknown";
+            for (const t of suite.assertionResults ?? []) {
+                if (t.status === "failed") {
+                    const message = (t.failureMessages?.[0] ?? "")
+                        .split("\n")[0]
+                        .trim()
+                        .replace(/^Error:\s*/, "");
+                    failingTests.push({
+                        suite: suiteName,
+                        name: t.fullName,
+                        message,
+                    });
+                }
+            }
+        }
+    } catch (err) {
+        console.warn("Could not parse test results:", err.message);
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Build comment body
 // ---------------------------------------------------------------------------
 
 let body;
 
+const failingTestsSection =
+    failingTests.length === 0
+        ? ""
+        : `
+### ❌ Failing Tests
+
+${failingTests.length} test(s) failed:
+
+<details>
+<summary>Show failing tests</summary>
+
+| Suite | Test | Error |
+|-------|------|-------|
+${failingTests
+    .map(
+        ({ suite, name, message }) =>
+            `| \`${suite}\` | ${name} | ${message ? `\`${message}\`` : "—"} |`,
+    )
+    .join("\n")}
+
+</details>
+`;
+
 if (uncoveredByFile.length === 0) {
     body = `${MARKER}
 ### ✅ JavaScript SDK — Function Coverage
 
-All **${totalFunctions}** functions in \`openapi/sdk/\` are covered (**${pct}%**). Nothing to do here!`;
+All **${totalFunctions}** functions in \`openapi/sdk/\` are covered (**${pct}%**). Nothing to do here!${failingTestsSection}`;
 } else {
     const rows = uncoveredByFile
         .map(({ file, uncovered }) => {
@@ -149,7 +208,7 @@ ${rows}
 
 </details>
 
-> Run \`npm run test --workspace test_javascript_sdk -- --coverage\` locally to reproduce.`;
+> Run \`npm run test --workspace test_javascript_sdk -- --coverage\` locally to reproduce.${failingTestsSection}\`\`\``;
 }
 
 // ---------------------------------------------------------------------------
