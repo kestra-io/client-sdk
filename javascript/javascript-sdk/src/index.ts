@@ -83,7 +83,7 @@ export const configureAxios = (
         oss?: boolean,
         router?: {
             push: (location: { name: string, query?: Record<string, string> }) => void;
-            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
+            beforeEach: (callback: (to: any, from: any) => void) => void;
             afterEach: (callback: () => void) => void;
         },
         coreStore?: {
@@ -293,14 +293,12 @@ export const configureAxios = (
             return Promise.reject(errorResponse);
         });
 
-    router?.beforeEach((_to, _from, next) => {
+    router?.beforeEach(() => {
         if (pendingRoute) {
             requestsTotal--;
         }
         pendingRoute = true;
         initProgress();
-
-        next();
     });
 
     router?.afterEach(() => {

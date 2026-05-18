@@ -29,8 +29,10 @@ export default defineConfig({
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
             include: ["javascript-sdk/src/openapi/sdk/**"],
+            reporter: ["text", "json"],
             thresholds: {
-                functions: 75,
+                perFile: true,
+                functions: 80,
             },
         },
     },
