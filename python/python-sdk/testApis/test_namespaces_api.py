@@ -265,3 +265,200 @@ def test_import_plugin_defaults_basic(client):
         assert result is not None
     except ApiException as e:
         assert e.status in (400, 500)
+
+
+# ========================================================================
+# Credentials
+# ========================================================================
+
+# Credentials are an EE-licensed feature; the local test server may answer
+# 4xx/5xx if it isn't enabled. We exercise the SDK wiring (path, params,
+# response shape) and tolerate "feature unavailable" responses.
+
+
+def _oauth2_credential_body(name):
+    return {
+        "type": "OAUTH2",
+        "name": name,
+        "description": "test",
+        "tokenEndpoint": "https://login.example.com/oauth2/token",
+        "scopes": ["read"],
+        "authConfig": {
+            "type": "CLIENT_CREDENTIALS",
+            "clientId": "client-id",
+            "clientSecret": "client-secret",
+        },
+    }
+
+
+def test_list_namespace_credentials_basic(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    try:
+        result = client.namespaces.list_namespace_credentials(namespace=ns, tenant=TENANT)
+        assert result is not None
+        assert "results" in result or "total" in result
+    except ApiException as e:
+        assert e.status in (400, 403, 404, 500, 501)
+
+
+def test_list_namespace_credentials_with_pagination(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    try:
+        result = client.namespaces.list_namespace_credentials(
+            namespace=ns, tenant=TENANT, page=1, size=5,
+        )
+        assert result is not None
+    except ApiException as e:
+        assert e.status in (400, 403, 404, 500, 501)
+
+
+def test_create_namespace_credential_basic(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    body = _oauth2_credential_body(f"cred-{random_id()[:8]}")
+    try:
+        result = client.namespaces.create_namespace_credential(
+            namespace=ns, tenant=TENANT, body=body,
+        )
+        assert result is not None
+        assert result.get("name") == body["name"]
+    except ApiException as e:
+        # Feature may be disabled or validation may reject the dummy auth config.
+        assert e.status in (400, 403, 404, 422, 500, 501)
+
+
+def test_get_inherited_credentials_basic(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    try:
+        result = client.namespaces.get_inherited_credentials(namespace=ns, tenant=TENANT)
+        assert result is not None
+        assert "levels" in result
+    except ApiException as e:
+        assert e.status in (400, 403, 404, 500, 501)
+
+
+def test_namespace_credential_not_found(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    with pytest.raises(ApiException) as exc_info:
+        client.namespaces.namespace_credential(
+            namespace=ns, name=f"missing-{random_id()[:8]}", tenant=TENANT,
+        )
+    # 404 if feature is enabled, other 4xx/5xx if disabled.
+    assert exc_info.value.status in (400, 403, 404, 500, 501)
+
+
+def test_update_namespace_credential_not_found(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    body = {"type": "OAUTH2", "description": "updated"}
+    with pytest.raises(ApiException) as exc_info:
+        client.namespaces.update_namespace_credential(
+            namespace=ns, name=f"missing-{random_id()[:8]}", tenant=TENANT, body=body,
+        )
+    assert exc_info.value.status in (400, 403, 404, 422, 500, 501)
+
+
+def test_delete_namespace_credential_not_found(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    # Delete of a missing credential should not raise on a happy path with
+    # idempotent delete; if the server returns 404, that's acceptable too.
+    try:
+        client.namespaces.delete_namespace_credential(
+            namespace=ns, name=f"missing-{random_id()[:8]}", tenant=TENANT,
+        )
+    except ApiException as e:
+        assert e.status in (400, 403, 404, 500, 501)
+
+
+def test_test_namespace_connection_not_found(client):
+    ns = random_id()
+    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+
+    with pytest.raises(ApiException) as exc_info:
+        client.namespaces.test_namespace_connection(
+            namespace=ns, name=f"missing-{random_id()[:8]}", tenant=TENANT,
+        )
+    assert exc_info.value.status in (400, 403, 404, 500, 501)
+
+
+# ========================================================================
+# Cross-namespace secrets listing
+# ========================================================================
+
+
+def test_list_secrets_basic(client):
+    ns = random_id()
+    create_flow(client, log_flow_yaml(random_id(), ns))
+    client.namespaces.put_secrets(
+        namespace=ns, tenant=TENANT,
+        secret_value=ApiSecretValue(key="LIST_ME", value="val"),
+    )
+
+    result = client.namespaces.list_secrets(tenant=TENANT, page=1, size=50)
+    assert result is not None
+    assert result.results is not None
+
+
+def test_list_secrets_with_namespace_filter(client):
+    ns = random_id()
+    create_flow(client, log_flow_yaml(random_id(), ns))
+    client.namespaces.put_secrets(
+        namespace=ns, tenant=TENANT,
+        secret_value=ApiSecretValue(key="FILTER_ME", value="val"),
+    )
+
+    result = client.namespaces.list_secrets(
+        tenant=TENANT, page=1, size=50, filters=[ns_filter(ns)],
+    )
+    assert result is not None
+    assert result.results is not None
+    keys = [getattr(s, "key", None) for s in result.results]
+    assert "FILTER_ME" in keys
+
+
+def test_list_secrets_pagination_bounds(client):
+    result = client.namespaces.list_secrets(tenant=TENANT, page=1, size=1)
+    assert result is not None
+    assert result.results is not None
+    assert len(result.results) <= 1
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+def test_namespace_get_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.namespaces.namespace(id=f"missing-{random_id()}", tenant=TENANT)
+    assert exc_info.value.status in (400, 404)
+
+
+def test_update_namespace_unknown_id_raises(client):
+    ns_id = f"missing-{random_id()}"
+    with pytest.raises(ApiException) as exc_info:
+        client.namespaces.update_namespace(
+            id=ns_id, tenant=TENANT, namespace=Namespace(id=ns_id, deleted=False),
+        )
+    assert exc_info.value.status in (400, 404, 422)
+
+
+def test_delete_namespace_unknown_id_does_not_error(client):
+    # The namespace controller may treat delete-unknown as a no-op (silent)
+    # or 404 — accept either as long as the SDK transports the call.
+    try:
+        client.namespaces.delete_namespace(id=f"missing-{random_id()}", tenant=TENANT)
+    except ApiException as e:
+        assert e.status in (400, 404)

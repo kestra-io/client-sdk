@@ -10,6 +10,7 @@ from kestrapy import (
     Configuration,
     KestraClient,
     IAMUserControllerApiCreateOrUpdateUserRequest,
+    IAMUserControllerApiPatchRestrictedRequest,
     IAMTenantAccessControllerUserApiAutocomplete,
     CreateApiTokenRequest,
     MeControllerApiUpdatePasswordRequest,
@@ -318,3 +319,145 @@ def test_patch_user_super_admin_basic(client):
     # Reset back to non-superadmin
     reset_request = ApiPatchSuperAdminRequest(super_admin=False)
     client.users.patch_user_super_admin(id=created.id, request=reset_request)
+
+
+# ========================================================================
+# Patch user demo (restricted flag)
+# ========================================================================
+
+
+def test_patch_user_demo_basic(client):
+    email = f"demo-{random_id()}@test.com"
+    request = IAMUserControllerApiCreateOrUpdateUserRequest(
+        email=email,
+        first_name="Demo",
+        last_name="User",
+        password="TestPass!1234",
+    )
+
+    created = client.users.create_user(request=request)
+
+    # Should not raise; void endpoint.
+    client.users.patch_user_demo(
+        id=created.id,
+        request=IAMUserControllerApiPatchRestrictedRequest(restricted=True),
+    )
+    client.users.patch_user_demo(
+        id=created.id,
+        request=IAMUserControllerApiPatchRestrictedRequest(restricted=False),
+    )
+
+
+# ========================================================================
+# Patch user password
+# ========================================================================
+
+
+def test_patch_user_password_basic(client):
+    email = f"pwd-{random_id()}@test.com"
+    request = IAMUserControllerApiCreateOrUpdateUserRequest(
+        email=email,
+        first_name="Pwd",
+        last_name="User",
+        password="TestPass!1234",
+    )
+    created = client.users.create_user(request=request)
+
+    new_password = "NewPass!9876"
+    result = client.users.patch_user_password(
+        id=created.id,
+        request=IAMUserControllerApiPatchUserPasswordRequest(password=new_password),
+    )
+    assert result is not None
+    assert result.id == created.id
+
+
+# ========================================================================
+# Delete user auth method
+# ========================================================================
+
+
+def test_delete_user_auth_method_unknown_auth(client):
+    email = f"auth-{random_id()}@test.com"
+    request = IAMUserControllerApiCreateOrUpdateUserRequest(
+        email=email,
+        first_name="Auth",
+        last_name="User",
+        password="TestPass!1234",
+    )
+    created = client.users.create_user(request=request)
+
+    # The freshly created user has no SAML/OIDC auth method, only the
+    # implicit password — deleting an unknown auth should 4xx without
+    # corrupting the user record.
+    with pytest.raises(ApiException) as exc_info:
+        client.users.delete_user_auth_method(id=created.id, auth="OIDC")
+    assert exc_info.value.status in (400, 404, 422, 500)
+
+
+# ========================================================================
+# Delete refresh token
+# ========================================================================
+
+
+def test_delete_refresh_token_basic(client):
+    email = f"refresh-{random_id()}@test.com"
+    request = IAMUserControllerApiCreateOrUpdateUserRequest(
+        email=email,
+        first_name="Refresh",
+        last_name="User",
+        password="TestPass!1234",
+    )
+    created = client.users.create_user(request=request)
+
+    # The endpoint is idempotent — a user with no active refresh token
+    # should still accept the delete without raising.
+    client.users.delete_refresh_token(id=created.id)
+
+
+# ========================================================================
+# Update current user password
+# ========================================================================
+
+
+def test_update_current_user_password_wrong_old_password_raises(client):
+    # The shared session authenticates as root@root.com; we don't want to
+    # rotate the real password (other tests rely on it), so we exercise
+    # the endpoint with a wrong old password and expect rejection.
+    with pytest.raises(ApiException) as exc_info:
+        client.users.update_current_user_password(
+            request=MeControllerApiUpdatePasswordRequest(
+                old_password="DefinitelyWrong!1234",
+                new_password="WhateverNew!5678",
+            )
+        )
+    assert exc_info.value.status in (400, 401, 403, 422)
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+def test_user_get_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.users.user(id=f"missing-{random_id()}")
+    assert exc_info.value.status in (400, 404)
+
+
+def test_delete_user_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.users.delete_user(id=f"missing-{random_id()}")
+    assert exc_info.value.status in (400, 404)
+
+
+def test_create_user_duplicate_email_conflicts(client):
+    email = f"dup-{random_id()}@test.com"
+    req = IAMUserControllerApiCreateOrUpdateUserRequest(
+        email=email, first_name="Dup", last_name="User", password="TestPass!1234",
+    )
+    client.users.create_user(request=req)
+
+    with pytest.raises(ApiException) as exc_info:
+        client.users.create_user(request=req)
+    assert exc_info.value.status in (409, 422)

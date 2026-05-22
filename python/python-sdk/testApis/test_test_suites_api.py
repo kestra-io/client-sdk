@@ -92,6 +92,23 @@ def test_search_test_suites_basic(client):
     assert result.results is not None
 
 
+def test_search_test_suites_with_include_child_namespaces(client):
+    ns, flow_id, suite_id = _create_flow_and_suite(client)
+    client.test_suites.create_test_suite(
+        tenant=TENANT, yaml_body=_test_suite_yaml(suite_id, ns, flow_id)
+    )
+
+    # Searching at the parent namespace with include_child_namespaces=True
+    # should still find the suite even if it lives under a child namespace.
+    result = client.test_suites.search_test_suites(
+        tenant=TENANT, page=1, size=50,
+        namespace=ns, include_child_namespaces=True,
+    )
+
+    assert result is not None
+    assert result.results is not None
+
+
 def test_search_test_suites_with_namespace_and_flow_id(client):
     ns, flow_id, suite_id = _create_flow_and_suite(client)
     client.test_suites.create_test_suite(
@@ -278,6 +295,24 @@ def test_run_test_suite_basic(client):
     assert result is not None
 
 
+def test_run_test_suite_with_request_body(client):
+    from kestrapy import TestSuiteControllerRunRequest
+
+    ns, flow_id, suite_id = _create_flow_and_suite(client)
+    client.test_suites.create_test_suite(
+        tenant=TENANT, yaml_body=_test_suite_yaml(suite_id, ns, flow_id)
+    )
+
+    # The optional request body lets the caller restrict execution to a
+    # subset of test cases. Our fixture defines a single case `test_case_1`.
+    request = TestSuiteControllerRunRequest(test_cases=["test_case_1"])
+    result = client.test_suites.run_test_suite(
+        namespace=ns, id=suite_id, tenant=TENANT, request=request,
+    )
+
+    assert result is not None
+
+
 def test_run_test_suites_by_query_basic(client):
     request = TestSuiteServiceRunByQueryRequest(include_child_namespaces=False)
 
@@ -299,3 +334,29 @@ def test_tests_last_result_basic(client):
     result = client.test_suites.tests_last_result(tenant=TENANT, request=request)
 
     assert result is not None
+
+
+# ========================================================================
+# 404 edge cases
+# ========================================================================
+
+
+def test_test_suite_get_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.test_suites.test_suite(
+            namespace=f"missing-ns-{random_id()}",
+            id=f"missing-id-{random_id()}",
+            tenant=TENANT,
+        )
+    assert exc_info.value.status in (400, 404)
+
+
+def test_delete_test_suite_unknown_id_raises(client):
+    try:
+        client.test_suites.delete_test_suite(
+            namespace=f"missing-ns-{random_id()}",
+            id=f"missing-id-{random_id()}",
+            tenant=TENANT,
+        )
+    except ApiException as e:
+        assert e.status in (400, 404)

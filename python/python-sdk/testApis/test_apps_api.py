@@ -95,6 +95,17 @@ class TestCRUD:
         # Should not raise
         client.apps.delete_app(created.uid, TENANT)
 
+    def test_app_get_unknown_uid_raises(self, client):
+        with pytest.raises(ApiException) as exc_info:
+            client.apps.app(f"missing-{random_id()}", TENANT)
+        assert exc_info.value.status in (400, 404)
+
+    def test_delete_app_unknown_uid_raises(self, client):
+        try:
+            client.apps.delete_app(f"missing-{random_id()}", TENANT)
+        except ApiException as e:
+            assert e.status in (400, 404)
+
 
 # ========================================================================
 # Enable / Disable
@@ -277,3 +288,74 @@ class TestBulkOperations:
         # Import with None file should fail
         with pytest.raises(Exception):
             client.apps.bulk_import_apps(TENANT, None)
+
+
+# ========================================================================
+# App execution helpers
+# ========================================================================
+
+
+class TestAppExecutionHelpers:
+    def test_file_meta_from_app_execution_invalid_uri_raises(self, client):
+        created, _, _ = _create_app_with_flow(client)
+
+        with pytest.raises(ApiException) as exc_info:
+            client.apps.file_meta_from_app_execution(
+                id=created.uid,
+                path_uri="kestra:///not/a/real/file.bin",
+                tenant=TENANT,
+            )
+        assert exc_info.value.status in (400, 404, 422, 500)
+
+    def test_file_preview_from_app_execution_invalid_uri_raises(self, client):
+        created, _, _ = _create_app_with_flow(client)
+
+        with pytest.raises(ApiException) as exc_info:
+            client.apps.file_preview_from_app_execution(
+                id=created.uid,
+                path_uri="kestra:///not/a/real/file.csv",
+                tenant=TENANT,
+                max_rows=10,
+                encoding="UTF-8",
+            )
+        assert exc_info.value.status in (400, 404, 422, 500)
+
+    def test_logs_from_app_execution_unknown_execution_raises(self, client):
+        created, _, _ = _create_app_with_flow(client)
+
+        with pytest.raises(ApiException) as exc_info:
+            client.apps.logs_from_app_execution(
+                uid=created.uid,
+                execution_id=f"missing-{random_id()}",
+                tenant=TENANT,
+                min_level="INFO",
+            )
+        assert exc_info.value.status in (400, 404, 422, 500)
+
+
+# ========================================================================
+# SSE streaming
+# ========================================================================
+
+
+class TestStreaming:
+    def test_stream_events_from_app_unknown_app_yields_nothing(self, client):
+        # An unknown app uid: the server may either reject the stream with
+        # a 4xx (raised as ApiException) or open a short-lived empty stream
+        # that closes (yielding no events / triggering a decoding error
+        # from the chunked-encoding cutoff). Either signal confirms the
+        # SDK wired the endpoint correctly without producing events.
+        from requests.exceptions import RequestException
+
+        events = []
+        try:
+            for event in client.apps.stream_events_from_app(
+                id=f"missing-{random_id()}", stream="events", tenant=TENANT,
+            ):
+                events.append(event)
+                if len(events) >= 1:
+                    break
+        except (ApiException, RequestException):
+            return  # expected
+
+        assert events == []

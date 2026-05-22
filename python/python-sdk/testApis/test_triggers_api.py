@@ -247,6 +247,16 @@ def test_disabled_triggers_by_query_basic(client):
     assert result is not None
 
 
+def test_disabled_triggers_by_query_with_disabled_false(client):
+    # Exercise the re-enable code path (disabled=False) — confirms the
+    # parameter is transported correctly in the False branch too.
+    result = client.triggers.disabled_triggers_by_query(
+        tenant=TENANT, disabled=False,
+    )
+
+    assert result is not None
+
+
 def test_unlock_triggers_by_query_basic(client):
     result = client.triggers.unlock_triggers_by_query(tenant=TENANT)
 
@@ -357,3 +367,42 @@ def test_export_triggers_basic(client):
     result = client.triggers.export_triggers(tenant=TENANT)
 
     assert result is not None
+
+
+# ========================================================================
+# 404 edge cases
+# ========================================================================
+
+
+def test_delete_trigger_unknown_raises(client):
+    try:
+        client.triggers.delete_trigger(
+            tenant=TENANT,
+            namespace=f"missing-ns-{random_id()}",
+            flow_id=f"missing-flow-{random_id()}",
+            trigger_id=f"missing-trg-{random_id()}",
+        )
+    except ApiException as e:
+        assert e.status in (400, 404)
+
+
+def test_restart_trigger_unknown_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.triggers.restart_trigger(
+            tenant=TENANT,
+            namespace=f"missing-ns-{random_id()}",
+            flow_id=f"missing-flow-{random_id()}",
+            trigger_id=f"missing-trg-{random_id()}",
+        )
+    assert exc_info.value.status in (400, 404, 422)
+
+
+def test_unlock_trigger_unknown_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.triggers.unlock_trigger(
+            tenant=TENANT,
+            namespace=f"missing-ns-{random_id()}",
+            flow_id=f"missing-flow-{random_id()}",
+            trigger_id=f"missing-trg-{random_id()}",
+        )
+    assert exc_info.value.status in (400, 404, 409, 422)

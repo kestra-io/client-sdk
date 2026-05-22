@@ -859,6 +859,28 @@ class TestFlowGraph:
         assert graph.nodes is not None and len(graph.nodes) > 0
         assert graph.edges is not None and len(graph.edges) > 0
 
+    def test_with_subflows(self, client):
+        f = create_log_flow(client)
+
+        graph = client.flows.generate_flow_graph(
+            f.namespace, f.id, TENANT, subflows=["some.subflow.id"],
+        )
+
+        # The flow has no subflows; the parameter is accepted but doesn't
+        # change the output for this fixture. We assert the call succeeds.
+        assert graph is not None
+
+    def test_from_source_with_subflows(self, client):
+        fid = random_id()
+        ns = random_id()
+        yaml = log_flow_yaml(fid, ns)
+
+        graph = client.flows.generate_flow_graph_from_source(
+            TENANT, yaml, subflows=["some.subflow.id"],
+        )
+
+        assert graph is not None
+
 
 class TestFlowDependencies:
     def test_basic(self, client):
@@ -1123,3 +1145,30 @@ class TestListDeprecated:
         result = client.flows.list_deprecated(TENANT, namespace="some.namespace")
 
         assert result is not None
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+class TestErrorPaths:
+    def test_update_flow_unknown_id_raises(self, client):
+        ns = random_id()
+        flow_id = random_id()
+        yaml_body = log_flow_yaml(flow_id, ns)
+        with pytest.raises(ApiException) as exc_info:
+            client.flows.update_flow(ns, flow_id, TENANT, yaml_body)
+        # 404 if the controller checks existence first, 422 if it tries
+        # to apply and the (namespace, id) doesn't match an existing flow.
+        assert exc_info.value.status in (400, 404, 422)
+
+    def test_create_flow_duplicate_conflicts(self, client):
+        ns = random_id()
+        flow_id = random_id()
+        yaml_body = log_flow_yaml(flow_id, ns)
+        client.flows.create_flow(TENANT, yaml_body)
+
+        with pytest.raises(ApiException) as exc_info:
+            client.flows.create_flow(TENANT, yaml_body)
+        assert exc_info.value.status in (409, 422)

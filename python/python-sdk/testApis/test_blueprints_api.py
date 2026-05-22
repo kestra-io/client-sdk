@@ -7,6 +7,7 @@ from test_helpers import (
     log_flow_yaml,
 )
 from kestrapy import (
+    BlueprintControllerApiBlueprintItemWithSource,
     BlueprintControllerFlowBlueprintCreateOrUpdate,
     BlueprintControllerKind,
     BlueprintControllerUseBlueprintTemplateRequest,
@@ -331,3 +332,113 @@ def test_flow_blueprint_basic(client):
 
     assert result is not None
     assert result.id == created.id
+
+
+# ========================================================================
+# Internal/custom blueprints (deprecated CRUD path: /blueprints/custom)
+# ========================================================================
+
+
+def _internal_blueprint_request(title=None):
+    return BlueprintControllerApiBlueprintItemWithSource(
+        title=title or f"int-bp-{random_id()}",
+        description="internal blueprint test",
+        source=log_flow_yaml(random_id(), random_id()),
+        tags=[],
+        included_tasks=[],
+        kind=BlueprintControllerKind.FLOW,
+    )
+
+
+def test_create_internal_blueprints_basic(client):
+    request = _internal_blueprint_request()
+
+    try:
+        created = client.blueprints.create_internal_blueprints(tenant=TENANT, request=request)
+    except ApiException as e:
+        # Endpoint is marked deprecated and may be gated behind a feature
+        # flag in some EE configs — accept the standard "feature unavailable"
+        # responses without failing.
+        if e.status in (404, 405, 501):
+            pytest.skip(f"Internal blueprint create not available: {e.status}")
+        raise
+
+    assert created is not None
+    assert created.title == request.title
+
+
+def test_internal_blueprint_get_by_id(client):
+    try:
+        created = client.blueprints.create_internal_blueprints(
+            tenant=TENANT, request=_internal_blueprint_request(),
+        )
+    except ApiException as e:
+        if e.status in (404, 405, 501):
+            pytest.skip(f"Internal blueprint create not available: {e.status}")
+        raise
+
+    result = client.blueprints.internal_blueprint(id=created.id, tenant=TENANT)
+
+    assert result is not None
+    assert result.id == created.id
+
+
+def test_internal_blueprint_flow_source(client):
+    try:
+        created = client.blueprints.create_internal_blueprints(
+            tenant=TENANT, request=_internal_blueprint_request(),
+        )
+    except ApiException as e:
+        if e.status in (404, 405, 501):
+            pytest.skip(f"Internal blueprint create not available: {e.status}")
+        raise
+
+    try:
+        source = client.blueprints.internal_blueprint_flow(id=created.id, tenant=TENANT)
+    except ApiException as e:
+        # The source endpoint has stricter ACLs than the others on the
+        # custom-blueprints surface and may 403 in some EE configs even
+        # when the create path succeeded.
+        if e.status in (403, 404, 405, 501):
+            pytest.skip(f"Internal blueprint source not available: {e.status}")
+        raise
+
+    assert source is not None
+    assert len(source) > 0
+
+
+def test_update_internal_blueprints_basic(client):
+    try:
+        created = client.blueprints.create_internal_blueprints(
+            tenant=TENANT, request=_internal_blueprint_request(title=f"before-{random_id()}"),
+        )
+    except ApiException as e:
+        if e.status in (404, 405, 501):
+            pytest.skip(f"Internal blueprint create not available: {e.status}")
+        raise
+
+    updated_request = _internal_blueprint_request(title=f"after-{random_id()}")
+    result = client.blueprints.update_internal_blueprints(
+        id=created.id, tenant=TENANT, request=updated_request,
+    )
+
+    assert result is not None
+
+
+def test_delete_internal_blueprints_basic(client):
+    try:
+        created = client.blueprints.create_internal_blueprints(
+            tenant=TENANT, request=_internal_blueprint_request(),
+        )
+    except ApiException as e:
+        if e.status in (404, 405, 501):
+            pytest.skip(f"Internal blueprint create not available: {e.status}")
+        raise
+
+    # Should not raise
+    client.blueprints.delete_internal_blueprints(id=created.id, tenant=TENANT)
+
+    # Subsequent fetch should 4xx
+    with pytest.raises(ApiException) as exc_info:
+        client.blueprints.internal_blueprint(id=created.id, tenant=TENANT)
+    assert exc_info.value.status in (400, 404)
