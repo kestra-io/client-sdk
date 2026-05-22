@@ -100,6 +100,10 @@ class UsersApi(BaseApi):
     def impersonate(self, id: str) -> Any:
         path = self._superadmin_path("users", id, "impersonate")
         resp = self._request("POST", path)
+        # The server replies with a JWT Set-Cookie that requests.Session would
+        # otherwise persist and silently take precedence over our Basic auth,
+        # turning every subsequent call into one made as the impersonated user.
+        self._session.cookies.clear()
         if resp.content and 'application/json' in resp.headers.get('content-type', ''):
             return resp.json()
         return {"status": resp.status_code}

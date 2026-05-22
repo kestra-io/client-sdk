@@ -178,6 +178,9 @@ def test_search_logs_with_sort(client):
     create_flow(client, log_flow_yaml(flow_id, ns))
 
     client.executions.create_execution(TENANT, ns, flow_id)
+    # Server sorts at millisecond precision, so space the two runs apart
+    # to guarantee distinct millisecond buckets.
+    time.sleep(0.05)
     client.executions.create_execution(TENANT, ns, flow_id)
 
     result = None
@@ -191,9 +194,11 @@ def test_search_logs_with_sort(client):
 
     assert result is not None
     assert len(result.results) >= 2
-    # Verify descending order
+    # Verify descending order at millisecond precision (the server's sort granularity).
+    def _to_ms(ts):
+        return ts.replace(microsecond=(ts.microsecond // 1000) * 1000)
     for i in range(len(result.results) - 1):
-        assert result.results[i].timestamp >= result.results[i + 1].timestamp
+        assert _to_ms(result.results[i].timestamp) >= _to_ms(result.results[i + 1].timestamp)
 
 
 def test_search_logs_with_min_level_filter(client):

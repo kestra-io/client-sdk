@@ -215,9 +215,13 @@ class FlowsApi(BaseApi):
     ) -> List[str]:
         path = self._tenant_path(tenant, "flows", "import")
         params = self._build_query_params(failOnError=fail_on_error)
+        # Server picks the parser (ZIP vs YAML) from the filename extension and
+        # crashes on filenames without a dot, so derive one from the content.
+        is_zip = isinstance(file_content, (bytes, bytearray)) and file_content[:4] == b"PK\x03\x04"
+        file_name = "flows.zip" if is_zip else "flows.yml"
         return self._multipart_upload_list(
             "POST", path, str,
-            params=params, field_name="fileUpload", file_content=file_content, file_name="fileUpload",
+            params=params, field_name="fileUpload", file_content=file_content, file_name=file_name,
         )
 
     # ========================================================================
