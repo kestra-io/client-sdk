@@ -6760,6 +6760,58 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/executions/distinct-field-values:
+    get:
+      tags:
+      - Executions
+      summary: "List distinct values for one of the executions filter fields, optionally\
+        \ narrowed by additional query filters"
+      operationId: findDistinctFieldValues
+      parameters:
+      - name: field
+        in: query
+        description: The field whose distinct values to return. Must be a field supported
+          by the EXECUTION resource.
+        required: true
+        explode: false
+        schema:
+          $ref: "#/components/schemas/QueryFilter.Field"
+      - name: filters
+        in: query
+        description: "Additional filters to narrow the distinct values. PHP-style\
+          \ nested query is used - examples: `filters[flowId][CONTAINS]=test`, `filters[state][IN]=FAILED,WARNING`"
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: size
+        in: query
+        description: Maximum number of distinct values to return.
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: findDistinctFieldValues 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/export/by-query/csv:
     get:
       tags:
