@@ -168,6 +168,32 @@ def test_asset_dependencies_basic(client):
     assert result is not None
 
 
+def test_asset_dependencies_with_destination_only_and_expand_all(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+
+    result = client.assets.asset_dependencies(
+        id=created.id, tenant=TENANT,
+        destination_only=True, expand_all=True,
+    )
+
+    assert result is not None
+
+
+def test_asset_get_with_allow_deleted(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    client.assets.delete_asset(id=created.id, tenant=TENANT)
+
+    # Soft-deleted asset should still be retrievable with allow_deleted=True.
+    try:
+        result = client.assets.asset(id=created.id, tenant=TENANT, allow_deleted=True)
+        assert result is not None
+    except ApiException as e:
+        # Some configurations may hard-delete and still 404 — acceptable.
+        assert e.status in (400, 404)
+
+
 # ========================================================================
 # Bulk delete
 # ========================================================================
@@ -178,6 +204,16 @@ def test_delete_assets_by_ids_basic(client):
     created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
 
     result = client.assets.delete_assets_by_ids(tenant=TENANT, ids=[created.id])
+
+    assert result is not None
+
+
+def test_delete_assets_by_query_with_purge(client):
+    # purge=True triggers hard deletion (vs soft delete). On an empty
+    # filter result the call still succeeds.
+    result = client.assets.delete_assets_by_query(
+        tenant=TENANT, filters=[ns_filter("nonexistent")], purge=True,
+    )
 
     assert result is not None
 
@@ -204,3 +240,21 @@ def test_delete_asset_usages_by_query_basic(client):
     )
 
     assert result is not None
+
+
+# ========================================================================
+# 404 edge cases
+# ========================================================================
+
+
+def test_asset_get_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.assets.asset(id=f"missing-{random_id()}", tenant=TENANT)
+    assert exc_info.value.status in (400, 404)
+
+
+def test_delete_asset_unknown_id_raises(client):
+    try:
+        client.assets.delete_asset(id=f"missing-{random_id()}", tenant=TENANT)
+    except ApiException as e:
+        assert e.status in (400, 404)

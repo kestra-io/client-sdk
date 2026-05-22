@@ -169,3 +169,66 @@ def test_list_roles_from_given_ids_multiple(client):
 
     assert result is not None
     assert len(result) == 2
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+def test_delete_role_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.roles.delete_role(f"missing-{random_id()}", TENANT)
+    assert exc_info.value.status in (400, 404)
+
+
+def test_create_role_with_write_permission(client):
+    name = "wr-role-" + random_id()
+    request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
+        name=name,
+        description="role with write permission",
+        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(
+            flow=["READ", "CREATE", "UPDATE", "DELETE"],
+        ),
+    )
+
+    result = client.roles.create_role(TENANT, request)
+
+    assert result is not None
+    assert result.name == name
+
+
+def test_create_role_with_execution_and_namespace_permissions(client):
+    name = "multi-perm-role-" + random_id()
+    request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
+        name=name,
+        description="role spanning multiple permission domains",
+        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(
+            flow=["READ"],
+            execution=["READ", "CREATE"],
+            namespace=["READ"],
+        ),
+    )
+
+    result = client.roles.create_role(TENANT, request)
+
+    assert result is not None
+    assert result.name == name
+
+
+def test_create_role_duplicate_name_does_not_uniqueness_check(client):
+    # The server does NOT enforce unique role names — two roles with the
+    # same name can coexist (the id is the actual unique identifier).
+    # We assert the second create succeeds AND produces a distinct id, so
+    # this regression is caught if the server later starts rejecting dupes.
+    name = "dup-role-" + random_id()
+    request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
+        name=name,
+        description="duplicate test",
+        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(flow=["READ"]),
+    )
+    first = client.roles.create_role(TENANT, request)
+    second = client.roles.create_role(TENANT, request)
+
+    assert first.id != second.id
+    assert first.name == second.name

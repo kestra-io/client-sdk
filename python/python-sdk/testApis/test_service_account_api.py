@@ -342,3 +342,35 @@ def test_patch_service_account_super_admin_basic(client):
     client.service_account.patch_service_account_super_admin(
         id=sa.id, request=reset_request
     )
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+def test_service_account_get_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.service_account.service_account(id=f"missing-{random_id()}")
+    assert exc_info.value.status in (400, 404)
+
+
+def test_delete_service_account_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.service_account.delete_service_account(id=f"missing-{random_id()}")
+    assert exc_info.value.status in (400, 404)
+
+
+def test_create_service_account_duplicate_name_does_not_uniqueness_check(client):
+    # The server does NOT enforce unique service-account names — two SAs
+    # with the same name can coexist (the id is the actual unique
+    # identifier). The test catches the regression if that ever changes.
+    name = f"sa-dup-{random_id()}"
+    request = IAMServiceAccountControllerApiCreateServiceAccountRequest(
+        name=name, description="duplicate test",
+    )
+    first = client.service_account.create_service_account(request=request)
+    second = client.service_account.create_service_account(request=request)
+
+    assert first.id != second.id
+    assert first.name == second.name

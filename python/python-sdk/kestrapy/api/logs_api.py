@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Generator, List, Optional
 
 from kestrapy.base_api import BaseApi
 from kestrapy.models.log_entry import LogEntry
@@ -57,6 +57,16 @@ class LogsApi(BaseApi):
             taskId=task_id, attempt=attempt,
         )
         self._void_request("DELETE", path, params=params)
+
+    def follow_logs_from_execution(
+        self,
+        execution_id: str,
+        tenant: str,
+        min_level: Optional[str] = None,
+    ) -> Generator[LogEntry, None, None]:
+        path = self._tenant_path(tenant, "logs", execution_id, "follow")
+        params = self._build_query_params(minLevel=min_level)
+        return self._sse_stream(path, LogEntry, params=params)
 
     def delete_logs_from_flow(
         self,

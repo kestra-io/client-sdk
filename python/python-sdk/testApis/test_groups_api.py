@@ -243,3 +243,40 @@ def test_set_user_membership_for_group_basic(client):
 
     assert result is not None
     assert result.id == user.id
+
+
+# ========================================================================
+# 404 / 409 edge cases
+# ========================================================================
+
+
+def test_set_user_membership_for_group_member_role(client):
+    group = create_test_group(client, "member-role-" + random_id())
+    user = create_test_user(client)
+
+    client.groups.add_user_to_group(group.id, user.id, TENANT)
+
+    result = client.groups.set_user_membership_for_group(
+        group.id, user.id, GroupIdentifierMembership.MEMBER, TENANT,
+    )
+
+    assert result is not None
+    assert result.id == user.id
+
+
+def test_delete_group_unknown_id_raises(client):
+    with pytest.raises(ApiException) as exc_info:
+        client.groups.delete_group(f"missing-{random_id()}", TENANT)
+    assert exc_info.value.status in (400, 404)
+
+
+def test_create_group_duplicate_name_conflicts(client):
+    name = "dup-group-" + random_id()
+    request = IAMGroupControllerApiCreateGroupRequest(
+        name=name, description="duplicate test",
+    )
+    client.groups.create_group(TENANT, request)
+
+    with pytest.raises(ApiException) as exc_info:
+        client.groups.create_group(TENANT, request)
+    assert exc_info.value.status in (409, 422)

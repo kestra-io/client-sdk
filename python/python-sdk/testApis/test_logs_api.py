@@ -69,6 +69,54 @@ def test_download_logs_from_execution_basic(client):
     assert len(content) > 0
 
 
+def test_download_logs_from_execution_with_min_level(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    content = client.logs.download_logs_from_execution(
+        execution_id, TENANT, min_level="INFO",
+    )
+    assert content is not None
+
+
+def test_download_logs_from_execution_with_task_filters(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    content = client.logs.download_logs_from_execution(
+        execution_id, TENANT, task_id="hello", attempt=0,
+    )
+    assert content is not None
+
+
+def test_list_logs_from_execution_with_attempt_and_trace_level(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    logs = client.logs.list_logs_from_execution(
+        execution_id, TENANT, min_level="TRACE", attempt=0,
+    )
+    assert logs is not None
+
+
+def test_list_logs_from_execution_with_debug_level(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    logs = client.logs.list_logs_from_execution(
+        execution_id, TENANT, min_level="DEBUG",
+    )
+    assert logs is not None
+
+
+def test_list_logs_from_execution_with_error_level(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    # A successful flow emits only INFO; an ERROR filter should yield
+    # an empty list (the call still succeeds).
+    logs = client.logs.list_logs_from_execution(
+        execution_id, TENANT, min_level="ERROR",
+    )
+    assert logs is not None
+    assert len(logs) == 0
+
+
 # ========================================================================
 # Search logs
 # ========================================================================
@@ -245,6 +293,52 @@ def test_delete_logs_from_execution_with_min_level(client):
 
     # Should not raise
     client.logs.delete_logs_from_execution(execution_id, TENANT, min_level="TRACE")
+
+
+# ========================================================================
+# Follow logs (SSE)
+# ========================================================================
+
+
+def test_follow_logs_from_execution_basic(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    # The server interleaves empty {} keepalive frames with real log
+    # events; collect a handful and assert on the real ones.
+    events = []
+    real_events = []
+    deadline = time.time() + 8
+    for event in client.logs.follow_logs_from_execution(execution_id, TENANT):
+        events.append(event)
+        if event.execution_id is not None:
+            real_events.append(event)
+        if time.time() > deadline or len(real_events) >= 1:
+            break
+
+    assert len(real_events) > 0
+    assert real_events[0].execution_id == execution_id
+    assert real_events[0].message is not None
+
+
+def test_follow_logs_from_execution_with_min_level(client):
+    execution_id, ns, flow_id = create_execution_with_logs(client)
+
+    # min_level=INFO matches the log flow's emitted level; we exercise
+    # the parameter and verify the events that come through respect it.
+    events = []
+    deadline = time.time() + 8
+    for event in client.logs.follow_logs_from_execution(execution_id, TENANT, min_level="INFO"):
+        if event.execution_id is not None:
+            events.append(event)
+        if time.time() > deadline or len(events) >= 1:
+            break
+
+    assert len(events) > 0
+    for e in events:
+        if e.level is not None:
+            # `level` is a Level enum — str() would yield 'Level.INFO'.
+            level_str = getattr(e.level, "value", str(e.level)).upper()
+            assert level_str in ("INFO", "WARN", "ERROR")
 
 
 def test_delete_logs_from_flow_basic(client):

@@ -214,6 +214,35 @@ def test_dashboard_chart_data_not_found(client):
         )
 
 
+def test_dashboard_chart_data_with_populated_filters(client):
+    from datetime import datetime, timezone, timedelta
+
+    title = f"chart-data-filters-{random_id()}"
+    created = client.dashboards.create_dashboard(
+        tenant=TENANT, yaml_body=dashboard_yaml(title)
+    )
+
+    # Exercise the non-empty filter branch: startDate, endDate, paging.
+    now = datetime.now(timezone.utc)
+    filters = ChartFiltersOverrides(
+        start_date=now - timedelta(days=7),
+        end_date=now,
+        page_size=10,
+        page_number=1,
+    )
+
+    # Dashboard has no charts so we still expect a 4xx — but with the
+    # filter body populated, exercising the non-default code path.
+    with pytest.raises(ApiException) as exc_info:
+        client.dashboards.dashboard_chart_data(
+            id=created["id"],
+            chart_id="nonexistent",
+            tenant=TENANT,
+            filters=filters,
+        )
+    assert exc_info.value.status in (400, 404, 422)
+
+
 def test_preview_chart_basic(client):
     request = DashboardControllerPreviewRequest(
         chart=(
