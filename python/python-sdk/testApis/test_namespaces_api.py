@@ -244,14 +244,15 @@ def test_patch_secret_basic(client):
 
 def test_export_plugin_defaults_basic(client):
     ns = random_id()
-    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
+    # plugin_defaults must be a list (not None) — the server NPEs in /plugindefaults/export
+    # when Namespace.pluginDefaults is null.
+    client.namespaces.create_namespace(
+        tenant=TENANT,
+        namespace=Namespace(id=ns, deleted=False, plugin_defaults=[]),
+    )
 
-    # Namespace without plugin defaults may return 404
-    try:
-        result = client.namespaces.export_plugin_defaults(id=ns, tenant=TENANT)
-        assert result is not None
-    except ApiException as e:
-        assert e.status in (404, 200)
+    result = client.namespaces.export_plugin_defaults(id=ns, tenant=TENANT)
+    assert result is not None
 
 
 def test_import_plugin_defaults_basic(client):

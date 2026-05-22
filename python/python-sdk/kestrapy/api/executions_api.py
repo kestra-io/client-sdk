@@ -150,7 +150,7 @@ class ExecutionsApi(BaseApi):
     def eval_expression(
         self, execution_id: str, tenant: str, expression: str,
     ) -> Any:
-        path = self._tenant_path(tenant, "executions", execution_id, "eval")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "eval")
         return self._raw_json_request("POST", path, body=expression, content_type=self.TEXT)
 
     # ========================================================================
@@ -160,7 +160,7 @@ class ExecutionsApi(BaseApi):
     def kill_execution(
         self, execution_id: str, tenant: str, is_on_kill_cascade: Optional[bool] = None,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "kill")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "kill")
         params = self._build_query_params(isOnKillCascade=is_on_kill_cascade)
         return self._json_request("DELETE", path, Execution, params=params)
 
@@ -232,7 +232,7 @@ class ExecutionsApi(BaseApi):
     # ========================================================================
 
     def pause_execution(self, execution_id: str, tenant: str) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "pause")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "pause")
         return self._json_request("POST", path, Execution)
 
     def pause_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
@@ -248,7 +248,7 @@ class ExecutionsApi(BaseApi):
         return self._raw_json_request("POST", path, params=params)
 
     def resume_execution(self, execution_id: str, tenant: str) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "resume")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "resume")
         return self._json_request("POST", path, Execution)
 
     def resume_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
@@ -270,7 +270,7 @@ class ExecutionsApi(BaseApi):
     def restart_execution(
         self, execution_id: str, tenant: str, revision: Optional[int] = None,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "restart")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "restart")
         params = self._build_query_params(revision=revision)
         return self._json_request("POST", path, Execution, params=params)
 
@@ -298,7 +298,7 @@ class ExecutionsApi(BaseApi):
         revision: Optional[int] = None,
         breakpoints: Optional[str] = None,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "replay")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,
         )
@@ -312,7 +312,7 @@ class ExecutionsApi(BaseApi):
         revision: Optional[int] = None,
         breakpoints: Optional[str] = None,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "replay-with-inputs")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,
         )
@@ -341,7 +341,7 @@ class ExecutionsApi(BaseApi):
     # ========================================================================
 
     def force_run_execution(self, execution_id: str, tenant: str) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "force-run")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "force-run")
         return self._json_request("POST", path, Execution)
 
     def force_run_by_ids(self, tenant: str, ids: List[str]) -> Any:
@@ -363,7 +363,7 @@ class ExecutionsApi(BaseApi):
     def unqueue_execution(
         self, execution_id: str, tenant: str, state: Optional[StateType] = None,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "unqueue")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "unqueue")
         state_val = state.value if state is not None and hasattr(state, 'value') else state
         params = self._build_query_params(state=state_val)
         return self._json_request("POST", path, Execution, params=params)
@@ -395,7 +395,7 @@ class ExecutionsApi(BaseApi):
     def set_labels_on_terminated_execution(
         self, execution_id: str, tenant: str, labels: List[Label],
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "labels")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "labels")
         body = [lb.model_dump(by_alias=True, exclude_none=True) if hasattr(lb, 'model_dump') else lb for lb in labels]
         return self._json_request("POST", path, Execution, body=body)
 
@@ -424,7 +424,7 @@ class ExecutionsApi(BaseApi):
     def update_execution_status(
         self, execution_id: str, status: StateType, tenant: str,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "change-status")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "change-status")
         status_val = status.value if hasattr(status, 'value') else str(status)
         params = self._build_query_params(status=status_val)
         return self._json_request("POST", path, Execution, params=params)
@@ -459,7 +459,7 @@ class ExecutionsApi(BaseApi):
         tenant: str,
         request: ExecutionControllerStateRequest,
     ) -> Execution:
-        path = self._tenant_path(tenant, "executions", execution_id, "state")
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "state")
         return self._json_request("POST", path, Execution, body=request)
 
     # ========================================================================
