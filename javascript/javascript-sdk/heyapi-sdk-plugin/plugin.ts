@@ -172,6 +172,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             const funcSymbol = plugin.symbol(methodName, {
                 getFilePath() {
                     const tag = operation.tags?.[0] ?? "default";
+                    // operation has a _\d+ suffix (indicating admin access, postfix the file name with Admin to avoid confusion)
+                    if (operation.operationId && /_\d+$/.test(operation.operationId)) {
+                        return `sdk/${pascalCase(tag)}Admin`;
+                    }
                     return `sdk/${pascalCase(tag)}`;
                 }
             })
@@ -251,7 +255,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
                     );
 
-                plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
+                plugin.node(
+                    $.const(funcSymbol).export().assign(functionNode)
+                        .doc(operation.summary)
+                );
                 return;
             }
 
@@ -295,7 +302,8 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                     );
 
                 plugin.node(
-                    $.const(funcSymbol).export().assign(functionNode).doc(operation.summary)
+                    $.const(funcSymbol).export().assign(functionNode)
+                        .doc(operation.summary)
                 );
                 return;
             }
@@ -331,7 +339,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         ))
                     );
 
-                plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
+                plugin.node(
+                    $.const(funcSymbol).export().assign(functionNode)
+                        .doc(operation.summary)
+                );
                 return;
             }
 
@@ -395,7 +406,10 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                     ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
                 );
 
-            plugin.node($.const(funcSymbol).export().assign(functionNode).doc(operation.summary));
+            plugin.node(
+                $.const(funcSymbol).export().assign(functionNode)
+                    .doc(operation.summary)
+            );
         },
         {
             order: "declarations",
