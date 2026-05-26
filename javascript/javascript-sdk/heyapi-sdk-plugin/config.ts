@@ -11,6 +11,11 @@ const defaultConfig: KestraSdkPlugin["Config"] = {
             if (operation.operationId === "namespace") {
                 return `loadNamespace`;
             }
+            if (["get", "create", "delete"].includes(operation.operationId)) {
+                const tag = operation.tags?.[0] ?? "default";
+                const opId = operation.operationId.replace(/_1$/, "");
+                return opId + tag.charAt(0).toUpperCase() + tag.slice(1);
+            }
             return operation.operationId
         }
     },
