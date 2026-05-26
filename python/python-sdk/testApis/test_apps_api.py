@@ -348,14 +348,17 @@ class TestStreaming:
         from requests.exceptions import RequestException
 
         events = []
+        stream = client.apps.stream_events_from_app(
+            id=f"missing-{random_id()}", stream="events", tenant=TENANT,
+        )
         try:
-            for event in client.apps.stream_events_from_app(
-                id=f"missing-{random_id()}", stream="events", tenant=TENANT,
-            ):
+            for event in stream:
                 events.append(event)
                 if len(events) >= 1:
                     break
         except (ApiException, RequestException):
             return  # expected
+        finally:
+            stream.close()
 
         assert events == []

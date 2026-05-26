@@ -1,11 +1,20 @@
 import json
 import typing
+from datetime import date, datetime
 from typing import Any, Dict, Generator, List, Optional, Type, TypeVar, Union, get_args, get_origin
 from urllib.parse import quote
 
 import requests
 import sseclient
 from pydantic import ValidationError
+
+
+def _json_default(obj: Any) -> Any:
+    if isinstance(obj, datetime):
+        return obj.isoformat().replace("+00:00", "Z")
+    if isinstance(obj, date):
+        return obj.isoformat()
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 from kestrapy.exceptions import (
     ApiException,
@@ -112,11 +121,14 @@ class BaseApi:
             else:
                 data = body if isinstance(body, (str, bytes)) else str(body)
 
+        if json_body is not None:
+            data = json.dumps(json_body, default=_json_default)
+            headers["Content-Type"] = self.JSON
+
         resp = self._session.request(
             method, url,
             params=params,
-            json=json_body,
-            data=data if json_body is None else None,
+            data=data,
             headers=headers,
             files=files,
             stream=stream,

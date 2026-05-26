@@ -205,7 +205,7 @@ def test_create_role_with_execution_and_namespace_permissions(client):
         description="role spanning multiple permission domains",
         permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(
             flow=["READ"],
-            execution=["READ", "CREATE"],
+            execution=["READ", "UPDATE"],
             namespace=["READ"],
         ),
     )
