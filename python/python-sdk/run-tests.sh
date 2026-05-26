@@ -41,7 +41,7 @@ for KESTRA_VERSION in $versions; do
   }
 
   echo "start tests"
-  log_and_run python3 -m pytest -vv -s --log-cli-format="%(asctime)s [%(levelname)s] %(name)s: %(message)s)" --showlocals --timeout=10
+  log_and_run python3 -m pytest -v --timeout=10
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down

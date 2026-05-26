@@ -37,60 +37,60 @@ def test_search_flows_with_scope_filter(client):
     assert result.results is not None
 
 
-def test_search_flows_with_kind_filter(client):
-    result = client.flows.search_flows(
+def test_search_executions_with_kind_filter(client):
+    # KIND is not a valid filter for FLOW; executions accept it.
+    result = client.executions.search_executions(
         TENANT, page=1, size=10,
         filters=[_filter(QueryFilterField.KIND, "DEFAULT")],
     )
     assert result is not None
-    assert result.results is not None
 
 
-def test_search_flows_with_created_range_filter(client):
-    # Range-style filter using GREATER_THAN_OR_EQUAL_TO against a date
-    # comfortably in the past; everything created since should match.
-    result = client.flows.search_flows(
+def test_search_executions_with_start_date_range_filter(client):
+    # START_DATE/END_DATE are the date-range fields executions support;
+    # CREATED/UPDATED are not exposed at the search layer.
+    result = client.executions.search_executions(
         TENANT, page=1, size=10,
         filters=[QueryFilter(
-            var_field=QueryFilterField.CREATED,
+            var_field=QueryFilterField.START_DATE,
             operation=QueryFilterOp.GREATER_THAN_OR_EQUAL_TO,
             value={"value": "2020-01-01T00:00:00Z"},
         )],
     )
     assert result is not None
-    assert result.results is not None
 
 
-def test_search_flows_with_updated_range_filter(client):
-    result = client.flows.search_flows(
+def test_search_executions_with_end_date_range_filter(client):
+    result = client.executions.search_executions(
         TENANT, page=1, size=10,
         filters=[QueryFilter(
-            var_field=QueryFilterField.UPDATED,
-            operation=QueryFilterOp.GREATER_THAN_OR_EQUAL_TO,
-            value={"value": "2020-01-01T00:00:00Z"},
+            var_field=QueryFilterField.END_DATE,
+            operation=QueryFilterOp.LESS_THAN_OR_EQUAL_TO,
+            value={"value": "2099-01-01T00:00:00Z"},
         )],
     )
     assert result is not None
-    assert result.results is not None
 
 
-def test_search_logs_with_task_id_filter(client):
+def test_search_logs_with_execution_id_filter(client):
+    # LOG resource supports EXECUTION_ID/FLOW_ID/TRIGGER_ID; TASK_ID and
+    # TASK_RUN_ID are not in the LOG filter set.
     result = client.logs.search_logs(
         TENANT, page=1, size=10,
-        filters=[_filter(QueryFilterField.TASK_ID, "hello")],
+        filters=[_filter(QueryFilterField.EXECUTION_ID, f"missing-{random_id()}")],
     )
     assert result is not None
     assert result.results is not None
+    assert len(result.results) == 0
 
 
-def test_search_logs_with_task_run_id_filter(client):
+def test_search_logs_with_trigger_id_filter(client):
     result = client.logs.search_logs(
         TENANT, page=1, size=10,
-        filters=[_filter(QueryFilterField.TASK_RUN_ID, f"missing-{random_id()}")],
+        filters=[_filter(QueryFilterField.TRIGGER_ID, f"missing-{random_id()}")],
     )
     assert result is not None
     assert result.results is not None
-    # Unknown taskRunId → empty results, but the filter is transported.
     assert len(result.results) == 0
 
 

@@ -740,10 +740,13 @@ class TestDeleteExecutionFlags:
         )
 
     def test_delete_executions_by_ids_with_include_non_terminated(self, client):
-        # Use an empty/unknown id list; we only verify the parameter is
-        # transported and the server accepts the call.
+        ns = random_id()
+        flow_id = random_id()
+        create_flow(client, log_flow_yaml(flow_id, ns))
+        execution_id = _execute_and_wait(client, ns, flow_id)
+
         result = client.executions.delete_executions_by_ids(
-            TENANT, ids=[f"missing-{random_id()}"],
+            TENANT, ids=[execution_id],
             include_non_terminated=True,
             delete_logs=True, delete_metrics=True, delete_storage=True,
         )
@@ -770,8 +773,11 @@ class TestRestartRevision:
     def test_restart_execution_with_revision(self, client):
         ns = random_id()
         flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+        create_flow(client, _failing_flow_yaml(flow_id, ns))
+        resp = _execute_flow(client, ns, flow_id)
+        execution_id = resp.id
+        _wait_for_state(client, execution_id, [StateType.FAILED])
+        time.sleep(0.5)
 
         result = client.executions.restart_execution(
             execution_id, TENANT, revision=1,
@@ -788,12 +794,16 @@ class TestFollowDependenciesFlags:
 
         events = []
         deadline = time.time() + 10
-        for event in client.executions.follow_dependencies_execution(
+        stream = client.executions.follow_dependencies_execution(
             resp.id, TENANT, destination_only=True, expand_all=True,
-        ):
-            events.append(event)
-            if time.time() > deadline or len(events) >= 3:
-                break
+        )
+        try:
+            for event in stream:
+                events.append(event)
+                if time.time() > deadline or len(events) >= 3:
+                    break
+        finally:
+            stream.close()
 
         # Either we got some events, or the stream cleanly returned nothing
         # — both confirm the parameters were transported.
@@ -1064,14 +1074,18 @@ class TestStreaming:
 
         events = []
         deadline = time.time() + 15
-        for event in client.executions.follow_execution(resp.id, TENANT):
-            events.append(event)
-            if time.time() > deadline:
-                break
-            if hasattr(event, "state") and event.state is not None:
-                current = event.state.current if hasattr(event.state, "current") else None
-                if current in (StateType.SUCCESS, StateType.FAILED, StateType.WARNING, StateType.CANCELLED):
+        stream = client.executions.follow_execution(resp.id, TENANT)
+        try:
+            for event in stream:
+                events.append(event)
+                if time.time() > deadline:
                     break
+                if hasattr(event, "state") and event.state is not None:
+                    current = event.state.current if hasattr(event.state, "current") else None
+                    if current in (StateType.SUCCESS, StateType.FAILED, StateType.WARNING, StateType.CANCELLED):
+                        break
+        finally:
+            stream.close()
 
         assert len(events) > 0
         last = events[-1]
@@ -1086,12 +1100,15 @@ class TestStreaming:
 
         events = []
         deadline = time.time() + 15
-        for event in client.executions.follow_dependencies_execution(resp.id, TENANT):
-            events.append(event)
-            if time.time() > deadline:
-                break
-            # Stop after we get some events
-            if len(events) >= 3:
-                break
+        stream = client.executions.follow_dependencies_execution(resp.id, TENANT)
+        try:
+            for event in stream:
+                events.append(event)
+                if time.time() > deadline:
+                    break
+                if len(events) >= 3:
+                    break
+        finally:
+            stream.close()
 
         assert len(events) > 0
