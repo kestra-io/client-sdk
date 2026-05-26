@@ -31,6 +31,7 @@
     "./kv": "./dist/kv.js",
     "./login": "./dist/login.js",
     "./logs": "./dist/logs.js",
+    "./mcp": "./dist/mcp.js",
     "./metrics": "./dist/metrics.js",
     "./misc": "./dist/misc.js",
     "./namespaces": "./dist/namespaces.js",

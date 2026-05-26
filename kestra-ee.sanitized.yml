@@ -428,6 +428,50 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/instance/mcp/servers:
+    get:
+      tags:
+        - Mcp
+      summary: List all MCP servers across all tenants
+      operationId: listAllMcpServers
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 100
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+      responses:
+        "200":
+          description: listAllMcpServers 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiInstanceMcpServer_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/instance/metrics/{serviceType}:
     get:
       tags:
@@ -6130,6 +6174,57 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/executions/distinct-field-values:
+    get:
+      tags:
+        - Executions
+      summary: List distinct values for one of the executions filter fields, optionally narrowed by additional query filters
+      operationId: findDistinctFieldValues
+      parameters:
+        - name: field
+          in: query
+          description: The field whose distinct values to return. Must be a field supported by the EXECUTION resource.
+          required: true
+          explode: false
+          schema:
+            $ref: "#/components/schemas/QueryFilter.Field"
+        - name: filters
+          in: query
+          description: >-
+            Additional filters to narrow the distinct values. PHP-style nested query is used - examples:
+            `filters[flowId][CONTAINS]=test`, `filters[state][IN]=FAILED,WARNING`
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+            nullable: true
+        - name: size
+          in: query
+          description: Maximum number of distinct values to return.
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 100
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: findDistinctFieldValues 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
     get:
       tags:
@@ -10995,6 +11090,196 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/mcp/servers:
+    get:
+      tags:
+        - Mcp
+      summary: List MCP servers
+      operationId: listMcps
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listMcps 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiMcpServer_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    post:
+      tags:
+        - Mcp
+      summary: Create an MCP server
+      operationId: createMcp
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The MCP server to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiMcpServer"
+        required: true
+      responses:
+        "200":
+          description: createMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}:
+    get:
+      tags:
+        - Mcp
+      summary: Get an MCP server
+      operationId: mcp
+      parameters:
+        - name: id
+          in: path
+          description: The MCP server id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    put:
+      tags:
+        - Mcp
+      summary: Update an MCP server
+      operationId: updateMcp
+      parameters:
+        - name: id
+          in: path
+          description: The MCP server id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The MCP server to update
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiMcpServer"
+        required: true
+      responses:
+        "200":
+          description: updateMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    delete:
+      tags:
+        - Mcp
+      summary: Delete an MCP server
+      operationId: deleteMcp
+      parameters:
+        - name: id
+          in: path
+          description: The MCP server id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteMcp 200 response
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}/toggle:
+    patch:
+      tags:
+        - Mcp
+      summary: Toggle an MCP server's enabled state
+      operationId: toggleMcp
+      parameters:
+        - name: id
+          in: path
+          description: The MCP server id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: toggleMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
     get:
       tags:
@@ -15280,6 +15565,46 @@ components:
           type: array
           items:
             type: string
+    ApiInstanceMcpServer:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Tenant that owns this MCP server.
+        id:
+          type: string
+          description: Unique identifier of the MCP server.
+        description:
+          type: string
+          description: Human-readable description of the MCP server.
+        serverType:
+          description: Visibility of the server.
+          allOf:
+            - $ref: "#/components/schemas/McpServer.ServerType"
+        authType:
+          description: Authentication type for private servers.
+          allOf:
+            - $ref: "#/components/schemas/McpServer.AuthType"
+        disabled:
+          type: boolean
+          description: Whether the MCP server is disabled.
+        isDefault:
+          type: boolean
+          description: Whether this is the default MCP server.
+          readOnly: true
+        created:
+          type: string
+          description: Timestamp when the server was created.
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          description: Timestamp when the server was last updated.
+          format: date-time
+          readOnly: true
+      description: >-
+        Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer with a `tenantId`
+        field so super-admins can identify which tenant owns each server.
     ApiLightExecution:
       required:
         - flowId
@@ -15329,6 +15654,47 @@ components:
           $ref: "#/components/schemas/ExecutionKind"
         loopRun:
           $ref: "#/components/schemas/LoopRun"
+    ApiMcpServer:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          pattern: ^[a-z0-9][a-z0-9_-]*
+          type: string
+          description: Unique identifier of the MCP server.
+        description:
+          type: string
+          description: Human-readable description of the MCP server.
+        instructions:
+          type: string
+          description: Instructions sent to the AI model when using this server.
+        serverType:
+          description: Visibility of the server.
+          allOf:
+            - $ref: "#/components/schemas/McpServer.ServerType"
+        authType:
+          description: Authentication type for private servers.
+          allOf:
+            - $ref: "#/components/schemas/McpServer.AuthType"
+        disabled:
+          type: boolean
+          description: Whether the MCP server is disabled.
+        isDefault:
+          type: boolean
+          description: Whether this is the default MCP server, auto-provisioned per tenant.
+          readOnly: true
+        created:
+          type: string
+          description: Timestamp when the server was created.
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          description: Timestamp when the server was last updated.
+          format: date-time
+          readOnly: true
     ApiPatchSuperAdminRequest:
       required:
         - superAdmin
@@ -17774,6 +18140,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -17783,8 +18151,6 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
-              type: array
-            MCP_SERVER:
               type: array
             KILL_SWITCH:
               type: array
@@ -17860,6 +18226,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -17869,8 +18237,6 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
-              type: array
-            MCP_SERVER:
               type: array
             KILL_SWITCH:
               type: array
@@ -18744,6 +19110,18 @@ components:
       properties:
         empty:
           type: boolean
+    McpServer.AuthType:
+      type: string
+      description: Authentication type for private servers.
+      enum:
+        - BASIC
+        - API_TOKEN
+    McpServer.ServerType:
+      type: string
+      description: Visibility of the server.
+      enum:
+        - PRIVATE
+        - PUBLIC
     MeController.ApiMe:
       type: object
       properties:
@@ -19219,6 +19597,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ApiInstanceMcpServer_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiInstanceMcpServer"
+        total:
+          type: integer
+          format: int64
     PagedResults_ApiLightExecution_:
       required:
         - results
@@ -19229,6 +19620,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiLightExecution"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiMcpServer_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiMcpServer"
         total:
           type: integer
           format: int64
@@ -20136,6 +20540,7 @@ components:
         - NAME
         - GROUP
         - EXPIRED_AT
+        - SUPER_ADMIN
       x-type: String
     QueryFilter.Op:
       type: string
@@ -20205,12 +20610,12 @@ components:
         - SERVICE_ACCOUNT
         - INVITATION
         - COPILOT
+        - MCP_SERVER
         - APP_EXECUTION
         - NAMESPACE_FILE
         - TESTSUITE_RUN
         - TENANT_ACCESS
         - SECURITY_INTEGRATION
-        - MCP_SERVER
         - KILL_SWITCH
         - TENANT
         - VERSIONED_PLUGIN
@@ -20320,6 +20725,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -20329,8 +20736,6 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
-              type: array
-            MCP_SERVER:
               type: array
             KILL_SWITCH:
               type: array
@@ -21004,7 +21409,7 @@ components:
           type: boolean
         logToFile:
           type: boolean
-        when:
+        runIf:
           type: string
         allowWarning:
           type: boolean
