@@ -96,18 +96,30 @@ const transformFile = async (filePath) => {
 
     const replacements = [];
 
-    for (const statement of sourceFile.statements) {
+    for (let i = 0; i < sourceFile.statements.length; i++) {
+        const statement = sourceFile.statements[i];
         if (!isConvertibleExport(statement)) {
             continue;
         }
 
         const nextStatement = createFunctionDeclarationFromVariable(statement);
-        const printed = printer
+        let printed = printer
             .printNode(ts.EmitHint.Unspecified, nextStatement, sourceFile)
             .trimEnd();
+
+        // Preserve leading blank lines from the original trivia
+        const leadingTrivia = originalText.slice(
+            statement.getFullStart(),
+            statement.getStart(sourceFile),
+        );
+        const leadingBlankLines = leadingTrivia.match(/^\n+/)?.[0] ?? "";
+        if (leadingBlankLines && leadingBlankLines.includes("\n\n")) {
+            printed = leadingBlankLines + printed;
+        }
+
         replacements.push({
             end: statement.end,
-            start: statement.getStart(sourceFile),
+            start: statement.getFullStart(),
             text: printed,
         });
     }
@@ -120,7 +132,9 @@ const transformFile = async (filePath) => {
     for (const replacement of replacements.sort(
         (left, right) => right.start - left.start,
     )) {
-        updatedText = `${updatedText.slice(0, replacement.start)}${replacement.text}${updatedText.slice(replacement.end)}`;
+        const before = updatedText.slice(0, replacement.start);
+        const after = updatedText.slice(replacement.end);
+        updatedText = `${before}${replacement.text}${after}`;
     }
 
     if (updatedText !== originalText) {
