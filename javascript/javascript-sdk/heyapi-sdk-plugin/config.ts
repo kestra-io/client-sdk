@@ -6,10 +6,10 @@ const defaultConfig: KestraSdkPlugin["Config"] = {
     config: {
         output: "kestra-sdk",
         methodNameBuilder(operation) {
-            // if its a typescript reserved name, use
+            // if its the "namespace" typescript reserved name, use
             // load as a prefix to avoid conflict
             if (operation.operationId === "namespace") {
-                return `load${operation.operationId[0].toUpperCase()}${operation.operationId.slice(1)}`;
+                return `loadNamespace`;
             }
             return operation.operationId
         }
