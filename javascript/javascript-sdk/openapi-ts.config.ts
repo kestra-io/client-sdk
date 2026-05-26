@@ -19,6 +19,12 @@ export default {
     input: path.resolve(__dirname, "../../kestra-ee.sanitized.yml"),
     output: {
         path: path.resolve(__dirname, "./src/openapi"),
+        postProcess: [
+            {
+                command: "node",
+                args: ["scripts/convert-openapi-sdk-functions.mjs", "{{path}}"],
+            },
+        ],
     },
 
     plugins: [
