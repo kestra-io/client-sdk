@@ -11,6 +11,11 @@ const fullPathSdkEntries = Object.fromEntries(
     Object.entries(sdkEntries).map(([name, path]) => [`@kestra-io/kestra-sdk/${name}`, join(sdkSrc, path)])
 );
 
+const IGNORE_APIS = [
+    "ai",
+    "login",
+]
+
 export default defineConfig({
     root: "..",
     resolve: {
@@ -30,7 +35,7 @@ export default defineConfig({
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
-            include: ["javascript-sdk/src/openapi/sdk/**"],
+            include: ["javascript-sdk/src/openapi/sdk/**", `!javascript-sdk/src/openapi/sdk/{${IGNORE_APIS.join(",")}}.gen.ts`],
             reporter: ["text", "json"],
             thresholds: {
                 perFile: true,
