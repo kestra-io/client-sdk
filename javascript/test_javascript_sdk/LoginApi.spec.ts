@@ -22,10 +22,8 @@ describe('LoginApi', () => {
             password: 'wrongpassword',
         };
         // In basic-auth mode, login may return HTML instead of throwing
-        try {
-            await kestraClient.Login.login(credentials);
-        } catch (_) {
-            // Expected: invalid credentials should reject
-        }
+        const html = await kestraClient.Login.login(credentials);
+        expect(typeof html).toBe('string');
+        expect(html).toContain('Failed');
     });
 });

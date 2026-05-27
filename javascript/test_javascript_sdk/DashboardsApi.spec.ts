@@ -77,7 +77,7 @@ describe('DashboardsApi', () => {
     });
 
     it('defaultDashboards_1: lists default dashboards', async () => {
-        const result = await kestraClient.Dashboards.defaultDashboards_1();
+        const result = await kestraClient.DashboardsAdmin.defaultDashboards_1();
         expect(result).toBeDefined();
     });
 

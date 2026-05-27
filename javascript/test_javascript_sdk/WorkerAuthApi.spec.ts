@@ -21,7 +21,7 @@ describe('WorkerAuthApi', () => {
 
     it('list_1: lists worker registration tokens', async () => {
         await skipOn403(async () => {
-            const result = await kestraClient.WorkerAuth.list_1();
+            const result = await kestraClient.WorkerAuthAdmin.list_1();
             expect(result).toBeDefined();
             expect(Array.isArray((result as any).results ?? result)).toBe(true);
         });
@@ -48,7 +48,7 @@ describe('WorkerAuthApi', () => {
             const id = (created as any).details?.id ?? (created as any).id;
 
             if (!id) return;
-            const result = await kestraClient.WorkerAuth.get_1({ id });
+            const result = await kestraClient.WorkerAuthAdmin.get_1({ id });
             expect(result).toBeDefined();
         });
     });
@@ -62,7 +62,7 @@ describe('WorkerAuthApi', () => {
             const id = (created as any).details?.id ?? (created as any).id;
 
             if (!id) return;
-            await kestraClient.WorkerAuth.revoke_1({ id });
+            await kestraClient.WorkerAuthAdmin.revoke_1({ id });
         });
     });
 
@@ -75,7 +75,7 @@ describe('WorkerAuthApi', () => {
             const id = (created as any).details?.id ?? (created as any).id;
 
             if (!id) return;
-            await kestraClient.WorkerAuth.delete_1({ id });
+            await kestraClient.WorkerAuthAdmin.delete_1({ id });
         });
     });
 });

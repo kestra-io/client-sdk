@@ -19,16 +19,16 @@ describe('TenantsApi', () => {
     it('create_1: creates a new tenant', async () => {
         const id = randomId();
         const tenant = makeTenant(id);
-        const result = await kestraClient.Tenants.create_1(tenant);
+        const result = await kestraClient.TenantsAdmin.create_1(tenant);
         expect(result).toBeDefined();
     });
 
     it('get_2: retrieves a tenant by id', async () => {
         const id = randomId();
         const tenant = makeTenant(id);
-        await kestraClient.Tenants.create_1(tenant);
+        await kestraClient.TenantsAdmin.create_1(tenant);
 
-        const result = await kestraClient.Tenants.get_2({ id });
+        const result = await kestraClient.TenantsAdmin.get_2({ id });
         expect(result).toBeDefined();
         expect((result as any).id).toBe(id);
     });
@@ -36,7 +36,7 @@ describe('TenantsApi', () => {
     it('update: updates a tenant', async () => {
         const id = randomId();
         const tenant = makeTenant(id);
-        await kestraClient.Tenants.create_1(tenant);
+        await kestraClient.TenantsAdmin.create_1(tenant);
 
         const updated: Tenant = { ...tenant, name: `Updated Tenant ${id}` };
         const result = await kestraClient.Tenants.update({ id, ...updated });
@@ -46,9 +46,9 @@ describe('TenantsApi', () => {
     it('delete_2: deletes a tenant', async () => {
         const id = randomId();
         const tenant = makeTenant(id);
-        await kestraClient.Tenants.create_1(tenant);
+        await kestraClient.TenantsAdmin.create_1(tenant);
 
-        await kestraClient.Tenants.delete_2({ id });
+        await kestraClient.TenantsAdmin.delete_2({ id });
     });
 
     it('flowDependenciesFromTenant: returns tenant flow dependencies', async () => {
@@ -58,7 +58,7 @@ describe('TenantsApi', () => {
 
     it('appsCatalogConfig: returns apps catalog config for a tenant', async () => {
         const id = randomId();
-        await kestraClient.Tenants.create_1(makeTenant(id));
+        await kestraClient.TenantsAdmin.create_1(makeTenant(id));
 
         try {
             const result = await kestraClient.Tenants.appsCatalogConfig({ id });
@@ -72,7 +72,7 @@ describe('TenantsApi', () => {
 
     it('setAppsCatalogConfig: sets apps catalog config for a tenant', async () => {
         const id = randomId();
-        await kestraClient.Tenants.create_1(makeTenant(id));
+        await kestraClient.TenantsAdmin.create_1(makeTenant(id));
 
         try {
             const result = await kestraClient.Tenants.setAppsCatalogConfig({ id, title: 'Test Title' });
@@ -86,7 +86,7 @@ describe('TenantsApi', () => {
 
     it('deleteAppsCatalogLogo: deletes apps catalog logo for a tenant', async () => {
         const id = randomId();
-        await kestraClient.Tenants.create_1(makeTenant(id));
+        await kestraClient.TenantsAdmin.create_1(makeTenant(id));
 
         try {
             await kestraClient.Tenants.deleteAppsCatalogLogo({ id });
@@ -99,7 +99,7 @@ describe('TenantsApi', () => {
 
     it('defaultDashboards: returns default dashboards for a tenant', async () => {
         const id = randomId();
-        await kestraClient.Tenants.create_1(makeTenant(id));
+        await kestraClient.TenantsAdmin.create_1(makeTenant(id));
 
         try {
             const result = await kestraClient.Tenants.defaultDashboards({ id });
@@ -113,7 +113,7 @@ describe('TenantsApi', () => {
 
     it('setTenantDefaultDashboards: sets default dashboards for a tenant', async () => {
         const id = randomId();
-        await kestraClient.Tenants.create_1(makeTenant(id));
+        await kestraClient.TenantsAdmin.create_1(makeTenant(id));
 
         try {
             const result = await kestraClient.Tenants.setTenantDefaultDashboards({ id });
