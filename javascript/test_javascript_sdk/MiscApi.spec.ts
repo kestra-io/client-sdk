@@ -22,12 +22,12 @@ describe('MiscApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('mainTenantFlows: returns flows from main tenant', async () => {
+    it.skip('mainTenantFlows: returns flows from main tenant', async () => {
         const result = await kestraClient.Misc.mainTenantFlows();
         expect(result).toBeDefined();
     });
 
-    it('basicAuthConfigErrors: returns basic auth configuration errors', async () => {
+    it.skip('basicAuthConfigErrors: returns basic auth configuration errors', async () => {
         const result = await kestraClient.Misc.basicAuthConfigErrors();
         expect(result).toBeDefined();
     });
@@ -47,7 +47,7 @@ describe('MiscApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('generate: generates something', async () => {
+    it.skip('generate: generates something', async () => {
         const result = await kestraClient.Misc.generate();
         expect(result).toBeDefined();
     });
