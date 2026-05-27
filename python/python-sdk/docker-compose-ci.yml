@@ -1,4 +1,18 @@
 services:
+  postgres:
+    image: postgres:14.13
+    container_name: python-sdk-test-postgres
+    environment:
+      POSTGRES_DB: kestra_unit
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: k3str4
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U kestra -d kestra_unit" ]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+
   kestra:
     container_name: python-sdk-test-kestra
     image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:develop-no-plugins"
@@ -6,6 +20,9 @@ services:
     user: "root"
     command: server standalone
     mem_limit: 3g
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -fsv http://localhost:8081/health" ]
       interval: 2s
@@ -16,8 +33,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
       - ../../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
+      - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
     environment:
-      MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/secrets/application-secrets.yml
+      MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
       JAVA_OPTS: "-Xms512m -Xmx2g -XX:MaxMetaspaceSize=256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError"
     ports:
       - "9902:8080"
