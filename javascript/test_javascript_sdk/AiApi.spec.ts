@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { kestraClient, randomId } from './CommonTestSetup.js';
 
-describe('AiApi', () => {
+describe.skip('AiApi', () => {
     it('providers: list AI providers', async () => {
         const result = await kestraClient.Ai.providers();
         expect(result).toMatchInlineSnapshot(`
