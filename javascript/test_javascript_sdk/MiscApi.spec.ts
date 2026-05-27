@@ -23,25 +23,13 @@ describe('MiscApi', () => {
     });
 
     it('mainTenantFlows: returns flows from main tenant', async () => {
-        try {
-            const result = await kestraClient.Misc.mainTenantFlows();
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if ([403, 404, 405].includes(status)) return;
-            throw err;
-        }
+        const result = await kestraClient.Misc.mainTenantFlows();
+        expect(result).toBeDefined();
     });
 
     it('basicAuthConfigErrors: returns basic auth configuration errors', async () => {
-        try {
-            const result = await kestraClient.Misc.basicAuthConfigErrors();
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 403) return;
-            throw err;
-        }
+        const result = await kestraClient.Misc.basicAuthConfigErrors();
+        expect(result).toBeDefined();
     });
 
     it('setupConfiguration: returns setup configuration', async () => {
@@ -60,14 +48,8 @@ describe('MiscApi', () => {
     });
 
     it('generate: generates something', async () => {
-        try {
-            const result = await kestraClient.Misc.generate();
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if ([403, 404, 500].includes(status)) return;
-            throw err;
-        }
+        const result = await kestraClient.Misc.generate();
+        expect(result).toBeDefined();
     });
 
     it('usages: returns usages', async () => {

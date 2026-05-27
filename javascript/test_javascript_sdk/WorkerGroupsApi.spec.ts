@@ -11,14 +11,8 @@ function makeWorkerGroupRequest(): InstanceControllerApiCreateOrUpdateWorkerGrou
 
 describe('WorkerGroupsApi', () => {
     it('listWorkerGroups: lists all worker groups', async () => {
-        try {
-            const result = await kestraClient.WorkerGroups.listWorkerGroups();
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 403) return;
-            throw err;
-        }
+        const result = await kestraClient.WorkerGroups.listWorkerGroups();
+        expect(result).toBeDefined();
     });
 
     it('createWorkerGroup: creates a new worker group', async () => {

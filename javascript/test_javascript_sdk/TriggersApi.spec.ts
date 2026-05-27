@@ -118,13 +118,7 @@ describe('TriggersApiTest', () => {
         // ensure trigger exists
         await ensureTriggerExists(namespace, flowId, triggerId);
 
-        try {
-            await createBackfillForTrigger(flowId, triggerId, namespace);
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if ([404, 400, 422].includes(status)) return; // trigger not registered yet
-            throw err;
-        }
+        await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
         const resp = await kestraClient.Triggers.deleteBackfill(t);
@@ -139,13 +133,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await ensureTriggerExists(namespace, flowId, triggerId);
 
-        try {
-            await createBackfillForTrigger(flowId, triggerId, namespace);
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if ([404, 400, 422].includes(status)) return;
-            throw err;
-        }
+        await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
         const resp = await kestraClient.Triggers.deleteBackfillByIds({ body: [t] });
@@ -160,13 +148,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await ensureTriggerExists(namespace, flowId, triggerId);
 
-        try {
-            await createBackfillForTrigger(flowId, triggerId, namespace);
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if ([404, 400, 422].includes(status)) return;
-            throw err;
-        }
+        await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const resp = await kestraClient.Triggers.deleteBackfillByQuery({ filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId as any }] });
         expect(resp).toBeTruthy();
