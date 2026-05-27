@@ -41,8 +41,27 @@ for KESTRA_VERSION in $versions; do
   }
 
   echo "start tests"
-  log_and_run python3 -m pytest -vv -s --log-cli-format="%(asctime)s [%(levelname)s] %(name)s: %(message)s)" --showlocals --timeout=10
+  set +e
+  python3 -m pytest -v --timeout=10
+  test_rc=$?
+  set -e
+
+  if [ "$test_rc" -ne 0 ]; then
+    echo "tests failed (rc=$test_rc) - dumping Kestra diagnostics before teardown"
+    echo "----- kestra container state -----"
+    docker inspect python-sdk-test-kestra \
+      --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}} Restarts={{.RestartCount}}' || true
+    echo "----- postgres container state -----"
+    docker inspect python-sdk-test-postgres \
+      --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
+    echo "----- kestra logs (last 300 lines) -----"
+    docker compose -f docker-compose-ci.yml logs --no-color --tail 300 kestra || true
+  fi
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down
+
+  if [ "$test_rc" -ne 0 ]; then
+    exit "$test_rc"
+  fi
 done

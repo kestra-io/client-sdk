@@ -17,16 +17,25 @@ __version__ = "1.0.10"
 
 # Define package exports
 __all__ = [
+    "AppsApi",
+    "AssetsApi",
+    "BlueprintsApi",
+    "DashboardsApi",
     "ExecutionsApi",
+    "FilesApi",
     "FlowsApi",
     "GroupsApi",
+    "InvitationsApi",
     "KVApi",
+    "LogsApi",
     "NamespacesApi",
     "RolesApi",
     "ServiceAccountApi",
+    "TestSuitesApi",
     "TriggersApi",
     "UsersApi",
-    "ApiResponse",
+    "BaseApi",
+    "KestraClient",
     "Configuration",
     "OpenApiException",
     "ApiTypeError",
@@ -429,19 +438,27 @@ __all__ = [
 ]
 
 # import apis into sdk package
+from kestrapy.api.apps_api import AppsApi as AppsApi
+from kestrapy.api.assets_api import AssetsApi as AssetsApi
+from kestrapy.api.blueprints_api import BlueprintsApi as BlueprintsApi
+from kestrapy.api.dashboards_api import DashboardsApi as DashboardsApi
 from kestrapy.api.executions_api import ExecutionsApi as ExecutionsApi
+from kestrapy.api.files_api import FilesApi as FilesApi
 from kestrapy.api.flows_api import FlowsApi as FlowsApi
 from kestrapy.api.groups_api import GroupsApi as GroupsApi
+from kestrapy.api.invitations_api import InvitationsApi as InvitationsApi
 from kestrapy.api.kv_api import KVApi as KVApi
+from kestrapy.api.logs_api import LogsApi as LogsApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
+from kestrapy.api.test_suites_api import TestSuitesApi as TestSuitesApi
 from kestrapy.api.triggers_api import TriggersApi as TriggersApi
 from kestrapy.api.users_api import UsersApi as UsersApi
 
-# import ApiClient
-from kestrapy.api_response import ApiResponse as ApiResponse
-from kestrapy.api_client import ApiClient as ApiClient
+# import infrastructure
+from kestrapy.base_api import BaseApi as BaseApi
+from kestrapy.kestra_client import KestraClient as KestraClient
 from kestrapy.configuration import Configuration as Configuration
 from kestrapy.exceptions import OpenApiException as OpenApiException
 from kestrapy.exceptions import ApiTypeError as ApiTypeError
@@ -843,5 +860,3 @@ from kestrapy.models.webhook_response import WebhookResponse as WebhookResponse
 from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
-
-from kestrapy.kestra_client import KestraClient as KestraClient
