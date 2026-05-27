@@ -14,26 +14,26 @@ describe('AssetsApi', () => {
     it('searchAssets: returns a paged result', async () => {
         const result = await kestraClient.Assets.searchAssets({ page: 1, size: 10 });
         expect(result).toBeDefined();
-        expect((result as any).results).toBeDefined();
+        expect(result.results).toBeDefined();
     });
 
     it('searchAssets: with pagination', async () => {
         const result = await kestraClient.Assets.searchAssets({ page: 1, size: 2 });
         expect(result).toBeDefined();
-        const resultSize = (result as any).results?.length ?? 0;
+        const resultSize = (result).results?.length ?? 0;
         expect(resultSize).toBeLessThanOrEqual(2);
     });
 
     it('searchAssetLineageEvents: returns a paged result', async () => {
         const result = await kestraClient.Assets.searchAssetLineageEvents({ page: 1, size: 10 });
         expect(result).toBeDefined();
-        expect((result as any).results).toBeDefined();
+        expect(result.results).toBeDefined();
     });
 
     it('searchAssetUsages: returns a paged result', async () => {
         const result = await kestraClient.Assets.searchAssetUsages({ page: 1, size: 10 });
         expect(result).toBeDefined();
-        expect((result as any).results).toBeDefined();
+        expect(result.results).toBeDefined();
     });
 
     it('createAsset: creates an asset from YAML', async () => {
@@ -45,26 +45,23 @@ describe('AssetsApi', () => {
     it('asset: retrieves a created asset', async () => {
         const id = randomId();
         const created = await kestraClient.Assets.createAsset({ body: assetYaml(id) });
-        const assetId = (created as any).id ?? (created as any).uid;
 
-        const fetched = await kestraClient.Assets.asset({ id: assetId });
+        const fetched = await kestraClient.Assets.asset({ id: created.id ?? "" });
         expect(fetched).toBeDefined();
     });
 
     it('deleteAsset: deletes a created asset', async () => {
         const id = randomId();
         const created = await kestraClient.Assets.createAsset({ body: assetYaml(id) });
-        const assetId = (created as any).id ?? (created as any).uid;
 
-        await kestraClient.Assets.deleteAsset({ id: assetId });
+        await kestraClient.Assets.deleteAsset({ id: created.id ?? "" });
     });
 
     it('assetDependencies: retrieves dependencies for an asset', async () => {
         const id = randomId();
         const created = await kestraClient.Assets.createAsset({ body: assetYaml(id) });
-        const assetId = (created as any).id ?? (created as any).uid;
 
-        const result = await kestraClient.Assets.assetDependencies({ id: assetId });
+        const result = await kestraClient.Assets.assetDependencies({ id: created.id ?? "" });
         expect(result).toBeDefined();
     });
 });

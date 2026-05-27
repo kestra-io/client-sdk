@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { kestraClient, randomId } from './CommonTestSetup.js';
-import type { AiControllerFlowGenerationPrompt, AiControllerDashboardGenerationPrompt, TestSuiteGenerationPrompt } from '@kestra-io/kestra-sdk';
 
 describe('AiApi', () => {
     it('providers: list AI providers', async () => {
@@ -37,23 +36,19 @@ describe('AiApi', () => {
     });
 
     it('generateDashboard: generate a dashboard from a prompt', async () => {
-        const prompt: AiControllerDashboardGenerationPrompt = {
+        const result = await kestraClient.Ai.generateDashboard({
             conversationId: randomId(),
             userPrompt: 'Create a dashboard showing execution status',
-        };
-
-        const result = await kestraClient.Ai.generateDashboard(prompt);
+        });
         expect(result).toBeDefined();
 
     });
 
     it('generateTestSuite: generate a test suite for a flow', async () => {
-        const prompt: TestSuiteGenerationPrompt = {
+        const result = await kestraClient.Ai.generateTestSuite({
             conversationId: randomId(),
             userPrompt: 'Generate tests for a simple log flow',
-        };
-
-        const result = await kestraClient.Ai.generateTestSuite(prompt);
+        });
         expect(result).toBeDefined();
 
     });

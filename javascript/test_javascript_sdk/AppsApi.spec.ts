@@ -61,14 +61,8 @@ describe('AppsApi', () => {
         const updatedSrc = originalSrc.replace('# Test App', `# Test App Updated ${randomId()}`);
         const body = updatedSrc || originalSrc;
 
-        try {
-            const updated = await kestraClient.Apps.updateApp({ uid, body });
-            expect(updated).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 304) return; // Not Modified is acceptable
-            throw err;
-        }
+        const updated = await kestraClient.Apps.updateApp({ uid, body });
+        expect(updated).toBeDefined();
     });
 
     it('deleteApp: deletes an existing app', async () => {
