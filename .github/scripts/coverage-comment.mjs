@@ -35,41 +35,6 @@ const { GITHUB_REPOSITORY: repo, PR_NUMBER: prNumber } = process.env;
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** Cache of source file lines keyed by absolute file path. */
-const fileLineCache = new Map();
-
-/**
- * Returns the source line (1-based) from a file, or "" if unreadable.
- * @param {string} filePath
- * @param {number|undefined} lineNumber
- */
-function getSourceLine(filePath, lineNumber) {
-    if (lineNumber == null) return "";
-    if (!fileLineCache.has(filePath)) {
-        try {
-            fileLineCache.set(
-                filePath,
-                readFileSync(filePath, "utf8").split("\n"),
-            );
-        } catch {
-            fileLineCache.set(filePath, []);
-        }
-    }
-    return fileLineCache.get(filePath)[lineNumber - 1] ?? "";
-}
-
-/**
- * Tries to extract the variable name from lines like:
- *   export const generateApp = () => {}
- *   const generateApp = async () => {}
- * Returns null if no match.
- * @param {string} line
- */
-function extractConstName(line) {
-    const m = line.match(/(?:export\s+)?const\s+(\w+)\s*=/);
-    return m ? m[1] : null;
-}
-
 // ---------------------------------------------------------------------------
 // Parse coverage data
 // ---------------------------------------------------------------------------
@@ -91,12 +56,10 @@ for (const [filePath, data] of Object.entries(coverage)) {
         totalFunctions++;
         if (count === 0) {
             const fn = data.fnMap[key];
-            const declLine = fn?.decl?.start?.line;
-            const isAnonymous = !fn?.name || /^\(anonymous/.test(fn.name);
-            const name = isAnonymous
-                ? (extractConstName(getSourceLine(filePath, declLine)) ??
-                  `<anonymous:${declLine ?? "?"}>`)
-                : fn.name;
+            const name =
+                fn?.name && !/^\(anonymous/.test(fn.name)
+                    ? fn.name
+                    : `<anonymous:${fn?.decl?.start?.line ?? "?"}>`;
             uncovered.push(name);
         } else {
             coveredFunctions++;

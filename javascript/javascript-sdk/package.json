@@ -22,6 +22,7 @@
     "./client": "./dist/client.js",
     "./cluster": "./dist/cluster.js",
     "./dashboards": "./dist/dashboards.js",
+    "./dashboards-admin": "./dist/dashboards-admin.js",
     "./executions": "./dist/executions.js",
     "./files": "./dist/files.js",
     "./flows": "./dist/flows.js",
@@ -31,6 +32,7 @@
     "./kv": "./dist/kv.js",
     "./login": "./dist/login.js",
     "./logs": "./dist/logs.js",
+    "./mcp": "./dist/mcp.js",
     "./metrics": "./dist/metrics.js",
     "./misc": "./dist/misc.js",
     "./namespaces": "./dist/namespaces.js",
@@ -46,11 +48,14 @@
     "./services": "./dist/services.js",
     "./shared": "./dist/shared.js",
     "./tenant-access": "./dist/tenant-access.js",
+    "./tenant-access-admin": "./dist/tenant-access-admin.js",
     "./tenants": "./dist/tenants.js",
+    "./tenants-admin": "./dist/tenants-admin.js",
     "./test-suites": "./dist/test-suites.js",
     "./triggers": "./dist/triggers.js",
     "./users": "./dist/users.js",
     "./worker-auth": "./dist/worker-auth.js",
+    "./worker-auth-admin": "./dist/worker-auth-admin.js",
     "./worker-groups": "./dist/worker-groups.js",
     "./package.json": "./package.json"
   },
@@ -64,14 +69,14 @@
   },
   "dependencies": {
     "nprogress": "0.2.0",
-    "axios": "1.13.6"
+    "axios": "1.16.1"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.96.0",
-    "@types/node": "^25.5.0",
-    "@types/nprogress": "^0.2.0",
-    "tsdown": "^0.21.7",
-    "typescript": "^6.0.2"
+    "@hey-api/openapi-ts": "^0.97.3",
+    "@types/node": "^25.9.1",
+    "@types/nprogress": "^0.2.3",
+    "tsdown": "^0.22.0",
+    "typescript": "^6.0.3"
   },
   "files": [
     "dist/**/*.js",

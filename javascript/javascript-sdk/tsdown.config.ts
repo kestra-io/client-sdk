@@ -7,7 +7,7 @@ export const sdkEntries = Object.fromEntries(
         .filter(f => f.endsWith(".gen.ts"))
         .map(f => {
             // Strip ".gen.ts" suffix: "Outputs.gen.ts" → "outputs"
-            const name = f.replace(/\.gen\.ts$/, "").replace(/([a-z])([A-Z])/, "$1-$2").replace(/ /g, "-").toLowerCase()
+            const name = f.replace(/\.gen\.ts$/, "").replace(/([a-z])([A-Z])/g, "$1-$2").replace(/ /g, "-").toLowerCase()
             return [name, `src/openapi/sdk/${f}`]
         })
 )
