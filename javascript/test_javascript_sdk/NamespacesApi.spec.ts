@@ -39,7 +39,7 @@ describe('NamespacesApi', () => {
         await kestraClient.Namespaces.deleteNamespace({ id: created.id });
 
         await expect(() =>
-            (kestraClient.Namespaces.namespace_?.({ id: created.id }))
+            (kestraClient.Namespaces.loadNamespace({ id: created.id }))
         ).rejects.toThrow();
     });
 
@@ -57,7 +57,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({ id: nsId, deleted: false });
 
         const fetched =
-            await kestraClient.Namespaces.namespace_?.({ id: created.id });
+            await kestraClient.Namespaces.loadNamespace?.({ id: created.id });
 
         expect(fetched.id).toBe(created.id);
     });
