@@ -431,6 +431,24 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/maintenance/status:
+    get:
+      tags:
+      - Cluster
+      - Maintenance
+      summary: Get maintenance mode status
+      description: Returns maintenance mode status and per-service readiness.
+      operationId: maintenanceStatus
+      responses:
+        "200":
+          description: maintenanceStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaintenanceStatusResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/mcp/servers:
     get:
       tags:
@@ -21036,6 +21054,39 @@ components:
           nullable: true
         value:
           type: string
+    MaintenanceStatusResponse:
+      type: object
+      properties:
+        maintenance:
+          type: boolean
+        ready:
+          type: boolean
+        services:
+          type: object
+          properties:
+            EXECUTOR:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            INDEXER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            SCHEDULER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            WEBSERVER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            WORKER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            CONTROLLER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            INVALID:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+    MaintenanceStatusResponse.ServiceStatus:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        inMaintenance:
+          type: integer
+          format: int32
     Map_Object.Object_:
       type: object
       properties:
