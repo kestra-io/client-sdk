@@ -20372,6 +20372,18 @@ components:
         - BUSINESS
         - DATA
         - INFRASTRUCTURE
+      x-deprecated:
+        - DATABASE
+        - MESSAGING
+        - SCRIPT
+        - TRANSFORMATION
+        - BATCH
+        - ALERTING
+        - STORAGE
+        - OTHER
+        - TOOL
+        - INGESTION
+        - BI
     PluginUiManifest:
       type: object
       properties:
