@@ -12377,6 +12377,36 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}/tools:
+    get:
+      tags:
+      - Mcp
+      summary: List tools exposed by an MCP server
+      operationId: listTools
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listTools 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/McpServerController.ApiMcpTool"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
     get:
       tags:
@@ -17319,6 +17349,17 @@ components:
           description: Authentication type for private servers.
           allOf:
           - $ref: "#/components/schemas/McpServer.AuthType"
+        oauthProvider:
+          type: string
+          description: OAuth provider key from micronaut.security.oauth2.clients.
+            Required when authType is OAUTH.
+        oauthScopesSupported:
+          type: array
+          description: Scopes advertised in the server's RFC 9728 Protected Resource
+            Metadata document. Only meaningful when authType is OAUTH. When null or
+            empty the field is omitted from the PRM document.
+          items:
+            type: string
         disabled:
           type: boolean
           description: Whether the MCP server is disabled.
@@ -21009,12 +21050,63 @@ components:
       enum:
       - BASIC
       - API_TOKEN
+      - OAUTH
     McpServer.ServerType:
       type: string
       description: Visibility of the server.
       enum:
       - PRIVATE
       - PUBLIC
+    McpServerController.ApiMcpTool:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Unique MCP tool identifier (the trigger's `toolName`). This
+            is the name AI agents use to invoke the tool.
+        triggerId:
+          type: string
+          description: Trigger id within the flow (the `id` field of the McpToolTrigger).
+            Distinct from `toolName`.
+        title:
+          type: string
+          description: Human-readable display title shown to AI agents.
+        description:
+          type: string
+          description: Description of what the tool does and when an AI agent should
+            call it.
+        annotations:
+          description: MCP tool behavioural annotations.
+          allOf:
+          - $ref: "#/components/schemas/McpServerController.ApiMcpTool.Annotations"
+        namespace:
+          type: string
+          description: Namespace of the flow that defines this tool.
+        flowId:
+          type: string
+          description: Id of the flow that defines this tool.
+        flowRevision:
+          type: integer
+          description: Revision of the flow that defines this tool.
+          format: int32
+        disabled:
+          type: boolean
+          description: Whether this tool is currently disabled (trigger disabled or
+            flow disabled).
+    McpServerController.ApiMcpTool.Annotations:
+      type: object
+      properties:
+        readOnly:
+          type: boolean
+        openWorld:
+          type: boolean
+        destructive:
+          type: boolean
+        idempotent:
+          type: boolean
+        returnDirect:
+          type: boolean
+      description: MCP tool behavioural annotations.
     MeController.ApiMe:
       type: object
       properties:
