@@ -24012,6 +24012,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Assertion"
+        expectedState:
+          $ref: "#/components/schemas/State.Type"
     UnitTestResult:
       required:
       - assertionResults
