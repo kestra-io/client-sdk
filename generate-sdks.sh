@@ -135,7 +135,7 @@ fi
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 cd javascript
 npm version $VERSION --no-git-tag-version --workspace @kestra-io/kestra-sdk --allow-same-version
-npm install
+npm ci
 npm run build
 cd ..
 fi
