@@ -16167,6 +16167,17 @@ paths:
           nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which trigger date field the time interval is applied to
+        explode: false
+        schema:
+          type: string
+          nullable: true
+          enum:
+          - NEXT_EXECUTION_DATE
+          - LAST_TRIGGERED_DATE
+          x-type: String
       - name: tenant
         in: path
         required: true
@@ -22594,6 +22605,10 @@ components:
       - EXTERNAL_ID
       - EXPIRED_AT
       - SUPER_ADMIN
+      - SOURCE
+      - LOCKED
+      - LAST_TRIGGERED_DATE
+      - NEXT_EXECUTION_DATE
       x-type: String
     QueryFilter.Logical:
       type: string
