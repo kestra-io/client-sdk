@@ -22749,6 +22749,12 @@ components:
           $ref: "#/components/schemas/QueryFilter.Op"
         value:
           type: object
+        logical:
+          $ref: "#/components/schemas/QueryFilter.Logical"
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
     QueryFilter.Field:
       type: string
       enum:
@@ -22797,6 +22803,12 @@ components:
       - GROUP
       - EXPIRED_AT
       - SUPER_ADMIN
+      x-type: String
+    QueryFilter.Logical:
+      type: string
+      enum:
+      - AND
+      - OR
       x-type: String
     QueryFilter.Op:
       type: string
