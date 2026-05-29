@@ -170,14 +170,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: A list of query filters
@@ -568,26 +560,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: state
-        in: query
-        description: "The state filter (deprecated, use filters instead)"
-        deprecated: true
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/Service.ServiceState"
-      - name: type
-        in: query
-        description: "The server type filter (deprecated, use filters instead)"
-        deprecated: true
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/ServiceType"
       - name: filters
         in: query
         description: Filters
@@ -664,14 +636,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: The query
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -2216,14 +2180,6 @@ paths:
       summary: 'List service accounts. Superadmin-only. '
       operationId: listServiceAccounts
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -2605,13 +2561,6 @@ paths:
       description: Superadmin-only.
       operationId: find
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -2937,14 +2886,6 @@ paths:
       summary: Retrieve users
       operationId: listUsers
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -3738,14 +3679,6 @@ paths:
           type: integer
           format: int32
           default: 10
-      - name: q
-        in: query
-        description: String filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -3960,36 +3893,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: namespace
-        in: query
-        description: A namespace filter prefix
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: flowId
-        in: query
-        description: A flow id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -5110,14 +5013,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: A list of query filters
@@ -5273,14 +5168,6 @@ paths:
       summary: Search for bindings
       operationId: searchBindings
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -10697,14 +10584,6 @@ paths:
       summary: Search for groups
       operationId: searchGroups
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -10856,14 +10735,6 @@ paths:
       summary: Search for users in a group
       operationId: searchGroupMembers
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: id
         in: path
         description: The group id
@@ -11945,23 +11816,6 @@ paths:
       description: "Search and filter invitations by email, status, and pagination."
       operationId: searchInvitations
       parameters:
-      - name: email
-        in: query
-        description: The email address of the invited
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: status
-        in: query
-        description: The current status of the invitations
-        deprecated: true
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Invitation.InvitationStatus"
       - name: page
         in: query
         description: The current page
@@ -14409,14 +14263,6 @@ paths:
       summary: Search for roles
       operationId: searchRoles
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -15091,14 +14937,6 @@ paths:
       summary: Retrieve users belonging to the tenant
       operationId: listTenantAccess
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -15124,14 +14962,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: type
-        in: query
-        description: The type of user
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/UserType"
       - name: filters
         in: query
         description: Filters
