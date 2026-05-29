@@ -22761,6 +22761,7 @@ components:
       - USERNAME
       - NAME
       - GROUP
+      - EXTERNAL_ID
       - EXPIRED_AT
       - SUPER_ADMIN
       x-type: String
