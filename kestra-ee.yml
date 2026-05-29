@@ -12204,36 +12204,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: taskId
-        in: query
-        description: The task id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: attempt
-        in: query
-        description: The attempt number
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -12317,36 +12296,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: taskId
-        in: query
-        description: The task id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: attempt
-        in: query
-        description: The attempt number
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -12376,14 +12334,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -22787,13 +22746,14 @@ components:
       - EXECUTION_ID
       - TASK_ID
       - TASK_RUN_ID
+      - ATTEMPT_NUMBER
       - CHILD_FILTER
       - WORKER_ID
       - EXISTING_ONLY
       - USER_ID
       - RESOURCES
       - DETAILS
-      - MIN_LEVEL
+      - LEVEL
       - PATH
       - PARENT_PATH
       - VERSION
