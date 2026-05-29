@@ -5171,13 +5171,6 @@ paths:
         blueprints are shared and versioned.
       operationId: searchBlueprints
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: sort
         in: query
         description: The sort of current page
@@ -5185,15 +5178,6 @@ paths:
         schema:
           type: string
           nullable: true
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
       - name: page
         in: query
         description: The current page
@@ -5218,6 +5202,15 @@ paths:
         required: true
         schema:
           $ref: "#/components/schemas/BlueprintController.Kind"
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5248,13 +5241,15 @@ paths:
         required: true
         schema:
           $ref: "#/components/schemas/BlueprintController.Kind"
-      - name: q
+      - name: filters
         in: query
-        description: A string filter to get tags with matching blueprints only
+        description: A list of query filters
         explode: false
         schema:
-          type: string
+          type: array
           nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5389,13 +5384,6 @@ paths:
         Requires BLUEPRINT permission.
       operationId: searchInternalBlueprints
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: sort
         in: query
         description: The sort of current page
@@ -5403,15 +5391,6 @@ paths:
         schema:
           type: string
           nullable: true
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
       - name: page
         in: query
         description: The current page
@@ -5436,6 +5415,15 @@ paths:
           type: boolean
           nullable: true
           default: false
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5491,13 +5479,15 @@ paths:
         tenant.
       operationId: internalBlueprintTags
       parameters:
-      - name: q
+      - name: filters
         in: query
-        description: A string filter to get tags with matching blueprints only
+        description: A list of query filters
         explode: false
         schema:
-          type: string
+          type: array
           nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
