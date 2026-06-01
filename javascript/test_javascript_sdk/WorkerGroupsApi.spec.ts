@@ -28,7 +28,7 @@ describe('WorkerGroupsApi', () => {
         const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
         const id = (created as any).id;
 
-        const result = await kestraClient.WorkerGroups.getWorkerGroups({ id });
+        const result = await kestraClient.WorkerGroups.get({ id });
         expect(result).toBeDefined();
         expect((result as any).id).toBe(id);
     });

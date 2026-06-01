@@ -144,7 +144,32 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     const operationsDict: Record<string, { symbol: ReturnType<typeof plugin.symbol>, methodName: string }[]> = {}
 
+    // Pre-scan: count how many operations share the same base name (the (\w+) part of (\w+)_(\d+))
+    // within each output file. Used to decide whether to strip the numeric suffix.
+    const baseNameCountPerFile: Record<string, Record<string, number>> = {};
 
+    plugin.forEach(
+        "operation",
+        ({ operation }) => {
+            const methodName = plugin.config.methodNameBuilder?.(operation);
+            if (!methodName) return;
+
+            const match = /^(\w+)_(\d+)$/.exec(methodName);
+            if (!match) return;
+
+            const baseName = match[1];
+            const tag = operation.tags?.[0] ?? "default";
+            const filePath = operation.operationId && /_\d+$/.test(operation.operationId)
+                ? `sdk/${pascalCase(tag)}Admin`
+                : `sdk/${pascalCase(tag)}`;
+
+            if (!baseNameCountPerFile[filePath]) {
+                baseNameCountPerFile[filePath] = {};
+            }
+            baseNameCountPerFile[filePath][baseName] = (baseNameCountPerFile[filePath][baseName] ?? 0) + 1;
+        },
+        { order: "declarations" },
+    );
 
     plugin.forEach(
         "operation",
@@ -169,21 +194,30 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
             const originalOperationSymbol = $(sym);
 
-            const funcSymbol = plugin.symbol(methodName, {
+            // Resolve the output file path for this operation (same logic as getFilePath below)
+            const tag = operation.tags?.[0] ?? "default";
+            const operationFilePath = operation.operationId && /_\d+$/.test(operation.operationId)
+                ? `sdk/${pascalCase(tag)}Admin`
+                : `sdk/${pascalCase(tag)}`;
+
+            // Strip numeric suffix (e.g. get_3 → get) when it is the only occurrence in its file
+            const numericSuffixMatch = /^(\w+)_(\d+)$/.exec(methodName);
+            const effectiveMethodName = numericSuffixMatch &&
+                baseNameCountPerFile[operationFilePath]?.[numericSuffixMatch[1]] === 1
+                ? numericSuffixMatch[1]
+                : methodName;
+
+            const funcSymbol = plugin.symbol(effectiveMethodName, {
                 getFilePath() {
-                    const tag = operation.tags?.[0] ?? "default";
                     // operation has a _\d+ suffix (indicating admin access, postfix the file name with Admin to avoid confusion)
-                    if (operation.operationId && /_\d+$/.test(operation.operationId)) {
-                        return `sdk/${pascalCase(tag)}Admin`;
-                    }
-                    return `sdk/${pascalCase(tag)}`;
+                    return operationFilePath;
                 }
             })
 
             if (!operationsDict[operation.tags?.[0] ?? "default"]) {
                 operationsDict[operation.tags?.[0] ?? "default"] = [];
             }
-            operationsDict[operation.tags?.[0] ?? "default"].push({ symbol: funcSymbol, methodName });
+            operationsDict[operation.tags?.[0] ?? "default"].push({ symbol: funcSymbol, methodName: effectiveMethodName });
 
             const hasTenant = pathParams && "tenant" in pathParams;
 
