@@ -88,7 +88,7 @@ jobs:
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: type check
-        run: npm run test:typecheck
+        run: npm run check:types
 
       - name: Select license file
         id: license

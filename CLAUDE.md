@@ -31,7 +31,7 @@ This runs the OpenAPI generator, installs npm dependencies, and builds the SDK. 
 ```bash
 cd javascript
 npm test                        # run all tests
-npm run test:typecheck          # TypeScript type checking
+npm run check:types          # TypeScript type checking
 ```
 
 Tests require a running Kestra instance at `http://localhost:9903` with credentials `root@root.com` / `Root!1234`.
