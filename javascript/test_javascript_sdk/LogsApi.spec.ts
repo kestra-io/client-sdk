@@ -38,7 +38,13 @@ describe('LogsApi', () => {
 
     it('listLogsFromExecution: filters by level', async () => {
         const executionId = await createExecutionWithLogs();
-        const result = await kestraClient.Logs.listLogsFromExecution({ executionId, minLevel: 'INFO' });
+        const result = await kestraClient.Logs.listLogsFromExecution({
+            executionId, filters: [{
+                field: "LEVEL",
+                operation: "GREATER_THAN_OR_EQUAL_TO",
+                value: "INFO"
+            }]
+        });
         expect(result).toBeDefined();
         expect(Array.isArray(result)).toBe(true);
     });
