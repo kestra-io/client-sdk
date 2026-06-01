@@ -13,7 +13,11 @@ const defaultConfig: KestraSdkPlugin["Config"] = {
             }
             if (["get", "delete"].includes(operation.operationId)) {
                 const tag = operation.tags?.[0] ?? "default";
-                return operation.operationId + tag.charAt(0).toUpperCase() + tag.slice(1);
+                const capitalizedTag = tag.charAt(0).toUpperCase()
+                    + tag.slice(1).replace(/[_ ][a-zA-Z0-9]/g, (match: string) =>
+                        match.charAt(1).toUpperCase()
+                    ).replace(/[^a-zA-Z0-9]/g, '');
+                return operation.operationId + capitalizedTag;
             }
             return operation.operationId
         }
