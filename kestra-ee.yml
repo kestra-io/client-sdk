@@ -266,6 +266,16 @@ paths:
       summary: Retrieve all announcement banners
       description: Superadmin-only. Returns all global announcement banners.
       operationId: searchBanners
+      parameters:
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: searchBanners 200 response
@@ -927,6 +937,16 @@ paths:
       description: SuperAdmin only. Lists all worker groups with their configuration
         and token summaries.
       operationId: list
+      parameters:
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: list 200 response
@@ -1838,15 +1858,48 @@ paths:
       - Plugins
       summary: Get list of plugins
       operationId: listPlugins
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10000
+      - name: sort
+        in: query
+        description: A list of sort fields
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: listPlugins 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Plugin"
+                $ref: "#/components/schemas/PagedResults_Plugin_"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -17703,6 +17756,8 @@ components:
         lastTriggeredDate:
           type: string
           format: date-time
+        executionId:
+          type: string
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
@@ -22086,6 +22141,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_Plugin_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Plugin"
+        total:
+          type: integer
+          format: int64
     PagedResults_SearchResult_Flow__:
       required:
       - results
@@ -22650,6 +22718,8 @@ components:
       - LOCKED
       - LAST_TRIGGERED_DATE
       - NEXT_EXECUTION_DATE
+      - ARTIFACT_ID
+      - KEY
       x-type: String
     QueryFilter.Logical:
       type: string
