@@ -86,7 +86,15 @@ describe('BlueprintsApi', () => {
     });
 
     it('searchInternalBlueprints: paged result with query', async () => {
-        const result = await kestraClient.Blueprints.searchInternalBlueprints({ page: 1, size: 5, q: 'test' });
+        const result = await kestraClient.Blueprints.searchInternalBlueprints({
+            page: 1,
+            size: 5,
+            filters: [{
+                field: 'QUERY',
+                operation: 'EQUALS',
+                value: 'test'
+            }],
+        });
         expect(result).toBeDefined();
     });
 });

@@ -153,19 +153,10 @@ async function awaitExecution(
     // eslint-disable-next-line no-constant-condition
     while (true) {
         let last = {} as ApiExecution;
-        // try {
+
         last = await kestraClient.Executions.execution({
             executionId,
         });
-        // } catch (e) {
-        //     if (e instanceof Error && e.message.includes("404")) {
-        //         if (process.env.DEBUG) {
-        //             console.log(`Execution ${executionId} not found, waiting...`);
-        //         }
-        //     } else {
-        //         throw e;
-        //     }
-        // }
 
         if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
