@@ -995,6 +995,8 @@ describe("ExecutionsApi", () => {
         );
     });
 
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
     // --- trigger by GET webhook ---
     it("trigger_execution_by_get_webhook", async () => {
         const namespace = randomId();
@@ -1006,6 +1008,10 @@ describe("ExecutionsApi", () => {
                 id,
                 key: "a-secret-key",
             });
+
+        // wait for the webhook-triggered execution to start
+        // and update its state from QUEUED to RUNNING
+        await wait(500);
         expect(resp).toBeTruthy();
         const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
         expect(done.state?.current).toBe("SUCCESS");
