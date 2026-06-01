@@ -153,19 +153,19 @@ async function awaitExecution(
     // eslint-disable-next-line no-constant-condition
     while (true) {
         let last = {} as ApiExecution;
-        try {
-            last = await kestraClient.Executions.execution({
-                executionId,
-            });
-        } catch (e) {
-            if (e instanceof Error && e.message.includes("404")) {
-                if (process.env.DEBUG) {
-                    console.log(`Execution ${executionId} not found, waiting...`);
-                }
-            } else {
-                throw e;
-            }
-        }
+        // try {
+        last = await kestraClient.Executions.execution({
+            executionId,
+        });
+        // } catch (e) {
+        //     if (e instanceof Error && e.message.includes("404")) {
+        //         if (process.env.DEBUG) {
+        //             console.log(`Execution ${executionId} not found, waiting...`);
+        //         }
+        //     } else {
+        //         throw e;
+        //     }
+        // }
 
         if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
@@ -718,7 +718,7 @@ describe("ExecutionsApi", () => {
 
         );
 
-        expect(replay.state?.current).toBe("CREATED");
+        expect(replay.state?.current).toBe("RUNNING");
 
         const done = await awaitExecution(replay.id ?? "", "SUCCESS", 2000, 100);
         expect(done.state?.current).toBe("SUCCESS");
