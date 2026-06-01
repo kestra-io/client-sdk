@@ -96,7 +96,7 @@ export const configureAxios = (
         },
         authStore?: {
             isLogged?: boolean;
-            logout: () => Promise<void>;
+            logout: () => Promise<boolean>;
         },
         beforeLogout?: () => void
         isImpersonating?: () => boolean

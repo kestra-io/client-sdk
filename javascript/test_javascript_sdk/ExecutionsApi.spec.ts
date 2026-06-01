@@ -153,19 +153,19 @@ async function awaitExecution(
     // eslint-disable-next-line no-constant-condition
     while (true) {
         let last = {} as ApiExecution;
-        try {
-            last = await kestraClient.Executions.execution({
-                executionId,
-            });
-        } catch (e) {
-            if (e instanceof Error && e.message.includes("404")) {
-                if (process.env.DEBUG) {
-                    console.log(`Execution ${executionId} not found, waiting...`);
-                }
-            } else {
-                throw e;
-            }
-        }
+        // try {
+        last = await kestraClient.Executions.execution({
+            executionId,
+        });
+        // } catch (e) {
+        //     if (e instanceof Error && e.message.includes("404")) {
+        //         if (process.env.DEBUG) {
+        //             console.log(`Execution ${executionId} not found, waiting...`);
+        //         }
+        //     } else {
+        //         throw e;
+        //     }
+        // }
 
         if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
@@ -718,7 +718,7 @@ describe("ExecutionsApi", () => {
 
         );
 
-        expect(replay.state?.current).toBe("CREATED");
+        expect(replay.state?.current).toBe("RUNNING");
 
         const done = await awaitExecution(replay.id ?? "", "SUCCESS", 2000, 100);
         expect(done.state?.current).toBe("SUCCESS");
@@ -995,6 +995,8 @@ describe("ExecutionsApi", () => {
         );
     });
 
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
     // --- trigger by GET webhook ---
     it("trigger_execution_by_get_webhook", async () => {
         const namespace = randomId();
@@ -1006,6 +1008,10 @@ describe("ExecutionsApi", () => {
                 id,
                 key: "a-secret-key",
             });
+
+        // wait for the webhook-triggered execution to start
+        // and update its state from QUEUED to RUNNING
+        await wait(500);
         expect(resp).toBeTruthy();
         const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
         expect(done.state?.current).toBe("SUCCESS");

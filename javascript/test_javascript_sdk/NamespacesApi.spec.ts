@@ -135,10 +135,19 @@ describe('NamespacesApi', () => {
         const nsId = `test_search_namespaces_${randomId()}`;
         const ns = await kestraClient.Namespaces.createNamespace({ id: nsId, deleted: false });
 
-        const page = await kestraClient.Namespaces.searchNamespaces({ page: 1, size: 10, existing: false, q: nsId });
+        const page = await kestraClient.Namespaces.searchNamespaces({
+            page: 1,
+            size: 10,
+            existing: false,
+            filters: [{
+                field: "NAMESPACE",
+                operation: "EQUALS",
+                value: nsId
+            }],
+        });
         const results = page?.results ?? [];
 
-        expect(results.some(r => r.id === ns.id)).toBeTruthy();
+        expect(results).toContainEqual(expect.objectContaining({ id: ns.id }));
     });
 
     it('update_namespace: Update a namespace', async () => {
