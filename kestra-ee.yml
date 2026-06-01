@@ -850,6 +850,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/release-notes:
+    get:
+      tags:
+      - Plugins
+      summary: Fetch release notes content for a plugin version
+      description: Superadmin-only. Fetches and returns the Markdown release notes
+        for a given plugin artifact version.
+      operationId: getPluginReleaseNotesContent
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: query
+        required: true
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPluginReleaseNotesContent 200 response
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version}:
     get:
       tags:
@@ -20654,6 +20689,9 @@ components:
           type: array
           items:
             type: string
+        releaseNotesUrl:
+          type: string
+          nullable: true
     InstanceController.ApiPluginArtifactList_PluginArtifact_:
       type: object
       properties:
@@ -20734,6 +20772,9 @@ components:
           type: string
         metadata:
           $ref: "#/components/schemas/PluginArtifactMetadata"
+        releaseNotesUrl:
+          type: string
+          nullable: true
     InstanceController.ApiServerInstance:
       type: object
       properties:
