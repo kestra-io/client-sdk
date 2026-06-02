@@ -68,6 +68,10 @@ func (c *KestraClient) Roles() *RolesAPI {
 	return &RolesAPI{baseAPI{client: c}}
 }
 
+func (c *KestraClient) Bindings() *BindingsAPI {
+	return &BindingsAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Triggers() *TriggersAPI {
 	return &TriggersAPI{baseAPI{client: c}}
 }
