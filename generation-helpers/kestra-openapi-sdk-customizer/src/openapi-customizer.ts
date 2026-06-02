@@ -225,6 +225,9 @@ export function sanitizeOpenAPI(
     //    stream type is the inner Execution/X type, not the envelope type.
     unwrapSseEventResponses(spec)
 
+    // 10) Fix parameters declared as `in: query` that actually appear as {param} in the path template.
+    fixMisclassifiedPathParams(spec)
+
     return counters;
 }
 
@@ -488,4 +491,42 @@ export function unwrapSseEventResponses(spec: any): number {
     }
 
     return unwrapped;
+}
+
+/**
+ * Fix parameters that are declared `in: query` but whose name appears as a
+ * `{name}` template variable in the path — i.e. they are path parameters.
+ *
+ * Workaround for upstream specs where the `in` field is wrong.
+ */
+export function fixMisclassifiedPathParams(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    let fixed = 0;
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        const pathVars = new Set(
+            [...path.matchAll(/\{(\w+)\}/g)].map((m) => m[1])
+        );
+        if (pathVars.size === 0) continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op?.parameters) continue;
+
+            for (const param of op.parameters) {
+                if (!param || typeof param !== "object") continue;
+                if (param.in === "query" && pathVars.has(param.name)) {
+                    param.in = "path";
+                    fixed += 1;
+                    console.debug(`fixMisclassifiedPathParams: ${param.name} in ${op.operationId} (${path}) changed query -> path`);
+                }
+            }
+        }
+    }
+
+    return fixed;
 }
