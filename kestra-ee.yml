@@ -22748,7 +22748,6 @@ components:
       - LAST_TRIGGERED_DATE
       - NEXT_EXECUTION_DATE
       - ARTIFACT_ID
-      - KEY
       x-type: String
     QueryFilter.Logical:
       type: string
