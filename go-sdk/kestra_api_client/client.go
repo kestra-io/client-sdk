@@ -115,3 +115,7 @@ func (c *KestraClient) Logs() *LogsAPI {
 func (c *KestraClient) Blueprints() *BlueprintsAPI {
 	return &BlueprintsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Invitations() *InvitationsAPI {
+	return &InvitationsAPI{baseAPI{client: c}}
+}
