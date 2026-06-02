@@ -13,8 +13,8 @@ func (a *KvAPI) SetKeyValue(ctx context.Context, namespace, key, tenant, body st
 	return a.doVoidText(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, nil)
 }
 
-func (a *KvAPI) KeyValue(ctx context.Context, namespace, key, tenant string) (*KVControllerKvDetail, error) {
-	return doJSON[*KVControllerKvDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "kv", key), nil, nil)
+func (a *KvAPI) KeyValue(ctx context.Context, namespace, key, tenant string) (*KvDetail, error) {
+	return doJSON[*KvDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "kv", key), nil, nil)
 }
 
 func (a *KvAPI) DeleteKeyValue(ctx context.Context, namespace, key, tenant string) (*bool, error) {

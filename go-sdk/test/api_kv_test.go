@@ -13,14 +13,14 @@ const (
 	parentNamespace = "test"
 )
 
-func kvValue(typed *kestra_api_client.KVControllerKvDetail) interface{} {
+func kvValue(typed *kestra_api_client.KvDetail) interface{} {
 	if typed == nil {
 		return nil
 	}
 	return typed.Value
 }
 
-func assertKVValue(t *testing.T, fetched *kestra_api_client.KVControllerKvDetail, err error, expectedType kestra_api_client.KVType, expectedValue interface{}) {
+func assertKVValue(t *testing.T, fetched *kestra_api_client.KvDetail, err error, expectedType kestra_api_client.KVType, expectedValue interface{}) {
 	t.Helper()
 	require.NoError(t, err)
 	require.NotNil(t, fetched)
