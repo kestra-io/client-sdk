@@ -9,14 +9,8 @@ describe('InvitationsApi', () => {
     });
 
     it('searchInvitations: returns a paged result', async () => {
-        try {
-            const result = await kestraClient.Invitations.searchInvitations({ page: 1, size: 10 });
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 422) return; // may fail when SMTP/invitations are not configured
-            throw err;
-        }
+        const result = await kestraClient.Invitations.searchInvitations({ page: 1, size: 10 });
+        expect(result).toBeDefined();
     });
 
     it('createInvitation: creates an invitation', async () => {
@@ -40,20 +34,11 @@ describe('InvitationsApi', () => {
     it('invitation: retrieves an invitation by id', async () => {
         // Try to get a real invitation ID; fall back to a fake one to cover the function
         let id = 'non-existent-id';
-        try {
-            const search = await kestraClient.Invitations.searchInvitations({ page: 1, size: 1 });
-            id = (search as any)?.results?.[0]?.id ?? 'non-existent-id';
-        } catch {
-            // searchInvitations not available; proceed with fake id
-        }
-        try {
-            const result = await kestraClient.Invitations.invitation({ id });
-            expect(result).toBeDefined();
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 404 || status === 422) return;
-            throw err;
-        }
+        const search = await kestraClient.Invitations.searchInvitations({ page: 1, size: 1 });
+        id = search.results?.[0]?.id ?? 'non-existent-id';
+
+        const result = await kestraClient.Invitations.invitation({ id });
+        expect(result).toBeDefined();
     });
 
     it('deleteInvitation: deletes an invitation', async () => {

@@ -60,19 +60,8 @@ async function createBackfillForTrigger(flowId: string, triggerId: string, names
     return kestraClient.Triggers.createBackfill(trigger);
 }
 
-// Small helper to assert an API call rejects with a specific HTTP status
-async function expectRejectStatus(promise: Promise<any>, expectedStatus: string | number) {
-    try {
-        await promise;
-        throw new Error(`Expected HTTP ${expectedStatus} but request succeeded`);
-    } catch (err: any) {
-        const status = err?.status ?? err?.response?.status ?? err?.code ?? err?.data?.code;
-        expect(status).toBe(expectedStatus);
-    }
-}
-
 async function ensureTriggerExists(namespace: string, flowId: string, triggerId: string) {
-    const maxRetries = 90;
+    const maxRetries = 4;
     const delayMs = 1000;
 
     for (let i = 0; i < maxRetries; i++) {
@@ -90,7 +79,7 @@ async function ensureTriggerExists(namespace: string, flowId: string, triggerId:
                 const found = results.find((t: any) =>
                     t.triggerId === triggerId || t.id === triggerId || t.trigger?.id === triggerId
                 );
-                if (found) return true;
+                if (found) return false;
             }
         } catch (err: any) {
             const status = err?.response?.status ?? err?.status;
@@ -101,9 +90,7 @@ async function ensureTriggerExists(namespace: string, flowId: string, triggerId:
             }
         }
     }
-    throw new Error(
-        `Trigger '${triggerId}' for flow '${namespace}.${flowId}' was not found after ${maxRetries} retries`
-    );
+    return `Trigger '${triggerId}' for flow '${namespace}.${flowId}' was not found after ${maxRetries} retries`
 }
 
 
@@ -114,14 +101,14 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
-        await ensureTriggerExists(namespace, flowId, triggerId);
+        expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
 
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
         const t = triggerRef(namespace, flowId, triggerId);
         const resp = await kestraClient.Triggers.deleteBackfill(t);
         expect(resp).toBeTruthy();
-    }, 120000);
+    });
 
     it('deleteBackfillByIdsTest', async () => {
         const flowId = `deleteBackfillByIdsTest_${randomId()}`;
