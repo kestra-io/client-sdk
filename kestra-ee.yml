@@ -16736,6 +16736,28 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/worker-selectors/tags:
+    get:
+      tags:
+      - Misc
+      summary: List worker-selector tags available to the current tenant
+      operationId: workerSelectorTags
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: workerSelectorTags 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MiscController.WorkerSelectorTags"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /login:
     post:
       tags:
@@ -21539,6 +21561,13 @@ components:
           type: boolean
         secretByTenant:
           type: boolean
+    MiscController.WorkerSelectorTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
     Name:
       type: object
       properties:
