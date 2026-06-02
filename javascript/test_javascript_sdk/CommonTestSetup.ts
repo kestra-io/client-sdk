@@ -48,9 +48,9 @@ import * as WorkerAuthAdmin from "@kestra-io/kestra-sdk/worker-auth-admin";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
-export const baseURL = "http://localhost:8080";
-export const username = "kestra@example.com";
-export const password = "ZY7BsAgT!htLJsjtw3qR";
+export const baseURL = "http://localhost:9903";
+export const username = "root@root.com";
+export const password = "Root!1234";
 export const tenantId = "main";
 
 beforeAll(async () => {
