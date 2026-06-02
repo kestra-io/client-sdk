@@ -200,6 +200,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchInternalBlueprints_withTags", func(t *testing.T) {
+		t.Skip("Kestra 2.0 moved tags/q into the `filters` array; see #252")
 		ctx := context.Background()
 		tag := "sdktest" + randomId()[:8]
 

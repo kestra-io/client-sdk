@@ -172,6 +172,7 @@ func TestAppsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchApps_withQuery", func(t *testing.T) {
+		t.Skip("Kestra 2.0 moved q/namespace into the `filters` array; see #252")
 		ctx := context.Background()
 		ns := randomId()
 		flowId := randomId()
@@ -263,6 +264,7 @@ func TestAppsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchApps_noResults", func(t *testing.T) {
+		t.Skip("Kestra 2.0 moved namespace into the `filters` array; see #252")
 		ctx := context.Background()
 
 		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString("nonexistent_ns_"+randomId()), nil, nil, nil, nil)

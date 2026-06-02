@@ -345,11 +345,9 @@ func TestUsersAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		// build a user-specific client with basic auth
-		userClient := kestra_api_client.NewClient(
-			HOST,
-			kestra_api_client.WithBasicAuth(email, initial),
-		)
+		// build a user-specific client authenticated as that user
+		userClient, err := NewUserTokenClient(email, initial)
+		require.NoError(t, err)
 
 		change := map[string]interface{}{
 			"oldPassword": initial,
@@ -358,11 +356,9 @@ func TestUsersAPI_All(t *testing.T) {
 		_, err = userClient.Users().UpdateCurrentUserPassword(ctx, change)
 		require.NoError(t, err)
 
-		// re-authenticate with changed password and revert
-		userClient2 := kestra_api_client.NewClient(
-			HOST,
-			kestra_api_client.WithBasicAuth(email, changed),
-		)
+		// re-authenticate with the changed password and revert
+		userClient2, err := NewUserTokenClient(email, changed)
+		require.NoError(t, err)
 
 		revert := map[string]interface{}{
 			"oldPassword": changed,

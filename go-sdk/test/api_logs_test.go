@@ -42,6 +42,7 @@ func TestLogsAPI_All(t *testing.T) {
 	})
 
 	t.Run("listLogsFromExecution_withTaskId", func(t *testing.T) {
+		t.Skip("Kestra 2.0 moved taskId/minLevel into the `filters` array; see #252")
 		ctx := context.Background()
 		executionId, _, _ := createExecutionWithLogs(t, ctx)
 
@@ -142,6 +143,7 @@ func TestLogsAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchLogs_withMinLevelFilter", func(t *testing.T) {
+		t.Skip("Kestra 2.0 moved minLevel into the `filters` array; see #252")
 		ctx := context.Background()
 		_, namespace, _ := createExecutionWithLogs(t, ctx)
 
