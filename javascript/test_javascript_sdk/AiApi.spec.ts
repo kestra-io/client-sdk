@@ -1,48 +1,48 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { kestraClient, randomId } from './CommonTestSetup.js';
 
-describe('AiApi', () => {
+const providerId = 'gemini';
+
+// If we get a Gemini Key in CI we could start using these tests
+describe.skip('AiApi', () => {
     it('providers: list AI providers', async () => {
         const result = await kestraClient.Ai.providers();
-        expect(result).toMatchInlineSnapshot(`
-          [
+        expect(result[0]).toMatchObject(
             {
-              "displayName": "Free tier",
-              "id": "api",
-              "isDefault": true,
+                id: providerId,
+                isDefault: true,
             },
-          ]
-        `);
+        );
     });
 
     it('generateFlow: generate a flow from a prompt', async () => {
         const result = await kestraClient.Ai.generateFlow({
-            providerId: 'api',
             conversationId: randomId(),
             userPrompt: 'Create a simple flow that logs hello world',
+            namespace: 'company.team',
         });
         expect(result).toBeDefined();
         expect(typeof result).toBe('string');
     });
 
     it('generateApp: generate an app from a prompt', async () => {
-
         const result = await kestraClient.Ai.generateApp({
             conversationId: randomId(),
-            userPrompt: 'Create a simple app',
+            userPrompt: 'Create a simple app displaying a single button',
         });
         expect(result).toBeDefined();
         expect(typeof result).toBe('string');
-    });
+    }, 30_000);
 
     it('generateDashboard: generate a dashboard from a prompt', async () => {
         const result = await kestraClient.Ai.generateDashboard({
             conversationId: randomId(),
-            userPrompt: 'Create a dashboard showing execution status',
+            userPrompt: 'Create a kestra dashboard with a simple markdown block',
+            yaml: "id: test-dashboard",
         });
         expect(result).toBeDefined();
         expect(typeof result).toBe('string');
-    });
+    }, 30_000);
 
     it('generateTestSuite: generate a test suite for a flow', async () => {
         const result = await kestraClient.Ai.generateTestSuite({
@@ -51,5 +51,5 @@ describe('AiApi', () => {
         });
         expect(result).toBeDefined();
         expect(typeof result).toBe('string');
-    });
+    }, 30_000);
 });
