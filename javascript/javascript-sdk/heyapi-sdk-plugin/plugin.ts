@@ -232,6 +232,27 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 (resp: any) => resp?.mediaType === "text/event-stream"
             );
 
+            // For application/yaml responses, hey-api generates responseType: 'blob' in the
+            // underlying SDK function, which causes axios to send Accept: application/octet-stream
+            // instead of Accept: application/yaml. We inject the correct Accept header into every
+            // generated wrapper call so the backend receives the right content negotiation.
+            const isYamlResponse = Object.values(operation.responses || {}).some(
+                (resp: any) => resp?.mediaType === "application/yaml"
+            );
+
+            // Builds the options expression passed to the underlying SDK call.
+            // For YAML-response operations, wraps options to inject the Accept header while
+            // preserving any caller-supplied headers.
+            const buildOptionsArg = () => isYamlResponse
+                ? $.object()
+                    .spread($("options"))
+                    .prop("headers",
+                        $.object()
+                            .prop("Accept", $.literal("application/yaml"))
+                            .spread($("options").attr("headers").optional())
+                    )
+                : $("options");
+
             const operationOptionsType = (sym: any, idx: 0 | 1 = 1) =>
                 $.type("Omit").generics(
                     $.type("Parameters").generic($.type.query(sym)).idx(idx),
@@ -271,7 +292,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                             $.param(optionsId).required(false)
                                 .type(operationOptionsType(originalOperationSymbol)),
                         )
-                        .do(...returnStatements(originalOperationSymbol.call($(paramId), $(optionsId))));
+                        .do(...returnStatements(originalOperationSymbol.call($(paramId), buildOptionsArg())));
                     plugin.node($.const(funcSymbol).export().assign(functionNode));
                 }
                 return;
@@ -286,7 +307,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
+                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), buildOptionsArg()))
                     );
 
                 plugin.node(
@@ -332,7 +353,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
+                        ...returnStatements(originalOperationSymbol.call(callArgs, buildOptionsArg()))
                     );
 
                 plugin.node(
@@ -369,7 +390,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                     .do(
                         ...returnStatements(originalOperationSymbol.call(
                             $(addTenantToParametersSymbol).call(parametersArguments),
-                            optionsId,
+                            buildOptionsArg(),
                         ))
                     );
 
@@ -437,7 +458,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         .type(operationOptionsType(originalOperationSymbol)),
                 )
                 .do(
-                    ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
+                    ...returnStatements(originalOperationSymbol.call(callArgs, buildOptionsArg()))
                 );
 
             plugin.node(

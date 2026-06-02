@@ -48,10 +48,10 @@ import * as WorkerAuthAdmin from "@kestra-io/kestra-sdk/worker-auth-admin";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 
-export const baseURL = "http://localhost:9903";
-export const username = "root@root.com";
-export const password = "Root!1234";
-export const MAIN_TENANT = "main";
+export const baseURL = "http://localhost:8080";
+export const username = "kestra@example.com";
+export const password = "ZY7BsAgT!htLJsjtw3qR";
+export const tenantId = "main";
 
 beforeAll(async () => {
     const instance = configureClient({
@@ -81,7 +81,7 @@ beforeAll(async () => {
             return Promise.reject(error);
         });
     }
-    setSelectedTenant(MAIN_TENANT);
+    setSelectedTenant(tenantId);
 });
 
 export const kestraClient = {
