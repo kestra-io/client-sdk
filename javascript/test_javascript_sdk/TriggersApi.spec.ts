@@ -2,7 +2,7 @@
 /* eslint-disable jest/no-standalone-expect */
 
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import { kestraClient, tenantId, randomId } from './CommonTestSetup.js';
 
 // --- helpers ---------------------------------------------------------------
 
@@ -37,7 +37,7 @@ function triggerRef(namespace: string, flowId: string, triggerId: string) {
         flowId,
         triggerId,
         date: new Date().toISOString(),
-        tenantId: MAIN_TENANT,
+        tenantId: tenantId,
     };
 }
 

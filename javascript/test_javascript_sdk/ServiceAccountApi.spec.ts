@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomIdWith } from "./CommonTestSetup.js";
+import { kestraClient, tenantId, randomIdWith } from "./CommonTestSetup.js";
 
 
 describe('ServiceAccountApi', () => {

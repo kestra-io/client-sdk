@@ -1,6 +1,6 @@
 // testApis/test_users_api.test.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import { kestraClient, tenantId, randomId } from './CommonTestSetup.js';
 
 describe('UsersApi', () => {
     it('autocomplete_users: List users for autocomplete', async () => {
@@ -221,7 +221,7 @@ describe('UsersApi', () => {
 
         const created = await kestraClient.Users.createUser({
             email,
-            tenants: [MAIN_TENANT],
+            tenants: [tenantId],
             password: initial,
         });
 
@@ -272,12 +272,12 @@ describe('UsersApi', () => {
         const base = `test_update_user_groups_${randomId()}`;
         const user = await kestraClient.Users.createUser({
             email: `${base}@kestra.io`,
-            tenants: [MAIN_TENANT],
+            tenants: [tenantId],
         });
 
         await kestraClient.Users.updateUserGroups({
             id: user.id,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
             groupIds: [group.id],
         });
 

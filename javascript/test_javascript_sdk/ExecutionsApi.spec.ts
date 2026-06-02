@@ -1,6 +1,6 @@
 // ExecutionsApi.spec.ts
 import { describe, it, expect } from "vitest";
-import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
+import { kestraClient, randomId } from "./CommonTestSetup.js";
 import type { ApiExecution, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
@@ -242,13 +242,11 @@ describe("ExecutionsApi", () => {
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
 
         const e3 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
 
 
@@ -266,19 +264,16 @@ describe("ExecutionsApi", () => {
         await expect(
             kestraClient.Executions.execution({
                 executionId: e1.id,
-                tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         await expect(
             kestraClient.Executions.execution({
                 executionId: e3.id,
-                tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         expect(
             await kestraClient.Executions.execution({
                 executionId: e2.id,
-                tenant: MAIN_TENANT,
             }),
         ).toBeTruthy();
     });
