@@ -174,7 +174,6 @@ func TestNamespacesAPI_All(t *testing.T) {
 	})
 
 	t.Run("searchNamespacesTest", func(t *testing.T) {
-		t.Skip("Kestra 2.0 moved q into the `filters` array; see #252")
 		ctx := context.Background()
 
 		nsId := "test_search_namespaces_" + randomId()
