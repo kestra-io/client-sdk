@@ -74,19 +74,19 @@ regardless of option order.
 
 ```go
 // v1
-client.API.GroupsAPI...   client.API.UsersAPI...   client.API.KVAPI...
+client.GroupsAPI...   client.UsersAPI...   client.KVAPI...
 // v2
-client.Groups()...        client.Users()...        client.Kv()...
+client.Groups()...    client.Users()...    client.Kv()...
 ```
 
-The `API` field and the `XxxAPI` fields are removed. Note the renames:
+The `XxxAPI` service fields are removed. Note the renames:
 `KVAPI` → `Kv()`, `ServiceAccountAPI` → `ServiceAccount()`.
 
 ## 5. Call style: request builder + `.Execute()` → direct arguments
 
 ```go
 // v1
-res, httpResp, err := client.API.GroupsAPI.
+res, httpResp, err := client.GroupsAPI.
     SearchGroups(ctx, tenant).Page(1).Size(50).Q("foo").Execute()
 
 // v2
@@ -120,8 +120,8 @@ if e, ok := err.(*kestra.GenericOpenAPIError); ok {
 // v2
 if e, ok := err.(*kestra.ApiError); ok {
     status := e.StatusCode  // field, now directly available
-    body   := e.Body        // field ([]byte)
-    msg    := e.Message
+    body   := e.Body        // field ([]byte) — the raw response body
+    msg    := e.Error()     // formatted "API error <status>: <body>"
 }
 ```
 
