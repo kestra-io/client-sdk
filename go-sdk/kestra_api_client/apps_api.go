@@ -54,9 +54,12 @@ func (a *AppsAPI) BulkImportApps(ctx context.Context, tenant, filePath string) (
 }
 
 func (a *AppsAPI) SearchApps(ctx context.Context, tenant string, page, size *int, q, namespace, flowId *string, sort, tags []string, filters []QueryFilter) (*PagedResultsAppsControllerApiApp, error) {
-	params := buildQueryParams("page", page, "size", size, "q", q, "namespace", namespace, "flowId", flowId)
+	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendRepeatedParam(params, "tags", tags)
+	filters = appendStringFilter(filters, FilterQuery, q)
+	filters = appendStringFilter(filters, FilterNamespace, namespace)
+	filters = appendStringFilter(filters, FilterFlowId, flowId)
+	filters = appendSliceFilter(filters, FilterTags, tags)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsAppsControllerApiApp](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "search"), nil, params)
 }

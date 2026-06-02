@@ -32,6 +32,10 @@ const (
 	FilterExisting  QueryFilterField = "existing"
 	FilterKey       QueryFilterField = "key"
 	FilterResource  QueryFilterField = "resource"
+
+	FilterTags          QueryFilterField = "tags"
+	FilterTaskRunId     QueryFilterField = "taskRunId"
+	FilterAttemptNumber QueryFilterField = "attemptNumber"
 )
 
 type QueryFilterOp string
@@ -90,4 +94,37 @@ func AppendFilterParams(params url.Values, filters []QueryFilter) {
 			params.Set(key, encodeFilterValue(val))
 		}
 	}
+}
+
+// Kestra 2.0 replaced the per-endpoint filter query params (q, namespace,
+// taskId, level, ...) with a unified `filters` array. These helpers translate
+// the legacy scalar/slice params the SDK methods still accept into EQUALS
+// filters, so the public signatures stay backward-compatible.
+
+func appendStringFilter(filters []QueryFilter, field QueryFilterField, value *string) []QueryFilter {
+	return appendStringFilterOp(filters, field, OpEquals, value)
+}
+
+// appendStringFilterOp lets the caller pick the operation, since 2.0 restricts
+// it per field (e.g. LEVEL only allows GREATER_THAN_OR_EQUAL_TO / LESS_THAN_OR_EQUAL_TO).
+func appendStringFilterOp(filters []QueryFilter, field QueryFilterField, op QueryFilterOp, value *string) []QueryFilter {
+	if value != nil {
+		filters = append(filters, QueryFilter{Field: field, Operation: op, Value: *value})
+	}
+	return filters
+}
+
+// appendSliceFilter uses IN: collection fields like TAGS reject EQUALS.
+func appendSliceFilter(filters []QueryFilter, field QueryFilterField, values []string) []QueryFilter {
+	if len(values) > 0 {
+		filters = append(filters, QueryFilter{Field: field, Operation: OpIn, Value: values})
+	}
+	return filters
+}
+
+func appendIntFilter(filters []QueryFilter, field QueryFilterField, value *int) []QueryFilter {
+	if value != nil {
+		filters = append(filters, QueryFilter{Field: field, Operation: OpEquals, Value: *value})
+	}
+	return filters
 }
