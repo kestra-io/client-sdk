@@ -41,7 +41,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("searchAssets_noResults", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -66,7 +66,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("searchAssetLineageEvents_withFilters", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -91,7 +91,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("searchAssetUsages_withFilters", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -165,7 +165,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("deleteAssetsByQuery_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -180,7 +180,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("deleteAssetLineageEventsByQuery_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -195,7 +195,7 @@ func TestAssetsAPI_All(t *testing.T) {
 	t.Run("deleteAssetUsagesByQuery_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,

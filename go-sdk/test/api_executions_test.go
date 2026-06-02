@@ -296,12 +296,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		exec2 := createExecution(t, ctx, flowId, namespace)
 		exec3 := createExecution(t, ctx, flowId, namespaceToDelete)
 
-		nsFilter := kestra_api_client.QueryFilter{
+		nsFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespaceToDelete,
 		}
-		res, err := KestraTestClient().Executions().DeleteExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{nsFilter}, nil, nil, nil, nil)
+		res, err := KestraTestClient().Executions().DeleteExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{nsFilter}, nil, nil, nil, nil)
 		require.NoError(t, err)
 		require.EqualValues(t, 2, res["count"], "only 2 exec should have been deleted")
 
@@ -372,12 +372,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
-		flowFilter := kestra_api_client.QueryFilter{
+		flowFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterFlowId,
 			Operation: kestra_api_client.OpEquals,
 			Value:     exec.FlowId,
 		}
-		_, err := KestraTestClient().Executions().ForceRunExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{flowFilter})
+		_, err := KestraTestClient().Executions().ForceRunExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{flowFilter})
 		require.NoError(t, err)
 
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 100*time.Millisecond)
@@ -498,12 +498,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Eventually(t, executionInState(ctx, exec1.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 200*time.Millisecond)
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 200*time.Millisecond)
 
-		nsFilter := kestra_api_client.QueryFilter{
+		nsFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace,
 		}
-		_, err := KestraTestClient().Executions().KillExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{nsFilter})
+		_, err := KestraTestClient().Executions().KillExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{nsFilter})
 		require.NoError(t, err)
 
 		require.Eventually(t, executionInState(ctx, exec1.Id, kestra_api_client.STATETYPE_KILLED), 10*time.Second, 500*time.Millisecond)
@@ -557,12 +557,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		exec2 := createExecutionUntil(t, ctx, flowId, namespace2, kestra_api_client.STATETYPE_RUNNING)
 		createExecutionUntil(t, ctx, flowId, namespace3, kestra_api_client.STATETYPE_RUNNING)
 
-		filter := kestra_api_client.QueryFilter{
+		filter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace2,
 		}
-		res, err := KestraTestClient().Executions().PauseExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{filter})
+		res, err := KestraTestClient().Executions().PauseExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
 		require.EqualValues(t, 1, res.GetTotalItems())
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_PAUSED), 5*time.Second, 100*time.Millisecond)
@@ -600,12 +600,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createSimpleFlow(ctx, flowId, namespace)
 
 		createExecution(t, ctx, flowId, namespace)
-		filter := kestra_api_client.QueryFilter{
+		filter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace,
 		}
-		res, err := KestraTestClient().Executions().ReplayExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{filter}, nil)
+		res, err := KestraTestClient().Executions().ReplayExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter}, nil)
 		require.NoError(t, err)
 		require.EqualValues(t, 1, res.GetTotalItems())
 	})
@@ -641,12 +641,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createFlow(ctx, flowId, namespace, FAILED_FLOW)
 
 		createExecution(t, ctx, flowId, namespace)
-		filter := kestra_api_client.QueryFilter{
+		filter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace,
 		}
-		res, err := KestraTestClient().Executions().RestartExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{filter})
+		res, err := KestraTestClient().Executions().RestartExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
 		require.EqualValues(t, 1, res.GetTotalItems())
 	})
@@ -683,12 +683,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createFlow(ctx, flowId, namespace, PAUSE_FLOW)
 
 		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_PAUSED)
-		filter := kestra_api_client.QueryFilter{
+		filter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace,
 		}
-		res, err := KestraTestClient().Executions().ResumeExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{filter})
+		res, err := KestraTestClient().Executions().ResumeExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
 		require.EqualValues(t, 1, res.GetTotalItems())
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
@@ -707,41 +707,41 @@ func TestExecutionsAPI_All(t *testing.T) {
 		exec4 := createExecution(t, ctx, flowId, otherNamespace)
 		exec5 := createExecution(t, ctx, flowId, otherNamespace)
 
-		flowFilter := kestra_api_client.QueryFilter{
+		flowFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterFlowId,
 			Operation: kestra_api_client.OpEquals,
 			Value:     flowId,
 		}
-		res, err := KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.QueryFilter{flowFilter})
+		res, err := KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.SearchFilter{flowFilter})
 		require.NoError(t, err)
 		require.EqualValues(t, 5, res.Total)
 		require.Len(t, res.Results, 5)
 		assertResultsContainExecutions(t, res.Results, exec1, exec2, exec3, exec4, exec5)
 
 		// page 1 and size 1
-		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil, []kestra_api_client.QueryFilter{flowFilter})
+		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil, []kestra_api_client.SearchFilter{flowFilter})
 		require.NoError(t, err)
 		require.EqualValues(t, 5, res.Total)
 		require.Len(t, res.Results, 1)
 
 		// add namespace filter
-		nsFilter := kestra_api_client.QueryFilter{
+		nsFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpEquals,
 			Value:     namespace,
 		}
-		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.QueryFilter{flowFilter, nsFilter})
+		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.SearchFilter{flowFilter, nsFilter})
 		require.NoError(t, err)
 		require.Len(t, res.Results, 2)
 		assertResultsContainExecutions(t, res.Results, exec1, exec2)
 
 		// invert ns filter
-		notEqualNsFilter := kestra_api_client.QueryFilter{
+		notEqualNsFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterNamespace,
 			Operation: kestra_api_client.OpNotEquals,
 			Value:     namespace,
 		}
-		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.QueryFilter{flowFilter, notEqualNsFilter})
+		res, err = KestraTestClient().Executions().SearchExecutions(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(50), nil, []kestra_api_client.SearchFilter{flowFilter, notEqualNsFilter})
 		require.NoError(t, err)
 		require.Len(t, res.Results, 3)
 		assertResultsContainExecutions(t, res.Results, exec3, exec4, exec5)
@@ -806,12 +806,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 		labels := []kestra_api_client.Label{{Key: "label1", Value: "created"}}
 
 		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
-		filter := kestra_api_client.QueryFilter{
+		filter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterFlowId,
 			Operation: kestra_api_client.OpEquals,
 			Value:     flowId,
 		}
-		_, err := KestraTestClient().Executions().SetLabelsOnTerminatedExecutionsByQuery(ctx, MAIN_TENANT, labels, []kestra_api_client.QueryFilter{filter})
+		_, err := KestraTestClient().Executions().SetLabelsOnTerminatedExecutionsByQuery(ctx, MAIN_TENANT, labels, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
 
 		require.Eventually(t, func() bool {
@@ -884,17 +884,17 @@ func TestExecutionsAPI_All(t *testing.T) {
 		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
-		nsFilter := kestra_api_client.QueryFilter{
+		nsFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterState,
 			Operation: kestra_api_client.OpEquals,
 			Value:     kestra_api_client.STATETYPE_QUEUED,
 		}
-		flowFilter := kestra_api_client.QueryFilter{
+		flowFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterFlowId,
 			Operation: kestra_api_client.OpEquals,
 			Value:     flowId,
 		}
-		_, err := KestraTestClient().Executions().UnqueueExecutionsByQuery(ctx, MAIN_TENANT, kestra_api_client.PtrString(string(kestra_api_client.STATETYPE_CANCELLED)), []kestra_api_client.QueryFilter{nsFilter, flowFilter})
+		_, err := KestraTestClient().Executions().UnqueueExecutionsByQuery(ctx, MAIN_TENANT, kestra_api_client.PtrString(string(kestra_api_client.STATETYPE_CANCELLED)), []kestra_api_client.SearchFilter{nsFilter, flowFilter})
 		require.NoError(t, err)
 
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_CANCELLED), 10*time.Second, 500*time.Millisecond)
@@ -936,12 +936,12 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
 
-		flowFilter := kestra_api_client.QueryFilter{
+		flowFilter := kestra_api_client.SearchFilter{
 			Field:     kestra_api_client.FilterFlowId,
 			Operation: kestra_api_client.OpEquals,
 			Value:     flowId,
 		}
-		_, err := KestraTestClient().Executions().UpdateExecutionsStatusByQuery(ctx, MAIN_TENANT, string(kestra_api_client.STATETYPE_CANCELLED), []kestra_api_client.QueryFilter{flowFilter})
+		_, err := KestraTestClient().Executions().UpdateExecutionsStatusByQuery(ctx, MAIN_TENANT, string(kestra_api_client.STATETYPE_CANCELLED), []kestra_api_client.SearchFilter{flowFilter})
 		require.NoError(t, err)
 
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_CANCELLED), 10*time.Second, 500*time.Millisecond)

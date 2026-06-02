@@ -182,7 +182,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterQuery,
 				Operation: kestra_api_client.OpEquals,
@@ -215,7 +215,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterQuery,
 				Operation: kestra_api_client.OpEquals,

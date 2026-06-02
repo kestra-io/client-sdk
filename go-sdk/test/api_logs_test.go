@@ -101,7 +101,7 @@ func TestLogsAPI_All(t *testing.T) {
 		_, namespace, _ := createExecutionWithLogs(t, ctx)
 
 		require.Eventually(t, func() bool {
-			filters := []kestra_api_client.QueryFilter{
+			filters := []kestra_api_client.SearchFilter{
 				{
 					Field:     kestra_api_client.FilterNamespace,
 					Operation: kestra_api_client.OpEquals,
@@ -121,7 +121,7 @@ func TestLogsAPI_All(t *testing.T) {
 		_, namespace, flowId := createExecutionWithLogs(t, ctx)
 
 		require.Eventually(t, func() bool {
-			filters := []kestra_api_client.QueryFilter{
+			filters := []kestra_api_client.SearchFilter{
 				{
 					Field:     kestra_api_client.FilterNamespace,
 					Operation: kestra_api_client.OpEquals,
@@ -146,7 +146,7 @@ func TestLogsAPI_All(t *testing.T) {
 		_, namespace, _ := createExecutionWithLogs(t, ctx)
 
 		require.Eventually(t, func() bool {
-			filters := []kestra_api_client.QueryFilter{
+			filters := []kestra_api_client.SearchFilter{
 				{
 					Field:     kestra_api_client.FilterMinLevel,
 					Operation: kestra_api_client.OpGreaterThanOrEqualTo,
@@ -169,7 +169,7 @@ func TestLogsAPI_All(t *testing.T) {
 	t.Run("searchLogs_noResults", func(t *testing.T) {
 		ctx := context.Background()
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
