@@ -3,9 +3,9 @@ import { kestraClient } from './CommonTestSetup.js';
 
 describe('PluginsApi', () => {
     it('listPlugins: lists all installed plugins', async () => {
-        const result = await kestraClient.Plugins.listPlugins();
-        expect(result).toBeDefined();
-        expect(Array.isArray(result)).toBe(true);
+        const result = await kestraClient.Plugins.listPlugins()
+        expect(result.results).toBeDefined();
+        expect(result.results).toBeInstanceOf(Array);
     });
 
     it('pluginBySubgroups: lists plugins organized by subgroups', async () => {
