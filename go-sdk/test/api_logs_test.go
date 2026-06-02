@@ -149,7 +149,7 @@ func TestLogsAPI_All(t *testing.T) {
 			filters := []kestra_api_client.QueryFilter{
 				{
 					Field:     kestra_api_client.FilterMinLevel,
-					Operation: kestra_api_client.OpEquals,
+					Operation: kestra_api_client.OpGreaterThanOrEqualTo,
 					Value:     "INFO",
 				},
 				{

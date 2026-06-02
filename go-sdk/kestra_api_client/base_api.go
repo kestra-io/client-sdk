@@ -122,6 +122,9 @@ func (b *baseAPI) doRequest(ctx context.Context, method, path string, body io.Re
 	for k, v := range b.client.headers {
 		req.Header.Set(k, v)
 	}
+	if b.client.authHeader != "" {
+		req.Header.Set("Authorization", b.client.authHeader)
+	}
 	if contentType != "" {
 		req.Header.Set("Content-Type", contentType)
 	}
@@ -129,10 +132,14 @@ func (b *baseAPI) doRequest(ctx context.Context, method, path string, body io.Re
 		req.Header.Set("Accept", accept)
 	}
 
+	b.client.logRequest(req)
+
 	resp, err := b.client.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
+
+	b.client.logResponse(resp)
 
 	if resp.StatusCode >= 400 {
 		defer resp.Body.Close()
@@ -465,12 +472,19 @@ func (b *baseAPI) openSSEStream(ctx context.Context, path string, params url.Val
 	for k, v := range b.client.headers {
 		req.Header.Set(k, v)
 	}
+	if b.client.authHeader != "" {
+		req.Header.Set("Authorization", b.client.authHeader)
+	}
 	req.Header.Set("Accept", "text/event-stream")
+
+	b.client.logRequest(req)
 
 	resp, err := b.client.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
+
+	b.client.logResponse(resp)
 
 	if resp.StatusCode >= 400 {
 		defer resp.Body.Close()

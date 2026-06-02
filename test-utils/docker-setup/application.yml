@@ -1,4 +1,5 @@
 kestra:
+  url: "http://localhost:8080/"
   migration:
     auto: true
   repository:
@@ -12,11 +13,6 @@ kestra:
   tasks:
     tmpDir:
       path: /tmp/kestra-wd/tmp
-  security:
-    super-admin:
-      username: root@root.com
-      password: Root!1234
-      tenantAdminAccess: main
   secret:
     type: jdbc
     jdbc:
@@ -25,4 +21,11 @@ kestra:
     secret-key: LWBErwwlb/BQcxWujsm+/scPeO01cTKzvW44GbAWvII=
   ee:
     tenants:
+      enabled: true
+micronaut:
+  security:
+    # EE needs the SecurityFilter to read the JWT cookie / Bearer tokens and
+    # populate the auth context; without it every @Secured endpoint 401s. Forced
+    # on here so the tests don't depend on the image carrying kestra-ee#8166.
+    filter:
       enabled: true
