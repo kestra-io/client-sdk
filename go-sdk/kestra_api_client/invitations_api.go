@@ -34,7 +34,7 @@ func (a *InvitationsAPI) DeleteInvitation(ctx context.Context, id, tenant string
 // only for the 2.x-only fields (FilterQuery, FilterExpiredAt, FilterSuperAdmin),
 // and don't combine it with email on 2.x (filters take precedence over the
 // legacy email mapping there). Mirrors the hybrid shape of SearchApps.
-func (a *InvitationsAPI) SearchInvitations(ctx context.Context, tenant string, page, size *int, sort []string, email *string, status *InvitationInvitationStatus, filters []QueryFilter) (*PagedResultsIAMInvitationControllerApiInvitationDetail, error) {
+func (a *InvitationsAPI) SearchInvitations(ctx context.Context, tenant string, page, size *int, sort []string, email *string, status *InvitationInvitationStatus, filters []SearchFilter) (*PagedResultsIAMInvitationControllerApiInvitationDetail, error) {
 	params := buildQueryParams("page", page, "size", size, "email", email)
 	if status != nil {
 		// Set explicitly: buildQueryParams' default branch would print a *InvitationInvitationStatus as a pointer address.

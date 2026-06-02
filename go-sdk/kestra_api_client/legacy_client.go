@@ -248,8 +248,8 @@ func paramToString(v interface{}) string {
 func ParseQueryFilters(param []QueryFilter) (map[string]string, error) {
 	kvpairs := map[string]string{}
 	for _, qf := range param {
-		fieldStr := fmt.Sprintf("%v", qf.Field)
-		op := fmt.Sprintf("%v", qf.Operation)
+		fieldStr := fmt.Sprintf("%v", *qf.Field)
+		op := fmt.Sprintf("%v", *qf.Operation)
 
 		keyField := toCamel(fieldStr)
 		if strings.EqualFold(fieldStr, "query") {

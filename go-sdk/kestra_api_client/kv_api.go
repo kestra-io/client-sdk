@@ -25,7 +25,7 @@ func (a *KvAPI) DeleteKeyValues(ctx context.Context, namespace, tenant string, r
 	return doJSON[*KVControllerApiDeleteBulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "namespaces", namespace, "kv"), request, nil)
 }
 
-func (a *KvAPI) ListAllKeys(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsKVEntry, error) {
+func (a *KvAPI) ListAllKeys(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsKVEntry, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)

@@ -22,7 +22,7 @@ func (a *UsersAPI) DeleteUser(ctx context.Context, id string) error {
 	return a.doVoidJSON(ctx, "DELETE", superadminPath("users", id), nil, nil)
 }
 
-func (a *UsersAPI) ListUsers(ctx context.Context, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsIAMUserControllerApiUserSummary, error) {
+func (a *UsersAPI) ListUsers(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMUserControllerApiUserSummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)
