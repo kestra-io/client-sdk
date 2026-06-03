@@ -91,10 +91,29 @@ public class LogsApiTest {
     // Follow logs (SSE)
     // ========================================================================
 
+    /**
+     * The flow sleeps before logging so the SSE subscription is established
+     * before the log entries are emitted — the follow endpoint only streams
+     * entries arriving after the subscription.
+     */
+    static String sleepThenLogFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: wait
+                    type: io.kestra.plugin.core.flow.Sleep
+                    duration: PT2S
+                  - id: hello
+                    type: io.kestra.plugin.core.log.Log
+                    message: Hello World!
+                """.formatted(id, ns);
+    }
+
     static ExecutionControllerExecutionResponse startExecutionWithLogs() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
-        createFlow(logFlowYaml(flowId, ns));
+        createFlow(sleepThenLogFlowYaml(flowId, ns));
         return client().executions()
                 .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
     }

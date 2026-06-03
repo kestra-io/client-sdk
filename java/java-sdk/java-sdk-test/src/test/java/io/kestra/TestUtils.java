@@ -316,9 +316,10 @@ public class TestUtils {
     }
 
     public static QueryFilter minLevelFilter(String level) {
+        // Kestra 2.0 only supports >= / <= for the level field
         return new QueryFilter()
                 .field(QueryFilterField.MIN_LEVEL)
-                .operation(QueryFilterOp.EQUALS)
+                .operation(QueryFilterOp.GREATER_THAN_OR_EQUAL_TO)
                 .value(level);
     }
 
