@@ -3412,7 +3412,7 @@ paths:
       operationId: validatePassword
       requestBody:
         content:
-          application/json:
+          text/plain:
             schema:
               type: string
         required: true
