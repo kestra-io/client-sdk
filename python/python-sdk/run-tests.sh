@@ -32,6 +32,9 @@ for KESTRA_VERSION in $versions; do
   export KESTRA_VERSION=$KESTRA_VERSION
 
   echo "start Kestra container"
+  # pre-create the heap-dump bind mount so the JVM can write its OOM dump there
+  mkdir -p heap-dump
+  rm -f heap-dump/*.hprof
   log_and_run docker compose -f docker-compose-ci.yml down
 
   log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
@@ -56,6 +59,10 @@ for KESTRA_VERSION in $versions; do
       --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
     echo "----- kestra logs (last 300 lines) -----"
     docker compose -f docker-compose-ci.yml logs --no-color --tail 300 kestra || true
+    echo "----- heap dump (written on OutOfMemoryError) -----"
+    # written as root inside the container; make it readable for artifact upload
+    sudo chmod -R a+r heap-dump 2>/dev/null || chmod -R a+r heap-dump 2>/dev/null || true
+    ls -lh heap-dump/ || true
   fi
 
   echo "stop Kestra container"

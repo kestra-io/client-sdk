@@ -33,8 +33,12 @@ services:
       - ../../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
       - ../../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
       - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
+      - ./heap-dump:/heap-dump
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
-      JAVA_OPTS: "-Xms512m -Xmx8g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
+      # 4g is known to OOM mid-suite (8g only delays it, see run 26883549146); keep
+      # it small so the heap dump stays uploadable as a CI artifact. The dump is
+      # written to the bind mount before ExitOnOutOfMemoryError terminates the JVM.
+      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heap-dump/kestra.hprof"
     ports:
       - "9902:8080"
