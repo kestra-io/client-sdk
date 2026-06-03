@@ -1,6 +1,7 @@
 package kestra_api_client
 
 import (
+	"bufio"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -496,4 +497,67 @@ func (b *baseAPI) openSSEStream(ctx context.Context, path string, params url.Val
 	}
 
 	return resp, nil
+}
+
+// followSSE opens an SSE stream at path and decodes each event payload into T.
+// The returned channel is closed when the stream ends or the context is cancelled.
+func followSSE[T any](b *baseAPI, ctx context.Context, path string, params url.Values) (<-chan *T, error) {
+	resp, err := b.openSSEStream(ctx, path, params)
+	if err != nil {
+		return nil, err
+	}
+
+	ch := make(chan *T)
+	go func() {
+		defer close(ch)
+		defer resp.Body.Close()
+
+		// emit decodes a buffered event payload and sends it on the channel.
+		// It returns false when the context is cancelled.
+		emit := func(payload string) bool {
+			var ev T
+			if err := json.Unmarshal([]byte(payload), &ev); err != nil {
+				return true
+			}
+			select {
+			case ch <- &ev:
+				return true
+			case <-ctx.Done():
+				return false
+			}
+		}
+
+		scanner := bufio.NewScanner(resp.Body)
+		var dataBuffer strings.Builder
+
+		for scanner.Scan() {
+			line := scanner.Text()
+
+			if line == "" {
+				if dataBuffer.Len() > 0 {
+					if !emit(dataBuffer.String()) {
+						return
+					}
+					dataBuffer.Reset()
+				}
+				continue
+			}
+
+			if strings.HasPrefix(line, "data:") {
+				payload := line[5:]
+				if strings.HasPrefix(payload, " ") {
+					payload = payload[1:]
+				}
+				dataBuffer.WriteString(payload)
+				dataBuffer.WriteByte('\n')
+			}
+		}
+
+		// Flush any remaining data
+		if dataBuffer.Len() > 0 {
+			emit(dataBuffer.String())
+		}
+	}()
+
+	return ch, nil
 }

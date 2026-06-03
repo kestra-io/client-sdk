@@ -62,6 +62,64 @@ func TestLogsAPI_All(t *testing.T) {
 		}, 10*time.Second, 500*time.Millisecond, "expected logs filtered by taskId=hello")
 	})
 
+	t.Run("followLogsFromExecution_basic", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+		createFlow(ctx, flowId, namespace, SIMPLE_BUT_LONG_FLOW)
+
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+
+		// this endpoint is returning SSE
+		// logs is a channel that receives log entries and then gets closed when the execution is completed
+		logs, err := KestraTestClient().Logs().FollowLogsFromExecution(ctx, exec.Id, MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.NotNil(t, logs)
+
+		var receivedLogs []*kestra_api_client.LogEntry
+	loop:
+		for {
+			select {
+			case log, ok := <-logs:
+				if !ok {
+					// received channel close
+					break loop
+				}
+				receivedLogs = append(receivedLogs, log)
+			case <-ctx.Done():
+				break loop
+			}
+		}
+		require.NotEmpty(t, receivedLogs, "expected to receive at least one log entry")
+		for _, log := range receivedLogs {
+			require.Equal(t, exec.Id, log.GetExecutionId())
+		}
+	})
+
+	t.Run("followLogsFromExecution_shouldAllowGettingCancelledByUser", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		createFlow(ctx, flowId, namespace, LONG_RUNNING_FLOW)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+
+		logs, err := KestraTestClient().Logs().FollowLogsFromExecution(ctx, exec.Id, MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.NotNil(t, logs)
+
+		// when a user explicitly cancels
+		cancel()
+
+		// then
+		require.Eventually(t, func() bool {
+			return checkChannelIsClosed(logs)
+		}, 5*time.Second, 100*time.Millisecond,
+			"channel should be closed soon after cancelling")
+	})
+
 	t.Run("downloadLogsFromExecution_basic", func(t *testing.T) {
 		ctx := context.Background()
 		executionId, _, _ := createExecutionWithLogs(t, ctx)

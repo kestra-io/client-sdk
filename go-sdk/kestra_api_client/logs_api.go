@@ -29,6 +29,14 @@ func (a *LogsAPI) ListLogsFromExecution(ctx context.Context, executionId, tenant
 	return doJSON[[]LogEntry](&a.baseAPI, ctx, "GET", tenantPath(tenant, "logs", executionId), nil, params)
 }
 
+// FollowLogsFromExecution opens an SSE stream that emits log entries for an execution.
+// The returned channel is closed when the stream ends or the context is cancelled.
+func (a *LogsAPI) FollowLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel *string) (<-chan *LogEntry, error) {
+	path := tenantPath(tenant, "logs", executionId, "follow")
+	params := buildQueryParams("minLevel", minLevel)
+	return followSSE[LogEntry](&a.baseAPI, ctx, path, params)
+}
+
 func (a *LogsAPI) DownloadLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel, taskRunId, taskId *string, attempt *int) (*os.File, error) {
 	params := logExecutionFilters(minLevel, taskRunId, taskId, attempt)
 	return a.doDownload(ctx, "GET", tenantPath(tenant, "logs", executionId, "download"), nil, params, contentPlainText)
