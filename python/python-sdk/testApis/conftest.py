@@ -10,6 +10,15 @@ from kestrapy import KestraClient
 # Make test_helpers importable from test files
 sys.path.insert(0, os.path.dirname(__file__))
 
+from test_helpers import (  # noqa: E402  (needs the sys.path insert above)
+    TENANT,
+    create_flow,
+    log_flow_yaml,
+    ns_filter,
+    random_id,
+    wait_for_execution,
+)
+
 HOST = "http://localhost:9902"
 ADMIN_USERNAME = "root@root.com"
 ADMIN_PASSWORD = "Root!1234"
@@ -87,3 +96,54 @@ def client():
     _setup_super_admin()
     token = _mint_api_token(ADMIN_USERNAME, ADMIN_PASSWORD)
     return KestraClient(host=HOST, token=token)
+
+
+# ========================================================================
+# Shared server-side state
+#
+# Each random namespace/flow/execution a test creates is state the Kestra
+# container keeps until the end of the run, and the accumulated load is the
+# prime suspect for the JVM heap OOM that kills CI mid-suite. Tests that only
+# need *some* existing flow or execution share the ones below instead of
+# minting their own (~2 namespaces per test before).
+# ========================================================================
+
+
+@pytest.fixture(scope="session")
+def shared_flow(client):
+    """(namespace, flow_id) of one log flow shared by the whole session.
+
+    Tests may create additional executions of it, or additional flows inside
+    its namespace, as long as they don't assert namespace-wide counts.
+    """
+    ns, flow_id = random_id(), random_id()
+    create_flow(client, log_flow_yaml(flow_id, ns))
+    yield ns, flow_id
+    try:
+        client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)])
+        client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)])
+        client.namespaces.delete_namespace(ns, TENANT)
+    except Exception:
+        pass  # best-effort cleanup; the CI container is discarded anyway
+
+
+@pytest.fixture(scope="session")
+def succeeded_execution(client, shared_flow):
+    """(execution_id, ns, flow_id) of one SUCCESS run of the shared flow.
+
+    STRICTLY for read-only consumers: never delete it, change its state or
+    labels, or delete its logs — use fresh_execution for that.
+    """
+    ns, flow_id = shared_flow
+    resp = client.executions.create_execution(TENANT, ns, flow_id)
+    wait_for_execution(client, resp.id)
+    return resp.id, ns, flow_id
+
+
+@pytest.fixture
+def fresh_execution(client, shared_flow):
+    """A private SUCCESS run of the shared flow, safe to mutate or delete."""
+    ns, flow_id = shared_flow
+    resp = client.executions.create_execution(TENANT, ns, flow_id)
+    wait_for_execution(client, resp.id)
+    return resp.id, ns, flow_id

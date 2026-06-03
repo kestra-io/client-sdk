@@ -213,11 +213,7 @@ def wait_for_execution(client, execution_id, timeout=30, interval=0.5):
     raise TimeoutError(f"Execution {execution_id} did not reach SUCCESS within {timeout}s")
 
 
-def create_execution_with_logs(client):
-    """Create a flow, execute it, wait for SUCCESS. Returns (execution_id, namespace, flow_id)."""
-    ns = random_id()
-    flow_id = random_id()
-    create_flow(client, log_flow_yaml(flow_id, ns))
-    exec_resp = client.executions.create_execution(TENANT, ns, flow_id)
-    wait_for_execution(client, exec_resp.id)
-    return exec_resp.id, ns, flow_id
+# NOTE: tests that only need "an execution with logs" should use the shared
+# `succeeded_execution` fixture from conftest.py instead of creating their
+# own namespace+flow+execution — accumulated server-side state is what OOMs
+# the CI Kestra container.

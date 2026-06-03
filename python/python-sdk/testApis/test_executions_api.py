@@ -13,14 +13,13 @@ from kestrapy import (
 from test_helpers import (
     TENANT,
     random_id,
-    log_flow_yaml,
     log_flow_yaml_with_labels,
     create_flow,
-    create_log_flow,
     ns_filter,
     flow_id_filter,
     state_filter,
     labels_filter,
+    wait_for_execution,
 )
 
 
@@ -31,24 +30,6 @@ from test_helpers import (
 
 def _execute_flow(client, ns, flow_id):
     return client.executions.create_execution(TENANT, ns, flow_id)
-
-
-def _execute_and_wait(client, ns, flow_id, timeout=30):
-    from kestrapy.exceptions import NotFoundException
-    resp = _execute_flow(client, ns, flow_id)
-    execution_id = resp.id
-    start = time.time()
-    while time.time() - start < timeout:
-        try:
-            exc = client.executions.execution(execution_id, TENANT)
-        except NotFoundException:
-            time.sleep(0.5)
-            continue
-        state = exc.state.current if hasattr(exc.state, "current") else None
-        if state in (StateType.SUCCESS, StateType.FAILED, StateType.WARNING, StateType.CANCELLED):
-            return execution_id
-        time.sleep(0.5)
-    raise TimeoutError(f"Execution {execution_id} did not complete within {timeout}s")
 
 
 def _failing_flow_yaml(flow_id, ns):
@@ -104,38 +85,63 @@ def _wait_for_state(client, execution_id, target_states, timeout=30):
 
 
 # ========================================================================
+# Module fixtures — special-purpose flows, all living in the shared
+# namespace so the module adds no namespace cardinality on the server.
+# ========================================================================
+
+
+@pytest.fixture(scope="module")
+def sleep_flow(client, shared_flow):
+    """(ns, flow_id) of a 10s-sleep flow, for kill/pause tests."""
+    ns, _ = shared_flow
+    flow_id = random_id()
+    create_flow(client, _sleep_flow_yaml(flow_id, ns))
+    return ns, flow_id
+
+
+@pytest.fixture(scope="module")
+def failing_flow(client, shared_flow):
+    """(ns, flow_id) of an always-failing flow, for restart tests."""
+    ns, _ = shared_flow
+    flow_id = random_id()
+    create_flow(client, _failing_flow_yaml(flow_id, ns))
+    return ns, flow_id
+
+
+@pytest.fixture(scope="module")
+def webhook_flow(client, shared_flow):
+    """(ns, flow_id, key) of a webhook-triggered flow."""
+    ns, _ = shared_flow
+    flow_id = random_id()
+    key = random_id()
+    create_flow(client, _webhook_flow_yaml(flow_id, ns, key))
+    time.sleep(0.5)
+    return ns, flow_id, key
+
+
+# ========================================================================
 # Create & Get
 # ========================================================================
 
 
 class TestCreateAndGet:
-    def test_create_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_create_execution_basic(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         result = _execute_flow(client, ns, flow_id)
         assert result is not None
         assert result.id is not None and result.id != ""
 
-    def test_execution_get_by_id(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_execution_get_by_id(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
-        created = _execute_flow(client, ns, flow_id)
-        time.sleep(0.5)
-
-        result = client.executions.execution(created.id, TENANT)
+        result = client.executions.execution(execution_id, TENANT)
         assert result is not None
-        assert result.id == created.id
+        assert result.id == execution_id
 
-    def test_execution_wait_for_completion(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_execution_wait_for_completion(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
-        execution_id = _execute_and_wait(client, ns, flow_id)
         result = client.executions.execution(execution_id, TENANT)
         assert result.state.current == StateType.SUCCESS
 
@@ -156,21 +162,15 @@ class TestSearchExecutions:
         assert result is not None
         assert len(result.get("results", [])) <= 2
 
-    def test_search_executions_by_flow_id_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_by_flow_id_basic(self, client, succeeded_execution):
+        _, ns, flow_id = succeeded_execution
 
         result = client.executions.search_executions_by_flow_id(TENANT, ns, flow_id, 1, 10)
         assert result is not None
         assert len(result.get("results", [])) > 0
 
-    def test_search_executions_with_namespace_filter(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_with_namespace_filter(self, client, succeeded_execution):
+        _, ns, _ = succeeded_execution
 
         # Poll until search returns results
         deadline = time.time() + 30
@@ -186,11 +186,8 @@ class TestSearchExecutions:
         for exc in results:
             assert exc["namespace"] == ns
 
-    def test_search_executions_with_flow_id_filter(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_with_flow_id_filter(self, client, succeeded_execution):
+        _, _, flow_id = succeeded_execution
 
         deadline = time.time() + 30
         results = []
@@ -205,11 +202,8 @@ class TestSearchExecutions:
         for exc in results:
             assert exc["flowId"] == flow_id
 
-    def test_search_executions_with_state_filter(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_with_state_filter(self, client, succeeded_execution):
+        _, ns, _ = succeeded_execution
 
         deadline = time.time() + 30
         results = []
@@ -224,25 +218,16 @@ class TestSearchExecutions:
         for exc in results:
             assert exc["state"]["current"] == "SUCCESS"
 
-    def test_search_executions_with_labels(self, client):
-        ns = random_id()
+    def test_search_executions_with_labels(self, client, shared_flow):
+        ns, _ = shared_flow
         flow_id = random_id()
         create_flow(client, log_flow_yaml_with_labels(flow_id, ns, {"team": "sdk", "env": "test"}))
-        client.executions.create_execution(TENANT, ns, flow_id, labels=["team:sdk", "env:test"])
-
-        # Wait for execution to terminate
-        deadline = time.time() + 30
-        while time.time() < deadline:
-            resp = client.executions.search_executions(TENANT, 1, 10, None, [ns_filter(ns)])
-            results = resp.get("results", [])
-            if results:
-                state = results[0].get("state", {}).get("current")
-                if state in ("SUCCESS", "FAILED", "WARNING", "CANCELLED"):
-                    break
-            time.sleep(0.5)
+        resp = client.executions.create_execution(TENANT, ns, flow_id, labels=["team:sdk", "env:test"])
+        wait_for_execution(client, resp.id)
 
         # Search with label filter
         deadline = time.time() + 30
+        results = []
         while time.time() < deadline:
             resp = client.executions.search_executions(TENANT, 1, 10, None, [labels_filter({"team": "sdk"}), ns_filter(ns)])
             results = resp.get("results", [])
@@ -252,11 +237,8 @@ class TestSearchExecutions:
 
         assert len(results) > 0
 
-    def test_search_executions_multiple_filters(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_multiple_filters(self, client, succeeded_execution):
+        _, ns, flow_id = succeeded_execution
 
         deadline = time.time() + 30
         results = []
@@ -280,13 +262,11 @@ class TestSearchExecutions:
         assert result.get("total", 0) == 0
         assert len(result.get("results", [])) == 0
 
-    def test_search_executions_with_sort(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
-        time.sleep(0.5)
-        _execute_and_wait(client, ns, flow_id)
+    def test_search_executions_with_sort(self, client, succeeded_execution):
+        _, ns, flow_id = succeeded_execution
+        # The shared execution is the first; add a second so ordering is testable.
+        resp = client.executions.create_execution(TENANT, ns, flow_id)
+        wait_for_execution(client, resp.id)
 
         deadline = time.time() + 30
         results = []
@@ -308,30 +288,22 @@ class TestSearchExecutions:
 
 
 class TestGraphAndFlow:
-    def test_execution_flow_graph_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_execution_flow_graph_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         result = client.executions.execution_flow_graph(execution_id, TENANT)
         assert result is not None
         assert len(result.nodes) > 0
 
-    def test_flow_from_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_flow_from_execution_basic(self, client, succeeded_execution):
+        _, ns, flow_id = succeeded_execution
 
         result = client.executions.flow_from_execution(TENANT, ns, flow_id)
         assert result is not None
         assert result.id == flow_id
 
-    def test_flow_from_execution_by_id_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_flow_from_execution_by_id_basic(self, client, succeeded_execution):
+        execution_id, _, flow_id = succeeded_execution
 
         result = client.executions.flow_from_execution_by_id(execution_id, TENANT)
         assert result is not None
@@ -344,20 +316,14 @@ class TestGraphAndFlow:
 
 
 class TestDeleteExecution:
-    def test_delete_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_delete_execution_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         # Should not raise
         client.executions.delete_execution(execution_id, TENANT)
 
-    def test_delete_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_delete_executions_by_ids_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         result = client.executions.delete_executions_by_ids(TENANT, [execution_id])
         assert result is not None
@@ -369,10 +335,8 @@ class TestDeleteExecution:
 
 
 class TestKillExecution:
-    def test_kill_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _sleep_flow_yaml(flow_id, ns))
+    def test_kill_execution_basic(self, client, sleep_flow):
+        ns, flow_id = sleep_flow
 
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
@@ -386,10 +350,8 @@ class TestKillExecution:
 
         _wait_for_state(client, execution_id, [StateType.KILLED, StateType.CANCELLED])
 
-    def test_kill_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _sleep_flow_yaml(flow_id, ns))
+    def test_kill_executions_by_ids_basic(self, client, sleep_flow):
+        ns, flow_id = sleep_flow
 
         resp1 = _execute_flow(client, ns, flow_id)
         resp2 = _execute_flow(client, ns, flow_id)
@@ -407,21 +369,15 @@ class TestKillExecution:
 
 
 class TestLabels:
-    def test_set_labels_on_terminated_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_set_labels_on_terminated_execution_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         label = Label(key="env", value="test")
         result = client.executions.set_labels_on_terminated_execution(execution_id, TENANT, [label])
         assert result is not None
 
-    def test_set_labels_on_terminated_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_set_labels_on_terminated_executions_by_ids_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         label = Label(key="team", value="platform")
         request = ExecutionControllerSetLabelsByIdsRequest(
@@ -439,11 +395,8 @@ class TestLabels:
 
 
 class TestEvalExpression:
-    def test_eval_expression_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_eval_expression_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         result = client.executions.eval_expression(execution_id, TENANT, "{{ execution.id }}")
         assert result is not None
@@ -456,31 +409,22 @@ class TestEvalExpression:
 
 
 class TestReplay:
-    def test_replay_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_replay_execution_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         result = client.executions.replay_execution(execution_id, TENANT)
         assert result is not None
         assert result.id != execution_id
 
-    def test_replay_execution_with_inputs_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_replay_execution_with_inputs_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         result = client.executions.replay_execution_with_inputs(execution_id, TENANT)
         assert result is not None
         assert result.id is not None and result.id != ""
 
-    def test_replay_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_replay_executions_by_ids_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         # Should not raise
         client.executions.replay_executions_by_ids(TENANT, [execution_id])
@@ -496,11 +440,8 @@ class TestReplay:
 
 
 class TestLatestExecutions:
-    def test_latest_executions_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        _execute_and_wait(client, ns, flow_id)
+    def test_latest_executions_basic(self, client, succeeded_execution):
+        _, ns, flow_id = succeeded_execution
 
         flow_filter = ExecutionRepositoryInterfaceFlowFilter(namespace=ns, id=flow_id)
         result = client.executions.latest_executions(TENANT, [flow_filter])
@@ -515,10 +456,8 @@ class TestLatestExecutions:
 
 
 class TestRestart:
-    def test_restart_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _failing_flow_yaml(flow_id, ns))
+    def test_restart_execution_basic(self, client, failing_flow):
+        ns, flow_id = failing_flow
 
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
@@ -529,10 +468,8 @@ class TestRestart:
         assert result is not None
         assert result.id is not None and result.id != ""
 
-    def test_restart_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _failing_flow_yaml(flow_id, ns))
+    def test_restart_executions_by_ids_basic(self, client, failing_flow):
+        ns, flow_id = failing_flow
 
         resp = _execute_flow(client, ns, flow_id)
         _wait_for_state(client, resp.id, [StateType.FAILED])
@@ -551,21 +488,15 @@ class TestRestart:
 
 
 class TestUpdateExecutionStatus:
-    def test_update_execution_status_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_update_execution_status_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         result = client.executions.update_execution_status(execution_id, StateType.WARNING, TENANT)
         assert result is not None
         assert result.id == execution_id
 
-    def test_update_executions_status_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_update_executions_status_by_ids_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         # Should not raise
         client.executions.update_executions_status_by_ids(TENANT, StateType.WARNING, [execution_id])
@@ -581,12 +512,8 @@ class TestUpdateExecutionStatus:
 
 
 class TestWebhooks:
-    def test_trigger_execution_by_get_webhook_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        key = random_id()
-        create_flow(client, _webhook_flow_yaml(flow_id, ns, key))
-        time.sleep(0.5)
+    def test_trigger_execution_by_get_webhook_basic(self, client, webhook_flow):
+        ns, flow_id, key = webhook_flow
 
         result = client.executions.trigger_execution_by_get_webhook(TENANT, ns, flow_id, key)
         assert result is not None
@@ -594,17 +521,13 @@ class TestWebhooks:
         assert result.flow_id == flow_id
         assert result.namespace == ns
 
-    def test_trigger_execution_by_get_webhook_with_path_routes(self, client):
+    def test_trigger_execution_by_get_webhook_with_path_routes(self, client, webhook_flow):
         # The webhook trigger in our test fixture doesn't declare a `path`
         # config, so the path-suffixed URL doesn't match any registered
         # trigger and the server replies 404. That 404 (rather than a
         # connection error or unknown-route 405) confirms the SDK reached
         # the path-with-suffix controller correctly.
-        ns = random_id()
-        flow_id = random_id()
-        key = random_id()
-        create_flow(client, _webhook_flow_yaml(flow_id, ns, key))
-        time.sleep(0.5)
+        ns, flow_id, key = webhook_flow
 
         try:
             result = client.executions.trigger_execution_by_get_webhook_with_path(
@@ -615,12 +538,8 @@ class TestWebhooks:
         except ApiException as e:
             assert e.status == 404
 
-    def test_trigger_execution_by_post_webhook_with_path_routes(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        key = random_id()
-        create_flow(client, _webhook_flow_yaml(flow_id, ns, key))
-        time.sleep(0.5)
+    def test_trigger_execution_by_post_webhook_with_path_routes(self, client, webhook_flow):
+        ns, flow_id, key = webhook_flow
 
         try:
             result = client.executions.trigger_execution_by_post_webhook_with_path(
@@ -630,12 +549,8 @@ class TestWebhooks:
         except ApiException as e:
             assert e.status == 404
 
-    def test_trigger_execution_by_put_webhook_with_path_routes(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        key = random_id()
-        create_flow(client, _webhook_flow_yaml(flow_id, ns, key))
-        time.sleep(0.5)
+    def test_trigger_execution_by_put_webhook_with_path_routes(self, client, webhook_flow):
+        ns, flow_id, key = webhook_flow
 
         try:
             result = client.executions.trigger_execution_by_put_webhook_with_path(
@@ -652,15 +567,12 @@ class TestWebhooks:
 
 
 class TestFiles:
-    def test_download_file_from_execution_invalid_uri_raises(self, client):
+    def test_download_file_from_execution_invalid_uri_raises(self, client, succeeded_execution):
         # The hello-world flow doesn't produce files, so we exercise the SDK
         # wiring by passing a clearly invalid internal storage URI. The
         # server should reject it with a 4xx, confirming path + params
         # are routed correctly.
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+        execution_id, _, _ = succeeded_execution
 
         with pytest.raises(ApiException) as exc_info:
             client.executions.download_file_from_execution(
@@ -668,11 +580,8 @@ class TestFiles:
             )
         assert exc_info.value.status in (400, 404, 422, 500)
 
-    def test_file_metadatas_from_execution_invalid_uri_raises(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_file_metadatas_from_execution_invalid_uri_raises(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         with pytest.raises(ApiException) as exc_info:
             client.executions.file_metadatas_from_execution(
@@ -687,30 +596,24 @@ class TestFiles:
 
 
 class TestCreateExecutionOptions:
-    def test_create_execution_with_labels(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_create_execution_with_labels(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         resp = client.executions.create_execution(
             TENANT, ns, flow_id, labels=["env:test", "tier:gold"],
         )
         assert resp is not None
 
-    def test_create_execution_with_revision(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_create_execution_with_revision(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         resp = client.executions.create_execution(
             TENANT, ns, flow_id, revision=1,
         )
         assert resp is not None
 
-    def test_create_execution_with_schedule_date(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_create_execution_with_schedule_date(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         # Schedule a few seconds in the future — server stores the
         # scheduledDate without executing immediately.
@@ -727,11 +630,8 @@ class TestCreateExecutionOptions:
 
 
 class TestDeleteExecutionFlags:
-    def test_delete_execution_with_all_purge_flags(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_delete_execution_with_all_purge_flags(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         # Should not raise
         client.executions.delete_execution(
@@ -739,11 +639,8 @@ class TestDeleteExecutionFlags:
             delete_logs=True, delete_metrics=True, delete_storage=True,
         )
 
-    def test_delete_executions_by_ids_with_include_non_terminated(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_delete_executions_by_ids_with_include_non_terminated(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         result = client.executions.delete_executions_by_ids(
             TENANT, ids=[execution_id],
@@ -754,10 +651,8 @@ class TestDeleteExecutionFlags:
 
 
 class TestKillCascade:
-    def test_kill_execution_with_cascade_flag(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _sleep_flow_yaml(flow_id, ns))
+    def test_kill_execution_with_cascade_flag(self, client, sleep_flow):
+        ns, flow_id = sleep_flow
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
         _wait_for_state(client, execution_id, [StateType.RUNNING])
@@ -770,10 +665,8 @@ class TestKillCascade:
 
 
 class TestRestartRevision:
-    def test_restart_execution_with_revision(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _failing_flow_yaml(flow_id, ns))
+    def test_restart_execution_with_revision(self, client, failing_flow):
+        ns, flow_id = failing_flow
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
         _wait_for_state(client, execution_id, [StateType.FAILED])
@@ -786,10 +679,8 @@ class TestRestartRevision:
 
 
 class TestFollowDependenciesFlags:
-    def test_follow_dependencies_execution_with_destination_only(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_follow_dependencies_execution_with_destination_only(self, client, shared_flow):
+        ns, flow_id = shared_flow
         resp = _execute_flow(client, ns, flow_id)
 
         events = []
@@ -843,11 +734,8 @@ class TestNotFound:
 
 
 class TestUpdateTaskRunState:
-    def test_update_task_run_state_unknown_taskrun(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_update_task_run_state_unknown_taskrun(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         # An unknown taskRunId on a completed execution should not change
         # state; the server returns 409 ("if the task run state cannot be
@@ -890,10 +778,8 @@ class TestDeleteByQuery:
 
 
 class TestPauseResume:
-    def test_pause_execution_not_paused(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _sleep_flow_yaml(flow_id, ns))
+    def test_pause_execution_not_paused(self, client, sleep_flow):
+        ns, flow_id = sleep_flow
 
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
@@ -931,10 +817,8 @@ class TestPauseResume:
 
 
 class TestRestartBulk:
-    def test_restart_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, _failing_flow_yaml(flow_id, ns))
+    def test_restart_executions_by_ids_basic(self, client, failing_flow):
+        ns, flow_id = failing_flow
 
         resp = _execute_flow(client, ns, flow_id)
         execution_id = resp.id
@@ -954,21 +838,15 @@ class TestRestartBulk:
 
 
 class TestReplayBulk:
-    def test_replay_execution_with_inputs_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_replay_execution_with_inputs_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         result = client.executions.replay_execution_with_inputs(execution_id, TENANT)
         assert result is not None
         assert result.id is not None and result.id != ""
 
-    def test_replay_executions_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_replay_executions_by_ids_basic(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         # Should not raise
         client.executions.replay_executions_by_ids(TENANT, [execution_id])
@@ -984,11 +862,8 @@ class TestReplayBulk:
 
 
 class TestForceRun:
-    def test_force_run_execution_not_queued(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_force_run_execution_not_queued(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         # Force-run on a terminated execution should fail (409)
         with pytest.raises(Exception):
@@ -1009,11 +884,8 @@ class TestForceRun:
 
 
 class TestUnqueue:
-    def test_unqueue_execution_not_queued(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_unqueue_execution_not_queued(self, client, succeeded_execution):
+        execution_id, _, _ = succeeded_execution
 
         with pytest.raises(Exception):
             client.executions.unqueue_execution(execution_id, TENANT)
@@ -1045,11 +917,8 @@ class TestLabelsByQuery:
 
 
 class TestChangeStatusBulk:
-    def test_update_executions_status_by_ids_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
-        execution_id = _execute_and_wait(client, ns, flow_id)
+    def test_update_executions_status_by_ids_basic(self, client, fresh_execution):
+        execution_id, _, _ = fresh_execution
 
         # Should not raise
         client.executions.update_executions_status_by_ids(TENANT, StateType.WARNING, [execution_id])
@@ -1065,10 +934,8 @@ class TestChangeStatusBulk:
 
 
 class TestStreaming:
-    def test_follow_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_follow_execution_basic(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         resp = _execute_flow(client, ns, flow_id)
 
@@ -1091,10 +958,8 @@ class TestStreaming:
         last = events[-1]
         assert last.state is not None
 
-    def test_follow_dependencies_execution_basic(self, client):
-        ns = random_id()
-        flow_id = random_id()
-        create_flow(client, log_flow_yaml(flow_id, ns))
+    def test_follow_dependencies_execution_basic(self, client, shared_flow):
+        ns, flow_id = shared_flow
 
         resp = _execute_flow(client, ns, flow_id)
 
