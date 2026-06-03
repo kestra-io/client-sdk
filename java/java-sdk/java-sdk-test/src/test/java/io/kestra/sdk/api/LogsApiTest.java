@@ -3,9 +3,11 @@ package io.kestra.sdk.api;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
+import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -83,6 +85,59 @@ public class LogsApiTest {
 
         assertThat(file).isNotNull();
         assertThat(file.length()).isGreaterThan(0);
+    }
+
+    // ========================================================================
+    // Follow logs (SSE)
+    // ========================================================================
+
+    static ExecutionControllerExecutionResponse startExecutionWithLogs() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        return client().executions()
+                .createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+    }
+
+    /**
+     * The server interleaves empty {@code {}} keepalive frames (the SSE
+     * {@code start} event) with real log events; keep only the real ones,
+     * and stop as soon as one arrives so the test does not wait out the
+     * full window.
+     */
+    static List<FollowLogEvent> collectFollowedLogs(Flux<FollowLogEvent> flux) {
+        List<FollowLogEvent> events = new ArrayList<>();
+        flux.filter(event -> event.getExecutionId() != null)
+                .take(1)
+                .take(Duration.ofSeconds(15))
+                .doOnNext(events::add)
+                .blockLast(Duration.ofSeconds(20));
+        return events;
+    }
+
+    @Test
+    void followLogsFromExecution_basic() throws ApiException {
+        ExecutionControllerExecutionResponse exec = startExecutionWithLogs();
+
+        List<FollowLogEvent> events = collectFollowedLogs(
+                api().followLogsFromExecution(exec.getId(), TENANT, null));
+
+        assertThat(events).isNotEmpty();
+        assertThat(events).allSatisfy(event ->
+                assertThat(event.getExecutionId()).isEqualTo(exec.getId()));
+    }
+
+    @Test
+    void followLogsFromExecution_withMinLevelFilter() throws ApiException {
+        ExecutionControllerExecutionResponse exec = startExecutionWithLogs();
+
+        List<FollowLogEvent> events = collectFollowedLogs(
+                api().followLogsFromExecution(exec.getId(), TENANT,
+                        List.of(minLevelFilter("INFO"))));
+
+        assertThat(events).isNotEmpty();
+        assertThat(events).allSatisfy(event ->
+                assertThat(event.getLevel()).isNotNull());
     }
 
     // ========================================================================
