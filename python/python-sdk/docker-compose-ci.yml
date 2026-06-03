@@ -35,5 +35,6 @@ services:
       - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
+      JAVA_OPTS: "-Xms512m -Xmx8g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
     ports:
       - "9902:8080"
