@@ -1612,6 +1612,7 @@ func (a *ExecutionsAPIService) FollowDependenciesExecutionsExecute(r ApiFollowDe
 	ctx, cancel := context.WithCancel(r.ctx)
 	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
+		cancel()
 		return executionEvents, err
 	}
 
@@ -1747,6 +1748,7 @@ func (a *ExecutionsAPIService) FollowExecutionExecute(r ApiFollowExecutionReques
 	ctx, cancel := context.WithCancel(r.ctx)
 	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
+		cancel()
 		return executionEvents, err
 	}
 
