@@ -14,7 +14,7 @@ type LogsAPI struct {
 // the unified `filters` array Kestra 2.0 expects on the per-execution log read
 // endpoints (the DELETE endpoint still takes the legacy params).
 func logExecutionFilters(minLevel, taskRunId, taskId *string, attempt *int) url.Values {
-	var filters []QueryFilter
+	var filters []SearchFilter
 	filters = appendStringFilterOp(filters, FilterMinLevel, OpGreaterThanOrEqualTo, minLevel)
 	filters = appendStringFilter(filters, FilterTaskRunId, taskRunId)
 	filters = appendStringFilter(filters, FilterTaskId, taskId)
@@ -44,7 +44,7 @@ func (a *LogsAPI) DeleteLogsFromFlow(ctx context.Context, namespace, flowId, ten
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "logs", namespace, flowId), nil, params)
 }
 
-func (a *LogsAPI) SearchLogs(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsLogEntry, error) {
+func (a *LogsAPI) SearchLogs(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsLogEntry, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)

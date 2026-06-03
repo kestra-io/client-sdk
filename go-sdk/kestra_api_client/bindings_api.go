@@ -22,7 +22,7 @@ func (a *BindingsAPI) DeleteBinding(ctx context.Context, id, tenant string) erro
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "bindings", id), nil, nil)
 }
 
-func (a *BindingsAPI) SearchBindings(ctx context.Context, tenant string, page, size *int, sort []string, bindingType *BindingType, externalId, namespace *string, filters []QueryFilter) (*PagedResultsIAMBindingControllerApiBindingDetail, error) {
+func (a *BindingsAPI) SearchBindings(ctx context.Context, tenant string, page, size *int, sort []string, bindingType *BindingType, externalId, namespace *string, filters []SearchFilter) (*PagedResultsIAMBindingControllerApiBindingDetail, error) {
 	params := buildQueryParams("page", page, "size", size, "id", externalId, "namespace", namespace)
 	if bindingType != nil {
 		// Set explicitly: buildQueryParams' default branch would print a *BindingType as a pointer address.

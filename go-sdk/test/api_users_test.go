@@ -230,7 +230,7 @@ func TestUsersAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterQuery,
 				Operation: kestra_api_client.OpEquals,

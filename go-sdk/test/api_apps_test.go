@@ -225,7 +225,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err := KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(randomId(), ns, flowId))
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -249,7 +249,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err := KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(randomId(), ns, flowId))
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
