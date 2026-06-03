@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from test_helpers import (  # noqa: E402  (needs the sys.path insert above)
     TENANT,
     create_flow,
+    drain_registered_namespaces,
     log_flow_yaml,
     ns_filter,
     random_id,
@@ -109,22 +110,43 @@ def client():
 # ========================================================================
 
 
+def _purge_namespaces(client, namespaces):
+    """Best-effort deletion of everything a test namespace accumulated."""
+    for ns in namespaces:
+        for call in (
+            lambda: client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)]),
+            lambda: client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)]),
+            lambda: client.namespaces.delete_namespace(ns, TENANT),
+        ):
+            try:
+                call()
+            except Exception:
+                pass  # already deleted by the test itself, or non-empty — fine
+
+
+@pytest.fixture(autouse=True, scope="module")
+def _namespace_gc(client):
+    """Purge namespaces minted via random_namespace() after each module.
+
+    Keeps live server-side namespace cardinality bounded to one module's
+    worth instead of accumulating ~300 namespaces over the run.
+    """
+    yield
+    _purge_namespaces(client, drain_registered_namespaces())
+
+
 @pytest.fixture(scope="session")
 def shared_flow(client):
     """(namespace, flow_id) of one log flow shared by the whole session.
 
     Tests may create additional executions of it, or additional flows inside
     its namespace, as long as they don't assert namespace-wide counts.
+    Deliberately NOT registered with the module GC — purged at session end.
     """
     ns, flow_id = random_id(), random_id()
     create_flow(client, log_flow_yaml(flow_id, ns))
     yield ns, flow_id
-    try:
-        client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)])
-        client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)])
-        client.namespaces.delete_namespace(ns, TENANT)
-    except Exception:
-        pass  # best-effort cleanup; the CI container is discarded anyway
+    _purge_namespaces(client, [ns])
 
 
 @pytest.fixture(scope="session")

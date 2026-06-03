@@ -9,6 +9,7 @@ from kestrapy import (
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
     log_flow_yaml,
     create_flow,
     ns_filter,
@@ -45,7 +46,7 @@ layout:
 
 def _create_app_with_flow(client):
     """Helper: create a flow and an app pointing to it. Returns (app, ns, flow_id)."""
-    ns = random_id()
+    ns = random_namespace()
     flow_id = random_id()
     create_flow(client, log_flow_yaml(flow_id, ns))
     app = client.apps.create_app(TENANT, _app_yaml(random_id(), ns, flow_id))
@@ -59,7 +60,7 @@ def _create_app_with_flow(client):
 
 class TestCRUD:
     def test_create_app_basic(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
 
@@ -75,7 +76,7 @@ class TestCRUD:
         assert result.uid == created.uid
 
     def test_update_app_basic(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         app_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
@@ -148,7 +149,7 @@ class TestSearch:
         assert any(app.uid == created.uid for app in result.results)
 
     def test_search_apps_with_flow_id(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
         created = client.apps.create_app(TENANT, _app_yaml(random_id(), ns, flow_id))
@@ -159,7 +160,7 @@ class TestSearch:
         assert any(app.uid == created.uid for app in result.results)
 
     def test_search_apps_with_query(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
 
@@ -174,7 +175,7 @@ class TestSearch:
             assert app_id1 in app.name
 
     def test_search_apps_with_sort(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
 
@@ -207,8 +208,8 @@ class TestSearch:
                     assert tag in app.tags
 
     def test_search_apps_with_filters(self, client):
-        ns1 = random_id()
-        ns2 = random_id()
+        ns1 = random_namespace()
+        ns2 = random_namespace()
         flow_id1 = random_id()
         flow_id2 = random_id()
         create_flow(client, log_flow_yaml(flow_id1, ns1))
@@ -223,7 +224,7 @@ class TestSearch:
             assert app.namespace == ns1
 
     def test_search_apps_from_catalog_with_filters(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         create_flow(client, log_flow_yaml(flow_id, ns))
         client.apps.create_app(TENANT, _app_yaml(random_id(), ns, flow_id))

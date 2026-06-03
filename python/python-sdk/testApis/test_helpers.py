@@ -23,6 +23,31 @@ def random_id():
     return uuid.uuid4().hex
 
 
+# Namespaces materialize per-namespace state server-side (EE/RBAC) that
+# lives until deleted and feeds the CI container's heap. Namespaces minted
+# through random_namespace() are registered here and bulk-purged after each
+# test module by the autouse _namespace_gc fixture in conftest.py, bounding
+# live namespace cardinality to one module's worth.
+_REGISTERED_NAMESPACES = set()
+
+
+def random_namespace():
+    """Random namespace id, purged automatically after the current module."""
+    return register_namespace(random_id())
+
+
+def register_namespace(ns):
+    """Register an externally-built namespace id (e.g. dotted children) for purge."""
+    _REGISTERED_NAMESPACES.add(ns)
+    return ns
+
+
+def drain_registered_namespaces():
+    namespaces = list(_REGISTERED_NAMESPACES)
+    _REGISTERED_NAMESPACES.clear()
+    return namespaces
+
+
 # ========================================================================
 # Flow YAML templates
 # ========================================================================
@@ -120,7 +145,7 @@ def create_flow(client, yaml_body):
 
 
 def create_log_flow(client):
-    return create_flow(client, log_flow_yaml(random_id(), random_id()))
+    return create_flow(client, log_flow_yaml(random_id(), random_namespace()))
 
 
 # ========================================================================
@@ -135,7 +160,7 @@ def read_file(relative_path):
 
 def simple_flow_fixture():
     fid = random_id()
-    ns = random_id()
+    ns = random_namespace()
     body = read_file("flows/simple_flow.yml") \
         .replace("simple_flow_id_to_replace_by_random_id", fid) \
         .replace("simple_flow_namespace_to_replace_by_random_id", ns)
@@ -145,7 +170,7 @@ def simple_flow_fixture():
 def complete_flow_body():
     return read_file("flows/flow_complete.yml") \
         .replace("flow_complete", random_id()) \
-        .replace("tests", random_id())
+        .replace("tests", random_namespace())
 
 
 # ========================================================================

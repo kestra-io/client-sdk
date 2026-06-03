@@ -17,6 +17,7 @@ from kestrapy import (
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
     log_flow_yaml,
     log_flow_yaml_with_description,
     log_flow_yaml_with_labels,
@@ -94,7 +95,7 @@ class TestGetFlow:
 
     def test_with_specific_revision(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         v1 = create_flow(client, log_flow_yaml_with_description(fid, ns, "version-one"))
         assert v1.revision == 1
 
@@ -128,7 +129,7 @@ class TestGetFlow:
 
     def test_revision_and_allow_deleted(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml_with_description(fid, ns, "v1"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v2"))
         client.flows.delete_flow(ns, fid, TENANT)
@@ -156,7 +157,7 @@ class TestGetFlow:
 class TestUpdateFlow:
     def test_change_description(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         created = create_flow(client, log_flow_yaml_with_description(fid, ns, "original"))
 
         updated = client.flows.update_flow(
@@ -168,7 +169,7 @@ class TestUpdateFlow:
 
     def test_add_task(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         created = create_flow(client, log_flow_yaml(fid, ns))
         assert len(created.tasks) == 1
 
@@ -211,7 +212,7 @@ class TestDeleteFlowsByIds:
         assert resp.count == 1
 
     def test_multiple(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f1 = create_flow(client, log_flow_yaml(random_id(), ns))
         f2 = create_flow(client, log_flow_yaml(random_id(), ns))
         f3 = create_flow(client, log_flow_yaml(random_id(), ns))
@@ -234,7 +235,7 @@ class TestDeleteFlowsByIds:
 
 class TestDeleteFlowsByQuery:
     def test_namespace_filter(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
 
@@ -242,7 +243,7 @@ class TestDeleteFlowsByQuery:
         assert resp.count == 2
 
     def test_flow_id_filter(self, client):
-        ns = random_id()
+        ns = random_namespace()
         target = create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
 
@@ -301,7 +302,7 @@ class TestDisableEnableByIds:
 
 class TestDisableEnableByQuery:
     def test_disable_namespace_filter(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
 
@@ -309,7 +310,7 @@ class TestDisableEnableByQuery:
         assert resp.count == 2
 
     def test_enable_after_disable(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
 
         filters = [ns_filter(ns)]
@@ -327,7 +328,7 @@ class TestDisableEnableByQuery:
 class TestBulkUpdateFlows:
     def test_update_description(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml_with_description(fid, ns, "before"))
 
         result = client.flows.bulk_update_flows(
@@ -336,7 +337,7 @@ class TestBulkUpdateFlows:
         assert result is not None and len(result) > 0
 
     def test_delete_true_removes_stale_flows(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = random_id()
         id2 = random_id()
         create_flow(client, log_flow_yaml(id1, ns))
@@ -353,7 +354,7 @@ class TestBulkUpdateFlows:
         assert remaining[0].id == id1
 
     def test_delete_false_keeps_stale_flows(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = random_id()
         id2 = random_id()
         create_flow(client, log_flow_yaml(id1, ns))
@@ -369,7 +370,7 @@ class TestBulkUpdateFlows:
         assert len(remaining) == 2
 
     def test_with_namespace_and_allow_child(self, client):
-        ns = random_id()
+        ns = random_namespace()
         fid = random_id()
         create_flow(client, log_flow_yaml(fid, ns))
 
@@ -388,7 +389,7 @@ class TestBulkUpdateFlows:
 class TestListFlowRevisions:
     def test_multiple_revisions(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml_with_description(fid, ns, "v1"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v2"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v3"))
@@ -402,7 +403,7 @@ class TestListFlowRevisions:
 
     def test_allow_delete_true(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(fid, ns))
         client.flows.delete_flow(ns, fid, TENANT)
         time.sleep(0.2)
@@ -413,7 +414,7 @@ class TestListFlowRevisions:
 
     def test_allow_delete_false_excludes_deleted(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(fid, ns))
         client.flows.delete_flow(ns, fid, TENANT)
         time.sleep(0.2)
@@ -431,7 +432,7 @@ class TestListFlowRevisions:
 class TestDeleteRevisions:
     def test_single(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml_with_description(fid, ns, "v1"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v2"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v3"))
@@ -446,7 +447,7 @@ class TestDeleteRevisions:
 
     def test_multiple(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml_with_description(fid, ns, "v1"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v2"))
         client.flows.update_flow(ns, fid, TENANT, log_flow_yaml_with_description(fid, ns, "v3"))
@@ -465,7 +466,7 @@ class TestDeleteRevisions:
 
 class TestSearchFlows:
     def test_by_namespace(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f = create_flow(client, log_flow_yaml(random_id(), ns))
 
         result = client.flows.search_flows(TENANT, page=1, size=10, filters=[ns_filter(ns)])
@@ -483,7 +484,7 @@ class TestSearchFlows:
         assert result.results[0].namespace == f.namespace
 
     def test_by_query(self, client):
-        ns = random_id()
+        ns = random_namespace()
         fid = random_id()
         create_flow(client, log_flow_yaml(fid, ns))
 
@@ -493,7 +494,7 @@ class TestSearchFlows:
         assert result.total == 1
 
     def test_multiple_filters(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f = create_flow(client, log_flow_yaml(random_id(), ns))
 
         result = client.flows.search_flows(
@@ -502,7 +503,7 @@ class TestSearchFlows:
         assert result.total == 1
 
     def test_pagination(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
@@ -517,7 +518,7 @@ class TestSearchFlows:
         assert len(page2.results) == 1
 
     def test_sort_asc(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = "aaa" + random_id()
         id2 = "zzz" + random_id()
         create_flow(client, log_flow_yaml(id2, ns))
@@ -531,7 +532,7 @@ class TestSearchFlows:
         assert result.results[1].id == id2
 
     def test_sort_desc(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = "aaa" + random_id()
         id2 = "zzz" + random_id()
         create_flow(client, log_flow_yaml(id2, ns))
@@ -552,7 +553,7 @@ class TestSearchFlows:
         assert len(result.results) == 0
 
     def test_with_labels(self, client):
-        ns = random_id()
+        ns = random_namespace()
         fid = random_id()
         create_flow(client, log_flow_yaml_with_labels(fid, ns, {"team": "sdk", "env": "test"}))
 
@@ -563,7 +564,7 @@ class TestSearchFlows:
         assert result.results[0].id == fid
 
     def test_with_labels_no_match(self, client):
-        ns = random_id()
+        ns = random_namespace()
         fid = random_id()
         create_flow(client, log_flow_yaml_with_labels(fid, ns, {"team": "sdk"}))
 
@@ -588,7 +589,7 @@ class TestSearchFlowsBySourceCode:
         assert any(r.model is not None and r.model.id == f.id for r in result.results)
 
     def test_with_namespace(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f = create_flow(client, log_flow_yaml(random_id(), ns))
 
         result = client.flows.search_flows_by_source_code(
@@ -597,7 +598,7 @@ class TestSearchFlowsBySourceCode:
         assert result.total >= 1
 
     def test_with_query_and_namespace(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = random_id()
         id2 = random_id()
         create_flow(client, log_flow_yaml_with_description(id1, ns, "Hello World unique marker"))
@@ -611,7 +612,7 @@ class TestSearchFlowsBySourceCode:
             assert r.model is not None
 
     def test_with_sort(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = "aaa" + random_id()
         id2 = "zzz" + random_id()
         create_flow(client, log_flow_yaml(id1, ns))
@@ -628,7 +629,7 @@ class TestSearchFlowsBySourceCode:
         assert idx2 > idx1
 
     def test_by_description(self, client):
-        ns = random_id()
+        ns = random_namespace()
         unique_desc = "unique_" + random_id()
         create_flow(client, log_flow_yaml_with_description(random_id(), ns, unique_desc))
 
@@ -643,7 +644,7 @@ class TestSearchFlowsBySourceCode:
 
 class TestListFlowsByNamespace:
     def test_single(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f = create_flow(client, log_flow_yaml(random_id(), ns))
 
         result = client.flows.list_flows_by_namespace(ns, TENANT)
@@ -652,7 +653,7 @@ class TestListFlowsByNamespace:
         assert result[0].id == f.id
 
     def test_multiple(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
         create_flow(client, log_flow_yaml(random_id(), ns))
@@ -672,7 +673,7 @@ class TestListFlowsByNamespace:
 
 class TestListDistinctNamespaces:
     def test_contains_created(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
 
         namespaces = client.flows.list_distinct_namespaces(TENANT)
@@ -695,14 +696,14 @@ class TestListDistinctNamespaces:
 
 class TestUpdateFlowsInNamespace:
     def test_basic(self, client):
-        ns = random_id()
+        ns = random_namespace()
         fid = random_id()
 
         result = client.flows.update_flows_in_namespace(ns, TENANT, log_flow_yaml(fid, ns), delete=False, override=False)
         assert result is not None and len(result) > 0
 
     def test_delete_true(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = random_id()
         id2 = random_id()
         create_flow(client, log_flow_yaml(id1, ns))
@@ -716,7 +717,7 @@ class TestUpdateFlowsInNamespace:
         assert remaining[0].id == id1
 
     def test_delete_false(self, client):
-        ns = random_id()
+        ns = random_namespace()
         id1 = random_id()
         id2 = random_id()
         create_flow(client, log_flow_yaml(id1, ns))
@@ -729,7 +730,7 @@ class TestUpdateFlowsInNamespace:
         assert len(remaining) == 2
 
     def test_override_true(self, client):
-        target_ns = random_id()
+        target_ns = random_namespace()
         fid = random_id()
 
         result = client.flows.update_flows_in_namespace(
@@ -756,7 +757,7 @@ class TestExportImport:
         assert zip_bytes is not None and len(zip_bytes) > 10
 
     def test_export_by_ids_multiple(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f1 = create_flow(client, log_flow_yaml(random_id(), ns))
         f2 = create_flow(client, log_flow_yaml(random_id(), ns))
 
@@ -773,7 +774,7 @@ class TestExportImport:
         assert len(double_zip) > len(single_zip)
 
     def test_export_by_query_namespace_filter(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
 
         zip_bytes = client.flows.export_flows_by_query(TENANT, [ns_filter(ns)])
@@ -782,7 +783,7 @@ class TestExportImport:
     def test_import_yaml_file(self, client):
         id1 = random_id()
         id2 = random_id()
-        ns = random_id()
+        ns = random_namespace()
         yaml = log_flow_yaml(id1, ns) + "\n---\n" + log_flow_yaml(id2, ns)
 
         result = client.flows.import_flows(TENANT, fail_on_error=False, file_content=yaml.encode("utf-8"))
@@ -793,7 +794,7 @@ class TestExportImport:
         assert len(flows) >= 2
 
     def test_import_export_then_reimport(self, client):
-        ns = random_id()
+        ns = random_namespace()
         f = create_flow(client, log_flow_yaml(random_id(), ns))
 
         zip_bytes = client.flows.export_flows_by_ids(
@@ -828,7 +829,7 @@ class TestFlowGraph:
 
     def test_with_revision(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(fid, ns))
         client.flows.update_flow(ns, fid, TENANT, two_task_flow_yaml(fid, ns))
 
@@ -850,7 +851,7 @@ class TestFlowGraph:
 
     def test_from_source(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         yaml = log_flow_yaml(fid, ns)
 
         graph = client.flows.generate_flow_graph_from_source(TENANT, yaml)
@@ -872,7 +873,7 @@ class TestFlowGraph:
 
     def test_from_source_with_subflows(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         yaml = log_flow_yaml(fid, ns)
 
         graph = client.flows.generate_flow_graph_from_source(
@@ -908,7 +909,7 @@ class TestFlowDependencies:
         assert deps.nodes is not None
 
     def test_from_namespace(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
 
         deps = client.flows.flow_dependencies_from_namespace(ns, TENANT)
@@ -917,7 +918,7 @@ class TestFlowDependencies:
         assert deps.nodes is not None
 
     def test_from_namespace_destination_only(self, client):
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(random_id(), ns))
 
         deps = client.flows.flow_dependencies_from_namespace(ns, TENANT, destination_only=True)
@@ -942,7 +943,7 @@ class TestTaskFromFlow:
 
     def test_with_revision(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(fid, ns))
 
         task = client.flows.task_from_flow(ns, fid, "hello", TENANT, revision=1)
@@ -957,7 +958,7 @@ class TestTaskFromFlow:
 
     def test_revision_with_different_tasks(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, log_flow_yaml(fid, ns))
         client.flows.update_flow(ns, fid, TENANT, two_task_flow_yaml(fid, ns))
 
@@ -972,7 +973,7 @@ class TestTaskFromFlow:
 
     def test_specific_task_in_two_task_flow(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, two_task_flow_yaml(fid, ns))
 
         task1 = client.flows.task_from_flow(ns, fid, "hello", TENANT)
@@ -998,7 +999,7 @@ class TestConcurrency:
     @pytest.mark.skip(reason="Concurrency limit PUT returns 404 on this kestra-ee image")
     def test_update_concurrency_limit_set(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, concurrency_flow_yaml(fid, ns, 1))
 
         limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=5)
@@ -1012,7 +1013,7 @@ class TestConcurrency:
     @pytest.mark.skip(reason="Concurrency limit PUT returns 404 on this kestra-ee image")
     def test_update_concurrency_limit_update(self, client):
         fid = random_id()
-        ns = random_id()
+        ns = random_namespace()
         create_flow(client, concurrency_flow_yaml(fid, ns, 3))
 
         limit = ConcurrencyLimit(tenant_id=TENANT, namespace=ns, flow_id=fid, running=10)
@@ -1158,7 +1159,7 @@ class TestErrorPaths:
                "passes in isolation. Re-enable once suite has per-test cleanup or Kestra is investigated."
     )
     def test_update_flow_unknown_id_raises(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         yaml_body = log_flow_yaml(flow_id, ns)
         with pytest.raises(ApiException) as exc_info:
@@ -1169,7 +1170,7 @@ class TestErrorPaths:
 
     @pytest.mark.timeout(60)
     def test_create_flow_duplicate_conflicts(self, client):
-        ns = random_id()
+        ns = random_namespace()
         flow_id = random_id()
         yaml_body = log_flow_yaml(flow_id, ns)
         client.flows.create_flow(TENANT, yaml_body)

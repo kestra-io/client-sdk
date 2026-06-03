@@ -4,7 +4,7 @@ import os
 import pytest
 
 from kestrapy.exceptions import ApiException
-from test_helpers import TENANT, random_id, log_flow_yaml, create_flow
+from test_helpers import TENANT, random_id, random_namespace, log_flow_yaml, create_flow
 
 
 # ========================================================================
@@ -24,7 +24,7 @@ def make_temp_file(name, content):
 # ========================================================================
 
 def test_create_namespace_directory_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     # Should not raise
@@ -32,7 +32,7 @@ def test_create_namespace_directory_basic(client):
 
 
 def test_list_namespace_directory_files_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("hello", "world")
@@ -48,7 +48,7 @@ def test_list_namespace_directory_files_basic(client):
 
 
 def test_list_namespace_directory_files_empty(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     files = client.files.list_namespace_directory_files(ns, TENANT)
@@ -60,7 +60,7 @@ def test_list_namespace_directory_files_empty(client):
 # ========================================================================
 
 def test_create_and_get_namespace_file(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("myfile", "content here")
@@ -76,7 +76,7 @@ def test_create_and_get_namespace_file(client):
 
 
 def test_file_metadatas_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("meta", "some data")
@@ -91,7 +91,7 @@ def test_file_metadatas_basic(client):
 
 
 def test_file_revisions_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("rev", "version 1")
@@ -110,7 +110,7 @@ def test_file_revisions_basic(client):
 # ========================================================================
 
 def test_move_file_directory_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("move", "data")
@@ -125,7 +125,7 @@ def test_move_file_directory_basic(client):
 
 
 def test_delete_file_directory_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("del", "data")
@@ -144,7 +144,7 @@ def test_delete_file_directory_basic(client):
 # ========================================================================
 
 def test_search_namespace_files_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("search", "data")
@@ -160,7 +160,7 @@ def test_search_namespace_files_basic(client):
 
 
 def test_export_namespace_files_basic(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     tmp = make_temp_file("export", "data")

@@ -3,7 +3,7 @@ import pytest
 from kestrapy import KVControllerApiDeleteBulkRequest
 from kestrapy.exceptions import ApiException
 from test_helpers import (
-    TENANT, random_id, log_flow_yaml, create_flow, ns_filter,
+    TENANT, random_id, random_namespace, register_namespace, log_flow_yaml, create_flow, ns_filter,
 )
 
 
@@ -12,7 +12,7 @@ from test_helpers import (
 # ========================================================================
 
 def test_set_and_get_key_value_string(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "mykey", TENANT, '"hello world"')
@@ -24,7 +24,7 @@ def test_set_and_get_key_value_string(client):
 
 
 def test_set_and_get_key_value_number(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "count", TENANT, "42")
@@ -35,7 +35,7 @@ def test_set_and_get_key_value_number(client):
 
 
 def test_set_and_get_key_value_json_object(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "obj", TENANT, '{"foo":"bar"}')
@@ -47,7 +47,7 @@ def test_set_and_get_key_value_json_object(client):
 
 
 def test_set_and_get_key_value_json_array(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "arr", TENANT, "[1,2,3]")
@@ -59,7 +59,7 @@ def test_set_and_get_key_value_json_array(client):
 
 
 def test_set_key_value_overwrite(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "key1", TENANT, '"first"')
@@ -80,7 +80,7 @@ def test_key_value_not_found(client):
 # ========================================================================
 
 def test_delete_key_value_existing(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "todelete", TENANT, '"value"')
@@ -89,7 +89,7 @@ def test_delete_key_value_existing(client):
 
 
 def test_delete_key_value_nonexistent(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     result = client.kv.delete_key_value(ns, "nonexistent", TENANT)
@@ -97,7 +97,7 @@ def test_delete_key_value_nonexistent(client):
 
 
 def test_delete_key_values_bulk(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "k1", TENANT, '"v1"')
@@ -124,7 +124,7 @@ def test_list_all_keys_with_pagination(client):
 
 
 def test_list_all_keys_with_namespace_filter(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "filtered_key", TENANT, '"filtered_value"')
@@ -136,7 +136,7 @@ def test_list_all_keys_with_namespace_filter(client):
 
 
 def test_list_all_keys_with_sort(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     client.kv.set_key_value(ns, "zzz_key", TENANT, '"val1"')
@@ -155,8 +155,8 @@ def test_list_all_keys_no_results(client):
 
 
 def test_list_keys_with_inheritance_basic(client):
-    parent_ns = random_id()
-    child_ns = parent_ns + "." + random_id()
+    parent_ns = random_namespace()
+    child_ns = register_namespace(parent_ns + "." + random_id())
     create_flow(client, log_flow_yaml(random_id(), parent_ns))
     create_flow(client, log_flow_yaml(random_id(), child_ns))
 
@@ -168,7 +168,7 @@ def test_list_keys_with_inheritance_basic(client):
 
 
 def test_list_keys_with_inheritance_empty_namespace(client):
-    ns = random_id()
+    ns = random_namespace()
     create_flow(client, log_flow_yaml(random_id(), ns))
 
     keys = client.kv.list_keys_with_inheritance(ns, TENANT)

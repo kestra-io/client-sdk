@@ -5,6 +5,7 @@ from datetime import datetime, timezone, timedelta
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
     create_flow,
     ns_filter,
     flow_id_filter,
@@ -42,7 +43,7 @@ def trigger_id_dict(ns, flow_id):
 
 
 def _create_schedule_flow(client):
-    ns = random_id()
+    ns = random_namespace()
     flow_id = random_id()
     create_flow(client, schedule_flow_yaml(flow_id, ns))
     time.sleep(0.5)
@@ -124,7 +125,7 @@ def test_search_triggers_no_results(client):
 
 
 def test_search_triggers_with_sort(client):
-    ns = random_id()
+    ns = random_namespace()
     flow_id1 = f"aaa{random_id()}"
     flow_id2 = f"zzz{random_id()}"
     create_flow(client, schedule_flow_yaml(flow_id1, ns))
