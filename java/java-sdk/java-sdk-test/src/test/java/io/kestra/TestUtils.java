@@ -1,5 +1,6 @@
 package io.kestra;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.KestraClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.FlowWithSource;
@@ -8,10 +9,18 @@ import io.kestra.sdk.model.QueryFilterField;
 import io.kestra.sdk.model.QueryFilterOp;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TestUtils {
 
@@ -19,15 +28,116 @@ public class TestUtils {
     public static final String HOST = "http://localhost:9901";
     public static final String TEST_DATA_PATH = "../../../test-utils";
 
+    private static final String ADMIN_USERNAME = "root@root.com";
+    private static final String ADMIN_PASSWORD = "Root!1234";
+    private static final Pattern CSRF_META = Pattern.compile("<meta name=\"csrf-token\" content=\"([^\"]+)\">");
+
+    private static volatile String apiToken;
+
     // ========================================================================
     // Client
     // ========================================================================
 
     public static KestraClient client() {
         return KestraClient.builder()
-                .basicAuth("root@root.com", "Root!1234")
+                .tokenAuth(apiToken())
                 .url(HOST)
                 .build();
+    }
+
+    // ========================================================================
+    // Kestra 2.0 auth bootstrap
+    // ========================================================================
+
+    private static String apiToken() {
+        if (apiToken == null) {
+            synchronized (TestUtils.class) {
+                if (apiToken == null) {
+                    apiToken = mintApiToken();
+                }
+            }
+        }
+        return apiToken;
+    }
+
+    /**
+     * Bootstrap auth against Kestra 2.0, which dropped both the config-based
+     * super-admin and per-request HTTP Basic auth:
+     * <ol>
+     *   <li>create the first super-admin and the main tenant through
+     *       {@code POST /api/v1/setup} (405 means a user already exists);</li>
+     *   <li>login to get a JWT cookie;</li>
+     *   <li>load the UI so StaticFilter sets the csrfToken cookie and exposes
+     *       it in a meta tag;</li>
+     *   <li>mint an API token — the JWT cookie authenticates, and the
+     *       X-CSRF-TOKEN header equals the server-set csrfToken cookie
+     *       (double-submit check).</li>
+     * </ol>
+     */
+    private static String mintApiToken() {
+        try {
+            CookieManager cookies = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+            HttpClient http = HttpClient.newBuilder()
+                    .cookieHandler(cookies)
+                    // login answers with a 303 whose Set-Cookie carries the JWT;
+                    // follow it like a browser (the cookie jar keeps the cookie)
+                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .build();
+
+            HttpResponse<String> setup = http.send(HttpRequest.newBuilder()
+                    .uri(URI.create(HOST + "/api/v1/setup"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(
+                            "{\"username\":\"%s\",\"password\":\"%s\",\"tenant\":{\"id\":\"%s\",\"name\":\"%s\"}}"
+                                    .formatted(ADMIN_USERNAME, ADMIN_PASSWORD, TENANT, TENANT)))
+                    .build(), HttpResponse.BodyHandlers.ofString());
+            if (setup.statusCode() != 200 && setup.statusCode() != 405) {
+                throw new IllegalStateException("setup failed: " + setup.statusCode() + " " + setup.body());
+            }
+
+            HttpResponse<String> login = http.send(HttpRequest.newBuilder()
+                    .uri(URI.create(HOST + "/login"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(
+                            "{\"username\":\"%s\",\"password\":\"%s\"}"
+                                    .formatted(ADMIN_USERNAME, ADMIN_PASSWORD)))
+                    .build(), HttpResponse.BodyHandlers.ofString());
+            if (login.statusCode() < 200 || login.statusCode() >= 400) {
+                throw new IllegalStateException("login failed: " + login.statusCode() + " " + login.body());
+            }
+
+            HttpResponse<String> ui = http.send(HttpRequest.newBuilder()
+                    .uri(URI.create(HOST + "/ui/"))
+                    .GET()
+                    .build(), HttpResponse.BodyHandlers.ofString());
+            Matcher matcher = CSRF_META.matcher(ui.body());
+            if (!matcher.find()) {
+                throw new IllegalStateException("no csrf token from /ui/ (status " + ui.statusCode() + ")");
+            }
+            String csrf = matcher.group(1);
+
+            HttpResponse<String> tokenResponse = http.send(HttpRequest.newBuilder()
+                    .uri(URI.create(HOST + "/api/v1/me/api-tokens"))
+                    .header("Content-Type", "application/json")
+                    .header("X-CSRF-TOKEN", csrf)
+                    .POST(HttpRequest.BodyPublishers.ofString("{\"name\":\"ci-token\",\"maxAge\":\"P1D\"}"))
+                    .build(), HttpResponse.BodyHandlers.ofString());
+            if (tokenResponse.statusCode() != 200 && tokenResponse.statusCode() != 201) {
+                throw new IllegalStateException("create api token failed: "
+                        + tokenResponse.statusCode() + " " + tokenResponse.body());
+            }
+
+            String fullToken = new ObjectMapper().readTree(tokenResponse.body()).path("fullToken").asText(null);
+            if (fullToken == null || fullToken.isEmpty()) {
+                throw new IllegalStateException("api token response had no fullToken: " + tokenResponse.body());
+            }
+            return fullToken;
+        } catch (IOException e) {
+            throw new IllegalStateException("Kestra auth bootstrap failed", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Kestra auth bootstrap interrupted", e);
+        }
     }
 
     // ========================================================================
