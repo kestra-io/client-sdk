@@ -39,6 +39,14 @@ func (c *KestraClient) logRequest(req *http.Request) {
 	writeHeaders(w, ">", req.Header)
 }
 
+// logDebugf writes a formatted diagnostic line when debug logging is enabled.
+func (c *KestraClient) logDebugf(format string, args ...any) {
+	if !c.debug {
+		return
+	}
+	fmt.Fprintf(c.logWriter(), format+"\n", args...)
+}
+
 func (c *KestraClient) logResponse(resp *http.Response) {
 	if !c.debug {
 		return

@@ -77,6 +77,8 @@ func TestLogsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, logs)
 
+		// the server opens the stream with a synthetic empty entry (id "start"),
+		// so only collect entries that carry an execution id
 		var receivedLogs []*kestra_api_client.LogEntry
 	loop:
 		for {
@@ -86,7 +88,9 @@ func TestLogsAPI_All(t *testing.T) {
 					// received channel close
 					break loop
 				}
-				receivedLogs = append(receivedLogs, log)
+				if log.GetExecutionId() != "" {
+					receivedLogs = append(receivedLogs, log)
+				}
 			case <-ctx.Done():
 				break loop
 			}

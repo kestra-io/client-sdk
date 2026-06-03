@@ -517,6 +517,7 @@ func followSSE[T any](b *baseAPI, ctx context.Context, path string, params url.V
 		emit := func(payload string) bool {
 			var ev T
 			if err := json.Unmarshal([]byte(payload), &ev); err != nil {
+				b.client.logDebugf("! sse: dropping undecodable event: %v", err)
 				return true
 			}
 			select {
@@ -528,6 +529,10 @@ func followSSE[T any](b *baseAPI, ctx context.Context, path string, params url.V
 		}
 
 		scanner := bufio.NewScanner(resp.Body)
+		// raise the line limit above bufio's 64KB default: a single log message
+		// (stack trace, dumped payload) can easily exceed it and would otherwise
+		// silently terminate the stream with ErrTooLong
+		scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024)
 		var dataBuffer strings.Builder
 
 		for scanner.Scan() {
@@ -551,6 +556,12 @@ func followSSE[T any](b *baseAPI, ctx context.Context, path string, params url.V
 				dataBuffer.WriteString(payload)
 				dataBuffer.WriteByte('\n')
 			}
+		}
+
+		// surface abnormal terminations (read error, line over the buffer limit);
+		// skip deliberate cancellations, which also fail the body read
+		if err := scanner.Err(); err != nil && ctx.Err() == nil {
+			b.client.logDebugf("! sse: stream terminated: %v", err)
 		}
 
 		// Flush any remaining data

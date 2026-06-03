@@ -12,7 +12,7 @@ type LogsAPI struct {
 
 // logExecutionFilters translates the legacy per-request log filter params into
 // the unified `filters` array Kestra 2.0 expects on the per-execution log read
-// endpoints (the DELETE endpoint still takes the legacy params).
+// and follow endpoints (the DELETE endpoint still takes the legacy params).
 func logExecutionFilters(minLevel, taskRunId, taskId *string, attempt *int) url.Values {
 	var filters []SearchFilter
 	filters = appendStringFilterOp(filters, FilterMinLevel, OpGreaterThanOrEqualTo, minLevel)
@@ -31,9 +31,12 @@ func (a *LogsAPI) ListLogsFromExecution(ctx context.Context, executionId, tenant
 
 // FollowLogsFromExecution opens an SSE stream that emits log entries for an execution.
 // The returned channel is closed when the stream ends or the context is cancelled.
+// The server opens the stream with a synthetic empty entry (id "start") so the SSE
+// initializes even when there are no logs yet; callers filtering on entry fields
+// should skip entries without an execution id.
 func (a *LogsAPI) FollowLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel *string) (<-chan *LogEntry, error) {
 	path := tenantPath(tenant, "logs", executionId, "follow")
-	params := buildQueryParams("minLevel", minLevel)
+	params := logExecutionFilters(minLevel, nil, nil, nil)
 	return followSSE[LogEntry](&a.baseAPI, ctx, path, params)
 }
 
