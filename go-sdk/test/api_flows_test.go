@@ -105,7 +105,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -140,7 +140,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -173,7 +173,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -206,7 +206,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -345,7 +345,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,

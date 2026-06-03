@@ -13,8 +13,8 @@ func (a *KvAPI) SetKeyValue(ctx context.Context, namespace, key, tenant, body st
 	return a.doVoidText(ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "kv", key), body, nil)
 }
 
-func (a *KvAPI) KeyValue(ctx context.Context, namespace, key, tenant string) (*KVControllerKvDetail, error) {
-	return doJSON[*KVControllerKvDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "kv", key), nil, nil)
+func (a *KvAPI) KeyValue(ctx context.Context, namespace, key, tenant string) (*KvDetail, error) {
+	return doJSON[*KvDetail](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "kv", key), nil, nil)
 }
 
 func (a *KvAPI) DeleteKeyValue(ctx context.Context, namespace, key, tenant string) (*bool, error) {
@@ -25,7 +25,7 @@ func (a *KvAPI) DeleteKeyValues(ctx context.Context, namespace, tenant string, r
 	return doJSON[*KVControllerApiDeleteBulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "namespaces", namespace, "kv"), request, nil)
 }
 
-func (a *KvAPI) ListAllKeys(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsKVEntry, error) {
+func (a *KvAPI) ListAllKeys(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsKVEntry, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)

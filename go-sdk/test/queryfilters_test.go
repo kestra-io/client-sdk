@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func parseFilters(filters []kestra_api_client.QueryFilter) map[string]string {
+func parseFilters(filters []kestra_api_client.SearchFilter) map[string]string {
 	params := url.Values{}
 	kestra_api_client.AppendFilterParams(params, filters)
 	result := make(map[string]string)
@@ -21,11 +21,11 @@ func parseFilters(filters []kestra_api_client.QueryFilter) map[string]string {
 	return result
 }
 
-func TestQueryFilters_All(t *testing.T) {
+func TestFilters_All(t *testing.T) {
 	t.Run("should_parse_valid_singleEquals", func(t *testing.T) {
 		namespace := "aNamespace1"
 
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterNamespace, Operation: kestra_api_client.OpEquals, Value: namespace,
 			},
@@ -36,7 +36,7 @@ func TestQueryFilters_All(t *testing.T) {
 		namespace := "aNamespace1"
 		assetsIdPrefix := "some_prefix"
 
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterNamespace, Operation: kestra_api_client.OpEquals, Value: namespace,
 			},
@@ -52,7 +52,7 @@ func TestQueryFilters_All(t *testing.T) {
 	t.Run("should_parse_valid_IN", func(t *testing.T) {
 		states := []string{"CREATED", "RUNNING"}
 
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterState, Operation: kestra_api_client.OpIn, Value: states,
 			},
@@ -64,7 +64,7 @@ func TestQueryFilters_All(t *testing.T) {
 	t.Run("should_parse_valid_timeRange_duration", func(t *testing.T) {
 		timeRange := "PT15M"
 
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterTimeRange, Operation: kestra_api_client.OpEquals, Value: timeRange,
 			},
@@ -77,7 +77,7 @@ func TestQueryFilters_All(t *testing.T) {
 		startDate := time.Date(2026, time.February, 2, 2, 2, 2, 0, time.UTC)
 		endDate := time.Date(2026, time.December, 17, 17, 17, 17, 0, time.UTC)
 
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterStartDate, Operation: kestra_api_client.OpGreaterThanOrEqualTo, Value: startDate,
 			},
@@ -91,7 +91,7 @@ func TestQueryFilters_All(t *testing.T) {
 		}, parsedFilters)
 	})
 	t.Run("should_parse_valid_query_field_to_q", func(t *testing.T) {
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field: kestra_api_client.FilterQuery, Operation: kestra_api_client.OpEquals, Value: "hello",
 			},
@@ -100,7 +100,7 @@ func TestQueryFilters_All(t *testing.T) {
 	})
 
 	t.Run("should_parse_valid_map_value_for_any_field", func(t *testing.T) {
-		parsedFilters := parseFilters([]kestra_api_client.QueryFilter{
+		parsedFilters := parseFilters([]kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterFlowId,
 				Operation: kestra_api_client.OpEquals,
