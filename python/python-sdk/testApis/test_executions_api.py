@@ -939,12 +939,16 @@ class TestStreaming:
 
         resp = _execute_flow(client, ns, flow_id)
 
-        events = []
+        # Only the last frame is asserted on — keep a counter instead of
+        # accumulating every SSE frame.
+        event_count = 0
+        last = None
         deadline = time.time() + 15
         stream = client.executions.follow_execution(resp.id, TENANT)
         try:
             for event in stream:
-                events.append(event)
+                event_count += 1
+                last = event
                 if time.time() > deadline:
                     break
                 if hasattr(event, "state") and event.state is not None:
@@ -954,8 +958,7 @@ class TestStreaming:
         finally:
             stream.close()
 
-        assert len(events) > 0
-        last = events[-1]
+        assert event_count > 0
         assert last.state is not None
 
     def test_follow_dependencies_execution_basic(self, client, shared_flow):

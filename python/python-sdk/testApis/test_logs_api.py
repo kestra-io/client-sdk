@@ -291,16 +291,20 @@ def test_follow_logs_from_execution_basic(client, succeeded_execution):
     execution_id, ns, flow_id = succeeded_execution
 
     # The server interleaves empty {} keepalive frames with real log
-    # events; collect a handful and assert on the real ones.
-    events = []
+    # events; collect a handful and assert on the real ones. Close the
+    # stream explicitly — an abandoned SSE generator keeps a server-side
+    # emitter thread and queue consumer alive until client-side GC.
     real_events = []
     deadline = time.time() + 8
-    for event in client.logs.follow_logs_from_execution(execution_id, TENANT):
-        events.append(event)
-        if event.execution_id is not None:
-            real_events.append(event)
-        if time.time() > deadline or len(real_events) >= 1:
-            break
+    stream = client.logs.follow_logs_from_execution(execution_id, TENANT)
+    try:
+        for event in stream:
+            if event.execution_id is not None:
+                real_events.append(event)
+            if time.time() > deadline or len(real_events) >= 1:
+                break
+    finally:
+        stream.close()
 
     assert len(real_events) > 0
     assert real_events[0].execution_id == execution_id
@@ -314,11 +318,15 @@ def test_follow_logs_from_execution_with_min_level(client, succeeded_execution):
     # the parameter and verify the events that come through respect it.
     events = []
     deadline = time.time() + 8
-    for event in client.logs.follow_logs_from_execution(execution_id, TENANT, min_level="INFO"):
-        if event.execution_id is not None:
-            events.append(event)
-        if time.time() > deadline or len(events) >= 1:
-            break
+    stream = client.logs.follow_logs_from_execution(execution_id, TENANT, min_level="INFO")
+    try:
+        for event in stream:
+            if event.execution_id is not None:
+                events.append(event)
+            if time.time() > deadline or len(events) >= 1:
+                break
+    finally:
+        stream.close()
 
     assert len(events) > 0
     for e in events:
