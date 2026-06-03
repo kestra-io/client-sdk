@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**deleteLogsFromExecution**](LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task |
 | [**deleteLogsFromFlow**](LogsApi.md#deleteLogsFromFlow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific execution, taskrun or task |
 | [**downloadLogsFromExecution**](LogsApi.md#downloadLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/download | Download logs for a specific execution, taskrun or task |
+| [**followLogsFromExecution**](LogsApi.md#followLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/follow | Follow logs for a specific execution |
 | [**listLogsFromExecution**](LogsApi.md#listLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId} | Get logs for a specific execution, taskrun or task |
 | [**searchLogs**](LogsApi.md#searchLogs) | **GET** /api/v1/{tenant}/logs/search | Search for logs |
 
@@ -238,6 +239,78 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | downloadLogsFromExecution 200 response |  -  |
+
+
+## followLogsFromExecution
+
+> Flux&lt;FollowLogEvent&gt; followLogsFromExecution(executionId, tenant, filters)
+
+Follow logs for a specific execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.LogsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
+        try {
+            Flux<FollowLogEvent> result = kestraClient.LogsApi().followLogsFromExecution(executionId, tenant, filters);
+            result.doOnNext(System.out::println).blockLast();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LogsApi#followLogsFromExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **tenant** | **String**|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
+
+### Return type
+
+[**Flux&lt;FollowLogEvent&gt;**](FollowLogEvent.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | followLogsFromExecution 200 response |  -  |
 
 
 ## listLogsFromExecution

@@ -2,11 +2,22 @@ package io.kestra.sdk.internal;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import reactor.core.publisher.Flux;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class BaseApi {
 
@@ -100,6 +111,108 @@ public abstract class BaseApi {
             formParams != null ? formParams : new HashMap<>(),
             accept, contentType, AUTH, returnType
     );
+  }
+
+  // ---- Streaming (SSE) helpers ----
+
+  protected CloseableHttpResponse openStream(String path, List<Pair> queryParams,
+                                             List<Pair> collectionQueryParams,
+                                             AtomicReference<org.apache.hc.client5.http.classic.methods.HttpUriRequestBase> requestRef) throws ApiException {
+    CloseableHttpResponse response = apiClient.openEventStream(
+            path,
+            queryParams != null ? queryParams : Collections.emptyList(),
+            collectionQueryParams != null ? collectionQueryParams : Collections.emptyList(),
+            "",
+            new HashMap<>(),
+            new HashMap<>(),
+            AUTH,
+            requestRef
+    );
+
+    int statusCode = response.getCode();
+    if (!apiClient.isSuccessfulStatus(statusCode)) {
+      try {
+        HttpEntity entity = response.getEntity();
+        String message = entity != null ? EntityUtils.toString(entity) : "HTTP " + statusCode;
+        throw new ApiException(message, statusCode,
+                apiClient.transformResponseHeaders(response.getHeaders()), message);
+      } catch (IOException | ParseException e) {
+        throw new ApiException(e);
+      } finally {
+        try {
+          response.close();
+        } catch (IOException ignored) {}
+      }
+    }
+
+    return response;
+  }
+
+  protected <T> Flux<T> sseFlux(String path, List<Pair> queryParams,
+                                List<Pair> collectionQueryParams, Class<T> eventType) {
+    return Flux.<T>create(sink -> {
+      AtomicReference<org.apache.hc.client5.http.classic.methods.HttpUriRequestBase> requestRef = new AtomicReference<>();
+      AtomicReference<CloseableHttpResponse> responseRef = new AtomicReference<>();
+      AtomicReference<BufferedReader> readerRef = new AtomicReference<>();
+
+      sink.onDispose(() -> {
+        // Abort the exchange first: it releases the connection immediately and
+        // unblocks a reader stuck in readLine(). Merely closing the response or
+        // reader would try to drain the (never-ending) SSE stream to EOF and block.
+        org.apache.hc.client5.http.classic.methods.HttpUriRequestBase req = requestRef.get();
+        if (req != null) req.abort();
+        try {
+          CloseableHttpResponse resp = responseRef.get();
+          if (resp != null) resp.close();
+        } catch (IOException ignored) {}
+        try {
+          BufferedReader r = readerRef.get();
+          if (r != null) r.close();
+        } catch (IOException ignored) {}
+      });
+
+      try {
+        CloseableHttpResponse response = openStream(path, queryParams, collectionQueryParams, requestRef);
+        responseRef.set(response);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
+        readerRef.set(reader);
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              T ev = apiClient.getObjectMapper().readValue(dataBuffer.toString(), eventType);
+              dataBuffer.setLength(0);
+              sink.next(ev);
+            }
+            continue;
+          }
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          T ev = apiClient.getObjectMapper().readValue(dataBuffer.toString(), eventType);
+          sink.next(ev);
+        }
+        sink.complete();
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      }
+      // Subscribe on a worker thread: the consumer above blocks reading the
+      // stream, which would otherwise pin the subscriber's thread and defeat
+      // blocking operators' timeouts (e.g. blockLast(timeout)).
+    }).subscribeOn(reactor.core.scheduler.Schedulers.boundedElastic());
   }
 
   // ---- BaseApi invokeAPI overloads ----

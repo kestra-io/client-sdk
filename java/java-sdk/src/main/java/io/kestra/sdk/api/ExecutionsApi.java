@@ -28,22 +28,14 @@ import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.ExecutionStatusEvent;
 import io.kestra.sdk.model.WebhookResponse;
 
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import reactor.core.publisher.Flux;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ExecutionsApi extends BaseApi {
 
@@ -682,80 +674,12 @@ public class ExecutionsApi extends BaseApi {
     // Streaming (SSE)
     // ========================================================================
 
-    private CloseableHttpResponse openStream(String path, List<Pair> queryParams) throws ApiException {
-        return apiClient.openEventStream(
-                path,
-                queryParams != null ? queryParams : Collections.emptyList(),
-                Collections.emptyList(),
-                "",
-                new HashMap<>(),
-                new HashMap<>(),
-                AUTH
-        );
-    }
-
-    private <T> Flux<T> sseFlux(String path, List<Pair> queryParams, Class<T> eventType) {
-        return Flux.create(sink -> {
-            AtomicReference<CloseableHttpResponse> responseRef = new AtomicReference<>();
-            AtomicReference<BufferedReader> readerRef = new AtomicReference<>();
-
-            sink.onDispose(() -> {
-                try {
-                    BufferedReader r = readerRef.get();
-                    if (r != null) r.close();
-                } catch (IOException ignored) {}
-                try {
-                    CloseableHttpResponse resp = responseRef.get();
-                    if (resp != null) resp.close();
-                } catch (IOException ignored) {}
-            });
-
-            try {
-                CloseableHttpResponse response = openStream(path, queryParams);
-                responseRef.set(response);
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
-                readerRef.set(reader);
-
-                String line;
-                StringBuilder dataBuffer = new StringBuilder();
-
-                while (!sink.isCancelled() && (line = reader.readLine()) != null) {
-                    if (line.isEmpty()) {
-                        if (dataBuffer.length() > 0) {
-                            T ev = apiClient.getObjectMapper().readValue(dataBuffer.toString(), eventType);
-                            dataBuffer.setLength(0);
-                            sink.next(ev);
-                        }
-                        continue;
-                    }
-                    if (line.startsWith("data:")) {
-                        String payload = line.substring(5);
-                        if (payload.startsWith(" ")) payload = payload.substring(1);
-                        dataBuffer.append(payload).append('\n');
-                    }
-                }
-
-                if (dataBuffer.length() > 0) {
-                    T ev = apiClient.getObjectMapper().readValue(dataBuffer.toString(), eventType);
-                    sink.next(ev);
-                }
-                sink.complete();
-            } catch (IOException e) {
-                if (!sink.isCancelled()) {
-                    sink.error(new ApiException(e));
-                }
-            } catch (ApiException e) {
-                sink.error(e);
-            }
-        });
-    }
-
     public Flux<Execution> followExecution(
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant) {
         return sseFlux(
                 tenantPath(tenant, "executions", executionId, "follow"),
+                null,
                 null,
                 Execution.class
         );
@@ -769,6 +693,7 @@ public class ExecutionsApi extends BaseApi {
         return sseFlux(
                 tenantPath(tenant, "executions", executionId, "follow-dependencies"),
                 queryParams("destinationOnly", destinationOnly, "expandAll", expandAll),
+                null,
                 ExecutionStatusEvent.class
         );
     }
