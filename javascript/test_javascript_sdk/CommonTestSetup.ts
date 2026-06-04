@@ -82,7 +82,7 @@ beforeAll(async () => {
         });
     }
     const config = await fetch(`${baseURL}/api/v1/setup`);
-    if (config.status === 200 && (!(await config.json())?.done)) {
+    if (config.status !== 200 || (!(await config.json())?.done)) {
         console.log("Running setup...");
         const res = await fetch(`${baseURL}/api/v1/setup`, {
             method: "POST",
