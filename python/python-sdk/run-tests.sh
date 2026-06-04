@@ -43,22 +43,17 @@ for KESTRA_VERSION in $versions; do
      exit 1;
   }
 
-  # Background poller for a per-class heap histogram. The JVM has no flag to print
-  # one on OOM (PrintClassHistogram*FullGC was removed in modern JDKs), so snapshot
-  # it from the host every 20s and keep the last few; the snapshot just before the
-  # OOM shows which classes are accumulating. jcmd/jmap are JDK tools that may be
-  # absent on a JRE image, so try both and record which (or that neither) worked.
+  # Background poller for a per-class heap histogram. The image is a JRE with no
+  # jcmd/jmap, and the PrintClassHistogram*FullGC flags were removed in modern
+  # JDKs; but -XX:+PrintClassHistogram (set in JAVA_OPTS) makes the JVM dump a
+  # class histogram to stdout on SIGQUIT. Send one every 15s while the container
+  # runs: the histograms accumulate in the container stdout (captured into
+  # kestra.log below), and the last one before the OOM names the classes filling
+  # the old gen. SIGQUIT only requests the dump - it does not kill the JVM.
   (
     while [ "$(docker inspect -f '{{.State.Running}}' python-sdk-test-kestra 2>/dev/null)" = "true" ]; do
-      snap="kestra-logs/histo-$(date +%H%M%S).txt"
-      if ! docker exec python-sdk-test-kestra sh -c 'command -v jcmd >/dev/null 2>&1 && exec jcmd 1 GC.class_histogram' > "$snap" 2>/dev/null; then
-        if ! docker exec python-sdk-test-kestra sh -c 'command -v jmap >/dev/null 2>&1 && exec jmap -histo:live 1' > "$snap" 2>/dev/null; then
-          echo "jcmd/jmap unavailable in image (or JVM is not PID 1)" > "$snap"
-        fi
-      fi
-      # keep only the 3 most recent snapshots
-      ls -1t kestra-logs/histo-*.txt 2>/dev/null | tail -n +4 | xargs -r rm -f
-      sleep 20
+      docker kill --signal=QUIT python-sdk-test-kestra >/dev/null 2>&1 || true
+      sleep 15
     done
   ) &
   histo_poller_pid=$!

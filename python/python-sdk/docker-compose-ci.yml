@@ -38,11 +38,14 @@ services:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
       # The container OOMs mid-suite (regression on the 2.0 develop image). A full
       # heap dump is multi-GB and unusable on a laptop, and dropping the heap low
-      # enough to shrink it (1g) stops the OOM from triggering at all. Instead,
-      # write unified GC logs to the bind mount: small text that shows heap
-      # occupancy after every GC and each Full GC, so the leak's shape and onset
-      # are visible. run-tests.sh additionally polls a per-class histogram from the
-      # host. Keep 4g so the OOM still reproduces.
-      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -Xlog:gc*:file=/kestra-logs/gc.log:time,uptime,level,tags"
+      # enough to shrink it (1g) stops the OOM from triggering at all. Instead:
+      #  - -Xlog:gc* writes a small GC log to the bind mount; it already shows the
+      #    leak shape (old gen pins full, Full GCs reclaim ~0, then OOM).
+      #  - -XX:+PrintClassHistogram makes the JVM print a per-class histogram to
+      #    stdout on SIGQUIT (the image is a JRE with no jcmd/jmap); run-tests.sh
+      #    sends SIGQUIT periodically and the histograms land in the captured logs,
+      #    naming the classes that fill the old gen.
+      # Keep 4g so the OOM still reproduces.
+      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+PrintClassHistogram -Xlog:gc*:file=/kestra-logs/gc.log:time,uptime,level,tags"
     ports:
       - "9902:8080"
