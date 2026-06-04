@@ -3412,7 +3412,7 @@ paths:
       operationId: validatePassword
       requestBody:
         content:
-          application/json:
+          text/plain:
             schema:
               type: string
         required: true
@@ -14772,6 +14772,61 @@ paths:
       - bearerAuth: []
       - basicAuth: []
   /api/v1/{tenant}/service-accounts:
+    get:
+      tags:
+      - ServiceAccount
+      summary: List service accounts for the given tenant
+      operationId: listServiceAccountsForTenant
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listServiceAccountsForTenant 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_IAMTenantAccessController.ApiUserTenantAccess_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - ServiceAccount

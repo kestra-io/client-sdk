@@ -1,14 +1,12 @@
 package kestra_api_client
 
 import (
-	"bufio"
 	"bytes"
 	"context"
 	"encoding/json"
 	"mime/multipart"
 	"net/url"
 	"os"
-	"strings"
 )
 
 // ExecutionsAPI provides methods for managing Kestra executions.
@@ -773,61 +771,7 @@ func (a *ExecutionsAPI) FollowExecution(
 	executionId, tenant string,
 ) (<-chan *Execution, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow")
-
-	resp, err := a.openSSEStream(ctx, path, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	ch := make(chan *Execution)
-	go func() {
-		defer close(ch)
-		defer resp.Body.Close()
-
-		scanner := bufio.NewScanner(resp.Body)
-		var dataBuffer strings.Builder
-
-		for scanner.Scan() {
-			line := scanner.Text()
-
-			if line == "" {
-				if dataBuffer.Len() > 0 {
-					var ev Execution
-					if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-						select {
-						case ch <- &ev:
-						case <-ctx.Done():
-							return
-						}
-					}
-					dataBuffer.Reset()
-				}
-				continue
-			}
-
-			if strings.HasPrefix(line, "data:") {
-				payload := line[5:]
-				if strings.HasPrefix(payload, " ") {
-					payload = payload[1:]
-				}
-				dataBuffer.WriteString(payload)
-				dataBuffer.WriteByte('\n')
-			}
-		}
-
-		// Flush any remaining data
-		if dataBuffer.Len() > 0 {
-			var ev Execution
-			if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-				select {
-				case ch <- &ev:
-				case <-ctx.Done():
-				}
-			}
-		}
-	}()
-
-	return ch, nil
+	return followSSE[Execution](&a.baseAPI, ctx, path, nil)
 }
 
 // FollowDependenciesExecution opens an SSE stream that emits execution status events
@@ -839,59 +783,5 @@ func (a *ExecutionsAPI) FollowDependenciesExecution(
 ) (<-chan *ExecutionStatusEvent, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow-dependencies")
 	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
-
-	resp, err := a.openSSEStream(ctx, path, params)
-	if err != nil {
-		return nil, err
-	}
-
-	ch := make(chan *ExecutionStatusEvent)
-	go func() {
-		defer close(ch)
-		defer resp.Body.Close()
-
-		scanner := bufio.NewScanner(resp.Body)
-		var dataBuffer strings.Builder
-
-		for scanner.Scan() {
-			line := scanner.Text()
-
-			if line == "" {
-				if dataBuffer.Len() > 0 {
-					var ev ExecutionStatusEvent
-					if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-						select {
-						case ch <- &ev:
-						case <-ctx.Done():
-							return
-						}
-					}
-					dataBuffer.Reset()
-				}
-				continue
-			}
-
-			if strings.HasPrefix(line, "data:") {
-				payload := line[5:]
-				if strings.HasPrefix(payload, " ") {
-					payload = payload[1:]
-				}
-				dataBuffer.WriteString(payload)
-				dataBuffer.WriteByte('\n')
-			}
-		}
-
-		// Flush any remaining data
-		if dataBuffer.Len() > 0 {
-			var ev ExecutionStatusEvent
-			if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-				select {
-				case ch <- &ev:
-				case <-ctx.Done():
-				}
-			}
-		}
-	}()
-
-	return ch, nil
+	return followSSE[ExecutionStatusEvent](&a.baseAPI, ctx, path, params)
 }
