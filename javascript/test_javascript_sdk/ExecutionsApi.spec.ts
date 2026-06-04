@@ -1,6 +1,6 @@
 // ExecutionsApi.spec.ts
 import { describe, it, expect } from "vitest";
-import { kestraClient, MAIN_TENANT, randomId } from "./CommonTestSetup.js";
+import { kestraClient, randomId } from "./CommonTestSetup.js";
 import type { ApiExecution, QueryFilterField, QueryFilterOp, StateType } from "@kestra-io/kestra-sdk";
 
 // ---------- Flow YAML templates ----------
@@ -153,19 +153,10 @@ async function awaitExecution(
     // eslint-disable-next-line no-constant-condition
     while (true) {
         let last = {} as ApiExecution;
-        // try {
+
         last = await kestraClient.Executions.execution({
             executionId,
         });
-        // } catch (e) {
-        //     if (e instanceof Error && e.message.includes("404")) {
-        //         if (process.env.DEBUG) {
-        //             console.log(`Execution ${executionId} not found, waiting...`);
-        //         }
-        //     } else {
-        //         throw e;
-        //     }
-        // }
 
         if (last.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
@@ -251,13 +242,11 @@ describe("ExecutionsApi", () => {
         const e2 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
 
         const e3 = await kestraClient.Executions.createExecution({
             namespace: ns,
             id: flowId,
-            wait: true,
         });
 
 
@@ -275,19 +264,16 @@ describe("ExecutionsApi", () => {
         await expect(
             kestraClient.Executions.execution({
                 executionId: e1.id,
-                tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         await expect(
             kestraClient.Executions.execution({
                 executionId: e3.id,
-                tenant: MAIN_TENANT,
             }),
         ).rejects.toThrow();
         expect(
             await kestraClient.Executions.execution({
                 executionId: e2.id,
-                tenant: MAIN_TENANT,
             }),
         ).toBeTruthy();
     });
@@ -995,8 +981,6 @@ describe("ExecutionsApi", () => {
         );
     });
 
-    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
     // --- trigger by GET webhook ---
     it("trigger_execution_by_get_webhook", async () => {
         const namespace = randomId();
@@ -1011,7 +995,7 @@ describe("ExecutionsApi", () => {
 
         // wait for the webhook-triggered execution to start
         // and update its state from QUEUED to RUNNING
-        await wait(500);
+        await sleep(500);
         expect(resp).toBeTruthy();
         const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
         expect(done.state?.current).toBe("SUCCESS");
@@ -1257,20 +1241,31 @@ tasks:
             id: flowId,
         });
 
+        // AbortController ensures the HTTP connection is always closed cleanly,
+        // preventing Vitest from killing the worker with an open TCP connection.
+        const ac = new AbortController();
+        const abortTimer = setTimeout(() => ac.abort(), 20000);
+
         const { stream } = await kestraClient.Executions.followDependenciesExecutions({
             executionId: e.id,
             expandAll: false,
             destinationOnly: false,
-        })
+        }, { signal: ac.signal })
 
         const result = await (async () => {
             const executionIds: Set<string> = new Set();
-            for await (const evt of stream) {
-                executionIds.add(evt.executionId);
+            try {
+                for await (const evt of stream) {
+                    executionIds.add(evt.executionId);
+                }
+            } catch {
+                // AbortError if the 20s safety timer fired — proceed with what we have
+            } finally {
+                clearTimeout(abortTimer);
             }
             return Array.from(executionIds);
         })();
 
         expect(result).toContain(e.id);
-    });
+    }, 25000);
 });

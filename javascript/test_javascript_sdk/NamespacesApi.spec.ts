@@ -1,6 +1,6 @@
 // testApis/NamespacesApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import { kestraClient, tenantId, randomId } from './CommonTestSetup.js';
 
 describe('NamespacesApi', () => {
     it('autocomplete_namespaces: List namespaces for autocomplete', async () => {
@@ -8,7 +8,7 @@ describe('NamespacesApi', () => {
         const ns = await kestraClient.Namespaces.createNamespace({
             id: prefix,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         const results = await kestraClient.Namespaces.autocompleteNamespaces({ q: prefix });
@@ -21,7 +21,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({
             id: nsId,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         expect(created?.id).toBe(nsId);
@@ -33,7 +33,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({
             id: nsId,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         await kestraClient.Namespaces.deleteNamespace({ id: created.id });
@@ -123,7 +123,7 @@ describe('NamespacesApi', () => {
 
         const metas = await kestraClient.Namespaces.putSecrets({
             namespace: ns.id,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
             key: `test_put_secrets_key_${randomId()}`,
             value: 'value-put',
         });
@@ -157,7 +157,7 @@ describe('NamespacesApi', () => {
         const updated = await kestraClient.Namespaces.updateNamespace({
             id: created.id,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         expect(updated.id).toBe(created.id);

@@ -144,7 +144,32 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
     const operationsDict: Record<string, { symbol: ReturnType<typeof plugin.symbol>, methodName: string }[]> = {}
 
+    // Pre-scan: count how many operations share the same base name (the (\w+) part of (\w+)_(\d+))
+    // within each output file. Used to decide whether to strip the numeric suffix.
+    const baseNameCountPerFile: Record<string, Record<string, number>> = {};
 
+    plugin.forEach(
+        "operation",
+        ({ operation }) => {
+            const methodName = plugin.config.methodNameBuilder?.(operation);
+            if (!methodName) return;
+
+            const match = /^(\w+)_(\d+)$/.exec(methodName);
+            if (!match) return;
+
+            const baseName = match[1];
+            const tag = operation.tags?.[0] ?? "default";
+            const filePath = operation.operationId && /_\d+$/.test(operation.operationId)
+                ? `sdk/${pascalCase(tag)}Admin`
+                : `sdk/${pascalCase(tag)}`;
+
+            if (!baseNameCountPerFile[filePath]) {
+                baseNameCountPerFile[filePath] = {};
+            }
+            baseNameCountPerFile[filePath][baseName] = (baseNameCountPerFile[filePath][baseName] ?? 0) + 1;
+        },
+        { order: "declarations" },
+    );
 
     plugin.forEach(
         "operation",
@@ -169,21 +194,30 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
             const originalOperationSymbol = $(sym);
 
-            const funcSymbol = plugin.symbol(methodName, {
+            // Resolve the output file path for this operation (same logic as getFilePath below)
+            const tag = operation.tags?.[0] ?? "default";
+            const operationFilePath = operation.operationId && /_\d+$/.test(operation.operationId)
+                ? `sdk/${pascalCase(tag)}Admin`
+                : `sdk/${pascalCase(tag)}`;
+
+            // Strip numeric suffix (e.g. get_3 → get) when it is the only occurrence in its file
+            const numericSuffixMatch = /^(\w+)_(\d+)$/.exec(methodName);
+            const effectiveMethodName = numericSuffixMatch &&
+                baseNameCountPerFile[operationFilePath]?.[numericSuffixMatch[1]] === 1
+                ? numericSuffixMatch[1]
+                : methodName;
+
+            const funcSymbol = plugin.symbol(effectiveMethodName, {
                 getFilePath() {
-                    const tag = operation.tags?.[0] ?? "default";
                     // operation has a _\d+ suffix (indicating admin access, postfix the file name with Admin to avoid confusion)
-                    if (operation.operationId && /_\d+$/.test(operation.operationId)) {
-                        return `sdk/${pascalCase(tag)}Admin`;
-                    }
-                    return `sdk/${pascalCase(tag)}`;
+                    return operationFilePath;
                 }
             })
 
             if (!operationsDict[operation.tags?.[0] ?? "default"]) {
                 operationsDict[operation.tags?.[0] ?? "default"] = [];
             }
-            operationsDict[operation.tags?.[0] ?? "default"].push({ symbol: funcSymbol, methodName });
+            operationsDict[operation.tags?.[0] ?? "default"].push({ symbol: funcSymbol, methodName: effectiveMethodName });
 
             const hasTenant = pathParams && "tenant" in pathParams;
 
@@ -197,6 +231,27 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             const isSSE = Object.values(operation.responses || {}).some(
                 (resp: any) => resp?.mediaType === "text/event-stream"
             );
+
+            // For application/yaml responses, hey-api generates responseType: 'blob' in the
+            // underlying SDK function, which causes axios to send Accept: application/octet-stream
+            // instead of Accept: application/yaml. We inject the correct Accept header into every
+            // generated wrapper call so the backend receives the right content negotiation.
+            const isYamlResponse = Object.values(operation.responses || {}).some(
+                (resp: any) => resp?.mediaType === "application/yaml"
+            );
+
+            // Builds the options expression passed to the underlying SDK call.
+            // For YAML-response operations, wraps options to inject the Accept header while
+            // preserving any caller-supplied headers.
+            const buildOptionsArg = () => isYamlResponse
+                ? $.object()
+                    .spread($("options"))
+                    .prop("headers",
+                        $.object()
+                            .prop("Accept", $.literal("application/yaml"))
+                            .spread($("options").attr("headers").optional())
+                    )
+                : $("options");
 
             const operationOptionsType = (sym: any, idx: 0 | 1 = 1) =>
                 $.type("Omit").generics(
@@ -237,7 +292,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                             $.param(optionsId).required(false)
                                 .type(operationOptionsType(originalOperationSymbol)),
                         )
-                        .do(...returnStatements(originalOperationSymbol.call($(paramId), $(optionsId))));
+                        .do(...returnStatements(originalOperationSymbol.call($(paramId), buildOptionsArg())));
                     plugin.node($.const(funcSymbol).export().assign(functionNode));
                 }
                 return;
@@ -252,7 +307,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), $(optionsId)))
+                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), buildOptionsArg()))
                     );
 
                 plugin.node(
@@ -298,7 +353,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
+                        ...returnStatements(originalOperationSymbol.call(callArgs, buildOptionsArg()))
                     );
 
                 plugin.node(
@@ -335,7 +390,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                     .do(
                         ...returnStatements(originalOperationSymbol.call(
                             $(addTenantToParametersSymbol).call(parametersArguments),
-                            optionsId,
+                            buildOptionsArg(),
                         ))
                     );
 
@@ -403,7 +458,7 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         .type(operationOptionsType(originalOperationSymbol)),
                 )
                 .do(
-                    ...returnStatements(originalOperationSymbol.call(callArgs, optionsId))
+                    ...returnStatements(originalOperationSymbol.call(callArgs, buildOptionsArg()))
                 );
 
             plugin.node(

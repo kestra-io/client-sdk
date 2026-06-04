@@ -3,6 +3,7 @@ import { setSelectedTenant } from "@kestra-io/kestra-sdk/shared";
 import { configureClient } from "@kestra-io/kestra-sdk";
 import * as Ai from "@kestra-io/kestra-sdk/ai";
 import * as Apps from "@kestra-io/kestra-sdk/apps";
+import * as Assets from "@kestra-io/kestra-sdk/assets";
 import * as AuditLogs from "@kestra-io/kestra-sdk/audit-logs";
 import * as Auths from "@kestra-io/kestra-sdk/auths";
 import * as Banners from "@kestra-io/kestra-sdk/banners";
@@ -11,6 +12,7 @@ import * as Blueprints from "@kestra-io/kestra-sdk/blueprints";
 import * as BlueprintTags from "@kestra-io/kestra-sdk/blueprint-tags";
 import * as Cluster from "@kestra-io/kestra-sdk/cluster";
 import * as Dashboards from "@kestra-io/kestra-sdk/dashboards";
+import * as DashboardsAdmin from "@kestra-io/kestra-sdk/dashboards-admin";
 import * as Executions from "@kestra-io/kestra-sdk/executions";
 import * as Files from "@kestra-io/kestra-sdk/files";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
@@ -35,17 +37,22 @@ import * as ServiceAccount from "@kestra-io/kestra-sdk/service-account";
 import * as Services from "@kestra-io/kestra-sdk/services";
 import * as TenantAccess from "@kestra-io/kestra-sdk/tenant-access";
 import * as Tenants from "@kestra-io/kestra-sdk/tenants";
+import * as TenantsAdmin from "@kestra-io/kestra-sdk/tenants-admin";
 import * as TestSuites from "@kestra-io/kestra-sdk/test-suites";
 import * as Triggers from "@kestra-io/kestra-sdk/triggers";
 import * as Users from "@kestra-io/kestra-sdk/users";
 import * as WorkerGroups from "@kestra-io/kestra-sdk/worker-groups";
+import * as KillSwitches from "@kestra-io/kestra-sdk/kill-switches";
+import * as WorkerAuth from "@kestra-io/kestra-sdk/worker-auth";
+import * as WorkerAuthAdmin from "@kestra-io/kestra-sdk/worker-auth-admin";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
+import fixtures from "./fixtures.json" with { type: "json" };
 
-export const baseURL = "http://localhost:9903";
-export const username = "root@root.com";
-export const password = "Root!1234";
-export const MAIN_TENANT = "main";
+const { baseURL, username, password, tenantId } = fixtures;
+
+export { tenantId };
+
 
 beforeAll(async () => {
     const instance = configureClient({
@@ -75,12 +82,14 @@ beforeAll(async () => {
             return Promise.reject(error);
         });
     }
-    setSelectedTenant(MAIN_TENANT);
+
+    setSelectedTenant(tenantId);
 });
 
 export const kestraClient = {
     Ai,
     Apps,
+    Assets,
     AuditLogs,
     Auths,
     Banners,
@@ -89,6 +98,7 @@ export const kestraClient = {
     BlueprintTags,
     Cluster,
     Dashboards,
+    DashboardsAdmin,
     Executions,
     Outputs,
     Files,
@@ -113,10 +123,14 @@ export const kestraClient = {
     Services,
     TenantAccess,
     Tenants,
+    TenantsAdmin,
     TestSuites,
     Triggers,
     Users,
     WorkerGroups,
+    KillSwitches,
+    WorkerAuth,
+    WorkerAuthAdmin,
 };
 
 export function randomId() {
@@ -136,7 +150,7 @@ export const TEST_DATA_PATH = "../../test-utils";
 export function get(filePath: string) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
-        : path.resolve(process.cwd(), filePath);
+        : path.resolve(import.meta.dirname, filePath);
     return readFileSync(absolute, "utf8");
 }
 

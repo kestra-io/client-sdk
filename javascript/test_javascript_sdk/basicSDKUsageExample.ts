@@ -1,10 +1,8 @@
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
+import fixtures from "./fixtures.json" with { type: "json" };
 
-const baseURL = "http://localhost:9903";
-const username = "root@root.com";
-const password = "Root!1234";
-const tenantId = "main";
+const { baseURL, username, password, tenantId } = fixtures;
 
 export async function searchAndCreateFlowsExample() {
     client.setConfig({
@@ -19,7 +17,6 @@ export async function searchAndCreateFlowsExample() {
         size: 10,
         tenant: tenantId,
     });
-    console.log(searchRes);
 
     const flowId = "flow-" + Math.floor(Math.random() * 1000);
     const namespace = "namespace-" + Math.floor(Math.random() * 1000);
@@ -33,14 +30,8 @@ tasks:
     message: Hello World! 🚀
 `;
 
-    console.log(
-        "Creating flow with id: " + flowId + " in namespace: " + namespace,
-    );
-
-    console.log("flows api: ", Flows);
     const createRes = await Flows.createFlow({
         tenant: tenantId,
         body: flow,
     });
-    console.log(createRes);
 }
