@@ -51,6 +51,8 @@ import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
 
+export { tenantId };
+
 
 beforeAll(async () => {
     const instance = configureClient({
