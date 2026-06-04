@@ -32,6 +32,9 @@ for KESTRA_VERSION in $versions; do
   export KESTRA_VERSION=$KESTRA_VERSION
 
   echo "start Kestra container"
+  # the JVM writes its GC log here (bind mount); also where we collect histograms
+  mkdir -p kestra-logs
+  rm -f kestra-logs/*
   log_and_run docker compose -f docker-compose-ci.yml down
 
   log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
@@ -40,11 +43,34 @@ for KESTRA_VERSION in $versions; do
      exit 1;
   }
 
+  # Background poller for a per-class heap histogram. The JVM has no flag to print
+  # one on OOM (PrintClassHistogram*FullGC was removed in modern JDKs), so snapshot
+  # it from the host every 20s and keep the last few; the snapshot just before the
+  # OOM shows which classes are accumulating. jcmd/jmap are JDK tools that may be
+  # absent on a JRE image, so try both and record which (or that neither) worked.
+  (
+    while [ "$(docker inspect -f '{{.State.Running}}' python-sdk-test-kestra 2>/dev/null)" = "true" ]; do
+      snap="kestra-logs/histo-$(date +%H%M%S).txt"
+      if ! docker exec python-sdk-test-kestra sh -c 'command -v jcmd >/dev/null 2>&1 && exec jcmd 1 GC.class_histogram' > "$snap" 2>/dev/null; then
+        if ! docker exec python-sdk-test-kestra sh -c 'command -v jmap >/dev/null 2>&1 && exec jmap -histo:live 1' > "$snap" 2>/dev/null; then
+          echo "jcmd/jmap unavailable in image (or JVM is not PID 1)" > "$snap"
+        fi
+      fi
+      # keep only the 3 most recent snapshots
+      ls -1t kestra-logs/histo-*.txt 2>/dev/null | tail -n +4 | xargs -r rm -f
+      sleep 20
+    done
+  ) &
+  histo_poller_pid=$!
+
   echo "start tests"
   set +e
   python3 -m pytest -v --timeout=10
   test_rc=$?
   set -e
+
+  kill "$histo_poller_pid" 2>/dev/null || true
+  wait "$histo_poller_pid" 2>/dev/null || true
 
   if [ "$test_rc" -ne 0 ]; then
     echo "tests failed (rc=$test_rc) - dumping Kestra diagnostics before teardown"
@@ -54,13 +80,14 @@ for KESTRA_VERSION in $versions; do
     echo "----- postgres container state -----"
     docker inspect python-sdk-test-postgres \
       --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
-    # Capture the FULL kestra logs to a file for upload: the OOM class histograms
-    # (-XX:+PrintClassHistogram{Before,After}FullGC) run to thousands of lines and
-    # would be cut off by a tail. Print only the tail to the console for a quick look.
-    mkdir -p kestra-logs
+    # Capture the FULL kestra stdout to a file for upload; print only the tail to
+    # the console. The GC log and histogram snapshots already sit in kestra-logs/.
     docker compose -f docker-compose-ci.yml logs --no-color --no-log-prefix kestra > kestra-logs/kestra.log 2>&1 || true
-    echo "----- kestra logs (last 300 lines; full log uploaded as artifact) -----"
+    echo "----- kestra logs (last 300 lines; full logs + GC log + histograms uploaded as artifact) -----"
     tail -n 300 kestra-logs/kestra.log || true
+    # gc.log is written by root inside the container; make everything readable for upload
+    sudo chmod -R a+r kestra-logs 2>/dev/null || chmod -R a+r kestra-logs 2>/dev/null || true
+    ls -lh kestra-logs/ || true
   fi
 
   echo "stop Kestra container"

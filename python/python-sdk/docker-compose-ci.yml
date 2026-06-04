@@ -33,14 +33,16 @@ services:
       - ../../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
       - ../../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
       - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
+      - ./kestra-logs:/kestra-logs
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
       # The container OOMs mid-suite (regression on the 2.0 develop image). A full
       # heap dump is multi-GB and unusable on a laptop, and dropping the heap low
-      # enough to shrink it (1g) stops the OOM from triggering at all. Instead, log
-      # a class histogram around each full GC: the last histogram before the
-      # terminal OOM shows which classes are accumulating, in a few KB of text that
-      # CI captures in the container logs. Keep 4g so the OOM still reproduces.
-      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+PrintClassHistogramBeforeFullGC -XX:+PrintClassHistogramAfterFullGC"
+      # enough to shrink it (1g) stops the OOM from triggering at all. Instead,
+      # write unified GC logs to the bind mount: small text that shows heap
+      # occupancy after every GC and each Full GC, so the leak's shape and onset
+      # are visible. run-tests.sh additionally polls a per-class histogram from the
+      # host. Keep 4g so the OOM still reproduces.
+      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -Xlog:gc*:file=/kestra-logs/gc.log:time,uptime,level,tags"
     ports:
       - "9902:8080"
