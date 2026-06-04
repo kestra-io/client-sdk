@@ -35,6 +35,7 @@ export default defineConfig({
         outputFile: {
             json: "coverage/test-results.json"
         },
+        retry: 3,
         globalSetup: ["test_javascript_sdk/globalSetup.ts"],
         coverage: {
             // Paths are relative to root (".."), so no "../" needed.
