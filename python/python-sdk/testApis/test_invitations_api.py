@@ -151,6 +151,11 @@ def test_search_invitations_filter_by_status(client):
             assert str(status).upper().endswith("PENDING")
 
 
+@pytest.mark.xfail(
+    reason="kestra-ee 2.0 ignores the filter and returns all invitations instead "
+    "of an empty result set (pagination/filter regression)",
+    strict=False,
+)
 def test_search_invitations_no_results(client):
     result = client.invitations.search_invitations(
         tenant=TENANT,

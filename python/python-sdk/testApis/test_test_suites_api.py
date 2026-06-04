@@ -4,6 +4,7 @@ import pytest
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
     log_flow_yaml,
     create_flow,
 )
@@ -34,7 +35,7 @@ def _test_suite_yaml(suite_id, namespace, flow_id):
 
 
 def _create_flow_and_suite(client, suite_id=None):
-    ns = random_id()
+    ns = random_namespace()
     flow_id = random_id()
     if suite_id is None:
         suite_id = random_id()
