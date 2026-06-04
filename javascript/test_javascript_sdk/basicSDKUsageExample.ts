@@ -1,6 +1,8 @@
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as Flows from "@kestra-io/kestra-sdk/flows";
-import { username, password, baseURL, tenantId } from "./CommonTestSetup.js";
+import fixtures from "./fixtures.json" with { type: "json" };
+
+const { baseURL, username, password, tenantId } = fixtures;
 
 export async function searchAndCreateFlowsExample() {
     client.setConfig({

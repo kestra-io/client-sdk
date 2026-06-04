@@ -47,11 +47,10 @@ import * as WorkerAuth from "@kestra-io/kestra-sdk/worker-auth";
 import * as WorkerAuthAdmin from "@kestra-io/kestra-sdk/worker-auth-admin";
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
+import fixtures from "./fixtures.json" with { type: "json" };
 
-export const baseURL = "http://localhost:9903";
-export const username = "root@root.com";
-export const password = "Root!1234";
-export const tenantId = "main";
+const { baseURL, username, password, tenantId } = fixtures;
+
 
 beforeAll(async () => {
     const instance = configureClient({
@@ -81,25 +80,7 @@ beforeAll(async () => {
             return Promise.reject(error);
         });
     }
-    const config = await fetch(`${baseURL}/api/v1/setup`);
-    if (config.status !== 200 || (!(await config.json())?.done)) {
-        console.log("Running setup...");
-        const res = await fetch(`${baseURL}/api/v1/setup`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username,
-                password,
-                tenant: {
-                    id: tenantId,
-                    name: tenantId,
-                }
-            }),
-        })
-        console.log("Setup response:", res.status, res.statusText);
-    }
+
     setSelectedTenant(tenantId);
 });
 
