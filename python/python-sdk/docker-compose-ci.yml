@@ -13,13 +13,35 @@ services:
       retries: 30
       start_period: 5s
 
+  # ---------------------------------------------------------------------------
+  # The kestra-ee 2.0 develop image has a time-driven heap leak in the SCHEDULER
+  # (DefaultSchedulableTriggerFetcher chains unbounded Micronaut ExecutionFlow
+  # ops every poll; old gen fills, Full GC reclaims ~0, JVM dies with
+  # OutOfMemoryError). The leak is not the SDK's bug and has no upstream fix yet.
+  #
+  # We initially tried to remove it by splitting `server standalone` into
+  # separate components and omitting `server scheduler`. That killed the leak,
+  # but a webserver-only node never resolves flows for execution CREATION
+  # (POST /executions/{ns}/{flowId} 404s on every flow, while search/webhooks
+  # still work), so it broke ~half the suite. The supported topology is
+  # `server standalone`, where execution creation works.
+  #
+  # Instead we cap the leak by bounding each JVM's LIFETIME: run-tests.sh shards
+  # the suite and fully resets the stack (down/up = fresh JVM + empty DB)
+  # between shards. The scheduler leak needs a few hundred seconds to OOM even
+  # at 4g; each shard runs well under that on this 6g heap, so the leak never
+  # accumulates far enough to kill a shard. Restore plain un-sharded standalone
+  # once the upstream scheduler leak is fixed.
+  # ---------------------------------------------------------------------------
   kestra:
     container_name: python-sdk-test-kestra
     image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:develop-no-plugins"
     pull_policy: always
     user: "root"
     command: server standalone
-    mem_limit: 6g
+    # Generous heap buys margin so a single shard never approaches the
+    # scheduler-leak OOM threshold within its (short) lifetime.
+    mem_limit: 10g
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,6 +58,7 @@ services:
       - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
-      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError"
+      # Keep fail-fast on OOM so any regression is obvious instead of hanging.
+      JAVA_OPTS: "-Xms512m -Xmx8g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError"
     ports:
       - "9902:8080"
