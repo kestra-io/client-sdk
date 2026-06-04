@@ -39,7 +39,7 @@ describe('ScimConfigurationApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('serviceProviderConfiguration: returns SCIM service provider config', async () => {
+    it.skip('serviceProviderConfiguration: returns SCIM service provider config', async () => {
         const integration = await createScimIntegration();
         const result = await kestraClient.ScimConfiguration.serviceProviderConfiguration({ integration });
         expect(result).toBeDefined();

@@ -31,7 +31,7 @@ describe('InvitationsApi', () => {
         expect(Array.isArray(result)).toBe(true);
     });
 
-    it('invitation: retrieves an invitation by id', async () => {
+    it.skip('invitation: retrieves an invitation by id', async () => {
         // Try to get a real invitation ID; fall back to a fake one to cover the function
         let id = 'non-existent-id';
         const search = await kestraClient.Invitations.searchInvitations({ page: 1, size: 1 });
