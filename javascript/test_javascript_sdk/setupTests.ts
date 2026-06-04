@@ -17,7 +17,7 @@ async function setup() {
             }
             break; // If we got a 200, break out of the loop and run setup
         } catch (error) {
-            console.error("Error checking setup status");
+            console.error("Error checking setup status, retrying...");
             await sleep(500); // Wait for 2 seconds before retrying
             continue;
         }
