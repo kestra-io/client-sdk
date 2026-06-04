@@ -12,10 +12,10 @@ const fullPathSdkEntries = Object.fromEntries(
 );
 
 const IGNORE_APIS = [
-    "ai",
-    "login",
-    "tenant-access",
-    "worker-auth",
+    "Ai",
+    "Login",
+    "TenantAccess",
+    "WorkerAuth",
 ].flatMap(api => [`${api}Admin`, api]); // Ignore both regular and admin versions of these APIs
 
 export default defineConfig({
