@@ -70,7 +70,12 @@ for (const [filePath, data] of Object.entries(coverage)) {
         // Strip everything up to and including "openapi/sdk/" for a tidy display name.
         const match = filePath.match(/openapi\/sdk\/(.+)/);
         const file = match ? match[1] : filePath.split("/").pop();
-        uncoveredByFile.push({ file, uncovered });
+        const totalFunctionsInFile = Object.keys(data.f).length;
+        uncoveredByFile.push({
+            file,
+            uncovered,
+            pct: (uncovered.length / totalFunctionsInFile) * 100,
+        });
     }
 }
 
@@ -150,9 +155,10 @@ if (uncoveredByFile.length === 0) {
 All **${totalFunctions}** functions in \`openapi/sdk/\` are covered (**${pct}%**). Nothing to do here!${failingTestsSection}`;
 } else {
     const rows = uncoveredByFile
-        .map(({ file, uncovered }) => {
+        .map(({ file, uncovered, pct: filePct }) => {
             const fns = uncovered.map((f) => `\`${f}\``).join(", ");
-            return `| \`${file}\` | ${uncovered.length} | ${fns} |`;
+            const percentage = filePct.toFixed(1);
+            return `| \`${file}\` | ${uncovered.length} | ${fns} | ${percentage}% |`;
         })
         .join("\n");
 
@@ -165,8 +171,8 @@ ${uncoveredByFile.length} file(s) contain functions with **no test coverage** in
 <details>
 <summary>Show uncovered functions</summary>
 
-| File | # uncovered | Functions |
-|------|:-----------:|-----------|
+| File | # uncovered | Functions | percentage |
+|------|:-----------:|-----------|------------|
 ${rows}
 
 </details>
