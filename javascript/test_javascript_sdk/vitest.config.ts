@@ -35,7 +35,7 @@ export default defineConfig({
         outputFile: {
             json: "coverage/test-results.json"
         },
-        globalSetup: ["test_javascript_sdk/setupTests.ts"],
+        globalSetup: ["test_javascript_sdk/globalSetup.ts"],
         coverage: {
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using

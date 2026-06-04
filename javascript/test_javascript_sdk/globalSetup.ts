@@ -5,8 +5,7 @@ const { baseURL, username, password, tenantId } = fixtures;
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function setup() {
-
+export async function setup() {
     for (let attempt = 1; attempt <= 20; attempt++) {
         try {
             const configResponse = await fetch(`${baseURL}/api/v1/setup`);
@@ -40,7 +39,3 @@ async function setup() {
     })
     console.log("Setup response:", res.status, res.statusText);
 }
-
-beforeAll(async () => {
-    await setup();
-});
