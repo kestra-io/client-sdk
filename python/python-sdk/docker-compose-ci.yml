@@ -36,9 +36,11 @@ services:
       - ./heap-dump:/heap-dump
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
-      # 4g is known to OOM mid-suite (8g only delays it, see run 26883549146); keep
-      # it small so the heap dump stays uploadable as a CI artifact. The dump is
-      # written to the bind mount before ExitOnOutOfMemoryError terminates the JVM.
-      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heap-dump/kestra.hprof"
+      # The container OOMs mid-suite regardless of heap size (8g/4g only delay it,
+      # see run 26883549146), so cap the heap at 1g: it still reproduces the OOM
+      # but keeps the .hprof small enough to download and open in MAT without
+      # overwhelming a laptop. The dump is written to the bind mount before
+      # ExitOnOutOfMemoryError terminates the JVM.
+      JAVA_OPTS: "-Xms512m -Xmx1g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heap-dump/kestra.hprof"
     ports:
       - "9902:8080"
