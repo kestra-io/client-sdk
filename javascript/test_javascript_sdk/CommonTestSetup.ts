@@ -61,22 +61,6 @@ beforeAll(async () => {
         baseURL,
     });
 
-    // Always-on error enrichment: surface the server's error message
-    // (e.response?.data?.message) and request context so vitest failures are
-    // actionable without DEBUG, while keeping the original Axios message as fallback.
-    instance.interceptors.response.use(
-        (response) => response,
-        (error) => {
-            if (error.response) {
-                const { status, data } = error.response;
-                const serverMessage = data?.message ?? error.message;
-                const method = error.config?.method?.toUpperCase();
-                error.message = `${serverMessage} — [${status}] ${method} ${error.config?.url}`;
-            }
-            return Promise.reject(error);
-        }
-    );
-
     if (process.env.DEBUG) {
         instance.interceptors.request.use((config) => {
             //log the request method and url for debugging purposes

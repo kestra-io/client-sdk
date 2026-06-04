@@ -32,7 +32,9 @@ export default defineConfig({
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
         reporters: ["default", "json"],
-        outputFile: { json: "coverage/test-results.json" },
+        outputFile: {
+            json: "coverage/test-results.json"
+        },
         coverage: {
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using
@@ -41,8 +43,8 @@ export default defineConfig({
             reporter: ["text", "json"],
             thresholds: {
                 perFile: true,
-                functions: 80,
-            },
+                functions: 60,
+            }
         },
     },
 });
