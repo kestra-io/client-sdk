@@ -280,70 +280,12 @@ public class AppsApi extends BaseApi {
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String stream,
             @jakarta.annotation.Nonnull String tenant) {
-        return Flux.create(sink -> {
-            AtomicReference<CloseableHttpResponse> responseRef = new AtomicReference<>();
-            AtomicReference<BufferedReader> readerRef = new AtomicReference<>();
-
-            sink.onDispose(() -> {
-                try {
-                    BufferedReader r = readerRef.get();
-                    if (r != null) r.close();
-                } catch (IOException ignored) {}
-                try {
-                    CloseableHttpResponse resp = responseRef.get();
-                    if (resp != null) resp.close();
-                } catch (IOException ignored) {}
-            });
-
-            try {
-                CloseableHttpResponse response = apiClient.openEventStream(
-                        tenantPath(tenant, "apps", "view", id, "streams", stream),
-                        Collections.emptyList(),
-                        Collections.emptyList(),
-                        "",
-                        new HashMap<>(),
-                        new HashMap<>(),
-                        AUTH
-                );
-                responseRef.set(response);
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
-                readerRef.set(reader);
-
-                String line;
-                StringBuilder dataBuffer = new StringBuilder();
-
-                while (!sink.isCancelled() && (line = reader.readLine()) != null) {
-                    if (line.isEmpty()) {
-                        if (dataBuffer.length() > 0) {
-                            EventAppResponse ev = apiClient.getObjectMapper()
-                                    .readValue(dataBuffer.toString(), EventAppResponse.class);
-                            dataBuffer.setLength(0);
-                            sink.next(ev);
-                        }
-                        continue;
-                    }
-                    if (line.startsWith("data:")) {
-                        String payload = line.substring(5);
-                        if (payload.startsWith(" ")) payload = payload.substring(1);
-                        dataBuffer.append(payload).append('\n');
-                    }
-                }
-
-                if (dataBuffer.length() > 0) {
-                    EventAppResponse ev = apiClient.getObjectMapper()
-                            .readValue(dataBuffer.toString(), EventAppResponse.class);
-                    sink.next(ev);
-                }
-                sink.complete();
-            } catch (IOException e) {
-                if (!sink.isCancelled()) {
-                    sink.error(new ApiException(e));
-                }
-            } catch (ApiException e) {
-                sink.error(e);
-            }
-        });
+        return sseFlux(
+                tenantPath(tenant, "apps", "view", id, "streams", stream),
+                null,
+                null,
+                EventAppResponse.class
+        );
     }
 
 }

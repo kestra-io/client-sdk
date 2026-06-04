@@ -8,17 +8,18 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.FollowLogEvent;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.LogEntry;
 import io.kestra.sdk.model.PagedResultsLogEntry;
 import io.kestra.sdk.model.QueryFilter;
 
+import reactor.core.publisher.Flux;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class LogsApi extends BaseApi {
 
@@ -104,6 +105,22 @@ public class LogsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         delete(tenantPath(tenant, "logs", namespace, flowId),
                 queryParams("triggerId", triggerId));
+    }
+
+    // ========================================================================
+    // Streaming (SSE)
+    // ========================================================================
+
+    public Flux<FollowLogEvent> followLogsFromExecution(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) {
+        return sseFlux(
+                tenantPath(tenant, "logs", executionId, "follow"),
+                null,
+                filterParams(filters),
+                FollowLogEvent.class
+        );
     }
 
     // ========================================================================
