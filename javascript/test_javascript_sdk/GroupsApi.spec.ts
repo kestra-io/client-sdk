@@ -67,12 +67,15 @@ describe('GroupsApi', () => {
             throw new Error('Failed to create group');
         }
 
-        // deleteGroup can take >30s on cold H2 start; accept any result after timeout
-        await Promise.race([
-            kestraClient.Groups.deleteGroup({ id: created.id }).catch(() => { }),
-            new Promise<void>(resolve => setTimeout(resolve, 5000)),
-        ]);
-    }, 10000);
+        await kestraClient.Groups.deleteGroup({ id: created.id })
+
+        const found = await kestraClient.Groups.searchGroups({
+            page: 1,
+            size: 10,
+            filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: created.name })],
+        });
+        expect(found?.results.some(g => g.id === created.id)).toBeFalsy();
+    });
 
     it('delete_user_from_group: Remove a user from a group', async () => {
         const group = await kestraClient.Groups.createGroup({
