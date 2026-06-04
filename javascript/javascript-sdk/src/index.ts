@@ -456,7 +456,6 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
     // instead of JSON, hiding the real server error message. Normalise it so callers see
     // the actual error object (e.g. { message: "BAD_REQUEST: ..." }) in both environments.
     instance.interceptors.response.use(undefined, async (error: AxiosError) => {
-        console.error("API error:", error)
         if (error.response?.data instanceof Blob) {
             const text = await (error.response.data as Blob).text()
             try {
