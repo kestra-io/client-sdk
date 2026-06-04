@@ -1,0 +1,147 @@
+// LogsApi.spec.ts
+import { describe, it, expect } from "vitest";
+import { kestraClient, randomId } from "./CommonTestSetup.js";
+import type { LogEntry, QueryFilterField, QueryFilterOp } from "@kestra-io/kestra-sdk";
+
+// ---------- Flow YAML template ----------
+// A flow that emits a single, easily-identifiable log line.
+const LOG_MARKER = "Hello from the Logs SDK test";
+const LOG_FLOW = (id: string, ns: string): string => `
+id: ${id}
+namespace: ${ns}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: ${LOG_MARKER}
+`;
+
+// ---------- helpers ----------
+const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
+
+// filters
+const QF_FIELD: Record<string, QueryFilterField> = {
+    NAMESPACE: "NAMESPACE",
+    EXECUTION_ID: "EXECUTION_ID",
+};
+const QF_OP: Record<string, QueryFilterOp> = {
+    EQUALS: "EQUALS",
+};
+
+async function createLogFlowExecution() {
+    const ns = randomId();
+    const id = randomId();
+    const flow = await kestraClient.Flows.createFlow({ body: LOG_FLOW(id, ns) });
+    await sleep(200);
+    const execution = await kestraClient.Executions.createExecution({
+        namespace: flow.namespace,
+        id: flow.id,
+        wait: true,
+    });
+    return { execution, namespace: flow.namespace, flowId: flow.id };
+}
+
+// Logs are persisted asynchronously after the execution terminates, so give the
+// backend a few retries before asserting on their presence.
+async function awaitLogs(executionId: string, timeoutMs = 5000, pollMs = 200): Promise<LogEntry[]> {
+    const start = Date.now();
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        const logs = await kestraClient.Logs.listLogsFromExecution({ executionId });
+        if (logs.length > 0) return logs;
+        if (Date.now() - start > timeoutMs) return logs;
+        await sleep(pollMs);
+    }
+}
+
+describe("LogsApi", () => {
+    // --- fetch logs for an execution ---
+    it("list_logs_from_execution", async () => {
+        const { execution } = await createLogFlowExecution();
+
+        const logs = await awaitLogs(execution.id ?? "");
+
+        expect(Array.isArray(logs)).toBe(true);
+        expect(logs.length).toBeGreaterThan(0);
+        expect(logs.every((l) => l.executionId === execution.id)).toBe(true);
+        expect(logs.some((l) => l.message?.includes(LOG_MARKER))).toBe(true);
+    });
+
+    // --- fetch logs filtered by min level ---
+    it("list_logs_from_execution_with_filters", async () => {
+        const { execution } = await createLogFlowExecution();
+        await awaitLogs(execution.id ?? "");
+
+        const filters = [
+            {
+                field: QF_FIELD.EXECUTION_ID,
+                operation: QF_OP.EQUALS,
+                value: execution.id,
+            },
+        ];
+        const logs = await kestraClient.Logs.listLogsFromExecution({
+            executionId: execution.id ?? "",
+            filters,
+        });
+
+        expect(logs.every((l) => l.executionId === execution.id)).toBe(true);
+    });
+
+    // --- search logs (paged) ---
+    it("search_logs", async () => {
+        const { execution, namespace } = await createLogFlowExecution();
+        await awaitLogs(execution.id ?? "");
+
+        const filters = [
+            {
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.EQUALS,
+                value: namespace,
+            },
+        ];
+        const page = await kestraClient.Logs.searchLogs({
+            page: 1,
+            size: 10,
+            filters,
+        });
+
+        expect(page.total).toBeGreaterThan(0);
+        expect(Array.isArray(page.results)).toBe(true);
+        expect(page.results.length).toBeGreaterThan(0);
+        expect(page.results.every((l) => l.namespace === namespace)).toBe(true);
+        expect(page.results.some((l) => l.message?.includes(LOG_MARKER))).toBe(true);
+    });
+
+    // --- download logs for an execution ---
+    it("download_logs_from_execution", async () => {
+        const { execution } = await createLogFlowExecution();
+        await awaitLogs(execution.id ?? "");
+
+        const downloaded = await kestraClient.Logs.downloadLogsFromExecution({
+            executionId: execution.id ?? "",
+        });
+
+        expect(downloaded).toBeTruthy();
+        // The endpoint returns text/plain; depending on the generator this is a
+        // string (or string-like). Assert the marker is present when stringified.
+        expect(String(downloaded)).toContain(LOG_MARKER);
+    });
+
+    // --- delete logs for an execution ---
+    it("delete_logs_from_execution", async () => {
+        const { execution } = await createLogFlowExecution();
+        const before = await awaitLogs(execution.id ?? "");
+        expect(before.length).toBeGreaterThan(0);
+
+        await kestraClient.Logs.deleteLogsFromExecution({
+            executionId: execution.id ?? "",
+        });
+
+        // Allow the deletion to propagate before re-reading.
+        await sleep(500);
+        const after = await kestraClient.Logs.listLogsFromExecution({
+            executionId: execution.id ?? "",
+        });
+        expect(after.length).toBe(0);
+    });
+});

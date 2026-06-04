@@ -145,3 +145,42 @@ const execution = await ExecutionsAPI.createExecution({
 });
 console.log(execution.data);
 ```
+
+### Example: fetch, search and download logs
+
+```ts
+import { client } from "@kestra-io/kestra-sdk/client";
+import * as LogsAPI from "@kestra-io/kestra-sdk/logs";
+
+client.setConfig({
+    baseURL: "https://<your-kestra-host>",
+    auth: () => "root@root.com:Root!1234",
+});
+
+const tenant = "main";
+
+// All log entries for an execution
+const logs = await LogsAPI.listLogsFromExecution({
+    tenant,
+    executionId: "<execution-id>",
+});
+console.log(logs);
+
+// Search logs with pagination and filters
+const page = await LogsAPI.searchLogs({
+    tenant,
+    page: 1,
+    size: 10,
+    filters: [
+        { field: "NAMESPACE", operation: "EQUALS", value: "my.namespace" },
+    ],
+});
+console.log(page.results, page.total);
+
+// Download logs for an execution as text
+const download = await LogsAPI.downloadLogsFromExecution({
+    tenant,
+    executionId: "<execution-id>",
+});
+console.log(download);
+```
