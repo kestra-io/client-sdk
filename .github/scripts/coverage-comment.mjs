@@ -193,5 +193,47 @@ ${rows}
 
 > Run \`npm run test --workspace test_javascript_sdk -- --coverage\` locally to reproduce.${failingTestsSection}\`\`\``;
 }
+// ---------------------------------------------------------------------------
+// Post or update sticky PR comment
+// ---------------------------------------------------------------------------
 
-console.log(body);
+writeFileSync("/tmp/coverage-body.json", JSON.stringify({ body }));
+
+let existingCommentId = null;
+try {
+    if (!repo || !prNumber) {
+        console.log(
+            "GITHUB_REPOSITORY or PR_NUMBER not set — skipping comment.",
+        );
+        console.log("Would have posted this comment:\n", body);
+        process.exit(0);
+    }
+    const raw = execSync(
+        `gh api "repos/${repo}/issues/${prNumber}/comments?per_page=100"`,
+        { encoding: "utf8" },
+    );
+    const comments = JSON.parse(raw);
+    const existing = comments.find((c) => c.body?.includes(MARKER));
+    if (existing) existingCommentId = existing.id;
+} catch (err) {
+    console.warn("Could not fetch existing comments:", err.message);
+}
+
+try {
+    if (existingCommentId) {
+        execSync(
+            `gh api "repos/${repo}/issues/comments/${existingCommentId}" -X PATCH --input /tmp/coverage-body.json`,
+            { stdio: "inherit" },
+        );
+        console.log(`Updated coverage comment (id ${existingCommentId}).`);
+    } else {
+        execSync(
+            `gh api "repos/${repo}/issues/${prNumber}/comments" --input /tmp/coverage-body.json`,
+            { stdio: "inherit" },
+        );
+        console.log("Posted new coverage comment.");
+    }
+} catch (err) {
+    console.error("Failed to post coverage comment:", err.message);
+    process.exit(1);
+}
