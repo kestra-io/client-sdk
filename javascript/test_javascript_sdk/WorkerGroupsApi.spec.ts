@@ -26,11 +26,11 @@ describe('WorkerGroupsApi', () => {
 
     it('workerGroupById: retrieves a worker group by id', async () => {
         const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
-        const id = (created as any).id;
+        const id = created.id ?? "<none>";
 
         const result = await kestraClient.WorkerGroups.get({ id });
         expect(result).toBeDefined();
-        expect((result as any).id).toBe(id);
+        expect(result.id).toBe(id);
     });
 
     it('updateWorkerGroupById: updates a worker group', async () => {
@@ -48,7 +48,7 @@ describe('WorkerGroupsApi', () => {
 
     it('deleteWorkerGroupById: deletes a worker group', async () => {
         const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
-        const id = (created as any).id;
+        const id = created.id ?? "<none>";
 
         await kestraClient.WorkerGroups.deleteWorkerGroups({ id });
     });
