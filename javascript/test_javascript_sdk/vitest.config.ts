@@ -41,7 +41,10 @@ export default defineConfig({
             // Paths are relative to root (".."), so no "../" needed.
             // picomatch matches these against absolute file paths using
             // contains:true, and tinyglobby globs from root for all:true.
-            include: ["javascript-sdk/src/openapi/sdk/**", `!javascript-sdk/src/openapi/sdk/{${IGNORE_APIS.join(",")}}.gen.ts`],
+            include: ["javascript-sdk/src/openapi/sdk/**"],
+            exclude: IGNORE_APIS.flatMap(api => [
+                `javascript-sdk/src/openapi/sdk/${api}.gen.ts`,
+            ]),
             reporter: ["text", "json"],
             thresholds: {
                 perFile: true,
