@@ -14,13 +14,23 @@
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
+import { join } from "path";
 
 const MARKER = "<!-- js-sdk-coverage-comment -->";
 
-const coveragePath =
+const coveragePathArg =
     process.argv[2] ?? "javascript/coverage/coverage-final.json";
-const testResultsPath =
+const testResultsPathArg =
     process.argv[3] ?? "javascript/coverage/test-results.json";
+const coveragePath = join(import.meta.dirname, "..", "..", coveragePathArg);
+const testResultsPath = join(
+    import.meta.dirname,
+    "..",
+    "..",
+    testResultsPathArg,
+);
+
+console.log(`Reading coverage data from ${coveragePath}...`);
 
 if (!existsSync(coveragePath)) {
     console.log(
@@ -74,7 +84,11 @@ for (const [filePath, data] of Object.entries(coverage)) {
         uncoveredByFile.push({
             file,
             uncovered,
-            pct: (uncovered.length / totalFunctionsInFile) * 100,
+            pct: totalFunctionsInFile
+                ? ((totalFunctionsInFile - uncovered.length) /
+                      totalFunctionsInFile) *
+                  100
+                : 0,
         });
     }
 }
@@ -180,47 +194,4 @@ ${rows}
 > Run \`npm run test --workspace test_javascript_sdk -- --coverage\` locally to reproduce.${failingTestsSection}\`\`\``;
 }
 
-// ---------------------------------------------------------------------------
-// Post or update sticky PR comment
-// ---------------------------------------------------------------------------
-
-writeFileSync("/tmp/coverage-body.json", JSON.stringify({ body }));
-
-let existingCommentId = null;
-try {
-    if (!repo || !prNumber) {
-        console.log(
-            "GITHUB_REPOSITORY or PR_NUMBER not set — skipping comment.",
-        );
-        console.log("Would have posted this comment:\n", body);
-        process.exit(0);
-    }
-    const raw = execSync(
-        `gh api "repos/${repo}/issues/${prNumber}/comments?per_page=100"`,
-        { encoding: "utf8" },
-    );
-    const comments = JSON.parse(raw);
-    const existing = comments.find((c) => c.body?.includes(MARKER));
-    if (existing) existingCommentId = existing.id;
-} catch (err) {
-    console.warn("Could not fetch existing comments:", err.message);
-}
-
-try {
-    if (existingCommentId) {
-        execSync(
-            `gh api "repos/${repo}/issues/comments/${existingCommentId}" -X PATCH --input /tmp/coverage-body.json`,
-            { stdio: "inherit" },
-        );
-        console.log(`Updated coverage comment (id ${existingCommentId}).`);
-    } else {
-        execSync(
-            `gh api "repos/${repo}/issues/${prNumber}/comments" --input /tmp/coverage-body.json`,
-            { stdio: "inherit" },
-        );
-        console.log("Posted new coverage comment.");
-    }
-} catch (err) {
-    console.error("Failed to post coverage comment:", err.message);
-    process.exit(1);
-}
+console.log(body);
