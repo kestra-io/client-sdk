@@ -33,14 +33,14 @@ services:
       - ../../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
       - ../../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
       - ./application-postgres.yml:/app/confs/application-postgres.yml:ro
-      - ./heap-dump:/heap-dump
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
-      # The container OOMs mid-suite regardless of heap size (8g/4g only delay it,
-      # see run 26883549146), so cap the heap at 1g: it still reproduces the OOM
-      # but keeps the .hprof small enough to download and open in MAT without
-      # overwhelming a laptop. The dump is written to the bind mount before
-      # ExitOnOutOfMemoryError terminates the JVM.
-      JAVA_OPTS: "-Xms512m -Xmx1g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heap-dump/kestra.hprof"
+      # The container OOMs mid-suite (regression on the 2.0 develop image). A full
+      # heap dump is multi-GB and unusable on a laptop, and dropping the heap low
+      # enough to shrink it (1g) stops the OOM from triggering at all. Instead, log
+      # a class histogram around each full GC: the last histogram before the
+      # terminal OOM shows which classes are accumulating, in a few KB of text that
+      # CI captures in the container logs. Keep 4g so the OOM still reproduces.
+      JAVA_OPTS: "-Xms512m -Xmx4g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+PrintClassHistogramBeforeFullGC -XX:+PrintClassHistogramAfterFullGC"
     ports:
       - "9902:8080"

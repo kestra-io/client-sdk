@@ -77,14 +77,16 @@ jobs:
           sh run-tests.sh $KESTRA_VERSION
 
       # The CI Kestra container dies with a Java heap OutOfMemoryError mid-run
-      # (regression on the 2.0 develop image); upload the heap dump written via
-      # -XX:+HeapDumpOnOutOfMemoryError so the leak can be analyzed with MAT.
-      - name: Upload Kestra heap dump
+      # (regression on the 2.0 develop image). Rather than a multi-GB heap dump,
+      # the JVM logs a class histogram around each full GC; the last one before the
+      # terminal OOM shows the accumulating classes. Upload the full Kestra log so
+      # that histogram can be inspected (a few KB of text, not a multi-GB .hprof).
+      - name: Upload Kestra logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: kestra-heap-dump
-          path: python/python-sdk/heap-dump/*.hprof
+          name: kestra-logs
+          path: python/python-sdk/kestra-logs/*.log
           if-no-files-found: ignore
           retention-days: 5
 

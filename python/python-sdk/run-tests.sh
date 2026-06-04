@@ -32,9 +32,6 @@ for KESTRA_VERSION in $versions; do
   export KESTRA_VERSION=$KESTRA_VERSION
 
   echo "start Kestra container"
-  # pre-create the heap-dump bind mount so the JVM can write its OOM dump there
-  mkdir -p heap-dump
-  rm -f heap-dump/*.hprof
   log_and_run docker compose -f docker-compose-ci.yml down
 
   log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
@@ -57,12 +54,13 @@ for KESTRA_VERSION in $versions; do
     echo "----- postgres container state -----"
     docker inspect python-sdk-test-postgres \
       --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
-    echo "----- kestra logs (last 300 lines) -----"
-    docker compose -f docker-compose-ci.yml logs --no-color --tail 300 kestra || true
-    echo "----- heap dump (written on OutOfMemoryError) -----"
-    # written as root inside the container; make it readable for artifact upload
-    sudo chmod -R a+r heap-dump 2>/dev/null || chmod -R a+r heap-dump 2>/dev/null || true
-    ls -lh heap-dump/ || true
+    # Capture the FULL kestra logs to a file for upload: the OOM class histograms
+    # (-XX:+PrintClassHistogram{Before,After}FullGC) run to thousands of lines and
+    # would be cut off by a tail. Print only the tail to the console for a quick look.
+    mkdir -p kestra-logs
+    docker compose -f docker-compose-ci.yml logs --no-color --no-log-prefix kestra > kestra-logs/kestra.log 2>&1 || true
+    echo "----- kestra logs (last 300 lines; full log uploaded as artifact) -----"
+    tail -n 300 kestra-logs/kestra.log || true
   fi
 
   echo "stop Kestra container"
