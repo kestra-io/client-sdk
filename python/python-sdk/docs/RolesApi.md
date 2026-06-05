@@ -25,6 +25,7 @@ List roles for autocomplete
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -39,7 +40,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles for autocomplete
-        api_response = kestra_client.RolesApi.autocomplete_roles(tenant, api_autocomplete)
+        api_response = kestra_client.roles.autocomplete_roles(tenant, api_autocomplete)
         print("The response of RolesApi->autocomplete_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -89,6 +90,7 @@ Create a role
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -103,7 +105,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a role
-        api_response = kestra_client.RolesApi.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = kestra_client.roles.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->create_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -154,6 +156,7 @@ Delete a role
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -168,7 +171,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a role
-        kestra_client.RolesApi.delete_role(id, tenant)
+        kestra_client.roles.delete_role(id, tenant)
     except Exception as e:
         print("Exception when calling RolesApi->delete_role: %s\n" % e)
 ```
@@ -216,6 +219,7 @@ List roles by ids
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -230,7 +234,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles by ids
-        api_response = kestra_client.RolesApi.list_roles_from_given_ids(tenant, api_ids)
+        api_response = kestra_client.roles.list_roles_from_given_ids(tenant, api_ids)
         print("The response of RolesApi->list_roles_from_given_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -280,6 +284,7 @@ Retrieve a role
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -294,7 +299,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a role
-        api_response = kestra_client.RolesApi.role(id, tenant)
+        api_response = kestra_client.roles.role(id, tenant)
         print("The response of RolesApi->role:\n")
         pprint(api_response)
     except Exception as e:
@@ -334,7 +339,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_roles**
-> PagedResultsApiRoleSummary search_roles(page, size, tenant, q=q, sort=sort)
+> PagedResultsApiRoleSummary search_roles(tenant, page=page, size=size, sort=sort)
 
 Search for roles
 
@@ -345,6 +350,7 @@ Search for roles
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -362,7 +368,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for roles
-        api_response = kestra_client.RolesApi.search_roles(page, size, tenant, q=q, sort=sort)
+        api_response = kestra_client.roles.search_roles(tenant, page=page, size=size, sort=sort)
         print("The response of RolesApi->search_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -415,6 +421,7 @@ Update a role
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -430,7 +437,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a role
-        api_response = kestra_client.RolesApi.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = kestra_client.roles.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->update_role:\n")
         pprint(api_response)
     except Exception as e:

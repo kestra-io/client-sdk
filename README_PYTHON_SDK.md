@@ -48,7 +48,8 @@ kestra_client = KestraClient(configuration)
 Then simply use the client to call the API:
 
 ```python
-res = kestra_client.flows.search_flows(1, 10, tenant_id)
+tenant_id = "main"
+res = kestra_client.flows.search_flows(tenant_id, page=1, size=10)
 
 print("Found flows:", len(res.results))
 ```

@@ -24,6 +24,7 @@ Delete logs for a specific execution, taskrun or task
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -94,6 +95,7 @@ Delete logs for a specific flow
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -160,6 +162,7 @@ Download logs for a specific execution, taskrun or task
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -234,6 +237,7 @@ Streams log entries in real-time using Server-Sent Events (SSE). The returned ge
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -303,6 +307,7 @@ Get logs for a specific execution, taskrun or task
 from pprint import pprint
 
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
