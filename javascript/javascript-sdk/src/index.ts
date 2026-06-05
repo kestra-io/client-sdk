@@ -125,7 +125,9 @@ export const configureAxios = (
 
     // Track outgoing requests for NProgress
     client.interceptors.request.use((request: Request): Request => {
-        initProgress()
+        if (typeof document !== "undefined") {
+            initProgress()
+        }
         return request
     })
 
