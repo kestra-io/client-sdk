@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { configureAxios, useClient } from "@kestra-io/kestra-sdk";
+import { useClient } from "@kestra-io/kestra-sdk";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
@@ -14,10 +14,8 @@ const VALIDATE = { validateStatus: (status: number) => status === 200 || status 
 
 describe("useClient", () => {
     beforeAll(() => {
-        const instance = configureAxios({
-            auth: username + ":" + password,
-        })
-        instance.defaults.headers.common["Authorization"] = `Basic ${Buffer.from(username + ":" + password).toString("base64")}`;
+        const clientObj = useClient();
+        clientObj.defaults.headers.common["Authorization"] = `Basic ${Buffer.from(username + ":" + password).toString("base64")}`;
     });
 
     it("should be able to call all get methods from a client by URL", async () => {

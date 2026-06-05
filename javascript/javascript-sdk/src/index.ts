@@ -11,7 +11,6 @@ declare global {
     }
 }
 
-let pendingRoute = false
 let requestsTotal = 0
 let requestsCompleted = 0
 const latencyThreshold = 0
@@ -19,7 +18,6 @@ const latencyThreshold = 0
 const REFRESHED_HEADER = "X-JWT-Refreshed"
 
 const progressComplete = () => {
-    pendingRoute = false
     requestsTotal = 0
     requestsCompleted = 0
     NProgress.done()
@@ -65,55 +63,105 @@ function serializeQueryValue(val: unknown) {
     return val?.toString()
 }
 
-export const configureAxios = (
-    clientConfig: Config<ClientOptions> = {},
+interface AxiosLikeConfig {
+    headers?: Record<string, string>
+    validateStatus?: (status: number) => boolean
+    [key: string]: any
+}
+
+interface AxiosLikeResponse<T = any> {
+    data: T
+    status: number
+    headers: Record<string, string>
+}
+
+export interface AxiosLikeClient {
+    defaults: { headers: { common: Record<string, string> } }
+    get<T = any>(url: string, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
+    post<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
+    put<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
+    delete<T = any>(url: string, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
+    patch<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
+}
+
+const commonHeaders: Record<string, string> = {}
+
+async function axiosLikeRequest<T>(
+    method: string,
+    url: string,
+    data?: any,
+    config: AxiosLikeConfig = {}
+): Promise<AxiosLikeResponse<T>> {
+    const headers = new Headers({ ...commonHeaders, ...(config.headers ?? {}) })
+
+    let body: BodyInit | undefined
+    if (data !== undefined) {
+        if (typeof data === "string") {
+            body = data
+        } else {
+            body = JSON.stringify(data)
+            if (!headers.has("content-type")) {
+                headers.set("content-type", "application/json")
+            }
+        }
+    }
+
+    const response = await fetch(url, { method, headers, body, credentials: "include" })
+
+    const { validateStatus } = config
+    const isSuccess = validateStatus ? validateStatus(response.status) : response.status < 400
+
+    let responseData: T
+    const contentType = response.headers.get("content-type") ?? ""
+    if (response.status === 204 || response.headers.get("content-length") === "0") {
+        responseData = null as T
+    } else if (contentType.includes("application/json")) {
+        responseData = await response.json() as T
+    } else {
+        responseData = await response.text() as unknown as T
+    }
+
+    const headersObj: Record<string, string> = {}
+    response.headers.forEach((value, key) => { headersObj[key] = value })
+
+    const result: AxiosLikeResponse<T> = { data: responseData, status: response.status, headers: headersObj }
+
+    if (!isSuccess) {
+        const error = new Error(`Request failed with status ${response.status}`) as Error & { response: AxiosLikeResponse<T> }
+        error.response = result
+        throw error
+    }
+
+    return result
+}
+
+const axiosLikeClient: AxiosLikeClient = {
+    defaults: { headers: { common: commonHeaders } },
+    get: <T>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("GET", url, undefined, config),
+    post: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("POST", url, data, config),
+    put: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PUT", url, data, config),
+    delete: <T>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("DELETE", url, undefined, config),
+    patch: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
+}
+
+export const configureBrowserClient = (
+    clientConfig: Config<ClientOptions>,
     options: {
-        oss?: boolean,
-        router?: {
-            push: (location: { name: string, query?: Record<string, string> }) => void;
-            beforeEach: (callback: (to: any, from: any, next: () => void) => void) => void;
-            afterEach: (callback: () => void) => void;
-        },
-        coreStore?: {
-            message?: {
-                variant?: string;
-                response?: any;
-                content?: any;
-            };
-            error?: any;
-        },
-        authStore?: {
-            isLogged?: boolean;
-            logout: () => Promise<boolean>;
-        },
-        beforeLogout?: () => void
+        logout?: () => void
         isImpersonating?: () => boolean
         isLoggedIn?: () => boolean
         onAuthTimeout?: () => boolean | void
         onError?: (type: "message" | "error", response: Response & { data?: any }) => void
-    } = {}
-): Client => {
+    }
+) => {
     const {
-        oss = false,
-        router,
-        coreStore,
-        authStore,
-        beforeLogout,
+        logout,
         isImpersonating = () => false,
-        isLoggedIn = () => authStore?.isLogged ?? false,
+        isLoggedIn = () => false,
         onAuthTimeout,
         onError = (type, response: Response & { data?: any }) => {
-            if (coreStore) {
-                if (type === "message") {
-                    coreStore.message = {
-                        variant: "error",
-                        response: response,
-                        content: response?.data,
-                    }
-                } else {
-                    coreStore.error = response.status
-                }
-            }
+            // eslint-disable-next-line no-console
+            console.error(`Request ${type === "error" ? "error" : "failed with status " + response.status}:`, response.data ?? response)
         }
     } = options
 
@@ -164,22 +212,12 @@ export const configureAxios = (
     // Token refresh: intercept 401 responses before the error path runs
     let refreshPromise: Promise<void> | null = null
 
-    function navigateToLogin() {
-        if (!router) return
-        const currentPath = window.location.pathname
-        const isLoginPath = currentPath.includes("/login")
-        router.push({
-            name: "login",
-            query: isLoginPath ? {} : { from: currentPath }
-        });
-    }
-
     client.interceptors.response.use(async (response: Response, request: Request, opts: ResolvedRequestOptions): Promise<Response> => {
         if (response.status !== 401) {
             return response
         }
 
-        if (oss || !isLoggedIn()) {
+        if (!isLoggedIn()) {
             onAuthTimeout?.()
             return response
         }
@@ -193,20 +231,14 @@ export const configureAxios = (
 
         // Already retried once — don't loop
         if (request.headers.get(REFRESHED_HEADER)) {
-            beforeLogout?.()
-            authStore?.logout().catch(() => { })
-
-            navigateToLogin()
+            logout?.()
 
             return response
         }
 
         // Don't attempt to refresh when the refresh endpoint itself returns 401
         if (request.url.includes("/oauth/access_token")) {
-            beforeLogout?.()
-            authStore?.logout().catch(() => { })
-
-            navigateToLogin()
+            logout?.()
 
             return response
         }
@@ -229,10 +261,7 @@ export const configureAxios = (
         try {
             await refreshPromise
         } catch {
-            beforeLogout?.()
-            authStore?.logout().catch(() => { })
-
-            navigateToLogin()
+            logout?.()
 
             return response
         }
@@ -244,24 +273,9 @@ export const configureAxios = (
         return _fetch(new Request(request, { headers: retryHeaders }))
     })
 
-    router?.beforeEach(() => {
-        if (pendingRoute) {
-            requestsTotal--
-        }
-        pendingRoute = true
-        initProgress()
-    })
-
-    router?.afterEach(() => {
-        if (pendingRoute) {
-            increaseProgress()
-            pendingRoute = false
-        }
-    })
-
     fetchClient = client
 
-    return client
+    return { client, initProgress, progressComplete, increaseProgress }
 }
 
 export function configureClient(clientConfig: Config<ClientOptions> = {}): Client {
@@ -444,14 +458,6 @@ export function setMockClient(mockClient: any) {
 /**
  * Get the current fetch client instance
  */
-export function useClient(): Client {
-    return new Proxy({} as Client, {
-        get(_target, prop) {
-            if (!fetchClient) {
-                throw new Error("Client not initialized. Please call configureAxios or configureClient first.")
-            }
-            const value = (fetchClient as any)[prop]
-            return typeof value === "function" ? value.bind(fetchClient) : value
-        }
-    })
+export function useClient(): AxiosLikeClient {
+    return axiosLikeClient
 }
