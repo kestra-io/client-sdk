@@ -138,7 +138,9 @@ export const configureAxios = (
     })
 
     instance.interceptors.request.use((config) => {
-        initProgress()
+        if (typeof document !== "undefined") {
+            initProgress()
+        }
         // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
         // the Content-Type header. Replace that empty sentinel with a real empty
         // FormData so the server receives a well-formed empty multipart body.
@@ -193,7 +195,7 @@ export const configureAxios = (
             // Authentication expired
             if (errorResponse.response.status === 401 &&
                 isLoggedIn() && !oss &&
-                !document.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
+                !document?.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
                 && !isImpersonating()) {
 
                 // Keep original request
