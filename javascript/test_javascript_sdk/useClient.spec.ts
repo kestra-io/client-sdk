@@ -42,7 +42,6 @@ tasks:
         const flow: any = await clientObj.post(`${baseURL}/api/v1/${tenantId}/flows`, body, {
             ...textYamlHeader,
             ...VALIDATE,
-            showMessageOnError: false,
         }); // Example of a POST request, adjust as needed
         expect(flow.data).toBeDefined();
     });
@@ -75,13 +74,11 @@ tasks:
         await clientObj.post(`${baseURL}/api/v1/${tenantId}/flows`, body, {
             ...textYamlHeader,
             ...VALIDATE,
-            showMessageOnError: false,
         });
 
         const flow2: any = await clientObj.put(`${baseURL}/api/v1/${tenantId}/flows/${namespace}/${flowId}`, body2, {
             ...textYamlHeader,
             ...VALIDATE,
-            showMessageOnError: false,
         });
         expect(flow2.data).toBeDefined();
     });
@@ -103,10 +100,13 @@ tasks:
         await clientObj.post(`${baseURL}/api/v1/${tenantId}/flows`, body, {
             ...textYamlHeader,
             ...VALIDATE,
-            showMessageOnError: false,
         });
 
         const delRes: any = await clientObj.delete(`${baseURL}/api/v1/${tenantId}/flows/${namespace}/${flowId}`);
         expect(delRes.status).toBe(204);
+
+        const allFlowsInNamespace: any = await clientObj.get(`${baseURL}/api/v1/${tenantId}/flows/${namespace}`);
+        const flowIds = allFlowsInNamespace.data.map((f: any) => f.id);
+        expect(flowIds).not.toContain(flowId);
     });
 });
