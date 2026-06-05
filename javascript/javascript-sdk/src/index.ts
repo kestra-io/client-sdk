@@ -75,15 +75,6 @@ interface AxiosLikeResponse<T = any> {
     headers: Record<string, string>
 }
 
-export interface AxiosLikeClient {
-    defaults: { headers: { common: Record<string, string> } }
-    get<T = any>(url: string, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
-    post<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
-    put<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
-    delete<T = any>(url: string, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
-    patch<T = any>(url: string, data?: any, config?: AxiosLikeConfig): Promise<AxiosLikeResponse<T>>
-}
-
 const commonHeaders: Record<string, string> = {}
 
 async function axiosLikeRequest<T>(
@@ -135,14 +126,14 @@ async function axiosLikeRequest<T>(
     return result
 }
 
-const axiosLikeClient: AxiosLikeClient = {
+const axiosLikeClient = {
     defaults: { headers: { common: commonHeaders } },
     get: <T>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("GET", url, undefined, config),
     post: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("POST", url, data, config),
     put: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PUT", url, data, config),
     delete: <T>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("DELETE", url, undefined, config),
     patch: <T>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
-}
+} as const
 
 export const configureBrowserClient = (
     clientConfig: Config<ClientOptions>,
@@ -458,6 +449,6 @@ export function setMockClient(mockClient: any) {
 /**
  * Get the current fetch client instance
  */
-export function useClient(): AxiosLikeClient {
+export function useClient() {
     return axiosLikeClient
 }
