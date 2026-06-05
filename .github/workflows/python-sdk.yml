@@ -43,6 +43,13 @@ jobs:
         with:
           python-version: "3.9.23"
 
+      # Static doc checks — no Kestra container needed, so they fail fast.
+      - name: Check README examples are in sync with their tested source
+        run: python3 ../../test-utils/embed_snippets.py --check ../../README_PYTHON_SDK.md
+
+      - name: Validate generated docs examples match the SDK
+        run: python3 scripts/validate_doc_examples.py --check
+
       - name: Install pypa/build
         run: python -m pip install build --user
 

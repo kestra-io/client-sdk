@@ -43,13 +43,33 @@ configuration.username = "root@root.com"
 configuration.password = "Root!1234"
 
 kestra_client = KestraClient(configuration)
+tenant = "main"
 ```
 
-Then simply use the client to call the API:
+Then simply use the client to call the API. The snippet below is injected from
+`python/python-sdk/testApis/basic_sdk_usage_example.py`, which runs in CI — so
+it stays in sync with the SDK. Edit the example there (not this block) and run
+`python test-utils/embed_snippets.py --write README_PYTHON_SDK.md`.
 
+<!-- snippet:search-and-create src=python/python-sdk/testApis/basic_sdk_usage_example.py lang=python -->
 ```python
-tenant_id = "main"
-res = kestra_client.flows.search_flows(tenant_id, page=1, size=10)
+# List the first page of flows in the tenant.
+flows = kestra_client.flows.search_flows(tenant, page=1, size=10)
+print(f"Found {len(flows.results)} flows")
 
-print("Found flows:", len(res.results))
+# Create a new flow from its YAML source.
+flow = dedent(
+    """
+    id: hello_from_sdk
+    namespace: company.team
+
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello from the Kestra Python SDK!
+    """
+)
+created = kestra_client.flows.create_flow(tenant, flow)
+print(f"Created flow {created.namespace}.{created.id} (revision {created.revision})")
 ```
+<!-- /snippet -->
