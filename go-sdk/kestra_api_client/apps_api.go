@@ -53,15 +53,18 @@ func (a *AppsAPI) BulkImportApps(ctx context.Context, tenant, filePath string) (
 	return doMultipartUpload[*AppsControllerApiBulkImportResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "apps", "import"), nil, "fileUpload", filePath)
 }
 
-func (a *AppsAPI) SearchApps(ctx context.Context, tenant string, page, size *int, q, namespace, flowId *string, sort, tags []string, filters []QueryFilter) (*PagedResultsAppsControllerApiApp, error) {
-	params := buildQueryParams("page", page, "size", size, "q", q, "namespace", namespace, "flowId", flowId)
+func (a *AppsAPI) SearchApps(ctx context.Context, tenant string, page, size *int, q, namespace, flowId *string, sort, tags []string, filters []SearchFilter) (*PagedResultsAppsControllerApiApp, error) {
+	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendRepeatedParam(params, "tags", tags)
+	filters = appendStringFilter(filters, FilterQuery, q)
+	filters = appendStringFilter(filters, FilterNamespace, namespace)
+	filters = appendStringFilter(filters, FilterFlowId, flowId)
+	filters = appendSliceFilter(filters, FilterTags, tags)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsAppsControllerApiApp](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "search"), nil, params)
 }
 
-func (a *AppsAPI) SearchAppsFromCatalog(ctx context.Context, tenant string, page, size *int, filters []QueryFilter) (*PagedResultsAppsControllerApiAppCatalogItem, error) {
+func (a *AppsAPI) SearchAppsFromCatalog(ctx context.Context, tenant string, page, size *int, filters []SearchFilter) (*PagedResultsAppsControllerApiAppCatalogItem, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsAppsControllerApiAppCatalogItem](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "catalog"), nil, params)

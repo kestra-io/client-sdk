@@ -140,7 +140,7 @@ func TestRolesAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Roles().CreateRole(ctx, MAIN_TENANT, req)
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterQuery,
 				Operation: kestra_api_client.OpEquals,

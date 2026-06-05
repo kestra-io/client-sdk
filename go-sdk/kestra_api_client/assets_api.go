@@ -28,39 +28,39 @@ func (a *AssetsAPI) DeleteAssetsByIds(ctx context.Context, tenant string, ids []
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "by-ids"), ids, nil)
 }
 
-func (a *AssetsAPI) DeleteAssetsByQuery(ctx context.Context, tenant string, filters []QueryFilter, purge *bool) (*BulkResponse, error) {
+func (a *AssetsAPI) DeleteAssetsByQuery(ctx context.Context, tenant string, filters []SearchFilter, purge *bool) (*BulkResponse, error) {
 	params := buildQueryParams("purge", purge)
 	appendFilterParams(params, filters)
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "by-query"), nil, params)
 }
 
-func (a *AssetsAPI) DeleteAssetLineageEventsByQuery(ctx context.Context, tenant string, filters []QueryFilter) (*BulkResponse, error) {
+func (a *AssetsAPI) DeleteAssetLineageEventsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	params := buildQueryParams()
 	appendFilterParams(params, filters)
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "lineage-events", "by-query"), nil, params)
 }
 
-func (a *AssetsAPI) DeleteAssetUsagesByQuery(ctx context.Context, tenant string, filters []QueryFilter) (*BulkResponse, error) {
+func (a *AssetsAPI) DeleteAssetUsagesByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	params := buildQueryParams()
 	appendFilterParams(params, filters)
 	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "assets", "usages", "by-query"), nil, params)
 }
 
-func (a *AssetsAPI) SearchAssets(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsAssetsControllerApiAsset, error) {
+func (a *AssetsAPI) SearchAssets(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAsset, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsAssetsControllerApiAsset](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "search"), nil, params)
 }
 
-func (a *AssetsAPI) SearchAssetLineageEvents(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsAssetsControllerApiAssetLineageEvent, error) {
+func (a *AssetsAPI) SearchAssetLineageEvents(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetLineageEvent, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsAssetsControllerApiAssetLineageEvent](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", "lineage-events", "search"), nil, params)
 }
 
-func (a *AssetsAPI) SearchAssetUsages(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsAssetsControllerApiAssetUsage, error) {
+func (a *AssetsAPI) SearchAssetUsages(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsAssetsControllerApiAssetUsage, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)

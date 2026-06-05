@@ -170,14 +170,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: A list of query filters
@@ -274,6 +266,16 @@ paths:
       summary: Retrieve all announcement banners
       description: Superadmin-only. Returns all global announcement banners.
       operationId: searchBanners
+      parameters:
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: searchBanners 200 response
@@ -431,6 +433,68 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/maintenance/status:
+    get:
+      tags:
+      - Cluster
+      - Maintenance
+      summary: Get maintenance mode status
+      description: Returns maintenance mode status and per-service readiness.
+      operationId: maintenanceStatus
+      responses:
+        "200":
+          description: maintenanceStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaintenanceStatusResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/mcp/servers:
+    get:
+      tags:
+      - Mcp
+      summary: List all MCP servers across all tenants
+      operationId: listAllMcpServers
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      responses:
+        "200":
+          description: listAllMcpServers 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiInstanceMcpServer_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/metrics/{serviceType}:
     get:
       tags:
@@ -506,26 +570,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: state
-        in: query
-        description: "The state filter (deprecated, use filters instead)"
-        deprecated: true
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/Service.ServiceState"
-      - name: type
-        in: query
-        description: "The server type filter (deprecated, use filters instead)"
-        deprecated: true
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/ServiceType"
       - name: filters
         in: query
         description: Filters
@@ -602,14 +646,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: The query
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -824,6 +860,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/release-notes:
+    get:
+      tags:
+      - Plugins
+      summary: Fetch release notes content for a plugin version
+      description: Superadmin-only. Fetches and returns the Markdown release notes
+        for a given plugin artifact version.
+      operationId: getPluginReleaseNotesContent
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: query
+        required: true
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPluginReleaseNotesContent 200 response
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version}:
     get:
       tags:
@@ -858,148 +929,68 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workergroups:
+  /api/v1/instance/worker-groups:
     get:
       tags:
-      - WorkerGroups
+      - Worker Groups
       summary: List all worker groups
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: listWorkerGroups
-      responses:
-        "200":
-          description: listWorkerGroups 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InstanceController.ApiWorkerGroupList"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-    post:
-      tags:
-      - WorkerGroups
-      summary: Create a worker group
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: createWorkerGroup
-      requestBody:
-        description: The worker group definition
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/InstanceController.ApiCreateOrUpdateWorkerGroupRequest"
-        required: true
-      responses:
-        "200":
-          description: createWorkerGroup 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InstanceController.ApiWorkerGroup"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/instance/workergroups/{id}:
-    get:
-      tags:
-      - WorkerGroups
-      summary: Retrieve details of a specific worker group
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getWorkerGroupById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: getWorkerGroupById 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InstanceController.ApiWorkerGroupDetails"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-    put:
-      tags:
-      - WorkerGroups
-      summary: Update a worker group
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: updateWorkerGroupById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The worker group definition
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/InstanceController.ApiCreateOrUpdateWorkerGroupRequest"
-        required: true
-      responses:
-        "200":
-          description: updateWorkerGroupById 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InstanceController.ApiWorkerGroup"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-    delete:
-      tags:
-      - WorkerGroups
-      summary: Delete a worker group
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: deleteWorkerGroupById
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: deleteWorkerGroupById 200 response
-          content:
-            application/json:
-              schema:
-                type: object
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/instance/workers/credentials:
-    get:
-      tags:
-      - Worker Auth
-      summary: List all registered workers
-      description: SuperAdmin only. Lists all workers that have registered with the
-        controller.
+      description: SuperAdmin only. Lists all worker groups with their configuration
+        and token summaries.
       operationId: list
+      parameters:
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: list 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerList"
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupList"
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workers/credentials/{id}:
+    post:
+      tags:
+      - Worker Groups
+      summary: Create a worker group
+      description: SuperAdmin only. Creates a new worker group with routing configuration.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerGroupController.ApiCreateWorkerGroupRequest"
+        required: true
+      responses:
+        "200":
+          description: create 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}:
     get:
       tags:
-      - Worker Auth
-      summary: Get worker credentials ID
-      description: SuperAdmin only. Retrieves details of a specific registered worker.
+      - Worker Groups
+      summary: Get worker group detail
+      description: SuperAdmin only. Retrieves details of a specific worker group including
+        token summaries.
       operationId: get
       parameters:
       - name: id
         in: path
+        description: The worker group id
         required: true
         schema:
           type: string
@@ -1009,19 +1000,54 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Worker Groups
+      summary: Update a worker group
+      description: "SuperAdmin only. Replaces the worker group's full desired state\
+        \ (name, description, subscriptions) in a single transactional save. Subscriptions\
+        \ absent from the submitted list are dropped; the underlying WorkerQueue is\
+        \ preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for\
+        \ one-off edits."
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerGroupController.ApiUpdateWorkerGroupRequest"
+        required: true
+      responses:
+        "200":
+          description: update 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
       security:
       - bearerAuth: []
       - basicAuth: []
     delete:
       tags:
-      - Worker Auth
-      summary: Delete worker credentials
-      description: SuperAdmin only. Deletes a worker's credentials.
+      - Worker Groups
+      summary: Delete a worker group
+      description: SuperAdmin only. Deletes a worker group. The default worker group
+        cannot be deleted.
       operationId: delete
       parameters:
       - name: id
         in: path
+        description: The worker group id
         required: true
         schema:
           type: string
@@ -1035,36 +1061,257 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workers/credentials/{id}/revoke:
-    post:
+  /api/v1/instance/worker-groups/{id}/capacity:
+    get:
       tags:
-      - Worker Auth
-      summary: Revoke worker credentials
-      description: "SuperAdmin only. Revokes a worker's credentials, preventing further\
-        \ authentication."
-      operationId: revoke
+      - Worker Groups
+      summary: Live capacity snapshot for a worker group
+      description: "SuperAdmin only. Returns the live allocated and used slot counts\
+        \ per subscription, aggregated across all running workers in the group. Backed\
+        \ by service-liveness metrics emitted by the controller."
+      operationId: getCapacity
       parameters:
       - name: id
         in: path
+        description: The worker group id
         required: true
         schema:
           type: string
       responses:
         "200":
-          description: revoke 200 response
+          description: getCapacity 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupCapacity"
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workers/registration-tokens:
+  /api/v1/instance/worker-groups/{id}/subscriptions:
+    post:
+      tags:
+      - Worker Groups
+      summary: Add a Worker Queue subscription to a worker group
+      description: SuperAdmin only. Adds a subscription edge from the worker group
+        to an existing WorkerQueue identified by its id (or the reserved "default"
+        sentinel for the global default queue). Returns the updated worker group.
+      operationId: addSubscription
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionRequest"
+        required: true
+      responses:
+        "200":
+          description: addSubscription 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}/subscriptions/{workerQueueId}:
+    delete:
+      tags:
+      - Worker Groups
+      summary: Remove a subscription by WorkerQueue id
+      description: SuperAdmin only. Drops the subscription edge from this worker group
+        to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains
+        available for other worker groups and can be re-subscribed later.
+      operationId: removeSubscription
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      - name: workerQueueId
+        in: path
+        description: The WorkerQueue id (subscription routing identity)
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: removeSubscription 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    patch:
+      tags:
+      - Worker Groups
+      summary: Update a subscription's reserved capacity
+      description: "SuperAdmin only. Updates the {@code reservedPercent} commitment\
+        \ on an existing subscription. Tags are immutable on a subscription (they\
+        \ belong to the WorkerQueue itself); only the worker-group-side reservation\
+        \ can be edited via this endpoint."
+      operationId: updateSubscriptionReservation
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      - name: workerQueueId
+        in: path
+        description: The WorkerQueue id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerGroupController.ApiUpdateSubscriptionRequest"
+        required: true
+      responses:
+        "200":
+          description: updateSubscriptionReservation 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}/tokens:
+    post:
+      tags:
+      - Worker Groups
+      summary: Generate a registration token
+      description: SuperAdmin only. Generates a new registration token for the worker
+        group. The plaintext token is returned only once.
+      operationId: generateToken
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerGroupController.ApiGenerateTokenRequest"
+        required: true
+      responses:
+        "200":
+          description: generateToken 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiGenerateTokenResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}/tokens/{tokenId}:
+    delete:
+      tags:
+      - Worker Groups
+      summary: Delete a registration token
+      description: SuperAdmin only. Permanently deletes a token from the worker group.
+      operationId: deleteToken
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      - name: tokenId
+        in: path
+        description: The token id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deleteToken 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}/tokens/{tokenId}/revoke:
+    post:
+      tags:
+      - Worker Groups
+      summary: Revoke a registration token
+      description: "SuperAdmin only. Revokes a token, preventing further authentication."
+      operationId: revokeToken
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      - name: tokenId
+        in: path
+        description: The token id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: revokeToken 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-groups/{id}/workers:
     get:
       tags:
-      - Worker Auth
-      summary: List all worker registration tokens
-      description: SuperAdmin only. Lists all registration tokens for worker authentication.
+      - Worker Groups
+      summary: List running workers for a worker group
+      description: "SuperAdmin only. Lists all running workers registered to this\
+        \ worker group, with their metrics."
+      operationId: listRunningWorkers
+      parameters:
+      - name: id
+        in: path
+        description: The worker group id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listRunningWorkers 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupWorkerList"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-queues:
+    get:
+      tags:
+      - WorkerQueues
+      summary: List all Worker Queues
+      description: "SuperAdmin only. Lists all Worker Queues with their tag set, tenant\
+        \ scope, and active worker count."
       operationId: list_1
       responses:
         "200":
@@ -1072,39 +1319,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiTokenList"
+                $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueueList"
       security:
       - bearerAuth: []
       - basicAuth: []
     post:
       tags:
-      - Worker Auth
-      summary: Create a new worker registration token
-      description: SuperAdmin only. Creates a new registration token. The plaintext
-        token is returned only once.
-      operationId: create
+      - WorkerQueues
+      summary: Create a Worker Queue
+      description: SuperAdmin only. Creates a new Worker Queue with the given tag
+        set and tenant scope.
+      operationId: create_1
       requestBody:
+        description: The Worker Queue definition
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiCreateTokenRequest"
+              $ref: "#/components/schemas/WorkerQueueController.ApiCreateOrUpdateWorkerQueueRequest"
         required: true
       responses:
         "200":
-          description: create 200 response
+          description: create_1 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiCreateTokenResponse"
+                $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueue"
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workers/registration-tokens/{id}:
+  /api/v1/instance/worker-queues/{id}:
     get:
       tags:
-      - Worker Auth
-      summary: Get a worker registration token by ID
-      description: SuperAdmin only. Retrieves details of a specific registration token.
+      - WorkerQueues
+      summary: Get Worker Queue detail
+      description: SuperAdmin only. Retrieves details of a specific Worker Queue including
+        its active workers.
       operationId: get_1
       parameters:
       - name: id
@@ -1118,15 +1367,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+                $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueueDetails"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - WorkerQueues
+      summary: Update a Worker Queue
+      description: "SuperAdmin only. Updates a Worker Queue's tags, tenant scope,\
+        \ name, and description. The id is immutable."
+      operationId: update_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The Worker Queue definition
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkerQueueController.ApiCreateOrUpdateWorkerQueueRequest"
+        required: true
+      responses:
+        "200":
+          description: update_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueue"
       security:
       - bearerAuth: []
       - basicAuth: []
     delete:
       tags:
-      - Worker Auth
-      summary: Delete a worker registration token
-      description: SuperAdmin only. Deletes a registration token.
+      - WorkerQueues
+      summary: Delete a Worker Queue
+      description: SuperAdmin only. Deletes a Worker Queue.
       operationId: delete_1
       parameters:
       - name: id
@@ -1144,14 +1423,31 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/instance/workers/registration-tokens/{id}/revoke:
-    post:
+  /api/v1/instance/workers/credentials:
+    get:
       tags:
       - Worker Auth
-      summary: Revoke a worker registration token
-      description: "SuperAdmin only. Revokes a registration token, preventing further\
-        \ use."
-      operationId: revoke_1
+      summary: List all registered workers
+      description: SuperAdmin only. Lists all workers that have registered with the
+        controller.
+      operationId: list_2
+      responses:
+        "200":
+          description: list_2 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerList"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/workers/credentials/{id}:
+    get:
+      tags:
+      - Worker Auth
+      summary: Get worker credentials ID
+      description: SuperAdmin only. Retrieves details of a specific registered worker.
+      operationId: get_2
       parameters:
       - name: id
         in: path
@@ -1160,11 +1456,35 @@ paths:
           type: string
       responses:
         "200":
-          description: revoke_1 200 response
+          description: get_2 200 response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/workers/credentials/{id}/revoke:
+    post:
+      tags:
+      - Worker Auth
+      summary: Revoke worker credentials
+      description: "SuperAdmin only. Revokes a worker's credentials, forcing it to\
+        \ re-register."
+      operationId: revoke
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: revoke 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -1538,15 +1858,48 @@ paths:
       - Plugins
       summary: Get list of plugins
       operationId: listPlugins
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10000
+      - name: sort
+        in: query
+        description: A list of sort fields
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       responses:
         "200":
           description: listPlugins 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Plugin"
+                $ref: "#/components/schemas/PagedResults_Plugin_"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -1915,14 +2268,6 @@ paths:
       summary: 'List service accounts. Superadmin-only. '
       operationId: listServiceAccounts
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -2279,7 +2624,7 @@ paths:
       - Tenants
       summary: Create a tenant
       description: Superadmin-only.
-      operationId: create_1
+      operationId: create_2
       requestBody:
         content:
           application/json:
@@ -2288,7 +2633,7 @@ paths:
         required: true
       responses:
         "200":
-          description: create_1 200 response
+          description: create_2 200 response
           content:
             application/json:
               schema:
@@ -2304,13 +2649,6 @@ paths:
       description: Superadmin-only.
       operationId: find
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -2361,7 +2699,7 @@ paths:
       - Tenants
       summary: Retrieve a tenant
       description: Superadmin-only.
-      operationId: get_2
+      operationId: get_3
       parameters:
       - name: id
         in: path
@@ -2371,7 +2709,7 @@ paths:
           type: string
       responses:
         "200":
-          description: get_2 200 response
+          description: get_3 200 response
           content:
             application/json:
               schema:
@@ -2384,7 +2722,7 @@ paths:
       - Tenants
       summary: Update a tenant
       description: Superadmin-only.
-      operationId: update
+      operationId: update_2
       parameters:
       - name: id
         in: path
@@ -2400,7 +2738,7 @@ paths:
         required: true
       responses:
         "200":
-          description: update 200 response
+          description: update_2 200 response
           content:
             application/json:
               schema:
@@ -2636,14 +2974,6 @@ paths:
       summary: Retrieve users
       operationId: listUsers
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -3082,7 +3412,7 @@ paths:
       operationId: validatePassword
       requestBody:
         content:
-          application/json:
+          text/plain:
             schema:
               type: string
         required: true
@@ -3154,6 +3484,8 @@ paths:
                     type: array
                   COPILOT:
                     type: array
+                  MCP_SERVER:
+                    type: array
                   APP_EXECUTION:
                     type: array
                   NAMESPACE_FILE:
@@ -3164,8 +3496,6 @@ paths:
                     type: array
                   SECURITY_INTEGRATION:
                     type: array
-                  MCP_SERVER:
-                    type: array
                   KILL_SWITCH:
                     type: array
                   TENANT:
@@ -3173,6 +3503,8 @@ paths:
                   VERSIONED_PLUGIN:
                     type: array
                   WORKER_GROUP:
+                    type: array
+                  WORKER_QUEUE:
                     type: array
                   INSTANCE:
                     type: array
@@ -3435,14 +3767,6 @@ paths:
           type: integer
           format: int32
           default: 10
-      - name: q
-        in: query
-        description: String filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -3657,36 +3981,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: namespace
-        in: query
-        description: A namespace filter prefix
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: flowId
-        in: query
-        description: A flow id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: Filters
@@ -4807,14 +5101,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: filters
         in: query
         description: A list of query filters
@@ -4970,14 +5256,6 @@ paths:
       summary: Search for bindings
       operationId: searchBindings
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -5109,13 +5387,6 @@ paths:
         blueprints are shared and versioned.
       operationId: searchBlueprints
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: sort
         in: query
         description: The sort of current page
@@ -5123,15 +5394,6 @@ paths:
         schema:
           type: string
           nullable: true
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
       - name: page
         in: query
         description: The current page
@@ -5156,6 +5418,15 @@ paths:
         required: true
         schema:
           $ref: "#/components/schemas/BlueprintController.Kind"
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5186,13 +5457,15 @@ paths:
         required: true
         schema:
           $ref: "#/components/schemas/BlueprintController.Kind"
-      - name: q
+      - name: filters
         in: query
-        description: A string filter to get tags with matching blueprints only
+        description: A list of query filters
         explode: false
         schema:
-          type: string
+          type: array
           nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5327,13 +5600,6 @@ paths:
         Requires BLUEPRINT permission.
       operationId: searchInternalBlueprints
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: sort
         in: query
         description: The sort of current page
@@ -5341,15 +5607,6 @@ paths:
         schema:
           type: string
           nullable: true
-      - name: tags
-        in: query
-        description: A tags filter
-        explode: false
-        schema:
-          type: array
-          nullable: true
-          items:
-            type: string
       - name: page
         in: query
         description: The current page
@@ -5374,6 +5631,15 @@ paths:
           type: boolean
           nullable: true
           default: false
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -5429,13 +5695,15 @@ paths:
         tenant.
       operationId: internalBlueprintTags
       parameters:
-      - name: q
+      - name: filters
         in: query
-        description: A string filter to get tags with matching blueprints only
+        description: A list of query filters
         explode: false
         schema:
-          type: string
+          type: array
           nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -6713,6 +6981,58 @@ paths:
             application/json:
               schema:
                 type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/executions/distinct-field-values:
+    get:
+      tags:
+      - Executions
+      summary: "List distinct values for one of the executions filter fields, optionally\
+        \ narrowed by additional query filters"
+      operationId: findDistinctFieldValues
+      parameters:
+      - name: field
+        in: query
+        description: The field whose distinct values to return. Must be a field supported
+          by the EXECUTION resource.
+        required: true
+        explode: false
+        schema:
+          $ref: "#/components/schemas/QueryFilter.Field"
+      - name: filters
+        in: query
+        description: "Additional filters to narrow the distinct values. PHP-style\
+          \ nested query is used - examples: `filters[flowId][CONTAINS]=test`, `filters[state][IN]=FAILED,WARNING`"
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: size
+        in: query
+        description: Maximum number of distinct values to return.
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 100
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: findDistinctFieldValues 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -10352,14 +10672,6 @@ paths:
       summary: Search for groups
       operationId: searchGroups
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -10511,14 +10823,6 @@ paths:
       summary: Search for users in a group
       operationId: searchGroupMembers
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: id
         in: path
         description: The group id
@@ -11600,23 +11904,6 @@ paths:
       description: "Search and filter invitations by email, status, and pagination."
       operationId: searchInvitations
       parameters:
-      - name: email
-        in: query
-        description: The email address of the invited
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: status
-        in: query
-        description: The current status of the invitations
-        deprecated: true
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Invitation.InvitationStatus"
       - name: page
         in: query
         description: The current page
@@ -11859,36 +12146,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: taskId
-        in: query
-        description: The task id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: attempt
-        in: query
-        description: The attempt number
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -11972,36 +12238,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
-      - name: taskRunId
-        in: query
-        description: The taskrun id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: taskId
-        in: query
-        description: The task id
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: attempt
-        in: query
-        description: The attempt number
-        explode: false
-        schema:
-          type: integer
-          format: int32
-          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -12031,14 +12276,15 @@ paths:
         required: true
         schema:
           type: string
-      - name: minLevel
+      - name: filters
         in: query
-        description: The min log level filter
+        description: Filters
         explode: false
         schema:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/Level"
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -12088,6 +12334,226 @@ paths:
       responses:
         "200":
           description: deleteLogsFromFlow 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/mcp/servers:
+    get:
+      tags:
+      - Mcp
+      summary: List MCP servers
+      operationId: listMcps
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listMcps 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiMcpServer_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    post:
+      tags:
+      - Mcp
+      summary: Create an MCP server
+      operationId: createMcp
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The MCP server to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiMcpServer"
+        required: true
+      responses:
+        "200":
+          description: createMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}:
+    get:
+      tags:
+      - Mcp
+      summary: Get an MCP server
+      operationId: getMcp
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Mcp
+      summary: Update an MCP server
+      operationId: updateMcp
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The MCP server to update
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiMcpServer"
+        required: true
+      responses:
+        "200":
+          description: updateMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Mcp
+      summary: Delete an MCP server
+      operationId: deleteMcp
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deleteMcp 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}/toggle:
+    patch:
+      tags:
+      - Mcp
+      summary: Toggle an MCP server's enabled state
+      operationId: toggleMcp
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: toggleMcp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiMcpServer"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/mcp/servers/{id}/tools:
+    get:
+      tags:
+      - Mcp
+      summary: List tools exposed by an MCP server
+      operationId: listTools
+      parameters:
+      - name: id
+        in: path
+        description: The MCP server id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listTools 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/McpServerController.ApiMcpTool"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -12471,13 +12937,6 @@ paths:
       summary: Search for namespaces
       operationId: searchNamespaces
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -12512,6 +12971,15 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: filters
+        in: query
+        description: A list of query filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
       - name: tenant
         in: path
         required: true
@@ -13883,14 +14351,6 @@ paths:
       summary: Search for roles
       operationId: searchRoles
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -14312,6 +14772,61 @@ paths:
       - bearerAuth: []
       - basicAuth: []
   /api/v1/{tenant}/service-accounts:
+    get:
+      tags:
+      - ServiceAccount
+      summary: List service accounts for the given tenant
+      operationId: listServiceAccountsForTenant
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listServiceAccountsForTenant 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_IAMTenantAccessController.ApiUserTenantAccess_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - ServiceAccount
@@ -14565,14 +15080,6 @@ paths:
       summary: Retrieve users belonging to the tenant
       operationId: listTenantAccess
       parameters:
-      - name: q
-        in: query
-        description: A string filter
-        deprecated: true
-        explode: false
-        schema:
-          type: string
-          nullable: true
       - name: page
         in: query
         description: The current page
@@ -14598,14 +15105,6 @@ paths:
           nullable: true
           items:
             type: string
-      - name: type
-        in: query
-        description: The type of user
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: "#/components/schemas/UserType"
       - name: filters
         in: query
         description: Filters
@@ -15811,6 +16310,17 @@ paths:
           nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which trigger date field the time interval is applied to
+        explode: false
+        schema:
+          type: string
+          nullable: true
+          enum:
+          - NEXT_EXECUTION_DATE
+          - LAST_TRIGGERED_DATE
+          x-type: String
       - name: tenant
         in: path
         required: true
@@ -16281,6 +16791,28 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/worker-selectors/tags:
+    get:
+      tags:
+      - Misc
+      summary: List worker-selector tags available to the current tenant
+      operationId: workerSelectorTags
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: workerSelectorTags 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MiscController.WorkerSelectorTags"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /login:
     post:
       tags:
@@ -16350,8 +16882,10 @@ components:
         variables:
           type: object
           additionalProperties: false
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
+        workerSelector:
+          description: Routing requirements (tags + fallback) for this flow.
+          allOf:
+          - $ref: "#/components/schemas/WorkerSelector"
         deleted:
           type: boolean
     AbstractGraph:
@@ -16410,8 +16944,10 @@ components:
         disabled:
           type: boolean
           default: false
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
+        workerSelector:
+          description: Routing requirements (tags + fallback) for this trigger.
+          allOf:
+          - $ref: "#/components/schemas/WorkerSelector"
         logLevel:
           $ref: "#/components/schemas/Level"
         labels:
@@ -16920,6 +17456,46 @@ components:
           description: Credentials available at this level
           items:
             $ref: "#/components/schemas/ApiInheritedCredentialsResponse.InheritedCredential"
+    ApiInstanceMcpServer:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Tenant that owns this MCP server.
+        id:
+          type: string
+          description: Unique identifier of the MCP server.
+        description:
+          type: string
+          description: Human-readable description of the MCP server.
+        serverType:
+          description: Visibility of the server.
+          allOf:
+          - $ref: "#/components/schemas/McpServer.ServerType"
+        authType:
+          description: Authentication type for private servers.
+          allOf:
+          - $ref: "#/components/schemas/McpServer.AuthType"
+        disabled:
+          type: boolean
+          description: Whether the MCP server is disabled.
+        isDefault:
+          type: boolean
+          description: Whether this is the default MCP server.
+          readOnly: true
+        created:
+          type: string
+          description: Timestamp when the server was created.
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          description: Timestamp when the server was last updated.
+          format: date-time
+          readOnly: true
+      description: "Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer\
+        \ with a `tenantId` field so super-admins can identify which tenant owns each\
+        \ server."
     ApiLightExecution:
       required:
       - flowId
@@ -16969,6 +17545,59 @@ components:
           $ref: "#/components/schemas/ExecutionKind"
         loopRun:
           $ref: "#/components/schemas/LoopRun"
+    ApiMcpServer:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          pattern: "^[a-z0-9][a-z0-9_-]*"
+          type: string
+          description: Unique identifier of the MCP server.
+        description:
+          type: string
+          description: Human-readable description of the MCP server.
+        instructions:
+          type: string
+          description: Instructions sent to the AI model when using this server.
+        serverType:
+          description: Visibility of the server.
+          allOf:
+          - $ref: "#/components/schemas/McpServer.ServerType"
+        authType:
+          description: Authentication type for private servers.
+          allOf:
+          - $ref: "#/components/schemas/McpServer.AuthType"
+        oauthProvider:
+          type: string
+          description: OAuth provider key from micronaut.security.oauth2.clients.
+            Required when authType is OAUTH.
+        oauthScopesSupported:
+          type: array
+          description: Scopes advertised in the server's RFC 9728 Protected Resource
+            Metadata document. Only meaningful when authType is OAUTH. When null or
+            empty the field is omitted from the PRM document.
+          items:
+            type: string
+        disabled:
+          type: boolean
+          description: Whether the MCP server is disabled.
+        isDefault:
+          type: boolean
+          description: "Whether this is the default MCP server, auto-provisioned per\
+            \ tenant."
+          readOnly: true
+        created:
+          type: string
+          description: Timestamp when the server was created.
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          description: Timestamp when the server was last updated.
+          format: date-time
+          readOnly: true
     ApiPatchSuperAdminRequest:
       required:
       - superAdmin
@@ -17204,6 +17833,8 @@ components:
         lastTriggeredDate:
           type: string
           format: date-time
+        executionId:
+          type: string
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
@@ -18962,8 +19593,10 @@ components:
               string to string.
             oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
+          workerSelector:
+            description: Routing requirements (tags + fallback) for this flow.
+            allOf:
+            - $ref: "#/components/schemas/WorkerSelector"
           deleted:
             type: boolean
           finally:
@@ -19085,8 +19718,10 @@ components:
           variables:
             type: object
             additionalProperties: false
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
+          workerSelector:
+            description: Routing requirements (tags + fallback) for this flow.
+            allOf:
+            - $ref: "#/components/schemas/WorkerSelector"
           deleted:
             type: boolean
           tasks:
@@ -19211,8 +19846,8 @@ components:
             type: object
             additionalProperties:
               type: object
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
+          workerSelector:
+            $ref: "#/components/schemas/WorkerSelector"
           concurrency:
             $ref: "#/components/schemas/Concurrency"
           sla:
@@ -19340,8 +19975,10 @@ components:
               string to string.
             oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
+          workerSelector:
+            description: Routing requirements (tags + fallback) for this flow.
+            allOf:
+            - $ref: "#/components/schemas/WorkerSelector"
           deleted:
             type: boolean
           variables:
@@ -19665,6 +20302,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -19675,8 +20314,6 @@ components:
               type: array
             SECURITY_INTEGRATION:
               type: array
-            MCP_SERVER:
-              type: array
             KILL_SWITCH:
               type: array
             TENANT:
@@ -19684,6 +20321,8 @@ components:
             VERSIONED_PLUGIN:
               type: array
             WORKER_GROUP:
+              type: array
+            WORKER_QUEUE:
               type: array
             INSTANCE:
               type: array
@@ -19751,6 +20390,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -19761,8 +20402,6 @@ components:
               type: array
             SECURITY_INTEGRATION:
               type: array
-            MCP_SERVER:
-              type: array
             KILL_SWITCH:
               type: array
             TENANT:
@@ -19770,6 +20409,8 @@ components:
             VERSIONED_PLUGIN:
               type: array
             WORKER_GROUP:
+              type: array
+            WORKER_QUEUE:
               type: array
             INSTANCE:
               type: array
@@ -20165,22 +20806,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/InstanceController.ApiActiveService"
-    InstanceController.ApiCreateOrUpdateWorkerGroupRequest:
-      required:
-      - key
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key of the worker group.
-        description:
-          type: string
-          description: The description of the worker group.
-        allowedTenants:
-          type: array
-          items:
-            type: string
-      description: ApiCreateWorkerGroupRequest.
     InstanceController.ApiPluginArtifact:
       type: object
       properties:
@@ -20196,6 +20821,9 @@ components:
           type: array
           items:
             type: string
+        releaseNotesUrl:
+          type: string
+          nullable: true
     InstanceController.ApiPluginArtifactList_PluginArtifact_:
       type: object
       properties:
@@ -20276,6 +20904,9 @@ components:
           type: string
         metadata:
           $ref: "#/components/schemas/PluginArtifactMetadata"
+        releaseNotesUrl:
+          type: string
+          nullable: true
     InstanceController.ApiServerInstance:
       type: object
       properties:
@@ -20304,71 +20935,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    InstanceController.ApiWorkerGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of worker group.
-        key:
-          type: string
-          description: The key of the worker group.
-        description:
-          type: string
-          description: The description of the worker group.
-        allowedTenants:
-          type: array
-          items:
-            type: string
-      description: ApiWorkerGroup.
-    InstanceController.ApiWorkerGroupDetails:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of worker group.
-        key:
-          type: string
-          description: The key of the worker group.
-        description:
-          type: string
-          description: The description of the worker group.
-        allowedTenants:
-          type: array
-          items:
-            type: string
-        workers:
-          type: array
-          description: The list of workers for the group.
-          items:
-            $ref: "#/components/schemas/ServiceInstance"
-      description: ApiWorkerGroupDetails.
-    InstanceController.ApiWorkerGroupItem:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of worker group.
-        key:
-          type: string
-          description: The key of the worker group.
-        description:
-          type: string
-          description: The description of the worker group.
-        activeWorkers:
-          type: integer
-          description: The number of active workers for the group.
-          format: int32
-      description: ApiWorkerGroup.
-    InstanceController.ApiWorkerGroupList:
-      type: object
-      properties:
-        workerGroups:
-          type: array
-          description: The list of worker groups.
-          items:
-            $ref: "#/components/schemas/InstanceController.ApiWorkerGroupItem"
-      description: ApiWorkerGroupList.
     Invitation:
       required:
       - deleted
@@ -20625,6 +21191,39 @@ components:
           nullable: true
         value:
           type: string
+    MaintenanceStatusResponse:
+      type: object
+      properties:
+        maintenance:
+          type: boolean
+        ready:
+          type: boolean
+        services:
+          type: object
+          properties:
+            EXECUTOR:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            INDEXER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            SCHEDULER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            WEBSERVER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            WORKER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            CONTROLLER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            INVALID:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+    MaintenanceStatusResponse.ServiceStatus:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        inMaintenance:
+          type: integer
+          format: int32
     Map_Object.Object_:
       type: object
       properties:
@@ -20635,6 +21234,69 @@ components:
       properties:
         empty:
           type: boolean
+    McpServer.AuthType:
+      type: string
+      description: Authentication type for private servers.
+      enum:
+      - BASIC
+      - API_TOKEN
+      - OAUTH
+    McpServer.ServerType:
+      type: string
+      description: Visibility of the server.
+      enum:
+      - PRIVATE
+      - PUBLIC
+    McpServerController.ApiMcpTool:
+      type: object
+      properties:
+        toolName:
+          type: string
+          description: Unique MCP tool identifier (the trigger's `toolName`). This
+            is the name AI agents use to invoke the tool.
+        triggerId:
+          type: string
+          description: Trigger id within the flow (the `id` field of the McpToolTrigger).
+            Distinct from `toolName`.
+        title:
+          type: string
+          description: Human-readable display title shown to AI agents.
+        description:
+          type: string
+          description: Description of what the tool does and when an AI agent should
+            call it.
+        annotations:
+          description: MCP tool behavioural annotations.
+          allOf:
+          - $ref: "#/components/schemas/McpServerController.ApiMcpTool.Annotations"
+        namespace:
+          type: string
+          description: Namespace of the flow that defines this tool.
+        flowId:
+          type: string
+          description: Id of the flow that defines this tool.
+        flowRevision:
+          type: integer
+          description: Revision of the flow that defines this tool.
+          format: int32
+        disabled:
+          type: boolean
+          description: Whether this tool is currently disabled (trigger disabled or
+            flow disabled).
+    McpServerController.ApiMcpTool.Annotations:
+      type: object
+      properties:
+        readOnly:
+          type: boolean
+        openWorld:
+          type: boolean
+        destructive:
+          type: boolean
+        idempotent:
+          type: boolean
+        returnDirect:
+          type: boolean
+      description: MCP tool behavioural annotations.
     MeController.ApiMe:
       type: object
       properties:
@@ -20954,6 +21616,13 @@ components:
           type: boolean
         secretByTenant:
           type: boolean
+    MiscController.WorkerSelectorTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
     Name:
       type: object
       properties:
@@ -20996,8 +21665,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Namespace.AllowedNamespace"
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
+        defaultWorkerSelector:
+          $ref: "#/components/schemas/WorkerSelector"
         storageType:
           type: string
         storageConfiguration:
@@ -21151,6 +21820,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ApiInstanceMcpServer_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiInstanceMcpServer"
+        total:
+          type: integer
+          format: int64
     PagedResults_ApiLightExecution_:
       required:
       - results
@@ -21161,6 +21843,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiLightExecution"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiMcpServer_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiMcpServer"
         total:
           type: integer
           format: int64
@@ -21527,6 +22222,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PluginController.ApiTriggerPlugin"
+        total:
+          type: integer
+          format: int64
+    PagedResults_Plugin_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Plugin"
         total:
           type: integer
           format: int64
@@ -21900,6 +22608,18 @@ components:
       - BUSINESS
       - DATA
       - INFRASTRUCTURE
+      x-deprecated:
+      - DATABASE
+      - MESSAGING
+      - SCRIPT
+      - TRANSFORMATION
+      - BATCH
+      - ALERTING
+      - STORAGE
+      - OTHER
+      - TOOL
+      - INGESTION
+      - BI
     PluginUiManifest:
       type: object
       properties:
@@ -22022,6 +22742,12 @@ components:
           $ref: "#/components/schemas/QueryFilter.Op"
         value:
           type: object
+        logical:
+          $ref: "#/components/schemas/QueryFilter.Logical"
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
     QueryFilter.Field:
       type: string
       enum:
@@ -22054,13 +22780,14 @@ components:
       - EXECUTION_ID
       - TASK_ID
       - TASK_RUN_ID
+      - ATTEMPT_NUMBER
       - CHILD_FILTER
       - WORKER_ID
       - EXISTING_ONLY
       - USER_ID
       - RESOURCES
       - DETAILS
-      - MIN_LEVEL
+      - LEVEL
       - PATH
       - PARENT_PATH
       - VERSION
@@ -22068,7 +22795,20 @@ components:
       - USERNAME
       - NAME
       - GROUP
+      - EXTERNAL_ID
       - EXPIRED_AT
+      - SUPER_ADMIN
+      - SOURCE
+      - LOCKED
+      - LAST_TRIGGERED_DATE
+      - NEXT_EXECUTION_DATE
+      - ARTIFACT_ID
+      x-type: String
+    QueryFilter.Logical:
+      type: string
+      enum:
+      - AND
+      - OR
       x-type: String
     QueryFilter.Op:
       type: string
@@ -22086,6 +22826,12 @@ components:
       - CONTAINS
       - REGEX
       - PREFIX
+    QueueSubscription.Mode:
+      type: string
+      enum:
+      - STRICT
+      - ELASTIC
+      - UNKNOWN
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -22138,16 +22884,17 @@ components:
       - SERVICE_ACCOUNT
       - INVITATION
       - COPILOT
+      - MCP_SERVER
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
-      - MCP_SERVER
       - KILL_SWITCH
       - TENANT
       - VERSIONED_PLUGIN
       - WORKER_GROUP
+      - WORKER_QUEUE
       - INSTANCE
       - UNKNOWN
     ResourceType:
@@ -22253,6 +23000,8 @@ components:
               type: array
             COPILOT:
               type: array
+            MCP_SERVER:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -22263,8 +23012,6 @@ components:
               type: array
             SECURITY_INTEGRATION:
               type: array
-            MCP_SERVER:
-              type: array
             KILL_SWITCH:
               type: array
             TENANT:
@@ -22272,6 +23019,8 @@ components:
             VERSIONED_PLUGIN:
               type: array
             WORKER_GROUP:
+              type: array
+            WORKER_QUEUE:
               type: array
             INSTANCE:
               type: array
@@ -22916,9 +23665,6 @@ components:
       - type
       type: object
       properties:
-        runIf:
-          type: string
-          deprecated: true
         id:
           maxLength: 256
           minLength: 1
@@ -22951,15 +23697,17 @@ components:
           $ref: "#/components/schemas/Property_Duration_"
         disabled:
           type: boolean
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
+        workerSelector:
+          description: Routing requirements (tags + fallback) for this task.
+          allOf:
+          - $ref: "#/components/schemas/WorkerSelector"
         logLevel:
           $ref: "#/components/schemas/Level"
         allowFailure:
           type: boolean
         logToFile:
           type: boolean
-        when:
+        runIf:
           type: string
         allowWarning:
           type: boolean
@@ -23117,8 +23865,8 @@ components:
           type: string
         deleted:
           type: boolean
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
+        defaultWorkerSelector:
+          $ref: "#/components/schemas/WorkerSelector"
         storageType:
           type: string
         storageConfiguration:
@@ -23502,6 +24250,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Assertion"
+        expectedState:
+          $ref: "#/components/schemas/State.Type"
     UnitTestResult:
       required:
       - assertionResults
@@ -23685,7 +24435,7 @@ components:
           type: string
         workerName:
           type: string
-        registrationTokenId:
+        tokenUid:
           type: string
         createdAt:
           type: string
@@ -23693,10 +24443,6 @@ components:
         lastSeenAt:
           type: string
           format: date-time
-        revoked:
-          type: boolean
-        valid:
-          type: boolean
     WorkerCredentialController.ApiWorkerList:
       type: object
       properties:
@@ -23704,42 +24450,189 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WorkerCredentialController.ApiWorkerCredential"
-    WorkerGroup:
+    WorkerGroupController.ApiCreateWorkerGroupRequest:
+      required:
+      - id
+      - name
+      - subscriptions
       type: object
       properties:
-        key:
+        id:
+          minLength: 1
           type: string
-        fallback:
-          $ref: "#/components/schemas/WorkerGroup.Fallback"
-    WorkerGroup.Fallback:
-      type: string
-      enum:
-      - FAIL
-      - WAIT
-      - CANCEL
-    WorkerRegistrationTokenController.ApiCreateTokenRequest:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionRequest"
+    WorkerGroupController.ApiGenerateTokenRequest:
       required:
       - name
       type: object
       properties:
         name:
+          minLength: 1
           type: string
         description:
           type: string
         expiresAt:
           type: string
           format: date-time
-    WorkerRegistrationTokenController.ApiCreateTokenResponse:
+    WorkerGroupController.ApiGenerateTokenResponse:
       type: object
       properties:
         token:
           type: string
         details:
-          $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
-    WorkerRegistrationTokenController.ApiRegistrationToken:
+          $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupTokenSummary"
+    WorkerGroupController.ApiSharedCapacity:
+      type: object
+      properties:
+        allocated:
+          type: integer
+          format: int32
+        used:
+          type: integer
+          format: int32
+    WorkerGroupController.ApiSubscriptionCapacity:
+      type: object
+      properties:
+        workerQueueId:
+          type: string
+        allocated:
+          type: integer
+          format: int32
+        used:
+          type: integer
+          format: int32
+    WorkerGroupController.ApiSubscriptionRequest:
+      required:
+      - workerQueueId
+      type: object
+      properties:
+        workerQueueId:
+          minLength: 1
+          type: string
+        reservedPercent:
+          type: integer
+          format: int32
+        mode:
+          $ref: "#/components/schemas/QueueSubscription.Mode"
+    WorkerGroupController.ApiSubscriptionResponse:
+      type: object
+      properties:
+        queue:
+          $ref: "#/components/schemas/WorkerGroupController.ApiWorkerQueueSummary"
+        reservedPercent:
+          type: integer
+          format: int32
+        mode:
+          $ref: "#/components/schemas/QueueSubscription.Mode"
+      description: The worker-group ↔ WorkerQueue subscription edge as exposed on
+        the API. Embeds the resolved queue's name + tags + tenants so consumers don't
+        need a separate lookup. The default subscription is represented by a queue
+        summary with the reserved io.kestra.core.worker.WorkerQueues#DEFAULT_ID "default"
+        id and empty tags.
+    WorkerGroupController.ApiUpdateSubscriptionRequest:
+      type: object
+      properties:
+        reservedPercent:
+          type: integer
+          format: int32
+    WorkerGroupController.ApiUpdateWorkerGroupRequest:
+      required:
+      - name
+      - subscriptions
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionRequest"
+    WorkerGroupController.ApiWorkerCapacity:
+      type: object
+      properties:
+        pending:
+          type: integer
+          format: int32
+        running:
+          type: integer
+          format: int32
+        max:
+          type: integer
+          format: int32
+      description: "Compact per-worker capacity projection extracted from the worker's\
+        \ heartbeat metric set. Replaces the previous full `Set` payload --- the Workers\
+        \ tab only needs these three numbers, and shipping the rest forced tag-disambiguation\
+        \ logic onto the client."
+    WorkerGroupController.ApiWorkerGroup:
       type: object
       properties:
         id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionResponse"
+        tokens:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupTokenSummary"
+        deletable:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    WorkerGroupController.ApiWorkerGroupCapacity:
+      type: object
+      properties:
+        workerGroupId:
+          type: string
+        totalAllocated:
+          type: integer
+          format: int32
+        totalUsed:
+          type: integer
+          format: int32
+        totalInflight:
+          type: integer
+          format: int32
+        subscriptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionCapacity"
+        shared:
+          $ref: "#/components/schemas/WorkerGroupController.ApiSharedCapacity"
+        snapshotAt:
+          type: string
+          format: date-time
+    WorkerGroupController.ApiWorkerGroupList:
+      type: object
+      properties:
+        workerGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroup"
+    WorkerGroupController.ApiWorkerGroupTokenSummary:
+      type: object
+      properties:
+        uid:
           type: string
         name:
           type: string
@@ -23760,13 +24653,187 @@ components:
           type: boolean
         valid:
           type: boolean
-    WorkerRegistrationTokenController.ApiTokenList:
+    WorkerGroupController.ApiWorkerGroupWorker:
       type: object
       properties:
-        tokens:
+        workerId:
+          type: string
+        workerName:
+          type: string
+        credentialId:
+          type: string
+        tokenUid:
+          type: string
+        state:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        registeredAt:
+          type: string
+          format: date-time
+        capacity:
+          $ref: "#/components/schemas/WorkerGroupController.ApiWorkerCapacity"
+    WorkerGroupController.ApiWorkerGroupWorkerList:
+      type: object
+      properties:
+        workers:
           type: array
           items:
-            $ref: "#/components/schemas/WorkerRegistrationTokenController.ApiRegistrationToken"
+            $ref: "#/components/schemas/WorkerGroupController.ApiWorkerGroupWorker"
+    WorkerGroupController.ApiWorkerQueueSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        allowedTenants:
+          type: array
+          items:
+            type: string
+      description: "Compact WorkerQueue summary embedded in subscription responses.\
+        \ Carries the user-supplied routing identity (id), the optional display name,\
+        \ the canonical tag set, and the tenant scope."
+    WorkerQueueController.ApiCreateOrUpdateWorkerQueueRequest:
+      required:
+      - id
+      - tags
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: "User-supplied RFC 1123 label, used as the routing identity,\
+            \ the Prometheus tag value, and in log output. Immutable."
+        name:
+          type: string
+          description: Optional human-readable name.
+        tags:
+          minItems: 1
+          type: array
+          description: The canonical tag set of the Worker Queue (non-empty).
+          items:
+            type: string
+        description:
+          type: string
+          description: The description of the Worker Queue.
+        allowedTenants:
+          type: array
+          description: The tenant scope; empty means unrestricted.
+          items:
+            type: string
+    WorkerQueueController.ApiWorkerQueue:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        allowedTenants:
+          type: array
+          items:
+            type: string
+    WorkerQueueController.ApiWorkerQueueDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        allowedTenants:
+          type: array
+          items:
+            type: string
+        workers:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceInstance"
+    WorkerQueueController.ApiWorkerQueueItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        allowedTenants:
+          type: array
+          items:
+            type: string
+        activeWorkers:
+          type: integer
+          format: int32
+    WorkerQueueController.ApiWorkerQueueList:
+      type: object
+      properties:
+        workerQueues:
+          type: array
+          description: The list of Worker Queues.
+          items:
+            $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueueItem"
+    WorkerQueueFallback:
+      type: string
+      description: Strategy when no worker is available. Defaults to FAIL when null.
+      enum:
+      - FAIL
+      - WAIT
+      - CANCEL
+      - IGNORE
+    WorkerSelector:
+      type: object
+      properties:
+        tags:
+          maxItems: 20
+          type: array
+          description: "Required tags used to route to a matching Worker Queue. Each\
+            \ tag is an RFC 1123 label: lowercase alphanumerics and hyphens, must\
+            \ start and end with alphanumeric, max 64 chars per tag, max 20 tags."
+          items:
+            type: string
+        match:
+          description: "How selector tags are matched against a Worker Queue's tag\
+            \ set. ALL: queue tags must be a superset of the selector tags. ANY: queue\
+            \ tags must intersect the selector tags. Defaults to ALL when null."
+          allOf:
+          - $ref: "#/components/schemas/WorkerSelectorMatch"
+        fallback:
+          description: Strategy when no worker is available. Defaults to FAIL when
+            null.
+          allOf:
+          - $ref: "#/components/schemas/WorkerQueueFallback"
+    WorkerSelectorMatch:
+      type: string
+      description: "How selector tags are matched against a Worker Queue's tag set.\
+        \ ALL: queue tags must be a superset of the selector tags. ANY: queue tags\
+        \ must intersect the selector tags. Defaults to ALL when null."
+      enum:
+      - ALL
+      - ANY
   securitySchemes:
     basicAuth:
       type: http

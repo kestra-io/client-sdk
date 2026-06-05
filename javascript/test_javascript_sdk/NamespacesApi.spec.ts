@@ -1,6 +1,6 @@
 // testApis/NamespacesApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup.js';
+import { kestraClient, tenantId, randomId } from './CommonTestSetup.js';
 
 describe('NamespacesApi', () => {
     it('autocomplete_namespaces: List namespaces for autocomplete', async () => {
@@ -8,7 +8,7 @@ describe('NamespacesApi', () => {
         const ns = await kestraClient.Namespaces.createNamespace({
             id: prefix,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         const results = await kestraClient.Namespaces.autocompleteNamespaces({ q: prefix });
@@ -21,7 +21,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({
             id: nsId,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         expect(created?.id).toBe(nsId);
@@ -33,13 +33,13 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({
             id: nsId,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         await kestraClient.Namespaces.deleteNamespace({ id: created.id });
 
         await expect(() =>
-            (kestraClient.Namespaces.namespace_?.({ id: created.id }))
+            (kestraClient.Namespaces.loadNamespace({ id: created.id }))
         ).rejects.toThrow();
     });
 
@@ -57,7 +57,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient.Namespaces.createNamespace({ id: nsId, deleted: false });
 
         const fetched =
-            await kestraClient.Namespaces.namespace_?.({ id: created.id });
+            await kestraClient.Namespaces.loadNamespace?.({ id: created.id });
 
         expect(fetched.id).toBe(created.id);
     });
@@ -123,7 +123,7 @@ describe('NamespacesApi', () => {
 
         const metas = await kestraClient.Namespaces.putSecrets({
             namespace: ns.id,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
             key: `test_put_secrets_key_${randomId()}`,
             value: 'value-put',
         });
@@ -135,10 +135,19 @@ describe('NamespacesApi', () => {
         const nsId = `test_search_namespaces_${randomId()}`;
         const ns = await kestraClient.Namespaces.createNamespace({ id: nsId, deleted: false });
 
-        const page = await kestraClient.Namespaces.searchNamespaces({ page: 1, size: 10, existing: false, q: nsId });
+        const page = await kestraClient.Namespaces.searchNamespaces({
+            page: 1,
+            size: 10,
+            existing: false,
+            filters: [{
+                field: "NAMESPACE",
+                operation: "EQUALS",
+                value: nsId
+            }],
+        });
         const results = page?.results ?? [];
 
-        expect(results.some(r => r.id === ns.id)).toBeTruthy();
+        expect(results).toContainEqual(expect.objectContaining({ id: ns.id }));
     });
 
     it('update_namespace: Update a namespace', async () => {
@@ -148,7 +157,7 @@ describe('NamespacesApi', () => {
         const updated = await kestraClient.Namespaces.updateNamespace({
             id: created.id,
             deleted: false,
-            tenant: MAIN_TENANT,
+            tenant: tenantId,
         });
 
         expect(updated.id).toBe(created.id);

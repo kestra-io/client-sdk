@@ -288,6 +288,7 @@ Class | Method | HTTP request | Description
 *LogsApi* | [**deleteLogsFromExecution**](docs/LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
 *LogsApi* | [**deleteLogsFromFlow**](docs/LogsApi.md#deleteLogsFromFlow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific execution, taskrun or task
 *LogsApi* | [**downloadLogsFromExecution**](docs/LogsApi.md#downloadLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/download | Download logs for a specific execution, taskrun or task
+*LogsApi* | [**followLogsFromExecution**](docs/LogsApi.md#followLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/follow | Follow logs for a specific execution
 *LogsApi* | [**listLogsFromExecution**](docs/LogsApi.md#listLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId} | Get logs for a specific execution, taskrun or task
 *LogsApi* | [**searchLogs**](docs/LogsApi.md#searchLogs) | **GET** /api/v1/{tenant}/logs/search | Search for logs
 *NamespacesApi* | [**autocompleteNamespaces**](docs/NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
@@ -544,6 +545,7 @@ Class | Method | HTTP request | Description
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
+ - [FollowLogEvent](docs/FollowLogEvent.md)
  - [ForwardSupportTicketRequest](docs/ForwardSupportTicketRequest.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)

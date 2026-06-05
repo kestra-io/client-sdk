@@ -1,35 +1,46 @@
-# Claude Code Notes
+# Kestra Client SDK
 
-## JavaScript SDK
+## Prerequisites
 
-### After modifying the JavaScript SDK source, always run:
+### JavaScript SDK
+
+Before running JavaScript SDK tests or working with the generated JavaScript SDK source, you **must** generate the SDK first:
 
 ```bash
-git merge main                    # sync with main first
 ./generate-sdks.sh javascript
 ```
 
-This script:
-1. Runs the OpenAPI SDK customizer (pre-processes `kestra-ee.yml`)
-2. Updates the package version
-3. Runs `npm install` (which updates `package-lock.json`)
-4. Runs `npm run build` (which runs `openapi-ts` to generate `src/openapi/`, then `tsdown` to build `dist/`)
+This runs the OpenAPI generator, installs npm dependencies, and builds the SDK. The generated files live in `javascript/javascript-sdk/src/openapi/` and `javascript/javascript-sdk/dist/`.
 
-Forgetting this step will leave `package-lock.json` out of sync, causing CI failures.
+## Repository Structure
 
-The `dist/` and `src/openapi/` directories are in `.gitignore` (they are regenerated at build time), but `package-lock.json` IS tracked and must be committed when dependencies change.
+- `javascript/` — JavaScript/TypeScript SDK
+  - `javascript-sdk/` — SDK source (partly generated, partly hand-written)
+  - `test_javascript_sdk/` — Vitest test suite
+- `java/` — Java SDK
+  - `java-sdk/` — SDK source
+  - `java-sdk/java-sdk-test/` — JUnit 5 test suite
+- `python/` — Python SDK
+- `go-sdk/` — Go SDK
+- `test-utils/` — Shared test data (flow YAML fixtures, etc.)
+- `generation-helpers/` — Custom OpenAPI generator plugins
+- `configurations/` — OpenAPI generator config files
 
-### To run the integration tests:
+## Running JavaScript Tests
 
 ```bash
 cd javascript
-./run-tests.sh [kestra-version]   # default version: develop
+npm test                        # run all tests
+npm run check:types          # TypeScript type checking
 ```
 
-This script:
-1. Runs `npm ci` and `npm run build` to build the SDK (skip with `--no-build`)
-2. Spins up a Kestra instance via `docker compose -f docker-compose-ci.yml up`
-3. Runs `npm run test --workspace test_javascript_sdk -- --coverage`
-4. Tears down the Kestra container
+Tests require a running Kestra instance at `http://localhost:9903` with credentials `root@root.com` / `Root!1234`.
 
-Run the tests after any SDK change to catch regressions.
+## Generating SDKs
+
+```bash
+./generate-sdks.sh javascript   # JavaScript only
+./generate-sdks.sh java         # Java only
+./generate-sdks.sh python       # Python only
+./generate-sdks.sh go           # Go only
+```
