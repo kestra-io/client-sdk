@@ -232,20 +232,20 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 (resp: any) => resp?.mediaType === "text/event-stream"
             );
 
-            // For application/yaml responses, hey-api generates responseType: 'blob' in the
-            // underlying SDK function, which causes axios to send Accept: application/octet-stream
-            // instead of Accept: application/yaml. We inject the correct Accept header into every
-            // generated wrapper call so the backend receives the right content negotiation.
+            // For application/yaml responses, the fetch client's auto-detection maps
+            // application/* Content-Type to 'blob'. We override with parseAs:'text' and
+            // inject the correct Accept header into every generated wrapper call.
             const isYamlResponse = Object.values(operation.responses || {}).some(
                 (resp: any) => resp?.mediaType === "application/yaml"
             );
 
             // Builds the options expression passed to the underlying SDK call.
-            // For YAML-response operations, wraps options to inject the Accept header while
-            // preserving any caller-supplied headers.
+            // For YAML-response operations, wraps options to force text parsing and inject
+            // the Accept header while preserving any caller-supplied headers.
             const buildOptionsArg = () => isYamlResponse
                 ? $.object()
                     .spread($("options"))
+                    .prop("parseAs", $.literal("text"))
                     .prop("headers",
                         $.object()
                             .prop("Accept", $.literal("application/yaml"))
