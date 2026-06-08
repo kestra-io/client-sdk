@@ -113,7 +113,11 @@ tasks:
         setMockClient({
             get: async (url: string) => {
                 if (url === `${baseURL}/api/v1/me`) {
-                    return { data: { username: "mockedUser" } };
+                    return {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                        data: { username: "mockedUser" } as any,
+                    };
                 }
                 throw new Error("Unknown URL");
             }
