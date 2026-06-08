@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import time
 
 import pytest
 import requests
@@ -111,18 +112,43 @@ def client():
 # ========================================================================
 
 
+# GC runs at module teardown, which pytest-timeout caps at 10s like any other
+# test phase. A single slow/hung cleanup request against a degraded Kestra
+# would otherwise blow past that cap and fail an otherwise-green module, so the
+# purge is bounded: a short per-request timeout (well under pytest-timeout) plus
+# a total wall-clock budget. Worst-case overshoot is BUDGET + PER_CALL < 10s.
+_GC_PER_CALL_TIMEOUT = 3  # seconds; a hung request raises requests.Timeout fast
+_GC_TOTAL_BUDGET = 6      # seconds; stop issuing calls past this
+
+
 def _purge_namespaces(client, namespaces):
-    """Best-effort deletion of everything a test namespace accumulated."""
-    for ns in namespaces:
-        for call in (
-            lambda: client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)]),
-            lambda: client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)]),
-            lambda: client.namespaces.delete_namespace(ns, TENANT),
-        ):
-            try:
-                call()
-            except Exception:
-                pass  # already deleted by the test itself, or non-empty — fine
+    """Best-effort, time-bounded deletion of everything a namespace accumulated.
+
+    Leftover namespaces from an abandoned purge are harmless — the next run
+    starts from an empty database — so giving up early is preferable to letting
+    a slow server fail the suite at teardown.
+    """
+    apis = (client.executions, client.flows, client.namespaces)
+    saved = [api._timeout for api in apis]
+    for api in apis:
+        api._timeout = _GC_PER_CALL_TIMEOUT
+    deadline = time.monotonic() + _GC_TOTAL_BUDGET
+    try:
+        for ns in namespaces:
+            for call in (
+                lambda: client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)]),
+                lambda: client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)]),
+                lambda: client.namespaces.delete_namespace(ns, TENANT),
+            ):
+                if time.monotonic() >= deadline:
+                    return  # out of budget; abandon the rest
+                try:
+                    call()
+                except Exception:
+                    pass  # already deleted by the test itself, or non-empty — fine
+    finally:
+        for api, timeout in zip(apis, saved):
+            api._timeout = timeout
 
 
 @pytest.fixture(autouse=True, scope="module")
