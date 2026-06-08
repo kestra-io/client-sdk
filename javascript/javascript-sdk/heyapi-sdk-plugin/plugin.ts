@@ -301,13 +301,17 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             if (isMultipart && !hasTenant && !bodySimplification) {
                 // Multipart but no tenant and no body simplification
                 // Re-export with body added to spread of parameters with value empty object
+                const isBodyRequired = operation.body?.required ?? false;
+                const multipartCallArgs = isBodyRequired
+                    ? $(paramId)
+                    : $.object().prop("body", $.array()).spread($(paramId));
                 const functionNode = $.func()
                     .params(
                         $.param(paramId).required(computeHasRequiredParams(operation)).type($.type("Parameters").generic($.type.query(originalOperationSymbol)).idx(0)),
                         $.param(optionsId).required(false).type(operationOptionsType(originalOperationSymbol)),
                     )
                     .do(
-                        ...returnStatements(originalOperationSymbol.call($.object().prop("body", $.array()).spread($(paramId)), buildOptionsArg()))
+                        ...returnStatements(originalOperationSymbol.call(multipartCallArgs, $(optionsId)))
                     );
 
                 plugin.node(
@@ -366,7 +370,8 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
             // Has tenant path param — parameters bag is optional only if no required non-tenant params exist
             const isTenantOnlyRequiredParam = !computeHasRequiredParams(operation, /* excludeTenant */ true);
 
-            const parametersArguments = isMultipart ? $.object()
+            const isBodyRequired = operation.body?.required ?? false;
+            const parametersArguments = isMultipart && !isBodyRequired ? $.object()
                 .prop("body", $.array())
                 .spread($(paramId)) : $(paramId);
 
@@ -403,7 +408,6 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
 
             // Tenant + body simplification
             const { paramName, typeSymbol } = bodySimplification;
-            const isBodyRequired = operation.body?.required ?? false;
             const parametersOptional = isTenantOnlyRequiredParam && !isBodyRequired;
 
             // Check if there are other non-tenant path or query params
