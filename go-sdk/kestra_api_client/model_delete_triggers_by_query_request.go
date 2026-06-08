@@ -20,7 +20,7 @@ var _ MappedNullable = &DeleteTriggersByQueryRequest{}
 // DeleteTriggersByQueryRequest struct for DeleteTriggersByQueryRequest
 type DeleteTriggersByQueryRequest struct {
 	// Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`
-	Filters []QueryFilter `json:"filters,omitempty"`
+	Filters []SearchFilter `json:"filters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,9 +44,9 @@ func NewDeleteTriggersByQueryRequestWithDefaults() *DeleteTriggersByQueryRequest
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *DeleteTriggersByQueryRequest) GetFilters() []QueryFilter {
+func (o *DeleteTriggersByQueryRequest) GetFilters() []SearchFilter {
 	if o == nil || IsNil(o.Filters) {
-		var ret []QueryFilter
+		var ret []SearchFilter
 		return ret
 	}
 	return o.Filters
@@ -54,7 +54,7 @@ func (o *DeleteTriggersByQueryRequest) GetFilters() []QueryFilter {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeleteTriggersByQueryRequest) GetFiltersOk() ([]QueryFilter, bool) {
+func (o *DeleteTriggersByQueryRequest) GetFiltersOk() ([]SearchFilter, bool) {
 	if o == nil || IsNil(o.Filters) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *DeleteTriggersByQueryRequest) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given []QueryFilter and assigns it to the Filters field.
-func (o *DeleteTriggersByQueryRequest) SetFilters(v []QueryFilter) {
+// SetFilters gets a reference to the given []SearchFilter and assigns it to the Filters field.
+func (o *DeleteTriggersByQueryRequest) SetFilters(v []SearchFilter) {
 	o.Filters = v
 }
 

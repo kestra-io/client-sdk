@@ -11,3 +11,10 @@ kestra:
     type: postgres
   queue:
     type: postgres
+  ai:
+    # Disable AI features: KestraDocsContextTool spawns a langchain4j MCP client
+    # towards https://api.kestra.io/v1/mcp which the CI container cannot reach,
+    # leaving a reconnect loop (mcp-server-health-checker) suspected of leaking
+    # heap. Defense-in-depth alongside dropping the scheduler (see
+    # docker-compose-ci.yml) for the kestra-ee 2.0 mid-suite OOM.
+    enabled: false

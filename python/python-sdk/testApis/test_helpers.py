@@ -23,6 +23,31 @@ def random_id():
     return uuid.uuid4().hex
 
 
+# Namespaces materialize per-namespace state server-side (EE/RBAC) that
+# lives until deleted and feeds the CI container's heap. Namespaces minted
+# through random_namespace() are registered here and bulk-purged after each
+# test module by the autouse _namespace_gc fixture in conftest.py, bounding
+# live namespace cardinality to one module's worth.
+_REGISTERED_NAMESPACES = set()
+
+
+def random_namespace():
+    """Random namespace id, purged automatically after the current module."""
+    return register_namespace(random_id())
+
+
+def register_namespace(ns):
+    """Register an externally-built namespace id (e.g. dotted children) for purge."""
+    _REGISTERED_NAMESPACES.add(ns)
+    return ns
+
+
+def drain_registered_namespaces():
+    namespaces = list(_REGISTERED_NAMESPACES)
+    _REGISTERED_NAMESPACES.clear()
+    return namespaces
+
+
 # ========================================================================
 # Flow YAML templates
 # ========================================================================
@@ -120,7 +145,7 @@ def create_flow(client, yaml_body):
 
 
 def create_log_flow(client):
-    return create_flow(client, log_flow_yaml(random_id(), random_id()))
+    return create_flow(client, log_flow_yaml(random_id(), random_namespace()))
 
 
 # ========================================================================
@@ -135,7 +160,7 @@ def read_file(relative_path):
 
 def simple_flow_fixture():
     fid = random_id()
-    ns = random_id()
+    ns = random_namespace()
     body = read_file("flows/simple_flow.yml") \
         .replace("simple_flow_id_to_replace_by_random_id", fid) \
         .replace("simple_flow_namespace_to_replace_by_random_id", ns)
@@ -145,7 +170,7 @@ def simple_flow_fixture():
 def complete_flow_body():
     return read_file("flows/flow_complete.yml") \
         .replace("flow_complete", random_id()) \
-        .replace("tests", random_id())
+        .replace("tests", random_namespace())
 
 
 # ========================================================================
@@ -192,6 +217,26 @@ def type_filter(type_val):
 # Execution helpers
 # ========================================================================
 
+def create_execution(client, namespace, flow_id, timeout=15, interval=0.5, **kwargs):
+    """Start an execution, retrying past the create-flow -> create-execution race.
+
+    Kestra 2.0 is eventually consistent: an execution requested right after the
+    flow is created can 404 until the flow propagates to the executor. Unlike
+    wait_for_execution (which polls an existing execution), this retries the POST
+    itself until the flow is visible and the execution is accepted.
+    """
+    from kestrapy.exceptions import NotFoundException
+    elapsed = 0.0
+    while True:
+        try:
+            return client.executions.create_execution(TENANT, namespace, flow_id, **kwargs)
+        except NotFoundException:
+            if elapsed >= timeout:
+                raise
+            time.sleep(interval)
+            elapsed += interval
+
+
 def wait_for_execution(client, execution_id, timeout=30, interval=0.5):
     """Poll until execution reaches SUCCESS. Returns the execution."""
     from kestrapy.exceptions import NotFoundException
@@ -213,11 +258,7 @@ def wait_for_execution(client, execution_id, timeout=30, interval=0.5):
     raise TimeoutError(f"Execution {execution_id} did not reach SUCCESS within {timeout}s")
 
 
-def create_execution_with_logs(client):
-    """Create a flow, execute it, wait for SUCCESS. Returns (execution_id, namespace, flow_id)."""
-    ns = random_id()
-    flow_id = random_id()
-    create_flow(client, log_flow_yaml(flow_id, ns))
-    exec_resp = client.executions.create_execution(TENANT, ns, flow_id)
-    wait_for_execution(client, exec_resp.id)
-    return exec_resp.id, ns, flow_id
+# NOTE: tests that only need "an execution with logs" should use the shared
+# `succeeded_execution` fixture from conftest.py instead of creating their
+# own namespace+flow+execution — accumulated server-side state is what OOMs
+# the CI Kestra container.

@@ -1,14 +1,12 @@
 package kestra_api_client
 
 import (
-	"bufio"
 	"bytes"
 	"context"
 	"encoding/json"
 	"mime/multipart"
 	"net/url"
 	"os"
-	"strings"
 )
 
 // ExecutionsAPI provides methods for managing Kestra executions.
@@ -85,7 +83,7 @@ func (a *ExecutionsAPI) SearchExecutions(
 	tenant string,
 	page, size *int,
 	sort []string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*PagedResultsApiLightExecution, error) {
 	path := tenantPath(tenant, "executions", "search")
 	params := buildQueryParams("page", page, "size", size)
@@ -269,7 +267,7 @@ func (a *ExecutionsAPI) KillExecutionsByIds(
 func (a *ExecutionsAPI) KillExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "kill", "by-query")
 	params := url.Values{}
@@ -324,7 +322,7 @@ func (a *ExecutionsAPI) DeleteExecutionsByIds(
 func (a *ExecutionsAPI) DeleteExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 	includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage *bool,
 ) (map[string]interface{}, error) {
 	path := tenantPath(tenant, "executions", "by-query")
@@ -368,7 +366,7 @@ func (a *ExecutionsAPI) PauseExecutionsByIds(
 func (a *ExecutionsAPI) PauseExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "pause", "by-query")
 	params := url.Values{}
@@ -413,7 +411,7 @@ func (a *ExecutionsAPI) ResumeExecutionsByIds(
 func (a *ExecutionsAPI) ResumeExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "resume", "by-query")
 	params := url.Values{}
@@ -456,7 +454,7 @@ func (a *ExecutionsAPI) RestartExecutionsByIds(
 func (a *ExecutionsAPI) RestartExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "restart", "by-query")
 	params := url.Values{}
@@ -503,7 +501,7 @@ func (a *ExecutionsAPI) ReplayExecutionsByIds(
 func (a *ExecutionsAPI) ReplayExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 	latestRevision *bool,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "replay", "by-query")
@@ -542,7 +540,7 @@ func (a *ExecutionsAPI) ForceRunByIds(
 func (a *ExecutionsAPI) ForceRunExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "force-run", "by-query")
 	params := url.Values{}
@@ -588,7 +586,7 @@ func (a *ExecutionsAPI) UnqueueExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	newState *string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "unqueue", "by-query")
 	params := buildQueryParams("newState", newState)
@@ -631,7 +629,7 @@ func (a *ExecutionsAPI) SetLabelsOnTerminatedExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	labels []Label,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "labels", "by-query")
 	params := url.Values{}
@@ -674,7 +672,7 @@ func (a *ExecutionsAPI) UpdateExecutionsStatusByIds(
 func (a *ExecutionsAPI) UpdateExecutionsStatusByQuery(
 	ctx context.Context,
 	tenant, newStatus string,
-	filters []QueryFilter,
+	filters []SearchFilter,
 ) (*ApiAsyncOperationResponse, error) {
 	path := tenantPath(tenant, "executions", "change-status", "by-query")
 	params := buildQueryParams("newStatus", newStatus)
@@ -773,61 +771,7 @@ func (a *ExecutionsAPI) FollowExecution(
 	executionId, tenant string,
 ) (<-chan *Execution, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow")
-
-	resp, err := a.openSSEStream(ctx, path, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	ch := make(chan *Execution)
-	go func() {
-		defer close(ch)
-		defer resp.Body.Close()
-
-		scanner := bufio.NewScanner(resp.Body)
-		var dataBuffer strings.Builder
-
-		for scanner.Scan() {
-			line := scanner.Text()
-
-			if line == "" {
-				if dataBuffer.Len() > 0 {
-					var ev Execution
-					if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-						select {
-						case ch <- &ev:
-						case <-ctx.Done():
-							return
-						}
-					}
-					dataBuffer.Reset()
-				}
-				continue
-			}
-
-			if strings.HasPrefix(line, "data:") {
-				payload := line[5:]
-				if strings.HasPrefix(payload, " ") {
-					payload = payload[1:]
-				}
-				dataBuffer.WriteString(payload)
-				dataBuffer.WriteByte('\n')
-			}
-		}
-
-		// Flush any remaining data
-		if dataBuffer.Len() > 0 {
-			var ev Execution
-			if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-				select {
-				case ch <- &ev:
-				case <-ctx.Done():
-				}
-			}
-		}
-	}()
-
-	return ch, nil
+	return followSSE[Execution](&a.baseAPI, ctx, path, nil)
 }
 
 // FollowDependenciesExecution opens an SSE stream that emits execution status events
@@ -839,59 +783,5 @@ func (a *ExecutionsAPI) FollowDependenciesExecution(
 ) (<-chan *ExecutionStatusEvent, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow-dependencies")
 	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
-
-	resp, err := a.openSSEStream(ctx, path, params)
-	if err != nil {
-		return nil, err
-	}
-
-	ch := make(chan *ExecutionStatusEvent)
-	go func() {
-		defer close(ch)
-		defer resp.Body.Close()
-
-		scanner := bufio.NewScanner(resp.Body)
-		var dataBuffer strings.Builder
-
-		for scanner.Scan() {
-			line := scanner.Text()
-
-			if line == "" {
-				if dataBuffer.Len() > 0 {
-					var ev ExecutionStatusEvent
-					if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-						select {
-						case ch <- &ev:
-						case <-ctx.Done():
-							return
-						}
-					}
-					dataBuffer.Reset()
-				}
-				continue
-			}
-
-			if strings.HasPrefix(line, "data:") {
-				payload := line[5:]
-				if strings.HasPrefix(payload, " ") {
-					payload = payload[1:]
-				}
-				dataBuffer.WriteString(payload)
-				dataBuffer.WriteByte('\n')
-			}
-		}
-
-		// Flush any remaining data
-		if dataBuffer.Len() > 0 {
-			var ev ExecutionStatusEvent
-			if err := json.Unmarshal([]byte(dataBuffer.String()), &ev); err == nil {
-				select {
-				case ch <- &ev:
-				case <-ctx.Done():
-				}
-			}
-		}
-	}()
-
-	return ch, nil
+	return followSSE[ExecutionStatusEvent](&a.baseAPI, ctx, path, params)
 }

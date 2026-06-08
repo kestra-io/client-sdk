@@ -7,6 +7,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   pull_request:
@@ -15,6 +16,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   workflow_dispatch:
@@ -86,7 +88,7 @@ jobs:
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: type check
-        run: npm run test:typecheck
+        run: npm run check:types
 
       - name: Select license file
         id: license

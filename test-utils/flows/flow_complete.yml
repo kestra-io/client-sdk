@@ -95,4 +95,7 @@ pluginDefaults:
 triggers:
   - id: monthly
     type: io.kestra.plugin.core.trigger.Schedule
-    cron: "0 9 1 * *" # 1st of each month at 9am
+    cron: "0 9 1 * *"
+    inputs:
+      pokemon: Pikachu
+      bird: Kestrel

@@ -59,12 +59,20 @@ cleanup_openapi_generated_files() {
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
-  echo "No language specified. Please provide a language. Possible languages are: 'java', 'python', 'go' and 'javascript'"
+  echo "No language specified. Please provide a language. Possible languages are: 'python', 'go' and 'javascript' (the Java SDK is hand-written and not generated)"
   exit 1
 fi
 
 if [[ "$LANGUAGES" == *,* ]]; then
   echo "Multiple languages specified. Please provide exactly one language (no commas)."
+  exit 1
+fi
+
+# Java SDK is hand-written and no longer generated
+if [[ ",$LANGUAGES," == *",java,"* ]]; then
+  echo "ERROR: the Java SDK is hand-written (since #222) and is no longer generated."
+  echo "Running the generator would delete java/java-sdk/src/main/java/io/kestra/sdk entirely."
+  echo "Edit the sources under java/java-sdk directly instead."
   exit 1
 fi
 
@@ -87,29 +95,6 @@ KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
 sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
 
 
-# Generate Java SDK
-if [[ ",$LANGUAGES," == *",java,"* ]]; then
-cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk"
-rm -rf ./java/java-sdk/docs
-rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/api
-rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/internal
-rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/model
-
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-     -c /local/java/configuration/java-config.yml --artifact-version $VERSION \
-      --skip-validate-spec \
-      --template-dir=/local/java/template
-
-find ./java/java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java/java-sdk/src/main/java -name "*.bak" -delete
-echo "version=$VERSION" > ./java/java-sdk/gradle.properties
-
-
-# Replace wrong prop in docs for each api
-for f in java-sdk/docs/*.md; do
-  [ -f "$f" ] || continue
-  sed -E -i 's/\b([A-Za-z]+)Api\b/\L\1/g' "$f"
-done
-fi
 
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then

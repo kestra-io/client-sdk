@@ -2,6 +2,7 @@ package kestra_api_client
 
 import (
 	"encoding/base64"
+	"io"
 	"net/http"
 )
 
@@ -9,6 +10,13 @@ type KestraClient struct {
 	baseURL    string
 	httpClient *http.Client
 	headers    map[string]string
+	// authHeader holds the Authorization value set by WithBasicAuth/WithTokenAuth.
+	// It is applied after the default headers on every request, so an explicit
+	// auth option always takes precedence over an Authorization entry supplied
+	// through WithHeaders/WithHeader, regardless of option ordering.
+	authHeader string
+	debug      bool
+	logger     io.Writer
 }
 
 type ClientOption func(*KestraClient)
@@ -28,19 +36,62 @@ func NewClient(baseURL string, opts ...ClientOption) *KestraClient {
 func WithBasicAuth(username, password string) ClientOption {
 	return func(c *KestraClient) {
 		encoded := base64.StdEncoding.EncodeToString([]byte(username + ":" + password))
-		c.headers["Authorization"] = "Basic " + encoded
+		c.authHeader = "Basic " + encoded
 	}
 }
 
 func WithTokenAuth(token string) ClientOption {
 	return func(c *KestraClient) {
-		c.headers["Authorization"] = "Bearer " + token
+		c.authHeader = "Bearer " + token
 	}
 }
 
 func WithHTTPClient(hc *http.Client) ClientOption {
 	return func(c *KestraClient) {
 		c.httpClient = hc
+	}
+}
+
+// WithHeaders merges the given headers into the client's default headers, which
+// are applied to every request. Existing entries with the same key are
+// overwritten.
+//
+// Precedence: an Authorization entry supplied here is overridden on the wire by
+// an explicit WithBasicAuth/WithTokenAuth option (whenever one is set),
+// independent of the order in which the options are passed to NewClient.
+func WithHeaders(headers map[string]string) ClientOption {
+	return func(c *KestraClient) {
+		for k, v := range headers {
+			c.headers[k] = v
+		}
+	}
+}
+
+// WithHeader sets a single default header, applied to every request. See
+// WithHeaders for the Authorization precedence rule.
+func WithHeader(key, value string) ClientOption {
+	return func(c *KestraClient) {
+		c.headers[key] = value
+	}
+}
+
+// WithDebug toggles HTTP request/response logging to os.Stderr. Logged output
+// covers the method, URL, status and headers; sensitive headers (Authorization,
+// Proxy-Authorization, Cookie, Set-Cookie) are redacted. Request and response
+// bodies are not logged. Use WithLogger to send the output elsewhere.
+func WithDebug(enabled bool) ClientOption {
+	return func(c *KestraClient) {
+		c.debug = enabled
+	}
+}
+
+// WithLogger directs debug output to w and enables debug logging. It is the
+// preferred option when you need to capture or redirect diagnostics (e.g. in
+// tests). See WithDebug for what is logged and which headers are redacted.
+func WithLogger(w io.Writer) ClientOption {
+	return func(c *KestraClient) {
+		c.logger = w
+		c.debug = true
 	}
 }
 
@@ -66,6 +117,10 @@ func (c *KestraClient) Namespaces() *NamespacesAPI {
 
 func (c *KestraClient) Roles() *RolesAPI {
 	return &RolesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Bindings() *BindingsAPI {
+	return &BindingsAPI{baseAPI{client: c}}
 }
 
 func (c *KestraClient) Triggers() *TriggersAPI {
@@ -110,4 +165,8 @@ func (c *KestraClient) Logs() *LogsAPI {
 
 func (c *KestraClient) Blueprints() *BlueprintsAPI {
 	return &BlueprintsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Invitations() *InvitationsAPI {
+	return &InvitationsAPI{baseAPI{client: c}}
 }

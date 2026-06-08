@@ -138,7 +138,9 @@ export const configureAxios = (
     })
 
     instance.interceptors.request.use((config) => {
-        initProgress()
+        if (typeof document !== "undefined") {
+            initProgress()
+        }
         // The plugin defaults multipart/form-data bodies to {} so hey-api preserves
         // the Content-Type header. Replace that empty sentinel with a real empty
         // FormData so the server receives a well-formed empty multipart body.
@@ -193,7 +195,7 @@ export const configureAxios = (
             // Authentication expired
             if (errorResponse.response.status === 401 &&
                 isLoggedIn() && !oss &&
-                !document.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
+                !document?.cookie.split("; ").map(cookie => cookie.split("=")[0]).includes("JWT")
                 && !isImpersonating()) {
 
                 // Keep original request
@@ -356,9 +358,9 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
         const hasCustomAccept = currentAccept && currentAccept !== axiosDefaultAccept
         if (!hasCustomAccept) {
             if (config.responseType === "blob") {
-                config.headers["Accept"] = "application/octet-stream"
+                config.headers["Accept"] = "application/octet-stream, text/plain, */*"
             } else if (config.responseType === "text") {
-                config.headers["Accept"] = "text/plain, text/json, application/json"
+                config.headers["Accept"] = "text/csv, text/plain, text/json, application/json"
             }
         }
         return config
@@ -449,6 +451,28 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
             return queryParameters.toString();
         },
         ...clientConfig,
+    })
+
+    // When responseType:'blob' is set (e.g. for AI generate endpoints that return YAML),
+    // Axios may parse the error response body as a Blob (browser) or raw string (Node.js)
+    // instead of JSON, hiding the real server error message. Normalise it so callers see
+    // the actual error object (e.g. { message: "BAD_REQUEST: ..." }) in both environments.
+    instance.interceptors.response.use(undefined, async (error: AxiosError) => {
+        if (error.response?.data instanceof Blob) {
+            const text = await (error.response.data as Blob).text()
+            try {
+                error.response.data = JSON.parse(text)
+            } catch {
+                error.response.data = text
+            }
+        } else if (typeof error.response?.data === 'string' && error.response.data.length > 0) {
+            try {
+                error.response.data = JSON.parse(error.response.data)
+            } catch {
+                // not JSON, leave as-is
+            }
+        }
+        return Promise.reject(error)
     })
 
     instance.defaults.paramsSerializer = {

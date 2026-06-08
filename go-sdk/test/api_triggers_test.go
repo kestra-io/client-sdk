@@ -102,7 +102,7 @@ func TestTriggersAPI_All(t *testing.T) {
 		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterTriggerId,
 				Operation: kestra_api_client.OpContains,
@@ -160,7 +160,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterTriggerId,
 				Operation: kestra_api_client.OpContains,
@@ -212,7 +212,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterTriggerId,
 				Operation: kestra_api_client.OpContains,
@@ -245,7 +245,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		filters := []kestra_api_client.QueryFilter{
+		filters := []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -307,7 +307,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		resp, err := KestraTestClient().Triggers().UnlockTriggersByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{})
+		resp, err := KestraTestClient().Triggers().UnlockTriggersByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{})
 		require.NoError(t, err)
 		require.NotNil(t, resp)
 	})
@@ -352,7 +352,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		resp, err := KestraTestClient().Triggers().UnpauseBackfillByQuery(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{})
+		resp, err := KestraTestClient().Triggers().UnpauseBackfillByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{})
 		require.NoError(t, err)
 		require.NotNil(t, resp)
 	})
@@ -365,7 +365,7 @@ func TestTriggersAPI_All(t *testing.T) {
 
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
-		csv, err := KestraTestClient().Triggers().ExportTriggers(ctx, MAIN_TENANT, []kestra_api_client.QueryFilter{
+		csv, err := KestraTestClient().Triggers().ExportTriggers(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{
 			{
 				Field:     kestra_api_client.FilterNamespace,
 				Operation: kestra_api_client.OpEquals,
@@ -411,7 +411,7 @@ func TestTriggersAPI_All(t *testing.T) {
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
 		req := kestra_api_client.DeleteTriggersByQueryRequest{
-			Filters: []kestra_api_client.QueryFilter{
+			Filters: []kestra_api_client.SearchFilter{
 				{
 					Field:     kestra_api_client.FilterNamespace,
 					Operation: kestra_api_client.OpEquals,

@@ -225,7 +225,53 @@ export function sanitizeOpenAPI(
     //    stream type is the inner Execution/X type, not the envelope type.
     unwrapSseEventResponses(spec)
 
+    // 10) Fix parameters declared as `in: query` that actually appear as {param} in the path template.
+    fixMisclassifiedPathParams(spec)
+
+    // 11) Add missing security schemes to SCIM endpoints (upstream spec bug). Without a
+    //     `security` block, the generated hey-api client never attaches credentials, so
+    //     every SCIM call returns 401. TODO: fix at the source (Kestra EE) and drop this.
+    addMissingScimSecurity(spec)
+
     return counters;
+}
+
+/**
+ * Add the standard `bearerAuth`/`basicAuth` security requirement to SCIM operations
+ * (any operation tagged with a `SCIM-` tag) that lack a `security` block.
+ *
+ * Upstream, the Kestra EE OpenAPI spec omits `security` on the SCIM-Configuration,
+ * SCIM-Users and SCIM-Groups operations. The hey-api axios client only attaches the
+ * configured auth when an operation declares `security`, so these requests are sent
+ * unauthenticated and the server replies 401. We mirror the security block used by
+ * every other authenticated operation in the spec.
+ *
+ * Scoped to `SCIM-` tags on purpose: other security-less operations (the `Auths`
+ * password-reset / invitation flows and `POST /login`) are intentionally public.
+ */
+export function addMissingScimSecurity(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    const security = [{ bearerAuth: [] }, { basicAuth: [] }];
+    let added = 0;
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op || typeof op !== "object") continue;
+            if (op.security !== undefined) continue;
+            if (!Array.isArray(op.tags) || !op.tags.some((tag: string) => typeof tag === "string" && tag.startsWith("SCIM-"))) continue;
+
+            op.security = security;
+            added += 1;
+            console.debug(`addMissingScimSecurity: added security to ${method.toUpperCase()} ${path} (${op.operationId})`);
+        }
+    }
+
+    return added;
 }
 
 function removeUnreferencedSchemas(spec: any): number {
@@ -488,4 +534,42 @@ export function unwrapSseEventResponses(spec: any): number {
     }
 
     return unwrapped;
+}
+
+/**
+ * Fix parameters that are declared `in: query` but whose name appears as a
+ * `{name}` template variable in the path — i.e. they are path parameters.
+ *
+ * Workaround for upstream specs where the `in` field is wrong.
+ */
+export function fixMisclassifiedPathParams(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    let fixed = 0;
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        const pathVars = new Set(
+            [...path.matchAll(/\{(\w+)\}/g)].map((m) => m[1])
+        );
+        if (pathVars.size === 0) continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op?.parameters) continue;
+
+            for (const param of op.parameters) {
+                if (!param || typeof param !== "object") continue;
+                if (param.in === "query" && pathVars.has(param.name)) {
+                    param.in = "path";
+                    fixed += 1;
+                    console.debug(`fixMisclassifiedPathParams: ${param.name} in ${op.operationId} (${path}) changed query -> path`);
+                }
+            }
+        }
+    }
+
+    return fixed;
 }
