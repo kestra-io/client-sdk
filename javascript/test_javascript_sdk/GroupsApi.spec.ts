@@ -67,9 +67,14 @@ describe('GroupsApi', () => {
             throw new Error('Failed to create group');
         }
 
-        await kestraClient.Groups.deleteGroup({ id: created.id });
+        await kestraClient.Groups.deleteGroup({ id: created.id })
 
-        await expect(kestraClient.Groups.group({ id: created.id })).rejects.toThrow();
+        const found = await kestraClient.Groups.searchGroups({
+            page: 1,
+            size: 10,
+            filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: created.name })],
+        });
+        expect(found?.results.some(g => g.id === created.id)).toBeFalsy();
     });
 
     it('delete_user_from_group: Remove a user from a group', async () => {

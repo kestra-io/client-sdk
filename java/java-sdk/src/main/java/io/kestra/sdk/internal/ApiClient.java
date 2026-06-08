@@ -1137,38 +1137,67 @@ public class ApiClient extends JavaTimeFormatter {
           Map<String, String> headerParams,
           Map<String, String> cookieParams,
           String[] authNames) throws ApiException {
+    return openEventStream(path, queryParams, collectionQueryParams, urlQueryDeepObject,
+            headerParams, cookieParams, authNames, null);
+  }
+
+  /**
+   * Opens an SSE stream. When {@code requestRef} is provided, the (cancellable)
+   * request is exposed through it so callers can {@code abort()} the exchange:
+   * closing the response of a live event stream would try to drain it to EOF
+   * and block, while abort releases the connection immediately.
+   */
+  public org.apache.hc.client5.http.impl.classic.CloseableHttpResponse openEventStream(
+          String path,
+          List<Pair> queryParams,
+          List<Pair> collectionQueryParams,
+          String urlQueryDeepObject,
+          Map<String, String> headerParams,
+          Map<String, String> cookieParams,
+          String[] authNames,
+          java.util.concurrent.atomic.AtomicReference<org.apache.hc.client5.http.classic.methods.HttpUriRequestBase> requestRef) throws ApiException {
     updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
     final String url = buildUrl(path, queryParams, collectionQueryParams, urlQueryDeepObject);
 
-    ClassicRequestBuilder builder = ClassicRequestBuilder.create("GET");
-    builder.setUri(url);
+    org.apache.hc.client5.http.classic.methods.HttpGet request =
+            new org.apache.hc.client5.http.classic.methods.HttpGet(url);
+    if (requestRef != null) {
+      requestRef.set(request);
+    }
 
-    builder.addHeader("Accept", "text/event-stream");
+    request.addHeader("Accept", "text/event-stream");
+    // SSE must not be gzip-compressed: the decompressing stream buffers small
+    // events and readLine() would block until the (never-ending) stream closes
+    request.addHeader("Accept-Encoding", "identity");
 
     for (Entry<String, String> keyValue : headerParams.entrySet()) {
-      builder.addHeader(keyValue.getKey(), keyValue.getValue());
+      request.addHeader(keyValue.getKey(), keyValue.getValue());
     }
     for (Map.Entry<String,String> keyValue : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(keyValue.getKey())) {
-        builder.addHeader(keyValue.getKey(), keyValue.getValue());
+        request.addHeader(keyValue.getKey(), keyValue.getValue());
       }
     }
 
     BasicCookieStore store = new BasicCookieStore();
-    for (Entry<String, String> keyValue : cookieParams.entrySet()) {
-      store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
-    }
-    for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
-      if (!cookieParams.containsKey(keyValue.getKey())) {
-        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+    try {
+      for (Entry<String, String> keyValue : cookieParams.entrySet()) {
+        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), request.getUri()));
       }
+      for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
+        if (!cookieParams.containsKey(keyValue.getKey())) {
+          store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), request.getUri()));
+        }
+      }
+    } catch (java.net.URISyntaxException e) {
+      throw new ApiException(e);
     }
 
     HttpClientContext context = HttpClientContext.create();
     context.setCookieStore(store);
 
     try {
-      return httpClient.execute(builder.build(), context);
+      return httpClient.execute(request, context);
     } catch (IOException e) {
       throw new ApiException(e);
     }

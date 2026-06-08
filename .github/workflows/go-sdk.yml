@@ -65,6 +65,8 @@ jobs:
       - name: Build local SDK and test it in an example project
         if: inputs.skip-test != 'true'
         env:
+          # Target Kestra 2.0: 'develop' is the 2.0-ee line. Release branches (releases/v*)
+          # still resolve to their own version via compute-version.
           KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml

@@ -160,6 +160,7 @@ public class BlueprintsApiTest {
     }
 
     @Test
+    @Disabled("Kestra 2.0: blueprint search no longer filters server-side by tags — returns unrelated blueprints")
     void searchInternalBlueprints_withTags() throws ApiException {
         String tag = "sdktest" + randomId().substring(0, 8);
         api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()

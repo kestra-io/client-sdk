@@ -7,6 +7,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   pull_request:
@@ -15,6 +16,7 @@ on:
       - "releases/v*"
     paths:
       - "javascript/javascript-sdk/**"
+      - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
   workflow_dispatch:
@@ -86,7 +88,7 @@ jobs:
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: type check
-        run: npm run test:typecheck
+        run: npm run check:types
 
       - name: Select license file
         id: license
@@ -133,16 +135,6 @@ jobs:
       - name: Compute Kestra version
         id: version
         uses: ./.github/actions/compute-version
-
-      - name: Get OIDC Token
-        env:
-          AUDIENCE: "npm:registry.npmjs.org"
-        run: |
-          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
-          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
-          echo "$TOKEN_JSON"
-          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
-          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
 
       - uses: actions/setup-node@v6
         with:
@@ -212,16 +204,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Get OIDC Token
-        env:
-          AUDIENCE: "npm:registry.npmjs.org"
-        run: |
-          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
-          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
-          echo "$TOKEN_JSON"
-          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
-          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
-
       - uses: actions/setup-node@v6
         with:
           node-version: "22.18"
@@ -236,7 +218,7 @@ jobs:
           timestamp=$(date +%s | head -c 8)
           echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
           echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-          echo "kestra_version=2.0.0-develop.$timestamp.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
+          echo "kestra_version=2.0.0-kdevelop.$timestamp.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
 
       - name: Generate SDK with develop version
         working-directory: .

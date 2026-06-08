@@ -57,6 +57,7 @@
     "./worker-auth": "./dist/worker-auth.js",
     "./worker-auth-admin": "./dist/worker-auth-admin.js",
     "./worker-groups": "./dist/worker-groups.js",
+    "./worker-queues-admin": "./dist/worker-queues-admin.js",
     "./package.json": "./package.json"
   },
   "scripts": {

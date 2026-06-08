@@ -78,7 +78,7 @@ func (a *FlowsAPI) DeleteFlowsByIds(ctx context.Context, tenant string, ids []Id
 }
 
 // DeleteFlowsByQuery deletes flows matching the given query filters.
-func (a *FlowsAPI) DeleteFlowsByQuery(ctx context.Context, tenant string, filters []QueryFilter) (*BulkResponse, error) {
+func (a *FlowsAPI) DeleteFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "delete", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
@@ -100,7 +100,7 @@ func (a *FlowsAPI) DisableFlowsByIds(ctx context.Context, tenant string, ids []I
 }
 
 // DisableFlowsByQuery disables flows matching the given query filters.
-func (a *FlowsAPI) DisableFlowsByQuery(ctx context.Context, tenant string, filters []QueryFilter) (*BulkResponse, error) {
+func (a *FlowsAPI) DisableFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "disable", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
@@ -122,7 +122,7 @@ func (a *FlowsAPI) EnableFlowsByIds(ctx context.Context, tenant string, ids []Id
 }
 
 // EnableFlowsByQuery enables flows matching the given query filters.
-func (a *FlowsAPI) EnableFlowsByQuery(ctx context.Context, tenant string, filters []QueryFilter) (*BulkResponse, error) {
+func (a *FlowsAPI) EnableFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) (*BulkResponse, error) {
 	path := tenantPath(tenant, "flows", "enable", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
@@ -138,7 +138,7 @@ func (a *FlowsAPI) EnableFlowsByQuery(ctx context.Context, tenant string, filter
 // ========================================================================
 
 // SearchFlows searches for flows with pagination, sorting, and filters.
-func (a *FlowsAPI) SearchFlows(ctx context.Context, tenant string, page, size *int, sort []string, filters []QueryFilter) (*PagedResultsFlow, error) {
+func (a *FlowsAPI) SearchFlows(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsFlow, error) {
 	path := tenantPath(tenant, "flows", "search")
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
@@ -245,7 +245,7 @@ func (a *FlowsAPI) ExportFlowsByIds(ctx context.Context, tenant string, ids []Id
 }
 
 // ExportFlowsByQuery exports flows as a ZIP archive matching the given query filters.
-func (a *FlowsAPI) ExportFlowsByQuery(ctx context.Context, tenant string, filters []QueryFilter) ([]byte, error) {
+func (a *FlowsAPI) ExportFlowsByQuery(ctx context.Context, tenant string, filters []SearchFilter) ([]byte, error) {
 	path := tenantPath(tenant, "flows", "export", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)

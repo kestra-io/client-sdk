@@ -74,7 +74,21 @@ jobs:
           KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
-          sh run-tests.sh $KESTRA_VERSION
+          bash run-tests.sh $KESTRA_VERSION
+
+      # The CI Kestra container dies with a Java heap OutOfMemoryError mid-run
+      # (regression on the 2.0 develop image). Instead of a multi-GB heap dump,
+      # upload small text diagnostics: the unified GC log (heap occupancy + Full GC
+      # events) and per-class histogram snapshots polled from the host, the last of
+      # which (before the OOM) shows the accumulating classes.
+      - name: Upload Kestra logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kestra-logs
+          path: python/python-sdk/kestra-logs/
+          if-no-files-found: ignore
+          retention-days: 5
 
   publish:
     name: Publish to Pip

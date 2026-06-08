@@ -207,6 +207,12 @@ Class | Method | HTTP request | Description
 *KVApi* | [**list_keys**](docs/KVApi.md#list_keys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KVApi* | [**list_keys_with_inheritence**](docs/KVApi.md#list_keys_with_inheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KVApi* | [**set_key_value**](docs/KVApi.md#set_key_value) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
+*LogsApi* | [**delete_logs_from_execution**](docs/LogsApi.md#delete_logs_from_execution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
+*LogsApi* | [**delete_logs_from_flow**](docs/LogsApi.md#delete_logs_from_flow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific flow
+*LogsApi* | [**download_logs_from_execution**](docs/LogsApi.md#download_logs_from_execution) | **GET** /api/v1/{tenant}/logs/{executionId}/download | Download logs for a specific execution, taskrun or task
+*LogsApi* | [**follow_logs_from_execution**](docs/LogsApi.md#follow_logs_from_execution) | **GET** /api/v1/{tenant}/logs/{executionId}/follow | Follow logs for a specific execution
+*LogsApi* | [**list_logs_from_execution**](docs/LogsApi.md#list_logs_from_execution) | **GET** /api/v1/{tenant}/logs/{executionId} | Get logs for a specific execution, taskrun or task
+*LogsApi* | [**search_logs**](docs/LogsApi.md#search_logs) | **GET** /api/v1/{tenant}/logs/search | Search for logs
 *NamespacesApi* | [**autocomplete_namespaces**](docs/NamespacesApi.md#autocomplete_namespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
 *NamespacesApi* | [**create_namespace**](docs/NamespacesApi.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**delete_namespace**](docs/NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
