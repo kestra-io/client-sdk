@@ -343,9 +343,8 @@ describe("ExecutionsApi", () => {
                 executionId: e.id ?? "",
                 path: uri,
             });
-        // depending on generator, this might be a Buffer/string/file path.
-        const txt = file?.text ?? file;
-        expect(String(txt)).toContain("Hello from file");
+
+        expect(file).toContain("Hello from file");
     });
 
     // --- force run by ids ---
