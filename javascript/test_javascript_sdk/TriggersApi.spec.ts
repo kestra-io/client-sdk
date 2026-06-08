@@ -1,12 +1,30 @@
 // TriggersApi.spec.js
 /* eslint-disable jest/no-standalone-expect */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { kestraClient, tenantId, randomId } from './CommonTestSetup.js';
 
 // --- helpers ---------------------------------------------------------------
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Before all tests, delete any flows with namespaces starting with "test.triggers." to ensure a clean slate.
+ * Makes the tests less flaky on local machines
+ */
+beforeAll(async () => {
+    // Delete all flows whose namespace starts with "test.triggers." to ensure a clean slate for the tests.
+    const res = await kestraClient.Flows.deleteFlowsByQuery({
+        filters: [{
+            field: 'NAMESPACE',
+            operation: 'STARTS_WITH',
+            value: 'test.triggers.' as any
+        }],
+    });
+    if (res) {
+        console.log(`Deleted ${res.count} flows with namespace starting with 'test.triggers.'`);
+    }
+});
 
 /** Create a flow via YAML with a single scheduled trigger. */
 async function createFlowWithTrigger(flowId: string, triggerId: string, namespace: string) {
