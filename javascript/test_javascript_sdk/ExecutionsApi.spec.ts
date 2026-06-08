@@ -344,7 +344,7 @@ describe("ExecutionsApi", () => {
                 path: uri,
             });
 
-        expect(file).toContain("Hello from file");
+        expect(await file.text()).toContain("Hello from file");
     });
 
     // --- force run by ids ---
