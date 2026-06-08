@@ -1,6 +1,6 @@
 # Keeping SDK examples correct: examples as a single source of truth
 
-**Status:** Proposal / design — no implementation yet
+**Status:** Implemented for Python (this branch / PR #266); JavaScript, Java and Go pending (see §5)
 **Motivation:** [issue #144](https://github.com/kestra-io/client-sdk/issues/144) — "SDK example code is not working (Python, JS, etc.)"
 **Author:** (draft for review)
 
