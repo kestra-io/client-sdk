@@ -20,9 +20,26 @@ from kestrapy import (
 # ========================================================================
 
 
+def _community_search(client, **kwargs):
+    """Search community blueprints, skipping when the upstream is unreachable.
+
+    The /blueprints/community/* endpoints proxy to the external api.kestra.io.
+    When CI can't reach it the server answers 5xx (observed: 502 Bad Gateway).
+    That's an infra condition, not an SDK fault, so skip rather than fail —
+    matching how test_blueprint_source_basic and the internal-blueprint tests
+    already treat unavailable endpoints.
+    """
+    try:
+        return client.blueprints.search_blueprints(**kwargs)
+    except ApiException as e:
+        if e.status in (502, 503, 504):
+            pytest.skip(f"community blueprints upstream unavailable: {e.status}")
+        raise
+
+
 def test_search_blueprints_flow(client):
-    result = client.blueprints.search_blueprints(
-        kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=5
+    result = _community_search(
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=5
     )
 
     assert result is not None
@@ -30,15 +47,16 @@ def test_search_blueprints_flow(client):
 
 
 def test_search_blueprints_with_query(client):
-    result = client.blueprints.search_blueprints(
-        kind=BlueprintControllerKind.FLOW, tenant=TENANT, q="hello", page=1, size=5
+    result = _community_search(
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, q="hello", page=1, size=5
     )
 
     assert result is not None
 
 
 def test_search_blueprints_with_sort(client):
-    result = client.blueprints.search_blueprints(
+    result = _community_search(
+        client,
         kind=BlueprintControllerKind.FLOW,
         tenant=TENANT,
         sort="title:asc",
@@ -55,8 +73,8 @@ def test_search_blueprints_with_sort(client):
 
 
 def test_search_blueprints_with_tags(client):
-    all_results = client.blueprints.search_blueprints(
-        kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
+    all_results = _community_search(
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
     )
 
     if (
@@ -251,8 +269,8 @@ def test_search_internal_blueprints_basic(client):
 
 
 def test_blueprint_basic(client):
-    search = client.blueprints.search_blueprints(
-        kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
+    search = _community_search(
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
     )
 
     if search.results and len(search.results) > 0:
@@ -267,8 +285,8 @@ def test_blueprint_basic(client):
 
 
 def test_blueprint_graph_basic(client):
-    search = client.blueprints.search_blueprints(
-        kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
+    search = _community_search(
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
     )
 
     if search.results and len(search.results) > 0:
