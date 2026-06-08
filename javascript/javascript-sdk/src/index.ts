@@ -442,8 +442,12 @@ let fetchClient: Client | null = null
 /**
  * Set a mock client instance controlled in tests
  */
-export function setMockClient(mockClient: any) {
-    fetchClient = mockClient
+export function setMockClient(mockClient: Partial<typeof axiosLikeClient> = {}) {
+    for (const method of ["get", "post", "put", "delete", "patch"] as const) {
+        if (mockClient[method]) {
+            (axiosLikeClient as any)[method] = mockClient[method] as any
+        }
+    }
 }
 
 /**

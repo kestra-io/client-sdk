@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { useClient } from "@kestra-io/kestra-sdk";
+import { setMockClient, useClient } from "@kestra-io/kestra-sdk";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
@@ -106,5 +106,19 @@ tasks:
         const allFlowsInNamespace: any = await clientObj.get(`${baseURL}/api/v1/${tenantId}/flows/${namespace}`);
         const flowIds = allFlowsInNamespace.data.map((f: any) => f.id);
         expect(flowIds).not.toContain(flowId);
+    });
+
+    it("should mock the client responses", async () => {
+        const clientObj = useClient();
+        setMockClient({
+            get: async (url: string) => {
+                if (url === `${baseURL}/api/v1/me`) {
+                    return { data: { username: "mockedUser" } };
+                }
+                throw new Error("Unknown URL");
+            }
+        })
+        const me: any = await clientObj.get(`${baseURL}/api/v1/me`);
+        expect(me.data).toMatchObject({ username: "mockedUser" });
     });
 });
