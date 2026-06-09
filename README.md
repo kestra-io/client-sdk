@@ -357,6 +357,30 @@ tasks:
 - ⚠ If an existing test fails, you're probably introducing a breaking change (or someone's prior commit did). If that's the case, make sure it's safe to introduce that before merging
 - Commit and make a PR
 
+## CI: weekly SDK freshness check
+
+The per-PR pipelines test each SDK against the Kestra version resolved for the
+branch and only run when that SDK's files change. To catch upstream API
+breaking changes early, `.github/workflows/sdk-freshness-check.yml` runs **every
+Sunday (14:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
+SDK test suites against a Kestra server built from the **latest line**
+(`develop`).
+
+The job is **non-blocking**: it only runs on a schedule / manual trigger, never
+on PRs, and must not be added to branch-protection required checks. A red run is
+an early-warning signal, not a merge gate. On failure it posts to Slack
+(`#_int_alert-plugins-build`, via the `SLACK_WEBHOOK_URL` secret) naming the
+SDK that broke, the Kestra version under test, and a link to the run.
+
+**Triaging an alert** — when a leg goes red, decide which case applies:
+- *The committed spec is stale* — `develop` added/changed an endpoint the SDK
+  doesn't know about yet. Regenerate from the latest spec (see *How to update
+  the SDK* above) and update tests.
+- *A real upstream breaking change* — `develop` removed or altered behaviour the
+  SDK relies on. Surface it to the plugin squad / upstream; the SDK (and
+  downstream consumers like `kestractl`) will need to absorb it before the next
+  major.
+
 ## License
 Apache 2.0 © [Kestra Technologies](https://kestra.io)
 
