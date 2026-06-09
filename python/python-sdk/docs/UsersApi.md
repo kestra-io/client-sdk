@@ -36,6 +36,7 @@ List users for autocomplete
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -50,7 +51,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List users for autocomplete
-        api_response = kestra_client.UsersApi.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+        api_response = kestra_client.users.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
         print("The response of UsersApi->autocomplete_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -102,6 +103,7 @@ Superadmin-only. Create a new API token for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -116,7 +118,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific user
-        api_response = kestra_client.UsersApi.create_api_tokens_for_user(id, create_api_token_request)
+        api_response = kestra_client.users.create_api_tokens_for_user(id, create_api_token_request)
         print("The response of UsersApi->create_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -169,6 +171,7 @@ Superadmin-only. Create a new user account with an optional password based authe
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -182,7 +185,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new user account
-        api_response = kestra_client.UsersApi.create_user(iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->create_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -234,6 +237,7 @@ Superadmin-only. Delete an API token for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -248,7 +252,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific user and token id
-        kestra_client.UsersApi.delete_api_token_for_user(id, token_id)
+        kestra_client.users.delete_api_token_for_user(id, token_id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_api_token_for_user: %s\n" % e)
 ```
@@ -297,6 +301,7 @@ Delete a user refresh token
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -310,7 +315,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user refresh token
-        kestra_client.UsersApi.delete_refresh_token(id)
+        kestra_client.users.delete_refresh_token(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_refresh_token: %s\n" % e)
 ```
@@ -360,6 +365,7 @@ Superadmin-only. Delete a user including all its access.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -373,7 +379,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user
-        kestra_client.UsersApi.delete_user(id)
+        kestra_client.users.delete_user(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
@@ -423,6 +429,7 @@ Superadmin-only. Updates whether a user is a superadmin.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -437,7 +444,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.UsersApi.delete_user_auth_method(id, auth)
+        api_response = kestra_client.users.delete_user_auth_method(id, auth)
         print("The response of UsersApi->delete_user_auth_method:\n")
         pprint(api_response)
     except Exception as e:
@@ -490,6 +497,7 @@ Superadmin-only. Allows an admin to impersonate another user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -503,7 +511,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Impersonate a user
-        api_response = kestra_client.UsersApi.impersonate(id)
+        api_response = kestra_client.users.impersonate(id)
         print("The response of UsersApi->impersonate:\n")
         pprint(api_response)
     except Exception as e:
@@ -555,6 +563,7 @@ Superadmin-only. Get all API token existing for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -568,7 +577,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific user
-        api_response = kestra_client.UsersApi.list_api_tokens_for_user(id)
+        api_response = kestra_client.users.list_api_tokens_for_user(id)
         print("The response of UsersApi->list_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -607,7 +616,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> PagedResultsIAMUserControllerApiUserSummary list_users(page, size, filters, sort=sort)
+> PagedResultsIAMUserControllerApiUserSummary list_users(page, size, sort=sort, filters=filters)
 
 Retrieve users
 
@@ -618,6 +627,7 @@ Retrieve users
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -634,7 +644,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve users
-        api_response = kestra_client.UsersApi.list_users(page, size, filters, sort=sort)
+        api_response = kestra_client.users.list_users(page, size, sort=sort, filters=filters)
         print("The response of UsersApi->list_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -688,6 +698,7 @@ Superadmin-only. Updates the the details of a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -702,7 +713,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user details
-        api_response = kestra_client.UsersApi.patch_user(id, me_controller_api_user_details_request)
+        api_response = kestra_client.users.patch_user(id, me_controller_api_user_details_request)
         print("The response of UsersApi->patch_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -754,6 +765,7 @@ Superadmin-only. Updates whether a user is for demo.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -768,7 +780,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user demo
-        kestra_client.UsersApi.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+        kestra_client.users.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
     except Exception as e:
         print("Exception when calling UsersApi->patch_user_demo: %s\n" % e)
 ```
@@ -819,6 +831,7 @@ Superadmin-only. Updates whether a user is a superadmin.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -833,7 +846,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.UsersApi.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+        api_response = kestra_client.users.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
         print("The response of UsersApi->patch_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -886,6 +899,7 @@ Superadmin-only. Updates whether a user is a superadmin.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -900,7 +914,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user superadmin privileges
-        kestra_client.UsersApi.patch_user_super_admin(id, api_patch_super_admin_request)
+        kestra_client.users.patch_user_super_admin(id, api_patch_super_admin_request)
     except Exception as e:
         print("Exception when calling UsersApi->patch_user_super_admin: %s\n" % e)
 ```
@@ -951,6 +965,7 @@ Changes the login password for the authenticated user.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -964,7 +979,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update authenticated user password
-        api_response = kestra_client.UsersApi.update_current_user_password(me_controller_api_update_password_request)
+        api_response = kestra_client.users.update_current_user_password(me_controller_api_update_password_request)
         print("The response of UsersApi->update_current_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -1015,6 +1030,7 @@ Superadmin-only. Update an existing user account with an optional password based
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -1029,7 +1045,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user account
-        api_response = kestra_client.UsersApi.update_user(id, iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.users.update_user(id, iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->update_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -1080,6 +1096,7 @@ Update the list of groups a user belongs to for the given tenant
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -1095,7 +1112,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update the list of groups a user belongs to for the given tenant
-        kestra_client.UsersApi.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+        kestra_client.users.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
     except Exception as e:
         print("Exception when calling UsersApi->update_user_groups: %s\n" % e)
 ```
@@ -1148,6 +1165,7 @@ Superadmin-only. Get user account details.
 
 ```python
 from kestrapy import KestraClient, Configuration
+from pprint import pprint
 
 configuration = Configuration()
 
@@ -1161,7 +1179,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a user
-        api_response = kestra_client.UsersApi.user(id)
+        api_response = kestra_client.users.user(id)
         print("The response of UsersApi->user:\n")
         pprint(api_response)
     except Exception as e:
