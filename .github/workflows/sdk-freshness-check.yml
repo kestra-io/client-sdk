@@ -118,13 +118,14 @@ jobs:
 
       # --- Alert only on failure ---
       # Reuses the existing SLACK_WEBHOOK_URL secret (same mechanism as the Java
-      # publish job). Point that webhook at #_int_alert-ecosystem-build so the
-      # plugin squad is notified of breakage against the latest Kestra.
+      # publish job) and overrides the destination to #_int_alert-plugins-build
+      # so the plugin squad is notified of breakage against the latest Kestra.
       - name: Notify Slack on failure
         if: failure()
         uses: 8398a7/action-slack@v3
         with:
           status: custom
+          channel: "C09FE0QCN2E" # #_int_alert-plugins-build
           custom_payload: |
             {
               "text": ":rotating_light: *SDK freshness check failed* — `${{ matrix.sdk }}` SDK no longer passes against Kestra `${{ env.KESTRA_VERSION }}` (latest).\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run> · triage: regenerate the SDK from the latest spec, or treat as a real upstream breaking change."

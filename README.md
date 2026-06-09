@@ -369,7 +369,7 @@ SDK test suites against a Kestra server built from the **latest line**
 The job is **non-blocking**: it only runs on a schedule / manual trigger, never
 on PRs, and must not be added to branch-protection required checks. A red run is
 an early-warning signal, not a merge gate. On failure it posts to Slack
-(`#_int_alert-ecosystem-build`, via the `SLACK_WEBHOOK_URL` secret) naming the
+(`#_int_alert-plugins-build`, via the `SLACK_WEBHOOK_URL` secret) naming the
 SDK that broke, the Kestra version under test, and a link to the run.
 
 **Triaging an alert** — when a leg goes red, decide which case applies:
