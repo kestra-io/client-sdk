@@ -40,6 +40,23 @@ public class TriggersApiTest {
                 .triggerId("schedule_trigger");
     }
 
+    /**
+     * The trigger state record is created asynchronously by the scheduler once it
+     * evaluates the flow, so operations targeting the trigger by id (delete, etc.)
+     * race that registration and may 404. Poll until the trigger shows up.
+     */
+    static void awaitTriggerRegistered(String ns, String flowId) throws ApiException, InterruptedException {
+        for (int i = 0; i < 40; i++) {
+            PagedResultsApiTriggerState result =
+                    api().searchTriggersForFlow(TENANT, ns, flowId, 1, 10, null, null);
+            if (result.getResults() != null && !result.getResults().isEmpty()) {
+                return;
+            }
+            Thread.sleep(500);
+        }
+        throw new AssertionError("trigger schedule_trigger never registered for " + ns + "/" + flowId);
+    }
+
     // ========================================================================
     // Search
     // ========================================================================
@@ -282,10 +299,11 @@ public class TriggersApiTest {
     // ========================================================================
 
     @Test
-    void deleteTrigger_basic() throws ApiException {
+    void deleteTrigger_basic() throws ApiException, InterruptedException {
         String ns = randomId();
         String flowId = randomId();
         createFlow(scheduleFlowYaml(flowId, ns));
+        awaitTriggerRegistered(ns, flowId);
 
         assertThatCode(() -> api().deleteTrigger(TENANT, ns, flowId, "schedule_trigger"))
                 .doesNotThrowAnyException();

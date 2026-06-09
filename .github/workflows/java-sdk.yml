@@ -62,6 +62,12 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
 
+      # Static doc check — runs the JDK single-file tool (no Kestra container
+      # needed, so it fails fast). Guarantees the README usage snippet is
+      # identical to the CI-tested example (BasicSDKUsageExample.java). #144.
+      - name: Check README example is in sync with its tested source
+        run: java ../../test-utils/EmbedSnippets.java --check ../../README.md
+
       # Gradle check
       - name: Build with Gradle
         if: inputs.skip-test != 'true'

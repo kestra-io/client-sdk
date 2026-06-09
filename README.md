@@ -133,58 +133,71 @@ implementation("io.kestra:kestra-api-client:1.0.0")
 
 </details>
 
+Build a client, then perform a basic flow lifecycle:
+
 ```java
 import io.kestra.sdk.KestraClient;
-import io.kestra.sdk.api.FlowsApi;
-import java.util.List;
 
-public class KestraExample {
-    public static void main(String[] args) throws Exception {
-        KestraClient client = KestraClient.builder()
-            .url("https://<kestra-host>")
-            .basicAuth("user@kestra.io", "password")
-            .build();
-        // Service account alternative:
-        // KestraClient client = KestraClient.builder()
-        //     .url("https://<kestra-host>")
-        //     .tokenAuth("<service-account-api-key>")
-        //     .build();
+KestraClient client = KestraClient.builder()
+    .url("https://<kestra-host>")
+    .basicAuth("user@kestra.io", "password")
+    .build();
+// Service account alternative:
+// KestraClient client = KestraClient.builder()
+//     .url("https://<kestra-host>")
+//     .tokenAuth("<service-account-api-key>")
+//     .build();
 
-        String tenant = "main";
-        String namespace = "demo";
-        String flowId = "hello-from-sdk";
-
-        String flowYaml = """
-id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the SDK
-""";
-
-        FlowsApi flows = client.flows();
-        flows.createFlow(tenant, flowYaml);
-
-        String updatedFlowYaml = """
-id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello after update
-""";
-
-        flows.updateFlow(flowId, namespace, tenant, updatedFlowYaml);
-
-        var executions = client.executions()
-            .createExecution(namespace, flowId, true, tenant, null, null, null, null, null);
-        System.out.println("Execution ID: " + executions.get(0).getExecution().getId());
-    }
-}
+String tenant = "main";
 ```
+
+The block below is injected from the CI-tested example
+`java/java-sdk/java-sdk-test/src/main/java/io/kestra/example/BasicSDKUsageExample.java`
+(issue #144). Do not edit it by hand — change the example and re-run
+`java test-utils/EmbedSnippets.java --write README.md`.
+
+<!-- snippet:flow-lifecycle src=java/java-sdk/java-sdk-test/src/main/java/io/kestra/example/BasicSDKUsageExample.java lang=java -->
+```java
+String namespace = "company.team";
+String flowId = "hello_from_sdk";
+
+// List the first page of flows in the tenant.
+PagedResultsFlow flows = client.flows().searchFlows(tenant, 1, 10, null, List.of());
+System.out.println("Found " + flows.getResults().size() + " flows");
+
+// Create a flow from its YAML source.
+String flowYaml = """
+    id: hello_from_sdk
+    namespace: company.team
+
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello from the Kestra Java SDK!
+    """;
+FlowWithSource created = client.flows().createFlow(tenant, flowYaml);
+System.out.println("Created flow " + created.getNamespace() + "." + created.getId()
+    + " (revision " + created.getRevision() + ")");
+
+// Update the flow — updateFlow takes (namespace, id, tenant, body).
+String updatedYaml = """
+    id: hello_from_sdk
+    namespace: company.team
+
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello after update!
+    """;
+client.flows().updateFlow(namespace, flowId, tenant, updatedYaml);
+
+// Trigger an execution and wait for it to complete.
+ExecutionControllerExecutionResponse execution = client.executions()
+    .createExecution(tenant, namespace, flowId, null, true, null, null, null, null);
+System.out.println("Execution " + execution.getId()
+    + " finished in state " + execution.getState().getCurrent());
+```
+<!-- /snippet -->
 
 ### JavaScript (`@kestra-io/kestra-sdk`)
 
