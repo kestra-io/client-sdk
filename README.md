@@ -254,71 +254,98 @@ await new Promise((resolve, reject) =>
 ### Go (`github.com/kestra-io/client-sdk/go-sdk`)
 
 - Pull the module into your project with `go get github.com/kestra-io/client-sdk/go-sdk@latest`.
-- Update the first server entry (`cfg.Servers[0].URL`) so the client points to your Kestra host.
-- For Basic authentication wrap the request context with `ContextBasicAuth`. To use a service account, set `ContextAccessToken` instead.
+- Build a `KestraClient` with `NewClient`, pointing it at your Kestra host.
+- Authenticate with Basic credentials via `WithBasicAuth`, or with a service-account token via `WithTokenAuth`.
+
+Build a client, then perform a basic flow lifecycle:
 
 ```go
 package main
 
 import (
-    "context"
-    "fmt"
-    "log"
+	"context"
+	"fmt"
+	"log"
 
-    kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
-    cfg := kestra.NewConfiguration()
-    cfg.Servers[0].URL = "https://<kestra-host>"
+	client := kestra.NewClient(
+		"https://<kestra-host>",
+		kestra.WithBasicAuth("user@kestra.io", "password"),
+	)
+	// Service account alternative:
+	// client := kestra.NewClient(
+	// 	"https://<kestra-host>",
+	// 	kestra.WithTokenAuth("<service-account-api-key>"),
+	// )
 
-    client := kestra.NewAPIClient(cfg)
-
-    ctx := context.WithValue(context.Background(), kestra.ContextBasicAuth, kestra.BasicAuth{
-        UserName: "user@kestra.io",
-        Password: "password",
-    })
-    // Service account alternative:
-    // ctx := context.WithValue(context.Background(), kestra.ContextAccessToken, "<service-account-api-key>")
-
-    tenant := "main"
-    namespace := "demo"
-    flowID := "hello-from-sdk"
-
-    flowYaml := `id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the SDK
-`
-
-    if _, _, err := client.FlowsAPI.CreateFlow(ctx, tenant).Body(flowYaml).Execute(); err != nil {
-        log.Fatal(err)
-    }
-
-    updatedYaml := `id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello after update
-`
-
-    if _, _, err := client.FlowsAPI.UpdateFlow(ctx, flowID, namespace, tenant).Body(updatedYaml).Execute(); err != nil {
-        log.Fatal(err)
-    }
-
-    executions, _, err := client.ExecutionsAPI.CreateExecution(ctx, namespace, flowID, tenant).Wait(true).Execute()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    fmt.Println("Execution ID:", executions[0].GetId())
+	if _, err := flowLifecycle(context.Background(), client, "main"); err != nil {
+		log.Fatal(err)
+	}
 }
 ```
+
+The `flowLifecycle` function below is injected from the CI-tested example
+`go-sdk/test/basic_sdk_usage_example.go` (issue #144). Do not edit it by hand —
+change the example and re-run `java test-utils/EmbedSnippets.java --write README.md`.
+
+<!-- snippet:flow-lifecycle src=go-sdk/test/basic_sdk_usage_example.go lang=go -->
+```go
+// flowLifecycle lists the tenant's flows, creates one from YAML, updates it,
+// then triggers an execution and waits for it to finish, returning its id.
+func flowLifecycle(ctx context.Context, client *kestra.KestraClient, tenant string) (string, error) {
+	namespace := "company.team"
+	flowID := "hello_from_sdk"
+
+	// List the first page of flows in the tenant.
+	flows, err := client.Flows().SearchFlows(ctx, tenant, kestra.PtrInt(1), kestra.PtrInt(10), nil, nil)
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("Found %d flows\n", flows.GetTotal())
+
+	// Create a flow from its YAML source.
+	flowYAML := `id: hello_from_sdk
+namespace: company.team
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from the Kestra Go SDK!
+`
+	created, err := client.Flows().CreateFlow(ctx, tenant, flowYAML)
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("Created flow %s.%s (revision %d)\n", created.GetNamespace(), created.GetId(), created.GetRevision())
+
+	// Update the flow — UpdateFlow takes (namespace, id, tenant, body).
+	updatedYAML := `id: hello_from_sdk
+namespace: company.team
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello after update!
+`
+	if _, err := client.Flows().UpdateFlow(ctx, namespace, flowID, tenant, updatedYAML); err != nil {
+		return "", err
+	}
+
+	// Trigger an execution and wait for it to complete.
+	execution, err := client.Executions().CreateExecution(ctx, tenant, namespace, flowID, nil, kestra.PtrBool(true), nil, nil, nil, nil)
+	if err != nil {
+		return "", err
+	}
+	state := execution.GetState()
+	fmt.Printf("Execution %s finished in state %s\n", execution.GetId(), state.GetCurrent())
+
+	return execution.GetId(), nil
+}
+```
+<!-- /snippet -->
 
 ## How to update the SDK
 - Generate openapi from Kestra-EE: `./gradlew clean build updateOpenapiVersion -xtest`
