@@ -10,6 +10,8 @@ on:
       - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
+      - "README_JAVASCRIPT_SDK.md"
+      - "test-utils/embed_snippets.py"
   pull_request:
     branches:
       - main
@@ -19,6 +21,8 @@ on:
       - "javascript/test_javascript_sdk/**"
       - "kestra-ee.yml"
       - "generation-helpers/**"
+      - "README_JAVASCRIPT_SDK.md"
+      - "test-utils/embed_snippets.py"
   workflow_dispatch:
     inputs:
       skip-test:
@@ -62,6 +66,14 @@ jobs:
           root_version=$(echo "${{ steps.version.outputs.kestra_version }}" | sed 's/\.[xX]$//')
 
           echo "root_version=$root_version" >> $GITHUB_OUTPUT
+
+      # Static doc check — reads only the README and the example source (no SDK
+      # generation or Kestra container needed, so it fails fast). Guarantees the
+      # README usage snippet is identical to the CI-tested example
+      # (basicSDKUsageExample.ts). #144.
+      - name: Check README example is in sync with its tested source
+        working-directory: .
+        run: python3 test-utils/embed_snippets.py --check README_JAVASCRIPT_SDK.md
 
       - name: Generate SDK
         # Generate SDK with develop version to check
