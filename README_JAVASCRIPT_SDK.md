@@ -90,47 +90,14 @@ import * as WorkerAuthAPI           from "@kestra-io/kestra-sdk/worker-auth";
 import * as WorkerGroupsAPI         from "@kestra-io/kestra-sdk/worker-groups";
 ```
 
-### Example: search and create a flow
+### Example: a flow lifecycle
+
+Configure the client once (see [Configure the client](#configure-the-client)), pick a tenant, then
+call the domain modules:
 
 ```ts
 import { client } from "@kestra-io/kestra-sdk/client";
 import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
-
-client.setConfig({
-    baseURL: "https://<your-kestra-host>",
-    auth: () => "root@root.com:Root!1234",
-});
-
-const tenantId = "main";
-
-// Search flows
-const searchRes = await FlowsAPI.searchFlows({
-    page: 1,
-    size: 10,
-    tenant: tenantId,
-});
-console.log(searchRes.data);
-
-// Create a flow
-const createRes = await FlowsAPI.createFlow({
-    tenant: tenantId,
-    body: `
-id: hello-world
-namespace: my.namespace
-
-tasks:
-  - id: hello
-    type: io.kestra.plugin.core.log.Log
-    message: Hello World! 🚀
-`,
-});
-console.log(createRes.data);
-```
-
-### Example: trigger an execution
-
-```ts
-import { client } from "@kestra-io/kestra-sdk/client";
 import * as ExecutionsAPI from "@kestra-io/kestra-sdk/executions";
 
 client.setConfig({
@@ -138,10 +105,43 @@ client.setConfig({
     auth: () => "root@root.com:Root!1234",
 });
 
-const execution = await ExecutionsAPI.createExecution({
-    tenant: "main",
-    namespace: "my.namespace",
-    id: "hello-world",
-});
-console.log(execution.data);
+const tenant = "main";
 ```
+
+The snippet below — search flows, create one, then trigger an execution and wait for it — is injected
+from `javascript/test_javascript_sdk/basicSDKUsageExample.ts`, which runs in CI against a live Kestra,
+so it stays in sync with the SDK. Edit the example there (not this block) and re-run the injector with
+`python3 test-utils/embed_snippets.py --write README_JAVASCRIPT_SDK.md`.
+
+<!-- snippet:flow-lifecycle src=javascript/test_javascript_sdk/basicSDKUsageExample.ts lang=ts -->
+```ts
+const namespace = "company.team";
+const flowId = "hello_from_sdk";
+
+// List the first page of flows in the tenant.
+const flows = await FlowsAPI.searchFlows({ tenant, page: 1, size: 10 });
+console.log(`Found ${flows.results?.length ?? 0} flows`);
+
+// Create a flow from its YAML source.
+const flow = `
+id: hello_from_sdk
+namespace: company.team
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from the Kestra JavaScript SDK!
+`;
+const created = await FlowsAPI.createFlow({ tenant, body: flow });
+console.log(`Created flow ${created.namespace}.${created.id}`);
+
+// Trigger an execution of that flow and wait for it to finish.
+const execution = await ExecutionsAPI.createExecution({
+    tenant,
+    namespace,
+    id: flowId,
+    wait: true,
+});
+console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
+```
+<!-- /snippet -->
