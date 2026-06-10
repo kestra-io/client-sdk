@@ -1,5 +1,6 @@
 package io.kestra.sdk.api;
 
+import io.kestra.EnabledIfKestraVersion;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
@@ -77,7 +78,7 @@ public class NamespacesApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: namespace search no longer filters server-side by 'q' — returns all namespaces")
+    @EnabledIfKestraVersion(max = "1.3", reason = "2.0 namespace search no longer filters server-side by 'q' — returns all namespaces (#265)")
     void searchNamespaces_withQuery() throws ApiException {
         String id = randomId();
         api().createNamespace(TENANT, new Namespace().id(id));
@@ -111,7 +112,7 @@ public class NamespacesApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: namespace search no longer honors the sort parameter — ordering not applied")
+    @EnabledIfKestraVersion(max = "1.3", reason = "2.0 namespace search no longer honors the sort parameter — ordering not applied (#265)")
     void searchNamespaces_withSort() throws ApiException {
         String prefix = "sortns" + randomId().substring(0, 6);
         String id1 = prefix + "aaa";
@@ -130,7 +131,7 @@ public class NamespacesApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: namespace search no longer filters server-side — empty-result query still returns namespaces")
+    @EnabledIfKestraVersion(max = "1.3", reason = "2.0 namespace search no longer filters server-side — empty-result query still returns namespaces (#265)")
     void searchNamespaces_noResults() throws ApiException {
         PagedResultsNamespace result = api().searchNamespaces(TENANT, "nonexistent_ns_" + randomId(), 1, 10, null, null);
 
