@@ -50,13 +50,13 @@ export async function flowLifecycleExample(tenant: string) {
 
     // Create a flow from its YAML source.
     const flow = dedent`
-        id: hello_from_sdk
-        namespace: company.team
+        id: ${flowId}
+        namespace: ${namespace}
 
         tasks:
         - id: hello
-            type: io.kestra.plugin.core.log.Log
-            message: Hello from the Kestra JavaScript SDK!
+          type: io.kestra.plugin.core.log.Log
+          message: Hello from the Kestra JavaScript SDK!
     `;
     const created = await FlowsAPI.createFlow({ tenant, body: flow });
     console.log(`Created flow ${created.namespace}.${created.id}`);
