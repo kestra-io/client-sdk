@@ -123,14 +123,14 @@ const flows = await FlowsAPI.searchFlows({ tenant, page: 1, size: 10 });
 console.log(`Found ${flows.results?.length ?? 0} flows`);
 
 // Create a flow from its YAML source.
-const flow = `
-id: hello_from_sdk
-namespace: company.team
+const flow = dedent`
+    id: hello_from_sdk
+    namespace: company.team
 
-tasks:
-  - id: hello
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the Kestra JavaScript SDK!
+    tasks:
+    - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello from the Kestra JavaScript SDK!
 `;
 const created = await FlowsAPI.createFlow({ tenant, body: flow });
 console.log(`Created flow ${created.namespace}.${created.id}`);

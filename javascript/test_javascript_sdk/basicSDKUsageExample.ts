@@ -23,6 +23,17 @@ import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password } = fixtures;
 
+export function dedent(strings: TemplateStringsArray, ...values: string[]) {
+    const raw = strings.raw.reduce((acc, str, i) => acc + str + (values[i] ?? ""), "");
+    const lines = raw.split("\n");
+    const indent = lines.reduce((min, line) => {
+        if (line.trim() === "") return min;
+        const match = line.match(/^(\s*)/);
+        return match ? Math.min(min, match[1].length) : min;
+    }, Infinity);
+    return lines.map(line => line.slice(indent)).join("\n").trim();
+}
+
 export async function flowLifecycleExample(tenant: string) {
     configureBrowserClient({
         baseUrl: baseURL,
@@ -38,15 +49,15 @@ export async function flowLifecycleExample(tenant: string) {
     console.log(`Found ${flows.results?.length ?? 0} flows`);
 
     // Create a flow from its YAML source.
-    const flow = `
-id: hello_from_sdk
-namespace: company.team
+    const flow = dedent`
+        id: hello_from_sdk
+        namespace: company.team
 
-tasks:
-  - id: hello
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the Kestra JavaScript SDK!
-`;
+        tasks:
+        - id: hello
+            type: io.kestra.plugin.core.log.Log
+            message: Hello from the Kestra JavaScript SDK!
+    `;
     const created = await FlowsAPI.createFlow({ tenant, body: flow });
     console.log(`Created flow ${created.namespace}.${created.id}`);
 
