@@ -102,8 +102,14 @@ for KESTRA_VERSION in $versions; do
 
     echo "=== shard ${shard_idx}: ${shard} ==="
     set +e
+    # --reruns: the 2.0 develop stack is intermittently slow/unresponsive (a
+    # single request occasionally hangs past the 10s timeout) and community
+    # blueprint endpoints proxy to an external api.kestra.io that flakes with
+    # 502s. Retry a failed test a couple of times (with a delay so the stack can
+    # recover) so one transient blip doesn't red the whole suite. A genuinely
+    # broken test still fails after its reruns.
     # shellcheck disable=SC2086  # word-splitting intentional: shard is a file list
-    python3 -m pytest -v --timeout=10 ${shard}
+    python3 -m pytest -v --timeout=10 --reruns 2 --reruns-delay 5 ${shard}
     rc=$?
     set -e
     # exit code 5 = "no tests collected"; treat as success for this shard

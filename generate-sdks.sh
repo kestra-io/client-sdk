@@ -109,11 +109,13 @@ sed_inplace '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' pytho
 sed_inplace 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python/python-sdk/kestrapy/models/kv_controller_kv_detail.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python/python-sdk/kestrapy/__init__.py
 
-# Replace wrong prop in docs for each api
-for f in python-sdk/docs/*.md; do
-  [ -f "$f" ] || continue
-  sed -E -i 's/\b([A-Za-z]+)Api\b/\L\1/g' "$f"
-done
+# Since #237 the Python API classes are hand-written, so the generated docs no
+# longer match the SDK (wrong accessor/arg order/renamed methods — issue #144).
+# Rather than patch the generated examples with brittle sed (the previous loop
+# even had the wrong path and silently no-op'd), validate every docs/*.md
+# example against the live signatures and fail generation if any has drifted.
+# See design/examples-as-source-of-truth.md.
+python3 python/python-sdk/scripts/validate_doc_examples.py --check
 fi
 
 # Generate Javascript SDK

@@ -1,0 +1,134 @@
+name: SDK freshness check (latest Kestra)
+
+# Weekly, non-blocking early-warning run. It exercises every SDK's e2e test
+# suite against a Kestra EE server built from the *latest* line (`develop`,
+# i.e. the 2.x bleeding edge) so we catch API breaking changes proactively
+# instead of discovering the drift at release time (#250).
+#
+# This workflow deliberately:
+#   - forces the server to `develop` (it does NOT honour the stable pin used by
+#     the per-PR pipelines); a 401 storm or schema mismatch here is a *signal*.
+#   - skips the code-hygiene checks (README-sync, generate-diff) that the per-PR
+#     workflows run — those validate the repo, not drift against the live server.
+#   - never gates PRs/releases: it only runs on a schedule / manual dispatch and
+#     must not be added to branch-protection required checks.
+
+on:
+  schedule:
+    - cron: "0 14 * * 0" # every Sunday 14:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  # Bleeding-edge target. Bypasses the compute-version branch logic on purpose.
+  KESTRA_VERSION: develop
+
+jobs:
+  check:
+    name: ${{ matrix.sdk }} SDK vs latest Kestra
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # one SDK failing must not hide the others
+      matrix:
+        include:
+          - sdk: python
+          - sdk: go
+          - sdk: java
+          - sdk: javascript
+    env:
+      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@v5
+
+      # --- SDK-specific toolchains (only the matching leg's steps run) ---
+      - name: Set up Python
+        if: matrix.sdk == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9.23"
+
+      - name: Set up Go
+        if: matrix.sdk == 'go'
+        uses: actions/setup-go@v5
+
+      - name: Set up JDK
+        if: matrix.sdk == 'java'
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - name: Set up Node
+        if: matrix.sdk == 'javascript'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22.18"
+
+      # --- Shared: pull + license the EE image ---
+      - name: GCP - Auth with github service account
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Select license file
+        id: license
+        uses: ./.github/actions/set-license-file
+        with:
+          # 'develop' is not a v* version, so this resolves to the current
+          # (non-legacy) license file.
+          kestra_version: ${{ env.KESTRA_VERSION }}
+          license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
+          license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
+
+      - name: Write application secrets
+        run: echo "${{ steps.license.outputs.license }}" | base64 -d > test-utils/docker-setup/application-secrets.yml
+
+      # --- Run each SDK's existing test suite against the live develop server ---
+      - name: Test Python SDK
+        if: matrix.sdk == 'python'
+        working-directory: ./python/python-sdk
+        run: bash run-tests.sh "$KESTRA_VERSION"
+
+      - name: Test Go SDK
+        if: matrix.sdk == 'go'
+        working-directory: ./go-sdk
+        run: sh run-tests.sh "$KESTRA_VERSION"
+
+      - name: Test Java SDK
+        if: matrix.sdk == 'java'
+        working-directory: ./java/java-sdk
+        run: sh run-tests.sh "$KESTRA_VERSION"
+
+      # JS generates from the committed spec, then e2e-tests against the live
+      # develop server — so drift between the committed spec and the live API
+      # surfaces as failing tests.
+      - name: Generate JavaScript SDK
+        if: matrix.sdk == 'javascript'
+        run: ./generate-sdks.sh javascript
+
+      - name: Test JavaScript SDK
+        if: matrix.sdk == 'javascript'
+        working-directory: ./javascript
+        run: sh run-tests.sh "$KESTRA_VERSION" --no-build
+
+      # --- Alert only on failure ---
+      # Reuses the existing SLACK_WEBHOOK_URL secret (same mechanism as the Java
+      # publish job) and overrides the destination to #_int_alert-plugins-build
+      # so the plugin squad is notified of breakage against the latest Kestra.
+      - name: Notify Slack on failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          channel: "C09FE0QCN2E" # #_int_alert-plugins-build
+          custom_payload: |
+            {
+              "text": ":rotating_light: *SDK freshness check failed* — `${{ matrix.sdk }}` SDK no longer passes against Kestra `${{ env.KESTRA_VERSION }}` (latest).\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run> · triage: regenerate the SDK from the latest spec, or treat as a real upstream breaking change."
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

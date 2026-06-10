@@ -133,58 +133,71 @@ implementation("io.kestra:kestra-api-client:1.0.0")
 
 </details>
 
+Build a client, then perform a basic flow lifecycle:
+
 ```java
 import io.kestra.sdk.KestraClient;
-import io.kestra.sdk.api.FlowsApi;
-import java.util.List;
 
-public class KestraExample {
-    public static void main(String[] args) throws Exception {
-        KestraClient client = KestraClient.builder()
-            .url("https://<kestra-host>")
-            .basicAuth("user@kestra.io", "password")
-            .build();
-        // Service account alternative:
-        // KestraClient client = KestraClient.builder()
-        //     .url("https://<kestra-host>")
-        //     .tokenAuth("<service-account-api-key>")
-        //     .build();
+KestraClient client = KestraClient.builder()
+    .url("https://<kestra-host>")
+    .basicAuth("user@kestra.io", "password")
+    .build();
+// Service account alternative:
+// KestraClient client = KestraClient.builder()
+//     .url("https://<kestra-host>")
+//     .tokenAuth("<service-account-api-key>")
+//     .build();
 
-        String tenant = "main";
-        String namespace = "demo";
-        String flowId = "hello-from-sdk";
-
-        String flowYaml = """
-id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the SDK
-""";
-
-        FlowsApi flows = client.flows();
-        flows.createFlow(tenant, flowYaml);
-
-        String updatedFlowYaml = """
-id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello after update
-""";
-
-        flows.updateFlow(flowId, namespace, tenant, updatedFlowYaml);
-
-        var executions = client.executions()
-            .createExecution(namespace, flowId, true, tenant, null, null, null, null, null);
-        System.out.println("Execution ID: " + executions.get(0).getExecution().getId());
-    }
-}
+String tenant = "main";
 ```
+
+The block below is injected from the CI-tested example
+`java/java-sdk/java-sdk-test/src/main/java/io/kestra/example/BasicSDKUsageExample.java`
+(issue #144). Do not edit it by hand — change the example and re-run
+`java test-utils/EmbedSnippets.java --write README.md`.
+
+<!-- snippet:flow-lifecycle src=java/java-sdk/java-sdk-test/src/main/java/io/kestra/example/BasicSDKUsageExample.java lang=java -->
+```java
+String namespace = "company.team";
+String flowId = "hello_from_sdk";
+
+// List the first page of flows in the tenant.
+PagedResultsFlow flows = client.flows().searchFlows(tenant, 1, 10, null, List.of());
+System.out.println("Found " + flows.getResults().size() + " flows");
+
+// Create a flow from its YAML source.
+String flowYaml = """
+    id: hello_from_sdk
+    namespace: company.team
+
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello from the Kestra Java SDK!
+    """;
+FlowWithSource created = client.flows().createFlow(tenant, flowYaml);
+System.out.println("Created flow " + created.getNamespace() + "." + created.getId()
+    + " (revision " + created.getRevision() + ")");
+
+// Update the flow — updateFlow takes (namespace, id, tenant, body).
+String updatedYaml = """
+    id: hello_from_sdk
+    namespace: company.team
+
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello after update!
+    """;
+client.flows().updateFlow(namespace, flowId, tenant, updatedYaml);
+
+// Trigger an execution and wait for it to complete.
+ExecutionControllerExecutionResponse execution = client.executions()
+    .createExecution(tenant, namespace, flowId, null, true, null, null, null, null);
+System.out.println("Execution " + execution.getId()
+    + " finished in state " + execution.getState().getCurrent());
+```
+<!-- /snippet -->
 
 ### JavaScript (`@kestra-io/kestra-sdk`)
 
@@ -241,71 +254,98 @@ await new Promise((resolve, reject) =>
 ### Go (`github.com/kestra-io/client-sdk/go-sdk`)
 
 - Pull the module into your project with `go get github.com/kestra-io/client-sdk/go-sdk@latest`.
-- Update the first server entry (`cfg.Servers[0].URL`) so the client points to your Kestra host.
-- For Basic authentication wrap the request context with `ContextBasicAuth`. To use a service account, set `ContextAccessToken` instead.
+- Build a `KestraClient` with `NewClient`, pointing it at your Kestra host.
+- Authenticate with Basic credentials via `WithBasicAuth`, or with a service-account token via `WithTokenAuth`.
+
+Build a client, then perform a basic flow lifecycle:
 
 ```go
 package main
 
 import (
-    "context"
-    "fmt"
-    "log"
+	"context"
+	"fmt"
+	"log"
 
-    kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
-    cfg := kestra.NewConfiguration()
-    cfg.Servers[0].URL = "https://<kestra-host>"
+	client := kestra.NewClient(
+		"https://<kestra-host>",
+		kestra.WithBasicAuth("user@kestra.io", "password"),
+	)
+	// Service account alternative:
+	// client := kestra.NewClient(
+	// 	"https://<kestra-host>",
+	// 	kestra.WithTokenAuth("<service-account-api-key>"),
+	// )
 
-    client := kestra.NewAPIClient(cfg)
-
-    ctx := context.WithValue(context.Background(), kestra.ContextBasicAuth, kestra.BasicAuth{
-        UserName: "user@kestra.io",
-        Password: "password",
-    })
-    // Service account alternative:
-    // ctx := context.WithValue(context.Background(), kestra.ContextAccessToken, "<service-account-api-key>")
-
-    tenant := "main"
-    namespace := "demo"
-    flowID := "hello-from-sdk"
-
-    flowYaml := `id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello from the SDK
-`
-
-    if _, _, err := client.FlowsAPI.CreateFlow(ctx, tenant).Body(flowYaml).Execute(); err != nil {
-        log.Fatal(err)
-    }
-
-    updatedYaml := `id: hello-from-sdk
-namespace: demo
-
-tasks:
-  - id: log
-    type: io.kestra.plugin.core.log.Log
-    message: Hello after update
-`
-
-    if _, _, err := client.FlowsAPI.UpdateFlow(ctx, flowID, namespace, tenant).Body(updatedYaml).Execute(); err != nil {
-        log.Fatal(err)
-    }
-
-    executions, _, err := client.ExecutionsAPI.CreateExecution(ctx, namespace, flowID, tenant).Wait(true).Execute()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    fmt.Println("Execution ID:", executions[0].GetId())
+	if _, err := flowLifecycle(context.Background(), client, "main"); err != nil {
+		log.Fatal(err)
+	}
 }
 ```
+
+The `flowLifecycle` function below is injected from the CI-tested example
+`go-sdk/test/basic_sdk_usage_example.go` (issue #144). Do not edit it by hand —
+change the example and re-run `java test-utils/EmbedSnippets.java --write README.md`.
+
+<!-- snippet:flow-lifecycle src=go-sdk/test/basic_sdk_usage_example.go lang=go -->
+```go
+// flowLifecycle lists the tenant's flows, creates one from YAML, updates it,
+// then triggers an execution and waits for it to finish, returning its id.
+func flowLifecycle(ctx context.Context, client *kestra.KestraClient, tenant string) (string, error) {
+	namespace := "company.team"
+	flowID := "hello_from_sdk"
+
+	// List the first page of flows in the tenant.
+	flows, err := client.Flows().SearchFlows(ctx, tenant, kestra.PtrInt(1), kestra.PtrInt(10), nil, nil)
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("Found %d flows\n", flows.GetTotal())
+
+	// Create a flow from its YAML source.
+	flowYAML := `id: hello_from_sdk
+namespace: company.team
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from the Kestra Go SDK!
+`
+	created, err := client.Flows().CreateFlow(ctx, tenant, flowYAML)
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("Created flow %s.%s (revision %d)\n", created.GetNamespace(), created.GetId(), created.GetRevision())
+
+	// Update the flow — UpdateFlow takes (namespace, id, tenant, body).
+	updatedYAML := `id: hello_from_sdk
+namespace: company.team
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello after update!
+`
+	if _, err := client.Flows().UpdateFlow(ctx, namespace, flowID, tenant, updatedYAML); err != nil {
+		return "", err
+	}
+
+	// Trigger an execution and wait for it to complete.
+	execution, err := client.Executions().CreateExecution(ctx, tenant, namespace, flowID, nil, kestra.PtrBool(true), nil, nil, nil, nil)
+	if err != nil {
+		return "", err
+	}
+	state := execution.GetState()
+	fmt.Printf("Execution %s finished in state %s\n", execution.GetId(), state.GetCurrent())
+
+	return execution.GetId(), nil
+}
+```
+<!-- /snippet -->
 
 ## How to update the SDK
 - Generate openapi from Kestra-EE: `./gradlew clean build updateOpenapiVersion -xtest`
@@ -316,6 +356,30 @@ tasks:
 - Run tests of all SDKs: `TMP=~/IdeaProjects/client-sdk && cd $TMP/java/java-sdk && chmod 755 gradlew && ./run-tests.sh develop && cd $TMP/go-sdk && bash ./run-tests.sh develop && cd $TMP/javascript && bash ./run-tests.sh develop && cd $TMP/python/python-sdk && bash ./run-tests.sh develop`
 - ⚠ If an existing test fails, you're probably introducing a breaking change (or someone's prior commit did). If that's the case, make sure it's safe to introduce that before merging
 - Commit and make a PR
+
+## CI: weekly SDK freshness check
+
+The per-PR pipelines test each SDK against the Kestra version resolved for the
+branch and only run when that SDK's files change. To catch upstream API
+breaking changes early, `.github/workflows/sdk-freshness-check.yml` runs **every
+Sunday (14:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
+SDK test suites against a Kestra server built from the **latest line**
+(`develop`).
+
+The job is **non-blocking**: it only runs on a schedule / manual trigger, never
+on PRs, and must not be added to branch-protection required checks. A red run is
+an early-warning signal, not a merge gate. On failure it posts to Slack
+(`#_int_alert-plugins-build`, via the `SLACK_WEBHOOK_URL` secret) naming the
+SDK that broke, the Kestra version under test, and a link to the run.
+
+**Triaging an alert** — when a leg goes red, decide which case applies:
+- *The committed spec is stale* — `develop` added/changed an endpoint the SDK
+  doesn't know about yet. Regenerate from the latest spec (see *How to update
+  the SDK* above) and update tests.
+- *A real upstream breaking change* — `develop` removed or altered behaviour the
+  SDK relies on. Surface it to the plugin squad / upstream; the SDK (and
+  downstream consumers like `kestractl`) will need to absorb it before the next
+  major.
 
 ## License
 Apache 2.0 © [Kestra Technologies](https://kestra.io)

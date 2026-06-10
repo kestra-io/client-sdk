@@ -7,12 +7,16 @@ on:
       - "releases/v*"
     paths:
       - 'go-sdk/**'
+      - 'README.md'
+      - 'test-utils/**'
   pull_request:
     branches:
       - main
       - "releases/v*"
     paths:
       - 'go-sdk/**'
+      - 'README.md'
+      - 'test-utils/**'
   workflow_dispatch:
     inputs:
       skip-test:
@@ -45,6 +49,19 @@ jobs:
       - name: build
         id: build
         run: go build ./...
+
+      # JDK for the single-file snippet injector (no build tool needed).
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      # Static doc check — runs the JDK single-file tool (no Kestra container
+      # needed, so it fails fast). Guarantees the README Go usage snippet is
+      # identical to the CI-tested example (basic_sdk_usage_example.go). #144.
+      - name: Check README example is in sync with its tested source
+        run: java ../test-utils/EmbedSnippets.java --check ../README.md
 
       - name: GCP - Auth with github service account
         uses: "google-github-actions/auth@v2"
