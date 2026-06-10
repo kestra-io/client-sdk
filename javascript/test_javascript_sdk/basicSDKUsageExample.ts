@@ -16,7 +16,7 @@
  * flush-left so the YAML literal stays at column 0 (valid flow source) and the
  * injector dedents it cleanly.
  */
-import { client } from "@kestra-io/kestra-sdk/client";
+import { configureBrowserClient } from "@kestra-io/kestra-sdk";
 import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
 import * as ExecutionsAPI from "@kestra-io/kestra-sdk/executions";
 import fixtures from "./fixtures.json" with { type: "json" };
@@ -24,21 +24,21 @@ import fixtures from "./fixtures.json" with { type: "json" };
 const { baseURL, username, password } = fixtures;
 
 export async function flowLifecycleExample(tenant: string) {
-    client.setConfig({
-        baseURL,
+    configureBrowserClient({
+        baseUrl: baseURL,
         auth: () => `${username}:${password}`,
-    });
+    }, {});
 
-// region:flow-lifecycle
-const namespace = "company.team";
-const flowId = "hello_from_sdk";
+    // region:flow-lifecycle
+    const namespace = "company.team";
+    const flowId = "hello_from_sdk";
 
-// List the first page of flows in the tenant.
-const flows = await FlowsAPI.searchFlows({ tenant, page: 1, size: 10 });
-console.log(`Found ${flows.results?.length ?? 0} flows`);
+    // List the first page of flows in the tenant.
+    const flows = await FlowsAPI.searchFlows({ tenant, page: 1, size: 10 });
+    console.log(`Found ${flows.results?.length ?? 0} flows`);
 
-// Create a flow from its YAML source.
-const flow = `
+    // Create a flow from its YAML source.
+    const flow = `
 id: hello_from_sdk
 namespace: company.team
 
@@ -47,18 +47,18 @@ tasks:
     type: io.kestra.plugin.core.log.Log
     message: Hello from the Kestra JavaScript SDK!
 `;
-const created = await FlowsAPI.createFlow({ tenant, body: flow });
-console.log(`Created flow ${created.namespace}.${created.id}`);
+    const created = await FlowsAPI.createFlow({ tenant, body: flow });
+    console.log(`Created flow ${created.namespace}.${created.id}`);
 
-// Trigger an execution of that flow and wait for it to finish.
-const execution = await ExecutionsAPI.createExecution({
-    tenant,
-    namespace,
-    id: flowId,
-    wait: true,
-});
-console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
-// endregion
+    // Trigger an execution of that flow and wait for it to finish.
+    const execution = await ExecutionsAPI.createExecution({
+        tenant,
+        namespace,
+        id: flowId,
+        wait: true,
+    });
+    console.log(`Execution ${execution.id} finished in state ${execution.state?.current}`);
+    // endregion
 
     return execution;
 }

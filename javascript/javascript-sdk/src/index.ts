@@ -264,8 +264,6 @@ export const configureBrowserClient = (
         return _fetch(new Request(request, { headers: retryHeaders }))
     })
 
-    fetchClient = client
-
     return { client, initProgress, progressComplete, increaseProgress }
 }
 
@@ -432,12 +430,8 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
         return normalizedWithStatus
     })
 
-    fetchClient = client
-
     return client
 }
-
-let fetchClient: Client | null = null
 
 /**
  * Set a mock client instance controlled in tests
