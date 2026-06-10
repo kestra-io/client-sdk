@@ -33,6 +33,7 @@ public class TestUtils {
     private static final Pattern CSRF_META = Pattern.compile("<meta name=\"csrf-token\" content=\"([^\"]+)\">");
 
     private static volatile String apiToken;
+    private static volatile KestraServerVersion serverVersion;
 
     // ========================================================================
     // Client
@@ -43,6 +44,48 @@ public class TestUtils {
                 .tokenAuth(apiToken())
                 .url(HOST)
                 .build();
+    }
+
+    // ========================================================================
+    // Server version (for @EnabledIfKestraVersion gating)
+    // ========================================================================
+
+    /**
+     * The Kestra version under test, resolved once. Primary source is the live
+     * server ({@code GET /api/v1/configs} → {@code version}); if that call fails
+     * we fall back to the {@code KESTRA_VERSION} env var that {@code run-tests.sh}
+     * exports, and finally to {@link KestraServerVersion#LATEST}.
+     */
+    public static KestraServerVersion serverVersion() {
+        if (serverVersion == null) {
+            synchronized (TestUtils.class) {
+                if (serverVersion == null) {
+                    serverVersion = resolveServerVersion();
+                }
+            }
+        }
+        return serverVersion;
+    }
+
+    private static KestraServerVersion resolveServerVersion() {
+        try {
+            HttpResponse<String> configs = HttpClient.newHttpClient().send(HttpRequest.newBuilder()
+                    .uri(URI.create(HOST + "/api/v1/configs"))
+                    .header("Authorization", "Bearer " + apiToken())
+                    .GET()
+                    .build(), HttpResponse.BodyHandlers.ofString());
+            if (configs.statusCode() == 200) {
+                String version = new ObjectMapper().readTree(configs.body()).path("version").asText(null);
+                if (version != null && !version.isBlank()) {
+                    return KestraServerVersion.parse(version);
+                }
+            }
+        } catch (IOException e) {
+            // fall through to env / LATEST
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return KestraServerVersion.parse(System.getenv("KESTRA_VERSION"));
     }
 
     // ========================================================================
