@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import * as FlowsAPI from "@kestra-io/kestra-sdk/flows";
-import { flowLifecycleExample } from "./basicSDKUsageExample.js";
+import { dedent, flowLifecycleExample } from "./basicSDKUsageExample.js";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 describe("flowLifecycleExample", () => {
@@ -27,5 +27,19 @@ describe("flowLifecycleExample", () => {
                 // flow may not exist if the example failed before creating it
             }
         }
+    });
+});
+
+describe("dedent", () => {
+    it("dedents a multi-line string", () => {
+        const input = `
+            line 1
+              line 2
+            line 3
+        `;
+        const expected = `line 1
+  line 2
+line 3`;
+        expect(dedent`${input}`).toBe(expected);
     });
 });
