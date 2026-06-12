@@ -121,9 +121,9 @@ public class ApiClient extends JavaTimeFormatter {
 
   private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
     var connConfig = ConnectionConfig.custom();
-    if (connectMs > 0) {
-      connConfig.setConnectTimeout(Timeout.ofMilliseconds(connectMs));
-    }
+    connConfig.setConnectTimeout(connectMs > 0
+        ? Timeout.ofMilliseconds(connectMs)
+        : Timeout.DISABLED);
     var cm = PoolingHttpClientConnectionManagerBuilder.create()
         .setDefaultConnectionConfig(connConfig.build())
         .build();
