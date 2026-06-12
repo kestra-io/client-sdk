@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.Cookie;
@@ -31,6 +32,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.util.Timeout;
 import org.apache.hc.core5.http.ContentType;
@@ -118,16 +120,30 @@ public class ApiClient extends JavaTimeFormatter {
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
 
   private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
-    var reqConfig = RequestConfig.custom();
+    var connConfig = ConnectionConfig.custom();
     if (connectMs > 0) {
-      reqConfig.setConnectTimeout(Timeout.ofMilliseconds(connectMs));
+      connConfig.setConnectTimeout(Timeout.ofMilliseconds(connectMs));
     }
+    var cm = PoolingHttpClientConnectionManagerBuilder.create()
+        .setDefaultConnectionConfig(connConfig.build())
+        .build();
+
+    var reqConfig = RequestConfig.custom();
     if (readMs > 0) {
       reqConfig.setResponseTimeout(Timeout.ofMilliseconds(readMs));
     }
     return HttpClients.custom()
+        .setConnectionManager(cm)
         .setDefaultRequestConfig(reqConfig.build())
         .build();
+  }
+
+  private void replaceHttpClient(CloseableHttpClient next) {
+    var old = this.httpClient;
+    this.httpClient = next;
+    if (old != null) {
+      try { old.close(); } catch (Exception ignored) {}
+    }
   }
 
   public ApiClient(CloseableHttpClient httpClient) {
@@ -457,7 +473,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
    public ApiClient setConnectTimeout(int connectionTimeout) {
      this.connectionTimeout = connectionTimeout;
-     this.httpClient = buildHttpClient(this.connectionTimeout, this.readTimeout);
+     replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
      return this;
    }
 
@@ -478,7 +494,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public ApiClient setReadTimeout(int readTimeout) {
     this.readTimeout = readTimeout;
-    this.httpClient = buildHttpClient(this.connectionTimeout, this.readTimeout);
+    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
     return this;
   }
 

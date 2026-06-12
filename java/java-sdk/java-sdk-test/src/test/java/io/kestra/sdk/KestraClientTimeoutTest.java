@@ -6,10 +6,6 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Verifies that connectTimeout/readTimeout set on the builder propagate to the underlying ApiClient.
- * No live Kestra instance required.
- */
 class KestraClientTimeoutTest {
 
     @Test
