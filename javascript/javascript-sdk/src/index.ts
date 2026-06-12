@@ -81,6 +81,16 @@ export const configureAxios = (
     clientConfig: Config<ClientOptions> = {},
     options: {
         oss?: boolean,
+        /**
+         * Request timeout in milliseconds. `0` means no timeout (infinite).
+         * Defaults to `0` (infinite). Previously hard-coded to 15 000 ms.
+         */
+        timeout?: number,
+        /**
+         * Timeout in milliseconds for the background token-refresh call.
+         * Defaults to `5000` ms.
+         */
+        authTimeout?: number,
         router?: {
             push: (location: { name: string, query?: Record<string, string> }) => void;
             beforeEach: (callback: (to: any, from: any) => void) => void;
@@ -107,6 +117,8 @@ export const configureAxios = (
 ) => {
     const {
         oss = false,
+        timeout = 0,
+        authTimeout = 5000,
         router,
         coreStore,
         authStore,
@@ -130,7 +142,7 @@ export const configureAxios = (
     } = options
 
     const instance = configureClient(clientConfig, {
-        timeout: 15000,
+        timeout,
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
         onDownloadProgress: progressInterceptor,
@@ -233,7 +245,7 @@ export const configureAxios = (
                     try {
                         await instance.post("/oauth/access_token?grant_type=refresh_token", null, {
                             headers: { "Content-Type": "application/json" },
-                            timeout: 5000
+                            timeout: authTimeout
                         })
 
                         // Process queued requests

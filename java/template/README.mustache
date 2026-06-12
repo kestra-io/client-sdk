@@ -238,6 +238,26 @@ Class | Method | HTTP request | Description
 
 {{/authMethods}}
 
+## Configuring timeouts
+
+Use the `KestraClient` builder to set timeouts before making any API call.
+A value of `0` (or omitting the method entirely) means no timeout — the connection or read will wait indefinitely.
+
+```java
+import io.kestra.sdk.KestraClient;
+import java.time.Duration;
+
+var client = KestraClient.builder()
+    .url("https://kestra.example.com")
+    .token("your-api-token")
+    .connectTimeout(Duration.ofSeconds(10))   // 0 = infinite (default)
+    .readTimeout(Duration.ofMinutes(30))       // 0 = infinite (default)
+    .build();
+```
+
+Both `connectTimeout` and `readTimeout` accept any `java.time.Duration`.
+Pass `Duration.ZERO` (or simply omit the call) to restore the infinite-wait default.
+
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.

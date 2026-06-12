@@ -22,7 +22,14 @@ from kestrapy.api.test_suites_api import TestSuitesApi
 
 
 class KestraClient:
-    def __init__(self, configuration=None, *, host=None, username=None, password=None, token=None):
+    def __init__(self, configuration=None, *, host=None, username=None, password=None, token=None, timeout=None):
+        """Create a KestraClient.
+
+        Args:
+            timeout: Request timeout in seconds. Accepts a float (applied to both connect
+                and read), a ``(connect, read)`` tuple, or ``None`` for no timeout (infinite).
+                Defaults to ``None``.
+        """
         self._session = requests.Session()
 
         if configuration is not None:
@@ -44,11 +51,12 @@ class KestraClient:
                 self._session.headers["Authorization"] = f"Basic {creds}"
 
         self._base_url = host.rstrip("/")
+        self._timeout = timeout
         self._apis = {}
 
     def _get_api(self, cls):
         if cls not in self._apis:
-            self._apis[cls] = cls(self._session, self._base_url)
+            self._apis[cls] = cls(self._session, self._base_url, timeout=self._timeout)
         return self._apis[cls]
 
     @property
