@@ -128,8 +128,9 @@ def _purge_namespaces(client, namespaces):
     starts from an empty database — so giving up early is preferable to letting
     a slow server fail the suite at teardown.
     """
-    gc_client = KestraClient(host=HOST, timeout=_GC_PER_CALL_TIMEOUT)
-    gc_client._session = client._session
+    auth_header = client._session.headers.get("Authorization")
+    token = auth_header.removeprefix("Bearer ") if auth_header and auth_header.startswith("Bearer ") else None
+    gc_client = KestraClient(host=HOST, token=token, timeout=_GC_PER_CALL_TIMEOUT)
     deadline = time.monotonic() + _GC_TOTAL_BUDGET
     for ns in namespaces:
         for call in (
