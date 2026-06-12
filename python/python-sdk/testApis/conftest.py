@@ -128,27 +128,21 @@ def _purge_namespaces(client, namespaces):
     starts from an empty database — so giving up early is preferable to letting
     a slow server fail the suite at teardown.
     """
-    apis = (client.executions, client.flows, client.namespaces)
-    saved = [api._timeout for api in apis]
-    for api in apis:
-        api._timeout = _GC_PER_CALL_TIMEOUT
+    gc_client = KestraClient(host=HOST, timeout=_GC_PER_CALL_TIMEOUT)
+    gc_client._session = client._session
     deadline = time.monotonic() + _GC_TOTAL_BUDGET
-    try:
-        for ns in namespaces:
-            for call in (
-                lambda: client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)]),
-                lambda: client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)]),
-                lambda: client.namespaces.delete_namespace(ns, TENANT),
-            ):
-                if time.monotonic() >= deadline:
-                    return  # out of budget; abandon the rest
-                try:
-                    call()
-                except Exception:
-                    pass  # already deleted by the test itself, or non-empty — fine
-    finally:
-        for api, timeout in zip(apis, saved):
-            api._timeout = timeout
+    for ns in namespaces:
+        for call in (
+            lambda: gc_client.executions.delete_executions_by_query(TENANT, [ns_filter(ns)]),
+            lambda: gc_client.flows.delete_flows_by_query(TENANT, [ns_filter(ns)]),
+            lambda: gc_client.namespaces.delete_namespace(ns, TENANT),
+        ):
+            if time.monotonic() >= deadline:
+                return  # out of budget; abandon the rest
+            try:
+                call()
+            except Exception:
+                pass  # already deleted by the test itself, or non-empty — fine
 
 
 @pytest.fixture(autouse=True, scope="module")
