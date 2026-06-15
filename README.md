@@ -362,7 +362,7 @@ tasks:
 The per-PR pipelines test each SDK against the Kestra version resolved for the
 branch and only run when that SDK's files change. To catch upstream API
 breaking changes early, `.github/workflows/sdk-freshness-check.yml` runs **every
-day (14:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
+day (05:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
 SDK test suites against a Kestra server built from the **latest line**
 (`develop`).
 

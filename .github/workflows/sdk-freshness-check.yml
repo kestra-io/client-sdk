@@ -15,7 +15,7 @@ name: SDK freshness check (latest Kestra)
 
 on:
   schedule:
-    - cron: "0 14 * * *" # every day 14:00 UTC
+    - cron: "0 5 * * *" # every day 05:00 UTC
   workflow_dispatch: {}
 
 permissions:
