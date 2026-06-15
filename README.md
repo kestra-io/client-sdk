@@ -357,12 +357,12 @@ tasks:
 - ⚠ If an existing test fails, you're probably introducing a breaking change (or someone's prior commit did). If that's the case, make sure it's safe to introduce that before merging
 - Commit and make a PR
 
-## CI: weekly SDK freshness check
+## CI: daily SDK freshness check
 
 The per-PR pipelines test each SDK against the Kestra version resolved for the
 branch and only run when that SDK's files change. To catch upstream API
 breaking changes early, `.github/workflows/sdk-freshness-check.yml` runs **every
-Sunday (14:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
+day (05:00 UTC)** — and on manual `workflow_dispatch` — exercising all four
 SDK test suites against a Kestra server built from the **latest line**
 (`develop`).
 

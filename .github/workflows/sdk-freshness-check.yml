@@ -1,6 +1,6 @@
 name: SDK freshness check (latest Kestra)
 
-# Weekly, non-blocking early-warning run. It exercises every SDK's e2e test
+# Daily, non-blocking early-warning run. It exercises every SDK's e2e test
 # suite against a Kestra EE server built from the *latest* line (`develop`,
 # i.e. the 2.x bleeding edge) so we catch API breaking changes proactively
 # instead of discovering the drift at release time (#250).
@@ -15,7 +15,7 @@ name: SDK freshness check (latest Kestra)
 
 on:
   schedule:
-    - cron: "0 14 * * 0" # every Sunday 14:00 UTC
+    - cron: "0 5 * * *" # every day 05:00 UTC
   workflow_dispatch: {}
 
 permissions:
