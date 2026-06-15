@@ -46,6 +46,25 @@ import kestrapy
 
 Execute `pytest` to run the tests.
 
+## Timeouts
+
+Pass a `timeout` argument to `KestraClient` to control how long requests wait before raising `requests.Timeout`.
+
+```python
+from kestrapy import KestraClient
+
+# No timeout — waits indefinitely (the default)
+client = KestraClient(host="https://kestra.example.com", token="your-api-token", timeout=None)
+
+# Single float — total seconds for the whole request (connect + read)
+client = KestraClient(host="https://kestra.example.com", token="your-api-token", timeout=30.0)
+
+# (connect, read) tuple — fine-grained control
+client = KestraClient(host="https://kestra.example.com", token="your-api-token", timeout=(10.0, 300.0))
+```
+
+The `timeout` value is forwarded directly to [`requests`](https://docs.python-requests.org/en/latest/user/advanced/#timeouts), so any form accepted by `requests` is valid here.
+
 ## Getting Started
 
 Please follow the [installation procedure](#installation--usage) and then run the following:

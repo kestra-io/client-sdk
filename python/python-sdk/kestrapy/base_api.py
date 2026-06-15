@@ -37,7 +37,7 @@ class BaseApi:
     OCTET = "application/octet-stream"
     CSV = "text/csv"
 
-    def __init__(self, session: requests.Session, base_url: str, timeout: int = 300):
+    def __init__(self, session: requests.Session, base_url: str, timeout=None):
         self._session = session
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
