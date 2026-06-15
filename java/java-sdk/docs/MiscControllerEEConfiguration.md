@@ -16,7 +16,6 @@
 |**isCustomDashboardsEnabled** | **Boolean** |  |  [optional] |
 |**isAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
 |**isUiAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
-|**isTemplateEnabled** | **Boolean** |  |  [optional] |
 |**environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  |  [optional] |
 |**url** | **String** |  |  [optional] |
 |**preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  |  [optional] |
@@ -39,12 +38,13 @@
 |**leftSidebar** | [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  |  [optional] |
 |**rightSidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  |  [optional] |
 |**inMaintenance** | **Boolean** |  |  [optional] |
-|**passwordRegexp** | **String** |  |  [optional] |
+|**passwordConfiguration** | [**PasswordConfiguration**](PasswordConfiguration.md) |  |  [optional] |
 |**passwordlessEnabled** | **Boolean** |  |  [optional] |
 |**airgapped** | **Boolean** |  |  [optional] |
 |**featureGating** | **Boolean** |  |  [optional] |
 |**features** | **List&lt;String&gt;** |  |  [optional] |
 |**killSwitches** | [**List&lt;KillSwitch&gt;**](KillSwitch.md) |  |  [optional] |
+|**workerAuthEnabled** | **Boolean** |  |  [optional] |
 
 
 

@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**createDashboard**](DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source |
 | [**dashboard**](DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard |
 | [**dashboardChartData**](DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data |
+| [**defaultDashboards1**](DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
 | [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard |
 | [**exportChartToCsv**](DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV |
 | [**exportDashboardChartDataToCSV**](DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV |
@@ -31,6 +32,7 @@ Create a dashboard from yaml source
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -73,7 +75,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -100,6 +102,7 @@ Get a dashboard
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -142,7 +145,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -169,6 +172,7 @@ Generate a dashboard chart data
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -215,7 +219,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -227,6 +231,74 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | getDashboardChartData 200 response |  -  |
+
+
+## defaultDashboards1
+
+> DashboardSettings defaultDashboards1(tenant)
+
+Get default dashboards
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.DashboardsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        try {
+            DashboardSettings result = kestraClient.DashboardsApi().defaultDashboards1(tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DashboardsApi#defaultDashboards1");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**DashboardSettings**](DashboardSettings.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getDefaultDashboards_1 200 response |  -  |
 
 
 ## deleteDashboard
@@ -242,6 +314,7 @@ Delete a dashboard
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -283,7 +356,7 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -310,6 +383,7 @@ Export a table chart data to CSV
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -352,7 +426,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -379,6 +453,7 @@ Export a dashboard chart data to CSV
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -425,7 +500,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -452,6 +527,7 @@ Preview a chart data
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -494,7 +570,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -510,7 +586,7 @@ No authorization required
 
 ## searchDashboards
 
-> PagedResultsDashboardControllerDashboardResponse searchDashboards(tenant, size, page, sort, q)
+> PagedResultsDashboardControllerDashboardResponse searchDashboards(tenant, page, size, q, sort)
 
 Search for dashboards
 
@@ -521,6 +597,7 @@ Search for dashboards
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -534,12 +611,12 @@ public class Example {
         .build();
 
         String tenant = "tenant_example"; // String | 
-        Integer size = 10; // Integer | The current page size
         Integer page = 1; // Integer | The current page
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        Integer size = 10; // Integer | The current page size
         String q = "q_example"; // String | The filter query
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsDashboardControllerDashboardResponse result = kestraClient.DashboardsApi().searchDashboards(tenant, size, page, sort, q);
+            PagedResultsDashboardControllerDashboardResponse result = kestraClient.DashboardsApi().searchDashboards(tenant, page, size, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardsApi#searchDashboards");
@@ -558,10 +635,10 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **q** | **String**| The filter query | [optional] |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 
 ### Return type
 
@@ -569,7 +646,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -596,6 +673,7 @@ Update a dashboard
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -640,7 +718,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -667,6 +745,7 @@ Validate a chart from yaml source
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -709,7 +788,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -736,6 +815,7 @@ Validate dashboard from yaml source
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
 import io.kestra.sdk.api.DashboardsApi;
 
@@ -778,7 +858,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

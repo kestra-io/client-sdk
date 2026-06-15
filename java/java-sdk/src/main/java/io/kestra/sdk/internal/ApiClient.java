@@ -22,6 +22,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
@@ -30,7 +32,9 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.util.Timeout;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -99,6 +103,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> serverVariables = null;
   protected boolean debugging = false;
   protected int connectionTimeout = 0;
+  protected int readTimeout = 0;
 
   protected CloseableHttpClient httpClient;
   protected ObjectMapper objectMapper;
@@ -109,10 +114,37 @@ public class ApiClient extends JavaTimeFormatter {
   protected ThreadLocal<Integer> lastStatusCode = new ThreadLocal<>();
   protected ThreadLocal<Map<String, List<String>>> lastResponseHeaders = new ThreadLocal<>();
 
-  protected DateFormat dateFormat;
+  protected ThreadLocal<DateFormat> dateFormat;
 
   // Methods that can have a request body
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
+
+  private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
+    var connConfig = ConnectionConfig.custom();
+    connConfig.setConnectTimeout(connectMs > 0
+        ? Timeout.ofMilliseconds(connectMs)
+        : Timeout.DISABLED);
+    var cm = PoolingHttpClientConnectionManagerBuilder.create()
+        .setDefaultConnectionConfig(connConfig.build())
+        .build();
+
+    var reqConfig = RequestConfig.custom();
+    if (readMs > 0) {
+      reqConfig.setResponseTimeout(Timeout.ofMilliseconds(readMs));
+    }
+    return HttpClients.custom()
+        .setConnectionManager(cm)
+        .setDefaultRequestConfig(reqConfig.build())
+        .build();
+  }
+
+  private void replaceHttpClient(CloseableHttpClient next) {
+    var old = this.httpClient;
+    this.httpClient = next;
+    if (old != null) {
+      try { old.close(); } catch (Exception ignored) {}
+    }
+  }
 
   public ApiClient(CloseableHttpClient httpClient) {
     objectMapper = new ObjectMapper();
@@ -127,7 +159,7 @@ public class ApiClient extends JavaTimeFormatter {
     objectMapper.registerModule(new RFC3339JavaTimeModule());
     objectMapper.setDateFormat(ApiClient.buildDefaultDateFormat());
 
-    dateFormat = ApiClient.buildDefaultDateFormat();
+    dateFormat = ThreadLocal.withInitial(ApiClient::buildDefaultDateFormat);
 
     // Set default User-Agent.
     setUserAgent("OpenAPI-Generator/v1.0.5/java");
@@ -143,7 +175,7 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   public ApiClient() {
-    this(HttpClients.createDefault());
+    this(buildHttpClient(0, 0));
   }
 
   public static DateFormat buildDefaultDateFormat() {
@@ -434,22 +466,44 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the connect timeout (in milliseconds).
-   * A value of 0 means no timeout, otherwise values must be between 1 and
+   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
    * {@link Integer#MAX_VALUE}.
    * @param connectionTimeout Connection timeout in milliseconds
    * @return API client
    */
    public ApiClient setConnectTimeout(int connectionTimeout) {
      this.connectionTimeout = connectionTimeout;
+     replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
      return this;
    }
+
+  /**
+   * Read/response timeout (in milliseconds).
+   * @return Read timeout, 0 means infinite
+   */
+  public int getReadTimeout() {
+    return readTimeout;
+  }
+
+  /**
+   * Set the read/response timeout (in milliseconds).
+   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
+   * {@link Integer#MAX_VALUE}.
+   * @param readTimeout Read timeout in milliseconds
+   * @return API client
+   */
+  public ApiClient setReadTimeout(int readTimeout) {
+    this.readTimeout = readTimeout;
+    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
+    return this;
+  }
 
   /**
    * Get the date format used to parse/format date parameters.
    * @return Date format
    */
   public DateFormat getDateFormat() {
-    return dateFormat;
+    return dateFormat.get();
   }
 
   /**
@@ -457,10 +511,9 @@ public class ApiClient extends JavaTimeFormatter {
    * @param dateFormat Date format
    * @return API client
    */
-  public ApiClient setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-    // Also set the date format for model (de)serialization with Date properties.
-    this.objectMapper.setDateFormat((DateFormat) dateFormat.clone());
+  public ApiClient setDateFormat(DateFormat newDateFormat) {
+    this.dateFormat = ThreadLocal.withInitial(() -> (DateFormat) newDateFormat.clone());
+    this.objectMapper.setDateFormat((DateFormat) newDateFormat.clone());
     return this;
   }
 
@@ -471,7 +524,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public Date parseDate(String str) {
     try {
-      return dateFormat.parse(str);
+      return dateFormat.get().parse(str);
     } catch (java.text.ParseException e) {
       throw new RuntimeException(e);
     }
@@ -483,7 +536,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return Date in string format
    */
   public String formatDate(Date date) {
-    return dateFormat.format(date);
+    return dateFormat.get().format(date);
   }
 
   /**
@@ -560,6 +613,12 @@ public class ApiClient extends JavaTimeFormatter {
         return sb.toString();
     }
 
+    private static String filterFieldName(String field) {
+        if ("query".equalsIgnoreCase(field)) return "q";
+        if ("min_level".equalsIgnoreCase(field)) return "level";
+        return toCamelCaseFromFolder(field);
+    }
+
   /**
    * Formats the specified collection query parameters to a list of {@code Pair} objects.
    *
@@ -582,7 +641,7 @@ public class ApiClient extends JavaTimeFormatter {
         for (Object o : value) {
             if (o instanceof QueryFilter queryFilter) {
                 String baseFilterQuery = "filters[" +
-                    ("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString())) +
+                    filterFieldName(queryFilter.getField().toString()) +
                     "][" +
                     queryFilter.getOperation() +
                     "]";
@@ -653,7 +712,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @return True if MIME type is boolean
    */
   public boolean isJsonMime(String mime) {
-    String jsonMime = "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
+    String jsonMime = "(?i)^(application/json|text/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
@@ -850,8 +909,8 @@ public class ApiClient extends JavaTimeFormatter {
       }
 
       return objectMapper.readValue(content, valueType);
-    } else if (mimeType.toLowerCase().startsWith("text/")) {
-      // convert input stream to string
+    } else if (mimeType.toLowerCase().startsWith("text/")
+            || mimeType.toLowerCase().contains("yaml")) {
       return (T) EntityUtils.toString(entity);
     } else {
       Map<String, List<String>> responseHeaders = transformResponseHeaders(response.getHeaders());
@@ -1013,7 +1072,8 @@ public class ApiClient extends JavaTimeFormatter {
     if (isSuccessfulStatus(statusCode)) {
       return this.deserialize(response, returnType);
     } else {
-      String message = EntityUtils.toString(response.getEntity());
+      HttpEntity entity = response.getEntity();
+      String message = entity != null ? EntityUtils.toString(entity) : "HTTP " + statusCode;
       throw new ApiException(message, statusCode, responseHeaders, message);
     }
   }
@@ -1095,8 +1155,7 @@ public class ApiClient extends JavaTimeFormatter {
       } else {
         throw new ApiException("method " + method + " does not support a request body");
       }
-    } else {
-      // for empty body
+    } else if (isBodyAllowed(method)) {
       builder.setEntity(new StringEntity("", contentTypeObj));
     }
 
@@ -1132,38 +1191,67 @@ public class ApiClient extends JavaTimeFormatter {
           Map<String, String> headerParams,
           Map<String, String> cookieParams,
           String[] authNames) throws ApiException {
+    return openEventStream(path, queryParams, collectionQueryParams, urlQueryDeepObject,
+            headerParams, cookieParams, authNames, null);
+  }
+
+  /**
+   * Opens an SSE stream. When {@code requestRef} is provided, the (cancellable)
+   * request is exposed through it so callers can {@code abort()} the exchange:
+   * closing the response of a live event stream would try to drain it to EOF
+   * and block, while abort releases the connection immediately.
+   */
+  public org.apache.hc.client5.http.impl.classic.CloseableHttpResponse openEventStream(
+          String path,
+          List<Pair> queryParams,
+          List<Pair> collectionQueryParams,
+          String urlQueryDeepObject,
+          Map<String, String> headerParams,
+          Map<String, String> cookieParams,
+          String[] authNames,
+          java.util.concurrent.atomic.AtomicReference<org.apache.hc.client5.http.classic.methods.HttpUriRequestBase> requestRef) throws ApiException {
     updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
     final String url = buildUrl(path, queryParams, collectionQueryParams, urlQueryDeepObject);
 
-    ClassicRequestBuilder builder = ClassicRequestBuilder.create("GET");
-    builder.setUri(url);
+    org.apache.hc.client5.http.classic.methods.HttpGet request =
+            new org.apache.hc.client5.http.classic.methods.HttpGet(url);
+    if (requestRef != null) {
+      requestRef.set(request);
+    }
 
-    builder.addHeader("Accept", "text/event-stream");
+    request.addHeader("Accept", "text/event-stream");
+    // SSE must not be gzip-compressed: the decompressing stream buffers small
+    // events and readLine() would block until the (never-ending) stream closes
+    request.addHeader("Accept-Encoding", "identity");
 
     for (Entry<String, String> keyValue : headerParams.entrySet()) {
-      builder.addHeader(keyValue.getKey(), keyValue.getValue());
+      request.addHeader(keyValue.getKey(), keyValue.getValue());
     }
     for (Map.Entry<String,String> keyValue : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(keyValue.getKey())) {
-        builder.addHeader(keyValue.getKey(), keyValue.getValue());
+        request.addHeader(keyValue.getKey(), keyValue.getValue());
       }
     }
 
     BasicCookieStore store = new BasicCookieStore();
-    for (Entry<String, String> keyValue : cookieParams.entrySet()) {
-      store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
-    }
-    for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
-      if (!cookieParams.containsKey(keyValue.getKey())) {
-        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+    try {
+      for (Entry<String, String> keyValue : cookieParams.entrySet()) {
+        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), request.getUri()));
       }
+      for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
+        if (!cookieParams.containsKey(keyValue.getKey())) {
+          store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), request.getUri()));
+        }
+      }
+    } catch (java.net.URISyntaxException e) {
+      throw new ApiException(e);
     }
 
     HttpClientContext context = HttpClientContext.create();
     context.setCookieStore(store);
 
     try {
-      return httpClient.execute(builder.build(), context);
+      return httpClient.execute(request, context);
     } catch (IOException e) {
       throw new ApiException(e);
     }

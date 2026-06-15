@@ -1,0 +1,208 @@
+package io.kestra.sdk.api;
+
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.model.*;
+import org.junit.jupiter.api.*;
+
+import java.util.List;
+import java.util.Map;
+
+import static io.kestra.TestUtils.*;
+import static org.assertj.core.api.Assertions.*;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class KvApiTest {
+
+    static KvApi api() {
+        return client().kv();
+    }
+
+    // ========================================================================
+    // Set & Get
+    // ========================================================================
+
+    @Test
+    void setAndGetKeyValue_string() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "mykey", TENANT, "\"hello world\"");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "mykey", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.STRING);
+        assertThat(detail.getValue()).isEqualTo("hello world");
+    }
+
+    @Test
+    void setAndGetKeyValue_number() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "count", TENANT, "42");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "count", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.NUMBER);
+        assertThat(((Number) detail.getValue()).intValue()).isEqualTo(42);
+    }
+
+    @Test
+    void setAndGetKeyValue_jsonObject() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "obj", TENANT, "{\"foo\":\"bar\"}");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "obj", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.JSON);
+        assertThat(detail.getValue()).isInstanceOf(Map.class);
+        assertThat(((Map<?, ?>) detail.getValue()).get("foo")).isEqualTo("bar");
+    }
+
+    @Test
+    void setAndGetKeyValue_jsonArray() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "arr", TENANT, "[1,2,3]");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "arr", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getType()).isEqualTo(KVType.JSON);
+        assertThat(detail.getValue()).isInstanceOf(List.class);
+        assertThat((List<?>) detail.getValue()).hasSize(3);
+    }
+
+    @Test
+    void setKeyValue_overwrite() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "key1", TENANT, "\"first\"");
+        api().setKeyValue(ns, "key1", TENANT, "\"second\"");
+
+        KVControllerKvDetail detail = api().keyValue(ns, "key1", TENANT);
+        assertThat(detail).isNotNull();
+        assertThat(detail.getValue()).isEqualTo("second");
+    }
+
+    @Test
+    void keyValue_notFound() {
+        assertThatThrownBy(() -> api().keyValue("nonexistent_ns_" + randomId(), "nonexistent", TENANT))
+                .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // Delete
+    // ========================================================================
+
+    @Test
+    void deleteKeyValue_existing() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "todelete", TENANT, "\"value\"");
+        Boolean result = api().deleteKeyValue(ns, "todelete", TENANT);
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void deleteKeyValue_nonexistent() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        Boolean result = api().deleteKeyValue(ns, "nonexistent", TENANT);
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void deleteKeyValues_bulk() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "k1", TENANT, "\"v1\"");
+        api().setKeyValue(ns, "k2", TENANT, "\"v2\"");
+
+        KVControllerApiDeleteBulkRequest request = new KVControllerApiDeleteBulkRequest()
+                .keys(List.of("k1", "k2"));
+        KVControllerApiDeleteBulkResponse resp = api().deleteKeyValues(ns, TENANT, request);
+        assertThat(resp).isNotNull();
+    }
+
+    // ========================================================================
+    // List & Search
+    // ========================================================================
+
+    @Test
+    void listAllKeys_basic() throws ApiException {
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, null);
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull();
+    }
+
+    @Test
+    void listAllKeys_withPagination() throws ApiException {
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 5, null, null);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void listAllKeys_withNamespaceFilter() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "filtered_key", TENANT, "\"filtered_value\"");
+
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, List.of(nsFilter(ns)));
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults()).anyMatch(e -> "filtered_key".equals(e.getKey()));
+    }
+
+    @Test
+    void listAllKeys_withSort() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        api().setKeyValue(ns, "zzz_key", TENANT, "\"val1\"");
+        api().setKeyValue(ns, "aaa_key", TENANT, "\"val2\"");
+
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, List.of("key:asc"), List.of(nsFilter(ns)));
+
+        assertThat(result.getResults()).hasSize(2);
+        assertThat(result.getResults().get(0).getKey()).isEqualTo("aaa_key");
+        assertThat(result.getResults().get(1).getKey()).isEqualTo("zzz_key");
+    }
+
+    @Test
+    void listAllKeys_noResults() throws ApiException {
+        PagedResultsKVEntry result = api().listAllKeys(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isEmpty();
+    }
+
+    @Test
+    void listKeysWithInheritance_basic() throws ApiException {
+        String parentNs = randomId();
+        String childNs = parentNs + "." + randomId();
+        createFlow(logFlowYaml(randomId(), parentNs));
+        createFlow(logFlowYaml(randomId(), childNs));
+
+        api().setKeyValue(parentNs, "parent_key", TENANT, "\"value\"");
+
+        List<KVEntry> keys = api().listKeysWithInheritance(childNs, TENANT);
+        assertThat(keys).isNotNull();
+        assertThat(keys).anyMatch(k -> "parent_key".equals(k.getKey()));
+    }
+
+    @Test
+    void listKeysWithInheritance_emptyNamespace() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        List<KVEntry> keys = api().listKeysWithInheritance(ns, TENANT);
+        assertThat(keys).isNotNull();
+    }
+}

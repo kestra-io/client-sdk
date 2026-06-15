@@ -38,24 +38,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerLastExecutionResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @jakarta.annotation.Nullable  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @jakarta.annotation.Nullable  private String flowId;
+  @jakarta.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @jakarta.annotation.Nullable  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
+  @jakarta.annotation.Nonnull  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @jakarta.annotation.Nullable  private StateType status;
+  @jakarta.annotation.Nonnull  private StateType status;
 
   public ExecutionControllerLastExecutionResponse() {
   }
 
-  public ExecutionControllerLastExecutionResponse id(@jakarta.annotation.Nullable String id) {
+  public ExecutionControllerLastExecutionResponse id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -65,8 +65,8 @@ public class ExecutionControllerLastExecutionResponse {
    * Get id
    * @return id
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -74,12 +74,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@jakarta.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ExecutionControllerLastExecutionResponse flowId(@jakarta.annotation.Nullable String flowId) {
+  public ExecutionControllerLastExecutionResponse flowId(@jakarta.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -89,8 +89,8 @@ public class ExecutionControllerLastExecutionResponse {
    * Get flowId
    * @return flowId
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
     return flowId;
@@ -98,12 +98,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public ExecutionControllerLastExecutionResponse namespace(@jakarta.annotation.Nullable String namespace) {
+  public ExecutionControllerLastExecutionResponse namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -113,8 +113,8 @@ public class ExecutionControllerLastExecutionResponse {
    * Get namespace
    * @return namespace
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
     return namespace;
@@ -122,12 +122,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionControllerLastExecutionResponse startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+  public ExecutionControllerLastExecutionResponse startDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -137,8 +137,8 @@ public class ExecutionControllerLastExecutionResponse {
    * Get startDate
    * @return startDate
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
     return startDate;
@@ -146,12 +146,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public ExecutionControllerLastExecutionResponse status(@jakarta.annotation.Nullable StateType status) {
+  public ExecutionControllerLastExecutionResponse status(@jakarta.annotation.Nonnull StateType status) {
     
     this.status = status;
     return this;
@@ -161,8 +161,8 @@ public class ExecutionControllerLastExecutionResponse {
    * Get status
    * @return status
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getStatus() {
     return status;
@@ -170,8 +170,8 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(@jakarta.annotation.Nullable StateType status) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@jakarta.annotation.Nonnull StateType status) {
     this.status = status;
   }
 

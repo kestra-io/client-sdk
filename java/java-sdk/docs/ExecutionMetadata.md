@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**attemptNumber** | **Integer** |  |  [optional] |
-|**originalCreatedDate** | **OffsetDateTime** |  |  [optional] |
+|**originalCreatedDate** | **OffsetDateTime** |  |  |
 
 
 

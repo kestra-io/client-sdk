@@ -22,6 +22,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
@@ -30,7 +32,9 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.util.Timeout;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -99,6 +103,7 @@ public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> serverVariables = null;
   protected boolean debugging = false;
   protected int connectionTimeout = 0;
+  protected int readTimeout = 0;
 
   protected CloseableHttpClient httpClient;
   protected ObjectMapper objectMapper;
@@ -113,6 +118,33 @@ public class ApiClient extends JavaTimeFormatter {
 
   // Methods that can have a request body
   protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
+
+  private static CloseableHttpClient buildHttpClient(int connectMs, int readMs) {
+    var connConfig = ConnectionConfig.custom();
+    connConfig.setConnectTimeout(connectMs > 0
+        ? Timeout.ofMilliseconds(connectMs)
+        : Timeout.DISABLED);
+    var cm = PoolingHttpClientConnectionManagerBuilder.create()
+        .setDefaultConnectionConfig(connConfig.build())
+        .build();
+
+    var reqConfig = RequestConfig.custom();
+    if (readMs > 0) {
+      reqConfig.setResponseTimeout(Timeout.ofMilliseconds(readMs));
+    }
+    return HttpClients.custom()
+        .setConnectionManager(cm)
+        .setDefaultRequestConfig(reqConfig.build())
+        .build();
+  }
+
+  private void replaceHttpClient(CloseableHttpClient next) {
+    var old = this.httpClient;
+    this.httpClient = next;
+    if (old != null) {
+      try { old.close(); } catch (Exception ignored) {}
+    }
+  }
 
   public ApiClient(CloseableHttpClient httpClient) {
     objectMapper = new ObjectMapper();
@@ -143,7 +175,7 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   public ApiClient() {
-    this(HttpClients.createDefault());
+    this(buildHttpClient(0, 0));
   }
 
   public static DateFormat buildDefaultDateFormat() {
@@ -434,15 +466,37 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the connect timeout (in milliseconds).
-   * A value of 0 means no timeout, otherwise values must be between 1 and
+   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
    * {@link Integer#MAX_VALUE}.
    * @param connectionTimeout Connection timeout in milliseconds
    * @return API client
    */
    public ApiClient setConnectTimeout(int connectionTimeout) {
      this.connectionTimeout = connectionTimeout;
+     replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
      return this;
    }
+
+  /**
+   * Read/response timeout (in milliseconds).
+   * @return Read timeout, 0 means infinite
+   */
+  public int getReadTimeout() {
+    return readTimeout;
+  }
+
+  /**
+   * Set the read/response timeout (in milliseconds).
+   * A value of 0 means no timeout (infinite), otherwise values must be between 1 and
+   * {@link Integer#MAX_VALUE}.
+   * @param readTimeout Read timeout in milliseconds
+   * @return API client
+   */
+  public ApiClient setReadTimeout(int readTimeout) {
+    this.readTimeout = readTimeout;
+    replaceHttpClient(buildHttpClient(this.connectionTimeout, this.readTimeout));
+    return this;
+  }
 
   /**
    * Get the date format used to parse/format date parameters.

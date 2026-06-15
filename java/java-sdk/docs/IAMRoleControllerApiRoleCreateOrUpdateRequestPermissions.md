@@ -9,7 +9,6 @@
 |------------ | ------------- | ------------- | -------------|
 |**FLOW** | **List&lt;String&gt;** |  |  [optional] |
 |**BLUEPRINT** | **List&lt;String&gt;** |  |  [optional] |
-|**TEMPLATE** | **List&lt;String&gt;** |  |  [optional] |
 |**NAMESPACE** | **List&lt;String&gt;** |  |  [optional] |
 |**EXECUTION** | **List&lt;String&gt;** |  |  [optional] |
 |**USER** | **List&lt;String&gt;** |  |  [optional] |

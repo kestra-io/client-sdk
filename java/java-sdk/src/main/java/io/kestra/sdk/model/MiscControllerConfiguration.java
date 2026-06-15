@@ -42,7 +42,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
-  MiscControllerConfiguration.JSON_PROPERTY_IS_TEMPLATE_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_ENVIRONMENT,
   MiscControllerConfiguration.JSON_PROPERTY_URL,
   MiscControllerConfiguration.JSON_PROPERTY_PREVIEW,
@@ -83,9 +82,6 @@ public class MiscControllerConfiguration {
 
   public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
   @jakarta.annotation.Nullable  private Boolean isUiAnonymousUsageEnabled;
-
-  public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
-  @jakarta.annotation.Nullable  private Boolean isTemplateEnabled;
 
   public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
   @jakarta.annotation.Nullable  private MiscControllerEnvironment environment;
@@ -334,30 +330,6 @@ public class MiscControllerConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
     this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
-  }
-
-  public MiscControllerConfiguration isTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
-    
-    this.isTemplateEnabled = isTemplateEnabled;
-    return this;
-  }
-
-  /**
-   * Get isTemplateEnabled
-   * @return isTemplateEnabled
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getIsTemplateEnabled() {
-    return isTemplateEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
-    this.isTemplateEnabled = isTemplateEnabled;
   }
 
   public MiscControllerConfiguration environment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
@@ -626,7 +598,6 @@ public class MiscControllerConfiguration {
         Objects.equals(this.isCustomDashboardsEnabled, miscControllerConfiguration.isCustomDashboardsEnabled) &&
         Objects.equals(this.isAnonymousUsageEnabled, miscControllerConfiguration.isAnonymousUsageEnabled) &&
         Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerConfiguration.isUiAnonymousUsageEnabled) &&
-        Objects.equals(this.isTemplateEnabled, miscControllerConfiguration.isTemplateEnabled) &&
         Objects.equals(this.environment, miscControllerConfiguration.environment) &&
         Objects.equals(this.url, miscControllerConfiguration.url) &&
         Objects.equals(this.preview, miscControllerConfiguration.preview) &&
@@ -641,7 +612,7 @@ public class MiscControllerConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled);
+    return Objects.hash(uuid, version, edition, commitId, chartDefaultDuration, commitDate, isCustomDashboardsEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, isAiEnabled, isAiApiKeyConfigured, isBasicAuthInitialized, pluginsHash, isConcurrencyViewEnabled);
   }
 
   @Override
@@ -657,7 +628,6 @@ public class MiscControllerConfiguration {
     sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
     sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
     sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
-    sb.append("    isTemplateEnabled: ").append(toIndentedString(isTemplateEnabled)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    preview: ").append(toIndentedString(preview)).append("\n");

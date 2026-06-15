@@ -10,7 +10,7 @@ log_and_run() {
 if [ $# -ge 1 ]; then
   versions="$1"
 else
-  versions=$(cat ../../COMPATIBLE_KESTRA_VERSION.properties)
+  versions="develop"
 fi
 
 #CURRENT_TIMESTAMP=$(date -u "+%Y%m%d%H%M%S" 2>/dev/null || date -u -j "+%Y%m%d%H%M%S")

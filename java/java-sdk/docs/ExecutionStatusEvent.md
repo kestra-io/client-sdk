@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**executionId** | **String** |  |  [optional] |
-|**tenantId** | **String** |  |  [optional] |
-|**namespace** | **String** |  |  [optional] |
-|**flowId** | **String** |  |  [optional] |
-|**state** | [**State**](State.md) |  |  [optional] |
+|**executionId** | **String** |  |  |
+|**tenantId** | **String** |  |  |
+|**namespace** | **String** |  |  |
+|**flowId** | **String** |  |  |
+|**state** | [**State**](State.md) |  |  |
 
 
 

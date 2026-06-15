@@ -16,7 +16,6 @@
 |**isCustomDashboardsEnabled** | **Boolean** |  |  [optional] |
 |**isAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
 |**isUiAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
-|**isTemplateEnabled** | **Boolean** |  |  [optional] |
 |**environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  |  [optional] |
 |**url** | **String** |  |  [optional] |
 |**preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  |  [optional] |

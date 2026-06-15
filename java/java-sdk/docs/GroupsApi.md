@@ -96,7 +96,7 @@ public class Example {
 
 ## autocompleteGroups
 
-> List&lt;ApiGroupSummary&gt; autocompleteGroups(tenant, apiAutocomplete)
+> List&lt;ApiGroupSummary&gt; autocompleteGroups(filters, tenant, apiAutocomplete)
 
 List groups for autocomplete
 
@@ -120,10 +120,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
         ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
         try {
-            List<ApiGroupSummary> result = kestraClient.GroupsApi().autocompleteGroups(tenant, apiAutocomplete);
+            List<ApiGroupSummary> result = kestraClient.GroupsApi().autocompleteGroups(filters, tenant, apiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#autocompleteGroups");
@@ -141,6 +142,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
 | **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | |
 
@@ -604,7 +606,7 @@ public class Example {
 
 ## searchGroups
 
-> PagedResultsApiGroupSummary searchGroups(tenant, q, page, size, sort)
+> PagedResultsApiGroupSummary searchGroups(filters, tenant, page, size, sort)
 
 Search for groups
 
@@ -628,13 +630,13 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String tenant = "tenant_example"; // String | 
-        String q = "q_example"; // String | A string filter
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsApiGroupSummary result = kestraClient.GroupsApi().searchGroups(tenant, q, page, size, sort);
+            PagedResultsApiGroupSummary result = kestraClient.GroupsApi().searchGroups(filters, tenant, page, size, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling GroupsApi#searchGroups");
@@ -652,8 +654,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
 | **page** | **Integer**| The current page | [optional] [default to 1] |
 | **size** | **Integer**| The current page size | [optional] [default to 10] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |

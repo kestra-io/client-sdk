@@ -9,6 +9,7 @@ import io.kestra.sdk.api.*;
 import io.kestra.sdk.api.*;
 import io.kestra.sdk.internal.ApiClient;
 
+import java.time.Duration;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -36,6 +37,11 @@ public class KestraClient {
 
     KestraClient(ApiClient apiClient) {
         this.apiClient = apiClient;
+    }
+
+    /** Exposed for testing timeout propagation without a live server. */
+    ApiClient apiClient() {
+        return apiClient;
     }
 
     // FIXME we may want to hide some API from the generator (and also from the OpenAPI spec) as some are only there for the UI
@@ -101,6 +107,8 @@ public class KestraClient {
         private String token;
         private String username;
         private String password;
+        private Duration connectTimeout;
+        private Duration readTimeout;
 
         /**
          * The base URL of the Kestra API.
@@ -132,6 +140,22 @@ public class KestraClient {
             return this;
         }
 
+        /**
+         * Set the TCP connect timeout. {@code null} leaves the default (infinite).
+         */
+        public KestraClientBuilder connectTimeout(Duration connectTimeout) {
+            this.connectTimeout = connectTimeout;
+            return this;
+        }
+
+        /**
+         * Set the read/response timeout. {@code null} leaves the default (infinite).
+         */
+        public KestraClientBuilder readTimeout(Duration readTimeout) {
+            this.readTimeout = readTimeout;
+            return this;
+        }
+
         public KestraClient build() {
             ApiClient apiClient = new ApiClient();
             apiClient.setBasePath(url);
@@ -145,6 +169,12 @@ public class KestraClient {
                     apiClient.addDefaultHeader("Authorization", "Basic " + new String(Base64.getEncoder().encode(basicAuth.getBytes())));
                     break;
                 }
+            }
+            if (connectTimeout != null) {
+                apiClient.setConnectTimeout((int) Math.min(connectTimeout.toMillis(), Integer.MAX_VALUE));
+            }
+            if (readTimeout != null) {
+                apiClient.setReadTimeout((int) Math.min(readTimeout.toMillis(), Integer.MAX_VALUE));
             }
 
             return new KestraClient(apiClient);

@@ -60,7 +60,7 @@ public class State {
   @jakarta.annotation.Nonnull  private StateType current;
 
   public static final String JSON_PROPERTY_HISTORIES = "histories";
-  @jakarta.annotation.Nullable  private List<StateHistory> histories = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<StateHistory> histories = new ArrayList<>();
 
   public static final String JSON_PROPERTY_GET_DURATION = "getDuration";
   @jakarta.annotation.Nonnull  private String getDuration;
@@ -183,7 +183,7 @@ public class State {
     this.current = current;
   }
 
-  public State histories(@jakarta.annotation.Nullable List<StateHistory> histories) {
+  public State histories(@jakarta.annotation.Nonnull List<StateHistory> histories) {
     
     this.histories = histories;
     return this;
@@ -201,8 +201,8 @@ public class State {
    * Get histories
    * @return histories
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HISTORIES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<StateHistory> getHistories() {
     return histories;
@@ -210,8 +210,8 @@ public class State {
 
 
   @JsonProperty(JSON_PROPERTY_HISTORIES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHistories(@jakarta.annotation.Nullable List<StateHistory> histories) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHistories(@jakarta.annotation.Nonnull List<StateHistory> histories) {
     this.histories = histories;
   }
 
