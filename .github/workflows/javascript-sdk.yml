@@ -59,6 +59,13 @@ jobs:
           node-version: "22.18"
           registry-url: "https://registry.npmjs.org"
 
+      # node 22.18 ships npm 10, but the committed lockfile records the `libc`
+      # field on native optional deps, which only npm 11+ writes. Without this,
+      # SDK generation rewrites (and strips) those fields, failing the
+      # "fail workflow if there is any difference" check. Matches the publish jobs.
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
       - name: extract root version
         id: extract_version
         run: |
