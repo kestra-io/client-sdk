@@ -13,7 +13,7 @@
     "@kestra-io/kestra-sdk": "*",
     "@vitest/coverage-v8": "^4.1.5",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.15"
+    "vitest": "^4.1.9"
   },
   "devDependencies": {
     "@types/node": "^25.6.0"
