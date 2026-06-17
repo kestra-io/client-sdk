@@ -48,3 +48,37 @@ request := apiClient.FlowsAPI.SearchFlows(ctx, tenantId).Page(1).Size(10)
 flows, resp, err := request.Execute()
 ```
 
+## Releasing
+
+Releasing is therefore a single action — pushing a Git tag.
+
+```bash
+git tag go-sdk/v1.1.0 <commit>
+git push origin go-sdk/v1.1.0
+```
+
+Consumers then pull that exact version with:
+
+```bash
+go get github.com/kestra-io/client-sdk/go-sdk@v1.1.0
+```
+
+On the first request for a new version, `proxy.golang.org` fetches this repo,
+finds the matching tag, zips the source, and caches it immutably (its checksum is
+also recorded in `sum.golang.org`). Nothing is published by CI — the tag *is* the
+release.
+
+### Tag format: `go-sdk/vX.Y.Z` (not `vX.Y.Z-go`)
+
+The other SDKs use a language suffix (`v1.2.3-java`, `v1.2.3-javascript`, `v1.2.3-python`) —
+an arbitrary string that only exists to trigger the right release workflow; the
+version is passed *into* the publish command, so the registry never sees the tag
+name.
+
+Go is the opposite: **the Go toolchain parses the tag name itself.** Because the
+module lives in the `go-sdk/` subdirectory (its module path ends in `/go-sdk`),
+the spec *requires* the tag to be `go-sdk/vMAJOR.MINOR.PATCH`. A `v1.1.0-go` tag
+would never be resolved by `go get` — so the per-language suffix convention
+deliberately does not apply here. The version is always the bare semver after the
+`go-sdk/` prefix.
+
