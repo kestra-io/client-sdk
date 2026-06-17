@@ -70,7 +70,7 @@ release.
 
 ### Tag format: `go-sdk/vX.Y.Z` (not `vX.Y.Z-go`)
 
-The other SDKs use a language suffix (`v1.2.3-java`, `-javascript`, `-python`) —
+The other SDKs use a language suffix (`v1.2.3-java`, `v1.2.3-javascript`, `v1.2.3-python`) —
 an arbitrary string that only exists to trigger the right release workflow; the
 version is passed *into* the publish command, so the registry never sees the tag
 name.
