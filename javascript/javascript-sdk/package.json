@@ -72,6 +72,9 @@
     "nprogress": "0.2.0",
     "axios": "1.16.1"
   },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",
     "@types/node": "^25.9.1",

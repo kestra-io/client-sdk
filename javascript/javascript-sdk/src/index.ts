@@ -5,6 +5,7 @@ import { client } from "./openapi/client.gen"
 import type { ClientOptions, Config } from "./openapi/client"
 
 export * from "./openapi/index"
+export * from "./useExpressionResolver"
 
 declare global {
     interface Window {
