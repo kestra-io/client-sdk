@@ -13,7 +13,6 @@ jobs:
     name: Announce Go SDK release
     runs-on: ubuntu-latest
     steps:
-      # Slack - announce the release to the releases channel
       - name: Slack notification
         uses: 8398a7/action-slack@v3
         with:
