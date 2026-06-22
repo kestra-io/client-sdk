@@ -88,3 +88,18 @@ jobs:
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
+
+      # Slack - alert CI failures on push/dispatch (not PRs) to the build channel
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          job_name: Go SDK CI
+          fields: repo,commit,ref,took
+          username: GitHub Actions
+          icon_emoji: ':github-actions:'
+          channel: 'C09FE0QCN2E'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -77,17 +77,33 @@ jobs:
           files: |
             build/libs/*.jar
 
-      # Slack
+      # Slack - announce a successful release to the releases channel
       - name: Slack notification
         uses: 8398a7/action-slack@v3
-        if: ${{ always() && env.SLACK_WEBHOOK_URL != 0 }}
+        if: success()
         with:
-          status: ${{ job.status }}
+          status: success
           job_name: Publish
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          text: 'Release ${{ github.ref_name }}'
+          fields: repo,commit,action,ref,job,took
           username: GitHub Actions
           icon_emoji: ":github-actions:"
-          channel: "C02DQ1A7JLR"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK_URL }}
+
+      # Slack - send release failures to the build alert channel
+      - name: Slack - Notify release failure
+        uses: 8398a7/action-slack@v3
+        if: failure()
+        with:
+          status: failure
+          job_name: Publish
+          text: 'Release ${{ github.ref_name }} failed.'
+          fields: repo,commit,ref,took
+          username: GitHub Actions
+          icon_emoji: ":github-actions:"
+          channel: 'C09FE0QCN2E'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

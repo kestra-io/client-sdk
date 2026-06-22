@@ -96,3 +96,18 @@ jobs:
           path: python/python-sdk/kestra-logs/
           if-no-files-found: ignore
           retention-days: 5
+
+      # Slack - alert CI failures on push/dispatch (not PRs) to the build channel
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          job_name: Python SDK CI
+          fields: repo,commit,ref,took
+          username: GitHub Actions
+          icon_emoji: ':github-actions:'
+          channel: 'C09FE0QCN2E'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
