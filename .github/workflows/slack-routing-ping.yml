@@ -6,6 +6,9 @@ name: Slack routing ping (TEMPORARY)
 
 on:
   workflow_dispatch: {}
+  push:
+    branches:
+      - fix/slack-alert-channel-routing
 
 permissions:
   contents: read
