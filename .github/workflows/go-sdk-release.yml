@@ -14,14 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Slack notification
-        uses: 8398a7/action-slack@v3
+        uses: kestra-io/actions/composite/slack-status@main
         with:
-          status: success
-          job_name: Release
-          text: 'Release ${{ github.ref_name }}'
-          fields: repo,ref,took
-          username: GitHub Actions
-          icon_emoji: ':github-actions:'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK_URL }}
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
