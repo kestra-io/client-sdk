@@ -78,16 +78,16 @@ jobs:
             build/libs/*.jar
 
       # Slack
+      # Uses the org-standard composite (kestra-io/actions/composite/slack-status)
+      # so the channel override routes correctly: it embeds `channel` inside the
+      # Slack payload, which the org SLACK_WEBHOOK_URL webhook honours. The old
+      # 8398a7/action-slack `channel` input never reached the payload, so the
+      # message fell back to the webhook's default DM destination.
       - name: Slack notification
-        uses: 8398a7/action-slack@v3
-        if: ${{ always() && env.SLACK_WEBHOOK_URL != 0 }}
+        uses: kestra-io/actions/composite/slack-status@main
+        if: ${{ always() && env.SLACK_WEBHOOK_URL != '' }}
         with:
-          status: ${{ job.status }}
-          job_name: Publish
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          username: GitHub Actions
-          icon_emoji: ":github-actions:"
           channel: "C02DQ1A7JLR"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          suffix: ${{ steps.version.outputs.version }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
