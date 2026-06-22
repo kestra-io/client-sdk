@@ -140,6 +140,15 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
 
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK
+
   publish-develop:
     name: Publish Develop to Npm
     runs-on: ubuntu-latest
@@ -207,3 +216,12 @@ jobs:
           ```
           EOF
           )"
+
+      - name: Slack - Notify publish failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK develop publish

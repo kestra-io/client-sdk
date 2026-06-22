@@ -77,17 +77,20 @@ jobs:
           files: |
             build/libs/*.jar
 
-      # Slack
-      # Uses the org-standard composite (kestra-io/actions/composite/slack-status)
-      # so the channel override routes correctly: it embeds `channel` inside the
-      # Slack payload, which the org SLACK_WEBHOOK_URL webhook honours. The old
-      # 8398a7/action-slack `channel` input never reached the payload, so the
-      # message fell back to the webhook's default DM destination.
       - name: Slack notification
+        if: success()
         uses: kestra-io/actions/composite/slack-status@main
-        if: ${{ always() && env.SLACK_WEBHOOK_URL != '' }}
         with:
-          channel: "C02DQ1A7JLR"
+          channel: 'C08KNSZGXQU'
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          suffix: ${{ steps.version.outputs.version }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
+
+      - name: Slack - Notify release failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
