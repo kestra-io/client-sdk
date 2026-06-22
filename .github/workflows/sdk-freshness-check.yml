@@ -45,7 +45,7 @@ jobs:
       # --- SDK-specific toolchains (only the matching leg's steps run) ---
       - name: Set up Python
         if: matrix.sdk == 'python'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9.23"
 
