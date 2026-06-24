@@ -76,6 +76,12 @@ public class KestraClient {
 
     public ServiceAccountApi serviceAccount() { return new ServiceAccountApi(this.apiClient); }
 
+    public BindingsApi bindings() { return new BindingsApi(this.apiClient); }
+
+    public InvitationsApi invitations() { return new InvitationsApi(this.apiClient); }
+
+    public TenantAccessApi tenantAccess() { return new TenantAccessApi(this.apiClient); }
+
     public TestSuitesApi testSuites() { return new TestSuitesApi(this.apiClient); }
 
     public FilesApi files() { return new FilesApi(this.apiClient); }

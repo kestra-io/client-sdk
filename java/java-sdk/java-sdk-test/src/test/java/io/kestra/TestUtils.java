@@ -1,5 +1,6 @@
 package io.kestra;
 
+import io.kestra.sdk.KestraClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 
@@ -11,6 +12,13 @@ import static io.kestra.example.CommonTestSetup.*;
 import static org.awaitility.Awaitility.await;
 
 public class TestUtils {
+
+    public static final String TENANT = MAIN_TENANT;
+
+    public static KestraClient client() {
+        return kestraClient();
+    }
+
     public static final String FAILED_FLOW = """
         id: %s
         namespace: %s

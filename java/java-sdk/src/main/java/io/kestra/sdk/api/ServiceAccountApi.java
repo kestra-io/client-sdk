@@ -663,7 +663,7 @@ import java.util.StringJoiner;
 
   /**
    * Delete a service account
-   * 
+   *
    * @param id The service account id (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
@@ -694,7 +694,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    
+
     localVarHeaderParams.putAll(additionalHeaders);
 
     
@@ -734,8 +734,90 @@ import java.util.StringJoiner;
 
 
   /**
+   * List service accounts for the given tenant
+   *
+   * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
+   * @param sort The sort of current page (optional)
+   * @param filters Filters (optional)
+   * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccountsForTenant(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.listServiceAccountsForTenant(tenant, page, size, sort, filters, Collections.emptyMap());
+  }
+
+  /**
+   * List service accounts for the given tenant
+   *
+   * @param tenant  (required)
+   * @param page The current page (optional, default to 1)
+   * @param size The current page size (optional, default to 10)
+   * @param sort The sort of current page (optional)
+   * @param filters Filters (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccountsForTenant(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listServiceAccountsForTenant");
+    }
+
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/service-accounts"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail> localVarReturnType = new TypeReference<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * List API tokens for a specific service account
-   * 
+   *
    * @param id The user id (required)
    * @return Object
    * @throws ApiException if fails to make API call
