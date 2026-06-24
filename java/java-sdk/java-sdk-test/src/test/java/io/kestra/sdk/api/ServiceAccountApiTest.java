@@ -217,6 +217,34 @@ public class ServiceAccountApiTest {
     }
 
     // ========================================================================
+    // Listing (tenant-scoped)
+    // ========================================================================
+
+    @Test
+    void listServiceAccountsForTenant_basic() throws ApiException {
+        api().createServiceAccountForTenant(TENANT,
+                new IAMServiceAccountControllerApiServiceAccountRequest()
+                        .name("sa-list-tenant-" + randomId())
+                        .description("Tenant list test"));
+
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
+                api().listServiceAccountsForTenant(TENANT, 1, 10, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void listServiceAccountsForTenant_withPagination() throws ApiException {
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
+                api().listServiceAccountsForTenant(TENANT, 1, 2, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull();
+        assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
+    }
+
+    // ========================================================================
     // API tokens (tenant-scoped)
     // ========================================================================
 
