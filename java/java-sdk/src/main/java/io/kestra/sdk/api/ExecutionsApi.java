@@ -146,7 +146,7 @@ import java.util.StringJoiner;
     localVarQueryParams.addAll(apiClient.parameterToPair("scheduleDate", scheduleDate));
     localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
     localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
-    localVarQueryStringJoiner.add(labels.toUrlQueryString());
+    if (labels != null) { localVarQueryStringJoiner.add(labels.toUrlQueryString()); }
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
     localVarHeaderParams.putAll(additionalHeaders);
