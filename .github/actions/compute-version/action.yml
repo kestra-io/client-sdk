@@ -13,10 +13,23 @@ runs:
       id: version
       shell: bash
       run: |
+        resolve_version() {
+          local branch_version="$1"
+          if [[ "${branch_version}" == *.x ]]; then
+            local prefix="${branch_version%.x}"
+            curl -s "https://api.github.com/repos/kestra-io/kestra/releases?per_page=100" \
+              | grep '"tag_name"' \
+              | grep "\"${prefix}\." \
+              | head -1 \
+              | sed 's/.*"tag_name": "\(.*\)".*/\1/'
+          else
+            echo "${branch_version}"
+          fi
+        }
         if [[ "${GITHUB_REF_NAME}" == releases/* ]]; then
-          echo "kestra_version=${GITHUB_REF_NAME#releases/}" >> $GITHUB_OUTPUT
+          echo "kestra_version=$(resolve_version "${GITHUB_REF_NAME#releases/}")" >> $GITHUB_OUTPUT
         elif [[ "${GITHUB_BASE_REF}" == releases/* ]]; then
-          echo "kestra_version=${GITHUB_BASE_REF#releases/}" >> $GITHUB_OUTPUT
+          echo "kestra_version=$(resolve_version "${GITHUB_BASE_REF#releases/}")" >> $GITHUB_OUTPUT
         else
           echo "kestra_version=develop" >> $GITHUB_OUTPUT
         fi
