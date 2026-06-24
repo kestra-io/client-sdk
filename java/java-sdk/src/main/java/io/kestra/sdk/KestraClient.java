@@ -1,6 +1,6 @@
 /*
-This class is the only class that is not generated.
-It is an easy-to-use entry point to create a client and access the different API endpoints.
+ * This class is the only class that is not generated.
+ * It is an easy-to-use entry point to create a client and access the different API endpoints.
  */
 package io.kestra.sdk;
 
