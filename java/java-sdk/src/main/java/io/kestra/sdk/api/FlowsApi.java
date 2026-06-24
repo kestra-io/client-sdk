@@ -27,17 +27,26 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.ConcurrencyLimit;
+import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowControllerTaskValidationType;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.FlowInterface;
 import io.kestra.sdk.model.FlowTopologyGraph;
+import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.GenerateFlowGraphFromSourceSubflowsParameter;
 import io.kestra.sdk.model.GenerateFlowGraphRevisionParameter;
+import io.kestra.sdk.model.IdWithNamespace;
 import io.kestra.sdk.model.PagedResultsConcurrencyLimit;
+import io.kestra.sdk.model.PagedResultsSearchResultFlow;
+import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.SchemasFromTypeArrayOfParameter;
+import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.UpdateFlowsInNamespaceOverrideParameter;
 import io.kestra.sdk.model.ValidateConstraintViolation;
+
+import java.io.File;
 
 
 import java.util.ArrayList;
@@ -942,6 +951,679 @@ import java.util.StringJoiner;
         localVarAuthNames,
         localVarReturnType
     );
+  }
+
+  // ---- generateFlowGraph (Integer revision, List<String> subflows overload) ----
+
+  public FlowGraph generateFlowGraph(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable List<String> subflows) throws ApiException {
+    return this.generateFlowGraphInt(namespace, id, tenant, revision, subflows, Collections.emptyMap());
+  }
+
+  private FlowGraph generateFlowGraphInt(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling generateFlowGraph");
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling generateFlowGraph");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraph");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/graph"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- generateFlowGraphFromSource (List<String> subflows overload) ----
+
+  public FlowGraph generateFlowGraphFromSource(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, @jakarta.annotation.Nullable List<String> subflows) throws ApiException {
+    return this.generateFlowGraphFromSourceList(tenant, body, subflows, Collections.emptyMap());
+  }
+
+  private FlowGraph generateFlowGraphFromSourceList(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, @jakarta.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraphFromSource");
+    if (body == null) throw new ApiException(400, "Missing the required parameter 'body' when calling generateFlowGraphFromSource");
+
+    String localVarPath = "/api/v1/{tenant}/flows/graph"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/x-yaml" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- createFlow ----
+
+  public FlowWithSource createFlow(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.createFlow(tenant, body, Collections.emptyMap());
+  }
+
+  public FlowWithSource createFlow(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling createFlow");
+    if (body == null) throw new ApiException(400, "Missing the required parameter 'body' when calling createFlow");
+
+    String localVarPath = "/api/v1/{tenant}/flows"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/x-yaml" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- flow (get) ----
+
+  public FlowWithSource flow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean source, @jakarta.annotation.Nullable Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.flow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap());
+  }
+
+  public FlowWithSource flow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean source, @jakarta.annotation.Nullable Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling flow");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling flow");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling flow");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("source", source));
+    localVarQueryParams.addAll(apiClient.parameterToPair("allowDeleted", allowDeleted));
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- updateFlow ----
+
+  public FlowWithSource updateFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap());
+  }
+
+  public FlowWithSource updateFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlow");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlow");
+    if (body == null) throw new ApiException(400, "Missing the required parameter 'body' when calling updateFlow");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/x-yaml" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- deleteFlow ----
+
+  public void deleteFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    this.deleteFlow(namespace, id, tenant, Collections.emptyMap());
+  }
+
+  public void deleteFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling deleteFlow");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling deleteFlow");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteFlow");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<Void> localVarReturnType = new TypeReference<Void>() {};
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- bulkUpdateFlows ----
+
+  public List<FlowInterface> bulkUpdateFlows(@jakarta.annotation.Nullable Boolean delete, @jakarta.annotation.Nullable Boolean allowNamespaceChild, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body, Collections.emptyMap());
+  }
+
+  public List<FlowInterface> bulkUpdateFlows(@jakarta.annotation.Nullable Boolean delete, @jakarta.annotation.Nullable Boolean allowNamespaceChild, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling bulkUpdateFlows");
+    if (body == null) throw new ApiException(400, "Missing the required parameter 'body' when calling bulkUpdateFlows");
+
+    String localVarPath = "/api/v1/{tenant}/flows/bulk"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
+    localVarQueryParams.addAll(apiClient.parameterToPair("allowNamespaceChild", allowNamespaceChild));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/x-yaml" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<List<FlowInterface>> localVarReturnType = new TypeReference<List<FlowInterface>>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- deleteFlowsByIds ----
+
+  public BulkResponse deleteFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids) throws ApiException {
+    return this.deleteFlowsByIds(tenant, ids, Collections.emptyMap());
+  }
+
+  public BulkResponse deleteFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = ids;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteFlowsByIds");
+    if (ids == null) throw new ApiException(400, "Missing the required parameter 'ids' when calling deleteFlowsByIds");
+
+    String localVarPath = "/api/v1/{tenant}/flows/delete/by-ids"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/json" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- deleteFlowsByQuery ----
+
+  public BulkResponse deleteFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap());
+  }
+
+  public BulkResponse deleteFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = filters;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
+    if (filters == null) throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteFlowsByQuery");
+
+    String localVarPath = "/api/v1/{tenant}/flows/delete/by-query"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/json" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- disableFlowsByIds ----
+
+  public BulkResponse disableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids) throws ApiException {
+    return this.disableFlowsByIds(tenant, ids, Collections.emptyMap());
+  }
+
+  public BulkResponse disableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = ids;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling disableFlowsByIds");
+    if (ids == null) throw new ApiException(400, "Missing the required parameter 'ids' when calling disableFlowsByIds");
+
+    String localVarPath = "/api/v1/{tenant}/flows/disable/by-ids"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/json" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- enableFlowsByIds ----
+
+  public BulkResponse enableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids) throws ApiException {
+    return this.enableFlowsByIds(tenant, ids, Collections.emptyMap());
+  }
+
+  public BulkResponse enableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = ids;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling enableFlowsByIds");
+    if (ids == null) throw new ApiException(400, "Missing the required parameter 'ids' when calling enableFlowsByIds");
+
+    String localVarPath = "/api/v1/{tenant}/flows/enable/by-ids"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/json" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- exportFlowsByIds ----
+
+  public byte[] exportFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids) throws ApiException {
+    return this.exportFlowsByIds(tenant, ids, Collections.emptyMap());
+  }
+
+  public byte[] exportFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> ids, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = ids;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling exportFlowsByIds");
+    if (ids == null) throw new ApiException(400, "Missing the required parameter 'ids' when calling exportFlowsByIds");
+
+    String localVarPath = "/api/v1/{tenant}/flows/export/by-ids"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/octet-stream", "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "application/json" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<byte[]> localVarReturnType = new TypeReference<byte[]>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- importFlows ----
+
+  public List<String> importFlows(@jakarta.annotation.Nullable Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull File file) throws ApiException {
+    return this.importFlows(delete, tenant, file, Collections.emptyMap());
+  }
+
+  public List<String> importFlows(@jakarta.annotation.Nullable Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull File file, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling importFlows");
+    if (file == null) throw new ApiException(400, "Missing the required parameter 'file' when calling importFlows");
+
+    String localVarPath = "/api/v1/{tenant}/flows/import"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
+    localVarFormParams.put("fileUpload", file);
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = { "multipart/form-data" };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- listFlowsByNamespace ----
+
+  public List<Flow> listFlowsByNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.listFlowsByNamespace(namespace, tenant, Collections.emptyMap());
+  }
+
+  public List<Flow> listFlowsByNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling listFlowsByNamespace");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling listFlowsByNamespace");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<List<Flow>> localVarReturnType = new TypeReference<List<Flow>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- listFlowRevisions ----
+
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean allRevisions, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.listFlowRevisions(namespace, id, allRevisions, tenant, Collections.emptyMap());
+  }
+
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean allRevisions, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling listFlowRevisions");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling listFlowRevisions");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling listFlowRevisions");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/revisions"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("allRevisions", allRevisions));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<List<FlowWithSource>> localVarReturnType = new TypeReference<List<FlowWithSource>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- flowDependencies ----
+
+  public FlowTopologyGraph flowDependencies(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nullable Boolean expandAll, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.flowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap());
+  }
+
+  public FlowTopologyGraph flowDependencies(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nullable Boolean expandAll, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling flowDependencies");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling flowDependencies");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowDependencies");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/dependencies"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
+    localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowTopologyGraph> localVarReturnType = new TypeReference<FlowTopologyGraph>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- flowDependenciesFromNamespace (Boolean overload) ----
+
+  public FlowTopologyGraph flowDependenciesFromNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.flowDependenciesFromNamespaceBool(namespace, destinationOnly, tenant, Collections.emptyMap());
+  }
+
+  private FlowTopologyGraph flowDependenciesFromNamespaceBool(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nullable Boolean destinationOnly, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling flowDependenciesFromNamespace");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowDependenciesFromNamespace");
+
+    String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/dependencies"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<FlowTopologyGraph> localVarReturnType = new TypeReference<FlowTopologyGraph>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- taskFromFlow ----
+
+  public Task taskFromFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String taskId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.taskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap());
+  }
+
+  public Task taskFromFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String taskId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (namespace == null) throw new ApiException(400, "Missing the required parameter 'namespace' when calling taskFromFlow");
+    if (id == null) throw new ApiException(400, "Missing the required parameter 'id' when calling taskFromFlow");
+    if (taskId == null) throw new ApiException(400, "Missing the required parameter 'taskId' when calling taskFromFlow");
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling taskFromFlow");
+
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "taskId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<Task> localVarReturnType = new TypeReference<Task>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+  // ---- searchFlowsBySourceCode ----
+
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace) throws ApiException {
+    return this.searchFlowsBySourceCode(page, size, tenant, sort, q, namespace, Collections.emptyMap());
+  }
+
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@jakarta.annotation.Nullable Integer page, @jakarta.annotation.Nullable Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    if (tenant == null) throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchFlowsBySourceCode");
+
+    String localVarPath = "/api/v1/{tenant}/flows/search/source"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = { "application/json" };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+    final String[] localVarContentTypes = {};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+    TypeReference<PagedResultsSearchResultFlow> localVarReturnType = new TypeReference<PagedResultsSearchResultFlow>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(), localVarPostBody, localVarHeaderParams, localVarCookieParams,
+        localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
   }
 
   @Override
