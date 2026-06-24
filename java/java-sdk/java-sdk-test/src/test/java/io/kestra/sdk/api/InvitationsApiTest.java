@@ -4,6 +4,8 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.util.List;
+
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -14,12 +16,13 @@ public class InvitationsApiTest {
         return client().invitations();
     }
 
-    static IAMInvitationControllerApiInvitationDetail createTestInvitation(String email) throws ApiException {
+    // Creates an actual invitation (201) — omitting createUserIfNotExist so the
+    // server does not short-circuit to a direct access grant (204).
+    static void createTestInvitation(String email) throws ApiException {
         IAMInvitationControllerApiInvitationCreateRequest request =
                 new IAMInvitationControllerApiInvitationCreateRequest()
-                        .email(email)
-                        .createUserIfNotExist(true);
-        return api().createInvitation(TENANT, request);
+                        .email(email);
+        api().createInvitation(TENANT, request);
     }
 
     // ========================================================================
@@ -29,19 +32,20 @@ public class InvitationsApiTest {
     @Test
     void createInvitation_basic() throws ApiException {
         String email = "invite-" + randomId() + "@test.com";
-        IAMInvitationControllerApiInvitationDetail result = createTestInvitation(email);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isNotBlank();
-        assertThat(result.getEmail()).isEqualTo(email);
+        assertThatCode(() -> createTestInvitation(email)).doesNotThrowAnyException();
     }
 
     @Test
     void deleteInvitation_basic() throws ApiException {
         String email = "invite-del-" + randomId() + "@test.com";
-        IAMInvitationControllerApiInvitationDetail created = createTestInvitation(email);
+        createTestInvitation(email);
 
-        assertThatCode(() -> api().deleteInvitation(created.getId(), TENANT))
+        List<IAMInvitationControllerApiInvitationDetail> invitations =
+                api().listInvitationsByEmail(TENANT, email);
+        assertThat(invitations).isNotNull().isNotEmpty();
+
+        String id = invitations.get(0).getId();
+        assertThatCode(() -> api().deleteInvitation(id, TENANT))
                 .doesNotThrowAnyException();
     }
 

@@ -35,13 +35,6 @@ public class InvitationsApi extends BaseApi {
                 JSON, null, returnType);
     }
 
-    private <T> T postJson(String path, Object body, List<Pair> queryParams,
-                           List<Pair> collectionQueryParams,
-                           TypeReference<T> returnType) throws ApiException {
-        return invoke("POST", path, body, queryParams, collectionQueryParams,
-                JSON, JSON, returnType);
-    }
-
     private void delete(String path) throws ApiException {
         invoke("DELETE", path, null, Collections.emptyList(), Collections.emptyList(),
                 null, null, null);
@@ -51,12 +44,19 @@ public class InvitationsApi extends BaseApi {
     // CRUD
     // ========================================================================
 
-    public IAMInvitationControllerApiInvitationDetail createInvitation(
+    public void createInvitation(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull IAMInvitationControllerApiInvitationCreateRequest request) throws ApiException {
-        return postJson(
-                tenantPath(tenant, "invitations"),
-                request, Collections.emptyList(), Collections.emptyList(),
+        invoke("POST", tenantPath(tenant, "invitations"), request,
+                Collections.emptyList(), Collections.emptyList(), JSON, JSON, null);
+    }
+
+    public List<IAMInvitationControllerApiInvitationDetail> listInvitationsByEmail(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String email) throws ApiException {
+        return get(
+                tenantPath(tenant, "invitations", "email", email),
+                Collections.emptyList(), Collections.emptyList(),
                 new TypeReference<>() {});
     }
 

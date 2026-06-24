@@ -49,13 +49,11 @@ public class TenantAccessApi extends BaseApi {
     // CRUD
     // ========================================================================
 
-    public IAMTenantAccessControllerApiUserTenantAccess createTenantAccess(
+    public void createTenantAccess(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull IAMTenantAccessControllerApiCreateTenantAccessRequest request) throws ApiException {
-        return postJson(
-                tenantPath(tenant, "tenant-access"),
-                request, Collections.emptyList(), Collections.emptyList(),
-                new TypeReference<>() {});
+        invoke("POST", tenantPath(tenant, "tenant-access"), request,
+                Collections.emptyList(), Collections.emptyList(), JSON, JSON, null);
     }
 
     public void deleteTenantAccess(
