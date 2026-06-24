@@ -172,6 +172,10 @@ func createApiToken(httpClient *http.Client, csrf string) (string, error) {
 // csrfToken cookie in its jar, and returns the matching token from the meta
 // tag the UI itself reads. The header (this token) and the server-set cookie
 // then satisfy the double-submit CSRF check on the later write.
+//
+// On Kestra 1.3 the /ui/ page serves no csrf meta tag and the token endpoint
+// does not enforce CSRF, so the absence of the tag is not an error: return an
+// empty token and let the caller proceed with an empty X-CSRF-TOKEN header.
 func fetchCsrfToken(httpClient *http.Client) (string, error) {
 	resp, err := httpClient.Get(HOST + "/ui/")
 	if err != nil {
@@ -183,8 +187,8 @@ func fetchCsrfToken(httpClient *http.Client) (string, error) {
 	if m := csrfMetaRe.FindSubmatch(body); m != nil {
 		return string(m[1]), nil
 	}
-	return "", fmt.Errorf("no csrf token from /ui/ (status %d, html=%t)",
-		resp.StatusCode, bytes.Contains(body, []byte("<html")))
+	// No csrf meta tag (e.g. Kestra 1.3): proceed without a token.
+	return "", nil
 }
 
 func unexpectedStatus(resp *http.Response) error {

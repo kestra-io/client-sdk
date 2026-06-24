@@ -33,10 +33,6 @@ func (a *TriggersAPI) ExportTriggers(ctx context.Context, tenant string, filters
 // Enable / Disable
 // ========================================================================
 
-func (a *TriggersAPI) DisableTriggerById(ctx context.Context, tenant string, request TriggerControllerApiDisableTriggerRequest) (*ApiTriggerState, error) {
-	return doJSON[*ApiTriggerState](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "triggers", "set-disabled"), request, nil)
-}
-
 func (a *TriggersAPI) DisabledTriggersByIds(ctx context.Context, tenant string, request TriggerControllerSetDisabledRequest) (*ApiAsyncOperationResponse, error) {
 	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "set-disabled", "by-triggers"), request, nil)
 }
@@ -88,10 +84,6 @@ func (a *TriggersAPI) DeleteTriggersByQuery(ctx context.Context, tenant string, 
 // ========================================================================
 // Backfill
 // ========================================================================
-
-func (a *TriggersAPI) CreateBackfill(ctx context.Context, tenant string, request TriggerControllerApiCreateBackfillRequest) (*ApiTriggerState, error) {
-	return doJSON[*ApiTriggerState](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "triggers", "backfill", "create"), request, nil)
-}
 
 func (a *TriggersAPI) DeleteBackfill(ctx context.Context, tenant string, triggerId TriggerControllerApiTriggerId) (*ApiTriggerState, error) {
 	return doJSON[*ApiTriggerState](&a.baseAPI, ctx, "POST", tenantPath(tenant, "triggers", "backfill", "delete"), triggerId, nil)

@@ -106,11 +106,11 @@ public class GroupsApiTest {
     }
 
     @Test
-    void searchGroups_withNameFilter() throws ApiException {
+    void searchGroups_withNameQueryFilter() throws ApiException {
         String name = "name-filter-" + randomId();
         createTestGroup(name);
 
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(nameFilter(name)));
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(queryFilter(name)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -183,7 +183,7 @@ public class GroupsApiTest {
     @Test
     void searchGroups_noResults() throws ApiException {
         PagedResultsApiGroupSummary result = api().searchGroups(
-                TENANT, 1, 10, null, List.of(nameFilter("nonexistent_group_" + randomId())));
+                TENANT, 1, 10, null, List.of(queryFilter("nonexistent_group_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults() == null || result.getResults().isEmpty() || result.getTotal() == 0).isTrue();

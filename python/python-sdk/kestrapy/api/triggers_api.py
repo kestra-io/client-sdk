@@ -51,10 +51,6 @@ class TriggersApi(BaseApi):
 
     # ---- Enable / Disable ----
 
-    def disable_trigger_by_id(self, tenant: str, request: Any) -> dict:
-        path = self._tenant_path(tenant, "triggers", "set-disabled")
-        return self._raw_json_request("PUT", path, body=request)
-
     def disabled_triggers_by_ids(self, tenant: str, request: TriggerControllerSetDisabledRequest) -> dict:
         path = self._tenant_path(tenant, "triggers", "set-disabled", "by-triggers")
         return self._raw_json_request("POST", path, body=request)
@@ -109,10 +105,6 @@ class TriggersApi(BaseApi):
         return self._raw_json_request("DELETE", path, body=request)
 
     # ---- Backfill ----
-
-    def create_backfill(self, tenant: str, request: Any) -> dict:
-        path = self._tenant_path(tenant, "triggers", "backfill", "create")
-        return self._raw_json_request("PUT", path, body=request)
 
     def delete_backfill(self, tenant: str, trigger_id: Any) -> dict:
         path = self._tenant_path(tenant, "triggers", "backfill", "delete")

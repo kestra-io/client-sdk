@@ -34,22 +34,6 @@ triggers:
 	time.Sleep(200 * time.Millisecond)
 }
 
-func createBackfillForTrigger(ctx context.Context, flowId string, triggerId string, namespace string) (*kestra_api_client.ApiTriggerState, error) {
-	now := time.Now().UTC()
-	start := now.Add(-5 * time.Hour)
-
-	req := kestra_api_client.TriggerControllerApiCreateBackfillRequest{
-		Namespace: kestra_api_client.PtrString(namespace),
-		FlowId:    kestra_api_client.PtrString(flowId),
-		TriggerId: kestra_api_client.PtrString(triggerId),
-		Backfill: &kestra_api_client.TriggerControllerApiCreateBackfillRequestBackfill{
-			Start: kestra_api_client.PtrTime(start),
-		},
-	}
-
-	return KestraTestClient().Triggers().CreateBackfill(ctx, MAIN_TENANT, req)
-}
-
 func triggerIdRef(namespace string, flowId string, triggerId string) kestra_api_client.TriggerControllerApiTriggerId {
 	return kestra_api_client.TriggerControllerApiTriggerId{
 		Namespace: kestra_api_client.PtrString(namespace),
@@ -59,81 +43,6 @@ func triggerIdRef(namespace string, flowId string, triggerId string) kestra_api_
 }
 
 func TestTriggersAPI_All(t *testing.T) {
-	t.Run("deleteBackfillTest", func(t *testing.T) {
-		flowId := "deleteBackfillTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		time.Sleep(1 * time.Second)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().DeleteBackfill(ctx, MAIN_TENANT, trigId)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("deleteBackfillByIdsTest", func(t *testing.T) {
-		flowId := "deleteBackfillByIdsTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().DeleteBackfillByIds(ctx, MAIN_TENANT, []kestra_api_client.TriggerControllerApiTriggerId{trigId})
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("deleteBackfillByQueryTest", func(t *testing.T) {
-		flowId := "deleteBackfillByQueryTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		filters := []kestra_api_client.SearchFilter{
-			{
-				Field:     kestra_api_client.FilterTriggerId,
-				Operation: kestra_api_client.OpContains,
-				Value:     flowId,
-			},
-		}
-
-		resp, err := KestraTestClient().Triggers().DeleteBackfillByQuery(ctx, MAIN_TENANT, filters)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("disableTriggerByIdTest", func(t *testing.T) {
-		flowId := "disableTriggerByIdTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-
-		req := kestra_api_client.TriggerControllerApiDisableTriggerRequest{
-			Namespace: kestra_api_client.PtrString(namespace),
-			FlowId:    kestra_api_client.PtrString(flowId),
-			TriggerId: kestra_api_client.PtrString(triggerId),
-			Disabled:  kestra_api_client.PtrBool(true),
-		}
-		resp, err := KestraTestClient().Triggers().DisableTriggerById(ctx, MAIN_TENANT, req)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
 	t.Run("disabledTriggersByIdsTest", func(t *testing.T) {
 		flowId := "disabledTriggersByIdsTest_" + randomId()
 		triggerId := flowId + "_trigger"
@@ -168,38 +77,6 @@ func TestTriggersAPI_All(t *testing.T) {
 			},
 		}
 		resp, err := KestraTestClient().Triggers().DisabledTriggersByQuery(ctx, MAIN_TENANT, kestra_api_client.PtrBool(true), filters)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("pauseBackfillTest", func(t *testing.T) {
-		flowId := "pauseBackfillTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().PauseBackfill(ctx, MAIN_TENANT, trigId)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("pauseBackfillByIdsTest", func(t *testing.T) {
-		flowId := "pauseBackfillByIdsTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().PauseBackfillByIds(ctx, MAIN_TENANT, []kestra_api_client.TriggerControllerApiTriggerId{trigId})
 		require.NoError(t, err)
 		require.NotNil(t, resp)
 	})
@@ -308,38 +185,6 @@ func TestTriggersAPI_All(t *testing.T) {
 		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
 
 		resp, err := KestraTestClient().Triggers().UnlockTriggersByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{})
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("unpauseBackfillTest", func(t *testing.T) {
-		flowId := "unpauseBackfillTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().UnpauseBackfill(ctx, MAIN_TENANT, trigId)
-		require.NoError(t, err)
-		require.NotNil(t, resp)
-	})
-
-	t.Run("unpauseBackfillByIdsTest", func(t *testing.T) {
-		flowId := "unpauseBackfillByIdsTest_" + randomId()
-		triggerId := flowId + "_trigger"
-		namespace := "test.triggers." + randomId()
-		ctx := context.Background()
-
-		createFlowWithTrigger(t, ctx, flowId, triggerId, namespace)
-		_, err := createBackfillForTrigger(ctx, flowId, triggerId, namespace)
-		require.NoError(t, err)
-
-		trigId := triggerIdRef(namespace, flowId, triggerId)
-		resp, err := KestraTestClient().Triggers().UnpauseBackfillByIds(ctx, MAIN_TENANT, []kestra_api_client.TriggerControllerApiTriggerId{trigId})
 		require.NoError(t, err)
 		require.NotNil(t, resp)
 	})

@@ -108,11 +108,11 @@ public class RolesApiTest {
     }
 
     @Test
-    void searchRoles_withNameFilter() throws ApiException {
+    void searchRoles_withNameQueryFilter() throws ApiException {
         String name = "name-filter-" + randomId();
         IAMRoleControllerApiRoleDetail created = createTestRole(name);
 
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(nameFilter(name)));
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(queryFilter(name)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -154,7 +154,7 @@ public class RolesApiTest {
     @Test
     void searchRoles_noResults() throws ApiException {
         PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null,
-                List.of(nameFilter("nonexistent_role_" + randomId())));
+                List.of(queryFilter("nonexistent_role_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();

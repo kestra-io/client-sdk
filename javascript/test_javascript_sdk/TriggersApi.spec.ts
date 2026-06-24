@@ -75,7 +75,7 @@ async function createBackfillForTrigger(flowId: string, triggerId: string, names
         },
     };
 
-    return kestraClient.Triggers.createBackfill(trigger);
+    return kestraClient.Triggers.updateTrigger(trigger);
 }
 
 async function ensureTriggerExists(namespace: string, flowId: string, triggerId: string) {

@@ -486,19 +486,4 @@ public class FlowsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    // ========================================================================
-    // Expressions
-    // ========================================================================
-
-    public ExpressionContext expressions(
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull String body,
-            @jakarta.annotation.Nullable String taskId) throws ApiException {
-        return postYaml(
-                tenantPath(tenant, "flows", "expressions"),
-                body,
-                queryParams("taskId", taskId),
-                new TypeReference<>() {});
-    }
-
 }

@@ -382,18 +382,3 @@ func (a *FlowsAPI) ValidateTrigger(ctx context.Context, tenant string, body inte
 	}
 	return &result, nil
 }
-
-// ========================================================================
-// Expressions
-// ========================================================================
-
-// Expressions retrieves the expression context for a flow.
-func (a *FlowsAPI) Expressions(ctx context.Context, tenant, yamlBody string, taskId *string) (*ExpressionContext, error) {
-	path := tenantPath(tenant, "flows", "expressions")
-	params := buildQueryParams("taskId", taskId)
-	result, err := doJSONWithYAMLBody[ExpressionContext](&a.baseAPI, ctx, "POST", path, yamlBody, params)
-	if err != nil {
-		return nil, err
-	}
-	return &result, nil
-}

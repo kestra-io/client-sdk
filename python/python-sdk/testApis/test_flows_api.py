@@ -1127,29 +1127,6 @@ class TestValidation:
 
 
 # ========================================================================
-# Expressions
-# ========================================================================
-
-
-class TestExpressions:
-    def test_basic(self, client):
-        f = create_log_flow(client)
-        with_source = client.flows.flow(f.namespace, f.id, TENANT, source=True)
-
-        result = client.flows.expressions(TENANT, with_source.source)
-
-        assert result is not None
-
-    def test_with_task_id(self, client):
-        f = create_log_flow(client)
-        with_source = client.flows.flow(f.namespace, f.id, TENANT, source=True)
-
-        result = client.flows.expressions(TENANT, with_source.source, task_id="hello")
-
-        assert result is not None
-
-
-# ========================================================================
 # Deprecated
 # ========================================================================
 

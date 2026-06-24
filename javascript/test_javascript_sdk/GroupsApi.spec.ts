@@ -39,7 +39,7 @@ describe('GroupsApi', () => {
             description: 'An example group',
         });
 
-        const results = await kestraClient.Groups.autocompleteGroups({ q: prefix, filters: [] });
+        const results = await kestraClient.Groups.autocompleteGroups({ q: prefix });
 
         expect(
             results.some(r => r.id === created.id || r.name === created.name)
@@ -72,7 +72,7 @@ describe('GroupsApi', () => {
         const found = await kestraClient.Groups.searchGroups({
             page: 1,
             size: 10,
-            filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: created.name })],
+            q: created.name,
         });
         expect(found?.results.some(g => g.id === created.id)).toBeFalsy();
     });
@@ -167,7 +167,7 @@ describe('GroupsApi', () => {
         const resultsPage = await kestraClient.Groups.searchGroups({
             page: 1,
             size: 10,
-            filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: name })],
+            q: name,
         });
         const results = resultsPage?.results ?? [];
 

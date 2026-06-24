@@ -46,7 +46,7 @@ describe('AssetsApi', () => {
         const id = randomId();
         const created = await kestraClient.Assets.createAsset({ body: assetYaml(id) });
 
-        const fetched = await kestraClient.Assets.asset({ id: created.id ?? "" });
+        const fetched = await kestraClient.Assets.asset({ id: created.id ?? "", allowDeleted: false });
         expect(fetched).toBeDefined();
     });
 
@@ -61,7 +61,7 @@ describe('AssetsApi', () => {
         const id = randomId();
         const created = await kestraClient.Assets.createAsset({ body: assetYaml(id) });
 
-        const result = await kestraClient.Assets.assetDependencies({ id: created.id ?? "" });
+        const result = await kestraClient.Assets.assetDependencies({ id: created.id ?? "", destinationOnly: false, expandAll: false });
         expect(result).toBeDefined();
     });
 });

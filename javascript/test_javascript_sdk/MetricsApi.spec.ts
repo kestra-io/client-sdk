@@ -46,7 +46,7 @@ describe('MetricsApi', () => {
 
     it('searchByExecution: gets metrics for an execution', async () => {
         const { executionId } = await createFlowAndWaitForExecution();
-        const result = await kestraClient.Metrics.searchByExecution({ executionId });
+        const result = await kestraClient.Metrics.searchByExecution({ executionId, page: 1, size: 10 });
         expect(result).toBeDefined();
     });
 
@@ -56,6 +56,7 @@ describe('MetricsApi', () => {
             namespace,
             flowId,
             metric: randomId(),
+            aggregation: 'sum',
         });
         expect(result).toBeDefined();
     });

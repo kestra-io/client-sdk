@@ -76,11 +76,6 @@ describe('DashboardsApi', () => {
         expect(resultSize).toBeLessThanOrEqual(2);
     });
 
-    it('defaultDashboards_1: lists default dashboards', async () => {
-        const result = await kestraClient.DashboardsAdmin.defaultDashboards();
-        expect(result).toBeDefined();
-    });
-
     it('validateDashboard: validates a dashboard YAML', async () => {
         const result = await kestraClient.Dashboards.validateDashboard({
             body: dashboardYaml(`validate-${randomId()}`),

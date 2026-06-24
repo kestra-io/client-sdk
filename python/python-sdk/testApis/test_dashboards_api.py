@@ -152,16 +152,6 @@ def test_search_dashboards_no_results(client):
 
 
 # ========================================================================
-# Settings
-# ========================================================================
-
-
-def test_default_dashboards_basic(client):
-    settings = client.dashboards.default_dashboards(tenant=TENANT)
-    assert settings is not None
-
-
-# ========================================================================
 # Validation
 # ========================================================================
 

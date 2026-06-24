@@ -507,8 +507,4 @@ func TestFlowsAPI_All(t *testing.T) {
 		require.NotNil(t, result)
 	})
 
-	t.Run("expressionsTest", func(t *testing.T) {
-		t.Skip("Expressions endpoint requires specific flow YAML context")
-	})
-
 }

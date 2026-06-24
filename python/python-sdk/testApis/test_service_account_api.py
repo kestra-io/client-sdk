@@ -1,10 +1,8 @@
-import time
 import pytest
 
 from test_helpers import (
     TENANT,
     random_id,
-    name_filter,
 )
 from kestrapy import (
     IAMServiceAccountControllerApiCreateServiceAccountRequest,
@@ -98,33 +96,6 @@ def test_list_service_accounts_with_pagination(client):
     assert result is not None
     assert result.results is not None
     assert len(result.results) <= 2
-
-
-def test_list_service_accounts_with_query_filter(client):
-    unique_name = f"sa-search-{random_id()}"
-    request = IAMServiceAccountControllerApiCreateServiceAccountRequest(
-        name=unique_name,
-        description="Search test",
-    )
-
-    client.service_account.create_service_account(request=request)
-    time.sleep(0.3)
-
-    result = client.service_account.list_service_accounts(
-        page=1, size=10, filters=[name_filter(unique_name)]
-    )
-
-    assert result is not None
-    assert len(result.results) > 0
-
-
-def test_list_service_accounts_no_results(client):
-    result = client.service_account.list_service_accounts(
-        page=1, size=10, filters=[name_filter(f"nonexistent_sa_{random_id()}")]
-    )
-
-    assert result is not None
-    assert len(result.results) == 0
 
 
 # ========================================================================

@@ -98,7 +98,6 @@ describe('RolesApi', () => {
         const results = await kestraClient.Roles.searchRoles({
             page: 1,
             size: 10000,
-            filters: [],
         });
 
         // search typically returns { results, total, ... }

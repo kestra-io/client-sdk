@@ -193,10 +193,6 @@ def state_filter(state):
     return QueryFilter(var_field=QueryFilterField.STATE, operation=QueryFilterOp.EQUALS, value={"value": state})
 
 
-def name_filter(name):
-    return QueryFilter(var_field=QueryFilterField.NAME, operation=QueryFilterOp.EQUALS, value={"value": name})
-
-
 def labels_filter(labels):
     return QueryFilter(var_field=QueryFilterField.LABELS, operation=QueryFilterOp.EQUALS, value=labels)
 

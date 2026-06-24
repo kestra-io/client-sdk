@@ -139,11 +139,7 @@ describe('NamespacesApi', () => {
             page: 1,
             size: 10,
             existing: false,
-            filters: [{
-                field: "NAMESPACE",
-                operation: "EQUALS",
-                value: nsId
-            }],
+            q: nsId,
         });
         const results = page?.results ?? [];
 

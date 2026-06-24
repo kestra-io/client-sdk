@@ -156,16 +156,6 @@ public class DashboardsApiTest {
     }
 
     // ========================================================================
-    // Settings
-    // ========================================================================
-
-    @Test
-    void defaultDashboards_basic() throws ApiException {
-        DashboardSettings settings = api().defaultDashboards(TENANT);
-        assertThat(settings).isNotNull();
-    }
-
-    // ========================================================================
     // Validation
     // ========================================================================
 

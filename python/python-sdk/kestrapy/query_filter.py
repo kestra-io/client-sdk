@@ -6,7 +6,6 @@ from datetime import datetime, date
 # differs from the UPPER_SNAKE_CASE -> lowerCamelCase conversion.
 _FIELD_MAP = {
     "QUERY": "q",
-    "MIN_LEVEL": "level",
 }
 
 

@@ -60,12 +60,6 @@ class DashboardsApi(BaseApi):
         path = self._tenant_path(tenant, "dashboards", id, "charts", chart_id, "export", "to-csv")
         return self._download_request("POST", path, body=filters, accept=self.OCTET)
 
-    # ---- Settings ----
-
-    def default_dashboards(self, tenant: str) -> dict:
-        path = self._tenant_path(tenant, "dashboards", "settings", "default-dashboards")
-        return self._raw_json_request("GET", path)
-
     # ---- Validation ----
 
     def validate_dashboard(self, tenant: str, yaml_body: str) -> ValidateConstraintViolation:

@@ -74,11 +74,10 @@ def _mint_api_token(username, password):
 
     resp = session.get(f"{HOST}/ui/", timeout=30)
     match = _CSRF_META_RE.search(resp.text)
-    if match is None:
-        raise RuntimeError(
-            f"no csrf token from /ui/ (status {resp.status_code}, html={'<html' in resp.text})"
-        )
-    csrf = match.group(1)
+    # Kestra 1.3's /ui/ serves no csrf meta tag and its token endpoint does not
+    # enforce CSRF, so the header is optional there. On 2.0 the meta tag is
+    # present and the double-submit check requires it.
+    csrf = match.group(1) if match is not None else ""
 
     resp = session.post(
         f"{HOST}/api/v1/me/api-tokens",
