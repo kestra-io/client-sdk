@@ -19,6 +19,7 @@ __version__ = "1.0.10"
 __all__ = [
     "AppsApi",
     "AssetsApi",
+    "BindingsApi",
     "BlueprintsApi",
     "DashboardsApi",
     "ExecutionsApi",
@@ -31,6 +32,7 @@ __all__ = [
     "NamespacesApi",
     "RolesApi",
     "ServiceAccountApi",
+    "TenantAccessApi",
     "TestSuitesApi",
     "TriggersApi",
     "UsersApi",
@@ -440,6 +442,7 @@ __all__ = [
 # import apis into sdk package
 from kestrapy.api.apps_api import AppsApi as AppsApi
 from kestrapy.api.assets_api import AssetsApi as AssetsApi
+from kestrapy.api.bindings_api import BindingsApi as BindingsApi
 from kestrapy.api.blueprints_api import BlueprintsApi as BlueprintsApi
 from kestrapy.api.dashboards_api import DashboardsApi as DashboardsApi
 from kestrapy.api.executions_api import ExecutionsApi as ExecutionsApi
@@ -452,6 +455,7 @@ from kestrapy.api.logs_api import LogsApi as LogsApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
+from kestrapy.api.tenant_access_api import TenantAccessApi as TenantAccessApi
 from kestrapy.api.test_suites_api import TestSuitesApi as TestSuitesApi
 from kestrapy.api.triggers_api import TriggersApi as TriggersApi
 from kestrapy.api.users_api import UsersApi as UsersApi

@@ -2,6 +2,7 @@ import base64
 
 import requests
 
+from kestrapy.api.bindings_api import BindingsApi
 from kestrapy.api.kv_api import KVApi
 from kestrapy.api.roles_api import RolesApi
 from kestrapy.api.groups_api import GroupsApi
@@ -13,6 +14,7 @@ from kestrapy.api.flows_api import FlowsApi
 from kestrapy.api.executions_api import ExecutionsApi
 from kestrapy.api.invitations_api import InvitationsApi
 from kestrapy.api.logs_api import LogsApi
+from kestrapy.api.tenant_access_api import TenantAccessApi
 from kestrapy.api.files_api import FilesApi
 from kestrapy.api.assets_api import AssetsApi
 from kestrapy.api.blueprints_api import BlueprintsApi
@@ -92,7 +94,11 @@ class KestraClient:
     @property
     def service_account(self): return self._get_api(ServiceAccountApi)
     @property
+    def bindings(self): return self._get_api(BindingsApi)
+    @property
     def invitations(self): return self._get_api(InvitationsApi)
+    @property
+    def tenant_access(self): return self._get_api(TenantAccessApi)
 
     def close(self):
         self._session.close()
