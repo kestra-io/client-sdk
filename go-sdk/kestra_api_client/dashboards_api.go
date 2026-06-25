@@ -44,10 +44,6 @@ func (a *DashboardsAPI) ExportDashboardChartDataToCSV(ctx context.Context, id, c
 	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "dashboards", id, "charts", chartId, "export", "to-csv"), filters, nil)
 }
 
-func (a *DashboardsAPI) DefaultDashboards(ctx context.Context, tenant string) (*DashboardSettings, error) {
-	return doJSON[*DashboardSettings](&a.baseAPI, ctx, "GET", tenantPath(tenant, "dashboards", "settings", "default-dashboards"), nil, nil)
-}
-
 func (a *DashboardsAPI) ValidateDashboard(ctx context.Context, tenant, yamlBody string) (*ValidateConstraintViolation, error) {
 	return doJSONWithYAMLBody[*ValidateConstraintViolation](&a.baseAPI, ctx, "POST", tenantPath(tenant, "dashboards", "validate"), yamlBody, nil)
 }

@@ -1227,30 +1227,6 @@ public class FlowsApiTest {
     }
 
     // ========================================================================
-    // Expressions
-    // ========================================================================
-
-    @Test
-    void expressions_basic() throws ApiException {
-        FlowWithSource f = createLogFlow();
-        FlowWithSource withSource = api().flow(f.getNamespace(), f.getId(), TENANT, true, null, null);
-
-        ExpressionContext result = api().expressions(TENANT, withSource.getSource(), null);
-
-        assertThat(result).isNotNull();
-    }
-
-    @Test
-    void expressions_withTaskId() throws ApiException {
-        FlowWithSource f = createLogFlow();
-        FlowWithSource withSource = api().flow(f.getNamespace(), f.getId(), TENANT, true, null, null);
-
-        ExpressionContext result = api().expressions(TENANT, withSource.getSource(), "hello");
-
-        assertThat(result).isNotNull();
-    }
-
-    // ========================================================================
     // Deprecated
     // ========================================================================
 

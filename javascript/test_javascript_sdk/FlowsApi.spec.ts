@@ -15,6 +15,8 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
     const result = await kestraClient.Flows.flow({
         namespace: flow.namespace,
         id: flow.id,
+        source: true,
+        allowDeleted: false,
     });
     expect(result).toBeDefined();
 }
@@ -24,6 +26,8 @@ async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
         await kestraClient.Flows.flow({
             namespace: flow.namespace,
             id: flow.id,
+            source: true,
+            allowDeleted: false,
         });
         throw new Error('Expected a 404 Not Found, but the call succeeded.');
     } catch (err: unknown) {
@@ -181,7 +185,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
 
-        const resp = await kestraClient.Flows.flow({ namespace, id });
+        const resp = await kestraClient.Flows.flow({ namespace, id, source: true, allowDeleted: false });
         expect(resp.id).toBe(id);
     });
 
@@ -221,7 +225,7 @@ describe('FlowsApi', () => {
     it('list_flow_revisions', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const resp = await kestraClient.Flows.listFlowRevisions({ namespace, id });
+        const resp = await kestraClient.Flows.listFlowRevisions({ namespace, id, allowDelete: false });
         expect(Array.isArray(resp)).toBe(true);
     });
 

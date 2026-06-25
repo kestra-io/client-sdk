@@ -42,11 +42,6 @@ describe('MiscApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('listTemplates: returns managed role templates', async () => {
-        const result = await kestraClient.Misc.listTemplates();
-        expect(result).toBeDefined();
-    });
-
     it.skip('generate: generates something', async () => {
         const result = await kestraClient.Misc.generate();
         expect(result).toBeDefined();

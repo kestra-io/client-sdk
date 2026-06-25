@@ -330,14 +330,3 @@ class FlowsApi(BaseApi):
     def validate_trigger(self, tenant: str, body: Any) -> ValidateConstraintViolation:
         path = self._tenant_path(tenant, "flows", "validate", "trigger")
         return self._json_request("POST", path, ValidateConstraintViolation, body=body)
-
-    # ========================================================================
-    # Expressions
-    # ========================================================================
-
-    def expressions(
-        self, tenant: str, body: str, task_id: Optional[str] = None,
-    ) -> Any:
-        path = self._tenant_path(tenant, "flows", "expressions")
-        params = self._build_query_params(taskId=task_id)
-        return self._raw_json_request("POST", path, params=params, body=body, content_type=self.YAML)

@@ -4,8 +4,8 @@ import { kestraClient } from './CommonTestSetup.js';
 describe('PluginsApi', () => {
     it('listPlugins: lists all installed plugins', async () => {
         const result = await kestraClient.Plugins.listPlugins()
-        expect(result.results).toBeDefined();
-        expect(result.results).toBeInstanceOf(Array);
+        expect(result).toBeDefined();
+        expect(result).toBeInstanceOf(Array);
     });
 
     it('pluginBySubgroups: lists plugins organized by subgroups', async () => {
@@ -19,12 +19,6 @@ describe('PluginsApi', () => {
         expect(Array.isArray(result)).toBe(true);
     });
 
-    it('listTriggerPlugins: lists trigger plugins', async () => {
-        const result = await kestraClient.Plugins.listTriggerPlugins();
-        expect(result).toBeDefined();
-        expect(Array.isArray((result as any).results ?? result)).toBe(true);
-    });
-
     it('pluginIcons: returns plugin icons', async () => {
         const result = await kestraClient.Plugins.pluginIcons();
         expect(result).toBeDefined();
@@ -36,7 +30,7 @@ describe('PluginsApi', () => {
     });
 
     it('listVersionedPlugin: lists versioned plugins', async () => {
-        const result = await kestraClient.Plugins.listVersionedPlugin();
+        const result = await kestraClient.Plugins.listVersionedPlugin({ page: 1, size: 10 });
         expect(result).toBeDefined();
         expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
@@ -54,7 +48,7 @@ describe('PluginsApi', () => {
     });
 
     it('pluginDocumentation: gets documentation for a plugin', async () => {
-        const result = await kestraClient.Plugins.pluginDocumentation({ cls: 'io.kestra.plugin.core.log.Log' });
+        const result = await kestraClient.Plugins.pluginDocumentation({ cls: 'io.kestra.plugin.core.log.Log', all: false });
         expect(result).toBeDefined();
     });
 });

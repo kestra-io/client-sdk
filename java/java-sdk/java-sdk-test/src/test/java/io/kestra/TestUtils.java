@@ -110,11 +110,11 @@ public class TestUtils {
                     .uri(URI.create(HOST + "/ui/"))
                     .GET()
                     .build(), HttpResponse.BodyHandlers.ofString());
+            // Kestra 1.3's /ui/ serves no csrf-token meta tag and its token endpoint
+            // does not enforce CSRF, so treat the token as optional. 2.0 still exposes
+            // it, in which case we forward it.
             Matcher matcher = CSRF_META.matcher(ui.body());
-            if (!matcher.find()) {
-                throw new IllegalStateException("no csrf token from /ui/ (status " + ui.statusCode() + ")");
-            }
-            String csrf = matcher.group(1);
+            String csrf = matcher.find() ? matcher.group(1) : "";
 
             HttpResponse<String> tokenResponse = http.send(HttpRequest.newBuilder()
                     .uri(URI.create(HOST + "/api/v1/me/api-tokens"))
@@ -299,13 +299,6 @@ public class TestUtils {
                 .field(QueryFilterField.STATE)
                 .operation(QueryFilterOp.EQUALS)
                 .value(state);
-    }
-
-    public static QueryFilter nameFilter(String name) {
-        return new QueryFilter()
-                .field(QueryFilterField.NAME)
-                .operation(QueryFilterOp.EQUALS)
-                .value(name);
     }
 
     public static QueryFilter labelsFilter(Map<String, String> labels) {

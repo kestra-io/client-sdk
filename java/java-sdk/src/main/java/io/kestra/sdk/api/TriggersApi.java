@@ -86,16 +86,6 @@ public class TriggersApi extends BaseApi {
     // Enable / Disable
     // ========================================================================
 
-    public ApiTriggerState disableTriggerById(
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull TriggerControllerApiDisableTriggerRequest request) throws ApiException {
-        return invoke("PUT",
-                tenantPath(tenant, "triggers", "set-disabled"),
-                request, null, null,
-                JSON, JSON,
-                new TypeReference<>() {});
-    }
-
     public ApiAsyncOperationResponse disabledTriggersByIds(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull TriggerControllerSetDisabledRequest request) throws ApiException {
@@ -203,16 +193,6 @@ public class TriggersApi extends BaseApi {
     // ========================================================================
     // Backfill
     // ========================================================================
-
-    public ApiTriggerState createBackfill(
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull TriggerControllerApiCreateBackfillRequest request) throws ApiException {
-        return invoke("PUT",
-                tenantPath(tenant, "triggers", "backfill", "create"),
-                request, null, null,
-                JSON, JSON,
-                new TypeReference<>() {});
-    }
 
     public ApiTriggerState deleteBackfill(
             @jakarta.annotation.Nonnull String tenant,

@@ -175,55 +175,6 @@ public class TriggersApiTest {
     }
 
     // ========================================================================
-    // Enable / Disable
-    // ========================================================================
-
-    @Test
-    void disableTriggerById_basic() throws ApiException {
-        String ns = randomId();
-        String flowId = randomId();
-        createFlow(scheduleFlowYaml(flowId, ns));
-
-        TriggerControllerApiDisableTriggerRequest request =
-                new TriggerControllerApiDisableTriggerRequest()
-                        .namespace(ns)
-                        .flowId(flowId)
-                        .triggerId("schedule_trigger")
-                        .disabled(true);
-
-        ApiTriggerState result = api().disableTriggerById(TENANT, request);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getDisabled()).isTrue();
-    }
-
-    @Test
-    void enableTriggerById_basic() throws ApiException {
-        String ns = randomId();
-        String flowId = randomId();
-        createFlow(scheduleFlowYaml(flowId, ns));
-
-        TriggerControllerApiDisableTriggerRequest disableReq =
-                new TriggerControllerApiDisableTriggerRequest()
-                        .namespace(ns)
-                        .flowId(flowId)
-                        .triggerId("schedule_trigger")
-                        .disabled(true);
-        api().disableTriggerById(TENANT, disableReq);
-
-        TriggerControllerApiDisableTriggerRequest enableReq =
-                new TriggerControllerApiDisableTriggerRequest()
-                        .namespace(ns)
-                        .flowId(flowId)
-                        .triggerId("schedule_trigger")
-                        .disabled(false);
-        ApiTriggerState result = api().disableTriggerById(TENANT, enableReq);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getDisabled()).isFalse();
-    }
-
-    // ========================================================================
     // Bulk enable / disable
     // ========================================================================
 
@@ -334,32 +285,6 @@ public class TriggersApiTest {
         ApiAsyncOperationResponse result = api().deleteTriggersByQuery(TENANT, request);
 
         assertThat(result).isNotNull();
-    }
-
-    // ========================================================================
-    // Backfill
-    // ========================================================================
-
-    @Test
-    void createBackfill_basic() throws ApiException {
-        String ns = randomId();
-        String flowId = randomId();
-        createFlow(scheduleFlowYaml(flowId, ns));
-
-        TriggerControllerApiCreateBackfillRequestBackfill backfill =
-                new TriggerControllerApiCreateBackfillRequestBackfill()
-                        .start(OffsetDateTime.now().minusDays(7))
-                        .end(OffsetDateTime.now().minusDays(1));
-
-        TriggerControllerApiCreateBackfillRequest request =
-                new TriggerControllerApiCreateBackfillRequest()
-                        .namespace(ns)
-                        .flowId(flowId)
-                        .triggerId("schedule_trigger")
-                        .backfill(backfill);
-
-        assertThatCode(() -> api().createBackfill(TENANT, request))
-                .doesNotThrowAnyException();
     }
 
     // ========================================================================

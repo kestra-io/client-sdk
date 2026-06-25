@@ -141,19 +141,6 @@ public class DashboardsApi extends BaseApi {
     }
 
     // ========================================================================
-    // Settings
-    // ========================================================================
-
-    public DashboardSettings defaultDashboards(
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
-        return invoke("GET",
-                tenantPath(tenant, "dashboards", "settings", "default-dashboards"),
-                null, null, null,
-                JSON, null,
-                new TypeReference<>() {});
-    }
-
-    // ========================================================================
     // Validation
     // ========================================================================
 

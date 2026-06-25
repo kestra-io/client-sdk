@@ -116,7 +116,7 @@ public class ServiceAccountApiTest {
         api().createServiceAccount(request);
 
         PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
-                api().listServiceAccounts(1, 10, null, List.of(nameFilter(uniqueName)));
+                api().listServiceAccounts(1, 10, null, List.of(queryFilter(uniqueName)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -139,7 +139,7 @@ public class ServiceAccountApiTest {
     @Test
     void listServiceAccounts_noResults() throws ApiException {
         PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
-                api().listServiceAccounts(1, 10, null, List.of(nameFilter("nonexistent_sa_" + randomId())));
+                api().listServiceAccounts(1, 10, null, List.of(queryFilter("nonexistent_sa_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();
@@ -214,34 +214,6 @@ public class ServiceAccountApiTest {
 
         assertThatCode(() -> api().deleteServiceAccountForTenant(created.getId(), TENANT))
                 .doesNotThrowAnyException();
-    }
-
-    // ========================================================================
-    // Listing (tenant-scoped)
-    // ========================================================================
-
-    @Test
-    void listServiceAccountsForTenant_basic() throws ApiException {
-        api().createServiceAccountForTenant(TENANT,
-                new IAMServiceAccountControllerApiServiceAccountRequest()
-                        .name("sa-list-tenant-" + randomId())
-                        .description("Tenant list test"));
-
-        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
-                api().listServiceAccountsForTenant(TENANT, 1, 10, null, null);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull().isNotEmpty();
-    }
-
-    @Test
-    void listServiceAccountsForTenant_withPagination() throws ApiException {
-        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
-                api().listServiceAccountsForTenant(TENANT, 1, 2, null, null);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
-        assertThat(result.getResults().size()).isLessThanOrEqualTo(2);
     }
 
     // ========================================================================

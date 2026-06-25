@@ -31,11 +31,6 @@ describe('SecurityIntegrationsApi', () => {
         expect((result as any).id).toBe(id);
     });
 
-    it('searchSecurityIntegration: searches security integrations', async () => {
-        const result = await kestraClient.SecurityIntegrations.searchSecurityIntegration({ page: 1, size: 10 });
-        expect(result).toBeDefined();
-    });
-
     it('disableSecurityIntegration: disables an integration', async () => {
         const created = await createIntegration();
         const id = (created as any).id;

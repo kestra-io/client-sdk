@@ -89,11 +89,7 @@ describe('BlueprintsApi', () => {
         const result = await kestraClient.Blueprints.searchInternalBlueprints({
             page: 1,
             size: 5,
-            filters: [{
-                field: 'QUERY',
-                operation: 'EQUALS',
-                value: 'test'
-            }],
+            q: 'test',
         });
         expect(result).toBeDefined();
     });

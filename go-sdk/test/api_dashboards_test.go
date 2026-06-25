@@ -162,18 +162,6 @@ func TestDashboardsAPI_All(t *testing.T) {
 	})
 
 	// ========================================================================
-	// Settings
-	// ========================================================================
-
-	t.Run("defaultDashboards_basic", func(t *testing.T) {
-		ctx := context.Background()
-
-		result, err := KestraTestClient().Dashboards().DefaultDashboards(ctx, MAIN_TENANT)
-		require.NoError(t, err)
-		require.NotNil(t, result)
-	})
-
-	// ========================================================================
 	// Validation
 	// ========================================================================
 

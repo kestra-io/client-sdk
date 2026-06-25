@@ -191,24 +191,6 @@ public class ServiceAccountApi extends BaseApi {
                 null, null, null);
     }
 
-    public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccountsForTenant(
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable Integer page,
-            @jakarta.annotation.Nullable Integer size,
-            @jakarta.annotation.Nullable List<String> sort,
-            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-        List<Pair> collectionParams = new ArrayList<>();
-        collectionParams.addAll(csvParams("sort", sort));
-        collectionParams.addAll(filterParams(filters));
-        return invoke("GET",
-                tenantPath(tenant, "service-accounts"),
-                null,
-                queryParams("page", page, "size", size),
-                collectionParams,
-                JSON, null,
-                new TypeReference<>() {});
-    }
-
     // ========================================================================
     // API tokens (Tenant-scoped)
     // ========================================================================

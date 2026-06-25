@@ -28,8 +28,10 @@ def test_field_map_query_is_q():
     assert _FIELD_MAP["QUERY"] == "q"
 
 
-def test_field_map_min_level_is_level():
-    assert _FIELD_MAP["MIN_LEVEL"] == "level"
+def test_field_map_has_no_min_level_override():
+    # Kestra 1.3 expects the camelCase wire name `minLevel`, so MIN_LEVEL must
+    # NOT be overridden to the 2.0 name `level`; it camelCases naturally.
+    assert "MIN_LEVEL" not in _FIELD_MAP
 
 
 # ========================================================================
@@ -62,7 +64,7 @@ def test_query_field_uses_q():
     assert ("filters[q][EQUALS]", "hello world") in params
 
 
-def test_min_level_field_uses_level():
+def test_min_level_field_uses_min_level():
     params = []
     filters = [
         QueryFilter(
@@ -72,7 +74,7 @@ def test_min_level_field_uses_level():
         )
     ]
     append_filter_params(params, filters)
-    assert ("filters[level][EQUALS]", "INFO") in params
+    assert ("filters[minLevel][EQUALS]", "INFO") in params
 
 
 def test_flow_id_field_camel_case():

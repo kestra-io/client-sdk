@@ -1,6 +1,5 @@
 import time
 import pytest
-from datetime import datetime, timezone, timedelta
 
 from test_helpers import (
     TENANT,
@@ -204,47 +203,6 @@ def test_search_triggers_for_flow_with_all_params(client):
 # ========================================================================
 
 
-def test_disable_trigger_by_id_basic(client):
-    ns, flow_id = _create_schedule_flow(client)
-
-    request = {
-        "namespace": ns,
-        "flowId": flow_id,
-        "triggerId": "schedule_trigger",
-        "disabled": True,
-    }
-
-    result = client.triggers.disable_trigger_by_id(tenant=TENANT, request=request)
-
-    assert result is not None
-    assert result.get("disabled") is True
-
-
-def test_enable_trigger_by_id_basic(client):
-    ns, flow_id = _create_schedule_flow(client)
-
-    # Disable first
-    disable_req = {
-        "namespace": ns,
-        "flowId": flow_id,
-        "triggerId": "schedule_trigger",
-        "disabled": True,
-    }
-    client.triggers.disable_trigger_by_id(tenant=TENANT, request=disable_req)
-
-    # Enable
-    enable_req = {
-        "namespace": ns,
-        "flowId": flow_id,
-        "triggerId": "schedule_trigger",
-        "disabled": False,
-    }
-    result = client.triggers.disable_trigger_by_id(tenant=TENANT, request=enable_req)
-
-    assert result is not None
-    assert result.get("disabled") is False
-
-
 # ========================================================================
 # Bulk enable / disable
 # ========================================================================
@@ -357,29 +315,6 @@ def test_delete_triggers_by_query_basic(client):
     result = client.triggers.delete_triggers_by_query(tenant=TENANT, request=request)
 
     assert result is not None
-
-
-# ========================================================================
-# Backfill
-# ========================================================================
-
-
-def test_create_backfill_basic(client):
-    ns, flow_id = _create_schedule_flow(client)
-
-    now = datetime.now(timezone.utc)
-    request = {
-        "namespace": ns,
-        "flowId": flow_id,
-        "triggerId": "schedule_trigger",
-        "backfill": {
-            "start": (now - timedelta(days=7)).isoformat(),
-            "end": (now - timedelta(days=1)).isoformat(),
-        },
-    }
-
-    # Should not raise
-    client.triggers.create_backfill(tenant=TENANT, request=request)
 
 
 # ========================================================================
