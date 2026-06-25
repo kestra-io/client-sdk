@@ -24519,6 +24519,7 @@ components:
       - apiKeyCount
       - basicAuthCount
       - count
+      - ldapAuthCount
       - oidcCount
       - passwordlessCount
       type: object
@@ -24533,6 +24534,9 @@ components:
           type: integer
           format: int64
         basicAuthCount:
+          type: integer
+          format: int64
+        ldapAuthCount:
           type: integer
           format: int64
         passwordlessCount:
