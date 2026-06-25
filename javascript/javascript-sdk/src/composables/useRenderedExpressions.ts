@@ -43,6 +43,7 @@ export function useRenderedExpressions(
             const ctx = context() ?? {};
             const resp = await fetch(`/api/v1/${tenant}/expressions/render`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     expressions: values,
