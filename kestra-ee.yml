@@ -1041,8 +1041,7 @@ paths:
       tags:
       - Worker Groups
       summary: Delete a worker group
-      description: SuperAdmin only. Deletes a worker group. The default worker group
-        cannot be deleted.
+      description: SuperAdmin only.
       operationId: delete
       parameters:
       - name: id
@@ -1051,13 +1050,23 @@ paths:
         required: true
         schema:
           type: string
+      - name: force
+        in: query
+        description: Force deletion even when active workers are connected
+        explode: false
+        schema:
+          type: boolean
+          default: false
       responses:
-        "200":
-          description: delete 200 response
-          content:
-            application/json:
-              schema:
-                type: object
+        "204":
+          description: Worker group was deleted successfully
+        "400":
+          description: The default worker group cannot be deleted
+        "404":
+          description: Worker group not found
+        "409":
+          description: Active workers are still connected and force deletion was not
+            requested
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -1405,7 +1414,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Delete a Worker Queue
-      description: SuperAdmin only. Deletes a Worker Queue.
+      description: SuperAdmin only.
       operationId: delete_1
       parameters:
       - name: id
@@ -1414,12 +1423,39 @@ paths:
         schema:
           type: string
       responses:
+        "204":
+          description: Worker Queue was delete_1d successfully
+        "404":
+          description: Worker Queue not found
+        "409":
+          description: A worker group still subscribes to this Worker Queue
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/worker-queues/{id}/subscribers:
+    get:
+      tags:
+      - WorkerQueues
+      summary: List worker groups subscribing to a Worker Queue
+      description: SuperAdmin only. Returns the worker groups that subscribe to this
+        Worker Queue. A non-empty list means the queue cannot be deleted until the
+        subscription(s) are removed.
+      operationId: subscribers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
         "200":
-          description: delete_1 200 response
+          description: The subscribing worker groups
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueueSubscribers"
+        "404":
+          description: Worker Queue not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2771,7 +2807,7 @@ paths:
       tags:
       - Tenants
       summary: Get the apps catalog config for the specified tenant.
-      description: Superadmin-only.
+      description: Accessible to users with access to the tenant.
       operationId: getAppsCatalogConfig
       parameters:
       - name: id
@@ -3942,6 +3978,44 @@ paths:
       responses:
         "200":
           description: previewApp 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/apps/preview/dispatch/{dispatch}:
+    post:
+      tags:
+      - Apps
+      summary: Dispatch for the given app source (preview).
+      operationId: previewDispatchApp
+      parameters:
+      - name: dispatch
+        in: path
+        description: The ID to dispatch
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The app source (part '__kestra_app_source__') and the dispatch
+          data
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+      responses:
+        "200":
+          description: previewDispatchApp 200 response
           content:
             application/json:
               schema:
@@ -6880,11 +6954,17 @@ paths:
           type: string
       responses:
         "200":
-          description: deleteExecutionsByQuery 200 response
+          description: On success
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/BulkResponse"
+        "422":
+          description: Deleted with errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -6934,7 +7014,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -6975,12 +7055,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: updateExecutionsStatusByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7150,7 +7236,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7184,12 +7270,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: forceRunExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7232,7 +7324,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7260,12 +7352,24 @@ paths:
         schema:
           type: string
       responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: killExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7306,7 +7410,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7349,12 +7453,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: setLabelsOnTerminatedExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7485,7 +7595,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7519,12 +7629,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: pauseExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7575,7 +7691,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7618,12 +7734,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: replayExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7666,7 +7788,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7700,12 +7822,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: restartExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7748,7 +7876,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7782,12 +7910,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: resumeExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7910,7 +8044,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7952,12 +8086,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiAsyncOperationResponse"
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
         "200":
           description: unqueueExecutionsByQuery 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiAsyncOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8930,6 +9070,13 @@ paths:
         schema:
           type: string
           format: uri
+      - name: format
+        in: query
+        description: "The requested file format; RAW returns the raw bytes (default),\
+          \ JSONL converts Ion records to JSON Lines"
+        explode: false
+        schema:
+          $ref: "#/components/schemas/FileFormat"
       - name: tenant
         in: path
         required: true
@@ -8940,6 +9087,10 @@ paths:
           description: downloadFileFromExecution 200 response
           content:
             application/octet-stream:
+              schema:
+                type: string
+                format: binary
+            application/x-ndjson:
               schema:
                 type: string
                 format: binary
@@ -9441,7 +9592,7 @@ paths:
         required: true
       responses:
         "200":
-          description: deleteFlowsByIds 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -9473,7 +9624,7 @@ paths:
           type: string
       responses:
         "200":
-          description: deleteFlowsByQuery 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -9535,7 +9686,7 @@ paths:
         required: true
       responses:
         "200":
-          description: disableFlowsByIds 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -9567,7 +9718,7 @@ paths:
           type: string
       responses:
         "200":
-          description: disableFlowsByQuery 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -9629,7 +9780,7 @@ paths:
         required: true
       responses:
         "200":
-          description: enableFlowsByIds 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -9661,7 +9812,7 @@ paths:
           type: string
       responses:
         "200":
-          description: enableFlowsByQuery 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -14242,13 +14393,12 @@ paths:
           type: string
       responses:
         "200":
-          description: getTaskRunOutputs 200 response
+          description: The task run outputs as a map of output names to their values
           content:
             application/json:
               schema:
                 type: object
-                additionalProperties:
-                  type: object
+                additionalProperties: true
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16709,7 +16859,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiTriggerState"
         "409":
-          description: If the trigger is already unlocked
+          description: If the trigger is already unlocked or is a realtime trigger
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -17111,8 +17261,11 @@ components:
       properties:
         operationId:
           type: string
+          description: The operation identifier used to correlate logs and progress
+            indicators
         totalItems:
           type: integer
+          description: The number of domain events submitted for asynchronous processing
           format: int32
     ApiAuth:
       type: object
@@ -17619,6 +17772,9 @@ components:
           type: boolean
         isManaged:
           type: boolean
+        permissionCount:
+          type: integer
+          format: int32
     ApiSecretListResponse_ApiSecretMeta_:
       required:
       - readOnly
@@ -17835,6 +17991,8 @@ components:
           format: date-time
         executionId:
           type: string
+        kind:
+          $ref: "#/components/schemas/TriggerType"
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
@@ -18731,13 +18889,16 @@ components:
       properties:
         message:
           type: string
+          description: The error message
         invalids:
           type: object
+          description: The list of items that failed validation
     BulkResponse:
       type: object
       properties:
         count:
           type: integer
+          description: The number of items successfully processed
           format: int32
     Cache:
       required:
@@ -19325,6 +19486,8 @@ components:
       properties:
         message:
           type: string
+        renderError:
+          type: boolean
     ExecutionController.EvalResult:
       type: object
       properties:
@@ -19521,6 +19684,11 @@ components:
       x-enum-varnames:
       - File
       - Directory
+    FileFormat:
+      type: string
+      enum:
+      - RAW
+      - JSONL
     FileMetas:
       required:
       - size
@@ -20135,6 +20303,7 @@ components:
       type: object
       properties:
         name:
+          minLength: 1
           type: string
         description:
           type: string
@@ -20181,6 +20350,7 @@ components:
       type: object
       properties:
         name:
+          minLength: 1
           type: string
           description: of the group.
         description:
@@ -20329,6 +20499,7 @@ components:
             UNKNOWN:
               type: array
         name:
+          minLength: 1
           type: string
         description:
           type: string
@@ -21026,7 +21197,7 @@ components:
           type: string
         key:
           type: string
-        version:
+        revision:
           type: integer
           format: int32
         description:
@@ -21479,6 +21650,8 @@ components:
         commitId:
           type: string
         chartDefaultDuration:
+          type: string
+        flowTemplate:
           type: string
         commitDate:
           type: string
@@ -23900,6 +24073,12 @@ components:
           type: string
         primaryColor:
           type: string
+        backgroundColor:
+          type: string
+        tileColor:
+          type: string
+        buttonTextColor:
+          type: string
     TenantController.AppsCatalogConfigRequest:
       type: object
       properties:
@@ -23909,6 +24088,12 @@ components:
           type: string
         primaryColor:
           type: string
+        backgroundColor:
+          type: string
+        tileColor:
+          type: string
+        buttonTextColor:
+          type: string
     TenantController.AppsCatalogConfigResponse:
       type: object
       properties:
@@ -23917,6 +24102,12 @@ components:
         titleColor:
           type: string
         primaryColor:
+          type: string
+        backgroundColor:
+          type: string
+        tileColor:
+          type: string
+        buttonTextColor:
           type: string
         logo:
           type: string
@@ -24209,6 +24400,12 @@ components:
       - APP
       - UNKNOWN
       x-type: String
+    TriggerType:
+      type: string
+      enum:
+      - SCHEDULE
+      - POLLING
+      - REALTIME
     Type:
       type: string
       enum:
@@ -24229,6 +24426,7 @@ components:
       - MULTISELECT
       - YAML
       - EMAIL
+      - FORM
     UnitTest:
       required:
       - assertions
@@ -24321,6 +24519,7 @@ components:
       - apiKeyCount
       - basicAuthCount
       - count
+      - ldapAuthCount
       - oidcCount
       - passwordlessCount
       type: object
@@ -24335,6 +24534,9 @@ components:
           type: integer
           format: int64
         basicAuthCount:
+          type: integer
+          format: int64
+        ldapAuthCount:
           type: integer
           format: int64
         passwordlessCount:
@@ -24570,6 +24772,9 @@ components:
         max:
           type: integer
           format: int32
+        endedRate:
+          type: number
+          format: double
       description: "Compact per-worker capacity projection extracted from the worker's\
         \ heartbeat metric set. Replaces the previous full `Set` payload --- the Workers\
         \ tab only needs these three numbers, and shipping the rest forced tag-disambiguation\
@@ -24619,6 +24824,9 @@ components:
             $ref: "#/components/schemas/WorkerGroupController.ApiSubscriptionCapacity"
         shared:
           $ref: "#/components/schemas/WorkerGroupController.ApiSharedCapacity"
+        totalEndedRate:
+          type: number
+          format: double
         snapshotAt:
           type: string
           format: date-time
@@ -24730,6 +24938,13 @@ components:
           description: The tenant scope; empty means unrestricted.
           items:
             type: string
+    WorkerQueueController.ApiSubscribingGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
     WorkerQueueController.ApiWorkerQueue:
       type: object
       properties:
@@ -24796,6 +25011,13 @@ components:
           description: The list of Worker Queues.
           items:
             $ref: "#/components/schemas/WorkerQueueController.ApiWorkerQueueItem"
+    WorkerQueueController.ApiWorkerQueueSubscribers:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerQueueController.ApiSubscribingGroup"
     WorkerQueueFallback:
       type: string
       description: Strategy when no worker is available. Defaults to FAIL when null.
