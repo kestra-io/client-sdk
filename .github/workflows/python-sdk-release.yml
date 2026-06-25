@@ -1,0 +1,65 @@
+name: Python SDK release
+
+# Tag-only release, aligned with terraform-provider-kestra / kestractl.
+# Push a tag like `v1.0.13-python` to publish that version to PyPI. The tag
+# is cut from an already-green release branch, so this workflow only builds
+# and publishes — tests run on push/PR via python-sdk.yml.
+on:
+  push:
+    tags:
+      - "v*-python"
+
+jobs:
+  publish:
+    name: Publish to Pip
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./python/python-sdk
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.9.23"
+
+      - name: Resolve version from tag
+        id: version
+        run: |
+          # v1.0.13-python -> 1.0.13
+          VERSION=${GITHUB_REF_NAME#v}
+          VERSION=${VERSION%-python}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Install pypa/build
+        run: python -m pip install build --user
+
+      - name: Build a binary wheel and a source tarball
+        run: |
+          VERSION=${{ steps.version.outputs.version }} python -m build --sdist --wheel --outdir dist/ .
+
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          verbose: true
+          packages-dir: python/python-sdk/dist
+
+      - name: Slack notification
+        if: success()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
+
+      - name: Slack - Notify release failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}

@@ -1,4 +1,4 @@
-name: Java SDK release
+name: Java SDK tests
 
 on:
   push:
@@ -42,7 +42,7 @@ jobs:
 
       # Caches
       - name: Gradle cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches
@@ -109,78 +109,11 @@ jobs:
           fail-on-error: "false"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  publish:
-    name: Publish Java SDK
-    runs-on: ubuntu-latest
-    needs: test
-    if: startsWith(github.ref, 'refs/heads/releases/')
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-    defaults:
-      run:
-        working-directory: ./java/java-sdk
-    steps:
-      - uses: actions/checkout@v5
-
-      # Caches
-      - name: Gradle cache
-        uses: actions/cache@v4
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*',
-            '**/gradle*.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      # JDK
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          distribution: "temurin"
-          java-version: 21
-
-      - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
-
-      # Publish
-      - name: Publish - Release package to Maven Central
-        env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USER }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
-          SONATYPE_GPG_KEYID: ${{ secrets.SONATYPE_GPG_KEYID }}
-          SONATYPE_GPG_PASSWORD: ${{ secrets.SONATYPE_GPG_PASSWORD }}
-          SONATYPE_GPG_FILE: ${{ secrets.SONATYPE_GPG_FILE}}
-        run: |
-          mkdir -p ~/.gradle/
-          echo "signing.keyId=${SONATYPE_GPG_KEYID}" > ~/.gradle/gradle.properties
-          echo "signing.password=${SONATYPE_GPG_PASSWORD}" >> ~/.gradle/gradle.properties
-          echo "signing.secretKeyRingFile=${HOME}/.gradle/secring.gpg" >> ~/.gradle/gradle.properties
-          echo ${SONATYPE_GPG_FILE} | base64 -d > ~/.gradle/secring.gpg
-          ./gradlew publishToMavenCentral
-
-      # GitHub Release
-      - name: Create GitHub release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            build/libs/*.jar
-
-      # Slack
-      - name: Slack notification
-        uses: 8398a7/action-slack@v3
-        if: ${{ always() && env.SLACK_WEBHOOK_URL != 0 }}
-        with:
-          status: ${{ job.status }}
-          job_name: Publish
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          username: GitHub Actions
-          icon_emoji: ":github-actions:"
-          channel: "C02DQ1A7JLR"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Java SDK

@@ -1,0 +1,78 @@
+name: Javascript SDK release
+
+# Tag-only release, aligned with terraform-provider-kestra / kestractl.
+# Push a tag like `v1.0.13-javascript` to publish that version to npm. The tag
+# is cut from an already-green release branch, so this workflow only builds and
+# publishes — tests run on push/PR via javascript-sdk.yml. The tag is the source
+# of truth for the version (no npm auto-increment). Per-commit develop snapshots
+# stay in javascript-sdk.yml (publish-develop job, main only).
+on:
+  push:
+    tags:
+      - "v*-javascript"
+
+jobs:
+  publish:
+    name: Publish Release to Npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve version from tag
+        id: resolveVersion
+        run: |
+          # v1.0.13-javascript -> 1.0.13
+          VERSION=${GITHUB_REF_NAME#v}
+          VERSION=${VERSION%-javascript}
+          # moving dist-tag for the minor line, e.g. v1.0
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+          echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Generate SDK
+        working-directory: .
+        run: |
+          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
+          javascript
+
+      - name: Publish to npm with latest tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public
+
+      - name: Add version tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm dist-tag add @kestra-io/kestra-sdk@${{
+          steps.resolveVersion.outputs.kestra_version }} --tag ${{
+          steps.resolveVersion.outputs.kestra_tag }} --access public
+
+      - name: Slack notification
+        if: success()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
+
+      - name: Slack - Notify release failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}

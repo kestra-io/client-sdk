@@ -1,0 +1,22 @@
+name: Go SDK release
+
+# Go has no build/publish step: the tag itself is the release, served on demand
+# by proxy.golang.org. This workflow only announces the release to Slack. The tag
+# must be `go-sdk/vX.Y.Z` (the Go toolchain parses the tag for subdirectory modules).
+on:
+  push:
+    tags:
+      - "go-sdk/v*"
+
+jobs:
+  announce:
+    name: Announce Go SDK release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack notification
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}

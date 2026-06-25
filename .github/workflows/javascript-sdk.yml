@@ -1,4 +1,4 @@
-name: Javascript SDK release
+name: Javascript SDK tests
 
 on:
   push:
@@ -58,6 +58,13 @@ jobs:
         with:
           node-version: "22.18"
           registry-url: "https://registry.npmjs.org"
+
+      # node 22.18 ships npm 10, but the committed lockfile records the `libc`
+      # field on native optional deps, which only npm 11+ writes. Without this,
+      # SDK generation rewrites (and strips) those fields, failing the
+      # "fail workflow if there is any difference" check. Matches the publish jobs.
+      - name: Upgrade npm
+        run: npm install -g npm@latest
 
       - name: extract root version
         id: extract_version
@@ -133,78 +140,14 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
 
-  publish-release:
-    name: Publish Release to Npm
-    runs-on: ubuntu-latest
-    needs: test
-    permissions:
-      contents: write
-      id-token: write
-    if: startsWith(github.ref, 'refs/heads/releases/')
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Compute Kestra version
-        id: version
-        uses: ./.github/actions/compute-version
-
-      - uses: actions/setup-node@v6
+      - name: Slack - Notify CI failure
+        if: failure() && github.event_name != 'pull_request'
+        uses: kestra-io/actions/composite/slack-status@main
         with:
-          node-version: "22.18"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Compute next version
-        id: resolveVersion
-        run: |
-          INPUT_VERSION=${{ steps.version.outputs.kestra_version }}
-
-          # strip leading "v" (npm versions are not v-prefixed) and trailing ".x"/".X"
-          VERSION_PREFIX=$(echo "$INPUT_VERSION" | sed -e 's/^v//' -e 's/\.[xX]$//')
-
-          echo "Version prefix: $VERSION_PREFIX"
-
-          # list all versions and filter those that start with the current version prefix (e.g., 1.2.)
-          # `|| true` so an empty grep does not abort the step under `bash -e`
-          VERSIONS=$(npm view @kestra-io/kestra-sdk versions --json 2>/dev/null | jq -r '.[]' 2>/dev/null | grep "^${VERSION_PREFIX}\." || true)
-
-          echo "Existing versions with prefix $VERSION_PREFIX: $VERSIONS"
-
-          # get the highest patch version, default to -1 when no prior patches exist
-          HIGHEST_PATCH=$(echo "$VERSIONS" | awk -F. '{print $NF}' | sort -nr | head -n 1)
-          if [ -z "$HIGHEST_PATCH" ]; then
-            HIGHEST_PATCH=-1
-          fi
-
-          echo "Highest patch version: $HIGHEST_PATCH"
-
-          # increment the patch version
-          NEXT_PATCH=$((HIGHEST_PATCH + 1))
-          NEXT_VERSION="$VERSION_PREFIX.$NEXT_PATCH"
-
-          echo "kestra_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
-          echo "kestra_tag=v$VERSION_PREFIX" >> $GITHUB_OUTPUT
-
-      # Trusted publishing need npm 11.+
-      - name: Upgrade npm
-        run: |
-          npm install -g npm@latest
-          npm version
-
-      - name: Generate SDK
-        working-directory: .
-        run: |
-          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
-          javascript
-
-      - name: Publish to npm with latest tag
-        working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public
-
-      - name: Add version tag
-        working-directory: ./javascript/javascript-sdk
-        run: npm dist-tag add @kestra-io/kestra-sdk@${{
-          steps.resolveVersion.outputs.kestra_version }} --tag ${{
-          steps.resolveVersion.outputs.kestra_tag }} --access public
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK
 
   publish-develop:
     name: Publish Develop to Npm
@@ -273,3 +216,12 @@ jobs:
           ```
           EOF
           )"
+
+      - name: Slack - Notify publish failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: Javascript SDK develop publish

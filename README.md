@@ -108,7 +108,7 @@ except ApiException as err:
 
 ### Java (`io.kestra:kestra-api-client`)
 
-- Add the dependency to your build: `io.kestra:kestra-api-client:1.0.0`.
+- Add the dependency to your build: `io.kestra:kestra-api-client:1.3.0`.
 - Basic authentication uses the builder method `.basicAuth(username, password)`. Service accounts call `.tokenAuth("<service-account-api-key>")` instead.
 
 <details>
@@ -128,7 +128,7 @@ except ApiException as err:
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("io.kestra:kestra-api-client:1.0.0")
+implementation("io.kestra:kestra-api-client:1.3.0")
 ```
 
 </details>
