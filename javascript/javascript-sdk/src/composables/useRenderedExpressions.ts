@@ -1,5 +1,5 @@
 import { ref, watch } from "vue";
-import { resolveTenant, useClient } from "../index";
+import { resolveTenant } from "../index";
 
 /** Only values that actually contain a Pebble expression are worth a round-trip. */
 const EXPRESSION_RE = /\{\{.*?}}/;
@@ -40,20 +40,21 @@ export function useRenderedExpressions(
         }
         try {
             const tenant = resolveTenant(undefined);
-            const client = useClient();
             const ctx = context() ?? {};
-            const resp = await client.post(
-                `/api/v1/${tenant}/expressions/render`,
-                {
+            const resp = await fetch(`/api/v1/${tenant}/expressions/render`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     expressions: values,
                     executionId: ctx.executionId,
                     namespace: ctx.namespace,
                     flowId: ctx.flowId,
                     flow: ctx.flow,
-                },
-                { validateStatus: (s: number) => s === 200 },
-            );
-            rendered.value = (resp.data?.rendered as Record<string, string>) ?? {};
+                }),
+            });
+            if (!resp.ok) return;
+            const data = await resp.json();
+            rendered.value = (data?.rendered as Record<string, string>) ?? {};
         } catch {
             /* best-effort: keep raw values */
         }
