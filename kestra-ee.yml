@@ -1012,7 +1012,9 @@ paths:
         \ (name, description, subscriptions) in a single transactional save. Subscriptions\
         \ absent from the submitted list are dropped; the underlying WorkerQueue is\
         \ preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for\
-        \ one-off edits."
+        \ one-off edits. When the Worker Queues feature is disabled, subscriptions\
+        \ are immutable: the stored set is preserved and only the name and description\
+        \ are updated."
       operationId: update
       parameters:
       - name: id
@@ -22737,6 +22739,11 @@ components:
         values:
           type: object
           additionalProperties: false
+    PluginDistribution:
+      type: string
+      enum:
+      - OSS
+      - EE
     PluginIcon:
       type: object
       properties:
@@ -22819,6 +22826,8 @@ components:
             type: string
         sourceHash:
           type: string
+        distribution:
+          $ref: "#/components/schemas/PluginDistribution"
     Property_Boolean_:
       type: object
       properties:
