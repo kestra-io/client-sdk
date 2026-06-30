@@ -77,6 +77,11 @@
   "peerDependencies": {
     "vue": ">=3.0.0"
   },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",
     "@types/node": "^25.9.1",
