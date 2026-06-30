@@ -349,7 +349,6 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		require.ElementsMatch(t, []string{testSuiteId4}, foundIds)
 	})
 	t.Run("runTestSuiteTest", func(t *testing.T) {
-		t.Skip("need to fix AssertionResult expected and actual deserialization first")
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
@@ -367,7 +366,6 @@ func TestTestSuitesAPI_All(t *testing.T) {
 		require.NotEmpty(t, res.GetEndDate())
 	})
 	t.Run("runTestSuiteTest_failed", func(t *testing.T) {
-		t.Skip("need to fix AssertionResult expected and actual deserialization first")
 		testSuiteId := randomId()
 		namespace := randomId()
 		flowId := randomId()
