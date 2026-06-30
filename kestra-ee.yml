@@ -17566,6 +17566,12 @@ components:
           type: string
         name:
           type: string
+        description:
+          type: string
+          nullable: true
+        securityIntegrationName:
+          type: string
+          nullable: true
     ApiIds:
       type: object
       properties:
