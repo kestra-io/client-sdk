@@ -322,8 +322,6 @@ export const configureAxios = (
         }
     })
 
-    axiosInstance = instance
-
     return instance;
 };
 
@@ -490,6 +488,8 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
     instance.defaults.paramsSerializer = {
         indexes: null
     };
+
+    axiosInstance = instance
 
     return instance
 }
