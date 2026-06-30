@@ -3280,8 +3280,9 @@ paths:
     delete:
       tags:
       - Users
-      summary: Update user password
-      description: Superadmin-only. Updates whether a user is a superadmin.
+      summary: Delete user auth method
+      description: Superadmin-only. Deletes a specific authentication method from
+        a user.
       operationId: deleteUserAuthMethod
       parameters:
       - name: id
@@ -3339,7 +3340,7 @@ paths:
       tags:
       - Users
       summary: Update user password
-      description: Superadmin-only. Updates whether a user is a superadmin.
+      description: Superadmin-only. Updates the password of a user.
       operationId: patchUserPassword
       parameters:
       - name: id
@@ -16448,8 +16449,8 @@ paths:
           items:
             type: string
         examples:
-          Sort by timestamp in ascending order:
-            value: timestamp:asc
+          Sort by next evaluation date in ascending order:
+            value: nextEvaluationDate:asc
           Sort by trigger ID in descending order:
             value: triggerId:desc
       - name: filters
