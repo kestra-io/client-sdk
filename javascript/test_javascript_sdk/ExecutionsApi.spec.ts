@@ -448,7 +448,7 @@ describe("ExecutionsApi", () => {
             filters: filters,
         });
 
-        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
+        expect(resp.count).toBeGreaterThanOrEqual(1);
 
         const after = await awaitExecution(e2.id, "RUNNING", 1500, 100);
         expect(after.state?.current).toBe("RUNNING");
@@ -598,7 +598,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.killExecutionsByIds({
             body: [e2.id, e3.id],
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const [s2, s3] = await Promise.all([
             awaitExecution(e2.id, "KILLED", 5000, 100),
@@ -651,7 +651,7 @@ describe("ExecutionsApi", () => {
         const bulk = await kestraClient.Executions.killExecutionsByQuery({
             filters: filters,
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         await awaitExecution(a.id, "KILLED", 5000, 100);
         await awaitExecution(b.id, "KILLED", 5000, 100);
@@ -676,7 +676,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.pauseExecutionsByIds({
             body: [e1.id ?? "", e2.id ?? ""],
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
         const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
@@ -702,7 +702,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.pauseExecutionsByQuery(
             { filters: filters },
         );
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
         const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
@@ -746,7 +746,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.replayExecutionsByIds({
             body: [e1.id ?? "", e2.id ?? ""]
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
     });
 
     // --- replay by query ---
@@ -763,7 +763,7 @@ describe("ExecutionsApi", () => {
         const resp: any = await kestraClient.Executions.replayExecutionsByQuery(
             { filters: filters, latestRevision: true },
         );
-        expect(resp.totalItems).toBe(1);
+        expect(resp.count).toBe(1);
     });
 
     // --- restart execution (single) ---
@@ -786,7 +786,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.restartExecutionsByIds(
             { body: [e1.id, e2.id] },
         );
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
     });
 
     // --- restart by query ---
@@ -803,7 +803,7 @@ describe("ExecutionsApi", () => {
         const resp: any = await kestraClient.Executions.restartExecutionsByQuery(
             { filters: filters },
         );
-        expect(resp.totalItems).toBe(2);
+        expect(resp.count).toBe(2);
     });
 
     // --- resume execution (single) ---
@@ -824,7 +824,7 @@ describe("ExecutionsApi", () => {
         const bulk: any = await kestraClient.Executions.resumeExecutionsByIds(
             { body: [e1.id, e2.id] },
         );
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
         const d1 = await awaitExecution(e1.id, "SUCCESS", 2000, 100);
         const d2 = await awaitExecution(e2.id, "SUCCESS", 2000, 100);
         expect(d1.state?.current).toBe("SUCCESS");
@@ -845,7 +845,7 @@ describe("ExecutionsApi", () => {
         const resp: any = await kestraClient.Executions.resumeExecutionsByQuery(
             { filters: filters },
         );
-        expect(resp.totalItems).toBe(2);
+        expect(resp.count).toBe(2);
         const d1 = await awaitExecution(e1.id, "SUCCESS", 2000, 100);
         const d2 = await awaitExecution(e2.id, "SUCCESS", 2000, 100);
         expect(d1.state?.current).toBe("SUCCESS");
@@ -938,7 +938,7 @@ describe("ExecutionsApi", () => {
         ];
         const bulk: any =
             await kestraClient.Executions.setLabelsOnTerminatedExecutionsByIds({ executionsId: [a.id ?? "", b.id ?? ""], executionLabels: labels });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const a2 = await awaitLabel(a.id, "foo", "bar");
         const b2 = await awaitLabel(b.id, "foo", "bar");
@@ -979,7 +979,7 @@ describe("ExecutionsApi", () => {
                 filters: filters,
                 body: labels,
             });
-        expect(resp.totalItems).toBe(2);
+        expect(resp.count).toBe(2);
 
         const a2 = await awaitLabel(a.id, "foo", "bar");
         const b2 = await awaitLabel(b.id, "foo", "bar");
@@ -1075,7 +1075,7 @@ describe("ExecutionsApi", () => {
             state: "RUNNING",
             body: [q1.id, q2.id],
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
@@ -1119,7 +1119,7 @@ describe("ExecutionsApi", () => {
             filters: filters,
             newState: "RUNNING",
         });
-        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
+        expect(resp.count).toBeGreaterThanOrEqual(1);
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
@@ -1150,7 +1150,7 @@ describe("ExecutionsApi", () => {
             newStatus: "CANCELLED",
             body: [e1.id ?? "", e2.id ?? ""],
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
         const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
@@ -1179,7 +1179,7 @@ describe("ExecutionsApi", () => {
             newStatus: "CANCELLED",
             filters: filters,
         });
-        expect(bulk.totalItems).toBe(2);
+        expect(bulk.count).toBe(2);
 
         const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
         const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
