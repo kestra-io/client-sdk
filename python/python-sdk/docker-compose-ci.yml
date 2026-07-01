@@ -35,7 +35,7 @@ services:
   # ---------------------------------------------------------------------------
   kestra:
     container_name: python-sdk-test-kestra
-    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:develop-no-plugins"
+    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:${KESTRA_VERSION}-no-plugins"
     pull_policy: always
     user: "root"
     command: server standalone

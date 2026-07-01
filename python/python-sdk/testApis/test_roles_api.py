@@ -7,7 +7,7 @@ from kestrapy import (
     ApiIds,
 )
 from kestrapy.exceptions import ApiException
-from test_helpers import TENANT, random_id, query_filter
+from test_helpers import TENANT, random_id
 
 
 # ========================================================================
@@ -104,7 +104,7 @@ def test_search_roles_with_query_filter(client):
     name = "query-filter-" + random_id()
     create_test_role(client, name)
 
-    result = client.roles.search_roles(TENANT, 1, 10, filters=[query_filter(name)])
+    result = client.roles.search_roles(TENANT, 1, 10, q=name)
 
     assert result is not None
     assert len(result.results) > 0
@@ -128,7 +128,7 @@ def test_search_roles_with_sort(client):
 
 def test_search_roles_no_results(client):
     result = client.roles.search_roles(
-        TENANT, 1, 10, filters=[query_filter("nonexistent_role_" + random_id())]
+        TENANT, 1, 10, q="nonexistent_role_" + random_id()
     )
 
     assert result is not None

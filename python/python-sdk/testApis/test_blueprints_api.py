@@ -196,11 +196,6 @@ def test_search_internal_blueprints_with_sort(client):
     assert idx2 > idx1
 
 
-@pytest.mark.xfail(
-    reason="kestra-ee 2.0 returns no tags for internal blueprints, so the "
-    "tag-filtered search yields an empty list",
-    strict=False,
-)
 def test_search_internal_blueprints_with_tags(client):
     tag = f"sdktest{random_id()[:8]}"
     client.blueprints.create_flow_blueprint(

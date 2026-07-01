@@ -159,10 +159,10 @@ class ExecutionsApi(BaseApi):
 
     def kill_execution(
         self, execution_id: str, tenant: str, is_on_kill_cascade: Optional[bool] = None,
-    ) -> Execution:
+    ) -> None:
         path = self._tenant_path(tenant, "executions", execution_id,"kill")
         params = self._build_query_params(isOnKillCascade=is_on_kill_cascade)
-        return self._json_request("DELETE", path, Execution, params=params)
+        self._void_request("DELETE", path, params=params)
 
     def kill_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
         path = self._tenant_path(tenant, "executions", "kill", "by-ids")
@@ -231,9 +231,9 @@ class ExecutionsApi(BaseApi):
     # Pause / Resume
     # ========================================================================
 
-    def pause_execution(self, execution_id: str, tenant: str) -> Execution:
+    def pause_execution(self, execution_id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "executions", execution_id,"pause")
-        return self._json_request("POST", path, Execution)
+        self._void_request("POST", path)
 
     def pause_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
         path = self._tenant_path(tenant, "executions", "pause", "by-ids")
@@ -247,9 +247,9 @@ class ExecutionsApi(BaseApi):
         self._append_filter_params(params, filters)
         return self._raw_json_request("POST", path, params=params)
 
-    def resume_execution(self, execution_id: str, tenant: str) -> Execution:
+    def resume_execution(self, execution_id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "executions", execution_id,"resume")
-        return self._json_request("POST", path, Execution)
+        self._void_request("POST", path)
 
     def resume_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
         path = self._tenant_path(tenant, "executions", "resume", "by-ids")

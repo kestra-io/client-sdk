@@ -26,7 +26,7 @@ class BlueprintsApi(BaseApi):
 
     def blueprint_source(self, id: str, kind: BlueprintControllerKind, tenant: str) -> str:
         path = self._tenant_path(tenant, "blueprints", "community", kind.value, id, "source")
-        return self._text_request("GET", path, accept=self.YAML)
+        return self._text_request("GET", path, accept=self.YAML_ACCEPT)
 
     def search_blueprints(
         self,
@@ -81,7 +81,7 @@ class BlueprintsApi(BaseApi):
 
     def internal_blueprint_flow(self, id: str, tenant: str) -> str:
         path = self._tenant_path(tenant, "blueprints", "custom", id, "source")
-        return self._text_request("GET", path, accept=self.YAML)
+        return self._text_request("GET", path, accept=self.YAML_ACCEPT)
 
     def update_internal_blueprints(self, id: str, tenant: str, request: BlueprintControllerApiBlueprintItemWithSource) -> BlueprintWithFlowEntity:
         path = self._tenant_path(tenant, "blueprints", "custom", id)

@@ -33,6 +33,11 @@ T = TypeVar('T')
 class BaseApi:
     JSON = "application/json"
     YAML = "application/x-yaml"
+    # Blueprint source endpoints declare `application/yaml` (no "x-" prefix) as
+    # their response media type, distinct from the `application/x-yaml` request
+    # bodies use elsewhere. Sending YAML as the Accept header on those routes
+    # fails content negotiation and the server responds 401 instead of 200.
+    YAML_ACCEPT = "application/yaml"
     TEXT = "text/plain"
     OCTET = "application/octet-stream"
     CSV = "text/csv"
