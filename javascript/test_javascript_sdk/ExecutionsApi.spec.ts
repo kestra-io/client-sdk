@@ -721,10 +721,14 @@ describe("ExecutionsApi", () => {
 
         );
 
-        expect(replay.state?.current).toBe("RUNNING");
-
+        // RUNNING is a transient state — depending on scheduling, the API may
+        // respond before or after the executor picks it up, so `current` can be
+        // CREATED or RUNNING (or even SUCCESS for a fast flow). Assert RUNNING
+        // appears in the final execution's state history instead (same pattern
+        // as restart_execution above).
         const done = await awaitExecution(replay.id ?? "", "SUCCESS", 2000, 100);
         expect(done.state?.current).toBe("SUCCESS");
+        expect(done.state?.histories?.map((h) => h.state)).toContain("RUNNING");
     });
 
     // --- replay execution with inputs (single) ---
