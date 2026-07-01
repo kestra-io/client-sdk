@@ -22,10 +22,9 @@ func (a *RolesAPI) DeleteRole(ctx context.Context, id, tenant string) error {
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "roles", id), nil, nil)
 }
 
-func (a *RolesAPI) SearchRoles(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiRoleSummary, error) {
-	params := buildQueryParams("page", page, "size", size)
+func (a *RolesAPI) SearchRoles(ctx context.Context, tenant string, page, size *int, sort []string, q *string) (*PagedResultsApiRoleSummary, error) {
+	params := buildQueryParams("q", q, "page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsApiRoleSummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "roles", "search"), nil, params)
 }
 

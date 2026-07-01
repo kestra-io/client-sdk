@@ -24,7 +24,7 @@ type ApiTriggerState struct {
 	Namespace string `json:"namespace"`
 	FlowId string `json:"flowId"`
 	TriggerId string `json:"triggerId"`
-	UpdatedAt time.Time `json:"updatedAt"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	EvaluatedAt *time.Time `json:"evaluatedAt,omitempty"`
 	NextEvaluationDate *time.Time `json:"nextEvaluationDate,omitempty"`
 	Backfill *Backfill `json:"backfill,omitempty"`
@@ -42,12 +42,11 @@ type _ApiTriggerState ApiTriggerState
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiTriggerState(namespace string, flowId string, triggerId string, updatedAt time.Time) *ApiTriggerState {
+func NewApiTriggerState(namespace string, flowId string, triggerId string) *ApiTriggerState {
 	this := ApiTriggerState{}
 	this.Namespace = namespace
 	this.FlowId = flowId
 	this.TriggerId = triggerId
-	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -131,28 +130,36 @@ func (o *ApiTriggerState) SetTriggerId(v string) {
 	o.TriggerId = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *ApiTriggerState) GetUpdatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.UpdatedAt
+	return *o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTriggerState) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.UpdatedAt, true
 }
 
-// SetUpdatedAt sets field value
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *ApiTriggerState) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
 func (o *ApiTriggerState) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+	o.UpdatedAt = &v
 }
 
 // GetEvaluatedAt returns the EvaluatedAt field value if set, zero value otherwise.
@@ -424,7 +431,9 @@ func (o ApiTriggerState) ToMap() (map[string]interface{}, error) {
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["flowId"] = o.FlowId
 	toSerialize["triggerId"] = o.TriggerId
-	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
 	if !IsNil(o.EvaluatedAt) {
 		toSerialize["evaluatedAt"] = o.EvaluatedAt
 	}
@@ -465,7 +474,6 @@ func (o *ApiTriggerState) UnmarshalJSON(data []byte) (err error) {
 		"namespace",
 		"flowId",
 		"triggerId",
-		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})

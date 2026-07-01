@@ -21,7 +21,7 @@ var _ MappedNullable = &ApiExecution{}
 
 // ApiExecution struct for ApiExecution
 type ApiExecution struct {
-	TenantId string `json:"tenantId"`
+	TenantId *string `json:"tenantId,omitempty"`
 	Id string `json:"id"`
 	Namespace string `json:"namespace"`
 	FlowId string `json:"flowId"`
@@ -51,9 +51,8 @@ type _ApiExecution ApiExecution
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiExecution(tenantId string, id string, namespace string, flowId string, flowRevision int32, state State, originalId string, metadata ExecutionMetadata) *ApiExecution {
+func NewApiExecution(id string, namespace string, flowId string, flowRevision int32, state State, originalId string, metadata ExecutionMetadata) *ApiExecution {
 	this := ApiExecution{}
-	this.TenantId = tenantId
 	this.Id = id
 	this.Namespace = namespace
 	this.FlowId = flowId
@@ -72,28 +71,36 @@ func NewApiExecutionWithDefaults() *ApiExecution {
 	return &this
 }
 
-// GetTenantId returns the TenantId field value
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
 func (o *ApiExecution) GetTenantId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		var ret string
 		return ret
 	}
-
-	return o.TenantId
+	return *o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiExecution) GetTenantIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		return nil, false
 	}
-	return &o.TenantId, true
+	return o.TenantId, true
 }
 
-// SetTenantId sets field value
+// HasTenantId returns a boolean if a field has been set.
+func (o *ApiExecution) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
 func (o *ApiExecution) SetTenantId(v string) {
-	o.TenantId = v
+	o.TenantId = &v
 }
 
 // GetId returns the Id field value
@@ -690,7 +697,9 @@ func (o ApiExecution) MarshalJSON() ([]byte, error) {
 
 func (o ApiExecution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["tenantId"] = o.TenantId
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["flowId"] = o.FlowId
@@ -750,7 +759,6 @@ func (o *ApiExecution) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"tenantId",
 		"id",
 		"namespace",
 		"flowId",

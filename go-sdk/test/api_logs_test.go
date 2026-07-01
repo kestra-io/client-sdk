@@ -128,13 +128,17 @@ func TestLogsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		executionId, _, _ := createExecutionWithLogs(t, ctx)
 
-		file, err := KestraTestClient().Logs().DownloadLogsFromExecution(ctx, executionId, MAIN_TENANT, nil, nil, nil, nil)
-		require.NoError(t, err)
-		require.NotNil(t, file)
-
-		stat, err := file.Stat()
-		require.NoError(t, err)
-		require.Greater(t, stat.Size(), int64(0))
+		// Log persistence can trail slightly behind the execution reaching a
+		// terminal state, so the download endpoint may briefly 200 with an
+		// empty body right after createExecutionWithLogs returns.
+		require.Eventually(t, func() bool {
+			file, err := KestraTestClient().Logs().DownloadLogsFromExecution(ctx, executionId, MAIN_TENANT, nil, nil, nil, nil)
+			if err != nil || file == nil {
+				return false
+			}
+			stat, err := file.Stat()
+			return err == nil && stat.Size() > 0
+		}, 5*time.Second, 200*time.Millisecond, "downloaded log file should eventually be non-empty")
 	})
 
 	t.Run("searchLogs_basic", func(t *testing.T) {
@@ -210,8 +214,8 @@ func TestLogsAPI_All(t *testing.T) {
 		require.Eventually(t, func() bool {
 			filters := []kestra_api_client.SearchFilter{
 				{
-					Field:     kestra_api_client.FilterMinLevel,
-					Operation: kestra_api_client.OpGreaterThanOrEqualTo,
+					Field:     kestra_api_client.FilterLevel,
+					Operation: kestra_api_client.OpEquals,
 					Value:     "INFO",
 				},
 				{

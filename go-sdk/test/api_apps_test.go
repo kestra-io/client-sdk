@@ -118,7 +118,7 @@ func TestAppsAPI_All(t *testing.T) {
 	t.Run("searchApps_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil, nil, nil, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil, nil, nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotNil(t, result.Results)
@@ -127,7 +127,7 @@ func TestAppsAPI_All(t *testing.T) {
 	t.Run("searchAppsFromCatalog_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Apps().SearchAppsFromCatalog(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
+		result, err := KestraTestClient().Apps().SearchAppsFromCatalog(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotNil(t, result.Results)
@@ -137,7 +137,7 @@ func TestAppsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		created, _, ns, _ := createAppWithFlow(t, ctx)
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), nil, nil, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), nil, nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Greater(t, len(result.Results), 0)
@@ -156,7 +156,7 @@ func TestAppsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		created, _, ns, flowId := createAppWithFlow(t, ctx)
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), kestra_api_client.PtrString(flowId), nil, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), kestra_api_client.PtrString(flowId), nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Greater(t, len(result.Results), 0)
@@ -181,7 +181,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err := KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(appId, ns, flowId))
 		require.NoError(t, err)
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), kestra_api_client.PtrString("Test App "+appId), kestra_api_client.PtrString(ns), nil, nil, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), kestra_api_client.PtrString("Test App "+appId), kestra_api_client.PtrString(ns), nil, nil, nil)
 		require.NoError(t, err)
 		require.Greater(t, len(result.Results), 0)
 		for _, app := range result.Results {
@@ -202,7 +202,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err = KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(appId1, ns, flowId))
 		require.NoError(t, err)
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), nil, []string{"id:asc"}, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), nil, []string{"id:asc"}, nil)
 		require.NoError(t, err)
 		require.GreaterOrEqual(t, len(result.Results), 2)
 
@@ -225,14 +225,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err := KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(randomId(), ns, flowId))
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.SearchFilter{
-			{
-				Field:     kestra_api_client.FilterNamespace,
-				Operation: kestra_api_client.OpEquals,
-				Value:     ns,
-			},
-		}
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil, nil, nil, nil, filters)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString(ns), nil, nil, nil)
 		require.NoError(t, err)
 		require.Greater(t, len(result.Results), 0)
 		for _, app := range result.Results {
@@ -249,14 +242,7 @@ func TestAppsAPI_All(t *testing.T) {
 		_, err := KestraTestClient().Apps().CreateApp(ctx, MAIN_TENANT, appYaml(randomId(), ns, flowId))
 		require.NoError(t, err)
 
-		filters := []kestra_api_client.SearchFilter{
-			{
-				Field:     kestra_api_client.FilterNamespace,
-				Operation: kestra_api_client.OpEquals,
-				Value:     ns,
-			},
-		}
-		result, err := KestraTestClient().Apps().SearchAppsFromCatalog(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), filters)
+		result, err := KestraTestClient().Apps().SearchAppsFromCatalog(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Greater(t, len(result.Results), 0)
@@ -265,7 +251,7 @@ func TestAppsAPI_All(t *testing.T) {
 	t.Run("searchApps_noResults", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString("nonexistent_ns_"+randomId()), nil, nil, nil, nil)
+		result, err := KestraTestClient().Apps().SearchApps(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrString("nonexistent_ns_"+randomId()), nil, nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Empty(t, result.Results)

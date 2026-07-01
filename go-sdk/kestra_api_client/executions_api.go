@@ -217,7 +217,7 @@ func (a *ExecutionsAPI) EvalExpression(
 	ctx context.Context,
 	executionId, tenant, expression string,
 ) (*ExecutionControllerEvalResult, error) {
-	path := tenantPath(tenant, "executions", executionId, "actions", "eval")
+	path := tenantPath(tenant, "executions", executionId, "eval")
 
 	result, err := doJSONWithTextBody[ExecutionControllerEvalResult](&a.baseAPI, ctx, "POST", path, expression, nil)
 	if err != nil {
@@ -258,9 +258,9 @@ func (a *ExecutionsAPI) KillExecutionsByIds(
 	ctx context.Context,
 	tenant string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "kill", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, ids, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", path, ids, nil)
 }
 
 // KillExecutionsByQuery kills executions matching the given filters.
@@ -268,12 +268,12 @@ func (a *ExecutionsAPI) KillExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "kill", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "DELETE", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", path, nil, params)
 }
 
 // ========================================================================
@@ -357,9 +357,9 @@ func (a *ExecutionsAPI) PauseExecutionsByIds(
 	ctx context.Context,
 	tenant string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "pause", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
 }
 
 // PauseExecutionsByQuery pauses executions matching the given filters.
@@ -367,12 +367,12 @@ func (a *ExecutionsAPI) PauseExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "pause", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ResumeExecution resumes a paused execution.
@@ -402,9 +402,9 @@ func (a *ExecutionsAPI) ResumeExecutionsByIds(
 	ctx context.Context,
 	tenant string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "resume", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
 }
 
 // ResumeExecutionsByQuery resumes executions matching the given filters.
@@ -412,12 +412,12 @@ func (a *ExecutionsAPI) ResumeExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "resume", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================
@@ -445,9 +445,9 @@ func (a *ExecutionsAPI) RestartExecutionsByIds(
 	ctx context.Context,
 	tenant string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "restart", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
 }
 
 // RestartExecutionsByQuery restarts executions matching the given filters.
@@ -455,12 +455,12 @@ func (a *ExecutionsAPI) RestartExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "restart", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================
@@ -491,10 +491,10 @@ func (a *ExecutionsAPI) ReplayExecutionsByIds(
 	tenant string,
 	ids []string,
 	latestRevision *bool,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "replay", "by-ids")
 	params := buildQueryParams("latestRevision", latestRevision)
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, params)
 }
 
 // ReplayExecutionsByQuery replays executions matching the given filters.
@@ -503,12 +503,12 @@ func (a *ExecutionsAPI) ReplayExecutionsByQuery(
 	tenant string,
 	filters []SearchFilter,
 	latestRevision *bool,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "replay", "by-query")
 	params := buildQueryParams("latestRevision", latestRevision)
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================
@@ -531,9 +531,9 @@ func (a *ExecutionsAPI) ForceRunByIds(
 	ctx context.Context,
 	tenant string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "force-run", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, nil)
 }
 
 // ForceRunExecutionsByQuery forces queued executions matching the given filters to run.
@@ -541,12 +541,12 @@ func (a *ExecutionsAPI) ForceRunExecutionsByQuery(
 	ctx context.Context,
 	tenant string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "force-run", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================
@@ -575,10 +575,10 @@ func (a *ExecutionsAPI) UnqueueExecutionsByIds(
 	tenant string,
 	state *string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "unqueue", "by-ids")
 	params := buildQueryParams("state", state)
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, params)
 }
 
 // UnqueueExecutionsByQuery unqueues executions matching the given filters.
@@ -587,12 +587,12 @@ func (a *ExecutionsAPI) UnqueueExecutionsByQuery(
 	tenant string,
 	newState *string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "unqueue", "by-query")
 	params := buildQueryParams("newState", newState)
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================
@@ -619,9 +619,9 @@ func (a *ExecutionsAPI) SetLabelsOnTerminatedExecutionsByIds(
 	ctx context.Context,
 	tenant string,
 	request ExecutionControllerSetLabelsByIdsRequest,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "labels", "by-ids")
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, request, nil)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, request, nil)
 }
 
 // SetLabelsOnTerminatedExecutionsByQuery sets labels on terminated executions matching the given filters.
@@ -630,12 +630,12 @@ func (a *ExecutionsAPI) SetLabelsOnTerminatedExecutionsByQuery(
 	tenant string,
 	labels []Label,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "labels", "by-query")
 	params := url.Values{}
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, labels, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, labels, params)
 }
 
 // ========================================================================
@@ -662,10 +662,10 @@ func (a *ExecutionsAPI) UpdateExecutionsStatusByIds(
 	ctx context.Context,
 	tenant, newStatus string,
 	ids []string,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "change-status", "by-ids")
 	params := buildQueryParams("newStatus", newStatus)
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, ids, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, ids, params)
 }
 
 // UpdateExecutionsStatusByQuery changes the status of executions matching the given filters.
@@ -673,12 +673,12 @@ func (a *ExecutionsAPI) UpdateExecutionsStatusByQuery(
 	ctx context.Context,
 	tenant, newStatus string,
 	filters []SearchFilter,
-) (*ApiAsyncOperationResponse, error) {
+) (*BulkResponse, error) {
 	path := tenantPath(tenant, "executions", "change-status", "by-query")
 	params := buildQueryParams("newStatus", newStatus)
 	appendFilterParams(params, filters)
 
-	return doJSON[*ApiAsyncOperationResponse](&a.baseAPI, ctx, "POST", path, nil, params)
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "POST", path, nil, params)
 }
 
 // ========================================================================

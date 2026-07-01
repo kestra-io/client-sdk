@@ -76,10 +76,8 @@ func (a *BlueprintsAPI) DeleteInternalBlueprints(ctx context.Context, id, tenant
 }
 
 func (a *BlueprintsAPI) SearchInternalBlueprints(ctx context.Context, tenant string, q *string, sort, tags []string, page, size *int, source *string) (*PagedResultsBlueprint, error) {
-	params := buildQueryParams("page", page, "size", size, "source", source)
+	params := buildQueryParams("q", q, "page", page, "size", size, "source", source)
 	appendRepeatedParam(params, "sort", sort)
-	filters := appendStringFilter(nil, FilterQuery, q)
-	filters = appendSliceFilter(filters, FilterTags, tags)
-	appendFilterParams(params, filters)
+	appendRepeatedParam(params, "tags", tags)
 	return doJSON[*PagedResultsBlueprint](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "custom"), nil, params)
 }
