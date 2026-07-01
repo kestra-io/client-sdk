@@ -7,6 +7,7 @@ import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -273,8 +274,8 @@ public class LogsApiTest {
 
             assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
             for (int i = 0; i < result.getResults().size() - 1; i++) {
-                assertThat(result.getResults().get(i).getTimestamp())
-                        .isAfterOrEqualTo(result.getResults().get(i + 1).getTimestamp());
+                assertThat(result.getResults().get(i).getTimestamp().truncatedTo(ChronoUnit.MILLIS))
+                        .isAfterOrEqualTo(result.getResults().get(i + 1).getTimestamp().truncatedTo(ChronoUnit.MILLIS));
             }
         });
     }

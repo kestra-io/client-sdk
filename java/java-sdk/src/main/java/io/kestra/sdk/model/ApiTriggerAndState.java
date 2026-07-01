@@ -33,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiTriggerAndState {
-  public static final String JSON_PROPERTY_TRIGGER = "trigger";
+  public static final String JSON_PROPERTY_TRIGGER = "abstractTrigger";
   @jakarta.annotation.Nonnull  private AbstractTrigger trigger;
 
-  public static final String JSON_PROPERTY_STATE = "state";
+  public static final String JSON_PROPERTY_STATE = "triggerContext";
   @jakarta.annotation.Nonnull  private ApiTriggerState state;
 
   public ApiTriggerAndState() {

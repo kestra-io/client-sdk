@@ -168,6 +168,7 @@ public class GroupsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable String q,
             @jakarta.annotation.Nullable List<String> sort,
             @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         List<Pair> collectionParams = new ArrayList<>();
@@ -175,7 +176,7 @@ public class GroupsApi extends BaseApi {
         collectionParams.addAll(filterParams(filters));
         return get(
                 tenantPath(tenant, "groups", "search"),
-                queryParams("page", page, "size", size),
+                queryParams("page", page, "size", size, "q", q),
                 collectionParams,
                 new TypeReference<>() {});
     }

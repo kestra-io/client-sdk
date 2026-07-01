@@ -92,7 +92,7 @@ public class RolesApiTest {
     void searchRoles_basic() throws ApiException {
         createTestRole("searchable-" + randomId());
 
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, null);
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -100,7 +100,7 @@ public class RolesApiTest {
 
     @Test
     void searchRoles_withPagination() throws ApiException {
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 2, null, null);
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 2, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -112,7 +112,7 @@ public class RolesApiTest {
         String name = "name-filter-" + randomId();
         IAMRoleControllerApiRoleDetail created = createTestRole(name);
 
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(queryFilter(name)));
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, name, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -126,7 +126,7 @@ public class RolesApiTest {
         String name = "query-filter-" + randomId();
         createTestRole(name);
 
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null, List.of(queryFilter(name)));
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, name, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -139,7 +139,7 @@ public class RolesApiTest {
         createTestRole(name2);
         createTestRole(name1);
 
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 100, List.of("name:asc"), null);
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 100, null, List.of("name:asc"), null);
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> names = result.getResults().stream()
@@ -153,8 +153,8 @@ public class RolesApiTest {
 
     @Test
     void searchRoles_noResults() throws ApiException {
-        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10, null,
-                List.of(queryFilter("nonexistent_role_" + randomId())));
+        PagedResultsApiRoleSummary result = api().searchRoles(TENANT, 1, 10,
+                "nonexistent_role_" + randomId(), null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();

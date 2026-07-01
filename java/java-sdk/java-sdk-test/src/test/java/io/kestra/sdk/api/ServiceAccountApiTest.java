@@ -113,10 +113,10 @@ public class ServiceAccountApiTest {
                         .name(uniqueName)
                         .description("Search test");
 
-        api().createServiceAccount(request);
+        IAMServiceAccountControllerApiServiceAccountDetail created = api().createServiceAccount(request);
 
         PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result =
-                api().listServiceAccounts(1, 10, null, List.of(queryFilter(uniqueName)));
+                api().listServiceAccounts(1, 10, null, List.of(queryFilter(created.getId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
