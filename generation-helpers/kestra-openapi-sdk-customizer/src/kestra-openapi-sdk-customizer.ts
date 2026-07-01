@@ -15,7 +15,9 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
         removeDeprecatedOperations?: boolean,
         removeDeprecatedParameters?: boolean,
         operationIdsToSkip?: string[],
-        tagsToSkip?: string[]
+        tagsToSkip?: string[],
+        missingSecurityTags?: string[],
+        missingSecurityMethods?: string[]
     };
 
     const counters = sanitizeOpenAPI(spec, configuration);

@@ -94,7 +94,9 @@ export function sanitizeOpenAPI(
         removeDeprecatedOperations?: boolean,
         removeDeprecatedParameters?: boolean,
         operationIdsToSkip?: string[],
-        tagsToSkip?: string[]
+        tagsToSkip?: string[],
+        missingSecurityTags?: string[],
+        missingSecurityMethods?: string[]
     } = {}
 ) {
     const counters = { removedProperties: 0, removedParameters: 0, removedOperations: 0, removedSchemas: 0 };
@@ -102,14 +104,18 @@ export function sanitizeOpenAPI(
         removeDeprecatedOperations = true,
         removeDeprecatedParameters = true,
         operationIdsToSkip = [],
-        tagsToSkip = []
+        tagsToSkip = [],
+        missingSecurityTags = ["Tenants", "Secrets", "Blueprints", "Blueprint Tags", "Dashboards", "TestSuites"],
+        missingSecurityMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"]
     } = opts;
 
     console.log(
         `sanitize OpenAPI spec with params:\n\tremoveDeprecatedOperations: ${removeDeprecatedOperations}` +
         `\n\tremoveDeprecatedParameters: ${removeDeprecatedParameters}` +
         `\n\toperationIdsToSkip: ${operationIdsToSkip}` +
-        `\n\ttagsToSkip: ${tagsToSkip}`
+        `\n\ttagsToSkip: ${tagsToSkip}` +
+        `\n\tmissingSecurityTags: ${missingSecurityTags}` +
+        `\n\tmissingSecurityMethods: ${missingSecurityMethods}`
     )
 
     if (!spec || typeof spec !== "object") return counters;
@@ -235,7 +241,7 @@ export function sanitizeOpenAPI(
 
     // 12) Same upstream spec bug as above, on a different set of tags. TODO: fix at the
     //     source (Kestra EE) and drop this.
-    addMissingEeControllerSecurity(spec)
+    addMissingEeControllerSecurity(spec, missingSecurityTags, missingSecurityMethods)
 
     return counters;
 }
@@ -280,20 +286,21 @@ export function addMissingScimSecurity(spec: any): number {
 
 /**
  * Add the standard `bearerAuth`/`basicAuth` security requirement to operations tagged
- * `Tenants`, `Secrets`, `Blueprints`, `Blueprint Tags`, `Dashboards` or `TestSuites` that
- * lack a `security` block.
+ * with one of `tagsToFix` that lack a `security` block.
  *
  * Same upstream spec bug as `addMissingScimSecurity`, on a different set of controllers.
  * The hey-api axios client only attaches the configured auth when an operation declares
  * `security`, so these requests are sent unauthenticated and the server replies 401
  * (verified against a real Kestra 1.3.26 instance: e.g. `GET /api/v1/tenants/search`
  * lacks `security` in the spec but 401s without Basic/Bearer auth).
+ *
+ * `tagsToFix` and `httpMethods` are configurable via `missingSecurityTags` /
+ * `missingSecurityMethods` in the customizer config, since the set of affected
+ * controllers is an upstream spec detail that shifts between Kestra versions.
  */
-export function addMissingEeControllerSecurity(spec: any): number {
+export function addMissingEeControllerSecurity(spec: any, tagsToFix: string[], httpMethods: string[]): number {
     if (!spec?.paths || typeof spec.paths !== "object") return 0;
 
-    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
-    const tagsToFix = ["Tenants", "Secrets", "Blueprints", "Blueprint Tags", "Dashboards", "TestSuites"];
     const security = [{ bearerAuth: [] }, { basicAuth: [] }];
     let added = 0;
 
