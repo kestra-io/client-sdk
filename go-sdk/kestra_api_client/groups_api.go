@@ -42,10 +42,9 @@ func (a *GroupsAPI) SearchGroupMembers(ctx context.Context, id, tenant string, p
 	return doJSON[*PagedResultsIAMGroupControllerApiGroupMember](&a.baseAPI, ctx, "GET", tenantPath(tenant, "groups", id, "members"), nil, params)
 }
 
-func (a *GroupsAPI) SearchGroups(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiGroupSummary, error) {
-	params := buildQueryParams("page", page, "size", size)
+func (a *GroupsAPI) SearchGroups(ctx context.Context, tenant string, page, size *int, sort []string, q *string) (*PagedResultsApiGroupSummary, error) {
+	params := buildQueryParams("q", q, "page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsApiGroupSummary](&a.baseAPI, ctx, "GET", tenantPath(tenant, "groups", "search"), nil, params)
 }
 

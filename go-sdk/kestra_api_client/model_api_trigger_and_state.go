@@ -20,7 +20,7 @@ var _ MappedNullable = &ApiTriggerAndState{}
 
 // ApiTriggerAndState struct for ApiTriggerAndState
 type ApiTriggerAndState struct {
-	Trigger AbstractTrigger `json:"trigger"`
+	Trigger *AbstractTrigger `json:"trigger,omitempty"`
 	State ApiTriggerState `json:"state"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,9 +31,8 @@ type _ApiTriggerAndState ApiTriggerAndState
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiTriggerAndState(trigger AbstractTrigger, state ApiTriggerState) *ApiTriggerAndState {
+func NewApiTriggerAndState(state ApiTriggerState) *ApiTriggerAndState {
 	this := ApiTriggerAndState{}
-	this.Trigger = trigger
 	this.State = state
 	return &this
 }
@@ -46,28 +45,36 @@ func NewApiTriggerAndStateWithDefaults() *ApiTriggerAndState {
 	return &this
 }
 
-// GetTrigger returns the Trigger field value
+// GetTrigger returns the Trigger field value if set, zero value otherwise.
 func (o *ApiTriggerAndState) GetTrigger() AbstractTrigger {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		var ret AbstractTrigger
 		return ret
 	}
-
-	return o.Trigger
+	return *o.Trigger
 }
 
-// GetTriggerOk returns a tuple with the Trigger field value
+// GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTriggerAndState) GetTriggerOk() (*AbstractTrigger, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
-	return &o.Trigger, true
+	return o.Trigger, true
 }
 
-// SetTrigger sets field value
+// HasTrigger returns a boolean if a field has been set.
+func (o *ApiTriggerAndState) HasTrigger() bool {
+	if o != nil && !IsNil(o.Trigger) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrigger gets a reference to the given AbstractTrigger and assigns it to the Trigger field.
 func (o *ApiTriggerAndState) SetTrigger(v AbstractTrigger) {
-	o.Trigger = v
+	o.Trigger = &v
 }
 
 // GetState returns the State field value
@@ -104,7 +111,9 @@ func (o ApiTriggerAndState) MarshalJSON() ([]byte, error) {
 
 func (o ApiTriggerAndState) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["trigger"] = o.Trigger
+	if !IsNil(o.Trigger) {
+		toSerialize["trigger"] = o.Trigger
+	}
 	toSerialize["state"] = o.State
 
 	for key, value := range o.AdditionalProperties {
@@ -119,7 +128,6 @@ func (o *ApiTriggerAndState) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"trigger",
 		"state",
 	}
 

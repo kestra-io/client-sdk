@@ -10,18 +10,10 @@ type LogsAPI struct {
 	baseAPI
 }
 
-// logExecutionFilters translates the legacy per-request log filter params into
-// the unified `filters` array Kestra 2.0 expects on the per-execution log read
-// and follow endpoints (the DELETE endpoint still takes the legacy params).
+// logExecutionFilters builds the flat query params the per-execution log
+// read/follow/download endpoints expect (minLevel, taskRunId, taskId, attempt).
 func logExecutionFilters(minLevel, taskRunId, taskId *string, attempt *int) url.Values {
-	var filters []SearchFilter
-	filters = appendStringFilterOp(filters, FilterMinLevel, OpGreaterThanOrEqualTo, minLevel)
-	filters = appendStringFilter(filters, FilterTaskRunId, taskRunId)
-	filters = appendStringFilter(filters, FilterTaskId, taskId)
-	filters = appendIntFilter(filters, FilterAttemptNumber, attempt)
-	params := url.Values{}
-	appendFilterParams(params, filters)
-	return params
+	return buildQueryParams("minLevel", minLevel, "taskRunId", taskRunId, "taskId", taskId, "attempt", attempt)
 }
 
 func (a *LogsAPI) ListLogsFromExecution(ctx context.Context, executionId, tenant string, minLevel, taskRunId, taskId *string, attempt *int) ([]LogEntry, error) {

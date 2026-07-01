@@ -10,11 +10,11 @@ type TriggersAPI struct {
 // Search
 // ========================================================================
 
-func (a *TriggersAPI) SearchTriggers(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiTriggerAndState, error) {
+func (a *TriggersAPI) SearchTriggers(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsTriggerControllerTriggers, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)
-	return doJSON[*PagedResultsApiTriggerAndState](&a.baseAPI, ctx, "GET", tenantPath(tenant, "triggers", "search"), nil, params)
+	return doJSON[*PagedResultsTriggerControllerTriggers](&a.baseAPI, ctx, "GET", tenantPath(tenant, "triggers", "search"), nil, params)
 }
 
 func (a *TriggersAPI) SearchTriggersForFlow(ctx context.Context, tenant, namespace, flowId string, page, size *int, q *string, sort []string) (*PagedResultsApiTriggerState, error) {

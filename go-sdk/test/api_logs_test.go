@@ -210,8 +210,8 @@ func TestLogsAPI_All(t *testing.T) {
 		require.Eventually(t, func() bool {
 			filters := []kestra_api_client.SearchFilter{
 				{
-					Field:     kestra_api_client.FilterMinLevel,
-					Operation: kestra_api_client.OpGreaterThanOrEqualTo,
+					Field:     kestra_api_client.FilterLevel,
+					Operation: kestra_api_client.OpEquals,
 					Value:     "INFO",
 				},
 				{

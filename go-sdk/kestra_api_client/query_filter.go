@@ -47,6 +47,7 @@ const (
 	FilterAction    SearchFilterField = "action"
 	FilterDetails   SearchFilterField = "details"
 	FilterMinLevel  SearchFilterField = "minLevel"
+	FilterLevel     SearchFilterField = "level"
 	FilterTriggerId SearchFilterField = "triggerId"
 	FilterExisting  SearchFilterField = "existing"
 	FilterKey       SearchFilterField = "key"

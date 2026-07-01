@@ -338,7 +338,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().ForceRunByIds(ctx, MAIN_TENANT, []string{execQueued.Id})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 
 		require.Eventually(t, executionInState(ctx, execQueued.Id, kestra_api_client.STATETYPE_RUNNING), 5*time.Second, 100*time.Millisecond)
 	})
@@ -481,7 +481,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().KillExecutionsByIds(ctx, MAIN_TENANT, []string{exec1.Id, exec2.Id})
 		require.NoError(t, err)
-		require.EqualValues(t, 2, res.GetTotalItems())
+		require.EqualValues(t, 2, res.GetCount())
 
 		require.Eventually(t, executionInState(ctx, exec1.Id, kestra_api_client.STATETYPE_KILLED), 10*time.Second, 500*time.Millisecond)
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_KILLED), 10*time.Second, 500*time.Millisecond)
@@ -539,7 +539,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().PauseExecutionsByIds(ctx, MAIN_TENANT, []string{exec1.Id, exec2.Id})
 		require.NoError(t, err)
-		require.EqualValues(t, 2, res.GetTotalItems())
+		require.EqualValues(t, 2, res.GetCount())
 		require.Eventually(t, executionInState(ctx, exec1.Id, kestra_api_client.STATETYPE_PAUSED), 5*time.Second, 100*time.Millisecond)
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_PAUSED), 5*time.Second, 100*time.Millisecond)
 	})
@@ -564,7 +564,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}
 		res, err := KestraTestClient().Executions().PauseExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 		require.Eventually(t, executionInState(ctx, exec2.Id, kestra_api_client.STATETYPE_PAUSED), 5*time.Second, 100*time.Millisecond)
 	})
 	t.Run("replayExecutionTest", func(t *testing.T) {
@@ -591,7 +591,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().ReplayExecutionsByIds(ctx, MAIN_TENANT, []string{exec.Id}, nil)
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 	})
 	t.Run("replayExecutionsByQueryTest", func(t *testing.T) {
 		namespace := randomId()
@@ -607,7 +607,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}
 		res, err := KestraTestClient().Executions().ReplayExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter}, nil)
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 	})
 	t.Run("restartExecutionTest", func(t *testing.T) {
 		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
@@ -632,7 +632,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().RestartExecutionsByIds(ctx, MAIN_TENANT, []string{exec.Id})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 	})
 	t.Run("restartExecutionsByQueryTest", func(t *testing.T) {
 		namespace := randomId()
@@ -648,7 +648,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}
 		res, err := KestraTestClient().Executions().RestartExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 	})
 	t.Run("resumeExecutionTest", func(t *testing.T) {
 		t.Skip("Requires new /actions/ execution paths not yet in the Docker image")
@@ -673,7 +673,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().ResumeExecutionsByIds(ctx, MAIN_TENANT, []string{exec.Id})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
 	})
 	t.Run("resumeExecutionsByQueryTest", func(t *testing.T) {
@@ -690,7 +690,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}
 		res, err := KestraTestClient().Executions().ResumeExecutionsByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{filter})
 		require.NoError(t, err)
-		require.EqualValues(t, 1, res.GetTotalItems())
+		require.EqualValues(t, 1, res.GetCount())
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
 	})
 	t.Run("searchExecutionsTest", func(t *testing.T) {
