@@ -248,7 +248,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(randomId(), ns2, flowId2));
 
         PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, null, null, null, null, null, List.of(nsFilter(ns1)));
+                TENANT, 1, 10, null, ns1, null, null, null, null);
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(app ->

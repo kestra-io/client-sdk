@@ -90,7 +90,7 @@ public class GroupsApiTest {
     void searchGroups_basic() throws ApiException {
         createTestGroup("searchable-" + randomId());
 
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, null);
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -98,7 +98,7 @@ public class GroupsApiTest {
 
     @Test
     void searchGroups_withPagination() throws ApiException {
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 2, null, null);
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 2, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -110,7 +110,7 @@ public class GroupsApiTest {
         String name = "name-filter-" + randomId();
         createTestGroup(name);
 
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(queryFilter(name)));
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, name, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -124,7 +124,7 @@ public class GroupsApiTest {
         String prefix = "qfgrp" + randomId();
         createTestGroup(prefix);
 
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, null, List.of(queryFilter(prefix)));
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 10, prefix, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -137,7 +137,7 @@ public class GroupsApiTest {
         createTestGroup(name2);
         createTestGroup(name1);
 
-        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 100, List.of("name:asc"), null);
+        PagedResultsApiGroupSummary result = api().searchGroups(TENANT, 1, 100, null, List.of("name:asc"), null);
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> names = result.getResults().stream()
@@ -183,7 +183,7 @@ public class GroupsApiTest {
     @Test
     void searchGroups_noResults() throws ApiException {
         PagedResultsApiGroupSummary result = api().searchGroups(
-                TENANT, 1, 10, null, List.of(queryFilter("nonexistent_group_" + randomId())));
+                TENANT, 1, 10, "nonexistent_group_" + randomId(), null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults() == null || result.getResults().isEmpty() || result.getTotal() == 0).isTrue();
