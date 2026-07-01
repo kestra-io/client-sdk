@@ -36,13 +36,17 @@ describe('WorkerGroupsApi', () => {
         const created = await kestraClient.WorkerGroups.createWorkerGroup(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
+        // `key` is immutable once created — the server derives a uid from it and
+        // rejects updates that submit a different key with "Invalid uid for key".
+        // Only description/allowedTenants can change; key must be resent as-is.
         const result = await kestraClient.WorkerGroups.updateWorkerGroupById({
             id,
-            key: `updated-${id}`,
+            key: created.key ?? "",
             description: 'Updated worker group description',
             allowedTenants: [],
         });
         expect(result).toBeDefined();
+        expect((result as any).description).toBe('Updated worker group description');
     });
 
     it('deleteWorkerGroupById: deletes a worker group', async () => {
