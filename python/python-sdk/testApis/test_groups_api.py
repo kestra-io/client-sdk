@@ -114,7 +114,7 @@ def test_search_groups_with_query_filter(client):
     prefix = "qfgrp" + random_id()
     create_test_group(client, prefix)
 
-    result = client.groups.search_groups(TENANT, 1, 10, filters=[query_filter(prefix)])
+    result = client.groups.search_groups(TENANT, 1, 10, q=prefix)
 
     assert result is not None
     assert result.results is not None
@@ -139,7 +139,7 @@ def test_search_groups_with_sort(client):
 
 def test_search_groups_no_results(client):
     result = client.groups.search_groups(
-        TENANT, 1, 10, filters=[query_filter("nonexistent_group_" + random_id())]
+        TENANT, 1, 10, q="nonexistent_group_" + random_id()
     )
 
     assert result is not None

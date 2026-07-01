@@ -7,7 +7,6 @@ from kestrapy.models.api_role_summary import ApiRoleSummary
 from kestrapy.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
 from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
 from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSummary
-from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.role import Role
 
 
@@ -56,12 +55,11 @@ class RolesApi(BaseApi):
         page: Optional[int] = None,
         size: Optional[int] = None,
         sort: Optional[List[str]] = None,
-        filters: Optional[List[QueryFilter]] = None,
+        q: Optional[str] = None,
     ) -> PagedResultsApiRoleSummary:
         path = self._tenant_path(tenant, "roles", "search")
-        params = list(self._build_query_params(page=page, size=size).items())
+        params = list(self._build_query_params(page=page, size=size, q=q).items())
         self._append_repeated_param(params, "sort", sort)
-        self._append_filter_params(params, filters)
         return self._json_request("GET", path, PagedResultsApiRoleSummary, params=params)
 
     def autocomplete_roles(

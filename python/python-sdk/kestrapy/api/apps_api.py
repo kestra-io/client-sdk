@@ -10,7 +10,6 @@ from kestrapy.models.file_metas import FileMetas
 from kestrapy.models.level import Level
 from kestrapy.models.paged_results_apps_controller_api_app import PagedResultsAppsControllerApiApp
 from kestrapy.models.paged_results_apps_controller_api_app_catalog_item import PagedResultsAppsControllerApiAppCatalogItem
-from kestrapy.models.query_filter import QueryFilter
 
 
 class AppsApi(BaseApi):
@@ -98,7 +97,6 @@ class AppsApi(BaseApi):
         flow_id: Optional[str] = None,
         sort: Optional[List[str]] = None,
         tags: Optional[List[str]] = None,
-        filters: Optional[List[QueryFilter]] = None,
     ) -> PagedResultsAppsControllerApiApp:
         path = self._tenant_path(tenant, "apps", "search")
         params = list(self._build_query_params(
@@ -106,7 +104,6 @@ class AppsApi(BaseApi):
         ).items())
         self._append_repeated_param(params, "sort", sort)
         self._append_repeated_param(params, "tags", tags)
-        self._append_filter_params(params, filters)
         return self._json_request("GET", path, PagedResultsAppsControllerApiApp, params=params)
 
     def search_apps_from_catalog(
@@ -114,11 +111,12 @@ class AppsApi(BaseApi):
         tenant: str,
         page: Optional[int] = None,
         size: Optional[int] = None,
-        filters: Optional[List[QueryFilter]] = None,
+        q: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> PagedResultsAppsControllerApiAppCatalogItem:
         path = self._tenant_path(tenant, "apps", "catalog")
-        params = list(self._build_query_params(page=page, size=size).items())
-        self._append_filter_params(params, filters)
+        params = list(self._build_query_params(page=page, size=size, q=q).items())
+        self._append_repeated_param(params, "tags", tags)
         return self._json_request("GET", path, PagedResultsAppsControllerApiAppCatalogItem, params=params)
 
     # ========================================================================

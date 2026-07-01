@@ -12,7 +12,6 @@ from test_helpers import (
     random_namespace,
     log_flow_yaml,
     create_flow,
-    ns_filter,
 )
 
 
@@ -159,11 +158,6 @@ class TestSearch:
         assert len(result.results) > 0
         assert any(app.uid == created.uid for app in result.results)
 
-    @pytest.mark.xfail(
-        reason="kestra-ee 2.0 ignores the search query on this list endpoint and "
-        "returns unrelated rows (pagination/filter regression)",
-        strict=False,
-    )
     def test_search_apps_with_query(self, client):
         ns = random_namespace()
         flow_id = random_id()
@@ -223,7 +217,7 @@ class TestSearch:
         client.apps.create_app(TENANT, _app_yaml(random_id(), ns1, flow_id1))
         client.apps.create_app(TENANT, _app_yaml(random_id(), ns2, flow_id2))
 
-        result = client.apps.search_apps(TENANT, 1, 10, filters=[ns_filter(ns1)])
+        result = client.apps.search_apps(TENANT, 1, 10, namespace=ns1)
         assert len(result.results) > 0
         for app in result.results:
             assert app.namespace == ns1
@@ -234,15 +228,11 @@ class TestSearch:
         create_flow(client, log_flow_yaml(flow_id, ns))
         client.apps.create_app(TENANT, _app_yaml(random_id(), ns, flow_id))
 
-        result = client.apps.search_apps_from_catalog(TENANT, 1, 10, [ns_filter(ns)])
+        # searchAppsFromCatalog only supports page, size, q, tags (no namespace filter).
+        result = client.apps.search_apps_from_catalog(TENANT, 1, 10)
         assert result is not None
         assert len(result.results) > 0
 
-    @pytest.mark.xfail(
-        reason="kestra-ee 2.0 ignores the filter and returns all apps instead of "
-        "an empty result set (pagination/filter regression)",
-        strict=False,
-    )
     def test_search_apps_no_results(self, client):
         result = client.apps.search_apps(TENANT, 1, 10, namespace="nonexistent_ns_" + random_id())
         assert result is not None

@@ -345,9 +345,8 @@ class TestKillExecution:
 
         _wait_for_state(client, execution_id, [StateType.RUNNING])
 
-        result = client.executions.kill_execution(execution_id, TENANT)
-        assert result is not None
-        assert result.id == execution_id
+        # kill returns no body (202/200 with an empty response) per the 1.3 spec
+        client.executions.kill_execution(execution_id, TENANT)
 
         _wait_for_state(client, execution_id, [StateType.KILLED, StateType.CANCELLED])
 
@@ -658,11 +657,11 @@ class TestKillCascade:
         execution_id = resp.id
         _wait_for_state(client, execution_id, [StateType.RUNNING])
 
-        result = client.executions.kill_execution(
+        # kill returns no body (202/200 with an empty response) per the 1.3 spec
+        client.executions.kill_execution(
             execution_id, TENANT, is_on_kill_cascade=True,
         )
-        assert result is not None
-        assert result.id == execution_id
+        _wait_for_state(client, execution_id, [StateType.KILLED, StateType.CANCELLED])
 
 
 class TestRestartRevision:
@@ -724,14 +723,11 @@ class TestNotFound:
         assert exc_info.value.status in (400, 404, 422)
 
     def test_eval_expression_unknown_id_raises(self, client):
-        # eval is authorized against the target execution; on a missing
-        # execution the controller's permission check returns 403 before
-        # the not-found check fires.
         with pytest.raises(ApiException) as exc_info:
             client.executions.eval_expression(
-                f"missing-{random_id()}", "{{ inputs.x }}", TENANT,
+                f"missing-{random_id()}", TENANT, "{{ inputs.x }}",
             )
-        assert exc_info.value.status in (400, 403, 404, 422, 500)
+        assert exc_info.value.status == 404
 
 
 class TestUpdateTaskRunState:
@@ -786,14 +782,12 @@ class TestPauseResume:
         execution_id = resp.id
         _wait_for_state(client, execution_id, [StateType.RUNNING])
 
-        result = client.executions.pause_execution(execution_id, TENANT)
-        assert result is not None
-        assert result.id == execution_id
+        # pause/resume return no body (204/200 with an empty response) per the 1.3 spec
+        client.executions.pause_execution(execution_id, TENANT)
+        _wait_for_state(client, execution_id, [StateType.PAUSED])
 
-        # Resume
-        resumed = client.executions.resume_execution(execution_id, TENANT)
-        assert resumed is not None
-        assert resumed.id == execution_id
+        client.executions.resume_execution(execution_id, TENANT)
+        _wait_for_state(client, execution_id, [StateType.RUNNING, StateType.SUCCESS])
 
     def test_pause_executions_by_ids_basic(self, client):
         with pytest.raises(Exception):
