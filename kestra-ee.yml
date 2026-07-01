@@ -35,6 +35,41 @@ tags:
 - name: Misc
   description: Misc api
 paths:
+  /api/v1/{tenant}/expressions/render:
+    post:
+      tags:
+      - Expressions
+      summary: Render Pebble expressions for display
+      description: "Renders a list of Pebble expressions for display purposes only,\
+        \ using a restricted engine: secret() is masked as [secret: KEY], env() is\
+        \ kept raw, only a safe allowlist of pure functions is invoked, and anything\
+        \ else is kept raw. Resolution is all-or-nothing per expression: an expression\
+        \ that references anything unresolvable is returned unchanged. Provide an\
+        \ executionId to resolve against an execution context, or a flow source to\
+        \ resolve against a flow context; otherwise only globals are available."
+      operationId: renderExpressions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpressionController.RenderExpressionRequest"
+        required: true
+      responses:
+        "200":
+          description: render 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpressionController.RenderedExpressions"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/auditlogs/export:
     get:
       tags:
@@ -16986,6 +17021,42 @@ paths:
                 type: object
 components:
   schemas:
+    ExpressionController.RenderExpressionRequest:
+      required:
+      - expressions
+      type: object
+      properties:
+        expressions:
+          maxItems: 500
+          minItems: 1
+          type: array
+          description: The raw Pebble expressions to render
+          items:
+            type: string
+        executionId:
+          type: string
+          description: Resolve against this execution's context
+          nullable: true
+        namespace:
+          type: string
+          description: Resolve against this flow's context (with flowId)
+          nullable: true
+        flowId:
+          type: string
+          description: Resolve against this flow's context (with namespace)
+          nullable: true
+        flow:
+          type: string
+          description: Resolve against this flow source's context (YAML)
+          nullable: true
+    ExpressionController.RenderedExpressions:
+      type: object
+      properties:
+        rendered:
+          type: object
+          additionalProperties:
+            type: string
+          description: Rendered values keyed by their raw expression
     AbstractFlow:
       required:
       - deleted

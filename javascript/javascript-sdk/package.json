@@ -21,10 +21,10 @@
     "./blueprints": "./dist/blueprints.js",
     "./client": "./dist/client.js",
     "./cluster": "./dist/cluster.js",
-    "./composables": "./dist/composables.js",
     "./dashboards": "./dist/dashboards.js",
     "./dashboards-admin": "./dist/dashboards-admin.js",
     "./executions": "./dist/executions.js",
+    "./expressions": "./dist/expressions.js",
     "./files": "./dist/files.js",
     "./flows": "./dist/flows.js",
     "./groups": "./dist/groups.js",
@@ -74,21 +74,12 @@
     "nprogress": "0.2.0",
     "axios": "1.16.1"
   },
-  "peerDependencies": {
-    "vue": ">=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "vue": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",
     "@types/node": "^25.9.1",
     "@types/nprogress": "^0.2.3",
     "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vue": "^3.5.0"
+    "typescript": "^6.0.3"
   },
   "files": [
     "dist/**/*.js",

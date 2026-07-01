@@ -17,14 +17,8 @@ export default defineConfig({
     entry: {
         "index": "src/index.ts",
         "client": "src/openapi/client.gen.ts",
-        "composables": "src/composables/useRenderedExpressions.ts",
         ...sdkEntries,
     },
-    // Keep the SDK's own package ID as an external so composables.js
-    // emits `import { useClient } from "@kestra-io/kestra-sdk"`.
-    // The federation runtime then resolves this to the host's singleton,
-    // giving the composable the already-initialised axios client.
-    deps: { neverBundle: ["@kestra-io/kestra-sdk"] },
     format: ["esm"],
     dts: {
         // Use tsc resolver so it respects tsconfig `moduleResolution: "bundler"`,
