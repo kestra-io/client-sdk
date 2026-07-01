@@ -233,6 +233,10 @@ export function sanitizeOpenAPI(
     //     every SCIM call returns 401. TODO: fix at the source (Kestra EE) and drop this.
     addMissingScimSecurity(spec)
 
+    // 12) Same upstream spec bug as above, on a different set of tags. TODO: fix at the
+    //     source (Kestra EE) and drop this.
+    addMissingEeControllerSecurity(spec)
+
     return counters;
 }
 
@@ -268,6 +272,43 @@ export function addMissingScimSecurity(spec: any): number {
             op.security = security;
             added += 1;
             console.debug(`addMissingScimSecurity: added security to ${method.toUpperCase()} ${path} (${op.operationId})`);
+        }
+    }
+
+    return added;
+}
+
+/**
+ * Add the standard `bearerAuth`/`basicAuth` security requirement to operations tagged
+ * `Tenants`, `Secrets`, `Blueprints`, `Blueprint Tags`, `Dashboards` or `TestSuites` that
+ * lack a `security` block.
+ *
+ * Same upstream spec bug as `addMissingScimSecurity`, on a different set of controllers.
+ * The hey-api axios client only attaches the configured auth when an operation declares
+ * `security`, so these requests are sent unauthenticated and the server replies 401
+ * (verified against a real Kestra 1.3.26 instance: e.g. `GET /api/v1/tenants/search`
+ * lacks `security` in the spec but 401s without Basic/Bearer auth).
+ */
+export function addMissingEeControllerSecurity(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    const tagsToFix = ["Tenants", "Secrets", "Blueprints", "Blueprint Tags", "Dashboards", "TestSuites"];
+    const security = [{ bearerAuth: [] }, { basicAuth: [] }];
+    let added = 0;
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const method of httpMethods) {
+            const op = (pathItem as any)[method];
+            if (!op || typeof op !== "object") continue;
+            if (op.security !== undefined) continue;
+            if (!Array.isArray(op.tags) || !op.tags.some((tag: string) => tagsToFix.includes(tag))) continue;
+
+            op.security = security;
+            added += 1;
+            console.debug(`addMissingEeControllerSecurity: added security to ${method.toUpperCase()} ${path} (${op.operationId})`);
         }
     }
 
