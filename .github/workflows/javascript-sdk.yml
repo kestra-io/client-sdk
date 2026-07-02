@@ -1,10 +1,20 @@
-name: Javascript SDK tests
+name: Javascript SDK tests and release
 
 on:
   push:
     branches:
       - main
       - "releases/v*"
+    # Tag-only release, aligned with terraform-provider-kestra / kestractl.
+    # Push a tag like `v1.0.13-javascript` to publish that version to npm.
+    # NOTE: the publish job MUST live in this file. npm Trusted Publishing (OIDC)
+    # is bound to this exact workflow filename (javascript-sdk.yml); publishing
+    # from any other file makes npm reject the token with an E404/permission error
+    # (see https://github.com/kestra-io/client-sdk/actions/runs/28595836505).
+    # `paths` filters apply to branch pushes only, not tags, so the tag trigger
+    # fires regardless of the paths list below.
+    tags:
+      - "v*-javascript"
     paths:
       - "javascript/javascript-sdk/**"
       - "javascript/test_javascript_sdk/**"
@@ -41,6 +51,8 @@ jobs:
   test:
     name: Test Javascript SDK
     runs-on: ubuntu-latest
+    # Skip on release tag pushes — the tag is cut from an already-green branch.
+    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
     permissions:
       contents: read
       pull-requests: write
@@ -225,3 +237,74 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
           suffix: Javascript SDK develop publish
+
+  publish-release:
+    name: Publish Release to Npm
+    runs-on: ubuntu-latest
+    # Tag-only release. The tag is cut from an already-green release branch, so
+    # this job only builds and publishes — tests run on push/PR above. The tag is
+    # the source of truth for the version (no npm auto-increment). This job MUST
+    # stay in javascript-sdk.yml: npm Trusted Publishing (OIDC) is bound to this
+    # workflow filename.
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.18"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve version from tag
+        id: resolveVersion
+        run: |
+          # v1.0.13-javascript -> 1.0.13
+          VERSION=${GITHUB_REF_NAME#v}
+          VERSION=${VERSION%-javascript}
+          # moving dist-tag for the minor line, e.g. v1.0
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+          echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Generate SDK
+        working-directory: .
+        run: |
+          ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
+          javascript
+
+      - name: Publish to npm with latest tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public
+
+      - name: Add version tag
+        working-directory: ./javascript/javascript-sdk
+        run: npm dist-tag add @kestra-io/kestra-sdk@${{
+          steps.resolveVersion.outputs.kestra_version }} --tag ${{
+          steps.resolveVersion.outputs.kestra_tag }} --access public
+
+      - name: Slack notification
+        if: success()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C08KNSZGXQU'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
+
+      - name: Slack - Notify release failure
+        if: failure()
+        uses: kestra-io/actions/composite/slack-status@main
+        with:
+          channel: 'C09FE0QCN2E'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
+          suffix: ${{ github.ref_name }}
