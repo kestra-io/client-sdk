@@ -35,9 +35,11 @@ jobs:
       - name: Install pypa/build
         run: python -m pip install build --user
 
+      - name: Set package version from tag
+        run: python3 scripts/set_release_version.py ${{ steps.version.outputs.version }}
+
       - name: Build a binary wheel and a source tarball
-        run: |
-          VERSION=${{ steps.version.outputs.version }} python -m build --sdist --wheel --outdir dist/ .
+        run: python -m build --sdist --wheel --outdir dist/ .
 
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
