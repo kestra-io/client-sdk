@@ -22,6 +22,9 @@ log_and_run pip install -r requirements.txt -r test-requirements.txt --break-sys
 echo "install SDK locally so it can be imported and used in e2e tests"
 log_and_run pip install -e . --break-system-packages
 
+echo "run model unit tests (no Kestra container needed)"
+log_and_run python3 -m pytest tests/ -v
+
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then
     continue
