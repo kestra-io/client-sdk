@@ -20250,6 +20250,8 @@ components:
           type: string
         executionKind:
           $ref: "#/components/schemas/ExecutionKind"
+        progress:
+          type: string
     GithubAppConfig:
       required:
       - appId
@@ -21381,6 +21383,9 @@ components:
           nullable: true
           allOf:
           - $ref: "#/components/schemas/ExecutionKind"
+        progress:
+          type: string
+          nullable: true
     LoopRun:
       type: object
       properties:
