@@ -1,4 +1,4 @@
-name: Javascript SDK tests
+name: Javascript SDK tests and release
 
 on:
   push:
