@@ -60,7 +60,9 @@ jobs:
         run: pip install -r test-requirements.txt
 
       - name: Run model unit tests (no Kestra container needed)
-        run: python3 -m pytest tests/ -v
+        run: |
+          pip install -e .
+          python3 -m pytest tests/ -v
 
       - name: GCP - Auth with github service account
         uses: "google-github-actions/auth@v2"
