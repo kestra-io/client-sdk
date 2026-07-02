@@ -74,7 +74,7 @@
     "axios": "1.16.1"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.97.3",
+    "@hey-api/openapi-ts": "^0.99.0",
     "@types/node": "^25.9.1",
     "@types/nprogress": "^0.2.3",
     "tsdown": "^0.22.0",
