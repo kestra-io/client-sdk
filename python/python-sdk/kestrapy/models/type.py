@@ -44,6 +44,7 @@ class Type(str, Enum):
     MULTISELECT = 'MULTISELECT'
     YAML = 'YAML'
     EMAIL = 'EMAIL'
+    FORM = 'FORM'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

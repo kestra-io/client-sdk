@@ -39,6 +39,7 @@
     "./namespaces": "./dist/namespaces.js",
     "./outputs": "./dist/outputs.js",
     "./plugins": "./dist/plugins.js",
+    "./quotas": "./dist/quotas.js",
     "./roles": "./dist/roles.js",
     "./scim-configuration": "./dist/scim-configuration.js",
     "./scim-groups": "./dist/scim-groups.js",

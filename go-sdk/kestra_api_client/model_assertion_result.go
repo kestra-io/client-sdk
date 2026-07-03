@@ -21,8 +21,8 @@ var _ MappedNullable = &AssertionResult{}
 // AssertionResult struct for AssertionResult
 type AssertionResult struct {
 	Operator string `json:"operator"`
-	Expected map[string]interface{} `json:"expected"`
-	Actual map[string]interface{} `json:"actual"`
+	Expected interface{} `json:"expected"`
+	Actual interface{} `json:"actual"`
 	IsSuccess bool `json:"isSuccess"`
 	TaskId *string `json:"taskId,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -36,7 +36,7 @@ type _AssertionResult AssertionResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool) *AssertionResult {
+func NewAssertionResult(operator string, expected interface{}, actual interface{}, isSuccess bool) *AssertionResult {
 	this := AssertionResult{}
 	this.Operator = operator
 	this.Expected = expected
@@ -78,9 +78,9 @@ func (o *AssertionResult) SetOperator(v string) {
 }
 
 // GetExpected returns the Expected field value
-func (o *AssertionResult) GetExpected() map[string]interface{} {
+func (o *AssertionResult) GetExpected() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -89,22 +89,22 @@ func (o *AssertionResult) GetExpected() map[string]interface{} {
 
 // GetExpectedOk returns a tuple with the Expected field value
 // and a boolean to check if the value has been set.
-func (o *AssertionResult) GetExpectedOk() (map[string]interface{}, bool) {
+func (o *AssertionResult) GetExpectedOk() (*interface{}, bool) {
 	if o == nil {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Expected, true
+	return &o.Expected, true
 }
 
 // SetExpected sets field value
-func (o *AssertionResult) SetExpected(v map[string]interface{}) {
+func (o *AssertionResult) SetExpected(v interface{}) {
 	o.Expected = v
 }
 
 // GetActual returns the Actual field value
-func (o *AssertionResult) GetActual() map[string]interface{} {
+func (o *AssertionResult) GetActual() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -113,15 +113,15 @@ func (o *AssertionResult) GetActual() map[string]interface{} {
 
 // GetActualOk returns a tuple with the Actual field value
 // and a boolean to check if the value has been set.
-func (o *AssertionResult) GetActualOk() (map[string]interface{}, bool) {
+func (o *AssertionResult) GetActualOk() (*interface{}, bool) {
 	if o == nil {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Actual, true
+	return &o.Actual, true
 }
 
 // SetActual sets field value
-func (o *AssertionResult) SetActual(v map[string]interface{}) {
+func (o *AssertionResult) SetActual(v interface{}) {
 	o.Actual = v
 }
 

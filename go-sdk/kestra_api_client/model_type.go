@@ -37,6 +37,7 @@ const (
 	TYPE_MULTISELECT Type = "MULTISELECT"
 	TYPE_YAML Type = "YAML"
 	TYPE_EMAIL Type = "EMAIL"
+	TYPE_FORM Type = "FORM"
 )
 
 // All allowed values of Type enum
@@ -58,6 +59,7 @@ var AllowedTypeEnumValues = []Type{
 	"MULTISELECT",
 	"YAML",
 	"EMAIL",
+	"FORM",
 }
 
 func (v *Type) UnmarshalJSON(src []byte) error {
