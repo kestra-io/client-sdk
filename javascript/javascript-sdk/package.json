@@ -24,6 +24,7 @@
     "./dashboards": "./dist/dashboards.js",
     "./dashboards-admin": "./dist/dashboards-admin.js",
     "./executions": "./dist/executions.js",
+    "./expressions": "./dist/expressions.js",
     "./files": "./dist/files.js",
     "./flows": "./dist/flows.js",
     "./groups": "./dist/groups.js",
