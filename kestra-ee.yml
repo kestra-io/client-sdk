@@ -9530,6 +9530,14 @@ paths:
       summary: Create a flow from yaml source
       operationId: createFlow
       parameters:
+      - name: draft
+        in: query
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
+          \ schedules or subflows and are not validated for constraint violations."
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -10469,6 +10477,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: draft
+        in: query
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
+          \ schedules or subflows and are not validated for constraint violations."
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -17052,6 +17068,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       type: object
@@ -17086,6 +17103,12 @@ components:
             $ref: "#/components/schemas/Output"
         disabled:
           type: boolean
+        draft:
+          type: boolean
+          description: "Whether this flow revision is a draft. Draft revisions are\
+            \ skipped when an execution starts without an explicit revision (webhooks,\
+            \ schedules, subflows, manual triggers). Executions can still target a\
+            \ draft by passing the revision explicitly."
         labels:
           description: Labels as a list of Label (key/value pairs) or as a map of
             string to string.
@@ -19830,6 +19853,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       - tasks
@@ -19860,6 +19884,12 @@ components:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
@@ -19955,6 +19985,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       - tasks
@@ -19989,6 +20020,12 @@ components:
               $ref: "#/components/schemas/Output"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
@@ -20108,6 +20145,8 @@ components:
           disabled:
             type: boolean
           deleted:
+            type: boolean
+          draft:
             type: boolean
           labels:
             type: array
@@ -20335,6 +20374,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       type: object
@@ -20365,6 +20405,12 @@ components:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
