@@ -3489,6 +3489,8 @@ paths:
                     type: array
                   KVSTORE:
                     type: array
+                  REUSABLE_INPUTS:
+                    type: array
                   DASHBOARD:
                     type: array
                   SECRET:
@@ -14341,6 +14343,179 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List reusable inputs visible from a namespace (including inherited
+        ones)
+      operationId: list_3
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list_3 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: "Get reusable inputs by id, resolving namespace inheritance"
+      operationId: get_4
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Reusable Inputs
+      summary: Create or update reusable inputs from their YAML source
+      operationId: createOrUpdate
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+          text/plain:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: createOrUpdate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Reusable Inputs
+      summary: Delete reusable inputs
+      operationId: delete_3
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: delete_3 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}/revisions:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List all revisions of reusable inputs (history view)
+      operationId: revisions
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: revisions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
     put:
       tags:
@@ -14534,6 +14709,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/QuotaLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/reusable-inputs/namespaces:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List namespaces that define at least one reusable inputs definition
+        (editor autocompletion)
+      operationId: namespacesWithBlocks
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: namespacesWithBlocks 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -20777,6 +20977,8 @@ components:
               type: array
             KVSTORE:
               type: array
+            REUSABLE_INPUTS:
+              type: array
             DASHBOARD:
               type: array
             SECRET:
@@ -20865,6 +21067,8 @@ components:
             NAMESPACE:
               type: array
             KVSTORE:
+              type: array
+            REUSABLE_INPUTS:
               type: array
             DASHBOARD:
               type: array
@@ -23429,6 +23633,7 @@ components:
       - TRIGGER
       - NAMESPACE
       - KVSTORE
+      - REUSABLE_INPUTS
       - DASHBOARD
       - SECRET
       - CREDENTIAL
@@ -23492,6 +23697,33 @@ components:
           type: string
         required:
           type: boolean
+    ReusableInputs:
+      title: Reusable inputs
+      required:
+      - id
+      - inputs
+      - namespace
+      type: object
+      properties:
+        namespace:
+          title: The namespace of the reusable inputs block.
+          type: string
+          description: Defaults to the namespace it is created in.
+        id:
+          title: The id of the reusable inputs block.
+          pattern: "^[a-zA-Z0-9][.a-zA-Z0-9_-]*"
+          type: string
+        description:
+          title: A free-text description of the block.
+          type: string
+        inputs:
+          title: The inputs exposed by this block.
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Input_Object_"
+      description: A reusable set of inputs referenced from flows via a REUSABLE_INPUTS
+        input.
     RightSidebarConfiguration:
       type: object
       properties:
@@ -23527,6 +23759,8 @@ components:
             NAMESPACE:
               type: array
             KVSTORE:
+              type: array
+            REUSABLE_INPUTS:
               type: array
             DASHBOARD:
               type: array
@@ -23753,6 +23987,7 @@ components:
       - APPS
       - TESTSUITES
       - DASHBOARD
+      - REUSABLEINPUTS
     ScimExtension:
       type: object
       properties:
@@ -24816,6 +25051,7 @@ components:
       - YAML
       - EMAIL
       - FORM
+      - REUSABLE_INPUTS
     UnitTest:
       required:
       - assertions
