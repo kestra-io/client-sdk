@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { configureAxios, configureClient, useClient } from "@kestra-io/kestra-sdk";
+import { configureClient, useClient } from "@kestra-io/kestra-sdk";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
@@ -14,7 +14,7 @@ const VALIDATE = { validateStatus: (status: number) => status === 200 || status 
 
 describe("useClient", () => {
     beforeAll(() => {
-        const instance = configureAxios({
+        const instance = configureClient({
             auth: username + ":" + password,
         })
         instance.defaults.headers.common["Authorization"] = `Basic ${Buffer.from(username + ":" + password).toString("base64")}`;
