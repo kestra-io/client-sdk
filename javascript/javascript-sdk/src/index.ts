@@ -192,7 +192,7 @@ export function useClient(): AxiosInstance {
     return new Proxy({} as AxiosInstance, {
         get(_target, prop) {
             if (!axiosInstance) {
-                throw new Error("Axios instance not initialized. Please call configureAxios first.")
+                throw new Error("Axios instance not initialized. Please call configureClient first.")
             }
             const value = (axiosInstance as any)[prop]
             return typeof value === "function" ? value.bind(axiosInstance) : value
