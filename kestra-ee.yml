@@ -9488,6 +9488,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/expressions/render:
+    post:
+      tags:
+      - Expressions
+      summary: Render Pebble expressions for display
+      description: "Renders a list of Pebble expressions for display purposes only,\
+        \ using a restricted engine: secret() is masked as [secret: KEY], env() is\
+        \ kept raw, only a safe allowlist of pure functions is invoked, and anything\
+        \ else is kept raw. Resolution is all-or-nothing per expression: an expression\
+        \ that references anything unresolvable is returned unchanged. Provide an\
+        \ executionId to resolve against an execution context, or a flow source to\
+        \ resolve against a flow context; otherwise only globals are available."
+      operationId: renderExpressions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpressionController.RenderExpressionRequest"
+        required: true
+      responses:
+        "200":
+          description: renderExpressions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpressionController.RenderedExpressions"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/flows:
     post:
       tags:
@@ -19689,6 +19724,42 @@ components:
               type: array
             APP_CONTEXT:
               type: array
+    ExpressionController.RenderExpressionRequest:
+      required:
+      - expressions
+      type: object
+      properties:
+        expressions:
+          maxItems: 500
+          minItems: 1
+          type: array
+          description: The raw Pebble expressions to render
+          items:
+            type: string
+        executionId:
+          type: string
+          description: Resolve against this execution's context
+          nullable: true
+        namespace:
+          type: string
+          description: Resolve against this flow's context (with flowId)
+          nullable: true
+        flowId:
+          type: string
+          description: Resolve against this flow's context (with namespace)
+          nullable: true
+        flow:
+          type: string
+          description: Resolve against this flow source's context (YAML)
+          nullable: true
+    ExpressionController.RenderedExpressions:
+      type: object
+      properties:
+        rendered:
+          type: object
+          additionalProperties:
+            type: string
+          description: Rendered values keyed by their raw expression
     FileAttributes:
       type: object
       properties:
@@ -20129,7 +20200,7 @@ components:
       properties:
         count:
           type: integer
-          format: int32
+          format: int64
         namespacesCount:
           type: integer
           format: int64
@@ -20148,6 +20219,118 @@ components:
           additionalProperties:
             type: integer
             format: int64
+        hasInputsCount:
+          type: integer
+          format: int64
+        hasOutputsCount:
+          type: integer
+          format: int64
+        hasLabelsCount:
+          type: integer
+          format: int64
+        hasVariablesCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasErrorsCount:
+          type: integer
+          format: int64
+        hasFinallyCount:
+          type: integer
+          format: int64
+        hasAfterExecutionCount:
+          type: integer
+          format: int64
+        hasTriggersCount:
+          type: integer
+          format: int64
+        hasPluginDefaultsCount:
+          type: integer
+          format: int64
+        hasConcurrencyCount:
+          type: integer
+          format: int64
+        hasRetryCount:
+          type: integer
+          format: int64
+        hasSlaCount:
+          type: integer
+          format: int64
+        hasChecksCount:
+          type: integer
+          format: int64
+        hasQuotasCount:
+          type: integer
+          format: int64
+        tasks:
+          $ref: "#/components/schemas/FlowUsage.TaskUsage"
+        triggers:
+          $ref: "#/components/schemas/FlowUsage.TriggerUsage"
+    FlowUsage.TaskUsage:
+      type: object
+      properties:
+        hasRetryCount:
+          type: integer
+          format: int64
+        hasTimeoutCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasAllowFailureCount:
+          type: integer
+          format: int64
+        hasLogToFileCount:
+          type: integer
+          format: int64
+        hasRunIfCount:
+          type: integer
+          format: int64
+        hasAllowWarningCount:
+          type: integer
+          format: int64
+        hasCacheCount:
+          type: integer
+          format: int64
+        hasAssetsCount:
+          type: integer
+          format: int64
+        hasErrorsCount:
+          type: integer
+          format: int64
+        hasFinallyCount:
+          type: integer
+          format: int64
+    FlowUsage.TriggerUsage:
+      type: object
+      properties:
+        hasWhenCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasLabelsCount:
+          type: integer
+          format: int64
+        hasStopAfterCount:
+          type: integer
+          format: int64
+        hasLogToFileCount:
+          type: integer
+          format: int64
+        hasFailOnErrorCount:
+          type: integer
+          format: int64
+        hasAllowConcurrentCount:
+          type: integer
+          format: int64
+        hasAssetsCount:
+          type: integer
+          format: int64
     FlowWithSource:
       required:
       - deleted
