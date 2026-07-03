@@ -11287,6 +11287,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - SCIM-Groups
@@ -11336,6 +11339,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search:
     post:
       tags:
@@ -11372,6 +11378,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}:
     get:
       tags:
@@ -11421,6 +11430,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - SCIM-Groups
@@ -11473,6 +11485,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     delete:
       tags:
       - SCIM-Groups
@@ -11505,6 +11520,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     patch:
       tags:
       - SCIM-Groups
@@ -11555,6 +11573,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes:
     get:
       tags:
@@ -11581,6 +11602,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ResourceType"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -11610,6 +11634,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ResourceType"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -11636,6 +11663,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Schema"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri}:
     get:
       tags:
@@ -11665,6 +11695,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/Schema"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig:
     get:
       tags:
@@ -11689,6 +11722,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ServiceProviderConfiguration"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users:
     get:
       tags:
@@ -11766,6 +11802,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - SCIM-Users
@@ -11815,6 +11854,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search:
     post:
       tags:
@@ -11851,6 +11893,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}:
     get:
       tags:
@@ -11900,6 +11945,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - SCIM-Users
@@ -11952,6 +12000,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     delete:
       tags:
       - SCIM-Users
@@ -11984,6 +12035,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     patch:
       tags:
       - SCIM-Users
@@ -12034,6 +12088,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/invitations:
     post:
       tags:
