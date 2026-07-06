@@ -9,8 +9,8 @@ All URIs are relative to *http://localhost*
 | [**dashboardChartData**](DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data |
 | [**defaultDashboards1**](DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards |
 | [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard |
-| [**exportChartToCsv**](DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV |
-| [**exportDashboardChartDataToCSV**](DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV |
+| [**exportChart**](DashboardsApi.md#exportChart) | **POST** /api/v1/{tenant}/dashboards/charts/export | Export a chart data to CSV or ION |
+| [**exportDashboardChart**](DashboardsApi.md#exportDashboardChart) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export | Export a dashboard chart data to CSV or ION |
 | [**previewChart**](DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data |
 | [**searchDashboards**](DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards |
 | [**updateDashboard**](DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard |
@@ -370,11 +370,11 @@ null (empty response body)
 | **200** | deleteDashboard 200 response |  -  |
 
 
-## exportChartToCsv
+## exportChart
 
-> byte[] exportChartToCsv(tenant, dashboardControllerPreviewRequest)
+> byte[] exportChart(tenant, dashboardControllerPreviewRequest, format)
 
-Export a table chart data to CSV
+Export a chart data to CSV or ION
 
 ### Example
 
@@ -398,11 +398,12 @@ public class Example {
 
         String tenant = "tenant_example"; // String | 
         DashboardControllerPreviewRequest dashboardControllerPreviewRequest = new DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+        String format = "CSV"; // String | The export format, CSV or ION
         try {
-            byte[] result = kestraClient.DashboardsApi().exportChartToCsv(tenant, dashboardControllerPreviewRequest);
+            byte[] result = kestraClient.DashboardsApi().exportChart(tenant, dashboardControllerPreviewRequest, format);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DashboardsApi#exportChartToCsv");
+            System.err.println("Exception when calling DashboardsApi#exportChart");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -419,6 +420,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | |
+| **format** | **String**| The export format, CSV or ION | [optional] |
 
 ### Return type
 
@@ -437,14 +439,14 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | exportChartToCsv 200 response |  -  |
+| **200** | exportChart 200 response |  -  |
 
 
-## exportDashboardChartDataToCSV
+## exportDashboardChart
 
-> byte[] exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides)
+> byte[] exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format)
 
-Export a dashboard chart data to CSV
+Export a dashboard chart data to CSV or ION
 
 ### Example
 
@@ -470,11 +472,12 @@ public class Example {
         String chartId = "chartId_example"; // String | The chart id
         String tenant = "tenant_example"; // String | 
         ChartFiltersOverrides chartFiltersOverrides = new ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+        String format = "CSV"; // String | The export format, CSV or ION
         try {
-            byte[] result = kestraClient.DashboardsApi().exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides);
+            byte[] result = kestraClient.DashboardsApi().exportDashboardChart(id, chartId, tenant, chartFiltersOverrides, format);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DashboardsApi#exportDashboardChartDataToCSV");
+            System.err.println("Exception when calling DashboardsApi#exportDashboardChart");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -493,6 +496,7 @@ public class Example {
 | **chartId** | **String**| The chart id | |
 | **tenant** | **String**|  | |
 | **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | |
+| **format** | **String**| The export format, CSV or ION | [optional] |
 
 ### Return type
 
@@ -511,7 +515,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | exportDashboardChartDataToCSV 200 response |  -  |
+| **200** | exportDashboardChart 200 response |  -  |
 
 
 ## previewChart

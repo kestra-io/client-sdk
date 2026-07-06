@@ -242,7 +242,7 @@ columns:
 		}
 	})
 
-	t.Run("exportChartToCsv_basic", func(t *testing.T) {
+	t.Run("exportChart_basic", func(t *testing.T) {
 		ctx := context.Background()
 
 		chartYaml := strings.TrimSpace(`
@@ -256,13 +256,33 @@ columns:
 		request := kestra_api_client.NewDashboardControllerPreviewRequest(chartYaml)
 
 		// May fail with 400/422 if chart type not available
-		_, err := KestraTestClient().Dashboards().ExportChartToCsv(ctx, MAIN_TENANT, request)
+		_, err := KestraTestClient().Dashboards().ExportChart(ctx, MAIN_TENANT, request, strPtr("CSV"))
 		if err != nil {
 			require.Contains(t, err.Error(), "")
 		}
 	})
 
-	t.Run("exportDashboardChartDataToCSV_notFound", func(t *testing.T) {
+	t.Run("exportChart_ion", func(t *testing.T) {
+		ctx := context.Background()
+
+		chartYaml := strings.TrimSpace(`
+id: ion-chart
+type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+graphStyle: LINES
+columns:
+  date:
+    field: DATE
+`)
+		request := kestra_api_client.NewDashboardControllerPreviewRequest(chartYaml)
+
+		// May fail with 400/422 if chart type not available
+		_, err := KestraTestClient().Dashboards().ExportChart(ctx, MAIN_TENANT, request, strPtr("ION"))
+		if err != nil {
+			require.Contains(t, err.Error(), "")
+		}
+	})
+
+	t.Run("exportDashboardChart_notFound", func(t *testing.T) {
 		ctx := context.Background()
 		title := "csv-export-" + randomId()
 
@@ -271,7 +291,7 @@ columns:
 
 		filters := kestra_api_client.NewChartFiltersOverrides()
 
-		_, err = KestraTestClient().Dashboards().ExportDashboardChartDataToCSV(ctx, created.Id, "nonexistent", MAIN_TENANT, filters)
+		_, err = KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, "nonexistent", MAIN_TENANT, filters, strPtr("CSV"))
 		require.Error(t, err)
 	})
 }

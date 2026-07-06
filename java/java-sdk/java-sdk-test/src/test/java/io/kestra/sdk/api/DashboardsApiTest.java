@@ -234,7 +234,7 @@ public class DashboardsApiTest {
     }
 
     @Test
-    void exportChartToCsv_basic() throws ApiException {
+    void exportChart_basic() throws ApiException {
         DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
                 .chart("""
                         id: csv-chart
@@ -246,7 +246,7 @@ public class DashboardsApiTest {
                         """);
 
         try {
-            byte[] result = api().exportChartToCsv(TENANT, request);
+            byte[] result = api().exportChart(TENANT, request, "CSV");
             assertThat(result).isNotNull();
         } catch (ApiException e) {
             assertThat(e.getCode()).isIn(400, 422);
@@ -254,13 +254,33 @@ public class DashboardsApiTest {
     }
 
     @Test
-    void exportDashboardChartDataToCSV_notFound() throws ApiException {
+    void exportChart_ion() throws ApiException {
+        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
+                .chart("""
+                        id: ion-chart
+                        type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+                        graphStyle: LINES
+                        columns:
+                          date:
+                            field: DATE
+                        """);
+
+        try {
+            byte[] result = api().exportChart(TENANT, request, "ION");
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(400, 422);
+        }
+    }
+
+    @Test
+    void exportDashboardChart_notFound() throws ApiException {
         String title = "csv-export-" + randomId();
         DashboardControllerDashboardResponse created = api().createDashboard(TENANT, dashboardYaml(title));
 
         ChartFiltersOverrides filters = new ChartFiltersOverrides();
 
-        assertThatThrownBy(() -> api().exportDashboardChartDataToCSV(created.getId(), "nonexistent", TENANT, filters))
+        assertThatThrownBy(() -> api().exportDashboardChart(created.getId(), "nonexistent", TENANT, filters, "CSV"))
                 .isInstanceOf(ApiException.class);
     }
 }

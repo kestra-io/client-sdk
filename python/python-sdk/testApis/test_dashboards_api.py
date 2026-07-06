@@ -276,7 +276,7 @@ def test_preview_chart_basic(client):
         assert e.status in (400, 422)
 
 
-def test_export_chart_to_csv_basic(client):
+def test_export_chart_basic(client):
     request = DashboardControllerPreviewRequest(
         chart=(
             "id: csv-chart\n"
@@ -289,7 +289,26 @@ def test_export_chart_to_csv_basic(client):
     )
 
     try:
-        result = client.dashboards.export_chart_to_csv(tenant=TENANT, request=request)
+        result = client.dashboards.export_chart(tenant=TENANT, request=request, format="CSV")
+        assert result is not None
+    except ApiException as e:
+        assert e.status in (400, 422)
+
+
+def test_export_chart_ion(client):
+    request = DashboardControllerPreviewRequest(
+        chart=(
+            "id: ion-chart\n"
+            "type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart\n"
+            "graphStyle: LINES\n"
+            "columns:\n"
+            "  date:\n"
+            "    field: DATE\n"
+        )
+    )
+
+    try:
+        result = client.dashboards.export_chart(tenant=TENANT, request=request, format="ION")
         assert result is not None
     except ApiException as e:
         assert e.status in (400, 422)
@@ -302,7 +321,7 @@ def test_export_chart_to_csv_basic(client):
     "every other shard-8 test passed) — same hang as test_dashboard_chart_data_not_found",
     strict=False,
 )
-def test_export_dashboard_chart_data_to_csv_not_found(client):
+def test_export_dashboard_chart_not_found(client):
     title = f"csv-export-{random_id()}"
     created = client.dashboards.create_dashboard(
         tenant=TENANT, yaml_body=dashboard_yaml(title)
@@ -311,9 +330,10 @@ def test_export_dashboard_chart_data_to_csv_not_found(client):
     filters = ChartFiltersOverrides()
 
     with pytest.raises(ApiException):
-        client.dashboards.export_dashboard_chart_data_to_csv(
+        client.dashboards.export_dashboard_chart(
             id=created["id"],
             chart_id="nonexistent",
             tenant=TENANT,
             filters=filters,
+            format="CSV",
         )

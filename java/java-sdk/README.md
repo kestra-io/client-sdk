@@ -169,8 +169,8 @@ Class | Method | HTTP request | Description
 *DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
 *DashboardsApi* | [**defaultDashboards1**](docs/DashboardsApi.md#defaultDashboards1) | **GET** /api/v1/{tenant}/dashboards/settings/default-dashboards | Get default dashboards
 *DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
-*DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
-*DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
+*DashboardsApi* | [**exportChart**](docs/DashboardsApi.md#exportChart) | **POST** /api/v1/{tenant}/dashboards/charts/export | Export a chart data to CSV or ION
+*DashboardsApi* | [**exportDashboardChart**](docs/DashboardsApi.md#exportDashboardChart) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export | Export a dashboard chart data to CSV or ION
 *DashboardsApi* | [**previewChart**](docs/DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
 *DashboardsApi* | [**searchDashboards**](docs/DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards
 *DashboardsApi* | [**updateDashboard**](docs/DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard
