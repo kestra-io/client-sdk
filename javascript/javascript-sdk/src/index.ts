@@ -53,6 +53,21 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                 config.headers["Accept"] = "text/csv, text/plain, text/json, application/json"
             }
         }
+
+        // Kestra's CsrfTokenFilter rejects cookie-authenticated non-safe requests (POST/PUT/PATCH/
+        // DELETE) that lack a CSRF token with a 403. In the browser the Kestra UI exposes the token
+        // as <meta name="csrf-token">, so forward it as X-CSRF-TOKEN here — every browser consumer
+        // then gets it automatically instead of re-implementing the lookup. No-op outside the browser
+        // (Node, other projects) and when the caller already set the header or uses header auth.
+        const isUnsafe = method === "post" || method === "put" || method === "patch" || method === "delete"
+        if (isUnsafe && typeof document !== "undefined" && config.headers["X-CSRF-TOKEN"] == null) {
+            const token = Array.from(document.querySelectorAll('meta[name="csrf-token"]'))
+                .map((m) => m.getAttribute("content"))
+                .find((c): c is string => !!c)
+            if (token) {
+                config.headers["X-CSRF-TOKEN"] = token
+            }
+        }
         return config
     })
 
