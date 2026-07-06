@@ -20545,6 +20545,11 @@ components:
           additionalProperties:
             type: integer
             format: int64
+        inputTypeCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
         hasInputsCount:
           type: integer
           format: int64
