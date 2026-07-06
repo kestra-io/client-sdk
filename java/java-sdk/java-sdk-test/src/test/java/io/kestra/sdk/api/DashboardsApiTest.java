@@ -4,6 +4,10 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static io.kestra.TestUtils.*;
@@ -30,6 +34,95 @@ public class DashboardsApiTest {
                   max: P365D
                 charts: []
                 """.formatted(id, title);
+    }
+
+    // Dashboard with a single OSS-native Table chart over the Executions data
+    // type, scoped to namespace so its export content is deterministic even on
+    // a shared test instance with unrelated executions.
+    static String executionsTableDashboardYaml(String dashboardId, String title, String chartId, String namespace) {
+        return """
+                id: %s
+                title: %s
+                description: Test dashboard
+                timeWindow:
+                  default: P30D
+                  max: P365D
+                charts:
+                  - id: %s
+                    type: io.kestra.plugin.core.dashboard.chart.Table
+                    chartOptions:
+                      displayName: Executions
+                    data:
+                      type: io.kestra.plugin.core.dashboard.data.Executions
+                      where:
+                        - field: NAMESPACE
+                          type: EQUAL_TO
+                          value: %s
+                      columns:
+                        id:
+                          field: ID
+                          displayName: Execution ID
+                        namespace:
+                          field: NAMESPACE
+                          displayName: Namespace
+                        flow:
+                          field: FLOW_ID
+                          displayName: Flow
+                        state:
+                          field: STATE
+                          displayName: State
+                """.formatted(dashboardId, title, chartId, namespace);
+    }
+
+    // executionsTableDashboardYaml's chart block on its own, usable directly in
+    // an ad-hoc PreviewRequest (no dashboard wrapper).
+    static String executionsTableChartYaml(String chartId, String namespace) {
+        return """
+                id: %s
+                type: io.kestra.plugin.core.dashboard.chart.Table
+                chartOptions:
+                  displayName: Executions
+                data:
+                  type: io.kestra.plugin.core.dashboard.data.Executions
+                  where:
+                    - field: NAMESPACE
+                      type: EQUAL_TO
+                      value: %s
+                  columns:
+                    id:
+                      field: ID
+                      displayName: Execution ID
+                    namespace:
+                      field: NAMESPACE
+                      displayName: Namespace
+                    flow:
+                      field: FLOW_ID
+                      displayName: Flow
+                    state:
+                      field: STATE
+                      displayName: State
+                """.formatted(chartId, namespace);
+    }
+
+    // The CSV header uses the executionsTable*Yaml column keys (not their
+    // displayName), and the SQL layer does not guarantee they come back in
+    // declaration order, so this compares against a sorted copy of the header.
+    private static final List<String> EXPECTED_EXPORT_COLUMNS = List.of("flow", "id", "namespace", "state");
+
+    static void assertCsvHeader(String csv) {
+        String header = csv.split("\n", 2)[0].stripTrailing();
+        List<String> columns = new ArrayList<>(List.of(header.split(",")));
+        Collections.sort(columns);
+        assertThat(columns).isEqualTo(EXPECTED_EXPORT_COLUMNS);
+    }
+
+    // Every Amazon Ion 1.0 binary stream starts with this fixed 4-byte header;
+    // FileSerde writes ION exports in binary form.
+    private static final byte[] ION_BINARY_VERSION_MARKER = {(byte) 0xE0, 0x01, 0x00, (byte) 0xEA};
+
+    static void assertIonBinaryMarker(byte[] result) {
+        assertThat(result).hasSizeGreaterThanOrEqualTo(4);
+        assertThat(Arrays.copyOfRange(result, 0, 4)).isEqualTo(ION_BINARY_VERSION_MARKER);
     }
 
     // ========================================================================
@@ -234,33 +327,97 @@ public class DashboardsApiTest {
     }
 
     @Test
-    void exportChartToCsv_basic() throws ApiException {
-        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
-                .chart("""
-                        id: csv-chart
-                        type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
-                        graphStyle: LINES
-                        columns:
-                          date:
-                            field: DATE
-                        """);
+    void exportChart_basic() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
 
-        try {
-            byte[] result = api().exportChartToCsv(TENANT, request);
-            assertThat(result).isNotNull();
-        } catch (ApiException e) {
-            assertThat(e.getCode()).isIn(400, 422);
-        }
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
+                .chart(executionsTableChartYaml("adhoc-chart", namespace));
+
+        byte[] result = api().exportChart(TENANT, request, "CSV");
+        assertThat(result).isNotEmpty();
+
+        String csv = new String(result, StandardCharsets.UTF_8);
+        assertThat(csv).contains(namespace, flowId, execution.getId());
+        assertCsvHeader(csv);
     }
 
     @Test
-    void exportDashboardChartDataToCSV_notFound() throws ApiException {
+    void exportChart_ion() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerPreviewRequest request = new DashboardControllerPreviewRequest()
+                .chart(executionsTableChartYaml("adhoc-chart", namespace));
+
+        byte[] result = api().exportChart(TENANT, request, "ION");
+        assertThat(result).isNotEmpty();
+
+        String ion = new String(result, StandardCharsets.UTF_8);
+        assertThat(ion).contains(namespace, flowId, execution.getId());
+        assertIonBinaryMarker(result);
+    }
+
+    @Test
+    void exportDashboardChart_csv() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        String chartId = "recent_executions";
+
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT,
+                executionsTableDashboardYaml(randomId(), "export-csv-" + randomId(), chartId, namespace));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+        byte[] result = api().exportDashboardChart(created.getId(), chartId, TENANT, filters, "CSV");
+        assertThat(result).isNotEmpty();
+
+        String csv = new String(result, StandardCharsets.UTF_8);
+        assertThat(csv).contains(namespace, flowId, execution.getId());
+        assertCsvHeader(csv);
+    }
+
+    @Test
+    void exportDashboardChart_ion() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        String chartId = "recent_executions";
+
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT,
+                executionsTableDashboardYaml(randomId(), "export-ion-" + randomId(), chartId, namespace));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+        byte[] result = api().exportDashboardChart(created.getId(), chartId, TENANT, filters, "ION");
+        assertThat(result).isNotEmpty();
+
+        String ion = new String(result, StandardCharsets.UTF_8);
+        assertThat(ion).contains(namespace, flowId, execution.getId());
+        assertIonBinaryMarker(result);
+    }
+
+    @Test
+    void exportDashboardChart_notFound() throws ApiException {
         String title = "csv-export-" + randomId();
         DashboardControllerDashboardResponse created = api().createDashboard(TENANT, dashboardYaml(title));
 
         ChartFiltersOverrides filters = new ChartFiltersOverrides();
 
-        assertThatThrownBy(() -> api().exportDashboardChartDataToCSV(created.getId(), "nonexistent", TENANT, filters))
+        assertThatThrownBy(() -> api().exportDashboardChart(created.getId(), "nonexistent", TENANT, filters, "CSV"))
                 .isInstanceOf(ApiException.class);
     }
 }
