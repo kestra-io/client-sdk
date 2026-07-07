@@ -1,41 +1,5 @@
 {
   "removeDeprecatedParameters": true,
   "removeDeprecatedOperations": false,
-  "operationIdsToSkip": [
-    "triggerExecutionByPostWebhook",
-    "validateNewExecutionInputs",
-    "validateResumeExecutionInputs",
-    "triggerExecutionByPutWebhook",
-    "triggerExecution",
-    "searchTaskRun",
-    "resumeExecutionFromBreakpoint",
-    "previewFileFromExecution",
-    "listFlowExecutionsByNamespace",
-    "listExecutableDistinctNamespaces",
-    "evalTaskRunExpression",
-    "previewAppTest",
-    "openAppTest",
-    "streamEventsFromApp",
-    "dispatchApp",
-    "downloadFileFromAppExecution",
-    "fileMetaFromAppExecution",
-    "filePreviewFromAppExecution",
-    "logsFromAppExecution",
-    "previewApp",
-    "openApp",
-    "logsFromAppExecutionlogsFromAppExecution",
-    "followLogsFromExecution",
-    "basicAuthConfigErrors", "# seems not useful",
-    "createBasicAuth", "# cannot be used",
-    "refreshLicense", "# seems not useful",
-    "setupKestra", "# seems not useful",
-    "tenantUsage", "# GO deserialization doesnt work",
-    "usages", "# GO deserialization doesnt work",
-    "listPermissions", "# GO deserialization enum clash with 1.1",
-    "exportFlows", "# csv export mainly aimed for UI not working yet in the SDK",
-    "exportExecutions", "# csv export mainly aimed for UI not working yet in the SDK"
-  ],
-  "tagsToSkip": [
-    "Credentials"
-  ]
+  "tagsToSkip": ["Credentials"]
 }
