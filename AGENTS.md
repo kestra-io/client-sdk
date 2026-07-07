@@ -49,7 +49,3 @@ Tests require a running Kestra instance at `http://localhost:9903` with credenti
 ./generate-sdks.sh python       # Python only
 ./generate-sdks.sh go           # Go only
 ```
-
-## NPM rules
-
-The name of the workflow name `.github/workflows/javacript-sdk.yml` is hard linked into NPM registry so it should NEVER be changed otherwise it will break releases.
