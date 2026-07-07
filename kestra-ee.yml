@@ -17474,6 +17474,7 @@ components:
           $ref: "#/components/schemas/Level"
         labels:
           title: The labels to pass to the execution created.
+          description: Label values are dynamic and can reference trigger variables.
           oneOf:
           - type: array
           - $ref: "#/components/schemas/Map_Object.Object_"
