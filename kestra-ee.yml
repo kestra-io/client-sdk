@@ -1995,6 +1995,36 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/icons/{cls}:
+    get:
+      tags:
+      - Plugins
+      summary: Get a single plugin icon
+      description: "Lightweight alternative to `GET /plugins/icons` for resolving\
+        \ one icon at a time, so callers don't have to download the whole plugin catalog\
+        \ just to render one task icon. Not every class has an icon, which is a normal\
+        \ outcome (not every plugin ships one), so this always answers 200 with `icon:\
+        \ null` rather than 404 — a bare 404 here would be indistinguishable, to the\
+        \ frontend's shared HTTP client, from a genuine routing error and trip its\
+        \ global error page."
+      operationId: getPluginIcon
+      parameters:
+      - name: cls
+        in: path
+        description: The plugin full class name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPluginIcon 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PluginController.PluginIconResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/inputs:
     get:
       tags:
@@ -3280,8 +3310,9 @@ paths:
     delete:
       tags:
       - Users
-      summary: Update user password
-      description: Superadmin-only. Updates whether a user is a superadmin.
+      summary: Delete user auth method
+      description: Superadmin-only. Deletes a specific authentication method from
+        a user.
       operationId: deleteUserAuthMethod
       parameters:
       - name: id
@@ -3339,7 +3370,7 @@ paths:
       tags:
       - Users
       summary: Update user password
-      description: Superadmin-only. Updates whether a user is a superadmin.
+      description: Superadmin-only. Updates the password of a user.
       operationId: patchUserPassword
       parameters:
       - name: id
@@ -3487,6 +3518,8 @@ paths:
                   NAMESPACE:
                     type: array
                   KVSTORE:
+                    type: array
+                  REUSABLE_INPUTS:
                     type: array
                   DASHBOARD:
                     type: array
@@ -9487,6 +9520,41 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/expressions/render:
+    post:
+      tags:
+      - Expressions
+      summary: Render Pebble expressions for display
+      description: "Renders a list of Pebble expressions for display purposes only,\
+        \ using a restricted engine: secret() is masked as [secret: KEY], env() is\
+        \ kept raw, only a safe allowlist of pure functions is invoked, and anything\
+        \ else is kept raw. Resolution is all-or-nothing per expression: an expression\
+        \ that references anything unresolvable is returned unchanged. Provide an\
+        \ executionId to resolve against an execution context, or a flow source to\
+        \ resolve against a flow context; otherwise only globals are available."
+      operationId: renderExpressions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpressionController.RenderExpressionRequest"
+        required: true
+      responses:
+        "200":
+          description: renderExpressions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpressionController.RenderedExpressions"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/flows:
     post:
       tags:
@@ -9494,6 +9562,14 @@ paths:
       summary: Create a flow from yaml source
       operationId: createFlow
       parameters:
+      - name: draft
+        in: query
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
+          \ schedules or subflows and are not validated for constraint violations."
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -10433,6 +10509,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: draft
+        in: query
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
+          \ schedules or subflows and are not validated for constraint violations."
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -11235,6 +11319,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - SCIM-Groups
@@ -11284,6 +11371,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search:
     post:
       tags:
@@ -11320,6 +11410,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}:
     get:
       tags:
@@ -11369,6 +11462,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - SCIM-Groups
@@ -11421,6 +11517,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     delete:
       tags:
       - SCIM-Groups
@@ -11453,6 +11552,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     patch:
       tags:
       - SCIM-Groups
@@ -11503,6 +11605,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes:
     get:
       tags:
@@ -11529,6 +11634,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ResourceType"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -11558,6 +11666,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ResourceType"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -11584,6 +11695,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Schema"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri}:
     get:
       tags:
@@ -11613,6 +11727,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/Schema"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig:
     get:
       tags:
@@ -11637,6 +11754,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ServiceProviderConfiguration"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users:
     get:
       tags:
@@ -11714,6 +11834,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     post:
       tags:
       - SCIM-Users
@@ -11763,6 +11886,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search:
     post:
       tags:
@@ -11799,6 +11925,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}:
     get:
       tags:
@@ -11848,6 +11977,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - SCIM-Users
@@ -11900,6 +12032,9 @@ paths:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     delete:
       tags:
       - SCIM-Users
@@ -11932,6 +12067,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     patch:
       tags:
       - SCIM-Users
@@ -11982,6 +12120,9 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/invitations:
     post:
       tags:
@@ -14232,6 +14373,179 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List reusable inputs visible from a namespace (including inherited
+        ones)
+      operationId: list_3
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list_3 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: "Get reusable inputs by id, resolving namespace inheritance"
+      operationId: get_4
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: revision
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Reusable Inputs
+      summary: Create or update reusable inputs from their YAML source
+      operationId: createOrUpdate
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+          text/plain:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: createOrUpdate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Reusable Inputs
+      summary: Delete reusable inputs
+      operationId: delete_3
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: delete_3 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}/revisions:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List all revisions of reusable inputs (history view)
+      operationId: revisions
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: revisions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReusableInputs"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
     put:
       tags:
@@ -14401,6 +14715,55 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/quota-limits:
+    get:
+      tags:
+      - Quotas
+      summary: Search for quota limits
+      operationId: search
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QuotaLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/reusable-inputs/namespaces:
+    get:
+      tags:
+      - Reusable Inputs
+      summary: List namespaces that define at least one reusable inputs definition
+        (editor autocompletion)
+      operationId: namespacesWithBlocks
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: namespacesWithBlocks 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16448,8 +16811,8 @@ paths:
           items:
             type: string
         examples:
-          Sort by timestamp in ascending order:
-            value: timestamp:asc
+          Sort by next evaluation date in ascending order:
+            value: nextEvaluationDate:asc
           Sort by trigger ID in descending order:
             value: triggerId:desc
       - name: filters
@@ -16992,6 +17355,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       type: object
@@ -17026,6 +17390,12 @@ components:
             $ref: "#/components/schemas/Output"
         disabled:
           type: boolean
+        draft:
+          type: boolean
+          description: "Whether this flow revision is a draft. Draft revisions are\
+            \ skipped when an execution starts without an explicit revision (webhooks,\
+            \ schedules, subflows, manual triggers). Executions can still target a\
+            \ draft by passing the revision explicitly."
         labels:
           description: Labels as a list of Label (key/value pairs) or as a map of
             string to string.
@@ -17565,6 +17935,12 @@ components:
           type: string
         name:
           type: string
+        description:
+          type: string
+          nullable: true
+        securityIntegrationName:
+          type: string
+          nullable: true
     ApiIds:
       type: object
       properties:
@@ -19658,6 +20034,42 @@ components:
               type: array
             APP_CONTEXT:
               type: array
+    ExpressionController.RenderExpressionRequest:
+      required:
+      - expressions
+      type: object
+      properties:
+        expressions:
+          maxItems: 500
+          minItems: 1
+          type: array
+          description: The raw Pebble expressions to render
+          items:
+            type: string
+        executionId:
+          type: string
+          description: Resolve against this execution's context
+          nullable: true
+        namespace:
+          type: string
+          description: Resolve against this flow's context (with flowId)
+          nullable: true
+        flowId:
+          type: string
+          description: Resolve against this flow's context (with namespace)
+          nullable: true
+        flow:
+          type: string
+          description: Resolve against this flow source's context (YAML)
+          nullable: true
+    ExpressionController.RenderedExpressions:
+      type: object
+      properties:
+        rendered:
+          type: object
+          additionalProperties:
+            type: string
+          description: Rendered values keyed by their raw expression
     FileAttributes:
       type: object
       properties:
@@ -19728,6 +20140,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       - tasks
@@ -19758,6 +20171,12 @@ components:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
@@ -19823,6 +20242,13 @@ components:
               \ is executed.  If no checks are defined, the flow executes normally."
             items:
               $ref: "#/components/schemas/Check"
+          quotas:
+            title: Quotas evaluated before the flow is executed (EE only).
+            type: array
+            description: "A list of quotas that are evaluated before the flow is executed.\
+              \  If no quotas are defined, the flow executes normally."
+            items:
+              $ref: "#/components/schemas/Quota"
     FlowController.FlowWithDeprecatedTasks:
       type: object
       properties:
@@ -19846,6 +20272,7 @@ components:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       - tasks
@@ -19880,6 +20307,12 @@ components:
               $ref: "#/components/schemas/Output"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
@@ -20000,6 +20433,8 @@ components:
             type: boolean
           deleted:
             type: boolean
+          draft:
+            type: boolean
           labels:
             type: array
             items:
@@ -20020,6 +20455,10 @@ components:
             $ref: "#/components/schemas/WorkerSelector"
           concurrency:
             $ref: "#/components/schemas/Concurrency"
+          quotas:
+            type: array
+            items:
+              $ref: "#/components/schemas/Quota"
           sla:
             type: array
             items:
@@ -20087,7 +20526,7 @@ components:
       properties:
         count:
           type: integer
-          format: int32
+          format: int64
         namespacesCount:
           type: integer
           format: int64
@@ -20106,10 +20545,128 @@ components:
           additionalProperties:
             type: integer
             format: int64
+        inputTypeCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        hasInputsCount:
+          type: integer
+          format: int64
+        hasOutputsCount:
+          type: integer
+          format: int64
+        hasLabelsCount:
+          type: integer
+          format: int64
+        hasVariablesCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasErrorsCount:
+          type: integer
+          format: int64
+        hasFinallyCount:
+          type: integer
+          format: int64
+        hasAfterExecutionCount:
+          type: integer
+          format: int64
+        hasTriggersCount:
+          type: integer
+          format: int64
+        hasPluginDefaultsCount:
+          type: integer
+          format: int64
+        hasConcurrencyCount:
+          type: integer
+          format: int64
+        hasRetryCount:
+          type: integer
+          format: int64
+        hasSlaCount:
+          type: integer
+          format: int64
+        hasChecksCount:
+          type: integer
+          format: int64
+        hasQuotasCount:
+          type: integer
+          format: int64
+        tasks:
+          $ref: "#/components/schemas/FlowUsage.TaskUsage"
+        triggers:
+          $ref: "#/components/schemas/FlowUsage.TriggerUsage"
+    FlowUsage.TaskUsage:
+      type: object
+      properties:
+        hasRetryCount:
+          type: integer
+          format: int64
+        hasTimeoutCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasAllowFailureCount:
+          type: integer
+          format: int64
+        hasLogToFileCount:
+          type: integer
+          format: int64
+        hasRunIfCount:
+          type: integer
+          format: int64
+        hasAllowWarningCount:
+          type: integer
+          format: int64
+        hasCacheCount:
+          type: integer
+          format: int64
+        hasAssetsCount:
+          type: integer
+          format: int64
+        hasErrorsCount:
+          type: integer
+          format: int64
+        hasFinallyCount:
+          type: integer
+          format: int64
+    FlowUsage.TriggerUsage:
+      type: object
+      properties:
+        hasWhenCount:
+          type: integer
+          format: int64
+        hasWorkerSelectorCount:
+          type: integer
+          format: int64
+        hasLabelsCount:
+          type: integer
+          format: int64
+        hasStopAfterCount:
+          type: integer
+          format: int64
+        hasLogToFileCount:
+          type: integer
+          format: int64
+        hasFailOnErrorCount:
+          type: integer
+          format: int64
+        hasAllowConcurrentCount:
+          type: integer
+          format: int64
+        hasAssetsCount:
+          type: integer
+          format: int64
     FlowWithSource:
       required:
       - deleted
       - disabled
+      - draft
       - id
       - namespace
       type: object
@@ -20140,6 +20697,12 @@ components:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
             type: boolean
+          draft:
+            type: boolean
+            description: "Whether this flow revision is a draft. Draft revisions are\
+              \ skipped when an execution starts without an explicit revision (webhooks,\
+              \ schedules, subflows, manual triggers). Executions can still target\
+              \ a draft by passing the revision explicitly."
           labels:
             description: Labels as a list of Label (key/value pairs) or as a map of
               string to string.
@@ -20168,6 +20731,13 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/SLA"
+          quotas:
+            title: Quotas evaluated before the flow is executed (EE only).
+            type: array
+            description: "A list of quotas that are evaluated before the flow is executed.\
+              \  If no quotas are defined, the flow executes normally."
+            items:
+              $ref: "#/components/schemas/Quota"
           source:
             type: string
     FollowLogEvent:
@@ -20201,6 +20771,8 @@ components:
           type: string
         executionKind:
           $ref: "#/components/schemas/ExecutionKind"
+        progress:
+          type: string
     GithubAppConfig:
       required:
       - appId
@@ -20440,6 +21012,8 @@ components:
               type: array
             KVSTORE:
               type: array
+            REUSABLE_INPUTS:
+              type: array
             DASHBOARD:
               type: array
             SECRET:
@@ -20528,6 +21102,8 @@ components:
             NAMESPACE:
               type: array
             KVSTORE:
+              type: array
+            REUSABLE_INPUTS:
               type: array
             DASHBOARD:
               type: array
@@ -21332,6 +21908,9 @@ components:
           nullable: true
           allOf:
           - $ref: "#/components/schemas/ExecutionKind"
+        progress:
+          type: string
+          nullable: true
     LoopRun:
       type: object
       properties:
@@ -22727,6 +23306,13 @@ components:
           type: string
         deprecated:
           type: boolean
+    PluginController.PluginIconResponse:
+      type: object
+      properties:
+        icon:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/PluginIcon"
     PluginDefault:
       required:
       - type
@@ -23014,6 +23600,46 @@ components:
       - STRICT
       - ELASTIC
       - UNKNOWN
+    Quota:
+      required:
+      - behavior
+      - duration
+      - limit
+      type: object
+      properties:
+        duration:
+          type: string
+        limit:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+        behavior:
+          $ref: "#/components/schemas/Quota.Behavior"
+    Quota.Behavior:
+      type: string
+      enum:
+      - FAIL
+      - CANCEL
+    QuotaLimit:
+      type: object
+      properties:
+        tenantId:
+          type: string
+        namespace:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        id:
+          type: string
+        start:
+          type: string
+          format: date-time
+        count:
+          type: integer
+          format: int64
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -23049,6 +23675,7 @@ components:
       - TRIGGER
       - NAMESPACE
       - KVSTORE
+      - REUSABLE_INPUTS
       - DASHBOARD
       - SECRET
       - CREDENTIAL
@@ -23112,6 +23739,33 @@ components:
           type: string
         required:
           type: boolean
+    ReusableInputs:
+      title: Reusable inputs
+      required:
+      - id
+      - inputs
+      - namespace
+      type: object
+      properties:
+        namespace:
+          title: The namespace of the reusable inputs block.
+          type: string
+          description: Defaults to the namespace it is created in.
+        id:
+          title: The id of the reusable inputs block.
+          pattern: "^[a-zA-Z0-9][.a-zA-Z0-9_-]*"
+          type: string
+        description:
+          title: A free-text description of the block.
+          type: string
+        inputs:
+          title: The inputs exposed by this block.
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Input_Object_"
+      description: A reusable set of inputs referenced from flows via a REUSABLE_INPUTS
+        input.
     RightSidebarConfiguration:
       type: object
       properties:
@@ -23147,6 +23801,8 @@ components:
             NAMESPACE:
               type: array
             KVSTORE:
+              type: array
+            REUSABLE_INPUTS:
               type: array
             DASHBOARD:
               type: array
@@ -23373,6 +24029,7 @@ components:
       - APPS
       - TESTSUITES
       - DASHBOARD
+      - REUSABLEINPUTS
     ScimExtension:
       type: object
       properties:
@@ -24436,6 +25093,7 @@ components:
       - YAML
       - EMAIL
       - FORM
+      - REUSABLE_INPUTS
     UnitTest:
       required:
       - assertions
