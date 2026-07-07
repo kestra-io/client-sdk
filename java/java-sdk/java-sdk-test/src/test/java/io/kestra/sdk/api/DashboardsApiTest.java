@@ -32,6 +32,44 @@ public class DashboardsApiTest {
                 """.formatted(id, title);
     }
 
+    // Dashboard with a single OSS-native Table chart over the Executions data
+    // type, scoped to namespace so its export content is deterministic even on
+    // a shared test instance with unrelated executions.
+    static String executionsTableDashboardYaml(String dashboardId, String title, String chartId, String namespace) {
+        return """
+                id: %s
+                title: %s
+                description: Test dashboard
+                timeWindow:
+                  default: P30D
+                  max: P365D
+                charts:
+                  - id: %s
+                    type: io.kestra.plugin.core.dashboard.chart.Table
+                    chartOptions:
+                      displayName: Executions
+                    data:
+                      type: io.kestra.plugin.core.dashboard.data.Executions
+                      where:
+                        - field: NAMESPACE
+                          type: EQUAL_TO
+                          value: %s
+                      columns:
+                        id:
+                          field: ID
+                          displayName: Execution ID
+                        namespace:
+                          field: NAMESPACE
+                          displayName: Namespace
+                        flow:
+                          field: FLOW_ID
+                          displayName: Flow
+                        state:
+                          field: STATE
+                          displayName: State
+                """.formatted(dashboardId, title, chartId, namespace);
+    }
+
     // ========================================================================
     // CRUD
     // ========================================================================
@@ -271,6 +309,48 @@ public class DashboardsApiTest {
         } catch (ApiException e) {
             assertThat(e.getCode()).isIn(400, 422);
         }
+    }
+
+    @Test
+    void exportDashboardChart_csv() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        String chartId = "recent_executions";
+
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT,
+                executionsTableDashboardYaml(randomId(), "export-csv-" + randomId(), chartId, namespace));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+        byte[] result = api().exportDashboardChart(created.getId(), chartId, TENANT, filters, "CSV");
+        assertThat(result).isNotEmpty();
+
+        String csv = new String(result);
+        assertThat(csv).contains(namespace, flowId, execution.getId());
+    }
+
+    @Test
+    void exportDashboardChart_ion() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        String chartId = "recent_executions";
+
+        createFlow(logFlowYaml(flowId, namespace));
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, namespace, flowId, null, true, null, null, null, null);
+
+        DashboardControllerDashboardResponse created = api().createDashboard(TENANT,
+                executionsTableDashboardYaml(randomId(), "export-ion-" + randomId(), chartId, namespace));
+
+        ChartFiltersOverrides filters = new ChartFiltersOverrides();
+        byte[] result = api().exportDashboardChart(created.getId(), chartId, TENANT, filters, "ION");
+        assertThat(result).isNotEmpty();
+
+        String ion = new String(result);
+        assertThat(ion).contains(namespace, flowId, execution.getId());
     }
 
     @Test

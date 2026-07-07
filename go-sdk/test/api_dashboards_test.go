@@ -26,6 +26,44 @@ charts: []
 `, id, title)
 }
 
+// executionsTableDashboardYaml builds a dashboard with a single OSS-native Table
+// chart over the Executions data type, scoped to namespace so its export content
+// is deterministic even on a shared test instance with unrelated executions.
+func executionsTableDashboardYaml(dashboardId, title, chartId, namespace string) string {
+	return fmt.Sprintf(`
+id: %s
+title: %s
+description: Test dashboard
+timeWindow:
+  default: P30D
+  max: P365D
+charts:
+  - id: %s
+    type: io.kestra.plugin.core.dashboard.chart.Table
+    chartOptions:
+      displayName: Executions
+    data:
+      type: io.kestra.plugin.core.dashboard.data.Executions
+      where:
+        - field: NAMESPACE
+          type: EQUAL_TO
+          value: %s
+      columns:
+        id:
+          field: ID
+          displayName: Execution ID
+        namespace:
+          field: NAMESPACE
+          displayName: Namespace
+        flow:
+          field: FLOW_ID
+          displayName: Flow
+        state:
+          field: STATE
+          displayName: State
+`, dashboardId, title, chartId, namespace)
+}
+
 func TestDashboardsAPI_All(t *testing.T) {
 
 	// ========================================================================
@@ -280,6 +318,52 @@ columns:
 		if err != nil {
 			require.Contains(t, err.Error(), "")
 		}
+	})
+
+	t.Run("exportDashboardChart_csv", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+		chartId := "recent_executions"
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, executionsTableDashboardYaml(randomId(), "export-csv-"+randomId(), chartId, namespace))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+		result, err := KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, chartId, MAIN_TENANT, filters, strPtr("CSV"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		csv := string(result)
+		require.Contains(t, csv, namespace)
+		require.Contains(t, csv, flowId)
+		require.Contains(t, csv, execution.Id)
+	})
+
+	t.Run("exportDashboardChart_ion", func(t *testing.T) {
+		ctx := context.Background()
+		namespace := randomId()
+		flowId := randomId()
+		chartId := "recent_executions"
+
+		createSimpleFlow(ctx, flowId, namespace)
+		execution := createExecution(t, ctx, flowId, namespace)
+
+		created, err := KestraTestClient().Dashboards().CreateDashboard(ctx, MAIN_TENANT, executionsTableDashboardYaml(randomId(), "export-ion-"+randomId(), chartId, namespace))
+		require.NoError(t, err)
+
+		filters := kestra_api_client.NewChartFiltersOverrides()
+		result, err := KestraTestClient().Dashboards().ExportDashboardChart(ctx, created.Id, chartId, MAIN_TENANT, filters, strPtr("ION"))
+		require.NoError(t, err)
+		require.NotEmpty(t, result)
+
+		ion := string(result)
+		require.Contains(t, ion, namespace)
+		require.Contains(t, ion, flowId)
+		require.Contains(t, ion, execution.Id)
 	})
 
 	t.Run("exportDashboardChart_notFound", func(t *testing.T) {
