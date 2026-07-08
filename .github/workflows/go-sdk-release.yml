@@ -13,6 +13,12 @@ jobs:
     name: Announce Go SDK release
     runs-on: ubuntu-latest
     steps:
+      - name: Trigger pkg.go.dev indexing
+        run: |
+          VERSION="${GITHUB_REF_NAME#go-sdk/}"
+          curl -sf "https://proxy.golang.org/github.com/kestra-io/client-sdk/go-sdk/@v/${VERSION}.info" > /dev/null
+          curl -sf "https://pkg.go.dev/github.com/kestra-io/client-sdk/go-sdk@${VERSION}" > /dev/null
+
       - name: Slack notification
         uses: kestra-io/actions/composite/slack-status@main
         with:
