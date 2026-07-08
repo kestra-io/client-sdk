@@ -344,7 +344,7 @@ describe("ExecutionsApi", () => {
                 path: uri,
             });
 
-        expect(file).toContain("Hello from file");
+        expect(await file.text()).toContain("Hello from file");
     });
 
     // --- force run by ids ---
@@ -992,9 +992,6 @@ describe("ExecutionsApi", () => {
                 key: "a-secret-key",
             });
 
-        // wait for the webhook-triggered execution to start
-        // and update its state from QUEUED to RUNNING
-        await sleep(500);
         expect(resp).toBeTruthy();
         const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
         expect(done.state?.current).toBe("SUCCESS");

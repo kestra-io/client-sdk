@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { configureClient, useClient } from "@kestra-io/kestra-sdk";
+import { setMockClient, useClient } from "@kestra-io/kestra-sdk";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
@@ -14,10 +14,8 @@ const VALIDATE = { validateStatus: (status: number) => status === 200 || status 
 
 describe("useClient", () => {
     beforeAll(() => {
-        const instance = configureClient({
-            auth: username + ":" + password,
-        })
-        instance.defaults.headers.common["Authorization"] = `Basic ${Buffer.from(username + ":" + password).toString("base64")}`;
+        const clientObj = useClient();
+        clientObj.defaults.headers.common["Authorization"] = `Basic ${Buffer.from(username + ":" + password).toString("base64")}`;
     });
 
     it("should be able to call all get methods from a client by URL", async () => {
@@ -108,5 +106,23 @@ tasks:
         const allFlowsInNamespace: any = await clientObj.get(`${baseURL}/api/v1/${tenantId}/flows/${namespace}`);
         const flowIds = allFlowsInNamespace.data.map((f: any) => f.id);
         expect(flowIds).not.toContain(flowId);
+    });
+
+    it("should mock the client responses", async () => {
+        const clientObj = useClient();
+        setMockClient({
+            get: async (url: string) => {
+                if (url === `${baseURL}/api/v1/me`) {
+                    return {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                        data: { username: "mockedUser" } as any,
+                    };
+                }
+                throw new Error("Unknown URL");
+            }
+        })
+        const me: any = await clientObj.get(`${baseURL}/api/v1/me`);
+        expect(me.data).toMatchObject({ username: "mockedUser" });
     });
 });
