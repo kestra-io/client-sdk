@@ -76,7 +76,7 @@ jobs:
       # SDK generation rewrites (and strips) those fields, failing the
       # "fail workflow if there is any difference" check. Matches the publish jobs.
       - name: Upgrade npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - name: extract root version
         id: extract_version
