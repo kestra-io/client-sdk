@@ -284,22 +284,8 @@ describe('UsersApi', () => {
         // If there's a readback endpoint, fetch & assert here.
     });
 
-    // Skipped: impersonate is a browser flow, not a JSON API. Verified against
-    // Kestra 2.0 (develop): it returns `303 See Other` with `Location: /ui/`
-    // and the impersonation token in a `Set-Cookie: JWT=...` header (empty
-    // body). The SDK's axios client auto-follows the redirect and returns the
-    // UI's HTML, while the real payload (the JWT cookie) is a response header
-    // that the generated `getDataOrThrow` wrapper discards. There is no value
-    // to assert through the SDK — tracked as an SDK limitation, not a test bug.
-    it.skip('impersonate: returns a context referencing the impersonated user', async () => {
-        const email = `test_impersonate_user_${randomId()}@kestra.io`;
-        const user = await kestraClient.Users.createUser({
-            email,
-            tenants: [tenantId],
-        });
-
-        const result = await kestraClient.Users.impersonate({ id: user.id });
-        // The impersonation payload must reference the user that was impersonated.
-        expect(JSON.stringify(result)).toContain(user.id);
-    });
+    // Note: `impersonate` is intentionally not generated into the SDK — it is a
+    // browser-only flow (303 -> /ui/ with the token in a Set-Cookie header, empty
+    // body), so it is excluded via operationIdsToSkip in the OpenAPI customizer
+    // config. Hence there is no impersonate test here.
 });

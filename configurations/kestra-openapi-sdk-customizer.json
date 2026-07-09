@@ -1,5 +1,9 @@
 {
   "removeDeprecatedParameters": true,
   "removeDeprecatedOperations": false,
+  "operationIdsToSkip": [
+    "impersonate",
+    "# impersonate is a browser-only flow, not a JSON API: it returns 303 -> /ui/ with the impersonation token in a Set-Cookie: JWT header and an empty body. The generated SDK client follows the redirect and yields the UI HTML, and the wrapper only returns the (empty) body while discarding the cookie, so the endpoint is not consumable via the SDK. Entries prefixed with '#' are inline comments (they match no operationId)."
+  ],
   "tagsToSkip": ["Credentials"]
 }
