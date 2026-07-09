@@ -292,6 +292,6 @@ describe('UsersApi', () => {
         });
 
         const result = await kestraClient.Users.impersonate({ id: user.id });
-        expect(result).toBeDefined();
+        expect(Object.keys(result).length).toBeGreaterThan(0);
     });
 });

@@ -4,7 +4,7 @@ import { kestraClient } from './CommonTestSetup.js';
 describe.sequential('ClusterApi', () => {
     it('maintenanceStatus: returns the current maintenance status', async () => {
         const result = await kestraClient.Cluster.maintenanceStatus();
-        expect(result).toBeDefined();
+        expect(typeof result.maintenance).toBe('boolean');
     });
 
     it('enterMaintenance: enters maintenance mode and always exits it during cleanup', async () => {

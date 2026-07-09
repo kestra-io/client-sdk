@@ -100,8 +100,9 @@ describe('KVApi (typed)', () => {
         await kestraClient.Kv.setKeyValue({ namespace, key, body: '"v"' });
         const result = await kestraClient.Kv.listAllKeys();
 
-        expect(result).toBeDefined();
         expect(Array.isArray(result.results)).toBe(true);
+        expect(result.results.length).toBeGreaterThan(0);
+        expect(result.total).toBeGreaterThan(0);
     });
 
     it('list_keys_with_inheritence: List keys for inherited namespaces', async () => {

@@ -59,6 +59,6 @@ describe('MiscApi', () => {
 
     it('workerSelectorTags: returns available worker selector tags', async () => {
         const result = await kestraClient.Misc.workerSelectorTags();
-        expect(result).toBeDefined();
+        expect(Array.isArray(result.tags)).toBe(true);
     });
 });

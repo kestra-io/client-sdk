@@ -68,6 +68,7 @@ describe('MetricsApi', () => {
             taskId: 'my_task_1_id',
             metric: randomId(),
         });
-        expect(result).toBeDefined();
+        expect(typeof result.groupBy).toBe('string');
+        expect(Array.isArray(result.aggregations)).toBe(true);
     });
 });

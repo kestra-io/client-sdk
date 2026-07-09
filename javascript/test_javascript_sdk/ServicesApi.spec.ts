@@ -25,6 +25,7 @@ describe('ServicesApi', () => {
         expect(id).toBeTruthy();
 
         const result = await kestraClient.Services.service({ id });
-        expect(result).toBeDefined();
+        expect(result.id).toBe(id);
+        expect(result.type).toBeTruthy();
     });
 });

@@ -7,6 +7,6 @@ describe('ExpressionsApi', () => {
         const result = await Expressions.renderExpressions({
             expressions: ['{{ 1 + 2 }}'],
         });
-        expect(result).toBeDefined();
+        expect(result.rendered?.['{{ 1 + 2 }}']).toBe('3');
     });
 });
