@@ -68,7 +68,7 @@ describe('MetricsApi', () => {
             taskId: 'my_task_1_id',
             metric: randomId(),
         });
-        expect(typeof result.groupBy).toBe('string');
-        expect(Array.isArray(result.aggregations)).toBe(true);
+        // A random (non-existent) metric name yields no aggregation rows.
+        expect(result.aggregations).toEqual([]);
     });
 });

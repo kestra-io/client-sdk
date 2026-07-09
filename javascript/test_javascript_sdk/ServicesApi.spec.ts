@@ -19,13 +19,14 @@ describe('ServicesApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('service: returns a single service by id', async () => {
-        const services = await kestraClient.Services.activeServices();
-        const id = (services as any)?.[0]?.id ?? (services as any)?.results?.[0]?.id;
-        expect(id).toBeTruthy();
+    it('service: returns the same service when fetched by id', async () => {
+        // activeServices entries carry no id, so source a real id from the search endpoint.
+        const page = await kestraClient.Services.searchServices({ page: 1, size: 10 });
+        const source = page.results[0];
+        expect(source?.id).toBeTruthy();
 
-        const result = await kestraClient.Services.service({ id });
-        expect(result.id).toBe(id);
-        expect(result.type).toBeTruthy();
+        const result = await kestraClient.Services.service({ id: source.id! });
+        expect(result.id).toBe(source.id);
+        expect(result.type).toBe(source.type);
     });
 });
