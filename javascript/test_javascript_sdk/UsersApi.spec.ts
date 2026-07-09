@@ -283,9 +283,4 @@ describe('UsersApi', () => {
 
         // If there's a readback endpoint, fetch & assert here.
     });
-
-    // Note: `impersonate` is intentionally not generated into the SDK — it is a
-    // browser-only flow (303 -> /ui/ with the token in a Set-Cookie header, empty
-    // body), so it is excluded via operationIdsToSkip in the OpenAPI customizer
-    // config. Hence there is no impersonate test here.
 });
