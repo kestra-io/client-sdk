@@ -284,7 +284,10 @@ describe('UsersApi', () => {
         // If there's a readback endpoint, fetch & assert here.
     });
 
-    it('impersonate: returns a context referencing the impersonated user', async () => {
+    // Skipped: on Kestra 2.0 (develop) impersonate is a browser/redirect flow —
+    // the request follows a 3xx to the UI and resolves to the SPA HTML page
+    // instead of a JSON payload, so there is no meaningful value to assert.
+    it.skip('impersonate: returns a context referencing the impersonated user', async () => {
         const email = `test_impersonate_user_${randomId()}@kestra.io`;
         const user = await kestraClient.Users.createUser({
             email,
