@@ -56,6 +56,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
 })
 @JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
+// Kestra 2.0 rejects a role whose permissions map carries unknown/non-assignable
+// keys, so never serialize empty permission arrays (an unset permission).
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   public static final String JSON_PROPERTY_F_L_O_W = "FLOW";

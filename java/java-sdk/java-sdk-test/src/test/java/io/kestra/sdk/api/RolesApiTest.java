@@ -17,10 +17,12 @@ public class RolesApiTest {
     }
 
     static IAMRoleControllerApiRoleDetail createTestRole(String name) throws ApiException {
+        // Kestra requires a role to have at least one permission.
         IAMRoleControllerApiRoleCreateOrUpdateRequest request = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name(name)
                 .description("Test role: " + name)
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "VIEW")));
         return api().createRole(TENANT, request);
     }
 
@@ -37,6 +39,24 @@ public class RolesApiTest {
         assertThat(result.getName()).isEqualTo(name);
         assertThat(result.getDescription()).contains(name);
         assertThat(result.getId()).isNotBlank();
+    }
+
+    @Test
+    void createRole_withPermissions() throws ApiException {
+        String name = "test-role-perms-" + randomId();
+        IAMRoleControllerApiRoleCreateOrUpdateRequest request = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
+                .name(name)
+                .description("Test role with permissions: " + name)
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "VIEW")));
+
+        IAMRoleControllerApiRoleDetail created = api().createRole(TENANT, request);
+        assertThat(created).isNotNull();
+        assertThat(created.getId()).isNotBlank();
+
+        IAMRoleControllerApiRoleDetail fetched = api().role(created.getId(), TENANT);
+        assertThat(fetched.getPermissions()).isNotNull();
+        assertThat(fetched.getPermissions().getFLOW()).contains("CREATE", "VIEW");
     }
 
     @Test
@@ -65,7 +85,8 @@ public class RolesApiTest {
         IAMRoleControllerApiRoleCreateOrUpdateRequest update = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name(newName)
                 .description("Updated description")
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "VIEW")));
 
         IAMRoleControllerApiRoleDetail updated = api().updateRole(created.getId(), TENANT, update);
 
