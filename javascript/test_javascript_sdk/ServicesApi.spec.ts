@@ -18,4 +18,13 @@ describe('ServicesApi', () => {
         const result = await kestraClient.Services.metrics({ serviceType });
         expect(result).toBeDefined();
     });
+
+    it('service: returns a single service by id', async () => {
+        const services = await kestraClient.Services.activeServices();
+        const id = (services as any)?.[0]?.id ?? (services as any)?.results?.[0]?.id;
+        expect(id).toBeTruthy();
+
+        const result = await kestraClient.Services.service({ id });
+        expect(result).toBeDefined();
+    });
 });

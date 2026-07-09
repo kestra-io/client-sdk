@@ -59,4 +59,15 @@ describe('MetricsApi', () => {
         });
         expect(result).toBeDefined();
     });
+
+    it('aggregateMetricsFromTask: aggregates metrics for a task', async () => {
+        const { namespace, flowId } = await createFlowAndWaitForExecution();
+        const result = await kestraClient.Metrics.aggregateMetricsFromTask({
+            namespace,
+            flowId,
+            taskId: 'my_task_1_id',
+            metric: randomId(),
+        });
+        expect(result).toBeDefined();
+    });
 });

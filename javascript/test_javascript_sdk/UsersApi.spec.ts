@@ -283,4 +283,15 @@ describe('UsersApi', () => {
 
         // If there's a readback endpoint, fetch & assert here.
     });
+
+    it('impersonate: impersonates a user by id', async () => {
+        const base = `test_impersonate_user_${randomId()}`;
+        const user = await kestraClient.Users.createUser({
+            email: `${base}@kestra.io`,
+            tenants: [tenantId],
+        });
+
+        const result = await kestraClient.Users.impersonate({ id: user.id });
+        expect(result).toBeDefined();
+    });
 });

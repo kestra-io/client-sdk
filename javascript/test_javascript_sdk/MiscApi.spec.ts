@@ -56,4 +56,9 @@ describe('MiscApi', () => {
         const result = await kestraClient.Misc.usages();
         expect(result).toBeDefined();
     });
+
+    it('workerSelectorTags: returns available worker selector tags', async () => {
+        const result = await kestraClient.Misc.workerSelectorTags();
+        expect(result).toBeDefined();
+    });
 });

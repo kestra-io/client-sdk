@@ -93,6 +93,17 @@ describe('KVApi (typed)', () => {
         expect(fetched?.value ?? fetched).toBe('value-get');
     });
 
+    it('listAllKeys: lists KV entries across the tenant (paged)', async () => {
+        const namespace = randomId();
+        const key = `test_list_all_keys_${randomId()}`;
+
+        await kestraClient.Kv.setKeyValue({ namespace, key, body: '"v"' });
+        const result = await kestraClient.Kv.listAllKeys();
+
+        expect(result).toBeDefined();
+        expect(Array.isArray(result.results)).toBe(true);
+    });
+
     it('list_keys_with_inheritence: List keys for inherited namespaces', async () => {
         const key = `test_list_keys_with_inheritence_${randomId()}`;
         const value = 'value-inherited';
