@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { kestraClient } from './CommonTestSetup.js';
 
 describe.sequential('ClusterApi', () => {
-    it('maintenanceStatus: returns the current maintenance status', async () => {
+    it('maintenanceStatus: reports not-in-maintenance before entering it', async () => {
         const result = await kestraClient.Cluster.maintenanceStatus();
-        expect(typeof result.maintenance).toBe('boolean');
+        // This test runs first in the sequential block, before enterMaintenance.
+        expect(result.maintenance).toBe(false);
     });
 
     it('enterMaintenance: enters maintenance mode and always exits it during cleanup', async () => {
