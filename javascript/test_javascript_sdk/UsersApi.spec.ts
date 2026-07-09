@@ -284,14 +284,15 @@ describe('UsersApi', () => {
         // If there's a readback endpoint, fetch & assert here.
     });
 
-    it('impersonate: impersonates a user by id', async () => {
-        const base = `test_impersonate_user_${randomId()}`;
+    it('impersonate: returns a context referencing the impersonated user', async () => {
+        const email = `test_impersonate_user_${randomId()}@kestra.io`;
         const user = await kestraClient.Users.createUser({
-            email: `${base}@kestra.io`,
+            email,
             tenants: [tenantId],
         });
 
         const result = await kestraClient.Users.impersonate({ id: user.id });
-        expect(Object.keys(result).length).toBeGreaterThan(0);
+        // The impersonation payload must reference the user that was impersonated.
+        expect(JSON.stringify(result)).toContain(user.id);
     });
 });
