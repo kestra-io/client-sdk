@@ -68,7 +68,8 @@ describe('MetricsApi', () => {
             taskId: 'my_task_1_id',
             metric: randomId(),
         });
-        // A random (non-existent) metric name yields no aggregation rows.
-        expect(result.aggregations).toEqual([]);
+        // A random (non-existent) metric name yields zero-valued date buckets, not an empty array.
+        expect(Array.isArray(result.aggregations)).toBe(true);
+        result.aggregations.forEach((agg: any) => expect(agg.value).toBe(0));
     });
 });
