@@ -1853,6 +1853,149 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/notifications/history:
+    get:
+      tags:
+      - Notifications
+      summary: Browse notification history
+      description: "Cursor-based (not offset-based): returns up to `limit` notifications\
+        \ older than `before`, most recent first, plus a `nextCursor` for the following\
+        \ page. Offset pagination is unsafe here because rows are purged on a rolling\
+        \ TTL while the user scrolls."
+      operationId: history
+      parameters:
+      - name: before
+        in: query
+        description: "Cursor of the previous page, as `<createdDate>,<id>`. Omit for\
+          \ the first page."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: limit
+        in: query
+        description: Maximum number of notifications to return
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        "200":
+          description: history 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiNotificationHistory"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/read-all:
+    post:
+      tags:
+      - Notifications
+      summary: Mark all of the authenticated user's notifications as read
+      description: Only affects notifications for tenants the user currently has access
+        to.
+      operationId: markAllRead
+      responses:
+        "200":
+          description: markAllRead 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiMarkAllRead"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/since:
+    get:
+      tags:
+      - Notifications
+      summary: Poll for notifications updated since a given instant
+      description: "Interval-polling delta endpoint: returns notifications updated\
+        \ strictly after `since`, plus a fresh server timestamp to pass as `since`\
+        \ on the next poll."
+      operationId: pollSince
+      parameters:
+      - name: since
+        in: query
+        description: The server timestamp returned by a previous call to this endpoint
+          (or to /history)
+        required: true
+        explode: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: pollSince 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiNotificationsSince"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/unread-count:
+    get:
+      tags:
+      - Notifications
+      summary: Count unread notifications for the authenticated user
+      operationId: unreadCount
+      responses:
+        "200":
+          description: unreadCount 200 response
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/{id}/read:
+    post:
+      tags:
+      - Notifications
+      summary: Mark a single notification as read
+      description: "Idempotent: a missing/already-read/foreign id is a no-op, not\
+        \ an error — the frontend never needs to special-case a 'not found' response\
+        \ for this action, and the global 404 handler never gets a chance to blow\
+        \ up the routed UI over what is functionally a success."
+      operationId: markRead
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: markRead 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/{id}/unread:
+    post:
+      tags:
+      - Notifications
+      summary: Mark a single notification as unread
+      description: "Idempotent: a missing/already-unread/foreign id is a no-op, not\
+        \ an error — same rationale as POST /{id}/read."
+      operationId: markUnread
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: markUnread 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/pebble/filters:
     get:
       tags:
@@ -22487,6 +22630,78 @@ components:
         id:
           pattern: "^[a-z0-9][a-z0-9._-]*"
           type: string
+    Notification:
+      required:
+      - createdDate
+      - title
+      - type
+      - updatedDate
+      - userId
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+          nullable: true
+        type:
+          $ref: "#/components/schemas/NotificationType"
+        title:
+          type: string
+        referenceId:
+          type: string
+          nullable: true
+        current:
+          type: integer
+          format: int32
+          nullable: true
+        total:
+          type: integer
+          format: int32
+          nullable: true
+        read:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+    NotificationController.ApiMarkAllRead:
+      type: object
+      properties:
+        updated:
+          type: integer
+          format: int32
+    NotificationController.ApiNotificationHistory:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        serverTime:
+          type: string
+          format: date-time
+        nextCursor:
+          type: string
+          nullable: true
+    NotificationController.ApiNotificationsSince:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        serverTime:
+          type: string
+          format: date-time
+    NotificationType:
+      type: string
+      enum:
+      - GENERIC
     OAuth2Config:
       type: object
       properties:
