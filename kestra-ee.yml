@@ -860,6 +860,47 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/icon.svg:
+    get:
+      tags:
+      - Plugins
+      summary: Get a plugin artifact icon as a raw SVG
+      description: "Superadmin-only. Serves the plugin artifact icon as a standalone,\
+        \ browser-cacheable `image/svg+xml` resource so icons are no longer inlined\
+        \ (base64) in the artifact listings. Installed artifacts are served from the\
+        \ local plugin; other artifacts have their icon proxied lazily from the Kestra\
+        \ API. Requires INFRASTRUCTURE permission."
+      operationId: getVersionedPluginIcon
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: v
+        in: query
+        description: Content hash used as a cache-busting token; when present the
+          icon is cached indefinitely.
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: getVersionedPluginIcon 200 response
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/release-notes:
     get:
       tags:
@@ -2165,6 +2206,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PluginController.PluginIconResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/plugins/icons/{cls}/icon.svg:
+    get:
+      tags:
+      - Plugins
+      summary: Get a single plugin icon as a raw SVG
+      description: "Serves the plugin icon as a real, browser-cacheable `image/svg+xml`\
+        \ resource so it can be referenced directly from an `<img src>` or CSS `mask-image`\
+        \ instead of being inlined as a data URI. Falls back to the Kestra plugin\
+        \ catalog when the class or group isn't locally registered, or is registered\
+        \ but ships no bundled icon. Cached indefinitely by the browser — callers\
+        \ append `PluginIcon#hash` as a query param so the URL changes whenever the\
+        \ icon's bytes do."
+      operationId: getPluginIconSvg
+      parameters:
+      - name: cls
+        in: path
+        description: The plugin full class name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPluginIconSvg 200 response
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+                format: byte
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -21703,7 +21775,7 @@ components:
         title:
           type: string
         icon:
-          type: string
+          $ref: "#/components/schemas/InstanceController.ApiPluginIcon"
         groupId:
           type: string
         artifactId:
@@ -21735,6 +21807,16 @@ components:
           type: array
           items:
             type: object
+    InstanceController.ApiPluginIcon:
+      type: object
+      properties:
+        hasIcon:
+          type: boolean
+        monochrome:
+          type: boolean
+        hash:
+          type: string
+          nullable: true
     InstanceController.ApiPluginListRequest:
       type: object
       properties:
@@ -21756,7 +21838,7 @@ components:
         description:
           type: string
         icon:
-          type: string
+          $ref: "#/components/schemas/InstanceController.ApiPluginIcon"
         classes:
           type: array
           items:
@@ -21765,8 +21847,6 @@ components:
       type: object
       properties:
         name:
-          type: string
-        icon:
           type: string
     InstanceController.ApiPluginVersionDetails.ApiPluginClasses:
       type: object
@@ -23553,6 +23633,10 @@ components:
           type: string
         flowable:
           type: boolean
+        monochrome:
+          type: boolean
+        hash:
+          type: string
     PluginSchema:
       type: object
       properties:
