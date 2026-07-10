@@ -860,6 +860,47 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/icon.svg:
+    get:
+      tags:
+      - Plugins
+      summary: Get a plugin artifact icon as a raw SVG
+      description: "Superadmin-only. Serves the plugin artifact icon as a standalone,\
+        \ browser-cacheable `image/svg+xml` resource so icons are no longer inlined\
+        \ (base64) in the artifact listings. Installed artifacts are served from the\
+        \ local plugin; other artifacts have their icon proxied lazily from the Kestra\
+        \ API. Requires INFRASTRUCTURE permission."
+      operationId: getVersionedPluginIcon
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: v
+        in: query
+        description: Content hash used as a cache-busting token; when present the
+          icon is cached indefinitely.
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: getVersionedPluginIcon 200 response
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/release-notes:
     get:
       tags:
@@ -1853,6 +1894,149 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/notifications/history:
+    get:
+      tags:
+      - Notifications
+      summary: Browse notification history
+      description: "Cursor-based (not offset-based): returns up to `limit` notifications\
+        \ older than `before`, most recent first, plus a `nextCursor` for the following\
+        \ page. Offset pagination is unsafe here because rows are purged on a rolling\
+        \ TTL while the user scrolls."
+      operationId: history
+      parameters:
+      - name: before
+        in: query
+        description: "Cursor of the previous page, as `<createdDate>,<id>`. Omit for\
+          \ the first page."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: limit
+        in: query
+        description: Maximum number of notifications to return
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        "200":
+          description: history 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiNotificationHistory"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/read-all:
+    post:
+      tags:
+      - Notifications
+      summary: Mark all of the authenticated user's notifications as read
+      description: Only affects notifications for tenants the user currently has access
+        to.
+      operationId: markAllRead
+      responses:
+        "200":
+          description: markAllRead 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiMarkAllRead"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/since:
+    get:
+      tags:
+      - Notifications
+      summary: Poll for notifications updated since a given instant
+      description: "Interval-polling delta endpoint: returns notifications updated\
+        \ strictly after `since`, plus a fresh server timestamp to pass as `since`\
+        \ on the next poll."
+      operationId: pollSince
+      parameters:
+      - name: since
+        in: query
+        description: The server timestamp returned by a previous call to this endpoint
+          (or to /history)
+        required: true
+        explode: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: pollSince 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationController.ApiNotificationsSince"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/unread-count:
+    get:
+      tags:
+      - Notifications
+      summary: Count unread notifications for the authenticated user
+      operationId: unreadCount
+      responses:
+        "200":
+          description: unreadCount 200 response
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/{id}/read:
+    post:
+      tags:
+      - Notifications
+      summary: Mark a single notification as read
+      description: "Idempotent: a missing/already-read/foreign id is a no-op, not\
+        \ an error — the frontend never needs to special-case a 'not found' response\
+        \ for this action, and the global 404 handler never gets a chance to blow\
+        \ up the routed UI over what is functionally a success."
+      operationId: markRead
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: markRead 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/notifications/{id}/unread:
+    post:
+      tags:
+      - Notifications
+      summary: Mark a single notification as unread
+      description: "Idempotent: a missing/already-unread/foreign id is a no-op, not\
+        \ an error — same rationale as POST /{id}/read."
+      operationId: markUnread
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: markUnread 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/pebble/filters:
     get:
       tags:
@@ -2022,6 +2206,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PluginController.PluginIconResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/plugins/icons/{cls}/icon.svg:
+    get:
+      tags:
+      - Plugins
+      summary: Get a single plugin icon as a raw SVG
+      description: "Serves the plugin icon as a real, browser-cacheable `image/svg+xml`\
+        \ resource so it can be referenced directly from an `<img src>` or CSS `mask-image`\
+        \ instead of being inlined as a data URI. Falls back to the Kestra plugin\
+        \ catalog when the class or group isn't locally registered, or is registered\
+        \ but ships no bundled icon. Cached indefinitely by the browser — callers\
+        \ append `PluginIcon#hash` as a query param so the URL changes whenever the\
+        \ icon's bytes do."
+      operationId: getPluginIconSvg
+      parameters:
+      - name: cls
+        in: path
+        description: The plugin full class name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPluginIconSvg 200 response
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+                format: byte
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2627,62 +2842,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiUser"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/support/debug-info:
-    get:
-      tags:
-      - Misc
-      summary: Retrieve debug information for a support ticket
-      description: Returns aggregated debug information about the current Kestra instance.
-        Available to all authenticated users.
-      operationId: supportDebugInfo
-      responses:
-        "200":
-          description: supportDebugInfo 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SupportDebugInfo"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/support/forward:
-    post:
-      tags:
-      - Misc
-      summary: Forward support ticket to configured registry proxy
-      operationId: forwardSupportTicket
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                payload:
-                  type: string
-                filesPublisher:
-                  type: array
-                  nullable: true
-                  items:
-                    type: string
-                    format: binary
-            encoding:
-              payload:
-                contentType: application/octet-stream
-                explode: false
-              filesPublisher:
-                contentType: application/octet-stream
-                explode: false
-        required: true
-      responses:
-        "200":
-          description: forwardSupportTicket 200 response
-          content:
-            application/json:
-              schema:
-                type: object
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -3556,6 +3715,8 @@ paths:
                   COPILOT:
                     type: array
                   MCP_SERVER:
+                    type: array
+                  SUPPORT:
                     type: array
                   APP_EXECUTION:
                     type: array
@@ -14386,6 +14547,24 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
       - name: tenant
         in: path
         required: true
@@ -14397,9 +14576,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ReusableInputs"
+                $ref: "#/components/schemas/PagedResults_ReusableInputs_"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14458,6 +14635,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: failIfExists
+        in: query
+        description: Reject instead of overwriting if a block with this id already
+          exists in the namespace
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -15585,6 +15770,75 @@ paths:
               schema:
                 type: string
                 format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/support/debug-info:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve debug information for a support ticket
+      description: Returns aggregated debug information about the current Kestra instance.
+        Requires the SUPPORT permission.
+      operationId: supportDebugInfo
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: supportDebugInfo 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SupportDebugInfo"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/support/forward:
+    post:
+      tags:
+      - Misc
+      summary: Forward support ticket to configured registry proxy
+      description: Requires the SUPPORT permission.
+      operationId: forwardSupportTicket
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: string
+                filesPublisher:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              payload:
+                contentType: application/octet-stream
+                explode: false
+              filesPublisher:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: forwardSupportTicket 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16766,13 +17020,11 @@ paths:
           type: string
       responses:
         "200":
-          description: exportTriggers 200 response
+          description: Ok
           content:
             text/csv:
               schema:
-                type: array
-                items:
-                  type: string
+                type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -17474,6 +17726,7 @@ components:
           $ref: "#/components/schemas/Level"
         labels:
           title: The labels to pass to the execution created.
+          description: Label values are dynamic and can reference trigger variables.
           oneOf:
           - type: array
           - $ref: "#/components/schemas/Map_Object.Object_"
@@ -20245,8 +20498,9 @@ components:
           quotas:
             title: Quotas evaluated before the flow is executed (EE only).
             type: array
-            description: "A list of quotas that are evaluated before the flow is executed.\
-              \  If no quotas are defined, the flow executes normally."
+            description: |-
+              A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally.
+              Quotas can also be defined at the namespace and tenant level.
             items:
               $ref: "#/components/schemas/Quota"
     FlowController.FlowWithDeprecatedTasks:
@@ -20734,8 +20988,9 @@ components:
           quotas:
             title: Quotas evaluated before the flow is executed (EE only).
             type: array
-            description: "A list of quotas that are evaluated before the flow is executed.\
-              \  If no quotas are defined, the flow executes normally."
+            description: |-
+              A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally.
+              Quotas can also be defined at the namespace and tenant level.
             items:
               $ref: "#/components/schemas/Quota"
           source:
@@ -21050,6 +21305,8 @@ components:
               type: array
             MCP_SERVER:
               type: array
+            SUPPORT:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -21140,6 +21397,8 @@ components:
             COPILOT:
               type: array
             MCP_SERVER:
+              type: array
+            SUPPORT:
               type: array
             APP_EXECUTION:
               type: array
@@ -21561,7 +21820,7 @@ components:
         title:
           type: string
         icon:
-          type: string
+          $ref: "#/components/schemas/InstanceController.ApiPluginIcon"
         groupId:
           type: string
         artifactId:
@@ -21593,6 +21852,16 @@ components:
           type: array
           items:
             type: object
+    InstanceController.ApiPluginIcon:
+      type: object
+      properties:
+        hasIcon:
+          type: boolean
+        monochrome:
+          type: boolean
+        hash:
+          type: string
+          nullable: true
     InstanceController.ApiPluginListRequest:
       type: object
       properties:
@@ -21614,7 +21883,7 @@ components:
         description:
           type: string
         icon:
-          type: string
+          $ref: "#/components/schemas/InstanceController.ApiPluginIcon"
         classes:
           type: array
           items:
@@ -21623,8 +21892,6 @@ components:
       type: object
       properties:
         name:
-          type: string
-        icon:
           type: string
     InstanceController.ApiPluginVersionDetails.ApiPluginClasses:
       type: object
@@ -22298,6 +22565,8 @@ components:
             $ref: "#/components/schemas/LeftSidebarConfiguration"
           rightSidebar:
             $ref: "#/components/schemas/RightSidebarConfiguration"
+          supportEnabled:
+            type: boolean
           inMaintenance:
             type: boolean
           passwordConfiguration:
@@ -22394,11 +22663,6 @@ components:
         id:
           pattern: "^[a-z0-9][a-z0-9._-]*"
           type: string
-        allowedTriggers:
-          type: array
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/Namespace.AllowedTrigger"
         storageIsolation:
           $ref: "#/components/schemas/Isolation"
         secretIsolation:
@@ -22439,6 +22703,10 @@ components:
           type: boolean
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
+        quotas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Quota"
       description: A namespace is a logical grouping of flows and tasks. It is used
         to organize and manage flows and tasks within Kestra.
       allOf:
@@ -22450,16 +22718,6 @@ components:
       properties:
         namespace:
           type: string
-    Namespace.AllowedTrigger:
-      required:
-      - namespace
-      type: object
-      properties:
-        namespace:
-          type: string
-        flowId:
-          type: string
-      deprecated: true
     NamespaceController.ApiInheritedPluginDefaultFromNamespace:
       required:
       - type
@@ -22488,6 +22746,78 @@ components:
         id:
           pattern: "^[a-z0-9][a-z0-9._-]*"
           type: string
+    Notification:
+      required:
+      - createdDate
+      - title
+      - type
+      - updatedDate
+      - userId
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+          nullable: true
+        type:
+          $ref: "#/components/schemas/NotificationType"
+        title:
+          type: string
+        referenceId:
+          type: string
+          nullable: true
+        current:
+          type: integer
+          format: int32
+          nullable: true
+        total:
+          type: integer
+          format: int32
+          nullable: true
+        read:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+    NotificationController.ApiMarkAllRead:
+      type: object
+      properties:
+        updated:
+          type: integer
+          format: int32
+    NotificationController.ApiNotificationHistory:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        serverTime:
+          type: string
+          format: date-time
+        nextCursor:
+          type: string
+          nullable: true
+    NotificationController.ApiNotificationsSince:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        serverTime:
+          type: string
+          format: date-time
+    NotificationType:
+      type: string
+      enum:
+      - GENERIC
     OAuth2Config:
       type: object
       properties:
@@ -22992,6 +23322,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ReusableInputs_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReusableInputs"
+        total:
+          type: integer
+          format: int64
     PagedResults_SearchResult_Flow__:
       required:
       - results
@@ -23339,6 +23682,10 @@ components:
           type: string
         flowable:
           type: boolean
+        monochrome:
+          type: boolean
+        hash:
+          type: string
     PluginSchema:
       type: object
       properties:
@@ -23694,6 +24041,7 @@ components:
       - INVITATION
       - COPILOT
       - MCP_SERVER
+      - SUPPORT
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
@@ -23839,6 +24187,8 @@ components:
             COPILOT:
               type: array
             MCP_SERVER:
+              type: array
+            SUPPORT:
               type: array
             APP_EXECUTION:
               type: array
@@ -24730,6 +25080,10 @@ components:
           $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
+        quotas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Quota"
     Tenant.AppCatalogConfig:
       type: object
       properties:
