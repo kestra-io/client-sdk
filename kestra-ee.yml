@@ -20474,8 +20474,9 @@ components:
           quotas:
             title: Quotas evaluated before the flow is executed (EE only).
             type: array
-            description: "A list of quotas that are evaluated before the flow is executed.\
-              \  If no quotas are defined, the flow executes normally."
+            description: |-
+              A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally.
+              Quotas can also be defined at the namespace and tenant level.
             items:
               $ref: "#/components/schemas/Quota"
     FlowController.FlowWithDeprecatedTasks:
@@ -20963,8 +20964,9 @@ components:
           quotas:
             title: Quotas evaluated before the flow is executed (EE only).
             type: array
-            description: "A list of quotas that are evaluated before the flow is executed.\
-              \  If no quotas are defined, the flow executes normally."
+            description: |-
+              A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally.
+              Quotas can also be defined at the namespace and tenant level.
             items:
               $ref: "#/components/schemas/Quota"
           source:
@@ -22637,11 +22639,6 @@ components:
         id:
           pattern: "^[a-z0-9][a-z0-9._-]*"
           type: string
-        allowedTriggers:
-          type: array
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/Namespace.AllowedTrigger"
         storageIsolation:
           $ref: "#/components/schemas/Isolation"
         secretIsolation:
@@ -22682,6 +22679,10 @@ components:
           type: boolean
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
+        quotas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Quota"
       description: A namespace is a logical grouping of flows and tasks. It is used
         to organize and manage flows and tasks within Kestra.
       allOf:
@@ -22693,16 +22694,6 @@ components:
       properties:
         namespace:
           type: string
-    Namespace.AllowedTrigger:
-      required:
-      - namespace
-      type: object
-      properties:
-        namespace:
-          type: string
-        flowId:
-          type: string
-      deprecated: true
     NamespaceController.ApiInheritedPluginDefaultFromNamespace:
       required:
       - type
@@ -25052,6 +25043,10 @@ components:
           $ref: "#/components/schemas/TenantPreferencesSettings"
         sdkDefaultAuthentication:
           $ref: "#/components/schemas/SDK.Auth"
+        quotas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Quota"
     Tenant.AppCatalogConfig:
       type: object
       properties:
