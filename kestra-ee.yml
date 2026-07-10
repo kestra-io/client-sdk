@@ -14547,6 +14547,24 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
       - name: tenant
         in: path
         required: true
@@ -14558,9 +14576,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ReusableInputs"
+                $ref: "#/components/schemas/PagedResults_ReusableInputs_"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14619,6 +14635,14 @@ paths:
         required: true
         schema:
           type: string
+      - name: failIfExists
+        in: query
+        description: Reject instead of overwriting if a block with this id already
+          exists in the namespace
+        explode: false
+        schema:
+          type: boolean
+          default: false
       - name: tenant
         in: path
         required: true
@@ -23295,6 +23319,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Plugin"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ReusableInputs_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReusableInputs"
         total:
           type: integer
           format: int64
