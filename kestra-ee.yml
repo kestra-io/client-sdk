@@ -2845,62 +2845,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/support/debug-info:
-    get:
-      tags:
-      - Misc
-      summary: Retrieve debug information for a support ticket
-      description: Returns aggregated debug information about the current Kestra instance.
-        Available to all authenticated users.
-      operationId: supportDebugInfo
-      responses:
-        "200":
-          description: supportDebugInfo 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SupportDebugInfo"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/support/forward:
-    post:
-      tags:
-      - Misc
-      summary: Forward support ticket to configured registry proxy
-      operationId: forwardSupportTicket
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                payload:
-                  type: string
-                filesPublisher:
-                  type: array
-                  nullable: true
-                  items:
-                    type: string
-                    format: binary
-            encoding:
-              payload:
-                contentType: application/octet-stream
-                explode: false
-              filesPublisher:
-                contentType: application/octet-stream
-                explode: false
-        required: true
-      responses:
-        "200":
-          description: forwardSupportTicket 200 response
-          content:
-            application/json:
-              schema:
-                type: object
-      security:
-      - bearerAuth: []
-      - basicAuth: []
   /api/v1/tenants:
     post:
       tags:
@@ -3771,6 +3715,8 @@ paths:
                   COPILOT:
                     type: array
                   MCP_SERVER:
+                    type: array
+                  SUPPORT:
                     type: array
                   APP_EXECUTION:
                     type: array
@@ -15803,6 +15749,75 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/support/debug-info:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve debug information for a support ticket
+      description: Returns aggregated debug information about the current Kestra instance.
+        Requires the SUPPORT permission.
+      operationId: supportDebugInfo
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: supportDebugInfo 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SupportDebugInfo"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/support/forward:
+    post:
+      tags:
+      - Misc
+      summary: Forward support ticket to configured registry proxy
+      description: Requires the SUPPORT permission.
+      operationId: forwardSupportTicket
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: string
+                filesPublisher:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              payload:
+                contentType: application/octet-stream
+                explode: false
+              filesPublisher:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: forwardSupportTicket 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/tenant-access:
     get:
       tags:
@@ -21264,6 +21279,8 @@ components:
               type: array
             MCP_SERVER:
               type: array
+            SUPPORT:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -21354,6 +21371,8 @@ components:
             COPILOT:
               type: array
             MCP_SERVER:
+              type: array
+            SUPPORT:
               type: array
             APP_EXECUTION:
               type: array
@@ -22520,6 +22539,8 @@ components:
             $ref: "#/components/schemas/LeftSidebarConfiguration"
           rightSidebar:
             $ref: "#/components/schemas/RightSidebarConfiguration"
+          supportEnabled:
+            type: boolean
           inMaintenance:
             type: boolean
           passwordConfiguration:
@@ -23992,6 +24013,7 @@ components:
       - INVITATION
       - COPILOT
       - MCP_SERVER
+      - SUPPORT
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
@@ -24137,6 +24159,8 @@ components:
             COPILOT:
               type: array
             MCP_SERVER:
+              type: array
+            SUPPORT:
               type: array
             APP_EXECUTION:
               type: array
