@@ -65,7 +65,9 @@ describe('MiscApi', () => {
 
     it('listPermissions: returns available permissions', async () => {
         const result = await kestraClient.Misc.listPermissions();
-        expect(Array.isArray(result)).toBe(true);
+        // A resource-keyed map, each value being the list of allowed actions.
+        expect(Array.isArray(result.FLOW)).toBe(true);
+        expect(Array.isArray(result.EXECUTION)).toBe(true);
     });
 
     it('tenantUsage: returns tenant usage metrics', async () => {

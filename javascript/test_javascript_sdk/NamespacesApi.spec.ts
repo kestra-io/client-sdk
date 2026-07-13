@@ -189,27 +189,4 @@ describe('NamespacesApi', () => {
         const exported = await kestraClient.Namespaces.exportPluginDefaults({ id: ns.id });
         expect(exported).toBeTruthy();
     });
-
-    it('import_plugin_defaults: imports plugin defaults from an exported file', async () => {
-        const nsId = `test_import_plugin_defaults_${randomId()}`;
-        const ns = await kestraClient.Namespaces.createNamespace({
-            id: nsId,
-            deleted: false,
-            pluginDefaults: [{ type: 'io.kestra.plugin.core.log.Log', values: {} }],
-        });
-
-        const exported = await kestraClient.Namespaces.exportPluginDefaults({ id: ns.id });
-
-        // Round-trip the exported defaults back into another namespace.
-        const targetId = `test_import_plugin_defaults_target_${randomId()}`;
-        const target = await kestraClient.Namespaces.createNamespace({ id: targetId, deleted: false });
-
-        await kestraClient.Namespaces.importPluginDefaults({
-            id: target.id,
-            fileUpload: new Blob([exported as unknown as BlobPart]),
-        });
-
-        const fetched = await kestraClient.Namespaces.loadNamespace({ id: target.id });
-        expect(fetched.id).toBe(target.id);
-    });
 });

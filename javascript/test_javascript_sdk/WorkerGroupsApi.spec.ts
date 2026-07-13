@@ -67,6 +67,6 @@ describe('WorkerGroupsApi', () => {
 
         const result = await kestraClient.WorkerGroups.listRunningWorkers({ id });
         // No workers subscribe to a freshly created group in the test environment.
-        expect(Array.isArray((result as any).results ?? result)).toBe(true);
+        expect(result.workers ?? []).toEqual([]);
     });
 });
