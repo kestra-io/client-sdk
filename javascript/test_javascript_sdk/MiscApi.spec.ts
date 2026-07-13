@@ -62,4 +62,14 @@ describe('MiscApi', () => {
         // No worker selector tags are configured in the test environment.
         expect(result.tags).toEqual([]);
     });
+
+    it('listPermissions: returns available permissions', async () => {
+        const result = await kestraClient.Misc.listPermissions();
+        expect(Array.isArray(result)).toBe(true);
+    });
+
+    it('tenantUsage: returns tenant usage metrics', async () => {
+        const result = await kestraClient.Misc.tenantUsage();
+        expect(result).toBeDefined();
+    });
 });

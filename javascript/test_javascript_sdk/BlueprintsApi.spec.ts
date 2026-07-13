@@ -97,4 +97,51 @@ describe('BlueprintsApi', () => {
         });
         expect(result).toBeDefined();
     });
+
+    async function createInternalBlueprint() {
+        return kestraClient.Blueprints.createInternalBlueprints({
+            title: `internal-bp-${randomId()}`,
+            source: getSimpleFlowAndId().flowBody,
+            kind: 'FLOW',
+        });
+    }
+
+    it('internalBlueprint: retrieves an internal blueprint by id', async () => {
+        const created = await createInternalBlueprint();
+        const id = (created as any).id;
+
+        const result = await kestraClient.Blueprints.internalBlueprint({ id });
+        expect((result as any).id).toBe(id);
+    });
+
+    it('internalBlueprintFlow: retrieves internal blueprint source code', async () => {
+        const created = await createInternalBlueprint();
+        const id = (created as any).id;
+
+        const source = await kestraClient.Blueprints.internalBlueprintFlow({ id });
+        expect(typeof source).toBe('string');
+        expect(source as unknown as string).toContain('namespace:');
+    });
+
+    it('updateInternalBlueprints: updates an internal blueprint title', async () => {
+        const created = await createInternalBlueprint();
+        const id = (created as any).id;
+        const newTitle = `updated-internal-bp-${randomId()}`;
+
+        const result = await kestraClient.Blueprints.updateInternalBlueprints({
+            id,
+            title: newTitle,
+            source: getSimpleFlowAndId().flowBody,
+            kind: 'FLOW',
+        });
+        expect((result as any).title).toBe(newTitle);
+    });
+
+    it('deleteInternalBlueprints: deletes an internal blueprint', async () => {
+        const created = await createInternalBlueprint();
+        const id = (created as any).id;
+
+        await kestraClient.Blueprints.deleteInternalBlueprints({ id });
+        await expect(kestraClient.Blueprints.internalBlueprint({ id })).rejects.toThrow();
+    });
 });
