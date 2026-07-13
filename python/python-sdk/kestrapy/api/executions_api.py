@@ -31,13 +31,13 @@ class ExecutionsApi(BaseApi):
         tenant: str,
         namespace: str,
         id: str,
-        inputs: Optional[Dict[str, Any]] = None,
         labels: Optional[List[str]] = None,
         wait: Optional[bool] = None,
         revision: Optional[int] = None,
         schedule_date: Optional[str] = None,
         breakpoints: Optional[str] = None,
         kind: Optional[ExecutionKind] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> ExecutionControllerExecutionResponse:
         """Create a new execution for a flow.
 
@@ -352,10 +352,10 @@ class ExecutionsApi(BaseApi):
         self,
         execution_id: str,
         tenant: str,
-        inputs: Optional[Dict[str, Any]] = None,
         task_run_id: Optional[str] = None,
         revision: Optional[int] = None,
         breakpoints: Optional[str] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> Execution:
         """Replay an execution, overriding its inputs.
 
