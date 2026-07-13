@@ -188,8 +188,12 @@ describe('ServiceAccountApi', () => {
         const created = await kestraClient.ServiceAccount.createServiceAccountForTenant({ name });
         if (!created.id) throw new Error('Failed to create service account for tenant');
 
-        const result = await kestraClient.ServiceAccount.listApiTokensForServiceAccountWithTenant({ id: created.id });
-        expect(result).toBeDefined();
+        const tokenName = randomIdWith('token');
+        await kestraClient.ServiceAccount.createApiTokensForServiceAccountWithTenant({ id: created.id, name: tokenName });
+
+        const result: any = await kestraClient.ServiceAccount.listApiTokensForServiceAccountWithTenant({ id: created.id });
+        const tokens = result.results ?? result;
+        expect(tokens.map((t: any) => t.name)).toContain(tokenName);
     });
 
     it('createApiTokensForServiceAccountWithTenant: creates an API token', async () => {
@@ -197,11 +201,13 @@ describe('ServiceAccountApi', () => {
         const created = await kestraClient.ServiceAccount.createServiceAccountForTenant({ name });
         if (!created.id) throw new Error('Failed to create service account for tenant');
 
-        const token = await kestraClient.ServiceAccount.createApiTokensForServiceAccountWithTenant({
+        const tokenName = randomIdWith('token');
+        const token: any = await kestraClient.ServiceAccount.createApiTokensForServiceAccountWithTenant({
             id: created.id,
-            name: randomIdWith('token'),
+            name: tokenName,
         });
-        expect(token).toBeDefined();
+        expect(token.name).toBe(tokenName);
+        expect(typeof token.fullToken).toBe('string');
     });
 
     it('deleteApiTokenForServiceAccountWithTenant: deletes an API token', async () => {
@@ -209,13 +215,16 @@ describe('ServiceAccountApi', () => {
         const created = await kestraClient.ServiceAccount.createServiceAccountForTenant({ name });
         if (!created.id) throw new Error('Failed to create service account for tenant');
 
-        const token = await kestraClient.ServiceAccount.createApiTokensForServiceAccountWithTenant({
+        const tokenName = randomIdWith('token');
+        const token: any = await kestraClient.ServiceAccount.createApiTokensForServiceAccountWithTenant({
             id: created.id,
-            name: randomIdWith('token'),
+            name: tokenName,
         });
-        const tokenId = (token as any).id ?? (token as any).tokenId;
-        if (!tokenId) return; // skip if token id not returned
 
-        await kestraClient.ServiceAccount.deleteApiTokenForServiceAccountWithTenant({ id: created.id, tokenId });
+        await kestraClient.ServiceAccount.deleteApiTokenForServiceAccountWithTenant({ id: created.id, tokenId: token.id });
+
+        const after: any = await kestraClient.ServiceAccount.listApiTokensForServiceAccountWithTenant({ id: created.id });
+        const tokens = after.results ?? after;
+        expect(tokens.map((t: any) => t.name)).not.toContain(tokenName);
     });
 });

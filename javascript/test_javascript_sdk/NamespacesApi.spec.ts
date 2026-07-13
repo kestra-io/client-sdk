@@ -187,6 +187,8 @@ describe('NamespacesApi', () => {
         });
 
         const exported = await kestraClient.Namespaces.exportPluginDefaults({ id: ns.id });
-        expect(exported).toBeTruthy();
+        // The export echoes back the plugin default we configured on the namespace.
+        expect(typeof exported).toBe('string');
+        expect(exported).toContain('io.kestra.plugin.core.log.Log');
     });
 });

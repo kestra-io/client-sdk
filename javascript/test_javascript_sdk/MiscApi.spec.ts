@@ -72,6 +72,7 @@ describe('MiscApi', () => {
 
     it('tenantUsage: returns tenant usage metrics', async () => {
         const result = await kestraClient.Misc.tenantUsage();
-        expect(result).toBeDefined();
+        // The usage report always carries a flow count for the tenant.
+        expect(typeof result.flows?.count).toBe('number');
     });
 });

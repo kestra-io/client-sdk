@@ -1293,7 +1293,7 @@ describe("ExecutionsApi read-only long tail", () => {
         await createFlowWithExecution(flowId, ns);
 
         const result = await kestraClient.Executions.listFlowExecutionsByNamespace({ namespace: ns });
-        expect(Array.isArray(result)).toBe(true);
+        expect(result.map((f) => f.id)).toContain(flowId);
     });
 
     it("listExecutableDistinctNamespaces: lists namespaces with executable flows", async () => {
@@ -1313,9 +1313,9 @@ describe("ExecutionsApi read-only long tail", () => {
 
         const result = await kestraClient.Executions.findDistinctFieldValues({
             field: "NAMESPACE",
-            size: 100,
+            size: 1000,
         });
-        expect(Array.isArray(result)).toBe(true);
+        expect(result).toContain(ns);
     });
 
     it("evalExpression: evaluates an expression against an execution", async () => {

@@ -58,7 +58,7 @@ describe('WorkerGroupsApi', () => {
         const id = created.id ?? "<none>";
 
         const result = await kestraClient.WorkerGroups.capacity({ id });
-        expect(result).toBeDefined();
+        expect(result.workerGroupId).toBe(id);
     });
 
     it('listRunningWorkers: lists running workers of a worker group', async () => {
