@@ -18,4 +18,15 @@ describe('ServicesApi', () => {
         const result = await kestraClient.Services.metrics({ serviceType });
         expect(result).toBeDefined();
     });
+
+    it('service: returns the same service when fetched by id', async () => {
+        // activeServices entries carry no id, so source a real id from the search endpoint.
+        const page = await kestraClient.Services.searchServices({ page: 1, size: 10 });
+        const source = page.results[0];
+        expect(source?.id).toBeTruthy();
+
+        const result = await kestraClient.Services.service({ id: source.id! });
+        expect(result.id).toBe(source.id);
+        expect(result.type).toBe(source.type);
+    });
 });

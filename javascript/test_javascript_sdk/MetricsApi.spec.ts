@@ -59,4 +59,17 @@ describe('MetricsApi', () => {
         });
         expect(result).toBeDefined();
     });
+
+    it('aggregateMetricsFromTask: aggregates metrics for a task', async () => {
+        const { namespace, flowId } = await createFlowAndWaitForExecution();
+        const result = await kestraClient.Metrics.aggregateMetricsFromTask({
+            namespace,
+            flowId,
+            taskId: 'my_task_1_id',
+            metric: randomId(),
+        });
+        // A random (non-existent) metric name yields zero-valued date buckets, not an empty array.
+        expect(Array.isArray(result.aggregations)).toBe(true);
+        result.aggregations.forEach((agg: any) => expect(agg.value).toBe(0));
+    });
 });
