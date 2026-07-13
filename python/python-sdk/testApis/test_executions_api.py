@@ -68,6 +68,22 @@ tasks:
 """
 
 
+def _pause_flow_yaml(flow_id, ns):
+    return f"""\
+id: {flow_id}
+namespace: {ns}
+tasks:
+  - id: pause
+    type: io.kestra.plugin.core.flow.Pause
+    onResume:
+      - id: reason
+        type: STRING
+  - id: after
+    type: io.kestra.plugin.core.log.Log
+    message: "{{{{ outputs.pause.onResume.reason }}}}"
+"""
+
+
 def _webhook_flow_yaml(flow_id, ns, key):
     return f"""\
 id: {flow_id}
@@ -451,6 +467,23 @@ class TestReplay:
         assert result is not None
         assert result.id is not None and result.id != ""
 
+    def test_replay_execution_with_inputs_overrides_inputs(self, client, shared_flow):
+        ns, _ = shared_flow
+        flow_id = random_id()
+        create_flow(client, _input_flow_yaml(flow_id, ns))
+
+        original = _execute_flow(
+            client, ns, flow_id, wait=True, inputs={"greeting": "hello"},
+        )
+        assert original.inputs.get("greeting") == "hello"
+
+        replayed = client.executions.replay_execution_with_inputs(
+            original.id, TENANT, inputs={"greeting": "world"},
+        )
+        assert replayed.id != original.id
+        final = wait_for_execution(client, replayed.id)
+        assert final.inputs.get("greeting") == "world"
+
     def test_replay_executions_by_ids_basic(self, client, succeeded_execution):
         execution_id, _, _ = succeeded_execution
 
@@ -821,6 +854,23 @@ class TestPauseResume:
         resumed = client.executions.resume_execution(execution_id, TENANT)
         assert resumed is not None
         assert resumed.id == execution_id
+
+    def test_resume_execution_with_inputs(self, client, shared_flow):
+        ns, _ = shared_flow
+        flow_id = random_id()
+        create_flow(client, _pause_flow_yaml(flow_id, ns))
+
+        resp = _execute_flow(client, ns, flow_id)
+        execution_id = resp.id
+        _wait_for_state(client, execution_id, [StateType.PAUSED])
+
+        # A required onResume input must be supplied at resume time; without the
+        # multipart body this raises 422 (the regression this guards against).
+        client.executions.resume_execution(
+            execution_id, TENANT, inputs={"reason": "go"},
+        )
+        final = wait_for_execution(client, execution_id)
+        assert final.state.current == StateType.SUCCESS
 
     def test_pause_executions_by_ids_basic(self, client):
         with pytest.raises(Exception):
