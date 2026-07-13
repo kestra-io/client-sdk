@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient } from './CommonTestSetup.js';
+import { kestraClient, getSimpleFlow } from './CommonTestSetup.js';
 
 describe('MiscApi', () => {
     it('configuration: returns server configuration', async () => {
@@ -71,8 +71,12 @@ describe('MiscApi', () => {
     });
 
     it('tenantUsage: returns tenant usage metrics', async () => {
+        // Create a flow so the tenant-wide flow count is a real positive number.
+        // An exact value can't be asserted: the count spans the whole tenant,
+        // which other test files mutate concurrently.
+        await kestraClient.Flows.createFlow({ body: getSimpleFlow() });
+
         const result = await kestraClient.Misc.tenantUsage();
-        // The usage report always carries a flow count for the tenant.
-        expect(typeof result.flows?.count).toBe('number');
+        expect(result.flows?.count).toBeGreaterThanOrEqual(1);
     });
 });
