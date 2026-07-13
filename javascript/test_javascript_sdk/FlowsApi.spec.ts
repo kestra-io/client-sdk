@@ -413,7 +413,7 @@ describe('FlowsApi — long tail', () => {
 
         const csv = await kestraClient.Flows.exportFlows({
             filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: flowNamespace as any }],
-        });
+        }) as unknown as string | string[];
         const text = typeof csv === 'string' ? csv : Array.isArray(csv) ? csv.join('\n') : String(csv);
         expect(text.length).toBeGreaterThan(0);
     });

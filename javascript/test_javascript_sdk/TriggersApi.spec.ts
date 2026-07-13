@@ -443,7 +443,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await ensureTriggerExists(namespace, flowId, triggerId);
 
-        const csv = await kestraClient.Triggers.exportTriggers();
+        const csv = await kestraClient.Triggers.exportTriggers() as unknown as string | string[];
         const text = typeof csv === 'string' ? csv : Array.isArray(csv) ? csv.join('\n') : String(csv);
         expect(text.length).toBeGreaterThan(0);
     }, 120000);
