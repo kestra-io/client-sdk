@@ -72,11 +72,12 @@ describe('MiscApi', () => {
 
     it('tenantUsage: returns tenant usage metrics', async () => {
         // Create a flow so the tenant-wide flow count is a real positive number.
-        // An exact value can't be asserted: the count spans the whole tenant,
-        // which other test files mutate concurrently.
         await kestraClient.Flows.createFlow({ body: getSimpleFlow() });
 
         const result = await kestraClient.Misc.tenantUsage();
+        // This count is racy: it spans the whole tenant, and other spec files
+        // create/delete flows concurrently, so we can't expect a precise value
+        // — only that our own flow makes it at least 1.
         expect(result.flows?.count).toBeGreaterThanOrEqual(1);
     });
 });
