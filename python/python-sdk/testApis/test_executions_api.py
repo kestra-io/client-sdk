@@ -54,6 +54,20 @@ tasks:
 """
 
 
+def _input_flow_yaml(flow_id, ns):
+    return f"""\
+id: {flow_id}
+namespace: {ns}
+inputs:
+  - id: greeting
+    type: STRING
+tasks:
+  - id: echo
+    type: io.kestra.plugin.core.log.Log
+    message: "{{{{ inputs.greeting }}}}"
+"""
+
+
 def _webhook_flow_yaml(flow_id, ns, key):
     return f"""\
 id: {flow_id}
@@ -132,6 +146,19 @@ class TestCreateAndGet:
         result = _execute_flow(client, ns, flow_id)
         assert result is not None
         assert result.id is not None and result.id != ""
+
+    def test_create_execution_with_inputs(self, client, shared_flow):
+        ns, _ = shared_flow
+        flow_id = random_id()
+        create_flow(client, _input_flow_yaml(flow_id, ns))
+
+        result = _execute_flow(
+            client, ns, flow_id, wait=True, inputs={"greeting": "hello"},
+        )
+        assert result is not None
+        assert result.state.current == StateType.SUCCESS
+        assert result.inputs is not None
+        assert result.inputs.get("greeting") == "hello"
 
     def test_execution_get_by_id(self, client, succeeded_execution):
         execution_id, _, _ = succeeded_execution
