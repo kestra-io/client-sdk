@@ -1,3 +1,4 @@
+import json
 from typing import Any, Dict, Generator, List, Optional
 
 from kestrapy.base_api import BaseApi
@@ -36,7 +37,21 @@ class ExecutionsApi(BaseApi):
         schedule_date: Optional[str] = None,
         breakpoints: Optional[str] = None,
         kind: Optional[ExecutionKind] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> ExecutionControllerExecutionResponse:
+        """Create a new execution for a flow.
+
+        Flow inputs are passed via ``inputs`` as a mapping of input id to value.
+        They are sent as ``multipart/form-data``, one form part per input:
+
+        - ``str`` values are sent verbatim.
+        - ``bytes``/``bytearray`` values are sent as a file part (for ``FILE`` inputs).
+        - a ``(filename, content)`` or ``(filename, content, content_type)`` tuple is
+          sent as a file part with that filename/content type (for ``FILE`` inputs).
+        - any other value (``int``, ``float``, ``bool``, ``dict``, ``list``, ...) is
+          JSON-encoded, so e.g. ``True`` becomes ``"true"`` and ``[1, 2]`` becomes
+          ``"[1, 2]"`` (for ``JSON``/``ARRAY``/... inputs).
+        """
         path = self._tenant_path(tenant, "executions", namespace, id)
         kind_val = kind.value if kind is not None and hasattr(kind, 'value') else kind
         params = list(self._build_query_params(
@@ -44,7 +59,26 @@ class ExecutionsApi(BaseApi):
             breakpoints=breakpoints, kind=kind_val,
         ).items())
         self._append_repeated_param(params, "labels", labels)
-        return self._json_request("POST", path, ExecutionControllerExecutionResponse, params=params)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, params=params, files=files)
+        return self._deserialize(resp.json(), ExecutionControllerExecutionResponse)
+
+    @staticmethod
+    def _build_inputs_multipart(inputs: Optional[Dict[str, Any]]):
+        """Turn a flow-inputs mapping into ``requests``-style multipart file parts."""
+        if not inputs:
+            return None
+        parts = []
+        for key, value in inputs.items():
+            if isinstance(value, (bytes, bytearray)):
+                parts.append((key, (key, value)))
+            elif isinstance(value, tuple):
+                parts.append((key, value))
+            elif isinstance(value, str):
+                parts.append((key, (None, value)))
+            else:
+                parts.append((key, (None, json.dumps(value))))
+        return parts
 
     # ========================================================================
     # Get execution
@@ -247,9 +281,19 @@ class ExecutionsApi(BaseApi):
         self._append_filter_params(params, filters)
         return self._raw_json_request("POST", path, params=params)
 
-    def resume_execution(self, execution_id: str, tenant: str) -> Execution:
+    def resume_execution(
+        self, execution_id: str, tenant: str, inputs: Optional[Dict[str, Any]] = None,
+    ) -> Execution:
+        """Resume a paused execution.
+
+        ``inputs`` supplies the ``onResume`` inputs declared by the ``Pause`` task,
+        encoded as ``multipart/form-data`` (see ``create_execution`` for the value
+        conventions).
+        """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "resume")
-        return self._json_request("POST", path, Execution)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, files=files)
+        return self._deserialize(resp.json(), Execution)
 
     def resume_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
         path = self._tenant_path(tenant, "executions", "resume", "by-ids")
@@ -311,12 +355,21 @@ class ExecutionsApi(BaseApi):
         task_run_id: Optional[str] = None,
         revision: Optional[int] = None,
         breakpoints: Optional[str] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> Execution:
+        """Replay an execution, overriding its inputs.
+
+        ``inputs`` is the new set of flow inputs, encoded as ``multipart/form-data``
+        (see ``create_execution`` for the value conventions). Without it this behaves
+        like ``replay_execution``.
+        """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,
         )
-        return self._json_request("POST", path, Execution, params=params)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, params=params, files=files)
+        return self._deserialize(resp.json(), Execution)
 
     def replay_executions_by_ids(
         self, tenant: str, ids: List[str], latest_revision: Optional[bool] = None,
