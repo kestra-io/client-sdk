@@ -17087,6 +17087,59 @@ paths:
           enum:
           - NEXT_EXECUTION_DATE
           - LAST_TRIGGERED_DATE
+          x-enum-varnames:
+          - QUERY
+          - SCOPE
+          - NAMESPACE
+          - KIND
+          - LABELS
+          - TAGS
+          - METADATA
+          - FLOW_ID
+          - FLOW_REVISION
+          - ID
+          - ASSET_ID
+          - TYPE
+          - ACTION
+          - CREATED
+          - UPDATED
+          - START_DATE
+          - END_DATE
+          - EXPIRATION_DATE
+          - STATE
+          - STATUS
+          - EMAIL
+          - TIME_RANGE
+          - PARENT_ID
+          - TRIGGER_EXECUTION_ID
+          - TRIGGER_ID
+          - TRIGGER_STATE
+          - EXECUTION_ID
+          - TASK_ID
+          - TASK_RUN_ID
+          - ATTEMPT_NUMBER
+          - CHILD_FILTER
+          - WORKER_ID
+          - EXISTING_ONLY
+          - USER_ID
+          - RESOURCES
+          - DETAILS
+          - LEVEL
+          - PATH
+          - PARENT_PATH
+          - VERSION
+          - ENABLED
+          - USERNAME
+          - NAME
+          - GROUP
+          - EXTERNAL_ID
+          - EXPIRED_AT
+          - SUPER_ADMIN
+          - SOURCE
+          - LOCKED
+          - LAST_TRIGGERED_DATE
+          - NEXT_EXECUTION_DATE
+          - ARTIFACT_ID
           x-type: String
       - name: tenant
         in: path
@@ -20267,25 +20320,25 @@ components:
         categories:
           type: object
           properties:
-            TASK_OUTPUTS:
+            taskOutputs:
               type: array
-            EXECUTION_CONTEXT:
+            executionContext:
               type: array
-            INPUTS:
+            inputs:
               type: array
-            VARIABLES:
+            variables:
               type: array
-            SECRETS:
+            secrets:
               type: array
-            KV_PAIRS:
+            kvPairs:
               type: array
-            NAMESPACE_FILES:
+            namespaceFiles:
               type: array
-            FILTERS:
+            filters:
               type: array
-            FUNCTIONS:
+            functions:
               type: array
-            APP_CONTEXT:
+            appContext:
               type: array
     ExpressionController.RenderExpressionRequest:
       required:
@@ -23866,6 +23919,59 @@ components:
     QueryFilter.Field:
       type: string
       enum:
+      - q
+      - scope
+      - namespace
+      - kind
+      - labels
+      - tags
+      - metadata
+      - flowId
+      - flowRevision
+      - id
+      - assetId
+      - type
+      - action
+      - created
+      - updated
+      - startDate
+      - endDate
+      - expirationDate
+      - state
+      - status
+      - email
+      - timeRange
+      - parentId
+      - triggerExecutionId
+      - triggerId
+      - triggerState
+      - executionId
+      - taskId
+      - taskRunId
+      - attemptNumber
+      - childFilter
+      - workerId
+      - existingOnly
+      - userId
+      - resources
+      - details
+      - level
+      - path
+      - parentPath
+      - version
+      - enabled
+      - username
+      - name
+      - groupList
+      - external_id
+      - expired_at
+      - super_admin
+      - source
+      - locked
+      - lastTriggeredDate
+      - nextExecutionDate
+      - artifactId
+      x-enum-varnames:
       - QUERY
       - SCOPE
       - NAMESPACE
@@ -23922,8 +24028,8 @@ components:
     QueryFilter.Logical:
       type: string
       enum:
-      - AND
-      - OR
+      - and
+      - or
       x-type: String
     QueryFilter.Op:
       type: string
@@ -25415,10 +25521,9 @@ components:
     TriggerPluginCategory:
       type: string
       enum:
-      - CORE
-      - REALTIME
-      - APP
-      - UNKNOWN
+      - core
+      - realtime
+      - app
       x-type: String
     TriggerType:
       type: string
