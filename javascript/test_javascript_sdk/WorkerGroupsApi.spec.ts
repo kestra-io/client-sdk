@@ -52,4 +52,21 @@ describe('WorkerGroupsApi', () => {
 
         await kestraClient.WorkerGroups.deleteWorkerGroups({ id });
     });
+
+    it('capacity: returns the capacity of a worker group', async () => {
+        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const id = created.id ?? "<none>";
+
+        const result = await kestraClient.WorkerGroups.capacity({ id });
+        expect(result.workerGroupId).toBe(id);
+    });
+
+    it('listRunningWorkers: lists running workers of a worker group', async () => {
+        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const id = created.id ?? "<none>";
+
+        const result = await kestraClient.WorkerGroups.listRunningWorkers({ id });
+        // No workers subscribe to a freshly created group in the test environment.
+        expect(result.workers ?? []).toEqual([]);
+    });
 });

@@ -181,9 +181,9 @@ async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: 
 
 // filters
 const QF_FIELD: Record<string, QueryFilterField> = {
-    NAMESPACE: "NAMESPACE",
-    FLOW_ID: "FLOW_ID",
-    QUERY: "QUERY",
+    NAMESPACE: "namespace",
+    FLOW_ID: "flowId",
+    QUERY: "q",
 };
 const QF_OP: Record<string, QueryFilterOp> = {
     EQUALS: "EQUALS",
@@ -1264,4 +1264,66 @@ tasks:
 
         expect(result).toContain(e.id);
     }, 25000);
+});
+
+describe("ExecutionsApi read-only long tail", () => {
+    it("searchExecutionsByFlowId: finds executions for a given flow", async () => {
+        const flowId = randomId();
+        const ns = randomId();
+        await createFlowWithExecution(flowId, ns);
+
+        const result = await kestraClient.Executions.searchExecutionsByFlowId({
+            namespace: ns,
+            flowId,
+            page: 1,
+            size: 10,
+        });
+        // Exactly one execution was created for this fresh, random flow.
+        expect(result.results?.length).toBe(1);
+        expect(result.results?.[0]?.flowId).toBe(flowId);
+        expect(result.results?.[0]?.namespace).toBe(ns);
+    });
+
+    it("listFlowExecutionsByNamespace: lists executions for a namespace", async () => {
+        const flowId = randomId();
+        const ns = randomId();
+        await createFlowWithExecution(flowId, ns);
+
+        const result = await kestraClient.Executions.listFlowExecutionsByNamespace({ namespace: ns });
+        expect(result.map((f) => f.id)).toContain(flowId);
+    });
+
+    it("listExecutableDistinctNamespaces: lists namespaces with executable flows", async () => {
+        const flowId = randomId();
+        const ns = randomId();
+        await createFlowWithExecution(flowId, ns);
+
+        const result = await kestraClient.Executions.listExecutableDistinctNamespaces();
+        expect(Array.isArray(result)).toBe(true);
+        expect(result).toContain(ns);
+    });
+
+    it("findDistinctFieldValues: returns distinct values for a field", async () => {
+        const flowId = randomId();
+        const ns = randomId();
+        await createFlowWithExecution(flowId, ns);
+
+        const result = await kestraClient.Executions.findDistinctFieldValues({
+            field: "namespace",
+            size: 1000,
+        });
+        expect(result).toContain(ns);
+    });
+
+    it("evalExpression: evaluates an expression against an execution", async () => {
+        const flowId = randomId();
+        const ns = randomId();
+        const execution = await createFlowWithExecution(flowId, ns);
+
+        const result: any = await kestraClient.Executions.evalExpression({
+            executionId: execution.id,
+            body: "{{ execution.id }}",
+        });
+        expect(result.result).toBe(execution.id);
+    });
 });

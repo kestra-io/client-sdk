@@ -4,7 +4,6 @@
 
 ## Enum
 
-
 * `FLOW` (value: `"FLOW"`)
 
 * `BLUEPRINT` (value: `"BLUEPRINT"`)
@@ -27,17 +26,9 @@
 
 * `KVSTORE` (value: `"KVSTORE"`)
 
-* `IMPERSONATE` (value: `"IMPERSONATE"`)
-
-* `SETTING` (value: `"SETTING"`)
-
 * `APP` (value: `"APP"`)
 
 * `ASSET` (value: `"ASSET"`)
-
-* `APPEXECUTION` (value: `"APPEXECUTION"`)
-
-* `TEST` (value: `"TEST"`)
 
 * `DASHBOARD` (value: `"DASHBOARD"`)
 
@@ -47,15 +38,44 @@
 
 * `INVITATION` (value: `"INVITATION"`)
 
-* `GROUP_MEMBERSHIP` (value: `"GROUP_MEMBERSHIP"`)
-
 * `CREDENTIAL` (value: `"CREDENTIAL"`)
 
-* `AI_COPILOT` (value: `"AI_COPILOT"`)
+* `TRIGGER` (value: `"TRIGGER"`)
+
+* `REUSABLE_INPUTS` (value: `"REUSABLE_INPUTS"`)
+
+* `SYSTEM_SETTINGS` (value: `"SYSTEM_SETTINGS"`)
+
+* `TENANT_SETTINGS` (value: `"TENANT_SETTINGS"`)
+
+* `TESTSUITE` (value: `"TESTSUITE"`)
+
+* `COPILOT` (value: `"COPILOT"`)
+
+* `MCP_SERVER` (value: `"MCP_SERVER"`)
+
+* `APP_EXECUTION` (value: `"APP_EXECUTION"`)
+
+* `NAMESPACE_FILE` (value: `"NAMESPACE_FILE"`)
+
+* `TESTSUITE_RUN` (value: `"TESTSUITE_RUN"`)
+
+* `SECURITY_INTEGRATION` (value: `"SECURITY_INTEGRATION"`)
+
+* `KILL_SWITCH` (value: `"KILL_SWITCH"`)
+
+* `TENANT` (value: `"TENANT"`)
+
+* `VERSIONED_PLUGIN` (value: `"VERSIONED_PLUGIN"`)
+
+* `WORKER_GROUP` (value: `"WORKER_GROUP"`)
+
+* `WORKER_QUEUE` (value: `"WORKER_QUEUE"`)
+
+* `INSTANCE` (value: `"INSTANCE"`)
 
 * `UNKNOWN` (value: `"UNKNOWN"`)
 
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
-
 
 

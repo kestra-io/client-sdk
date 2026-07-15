@@ -76,7 +76,7 @@ jobs:
       # SDK generation rewrites (and strips) those fields, failing the
       # "fail workflow if there is any difference" check. Matches the publish jobs.
       - name: Upgrade npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - name: extract root version
         id: extract_version
@@ -205,7 +205,7 @@ jobs:
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
         run: |
-          npm install -g npm@latest
+          npm install -g npm@11
           npm version
 
       - name: Publish to npm with develop tag
@@ -272,7 +272,7 @@ jobs:
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
         run: |
-          npm install -g npm@latest
+          npm install -g npm@11
           npm version
 
       - name: Generate SDK
