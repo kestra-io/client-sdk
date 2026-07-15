@@ -26,7 +26,7 @@ describe('BlueprintsApi', () => {
         const kind: BlueprintControllerKind = 'FLOW';
         const result = await kestraClient.Blueprints.searchBlueprints({ kind, page: 1, size: 5 });
         expect(result).toBeDefined();
-        expect((result as any).results).toBeDefined();
+        expect(result.results).toBeDefined();
     });
 
     it('searchBlueprints: returns paged results for APP kind', async () => {
@@ -43,21 +43,21 @@ describe('BlueprintsApi', () => {
     it('createFlowBlueprint: creates a new flow blueprint', async () => {
         const bp = await createFlowBlueprint();
         expect(bp).toBeDefined();
-        expect((bp as any).id).toBeDefined();
+        expect(bp.id).toBeDefined();
     });
 
     it('flowBlueprintById: retrieves a flow blueprint by id', async () => {
         const created = await createFlowBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
 
         const result = await kestraClient.Blueprints.flowBlueprintById({ id });
         expect(result).toBeDefined();
-        expect((result as any).id).toBe(id);
+        expect(result.id).toBe(id);
     });
 
     it('updateFlowBlueprint: updates a flow blueprint', async () => {
         const created = await createFlowBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
         const newTitle = `updated-bp-${randomId()}`;
 
         const update: BlueprintControllerFlowBlueprintCreateOrUpdate = {
@@ -70,7 +70,7 @@ describe('BlueprintsApi', () => {
 
     it('deleteFlowBlueprints: deletes a flow blueprint', async () => {
         const created = await createFlowBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
 
         await kestraClient.Blueprints.deleteFlowBlueprints({ id });
     });
@@ -108,24 +108,24 @@ describe('BlueprintsApi', () => {
 
     it('internalBlueprint: retrieves an internal blueprint by id', async () => {
         const created = await createInternalBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
 
         const result = await kestraClient.Blueprints.internalBlueprint({ id });
-        expect((result as any).id).toBe(id);
+        expect(result.id).toBe(id);
     });
 
     it('internalBlueprintFlow: retrieves internal blueprint source code', async () => {
         const created = await createInternalBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
 
         const source = await kestraClient.Blueprints.internalBlueprintFlow({ id });
         expect(typeof source).toBe('string');
-        expect(source as unknown as string).toContain('namespace:');
+        expect(source).toContain('namespace:');
     });
 
     it('updateInternalBlueprints: updates an internal blueprint title', async () => {
         const created = await createInternalBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
         const newTitle = `updated-internal-bp-${randomId()}`;
 
         const result = await kestraClient.Blueprints.updateInternalBlueprints({
@@ -134,12 +134,12 @@ describe('BlueprintsApi', () => {
             source: getSimpleFlowAndId().flowBody,
             kind: 'FLOW',
         });
-        expect((result as any).title).toBe(newTitle);
+        expect(result.title).toBe(newTitle);
     });
 
     it('deleteInternalBlueprints: deletes an internal blueprint', async () => {
         const created = await createInternalBlueprint();
-        const id = (created as any).id;
+        const id = created.id;
 
         await kestraClient.Blueprints.deleteInternalBlueprints({ id });
         await expect(kestraClient.Blueprints.internalBlueprint({ id })).rejects.toThrow();
