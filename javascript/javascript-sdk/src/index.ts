@@ -195,7 +195,10 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
                 headers.set("accept", "application/octet-stream")
                 modified = true
             } else if (opts.parseAs === "text") {
-                headers.set("accept", "text/csv, text/plain, text/json, application/json")
+                // Include application/octet-stream: some endpoints (e.g. exportPluginDefaults)
+                // advertise octet-stream in the OpenAPI spec but actually return text.
+                // Kestra content-negotiation returns 403 when Accept excludes the produced type.
+                headers.set("accept", "text/csv, text/plain, text/json, application/json, application/octet-stream")
                 modified = true
             }
         }

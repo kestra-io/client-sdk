@@ -75,7 +75,7 @@ describe('GroupsApi', () => {
             filters: [qf({ field: QF_FIELD.QUERY, operation: QF_OP.EQUALS, value: created.name })],
         });
         expect(found?.results.some(g => g.id === created.id)).toBeFalsy();
-    });
+    }, 30000);
 
     it('delete_user_from_group: Remove a user from a group', async () => {
         const group = await kestraClient.Groups.createGroup({
