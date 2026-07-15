@@ -195,7 +195,7 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
                 headers.set("accept", "application/octet-stream")
                 modified = true
             } else if (opts.parseAs === "text") {
-                headers.set("accept", "text/plain, text/json, application/json")
+                headers.set("accept", "text/csv, text/plain, text/json, application/json")
                 modified = true
             }
         }
@@ -226,12 +226,10 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}): Clien
             rawMessage.startsWith(`${status}:`)
         const message = hasStatusPrefix ? rawMessage : `${status} ${rawMessage}`
         const normalizedError = error instanceof Error ? error : new Error(message)
-        normalizedError.message = message
-
         if (asObject) {
             Object.assign(normalizedError as Error & Record<string, unknown>, asObject)
         }
-
+        normalizedError.message = message
         const normalizedWithStatus = normalizedError as Error & { status: number }
         normalizedWithStatus.status = status
         return normalizedWithStatus
