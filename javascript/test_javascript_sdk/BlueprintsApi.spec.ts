@@ -90,7 +90,7 @@ describe('BlueprintsApi', () => {
             page: 1,
             size: 5,
             filters: [{
-                field: 'QUERY',
+                field: 'q',
                 operation: 'EQUALS',
                 value: 'test'
             }],

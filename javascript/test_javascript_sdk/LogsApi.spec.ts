@@ -40,7 +40,7 @@ describe('LogsApi', () => {
         const executionId = await createExecutionWithLogs();
         const result = await kestraClient.Logs.listLogsFromExecution({
             executionId, filters: [{
-                field: "LEVEL",
+                field: "level",
                 operation: "GREATER_THAN_OR_EQUAL_TO",
                 value: "INFO"
             }]

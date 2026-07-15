@@ -91,8 +91,8 @@ describe('NamespacesApi', () => {
 
         const resp = await kestraClient.Secrets.listSecrets({
             filters: [
-                { field: "NAMESPACE", operation: "EQUALS", value: ns.id as any },
-                { field: "QUERY", operation: "EQUALS", value: key as any },
+                { field: "namespace", operation: "EQUALS", value: ns.id as any },
+                { field: "q", operation: "EQUALS", value: key as any },
             ], page: 1, size: 10
         });
         const results = resp?.results ?? [];
@@ -140,7 +140,7 @@ describe('NamespacesApi', () => {
             size: 10,
             existing: false,
             filters: [{
-                field: "NAMESPACE",
+                field: "namespace",
                 operation: "EQUALS",
                 value: nsId
             }],
@@ -173,7 +173,7 @@ describe('NamespacesApi', () => {
 
         await kestraClient.Namespaces.deleteSecret({ namespace: ns.id, key });
 
-        const list = await kestraClient.Secrets.listSecrets({ filters: [{ field: "NAMESPACE", operation: "EQUALS", value: ns.id as any }], page: 1, size: 10 });
+        const list = await kestraClient.Secrets.listSecrets({ filters: [{ field: "namespace", operation: "EQUALS", value: ns.id as any }], page: 1, size: 10 });
         const results = list?.results ?? [];
         expect(results.some((m: any) => m.key === key)).toBeFalsy();
     });

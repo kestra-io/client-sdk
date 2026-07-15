@@ -5,8 +5,8 @@ import type { QueryFilter, QueryFilterField, QueryFilterOp } from '@kestra-io/ke
 
 const qf = (query: Omit<QueryFilter, 'value'> & { value?: any }) => query as QueryFilter;
 const QF_FIELD: Record<string, QueryFilterField> = {
-    QUERY: 'QUERY',
-    USERNAME: 'USERNAME',
+    QUERY: 'q',
+    USERNAME: 'username',
 };
 const QF_OP: Record<string, QueryFilterOp> = {
     EQUALS: 'EQUALS',
