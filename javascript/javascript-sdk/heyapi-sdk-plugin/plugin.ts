@@ -239,9 +239,21 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                 (resp: any) => resp?.mediaType === "application/yaml"
             );
 
+            // Some endpoints (e.g. exportPluginDefaults) declare application/octet-stream
+            // in the OpenAPI spec but actually return a human-readable text body (YAML/plain).
+            // The schema type "string" (without format: binary) signals that the payload is
+            // text. Force parseAs:'text' so the fetch client returns a string instead of a Blob.
+            const isOctetStreamTextResponse = Object.values(operation.responses || {}).some(
+                (resp: any) =>
+                    resp?.mediaType === "application/octet-stream" &&
+                    resp?.schema?.type === "string" &&
+                    resp?.schema?.format !== "binary"
+            );
+
             // Builds the options expression passed to the underlying SDK call.
             // For YAML-response operations, wraps options to force text parsing and inject
             // the Accept header while preserving any caller-supplied headers.
+            // For octet-stream-but-text operations, also forces text parsing.
             const buildOptionsArg = () => isYamlResponse
                 ? $.object()
                     .spread($("options"))
@@ -250,7 +262,11 @@ export const handler: KestraSdkPlugin["Handler"] = ({ plugin }) => {
                         $.object()
                             .prop("Accept", $.literal("application/yaml"))
                     )
-                : $("options");
+                : isOctetStreamTextResponse
+                    ? $.object()
+                        .spread($("options"))
+                        .prop("parseAs", $.literal("text"))
+                    : $("options");
 
             const operationOptionsType = (sym: any, idx: 0 | 1 = 1) =>
                 $.type("Omit").generics(
