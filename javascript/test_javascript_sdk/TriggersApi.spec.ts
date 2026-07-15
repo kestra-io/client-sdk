@@ -16,7 +16,7 @@ beforeAll(async () => {
     // Delete all flows whose namespace starts with "test.triggers." to ensure a clean slate for the tests.
     const res = await kestraClient.Flows.deleteFlowsByQuery({
         filters: [{
-            field: 'NAMESPACE',
+            field: 'namespace',
             operation: 'STARTS_WITH',
             value: 'test.triggers.' as any
         }],
@@ -153,7 +153,7 @@ describe('TriggersApiTest', () => {
 
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient.Triggers.deleteBackfillByQuery({ filters: [{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId as any }] });
+        const resp = await kestraClient.Triggers.deleteBackfillByQuery({ filters: [{ field: 'triggerId', operation: 'CONTAINS', value: flowId as any }] });
         expect(resp).toBeTruthy();
     }, 120000);
 
@@ -180,7 +180,7 @@ describe('TriggersApiTest', () => {
         const resp = await kestraClient.Triggers.disabledTriggersByQuery({
             disabled: true,
             filters: [{
-                field: 'TRIGGER_ID',
+                field: 'triggerId',
                 operation: 'CONTAINS',
                 value: flowId as any
             }]
@@ -225,10 +225,10 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
+        const qf = { field: 'triggerId', operation: 'CONTAINS', value: flowId };
         const resp = await kestraClient.Triggers.pauseBackfillByQuery({
             filters: [{
-                field: 'TRIGGER_ID',
+                field: 'triggerId',
                 operation: 'CONTAINS',
                 value: flowId as any
             }]
@@ -258,7 +258,7 @@ describe('TriggersApiTest', () => {
             page: 1,
             size: 10,
             filters: [{
-                field: 'NAMESPACE',
+                field: 'namespace',
                 operation: 'EQUALS',
                 value: namespace as any
             }]
@@ -428,7 +428,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const resp = await kestraClient.Triggers.deleteTriggersByQuery({
-            filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: namespace as any }],
+            filters: [{ field: 'namespace', operation: 'EQUALS', value: namespace as any }],
         });
         expect(resp).toBeDefined();
         expect(typeof resp).toBe('object');

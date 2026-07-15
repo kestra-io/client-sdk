@@ -95,7 +95,7 @@ describe('FlowsApi', () => {
 
         await kestraClient.Flows.deleteFlowsByQuery({
             filters: [
-                { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any },
+                { field: 'namespace', operation: 'EQUALS', value: flow.namespace as any },
             ],
         });
 
@@ -115,7 +115,7 @@ describe('FlowsApi', () => {
 
         const resp = await kestraClient.Flows.disableFlowsByQuery({
             filters: [{
-                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+                field: 'namespace', operation: 'EQUALS', value: flow.namespace as any,
             }]
         });
         expect(resp.count).toBe(1);
@@ -134,12 +134,12 @@ describe('FlowsApi', () => {
 
         await kestraClient.Flows.disableFlowsByQuery({
             filters: [{
-                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+                field: 'namespace', operation: 'EQUALS', value: flow.namespace as any,
             }]
         });
         await kestraClient.Flows.enableFlowsByQuery({
             filters: [{
-                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+                field: 'namespace', operation: 'EQUALS', value: flow.namespace as any,
             }]
         });
     });
@@ -156,7 +156,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const exp = await kestraClient.Flows.exportFlowsByQuery({
             filters: [{
-                field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any,
+                field: 'namespace', operation: 'EQUALS', value: flow.namespace as any,
             }]
         });
         expect(exp).toBeDefined();
@@ -239,7 +239,7 @@ describe('FlowsApi', () => {
         void flow;
 
         const resp = await kestraClient.Flows.searchFlows({
-            page: 1, size: 10, filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace as any }],
+            page: 1, size: 10, filters: [{ field: 'namespace', operation: 'EQUALS', value: flow.namespace as any }],
         });
 
         expect(resp.results).toHaveLength(1);
@@ -412,7 +412,7 @@ describe('FlowsApi — long tail', () => {
         await kestraClient.Flows.createFlow({ body: flowBody });
 
         const csv = await kestraClient.Flows.exportFlows({
-            filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: flowNamespace as any }],
+            filters: [{ field: 'namespace', operation: 'EQUALS', value: flowNamespace as any }],
         }) as unknown as string | string[];
         const text = typeof csv === 'string' ? csv : Array.isArray(csv) ? csv.join('\n') : String(csv);
         expect(text.length).toBeGreaterThan(0);

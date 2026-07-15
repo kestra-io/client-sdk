@@ -181,9 +181,9 @@ async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: 
 
 // filters
 const QF_FIELD: Record<string, QueryFilterField> = {
-    NAMESPACE: "NAMESPACE",
-    FLOW_ID: "FLOW_ID",
-    QUERY: "QUERY",
+    NAMESPACE: "namespace",
+    FLOW_ID: "flowId",
+    QUERY: "q",
 };
 const QF_OP: Record<string, QueryFilterOp> = {
     EQUALS: "EQUALS",
@@ -1312,7 +1312,7 @@ describe("ExecutionsApi read-only long tail", () => {
         await createFlowWithExecution(flowId, ns);
 
         const result = await kestraClient.Executions.findDistinctFieldValues({
-            field: "NAMESPACE",
+            field: "namespace",
             size: 1000,
         });
         expect(result).toContain(ns);
