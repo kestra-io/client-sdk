@@ -75,34 +75,9 @@ export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosC
                     "value" in param[0];
 
                 if (looksLikeQueryFilterArray) {
-                    const toCamel = (s: string) => {
-                        const parts = String(s || "")
-                            .trim()
-                            .split(/[^A-Za-z0-9]+/g) // split on any non-alphanumeric: _, -, spaces, etc.
-                            .filter(Boolean); // remove empties from multiple separators
-
-                        if (parts.length === 0) return "";
-
-                        const [first, ...rest] = parts;
-                        return (
-                            first.toLowerCase() +
-                            rest
-                                .map(
-                                    (p) =>
-                                        p.charAt(0).toUpperCase() +
-                                        p.slice(1).toLowerCase(),
-                                )
-                                .join("")
-                        );
-                    };
-
                     for (const qf of param) {
-                        const fieldStr = String(qf.field);
+                        const keyField = String(qf.field);
                         const op = String(qf.operation);
-                        const keyField =
-                            fieldStr.toLowerCase() === "query"
-                                ? "q"
-                                : toCamel(fieldStr);
 
                         if (
                             typeof qf.value === "object" &&
