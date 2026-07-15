@@ -177,4 +177,18 @@ describe('NamespacesApi', () => {
         const results = list?.results ?? [];
         expect(results.some((m: any) => m.key === key)).toBeFalsy();
     });
+
+    it('export_plugin_defaults: exports a namespace plugin defaults', async () => {
+        const nsId = `test_export_plugin_defaults_${randomId()}`;
+        const ns = await kestraClient.Namespaces.createNamespace({
+            id: nsId,
+            deleted: false,
+            pluginDefaults: [{ type: 'io.kestra.plugin.core.log.Log', values: {} }],
+        });
+
+        const exported = await kestraClient.Namespaces.exportPluginDefaults({ id: ns.id });
+        // The export echoes back the plugin default we configured on the namespace.
+        expect(typeof exported).toBe('string');
+        expect(exported).toContain('io.kestra.plugin.core.log.Log');
+    });
 });

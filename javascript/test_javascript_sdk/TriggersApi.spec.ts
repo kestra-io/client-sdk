@@ -365,4 +365,86 @@ describe('TriggersApiTest', () => {
         const resp = await kestraClient.Triggers.unpauseBackfillByQuery();
         expect(resp).toBeTruthy();
     });
+
+    it('disableTriggerByIdTest', async () => {
+        const flowId = `disableTriggerByIdTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+
+        // Disable, then re-enable, asserting the persisted state flips each way.
+        const disabled = await kestraClient.Triggers.disableTriggerById({ namespace, flowId, triggerId, disabled: true });
+        expect(disabled.disabled).toBe(true);
+        expect(disabled.namespace).toBe(namespace);
+        expect(disabled.flowId).toBe(flowId);
+        expect(disabled.triggerId).toBe(triggerId);
+
+        const enabled = await kestraClient.Triggers.disableTriggerById({ namespace, flowId, triggerId, disabled: false });
+        expect(enabled.disabled).toBe(false);
+    }, 120000);
+
+    it('deleteTriggerTest', async () => {
+        const flowId = `deleteTriggerTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+        expect(await ensureTriggerExists(namespace, flowId, triggerId)).toBeFalsy();
+
+        // Persist a non-default (disabled) trigger context so the delete has something to reset.
+        const disabled = await kestraClient.Triggers.disableTriggerById({ namespace, flowId, triggerId, disabled: true });
+        expect(disabled.disabled).toBe(true);
+
+        await kestraClient.Triggers.deleteTrigger({ namespace, flowId, triggerId });
+
+        // With the context removed, the trigger is rebuilt from the flow definition,
+        // so the disabled flag is back to its default (non-disabled) value.
+        const page = await kestraClient.Triggers.searchTriggersForFlow({ page: 1, size: 10, namespace, flowId });
+        const results = page?.results ?? (Array.isArray(page) ? page : []);
+        const found = results.find((t: any) => t.triggerId === triggerId || t.id === triggerId || t.trigger?.id === triggerId);
+        expect(found?.disabled ?? false).toBe(false);
+    }, 120000);
+
+    it('deleteTriggersByIdsTest', async () => {
+        const flowId = `deleteTriggersByIdsTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+
+        // Asynchronous bulk operation: assert the operation response is returned
+        // (mirrors the Java SDK suite, which only checks reachability here).
+        const resp = await kestraClient.Triggers.deleteTriggersByIds({ body: [{ namespace, flowId, triggerId }] });
+        expect(resp).toBeDefined();
+        expect(typeof resp).toBe('object');
+    }, 120000);
+
+    it('deleteTriggersByQueryTest', async () => {
+        const flowId = `deleteTriggersByQueryTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+
+        const resp = await kestraClient.Triggers.deleteTriggersByQuery({
+            filters: [{ field: 'NAMESPACE', operation: 'EQUALS', value: namespace as any }],
+        });
+        expect(resp).toBeDefined();
+        expect(typeof resp).toBe('object');
+    }, 120000);
+
+    it('exportTriggersTest', async () => {
+        const flowId = `exportTriggersTest_${randomId()}`;
+        const triggerId = `${flowId}_trigger`;
+        const namespace = `test.triggers.${randomId()}`;
+
+        // Register a trigger so the CSV export has at least one row to emit.
+        await createFlowWithTrigger(flowId, triggerId, namespace);
+        await ensureTriggerExists(namespace, flowId, triggerId);
+
+        const csv = await kestraClient.Triggers.exportTriggers() as unknown as string | string[];
+        const text = typeof csv === 'string' ? csv : Array.isArray(csv) ? csv.join('\n') : String(csv);
+        expect(text.length).toBeGreaterThan(0);
+    }, 120000);
 });

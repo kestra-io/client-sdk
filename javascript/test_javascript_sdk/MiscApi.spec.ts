@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient } from './CommonTestSetup.js';
+import { kestraClient, getSimpleFlow } from './CommonTestSetup.js';
 
 describe('MiscApi', () => {
     it('configuration: returns server configuration', async () => {
@@ -55,5 +55,29 @@ describe('MiscApi', () => {
     it('usages: returns usages', async () => {
         const result = await kestraClient.Misc.usages();
         expect(result).toBeDefined();
+    });
+
+    it('workerSelectorTags: returns available worker selector tags', async () => {
+        const result = await kestraClient.Misc.workerSelectorTags();
+        // No worker selector tags are configured in the test environment.
+        expect(result.tags).toEqual([]);
+    });
+
+    it('listPermissions: returns available permissions', async () => {
+        const result = await kestraClient.Misc.listPermissions();
+        // A resource-keyed map, each value being the list of allowed actions.
+        expect(Array.isArray(result.FLOW)).toBe(true);
+        expect(Array.isArray(result.EXECUTION)).toBe(true);
+    });
+
+    it('tenantUsage: returns tenant usage metrics', async () => {
+        // Create a flow so the tenant-wide flow count is a real positive number.
+        await kestraClient.Flows.createFlow({ body: getSimpleFlow() });
+
+        const result = await kestraClient.Misc.tenantUsage();
+        // This count is racy: it spans the whole tenant, and other spec files
+        // create/delete flows concurrently, so we can't expect a precise value
+        // — only that our own flow makes it at least 1.
+        expect(result.flows?.count).toBeGreaterThanOrEqual(1);
     });
 });
