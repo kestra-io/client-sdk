@@ -27,7 +27,7 @@ function serializeQueryValue(val: unknown) {
     return val?.toString()
 }
 
-interface AxiosLikeConfig {
+export interface AxiosLikeConfig {
     params?: Record<string, unknown>
     headers?: Record<string, string>
     responseType?: "json" | "text" | "blob"
@@ -36,7 +36,7 @@ interface AxiosLikeConfig {
     [key: string]: any
 }
 
-interface AxiosLikeResponse<T = any> {
+export interface AxiosLikeResponse<T = any> {
     data: T
     status: number
     headers: Record<string, string>
