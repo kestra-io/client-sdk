@@ -12563,6 +12563,14 @@ paths:
         examples:
           Sort by timestamp in ascending order:
             value: timestamp:asc
+      - name: cursor
+        in: query
+        description: An opaque cursor token (from a previous response's nextCursor)
+          for cursor-paginated log stores
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: filters
         in: query
         description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
@@ -22936,7 +22944,6 @@ components:
     PagedResults_ApiCredentialResponse_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -22946,10 +22953,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiGroupSummary_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -22959,10 +22969,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiInstanceMcpServer_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -22972,10 +22985,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiLightExecution_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -22985,10 +23001,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiMcpServer_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -22998,10 +23017,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiRoleSummary_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23011,10 +23033,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiTriggerAndState_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23024,10 +23049,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ApiTriggerState_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23037,10 +23065,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AppsController.ApiAppCatalogItem_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23050,10 +23081,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AppsController.ApiApp_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23063,10 +23097,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AssetsController.ApiAssetLineageEvent_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23076,10 +23113,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AssetsController.ApiAssetUsage_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23089,10 +23129,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AssetsController.ApiAsset_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23102,10 +23145,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_AuditLogController.ApiAuditLogItem_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23115,10 +23161,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_BlueprintController.ApiBlueprintItem_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23128,10 +23177,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Blueprint_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23141,10 +23193,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ConcurrencyLimit_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23154,10 +23209,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_DashboardController.DashboardResponse_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23167,10 +23225,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Flow_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23180,10 +23241,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMBindingController.ApiBindingDetail_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23193,10 +23257,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMGroupController.ApiGroupMember_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23206,10 +23273,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMInvitationController.ApiInvitationDetail_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23219,10 +23289,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMServiceAccountController.ApiServiceAccountDetail_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23232,10 +23305,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMTenantAccessController.ApiUserTenantAccess_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23245,10 +23321,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_IAMUserController.ApiUserSummary_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23258,10 +23337,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_InstanceController.ApiPluginArtifact_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23271,10 +23353,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_InstanceController.ApiServiceInstance_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23284,10 +23369,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_KVEntry_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23297,10 +23385,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_LogEntry_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23310,10 +23401,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Map_String.Object__:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23325,10 +23419,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_MetricEntry_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23338,10 +23435,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Namespace_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23351,10 +23451,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_PluginController.ApiTriggerPlugin_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23364,10 +23467,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Plugin_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23377,10 +23483,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_ReusableInputs_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23390,10 +23499,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_SearchResult_Flow__:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23403,10 +23515,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_SecurityIntegration_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23416,10 +23531,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_Tenant_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23429,10 +23547,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_TestSuiteRunResult_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23442,10 +23563,13 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
     PagedResults_TestSuite_:
       required:
       - results
-      - total
       type: object
       properties:
         results:
@@ -23455,6 +23579,15 @@ components:
         total:
           type: integer
           format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
+    PaginationType:
+      type: string
+      enum:
+      - OFFSET
+      - CURSOR
     PasswordConfiguration:
       type: object
       properties:
