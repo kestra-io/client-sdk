@@ -30,9 +30,7 @@ function serializeQueryValue(val: unknown) {
 interface AxiosLikeConfig {
     params?: Record<string, unknown>
     headers?: Record<string, string>
-    /** Defaults to auto-detecting from the response Content-Type (json, else text). */
     responseType?: "json" | "text" | "blob"
-    /** Aborts the request after this many ms. */
     timeout?: number
     validateStatus?: (status: number) => boolean
     [key: string]: any
@@ -42,9 +40,7 @@ interface AxiosLikeResponse<T = any> {
     data: T
     status: number
     headers: Record<string, string>
-    // response.url after following redirects - useful for endpoints that respond with a
-    // redirect to a signed download URL instead of streaming the file themselves. Optional
-    // so hand-written mocks (setMockClient, tests) aren't forced to fabricate one.
+    // Optional so existing setMockClient()/test mocks aren't forced to fabricate one.
     request?: { responseURL: string }
 }
 
@@ -66,13 +62,7 @@ function withQuery(url: string, params?: Record<string, unknown>): string {
     return url.includes("?") ? `${url}&${query}` : `${url}?${query}`
 }
 
-/**
- * Runs a request through the SAME interceptor pipeline `configureClient()` wires up on
- * `client` (its own content-type/accept normalization, error status/message enrichment, and
- * anything a consumer app registered afterwards via `client.interceptors.*.use()`, e.g. a
- * CSRF header or 401 handling) - so ad-hoc calls made through `useClient()` behave exactly
- * like the generated endpoint functions instead of silently bypassing that configuration.
- */
+/** Shares client.interceptors.* with configureClient() so ad-hoc useClient() calls get the same behavior as generated endpoint calls. */
 async function axiosLikeRequest<T>(
     method: string,
     url: string,
@@ -100,9 +90,7 @@ async function axiosLikeRequest<T>(
     const requestInit: RequestInit = { method, headers, body, credentials: "include", redirect: "follow" }
     if (config.timeout) requestInit.signal = AbortSignal.timeout(config.timeout)
 
-    // Mirrors the ResolvedRequestOptions fields configureClient()'s own request interceptor
-    // reads: bodySerializer identity marks a multipart endpoint (skip forcing JSON content-type
-    // so the browser can set its own boundary), parseAs drives the Accept header for blob/text.
+    // bodySerializer identity marks a multipart endpoint for the shared request interceptor.
     const interceptorOptions = {
         ...config,
         bodySerializer: isFormData ? formDataBodySerializer.bodySerializer : undefined,
