@@ -28,7 +28,12 @@ function serializeQueryValue(val: unknown) {
 }
 
 interface AxiosLikeConfig {
+    params?: Record<string, unknown>
     headers?: Record<string, string>
+    /** Defaults to auto-detecting from the response Content-Type (json, else text). */
+    responseType?: "json" | "text" | "blob"
+    /** Aborts the request after this many ms. */
+    timeout?: number
     validateStatus?: (status: number) => boolean
     [key: string]: any
 }
@@ -37,20 +42,51 @@ interface AxiosLikeResponse<T = any> {
     data: T
     status: number
     headers: Record<string, string>
+    // response.url after following redirects - useful for endpoints that respond with a
+    // redirect to a signed download URL instead of streaming the file themselves. Optional
+    // so hand-written mocks (setMockClient, tests) aren't forced to fabricate one.
+    request?: { responseURL: string }
 }
 
 const commonHeaders: Record<string, string> = {}
 
+function withQuery(url: string, params?: Record<string, unknown>): string {
+    if (!params) return url
+    const search = new URLSearchParams()
+    for (const [key, value] of Object.entries(params)) {
+        if (value === undefined || value === null) continue
+        if (Array.isArray(value)) {
+            value.forEach(v => search.append(key, String(v)))
+        } else {
+            search.append(key, typeof value === "object" ? JSON.stringify(value) : String(value))
+        }
+    }
+    const query = search.toString()
+    if (!query) return url
+    return url.includes("?") ? `${url}&${query}` : `${url}?${query}`
+}
+
+/**
+ * Runs a request through the SAME interceptor pipeline `configureClient()` wires up on
+ * `client` (its own content-type/accept normalization, error status/message enrichment, and
+ * anything a consumer app registered afterwards via `client.interceptors.*.use()`, e.g. a
+ * CSRF header or 401 handling) - so ad-hoc calls made through `useClient()` behave exactly
+ * like the generated endpoint functions instead of silently bypassing that configuration.
+ */
 async function axiosLikeRequest<T>(
     method: string,
     url: string,
     data?: any,
     config: AxiosLikeConfig = {}
 ): Promise<AxiosLikeResponse<T>> {
+    const fullUrl = withQuery(url, config.params)
     const headers = new Headers({ ...commonHeaders, ...(config.headers ?? {}) })
+    const isFormData = data instanceof FormData
 
     let body: BodyInit | undefined
-    if (data !== undefined) {
+    if (isFormData || data instanceof Blob) {
+        body = data
+    } else if (data !== undefined) {
         if (typeof data === "string") {
             body = data
         } else {
@@ -61,33 +97,67 @@ async function axiosLikeRequest<T>(
         }
     }
 
-    const response = await fetch(url, { method, headers, body, credentials: "include" })
+    const requestInit: RequestInit = { method, headers, body, credentials: "include", redirect: "follow" }
+    if (config.timeout) requestInit.signal = AbortSignal.timeout(config.timeout)
+
+    // Mirrors the ResolvedRequestOptions fields configureClient()'s own request interceptor
+    // reads: bodySerializer identity marks a multipart endpoint (skip forcing JSON content-type
+    // so the browser can set its own boundary), parseAs drives the Accept header for blob/text.
+    const interceptorOptions = {
+        ...config,
+        bodySerializer: isFormData ? formDataBodySerializer.bodySerializer : undefined,
+        parseAs: config.responseType,
+    } as unknown as ResolvedRequestOptions
+
+    let request = new Request(fullUrl, requestInit)
+    for (const fn of client.interceptors.request.fns) {
+        if (fn) request = await fn(request, interceptorOptions)
+    }
+
+    let response = await fetch(request)
+    for (const fn of client.interceptors.response.fns) {
+        if (fn) response = await fn(response, request, interceptorOptions)
+    }
 
     const { validateStatus } = config
     const isSuccess = validateStatus ? validateStatus(response.status) : response.status < 400
 
+    const headersObj: Record<string, string> = {}
+    response.headers.forEach((value, key) => { headersObj[key] = value })
+
+    if (!isSuccess) {
+        const textError = await response.text()
+        let parsedError: unknown
+        try {
+            parsedError = JSON.parse(textError)
+        } catch {
+            parsedError = textError
+        }
+
+        let finalError: unknown = parsedError
+        for (const fn of client.interceptors.error.fns) {
+            if (fn) finalError = await fn(finalError, response, request, interceptorOptions)
+        }
+        if (finalError && typeof finalError === "object") {
+            (finalError as Record<string, unknown>).response = {
+                data: parsedError, status: response.status, headers: headersObj, request: { responseURL: response.url },
+            }
+        }
+        throw finalError
+    }
+
     let responseData: T
-    const contentType = response.headers.get("content-type") ?? ""
-    if (response.status === 204 || response.headers.get("content-length") === "0") {
+    if (config.responseType === "blob") {
+        responseData = await response.blob() as T
+    } else if (response.status === 204 || response.headers.get("content-length") === "0") {
         responseData = null as T
-    } else if (contentType.includes("application/json")) {
+    } else if (config.responseType !== "text" && (response.headers.get("content-type") ?? "").includes("application/json")) {
         responseData = await response.json() as T
     } else {
         responseData = await response.text() as unknown as T
     }
 
-    const headersObj: Record<string, string> = {}
-    response.headers.forEach((value, key) => { headersObj[key] = value })
-
-    const result: AxiosLikeResponse<T> = { data: responseData, status: response.status, headers: headersObj }
-
-    if (!isSuccess) {
-        const error = new Error(`Request failed with status ${response.status}`) as Error & { response: AxiosLikeResponse<T> }
-        error.response = result
-        throw error
-    }
-
-    return result
+    return { data: responseData, status: response.status, headers: headersObj, request: { responseURL: response.url } }
 }
 
 const axiosLikeClient = {
