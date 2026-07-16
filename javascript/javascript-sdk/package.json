@@ -75,8 +75,7 @@
     "prepack": "cp ../../README_JAVASCRIPT_SDK.md README.md"
   },
   "dependencies": {
-    "nprogress": "0.2.0",
-    "axios": "1.16.1"
+    "nprogress": "0.2.0"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",

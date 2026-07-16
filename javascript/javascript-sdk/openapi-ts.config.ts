@@ -29,7 +29,7 @@ export default {
 
     plugins: [
         {
-            name: "@hey-api/client-axios",
+            name: "@hey-api/client-fetch",
             throwOnError: true,
         },
         {

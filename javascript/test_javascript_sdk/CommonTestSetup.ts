@@ -59,27 +59,27 @@ beforeAll(async () => {
         auth: () => {
             return username + ":" + password;
         },
-        baseURL,
+        baseUrl: baseURL,
     });
 
     if (process.env.DEBUG) {
-        instance.interceptors.request.use((config) => {
-            //log the request method and url for debugging purposes
-            console.log(`[${config.method?.toUpperCase()}] ${config.url}`, config.headers["Content-Type"]);
-            return config;
+        instance.interceptors.request.use((request: Request) => {
+            console.log(`[${request.method?.toUpperCase()}] ${request.url}`, request.headers.get("Content-Type"));
+            return request;
         });
 
-        instance.interceptors.response.use((response) => {
+        instance.interceptors.response.use((response: Response) => {
             return response;
-        }, (error) => {
-            if (error.response) {
-                //log the error status and url for debugging purposes
-                console.error(`[${error.response.status}] ${error.config.url}`);
-                console.error("Error data:", error.response.data);
+        });
+
+        instance.interceptors.error.use((error: unknown, response: Response | undefined) => {
+            if (response) {
+                console.error(`[${response.status}] ${response.url}`);
+                console.error("Error data:", error);
             } else {
-                console.error("Error:", error.message);
+                console.error("Error:", error instanceof Error ? error.message : error);
             }
-            return Promise.reject(error);
+            return error;
         });
     }
 
