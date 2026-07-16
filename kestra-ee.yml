@@ -19773,6 +19773,8 @@ components:
           format: date-time
         duration:
           $ref: "#/components/schemas/DailyExecutionStatistics.Duration"
+        taskRunsDuration:
+          $ref: "#/components/schemas/DailyExecutionStatistics.Duration"
         executionCounts:
           type: object
           properties:
