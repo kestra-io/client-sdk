@@ -108,12 +108,4 @@ describe('PluginsApi', () => {
         // ships no custom UI, so the manifest map is present but empty.
         expect(result.manifest).toEqual({});
     });
-
-    // Serves a plugin's bundled UI static asset. No plugin ships a UI bundle in
-    // the default test environment, so there is no valid {group, path} to fetch.
-    it.skip('pluginUi: serves a plugin UI static asset', async () => {
-        const result = await kestraClient.Plugins.pluginUi({ group: 'io.kestra.plugin.core', path: 'index.js' });
-        // The endpoint streams the asset back as a Blob (File extends Blob).
-        expect(result).toBeInstanceOf(Blob);
-    });
 });
