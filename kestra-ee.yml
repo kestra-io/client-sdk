@@ -128,13 +128,11 @@ paths:
           - $ref: "#/components/schemas/CrudEventType"
       responses:
         "200":
-          description: exportAuditLogsForAllTenants 200 response
+          description: Ok
           content:
             text/csv:
               schema:
-                type: array
-                items:
-                  type: object
+                type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -1730,6 +1728,46 @@ paths:
       responses:
         "200":
           description: refreshLicense 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/login:
+    post:
+      tags:
+      - Misc
+      summary: Authenticate with basic auth credentials.
+      description: "On success, issues an HttpOnly session cookie; the credentials\
+        \ never need to be readable by client-side JavaScript."
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MiscController.LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: login 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/logout:
+    post:
+      tags:
+      - Misc
+      summary: Clear the basic auth session cookie.
+      operationId: logout
+      responses:
+        "200":
+          description: logout 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5270,13 +5308,11 @@ paths:
           type: string
       responses:
         "200":
-          description: exportAuditLogs 200 response
+          description: Ok
           content:
             text/csv:
               schema:
-                type: array
-                items:
-                  type: object
+                type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5454,6 +5490,10 @@ paths:
       responses:
         "200":
           description: createBasicAuth 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -17645,7 +17685,7 @@ paths:
     post:
       tags:
       - login
-      operationId: login
+      operationId: login_1
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -17657,7 +17697,7 @@ paths:
         required: true
       responses:
         "200":
-          description: login 200 response
+          description: login_1 200 response
           content:
             application/json:
               schema:
@@ -17747,9 +17787,11 @@ components:
       properties:
         id:
           title: A unique ID for the whole flow.
+          maxLength: 256
           minLength: 1
           pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
           type: string
+          x-size-message: Trigger id must be at most 256 characters
         type:
           title: The class name for this current trigger.
           minLength: 1
@@ -22679,6 +22721,13 @@ components:
         gracePeriod:
           type: string
           format: date-time
+    MiscController.LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
     MiscController.PluginIdAndVersion:
       type: object
       properties:
