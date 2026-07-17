@@ -228,7 +228,6 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const qf = { field: 'triggerId', operation: 'CONTAINS', value: flowId };
         const resp = await Triggers.pauseBackfillByQuery({
             filters: [{
                 field: 'triggerId',
