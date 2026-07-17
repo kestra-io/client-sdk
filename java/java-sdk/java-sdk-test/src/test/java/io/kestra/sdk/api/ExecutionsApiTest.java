@@ -635,11 +635,16 @@ public class ExecutionsApiTest {
             return state == StateType.PAUSED;
         });
 
-        // onResume declares a required input, so resume succeeds only if inputs are forwarded
-        Execution resumed = api().resumeExecution(executionId, TENANT, Map.of("quorum_status", "TIMEOUT"));
+        // onResume declares a required input, so resume succeeds only if inputs are forwarded.
+        // Kestra 1.3 answers resume with 204 (no body), so a non-throwing call already proves the
+        // required input was accepted; confirm the execution actually left the PAUSED state.
+        api().resumeExecution(executionId, TENANT, Map.of("quorum_status", "TIMEOUT"));
 
-        assertThat(resumed).isNotNull();
-        assertThat(resumed.getId()).isEqualTo(executionId);
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state != null && state != StateType.PAUSED;
+        });
     }
 
     @Test

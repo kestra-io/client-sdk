@@ -25,10 +25,12 @@ public class BindingsApiTest {
     }
 
     static IAMRoleControllerApiRoleDetail createTestRole() throws ApiException {
+        // Kestra requires a role to have at least one permission.
         IAMRoleControllerApiRoleCreateOrUpdateRequest req = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name("binding-role-" + randomId())
                 .description("Role for binding tests")
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "READ")));
         return rolesApi().createRole(TENANT, req);
     }
 
