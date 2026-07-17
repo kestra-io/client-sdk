@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient, randomId } from './CommonTestSetup.js';
+import { randomId } from './_utils.js';
+import * as WorkerGroups from '@kestra-io/kestra-sdk/worker-groups';
 import { WorkerGroupControllerApiCreateWorkerGroupRequest } from '@kestra-io/kestra-sdk';
 
 function makeWorkerGroupRequest(): WorkerGroupControllerApiCreateWorkerGroupRequest {
@@ -13,31 +14,31 @@ function makeWorkerGroupRequest(): WorkerGroupControllerApiCreateWorkerGroupRequ
 
 describe('WorkerGroupsApi', () => {
     it('listWorkerGroups: lists all worker groups', async () => {
-        const result = await kestraClient.WorkerGroups.list();
+        const result = await WorkerGroups.list();
         expect(result).toBeDefined();
     });
 
     it('createWorkerGroup: creates a new worker group', async () => {
         const req = makeWorkerGroupRequest();
-        const result = await kestraClient.WorkerGroups.create(req);
+        const result = await WorkerGroups.create(req);
         expect(result).toBeDefined();
         expect((result as any).key ?? (result as any).id).toBeDefined();
     });
 
     it('workerGroupById: retrieves a worker group by id', async () => {
-        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const created = await WorkerGroups.create(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
-        const result = await kestraClient.WorkerGroups.get({ id });
+        const result = await WorkerGroups.get({ id });
         expect(result).toBeDefined();
         expect(result.id).toBe(id);
     });
 
     it('updateWorkerGroupById: updates a worker group', async () => {
-        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const created = await WorkerGroups.create(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
-        const result = await kestraClient.WorkerGroups.update({
+        const result = await WorkerGroups.update({
             id,
             name: `updated-${id}`,
             description: 'Updated worker group description',
@@ -47,25 +48,25 @@ describe('WorkerGroupsApi', () => {
     });
 
     it('deleteWorkerGroupById: deletes a worker group', async () => {
-        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const created = await WorkerGroups.create(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
-        await kestraClient.WorkerGroups.deleteWorkerGroups({ id });
+        await WorkerGroups.deleteWorkerGroups({ id });
     });
 
     it('capacity: returns the capacity of a worker group', async () => {
-        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const created = await WorkerGroups.create(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
-        const result = await kestraClient.WorkerGroups.capacity({ id });
+        const result = await WorkerGroups.capacity({ id });
         expect(result.workerGroupId).toBe(id);
     });
 
     it('listRunningWorkers: lists running workers of a worker group', async () => {
-        const created = await kestraClient.WorkerGroups.create(makeWorkerGroupRequest());
+        const created = await WorkerGroups.create(makeWorkerGroupRequest());
         const id = created.id ?? "<none>";
 
-        const result = await kestraClient.WorkerGroups.listRunningWorkers({ id });
+        const result = await WorkerGroups.listRunningWorkers({ id });
         // No workers subscribe to a freshly created group in the test environment.
         expect(result.workers ?? []).toEqual([]);
     });
