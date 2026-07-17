@@ -59,20 +59,19 @@ describe('PluginsApi', () => {
     });
 
     it('propertiesFromType: returns the JSON-schema properties for a type', async () => {
-        // The response is an untyped JSON Schema (Draft-7) document whose
-        // top-level layout is not stable across types/versions (it mixes string
-        // fields like `$schema`/`$ref` with nested objects), so assert it is a
-        // populated object rather than a specific key.
         const result = await kestraClient.Plugins.propertiesFromType({ type: 'TASK' });
-        expect(Array.isArray(result)).toBe(false);
-        expect(result).not.toEqual({});
+        // A JSON Schema document: a `$schema` dialect marker plus the
+        // `properties`/`required` describing every task property.
+        expect(result).toMatchObject({ $schema: expect.stringContaining('json-schema.org') });
+        expect(result).toHaveProperty('properties');
     });
 
     it('schemasFromType: returns the JSON schema for a type', async () => {
-        // Same untyped Draft-7 schema document as propertiesFromType.
         const result = await kestraClient.Plugins.schemasFromType({ type: 'FLOW' });
-        expect(Array.isArray(result)).toBe(false);
-        expect(result).not.toEqual({});
+        // A JSON Schema document: a `$schema` dialect marker, a top-level `$ref`,
+        // and the `definitions` it resolves into.
+        expect(result).toMatchObject({ $schema: expect.stringContaining('json-schema.org') });
+        expect(result).toHaveProperty('$ref');
     });
 
     it('pluginIcon: returns the icon for a plugin class', async () => {
