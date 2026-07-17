@@ -14,6 +14,6 @@ describe('ReusableInputsApi', () => {
     // `createOrUpdate` (and `revisions`, which needs a block to exist) are not
     // covered: the endpoint consumes application/x-yaml, but the generated SDK
     // wrapper hardcodes Content-Type: application/json, so the YAML body is
-    // rejected (HTTP 500). Re-enable once the generator emits the correct
-    // content type for YAML request bodies.
+    // rejected (HTTP 500). Tracked in #340 — re-enable once the generator emits
+    // the correct content type for YAML request bodies.
 });
