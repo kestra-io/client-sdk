@@ -17,10 +17,12 @@ public class RolesApiTest {
     }
 
     static IAMRoleControllerApiRoleDetail createTestRole(String name) throws ApiException {
+        // Kestra requires a role to have at least one permission.
         IAMRoleControllerApiRoleCreateOrUpdateRequest request = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name(name)
                 .description("Test role: " + name)
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "READ")));
         return api().createRole(TENANT, request);
     }
 
@@ -65,7 +67,8 @@ public class RolesApiTest {
         IAMRoleControllerApiRoleCreateOrUpdateRequest update = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name(newName)
                 .description("Updated description")
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "READ")));
 
         IAMRoleControllerApiRoleDetail updated = api().updateRole(created.getId(), TENANT, update);
 
