@@ -373,21 +373,20 @@ paths:
       - bearerAuth: []
       - basicAuth: []
   /api/v1/forgotten-password:
-    get:
+    post:
       tags:
       - Auths
       summary: Sends an email to reset a password.
       description: "Sends an email to reset a password. Note that whatever the username\
         \ is found or not, the response will always be 200 to avoid leaking information."
       operationId: forgottenPassword
-      parameters:
-      - name: username
-        in: query
-        description: User that has forgotten his password
+      requestBody:
+        description: The username of the user trying to reset its password
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthController.ForgottenPasswordRequest"
         required: true
-        explode: false
-        schema:
-          type: string
       responses:
         "200":
           description: forgottenPassword 200 response
@@ -19272,6 +19271,11 @@ components:
           type: array
           items:
             type: string
+    AuthController.ForgottenPasswordRequest:
+      type: object
+      properties:
+        username:
+          type: string
     AuthController.InvitationUserRequest:
       required:
       - firstName
