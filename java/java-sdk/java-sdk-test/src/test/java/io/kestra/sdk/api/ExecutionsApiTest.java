@@ -621,7 +621,6 @@ public class ExecutionsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: returns 404 'Requested Flow is not found' — execution action now requires the source flow to exist")
     void resumeExecution_withInputs() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
