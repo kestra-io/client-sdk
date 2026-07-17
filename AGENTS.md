@@ -52,7 +52,7 @@ Tests require a running Kestra instance at `http://localhost:9903` with credenti
 
 ## Signature Changes — Notify, Don't Block
 
-Java, and now parts of Python (`executions_api.py`), are **hand-written**, not generated — a manual rewrite can silently drop a parameter with no generator to catch it. This already happened to `resumeExecution`'s `inputs` param in Java, and independently to `create_execution` / `resume_execution` / `replay_execution_with_inputs` in Python.
+Java, Python and Go are **hand-written**, not generated — a manual rewrite can silently drop a parameter with no generator to catch it. This already happened to `resumeExecution`'s `inputs` param in Java, and independently to `create_execution` / `resume_execution` / `replay_execution_with_inputs` in Python.
 
 When touching a hand-written or generated API class, for every public method you change:
 
