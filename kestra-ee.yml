@@ -517,6 +517,264 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/instance/policies:
+    post:
+      tags:
+      - Policies
+      summary: Create an instance-scope policy
+      operationId: createInstancePolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: createInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/delete/by-ids:
+    delete:
+      tags:
+      - Policies
+      summary: Delete instance-scope policies by their IDs
+      operationId: deleteInstancePoliciesByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: deleteInstancePoliciesByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/export:
+    post:
+      tags:
+      - Policies
+      summary: Export every instance-scope policy as YAML documents joined by '---'
+      operationId: exportInstancePolicies
+      responses:
+        "200":
+          description: exportInstancePolicies 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/export/by-ids:
+    post:
+      tags:
+      - Policies
+      summary: Export instance-scope policies by their IDs as YAML documents joined
+        by '---'
+      operationId: exportInstancePoliciesByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: exportInstancePoliciesByIds 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/search:
+    get:
+      tags:
+      - Policies
+      summary: "Search instance-scope policies, including the read-only STATIC policies\
+        \ declared in configuration"
+      operationId: searchInstancePolicies
+      parameters:
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      responses:
+        "200":
+          description: searchInstancePolicies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/{id}:
+    get:
+      tags:
+      - Policies
+      summary: "Get an instance-scope policy, or with scope=STATIC a read-only policy\
+        \ declared in configuration"
+      operationId: getInstancePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: "INSTANCE (default) or STATIC — ids are only unique per scope,\
+          \ so the scope disambiguates a config-declared policy from a persisted one\
+          \ sharing its id"
+        explode: false
+        schema:
+          $ref: "#/components/schemas/Scope"
+      responses:
+        "200":
+          description: getInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Policies
+      summary: Update an instance-scope policy
+      operationId: updateInstancePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: updateInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Policies
+      summary: Delete an instance-scope policy
+      operationId: deleteInstancePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/instance/policies/{id}/evaluate:
+    get:
+      tags:
+      - Policies
+      summary: "Dry-run an instance-scope policy, or with scope=STATIC a policy declared\
+        \ in configuration, against every flow"
+      operationId: evaluateInstancePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      - name: scope
+        in: query
+        description: "INSTANCE (default) or STATIC — ids are only unique per scope,\
+          \ so the scope disambiguates a config-declared policy from a persisted one\
+          \ sharing its id"
+        explode: false
+        schema:
+          $ref: "#/components/schemas/Scope"
+      responses:
+        "200":
+          description: evaluateInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyEvaluation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/instance/services/active:
     get:
       tags:
@@ -3754,6 +4012,8 @@ paths:
                   MCP_SERVER:
                     type: array
                   SUPPORT:
+                    type: array
+                  POLICY:
                     type: array
                   APP_EXECUTION:
                     type: array
@@ -10322,6 +10582,35 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/policies/preview:
+    post:
+      tags:
+      - Flows
+      summary: Preview the governance policy effects (mutations + violations) on a
+        flow source
+      operationId: previewPolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyPreviewRequest"
+        required: true
+      responses:
+        "200":
+          description: previewPolicies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyPreviewResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/flows/search:
     get:
       tags:
@@ -13582,36 +13871,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults:
-    get:
-      tags:
-      - Namespaces
-      summary: List inherited plugin defaults
-      operationId: inheritedPluginDefaults
-      parameters:
-      - name: id
-        in: path
-        description: The namespace id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: inheritedPluginDefaults 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/NamespaceController.ApiInheritedPluginDefaultFromNamespace"
-      security:
-      - bearerAuth: []
-      - basicAuth: []
   /api/v1/{tenant}/namespaces/{id}/inherited-variables:
     get:
       tags:
@@ -13639,79 +13898,6 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/namespaces/{id}/plugindefaults/export:
-    post:
-      tags:
-      - Namespaces
-      summary: Export this namespace plugin defaults
-      operationId: exportPluginDefaults
-      parameters:
-      - name: id
-        in: path
-        description: The namespace id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: exportPluginDefaults 200 response
-          content:
-            application/octet-stream:
-              schema:
-                type: string
-                format: byte
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-  /api/v1/{tenant}/namespaces/{id}/plugindefaults/import:
-    post:
-      tags:
-      - Namespaces
-      summary: Import plugin defaults in this namespace
-      operationId: importPluginDefaults
-      parameters:
-      - name: id
-        in: path
-        description: The namespace id
-        required: true
-        schema:
-          type: string
-      - name: tenant
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                fileUpload:
-                  type: string
-                  format: binary
-            encoding:
-              fileUpload:
-                contentType: application/octet-stream
-                explode: false
-        required: true
-      responses:
-        "200":
-          description: importPluginDefaults 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14581,6 +14767,335 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies:
+    post:
+      tags:
+      - Policies
+      summary: Create a namespace-scope policy
+      operationId: createNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: createNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/delete/by-ids:
+    delete:
+      tags:
+      - Policies
+      summary: Delete namespace-scope policies by their IDs
+      operationId: deleteNamespacePoliciesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: deleteNamespacePoliciesByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/export:
+    post:
+      tags:
+      - Policies
+      summary: Export every namespace-scope policy of a namespace as YAML documents
+        joined by '---'
+      operationId: exportNamespacePolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: exportNamespacePolicies 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/export/by-ids:
+    post:
+      tags:
+      - Policies
+      summary: Export namespace-scope policies by their IDs as YAML documents joined
+        by '---'
+      operationId: exportNamespacePoliciesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: exportNamespacePoliciesByIds 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/search:
+    get:
+      tags:
+      - Policies
+      summary: "Search the policies applying to a namespace — its whole scope chain\
+        \ (STATIC, INSTANCE, TENANT, ancestors and own), ordered outermost → leaf.\
+        \ Backed by the resolution metastore: results converge with writes within\
+        \ the broadcast latency (typically sub-second)."
+      operationId: searchNamespacePolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      responses:
+        "200":
+          description: searchNamespacePolicies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/{id}:
+    get:
+      tags:
+      - Policies
+      summary: Get a namespace-scope policy
+      operationId: getNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Policies
+      summary: Update a namespace-scope policy
+      operationId: updateNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: updateNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Policies
+      summary: Delete a namespace-scope policy
+      operationId: deleteNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/policies/{id}/evaluate:
+    get:
+      tags:
+      - Policies
+      summary: Dry-run a namespace-scope policy against every flow in its scope
+      operationId: evaluateNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        "200":
+          description: evaluateNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyEvaluation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs:
     get:
       tags:
@@ -14947,6 +15462,335 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies:
+    post:
+      tags:
+      - Policies
+      summary: Create a tenant-scope policy
+      operationId: createTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: createTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/delete/by-ids:
+    delete:
+      tags:
+      - Policies
+      summary: Delete tenant-scope policies by their IDs
+      operationId: deleteTenantPoliciesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: deleteTenantPoliciesByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/export:
+    post:
+      tags:
+      - Policies
+      summary: Export every tenant-scope policy as YAML documents joined by '---'
+      operationId: exportTenantPolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: exportTenantPolicies 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/export/by-ids:
+    post:
+      tags:
+      - Policies
+      summary: Export tenant-scope policies by their IDs as YAML documents joined
+        by '---'
+      operationId: exportTenantPoliciesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: exportTenantPoliciesByIds 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/import:
+    post:
+      tags:
+      - Policies
+      summary: "Import policies from YAML documents of any scope. Every document is\
+        \ authorized against its own scope before anything is written: a denial rejects\
+        \ the whole import. Content problems (unparseable document, missing scope)\
+        \ are accumulated as per-document errors."
+      operationId: importPolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                fileUpload:
+                  type: string
+                  format: binary
+            encoding:
+              fileUpload:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: importPolicies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyImportResult"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/search:
+    get:
+      tags:
+      - Policies
+      summary: "Search for policies across scopes (without a global grant, restricted\
+        \ to what concerns the caller's namespaces: INSTANCE and TENANT policies plus\
+        \ NAMESPACE policies on their subtrees and ancestors)"
+      operationId: searchPolicies
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: A list of query filters
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      responses:
+        "200":
+          description: searchPolicies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/{id}:
+    get:
+      tags:
+      - Policies
+      summary: Get a tenant-scope policy
+      operationId: getTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    put:
+      tags:
+      - Policies
+      summary: Update a tenant-scope policy
+      operationId: updateTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRequest"
+        required: true
+      responses:
+        "200":
+          description: updateTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Policies
+      summary: Delete a tenant-scope policy
+      operationId: deleteTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/policies/{id}/evaluate:
+    get:
+      tags:
+      - Policies
+      summary: Dry-run a tenant-scope policy against every flow in its scope
+      operationId: evaluateTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        "200":
+          description: evaluateTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyEvaluation"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -17139,6 +17983,8 @@ paths:
           - SCOPE
           - NAMESPACE
           - KIND
+          - POLICY_SCOPE
+          - ENFORCEMENT
           - LABELS
           - TAGS
           - METADATA
@@ -17703,6 +18549,27 @@ paths:
                 type: object
 components:
   schemas:
+    AbstractFilter.FilterType:
+      type: string
+      enum:
+      - CONTAINS
+      - ENDS_WITH
+      - EQUAL_TO
+      - GREATER_THAN
+      - GREATER_THAN_OR_EQUAL_TO
+      - IN
+      - IS_FALSE
+      - IS_NOT_NULL
+      - IS_NULL
+      - IS_TRUE
+      - LESS_THAN
+      - LESS_THAN_OR_EQUAL_TO
+      - NOT_EQUAL_TO
+      - NOT_IN
+      - OR
+      - REGEX
+      - STARTS_WITH
+      - PREFIX
     AbstractFlow:
       required:
       - deleted
@@ -17824,6 +18691,13 @@ components:
           description: Routing requirements (tags + fallback) for this trigger.
           allOf:
           - $ref: "#/components/schemas/WorkerSelector"
+        policyRefs:
+          type: array
+          description: "Identifiers of `enforcement: REFERENCE` governance policies\
+            \ to attach to this trigger and everything nested under it (Enterprise\
+            \ Edition; ignored in the open-source edition)."
+          items:
+            type: string
         logLevel:
           $ref: "#/components/schemas/Level"
         labels:
@@ -17951,8 +18825,6 @@ components:
       - UNLOCK
       - BACKFILL
       - MANAGE_FILES
-      - EXPORT_PLUGIN_DEFAULTS
-      - IMPORT_PLUGIN_DEFAULTS
       - MANAGE_MEMBERS
       - MANAGE_GROUP_MEMBERSHIP
       - USE
@@ -18491,6 +19363,53 @@ components:
       properties:
         superAdmin:
           type: boolean
+    ApiPolicyEvaluation.Counts:
+      type: object
+      properties:
+        scanned:
+          title: The number of resources evaluated (unparseable sources are skipped).
+          type: integer
+          format: int64
+        mutated:
+          title: The number of resources the policy would change.
+          type: integer
+          format: int64
+        violating:
+          title: The number of resources with at least one rule violation.
+          type: integer
+          format: int64
+        conflicting:
+          title: The number of resources with at least one Add-vs-Delete conflict.
+          type: integer
+          format: int64
+      description: Aggregate counters of a policy dry-run.
+    ApiPolicyEvaluation.Resource:
+      type: object
+      properties:
+        kind:
+          title: The kind of resource; currently always 'flow'.
+          type: string
+        namespace:
+          title: The namespace of the resource.
+          type: string
+        id:
+          title: The id of the resource.
+          type: string
+      description: The identity of a resource affected by the evaluated policy.
+    ApiPolicyImportResult.Error:
+      type: object
+      properties:
+        document:
+          type: string
+        message:
+          type: string
+    ApiPolicyMutation.Action:
+      type: string
+      description: The kind of change a policy made to a property.
+      enum:
+      - ADDED
+      - REPLACED
+      - REMOVED
     ApiRoleSummary:
       required:
       - id
@@ -19754,6 +20673,18 @@ components:
         running:
           type: integer
           format: int32
+    Condition:
+      required:
+      - field
+      - operator
+      type: object
+      properties:
+        field:
+          type: string
+        operator:
+          $ref: "#/components/schemas/AbstractFilter.FilterType"
+        value:
+          type: object
     CreateApiTokenRequest:
       required:
       - name
@@ -20027,6 +20958,13 @@ components:
         primary:
           type: boolean
       description: Scim core schema.
+    Enforcement:
+      type: string
+      enum:
+      - ACTIVE
+      - EVALUATE
+      - DISABLED
+      - REFERENCE
     EvaluationType:
       type: string
       enum:
@@ -20575,10 +21513,14 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/AbstractTrigger"
-          pluginDefaults:
+          policyRefs:
+            title: References to governance policies (Enterprise Edition).
             type: array
+            description: "Identifiers of `enforcement: REFERENCE` policies to attach\
+              \ to this flow, resolved within the flow's tenant/namespace scope chain.\
+              \ Enterprise Edition only; parsed but ignored in the open-source edition."
             items:
-              $ref: "#/components/schemas/FlowPluginDefault"
+              type: string
           concurrency:
             $ref: "#/components/schemas/Concurrency"
           outputs:
@@ -20839,16 +21781,6 @@ components:
           type: string
         id:
           type: string
-    FlowPluginDefault:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-        values:
-          type: object
-          additionalProperties: false
     FlowRelation:
       type: string
       enum:
@@ -20938,9 +21870,6 @@ components:
           type: integer
           format: int64
         hasTriggersCount:
-          type: integer
-          format: int64
-        hasPluginDefaultsCount:
           type: integer
           format: int64
         hasConcurrencyCount:
@@ -21416,6 +22345,8 @@ components:
               type: array
             SUPPORT:
               type: array
+            POLICY:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -21508,6 +22439,8 @@ components:
             MCP_SERVER:
               type: array
             SUPPORT:
+              type: array
+            POLICY:
               type: array
             APP_EXECUTION:
               type: array
@@ -22791,10 +23724,6 @@ components:
           type: object
           additionalProperties:
             type: object
-        pluginDefaults:
-          type: array
-          items:
-            $ref: "#/components/schemas/PluginDefault"
         allowedNamespaces:
           type: array
           items:
@@ -22832,20 +23761,6 @@ components:
       - namespace
       type: object
       properties:
-        namespace:
-          type: string
-    NamespaceController.ApiInheritedPluginDefaultFromNamespace:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-        forced:
-          type: boolean
-        values:
-          type: object
-          additionalProperties: false
         namespace:
           type: string
     NamespaceFileRevision:
@@ -23067,6 +23982,22 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiMcpServer"
+        total:
+          type: integer
+          format: int64
+        type:
+          $ref: "#/components/schemas/PaginationType"
+        nextCursor:
+          type: string
+    PagedResults_ApiPolicySummary_:
+      required:
+      - results
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicySummary"
         total:
           type: integer
           format: int64
@@ -23897,18 +24828,6 @@ components:
           nullable: true
           allOf:
           - $ref: "#/components/schemas/PluginIcon"
-    PluginDefault:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-        forced:
-          type: boolean
-        values:
-          type: object
-          additionalProperties: false
     PluginDistribution:
       type: string
       enum:
@@ -24002,6 +24921,289 @@ components:
           type: string
         distribution:
           $ref: "#/components/schemas/PluginDistribution"
+    Policy:
+      required:
+      - deleted
+      - enforcement
+      - id
+      - rules
+      type: object
+      properties:
+        id:
+          title: "The policy identity — a lowercase RFC 1123 label, unique per (scope,\
+            \ tenantId, namespace)."
+          type: string
+        displayName:
+          title: Human-friendly name rendered in the Governance UI.
+          type: string
+        description:
+          title: Human-readable intent of the policy.
+          type: string
+        enforcement:
+          title: Lifecycle state of the policy.
+          allOf:
+          - $ref: "#/components/schemas/Enforcement"
+        target:
+          title: "Optional application refinement within the scope's reach: tenants\
+            \ for INSTANCE/STATIC, namespace subtrees for TENANT. Absent = the whole\
+            \ placement."
+          allOf:
+          - $ref: "#/components/schemas/PolicyTarget"
+        rules:
+          title: "The mutate and validate rules; non-empty, any mix of the two families."
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Rule"
+        source:
+          title: "The original YAML source, preserved for round-trip editing; null\
+            \ when the policy was authored through the structured API."
+          type: string
+        deleted:
+          type: boolean
+      description: A governance policy bundling a scope placement with mutate and
+        validate rules applied to flows.
+    PolicyConflict:
+      type: object
+      properties:
+        target:
+          title: The property path both rules target.
+          type: string
+        addPolicyId:
+          title: The id of the policy whose Add rule injects the property.
+          type: string
+        addScope:
+          title: The scope of the policy whose Add rule injects the property.
+          allOf:
+          - $ref: "#/components/schemas/Scope"
+        deletePolicyId:
+          title: The id of the policy whose Delete rule removes the property.
+          type: string
+        deleteScope:
+          title: The scope of the policy whose Delete rule removes the property.
+          allOf:
+          - $ref: "#/components/schemas/Scope"
+      description: An Add-vs-Delete collision on the same property within one scope
+        chain.
+    PolicyEvaluation:
+      type: object
+      properties:
+        counts:
+          title: The aggregate counters over every scanned resource; counts.scanned
+            is the denominator.
+          allOf:
+          - $ref: "#/components/schemas/ApiPolicyEvaluation.Counts"
+        total:
+          title: The total number of affected resources across all pages.
+          type: integer
+          format: int64
+        results:
+          title: "The requested page of affected resources — those the policy would\
+            \ mutate, block, or conflict on."
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyEvaluationResult"
+      description: Stateless dry-run of a single policy against every resource in
+        its scope.
+    PolicyEvaluationResult:
+      type: object
+      properties:
+        resource:
+          title: The identity of the affected resource.
+          allOf:
+          - $ref: "#/components/schemas/ApiPolicyEvaluation.Resource"
+        mutations:
+          title: The per-property changes the policy would make to the resource.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyMutation"
+        violations:
+          title: The rule violations the policy would report against the resource.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyViolation"
+        conflicts:
+          title: The Add-vs-Delete collisions detected while applying the policy.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyConflict"
+      description: "One affected resource with the mutations, violations, and conflicts\
+        \ the policy would produce on it."
+    PolicyImportResult:
+      type: object
+      properties:
+        imported:
+          type: integer
+          format: int32
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiPolicyImportResult.Error"
+      description: "Result of a policy import: how many policies were imported, plus\
+        \ per-document errors (valid documents still import)."
+    PolicyMutation:
+      type: object
+      properties:
+        action:
+          title: The kind of change.
+          allOf:
+          - $ref: "#/components/schemas/ApiPolicyMutation.Action"
+        target:
+          title: The property path that changed.
+          type: string
+        value:
+          title: The value after enforcement; null for REMOVED.
+          type: object
+        previousValue:
+          title: The value before enforcement; null for ADDED.
+          type: object
+        policyId:
+          title: The id of the policy that made the change.
+          type: string
+        scope:
+          title: The scope of the policy that made the change.
+          allOf:
+          - $ref: "#/components/schemas/Scope"
+      description: "A single change a policy made to a property, attributed to the\
+        \ policy that last wrote it."
+    PolicyPreviewRequest:
+      required:
+      - namespace
+      - source
+      type: object
+      properties:
+        namespace:
+          type: string
+        source:
+          type: string
+      description: "Request body for the merged policy preview: a flow source to resolve\
+        \ policies against, plus the namespace it targets."
+    PolicyPreviewResponse:
+      type: object
+      properties:
+        resolvedSource:
+          title: The flow source after applying the policy mutations; identical to
+            the input when no policy applies.
+          type: string
+        mutations:
+          title: The per-property changes the policies made to the flow.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyMutation"
+        violations:
+          title: The rule violations reported against the post-mutation flow.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyViolation"
+        conflicts:
+          title: The Add-vs-Delete collisions detected within the policy chain.
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyConflict"
+      description: Result of dry-running the applicable policy chain against a flow
+        source.
+    PolicyRequest:
+      required:
+      - id
+      - rules
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        enforcement:
+          $ref: "#/components/schemas/Enforcement"
+        target:
+          title: "Optional application refinement within the scope's reach: tenants\
+            \ for INSTANCE, namespace subtrees for TENANT."
+          allOf:
+          - $ref: "#/components/schemas/Target"
+        rules:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Rule"
+      description: "Create/update payload for a policy; scope, tenant and namespace\
+        \ are derived from the URL."
+    PolicyRuleSummary:
+      type: object
+      properties:
+        mutate:
+          type: integer
+          format: int32
+        validate:
+          type: integer
+          format: int32
+      description: Rule counts by family.
+    PolicySummary:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        scope:
+          $ref: "#/components/schemas/Scope"
+        namespace:
+          type: string
+        target:
+          $ref: "#/components/schemas/PolicyTarget"
+        enforcement:
+          $ref: "#/components/schemas/Enforcement"
+        rules:
+          $ref: "#/components/schemas/PolicyRuleSummary"
+      description: "A governance policy listing entry, without the rule payloads."
+    PolicyTarget:
+      type: object
+      properties:
+        tenants:
+          title: The tenants the policy applies to; INSTANCE and STATIC scopes only.
+            Absent = every tenant.
+          type: array
+          items:
+            type: string
+        namespaces:
+          title: The namespace subtrees the policy applies to; TENANT scope only.
+            Absent = the whole tenant.
+          type: array
+          items:
+            type: string
+      description: "Narrows where the policy applies within its scope: tenants for\
+        \ INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
+    PolicyViolation:
+      type: object
+      properties:
+        severity:
+          title: "The severity of the violation — BLOCK rejects the resource, WARN\
+            \ only reports."
+          allOf:
+          - $ref: "#/components/schemas/RuleAction"
+        ruleType:
+          title: The fully-qualified type of the rule that reported the violation.
+          type: string
+        target:
+          title: The property path (or plugin type) the violation applies to.
+          type: string
+        message:
+          title: The human-readable violation message.
+          type: string
+        policyId:
+          title: The id of the policy carrying the violated rule.
+          type: string
+        scope:
+          title: The scope of the policy carrying the violated rule.
+          allOf:
+          - $ref: "#/components/schemas/Scope"
+        taskId:
+          title: The id of the violating task or trigger; null for resource-level
+            violations.
+          type: string
+      description: A single rule violation reported against the post-mutation resource.
     Property_Boolean_:
       type: object
       properties:
@@ -24111,6 +25313,8 @@ components:
       - scope
       - namespace
       - kind
+      - POLICY_SCOPE
+      - ENFORCEMENT
       - labels
       - tags
       - metadata
@@ -24164,6 +25368,8 @@ components:
       - SCOPE
       - NAMESPACE
       - KIND
+      - POLICY_SCOPE
+      - ENFORCEMENT
       - LABELS
       - TAGS
       - METADATA
@@ -24336,6 +25542,7 @@ components:
       - COPILOT
       - MCP_SERVER
       - SUPPORT
+      - POLICY
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
@@ -24484,6 +25691,8 @@ components:
               type: array
             SUPPORT:
               type: array
+            POLICY:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -24524,6 +25733,35 @@ components:
         count:
           type: integer
           format: int64
+    Rule:
+      required:
+      - "on"
+      - type
+      type: object
+      properties:
+        type:
+          title: The type of the rule.
+          minLength: 1
+          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          type: string
+        "on":
+          $ref: "#/components/schemas/RuleTarget"
+        where:
+          type: array
+          items:
+            $ref: "#/components/schemas/Condition"
+    RuleAction:
+      title: "The severity of the violation — BLOCK rejects the resource, WARN only\
+        \ reports."
+      type: string
+      enum:
+      - BLOCK
+      - WARN
+    RuleTarget:
+      type: string
+      enum:
+      - FLOW
+      - PLUGIN
     SDK.Auth:
       type: object
       properties:
@@ -24669,11 +25907,11 @@ components:
       - FLOW
       - TASK
       - TRIGGER
-      - PLUGINDEFAULT
       - APPS
       - TESTSUITES
       - DASHBOARD
       - REUSABLEINPUTS
+      - POLICY
     ScimExtension:
       type: object
       properties:
@@ -24737,6 +25975,13 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/UserGroup"
+    Scope:
+      type: string
+      enum:
+      - STATIC
+      - INSTANCE
+      - TENANT
+      - NAMESPACE
     SearchRequest:
       type: object
       allOf:
@@ -25142,6 +26387,23 @@ components:
       - DOCKER
       - STANDALONE
       x-type: String
+    Target:
+      type: object
+      properties:
+        tenants:
+          title: The tenants the policy applies to; INSTANCE and STATIC scopes only.
+            Absent = every tenant.
+          type: array
+          items:
+            type: string
+        namespaces:
+          title: The namespace subtrees the policy applies to; TENANT scope only.
+            Absent = the whole tenant.
+          type: array
+          items:
+            type: string
+      description: "Narrows where the policy applies within its scope: tenants for\
+        \ INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     Task:
       required:
       - id
@@ -25184,6 +26446,13 @@ components:
           description: Routing requirements (tags + fallback) for this task.
           allOf:
           - $ref: "#/components/schemas/WorkerSelector"
+        policyRefs:
+          type: array
+          description: "Identifiers of `enforcement: REFERENCE` governance policies\
+            \ to attach to this task and everything nested under it (Enterprise Edition;\
+            \ ignored in the open-source edition)."
+          items:
+            type: string
         logLevel:
           $ref: "#/components/schemas/Level"
         allowFailure:
