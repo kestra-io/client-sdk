@@ -15,7 +15,9 @@ describe('QuotasApi', () => {
     it('quotas round-trip through the owning tenant', async () => {
         // Quotas are not a standalone create API — they are configured on the
         // Tenant (`Tenant.quotas`). Create a tenant carrying a quota and assert it
-        // survives the round-trip, giving a real asserted quota value.
+        // survives the round-trip, giving a real asserted quota value. (Verified
+        // against a freshly-pulled kestra-ee `develop`: create + GET both echo the
+        // quotas array back unchanged.)
         const id = randomId();
         const quota = { duration: 'PT1H', limit: 1000, behavior: 'FAIL' } as const;
         const tenant: Tenant = {
