@@ -59,7 +59,7 @@ describe('PluginsApi', () => {
     });
 
     it('propertiesFromType: returns the JSON-schema properties for a type', async () => {
-        const result = await kestraClient.Plugins.propertiesFromType({ type: 'TASK' });
+        const result = await Plugins.propertiesFromType({ type: 'TASK' });
         // A JSON Schema document: a `$schema` dialect marker plus the
         // `properties`/`required` describing every task property.
         expect(result).toMatchObject({ $schema: expect.stringContaining('json-schema.org') });
@@ -67,7 +67,7 @@ describe('PluginsApi', () => {
     });
 
     it('schemasFromType: returns the JSON schema for a type', async () => {
-        const result = await kestraClient.Plugins.schemasFromType({ type: 'FLOW' });
+        const result = await Plugins.schemasFromType({ type: 'FLOW' });
         // A JSON Schema document: a `$schema` dialect marker, a top-level `$ref`,
         // and the `definitions` it resolves into.
         expect(result).toMatchObject({ $schema: expect.stringContaining('json-schema.org') });
@@ -75,14 +75,14 @@ describe('PluginsApi', () => {
     });
 
     it('pluginIcon: returns the icon for a plugin class', async () => {
-        const result = await kestraClient.Plugins.pluginIcon({ cls: 'io.kestra.plugin.core.log.Log' });
+        const result = await Plugins.pluginIcon({ cls: 'io.kestra.plugin.core.log.Log' });
         // A core plugin always ships an icon, so the wrapped icon is non-null.
         expect(result.icon).toBeTruthy();
     });
 
     it('pluginVersions: lists the versions of a plugin class', async () => {
         const cls = 'io.kestra.plugin.core.log.Log';
-        const result = await kestraClient.Plugins.pluginVersions({ cls });
+        const result = await Plugins.pluginVersions({ cls });
         // The endpoint echoes the requested plugin class back in `type`.
         expect(result.type).toBe(cls);
     });
@@ -90,18 +90,18 @@ describe('PluginsApi', () => {
     it('pluginDocumentationFromVersion: gets documentation for a specific plugin version', async () => {
         const cls = 'io.kestra.plugin.core.log.Log';
         // Source a real version from pluginVersions rather than hard-coding one.
-        const { versions } = await kestraClient.Plugins.pluginVersions({ cls });
+        const { versions } = await Plugins.pluginVersions({ cls });
         const version = versions?.[0];
         // A semver-style version, optionally with a pre-release suffix (e.g. -SNAPSHOT).
         expect(version).toMatch(/^\d+\.\d+\.\d+/);
 
-        const result = await kestraClient.Plugins.pluginDocumentationFromVersion({ cls, version: version! });
+        const result = await Plugins.pluginDocumentationFromVersion({ cls, version: version! });
         // The rendered markdown documents the Log task.
         expect(result.markdown).toContain('Log');
     });
 
     it('pluginUiManifest: returns the UI manifest for the given tasks', async () => {
-        const result = await kestraClient.Plugins.pluginUiManifest({
+        const result = await Plugins.pluginUiManifest({
             body: [{ cls: 'io.kestra.plugin.core.log.Log' }],
         });
         // Shape is { manifest: { [key]: PluginUiModuleWithGroup[] } }. Core Log

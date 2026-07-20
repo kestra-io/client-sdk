@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient, randomId } from './CommonTestSetup.js';
+import { randomId } from './_utils.js';
 import * as Quotas from '@kestra-io/kestra-sdk/quotas';
+import * as TenantsAdmin from '@kestra-io/kestra-sdk/tenants-admin';
 import type { Tenant } from '@kestra-io/kestra-sdk';
 
 describe('QuotasApi', () => {
@@ -26,9 +27,9 @@ describe('QuotasApi', () => {
             deleted: false,
             quotas: [quota],
         };
-        await kestraClient.TenantsAdmin.create(tenant);
+        await TenantsAdmin.create(tenant);
 
-        const result = await kestraClient.TenantsAdmin.get({ id });
+        const result = await TenantsAdmin.get({ id });
         expect((result as any).quotas).toEqual([quota]);
     });
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { randomId } from './CommonTestSetup.js';
+import { randomId } from './_utils.js';
 import * as WorkerQueues from '@kestra-io/kestra-sdk/worker-queues';
 import * as WorkerQueuesAdmin from '@kestra-io/kestra-sdk/worker-queues-admin';
 

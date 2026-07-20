@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import './CommonTestSetup.js';
+import { randomId } from './_utils.js';
 import * as ReusableInputs from '@kestra-io/kestra-sdk/reusable-inputs';
 
 describe('ReusableInputsApi', () => {
@@ -11,9 +11,28 @@ describe('ReusableInputsApi', () => {
         expect(Array.isArray(result)).toBe(true);
     });
 
-    // `createOrUpdate` (and `revisions`, which needs a block to exist) are not
-    // covered: the endpoint consumes application/x-yaml, but the generated SDK
-    // wrapper hardcodes Content-Type: application/json, so the YAML body is
-    // rejected (HTTP 500). Tracked in #340 — re-enable once the generator emits
-    // the correct content type for YAML request bodies.
+    it('createOrUpdate: creates reusable inputs from YAML source', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const body = `id: ${id}\nnamespace: ${namespace}\ninputs:\n  - id: in\n    type: STRING\n`;
+
+        const result = await ReusableInputs.createOrUpdate({ namespace, id, body });
+
+        expect(result.id).toBe(id);
+        expect(result.namespace).toBe(namespace);
+        expect(result.inputs).toEqual([expect.objectContaining({ id: 'in', type: 'STRING' })]);
+    });
+
+    it('revisions: lists revision history for reusable inputs', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const body = `id: ${id}\nnamespace: ${namespace}\ninputs:\n  - id: in\n    type: STRING\n`;
+        await ReusableInputs.createOrUpdate({ namespace, id, body });
+
+        const result = await ReusableInputs.revisions({ namespace, id });
+
+        expect(Array.isArray(result)).toBe(true);
+        expect(result).toHaveLength(1);
+        expect(result[0]).toMatchObject({ id, namespace });
+    });
 });
