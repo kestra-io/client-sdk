@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import './CommonTestSetup.js';
 import * as Expressions from '@kestra-io/kestra-sdk/expressions';
 
 describe('ExpressionsApi', () => {

@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient, randomId, getSimpleFlowAndId } from './CommonTestSetup.js';
+import { randomId, getSimpleFlowAndId } from './_utils.js';
+import * as Flows from '@kestra-io/kestra-sdk/flows';
+import * as Apps from '@kestra-io/kestra-sdk/apps';
 
 function appYaml(id: string, namespace: string, flowId: string): string {
     return `id: ${id}
@@ -25,8 +27,8 @@ layout:
 
 async function createApp() {
     const { flowId, flowNamespace, flowBody } = getSimpleFlowAndId();
-    await kestraClient.Flows.createFlow({ body: flowBody });
-    const app = await kestraClient.Apps.createApp({ body: appYaml(randomId(), flowNamespace, flowId) });
+    await Flows.createFlow({ body: flowBody });
+    const app = await Apps.createApp({ body: appYaml(randomId(), flowNamespace, flowId) });
     return app;
 }
 
@@ -44,12 +46,12 @@ describe('AppsApi', () => {
             throw new Error('createApp() did not return a uid');
         }
 
-        const fetched = await kestraClient.Apps.app({ uid });
+        const fetched = await Apps.app({ uid });
         expect(fetched.uid).toEqual(uid);
     });
 
     it('searchApps: returns a paged result', async () => {
-        const result = await kestraClient.Apps.searchApps({ page: 1, size: 10 });
+        const result = await Apps.searchApps({ page: 1, size: 10 });
         expect(result).toBeDefined();
     });
 
@@ -61,7 +63,7 @@ describe('AppsApi', () => {
         const updatedSrc = originalSrc.replace('# Test App', `# Test App Updated ${randomId()}`);
         const body = updatedSrc || originalSrc;
 
-        const updated = await kestraClient.Apps.updateApp({ uid, body });
+        const updated = await Apps.updateApp({ uid, body });
         expect(updated).toBeDefined();
     });
 
@@ -69,16 +71,16 @@ describe('AppsApi', () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.deleteApp({ uid });
+        await Apps.deleteApp({ uid });
     });
 
     it('listTags: lists all app tags', async () => {
-        const result = await kestraClient.Apps.listTags();
+        const result = await Apps.listTags();
         expect(result).toBeDefined();
     });
 
     it('searchAppsFromCatalog: returns catalog apps', async () => {
-        const result = await kestraClient.Apps.searchAppsFromCatalog({ page: 1, size: 10 });
+        const result = await Apps.searchAppsFromCatalog({ page: 1, size: 10 });
         expect(result).toBeDefined();
     });
 
@@ -86,34 +88,34 @@ describe('AppsApi', () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.bulkDeleteApps({ uids: [uid] });
+        await Apps.bulkDeleteApps({ uids: [uid] });
     });
 
     it('bulkDisableApps: bulk disables apps by UIDs', async () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.bulkDisableApps({ uids: [uid] });
+        await Apps.bulkDisableApps({ uids: [uid] });
     });
 
     it('bulkEnableApps: bulk enables apps by UIDs', async () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.bulkEnableApps({ uids: [uid] });
+        await Apps.bulkEnableApps({ uids: [uid] });
     });
 
     it('disableApp: disables a single app', async () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.disableApp({ uid });
+        await Apps.disableApp({ uid });
     });
 
     it('enableApp: enables a single app', async () => {
         const app = await createApp();
         const uid = (app as any).uid ?? (app as any).id;
 
-        await kestraClient.Apps.enableApp({ uid });
+        await Apps.enableApp({ uid });
     });
 });

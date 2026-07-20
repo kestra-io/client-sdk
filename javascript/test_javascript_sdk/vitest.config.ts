@@ -29,6 +29,7 @@ export default defineConfig({
     },
 
     test: {
+        setupFiles: ["test_javascript_sdk/_setup.ts"],
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
         reporters: ["default", "json"],
