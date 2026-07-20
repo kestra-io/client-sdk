@@ -1,7 +1,7 @@
 import type { UserConfig } from "@hey-api/openapi-ts";
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { defineConfigKestraHeyOptionalTenant } from "./heyapi-sdk-plugin";
+import { defineConfigKestraHeyOptionalTenant, fixYamlSourceRequestBodyContentType } from "./heyapi-sdk-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +17,13 @@ const generateHash = (str: string) => {
 
 export default {
     input: path.resolve(__dirname, "../../kestra-ee.sanitized.yml"),
+    parser: {
+        patch: {
+            // hey-api prefers the application/json variant when resolving a request
+            // body; force application/x-yaml for YAML-source bodies (issue #340).
+            operations: fixYamlSourceRequestBodyContentType,
+        },
+    },
     output: {
         path: path.resolve(__dirname, "./src/openapi"),
         postProcess: [
