@@ -44,49 +44,21 @@ for KESTRA_VERSION in $versions; do
   }
 
   # ---------------------------------------------------------------------------
-  # Shard the suite across fresh stacks to cap the kestra-ee 2.0 scheduler heap
-  # leak (see docker-compose-ci.yml). The leak is time-driven and takes a few
-  # hundred seconds to OOM even at 4g; by splitting the suite and fully resetting
-  # the stack (down/up = fresh JVM + empty DB) between shards, each JVM lives
-  # well under that threshold and never accumulates far enough to die.
-  #
-  # ISOLATED_FILES each get their own fresh stack; the rest are round-robined
-  # into NSHARDS groups. Files that drive the heap hardest run solo so a single
-  # shard never lives long enough (or allocates enough) to hit the leak:
-  #   - test_triggers_api: creates Schedule-trigger flows that feed
-  #     DefaultSchedulableTriggerFetcher directly — the scheduler-leak
-  #     ACCELERANT. Shards containing it OOM'd while a 141-test shard without it
-  #     ran clean in 27s, so the leak is driven by schedule flows, not test
-  #     volume. On a fresh short-lived stack the fetcher never chains far enough;
-  #   - test_test_suites_api: creates flows + suites and runs them end-to-end
-  #     (synchronous executions) — it OOM'd a shard right after ~56 other tests;
-  #   - test_namespaces_api: hammers the un-paginated namespace/secret/credential
-  #     endpoints (2.0 returns whole tables);
-  #   - test_logs_api: the feature under test, kept solo for a clean signal.
-  # Test files are independent (random ids, no cross-file state), so splitting by
-  # file is safe.
+  # Run every test file on its own fresh stack to cap the kestra-ee 2.0 scheduler
+  # heap leak (see docker-compose-ci.yml). The leak is time-driven from boot: the
+  # scheduler accumulates heap on a timer regardless of test volume, so ANY shard
+  # that lives long enough OOMs. We used to isolate only the known heap-heavy
+  # files (triggers/test_suites/namespaces/logs) and round-robin the rest into a
+  # few batches, but a 2026-07 freshness run proved that unsafe — a batch of
+  # "light" files (groups+phase4+users, none of them heap-heavy) still ran long
+  # enough to OOM the JVM mid-shard, then every remaining test in that shard hit
+  # the dead port (a wall of ConnectionRefused). So batching is out: each file
+  # gets its own short-lived JVM (down/up between shards = fresh JVM + empty DB),
+  # which never lives long enough for the timer leak to accumulate. Test files
+  # are independent (random ids, no cross-file state), so per-file is safe.
+  # test_helpers.py is an imported helper module (collects no tests), so skip it.
   # ---------------------------------------------------------------------------
-  NSHARDS="${NSHARDS:-4}"
-  ISOLATED_FILES="testApis/test_logs_api.py testApis/test_namespaces_api.py testApis/test_test_suites_api.py testApis/test_triggers_api.py"
-
-  mapfile -t ALL_FILES < <(ls testApis/test_*.py | sort)
-  rest=()
-  for f in "${ALL_FILES[@]}"; do
-    case " $ISOLATED_FILES " in
-      *" $f "*) : ;;            # isolated, handled as its own shard below
-      *) rest+=("$f") ;;
-    esac
-  done
-
-  # Build the shard list: each isolated file first (own fresh stack), then the
-  # rest round-robined into NSHARDS groups.
-  shards=()
-  for f in $ISOLATED_FILES; do shards+=("$f"); done
-  for ((g = 0; g < NSHARDS; g++)); do
-    grp=""
-    for ((i = g; i < ${#rest[@]}; i += NSHARDS)); do grp+="${rest[$i]} "; done
-    [ -n "$grp" ] && shards+=("${grp% }")
-  done
+  mapfile -t shards < <(ls testApis/test_*.py | grep -v '/test_helpers\.py$' | sort)
 
   test_rc=0
   shard_idx=0
@@ -111,8 +83,8 @@ for KESTRA_VERSION in $versions; do
     # 502s. Retry a failed test a couple of times (with a delay so the stack can
     # recover) so one transient blip doesn't red the whole suite. A genuinely
     # broken test still fails after its reruns.
-    # shellcheck disable=SC2086  # word-splitting intentional: shard is a file list
-    python3 -m pytest -v --timeout=10 --reruns 2 --reruns-delay 5 ${shard}
+    # shard is a single test file path (no spaces); quote it normally.
+    python3 -m pytest -v --timeout=10 --reruns 2 --reruns-delay 5 "${shard}"
     rc=$?
     set -e
     # exit code 5 = "no tests collected"; treat as success for this shard
