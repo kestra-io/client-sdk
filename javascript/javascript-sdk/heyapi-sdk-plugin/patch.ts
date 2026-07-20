@@ -1,22 +1,6 @@
 /**
- * `parser.patch.operations` callback that forces the generator to emit
- * `Content-Type: application/x-yaml` for YAML-source request bodies.
- *
- * Some endpoints (e.g. `PUT .../reusable-inputs/{id}`) accept a raw YAML document and declare
- * `application/x-yaml`, `text/plain` AND `application/json` request-body variants, all with a
- * plain `type: string` schema. hey-api resolves a request body to the JSON variant whenever one
- * is declared (`contents.find(json) || contents[0]` in its requestBody parser), so the generated
- * operation hardcodes `Content-Type: application/json` and the server fails to deserialize the
- * raw YAML string (HTTP 500 — kestra-io/client-sdk#340).
- *
- * For these string-schema YAML bodies, drop the `application/json` variant and reorder the
- * remaining content so `application/x-yaml` comes first — the parser then resolves the body to
- * the YAML variant regardless of spec ordering, and both `sdk.gen.ts` operations and the
- * generated wrappers send the correct content type.
- *
- * Bodies whose JSON variant carries a structured (non-string) schema (e.g. `validateTask`,
- * whose variants are all `type: object`) are left untouched: JSON is a legitimate
- * representation there and the SDK serializes those bodies as JSON objects.
+ * hey-api prefers a declared `application/json` request-body variant, mislabeling raw YAML source bodies (#340).
+ * For string-schema YAML bodies, drop the JSON variant and put `application/x-yaml` first so the parser picks it.
  */
 const YAML_MEDIA_TYPE = "application/x-yaml";
 const JSON_MEDIA_TYPE = "application/json";
