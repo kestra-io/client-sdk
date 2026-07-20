@@ -83,11 +83,11 @@ jobs:
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           bash run-tests.sh $KESTRA_VERSION
 
-      # The CI Kestra container dies with a Java heap OutOfMemoryError mid-run
-      # (regression on the 2.0 develop image). Instead of a multi-GB heap dump,
-      # upload small text diagnostics: the unified GC log (heap occupancy + Full GC
-      # events) and per-class histogram snapshots polled from the host, the last of
-      # which (before the OOM) shows the accumulating classes.
+      # The CI Kestra JVM occasionally dies mid-shard (2.0 develop image).
+      # run-tests.sh saves the dead container's full docker log (including
+      # -Xlog:gc heap lines and any "Terminating due to OutOfMemoryError"
+      # message) into kestra-logs/shard-NN-<file>.log the moment a shard
+      # fails, before the stack reset destroys the container.
       - name: Upload Kestra logs
         if: failure()
         uses: actions/upload-artifact@v4

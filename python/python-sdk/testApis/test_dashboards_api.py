@@ -220,6 +220,13 @@ def test_dashboard_chart_data_not_found(client):
         )
 
 
+@pytest.mark.xfail(
+    reason="kestra-ee 2.0 hangs on the chart-data endpoint (same as the "
+    "not-found variant above); a 2026-07-20 CI run showed the hang can also "
+    "end in the JVM dying (heap OOM, ExitOnOutOfMemoryError) ~150s in, so the "
+    "request exceeds the 10s pytest timeout",
+    strict=False,
+)
 def test_dashboard_chart_data_with_populated_filters(client):
     from datetime import datetime, timezone, timedelta
 

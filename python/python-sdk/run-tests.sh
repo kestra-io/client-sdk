@@ -80,30 +80,37 @@ for KESTRA_VERSION in $versions; do
     # --reruns: the 2.0 develop stack is intermittently slow/unresponsive (a
     # single request occasionally hangs past the 10s timeout) and community
     # blueprint endpoints proxy to an external api.kestra.io that flakes with
-    # 502s. Retry a failed test a couple of times (with a delay so the stack can
+    # 502s. Retry a failed test a few times (with a delay so the stack can
     # recover) so one transient blip doesn't red the whole suite. A genuinely
     # broken test still fails after its reruns.
+    # 3 reruns x 10s delay also spans a full Kestra reboot (~25s): if the JVM
+    # dies mid-shard, compose's restart:on-failure brings it back and the last
+    # rerun lands on a live server instead of ConnectionRefused.
     # shard is a single test file path (no spaces); quote it normally.
-    python3 -m pytest -v --timeout=10 --reruns 2 --reruns-delay 5 "${shard}"
+    python3 -m pytest -v --timeout=10 --reruns 3 --reruns-delay 10 "${shard}"
     rc=$?
     set -e
     # exit code 5 = "no tests collected"; treat as success for this shard
     if [ "$rc" -ne 0 ] && [ "$rc" -ne 5 ]; then
       test_rc=$rc
+      # Dump diagnostics NOW, before the next shard's `down` destroys the dead
+      # container — an end-of-run dump only ever sees the last (healthy) stack.
+      # How to read the state line: ExitCode=3 + "Terminating due to
+      # java.lang.OutOfMemoryError" in the log = heap OOM (ExitOnOutOfMemoryError);
+      # ExitCode=137 + OOMKilled=true = cgroup memory kill; Restarts>0 = the JVM
+      # died and docker brought it back mid-shard.
+      echo "shard ${shard_idx} (${shard}) failed (rc=$rc) - dumping stack diagnostics"
+      docker inspect python-sdk-test-kestra \
+        --format 'kestra: OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}} Restarts={{.RestartCount}}' || true
+      docker inspect python-sdk-test-postgres \
+        --format 'postgres: OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
+      mkdir -p kestra-logs
+      shard_log="kestra-logs/shard-$(printf '%02d' "$shard_idx")-$(basename "$shard" .py).log"
+      docker logs python-sdk-test-kestra > "$shard_log" 2>&1 || true
+      echo "----- kestra logs (last 60 lines; full log uploaded as the kestra-logs artifact: ${shard_log}) -----"
+      tail -n 60 "$shard_log" || true
     fi
   done
-
-  if [ "$test_rc" -ne 0 ]; then
-    echo "tests failed (rc=$test_rc) - dumping Kestra diagnostics before teardown"
-    echo "----- kestra container state -----"
-    docker inspect python-sdk-test-kestra \
-      --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}} Restarts={{.RestartCount}}' || true
-    echo "----- postgres container state -----"
-    docker inspect python-sdk-test-postgres \
-      --format 'OOMKilled={{.State.OOMKilled}} ExitCode={{.State.ExitCode}} Status={{.State.Status}}' || true
-    echo "----- kestra logs (last 300 lines) -----"
-    docker compose -f docker-compose-ci.yml logs --no-color --tail 300 kestra || true
-  fi
 
   echo "stop Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down
