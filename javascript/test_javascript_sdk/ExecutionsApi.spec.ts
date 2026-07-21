@@ -1397,60 +1397,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(done.state?.current).toBe("SUCCESS");
     }, 10000);
 
-    // SKIPPED: the webhook-with-path endpoints return 404 "Flow not found" on
-    // the current server (develop / 2.0) even though the *identical* flow is
-    // triggered successfully by the plain /webhook/{namespace}/{id}/{key}
-    // variants above. The `{path}` route resolves the flow differently, so
-    // these three wrappers can't be exercised against a standard Webhook
-    // trigger until that discrepancy is resolved server-side.
-    it.skip("trigger_execution_by_get_webhook_with_path", async () => {
-        const namespace = randomId();
-        const id = randomId();
-        await createFlow(WEBHOOK_FLOW(id, namespace));
-
-        const resp = await Executions.triggerExecutionByGetWebhookWithPath({
-            namespace,
-            id,
-            key: "a-secret-key",
-            path: "sub",
-        });
-        expect(resp.flowId).toBe(id);
-        const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
-        expect(done.state?.current).toBe("SUCCESS");
-    }, 10000);
-
-    it.skip("trigger_execution_by_post_webhook_with_path", async () => {
-        const namespace = randomId();
-        const id = randomId();
-        await createFlow(WEBHOOK_FLOW(id, namespace));
-
-        const resp = await Executions.triggerExecutionByPostWebhookWithPath({
-            namespace,
-            id,
-            key: "a-secret-key",
-            path: "sub",
-        });
-        expect(resp.flowId).toBe(id);
-        const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
-        expect(done.state?.current).toBe("SUCCESS");
-    }, 10000);
-
-    it.skip("trigger_execution_by_put_webhook_with_path", async () => {
-        const namespace = randomId();
-        const id = randomId();
-        await createFlow(WEBHOOK_FLOW(id, namespace));
-
-        const resp = await Executions.triggerExecutionByPutWebhookWithPath({
-            namespace,
-            id,
-            key: "a-secret-key",
-            path: "sub",
-        });
-        expect(resp.flowId).toBe(id);
-        const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
-        expect(done.state?.current).toBe("SUCCESS");
-    }, 10000);
-
     it("eval_taskrun_expression", async () => {
         const e = await createdExecution(LOG_FLOW, "SUCCESS");
         const taskRunId = e.taskRunList?.[0]?.id ?? "";
