@@ -120,12 +120,12 @@ paths:
           nullable: true
       - name: type
         in: query
-        description: The event that create the audit log
+        description: The action that created the audit log
         explode: false
         schema:
           nullable: true
           allOf:
-          - $ref: "#/components/schemas/CrudEventType"
+          - $ref: "#/components/schemas/AuditableAction"
       responses:
         "200":
           description: Ok
@@ -5554,12 +5554,12 @@ paths:
           nullable: true
       - name: type
         in: query
-        description: The event that create the audit log
+        description: The action that created the audit log
         explode: false
         schema:
           nullable: true
           allOf:
-          - $ref: "#/components/schemas/CrudEventType"
+          - $ref: "#/components/schemas/AuditableAction"
       - name: tenant
         in: path
         required: true
@@ -20159,7 +20159,7 @@ components:
         type:
           nullable: true
           allOf:
-          - $ref: "#/components/schemas/CrudEventType"
+          - $ref: "#/components/schemas/AuditableAction"
         detail:
           type: object
           additionalProperties:
@@ -20177,6 +20177,19 @@ components:
           type: string
         id:
           type: string
+    AuditableAction:
+      type: string
+      enum:
+      - READ
+      - CREATE
+      - UPDATE
+      - DELETE
+      - LOGIN
+      - LOGOUT
+      - IMPERSONATE
+      - LOGIN_FAILURE
+      - ACCOUNT_LOCKED
+      - UNKNOWN
     AuthController.Auth:
       type: object
       properties:
@@ -20306,7 +20319,7 @@ components:
         id:
           type: string
         type:
-          $ref: "#/components/schemas/CrudEventType"
+          $ref: "#/components/schemas/AuditableAction"
         detail:
           $ref: "#/components/schemas/AuditLogDetail"
         date:
@@ -20735,18 +20748,6 @@ components:
       - OAUTH2
       - GITHUB_APP
       - UNKNOWN
-    CrudEventType:
-      type: string
-      enum:
-      - READ
-      - CREATE
-      - UPDATE
-      - DELETE
-      - LOGIN
-      - LOGOUT
-      - IMPERSONATE
-      - LOGIN_FAILURE
-      - ACCOUNT_LOCKED
     DailyExecutionStatistics:
       required:
       - duration
