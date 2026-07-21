@@ -20,10 +20,14 @@ export default defineConfig({
         ...sdkEntries,
     },
     format: ["esm"],
+    // Bundle the shared runtime helper (createConfigureClient) from @kestra-io/hey-api-plugin into
+    // this package's dist so the published SDK stays self-contained — consumers don't need to install
+    // the plugin (it's a build/generation-time devDependency only).
+    deps: {
+        alwaysBundle: [/^@kestra-io\/hey-api-plugin/],
+    },
     dts: {
-        // Use tsc resolver so it respects tsconfig `moduleResolution: "bundler"`,
-        // which resolves axios to index.d.ts (ESM, named exports) instead of
-        // index.d.cts (CJS, export = axios), avoiding IMPORT_IS_UNDEFINED warnings.
+        // Use tsc resolver so it respects tsconfig `moduleResolution: "bundler"`.
         resolver: "tsc",
         sourcemap: true,
     },

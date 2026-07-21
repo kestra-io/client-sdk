@@ -78,7 +78,8 @@
     "nprogress": "0.2.0"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.97.3",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "@kestra-io/hey-api-plugin": "https://github.com/kestra-io/kestra/releases/download/hey-api-plugin-v0.1.0/kestra-io-hey-api-plugin-0.1.0.tgz",
     "@types/node": "^25.9.1",
     "@types/nprogress": "^0.2.3",
     "tsdown": "^0.22.0",
@@ -87,5 +88,8 @@
   "files": [
     "dist/**/*.js",
     "dist/**/*.d.ts"
-  ]
+  ],
+  "inlinedDependencies": {
+    "@kestra-io/hey-api-plugin": "0.1.0"
+  }
 }
