@@ -1365,7 +1365,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(flow.namespace).toBe(ns);
     });
 
-    // --- trigger execution by POST webhook ---
     it("trigger_execution_by_post_webhook", async () => {
         const namespace = randomId();
         const id = randomId();
@@ -1382,7 +1381,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(done.state?.current).toBe("SUCCESS");
     }, 10000);
 
-    // --- trigger execution by PUT webhook ---
     it("trigger_execution_by_put_webhook", async () => {
         const namespace = randomId();
         const id = randomId();
@@ -1453,7 +1451,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(done.state?.current).toBe("SUCCESS");
     }, 10000);
 
-    // --- eval a variable expression for a taskrun ---
     it("eval_taskrun_expression", async () => {
         const e = await createdExecution(LOG_FLOW, "SUCCESS");
         const taskRunId = e.taskRunList?.[0]?.id ?? "";
@@ -1468,7 +1465,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(result.error).toBeUndefined();
     });
 
-    // --- resume an execution from a breakpoint ---
     it("resume_execution_from_breakpoint", async () => {
         const ns = randomId();
         const id = randomId();
@@ -1488,7 +1484,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(done.state?.current).toBe("SUCCESS");
     }, 10000);
 
-    // --- validate inputs to resume a paused execution ---
     it("validate_resume_execution_inputs", async () => {
         const e = await createdExecution(PAUSE_FLOW, "PAUSED");
 
@@ -1503,7 +1498,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(result.checks).toEqual([]);
     });
 
-    // --- change the state of a taskrun in an execution ---
     it("update_taskrun_state", async () => {
         const e = await createdExecution(LOG_FLOW, "SUCCESS");
         const taskRunId = e.taskRunList?.[0]?.id ?? "";
@@ -1518,7 +1512,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(changed?.state?.current).toBe("FAILED");
     });
 
-    // --- preview a file produced by an execution ---
     it("preview_file_from_execution", async () => {
         const ns = randomId();
         const flowId = randomId();
@@ -1546,7 +1539,6 @@ describe("ExecutionsApi read-only long tail", () => {
         expect(preview.truncated).toBe(false);
     });
 
-    // --- validate inputs for a new execution ---
     it("validate_new_execution_inputs", async () => {
         const ns = randomId();
         const id = randomId();
