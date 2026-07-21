@@ -76,6 +76,20 @@ tasks:
     pauseDuration: PT2S
 `;
 
+const PAUSE_FLOW_WITH_RESUME_INPUT = (id: string, ns: string): string => `
+id: ${id}
+namespace: ${ns}
+
+tasks:
+  - id: pause_flow
+    type: io.kestra.plugin.core.flow.Pause
+    pauseDuration: PT2S
+    onResume:
+      - id: reason
+        type: STRING
+        defaults: approved
+`;
+
 const WEBHOOK_FLOW = (id: string, ns: string): string => `
 id: ${id}
 namespace: ${ns}
@@ -1431,16 +1445,23 @@ describe("ExecutionsApi read-only long tail", () => {
     }, 10000);
 
     it("validate_resume_execution_inputs", async () => {
-        const e = await createdExecution(PAUSE_FLOW, "PAUSED");
+        const e = await createdExecution(PAUSE_FLOW_WITH_RESUME_INPUT, "PAUSED");
 
         const result = await Executions.validateResumeExecutionInputs({
             executionId: e.id ?? "",
             body: [],
         }) as any;
-        // Returns a single validation summary. The Pause task declares no
-        // onResume inputs, so the input set and blocking checks are both empty.
+        // Returns a validation summary for the Pause task's onResume inputs.
         expect(result.namespace).toBe(e.namespace);
-        expect(result.inputs).toEqual([]);
+        // The single onResume input `reason` resolves to its declared default.
+        expect(result.inputs).toHaveLength(1);
+        const reasonInput = result.inputs?.[0];
+        expect(reasonInput?.input?.id).toBe("reason");
+        expect(reasonInput?.input?.type).toBe("STRING");
+        expect(reasonInput?.value).toBe("approved");
+        expect(reasonInput?.isDefault).toBe(true);
+        expect(reasonInput?.errors).toEqual([]);
+        // A satisfiable default means no blocking checks.
         expect(result.checks).toEqual([]);
     });
 
