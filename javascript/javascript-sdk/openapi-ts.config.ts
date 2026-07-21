@@ -1,7 +1,10 @@
 import type { UserConfig } from "@hey-api/openapi-ts";
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { defineConfigKestraHeyOptionalTenant } from "./heyapi-sdk-plugin";
+// The one openapi-ts plugin for the whole product: @kestra-io/hey-api-plugin, maintained in the
+// OSS monorepo (kestra/ui/packages/hey-api-plugin) and published to npm. Consumed here instead of
+// a forked local copy so the client-sdk, the OSS UI SDK and the EE UI SDK all generate identically.
+import { defineConfigKestraHeyOptionalTenant } from "@kestra-io/hey-api-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

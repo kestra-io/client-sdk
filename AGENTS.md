@@ -14,7 +14,7 @@ This runs the OpenAPI generator, installs npm dependencies, and builds the SDK. 
 
 > **Important:** Everything under `javascript/javascript-sdk/src/openapi/` is **auto-generated** and must not be edited by hand. Changes there will be overwritten on the next `./generate-sdks.sh javascript` run. To fix generated output, modify the generator sources instead:
 >
-> - `javascript/javascript-sdk/heyapi-sdk-plugin/plugin.ts` — custom hey-api plugin that emits the human-friendly SDK wrappers
+> - `@kestra-io/hey-api-plugin` — the custom hey-api plugin that emits the human-friendly SDK wrappers. It is **no longer vendored in this repo**: it is maintained in the OSS monorepo (`kestra/ui/packages/hey-api-plugin`), published to npm, and consumed here as a dependency so the client-sdk, the OSS UI SDK and the EE UI SDK all generate identically. Fix generator behavior there and publish a new version.
 > - `javascript/javascript-sdk/src/index.ts` — hand-written client setup and interceptors
 
 ## Repository Structure

@@ -80,6 +80,7 @@
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",
+    "@kestra-io/hey-api-plugin": "^0.0.1",
     "@types/node": "^25.9.1",
     "@types/nprogress": "^0.2.3",
     "tsdown": "^0.22.0",
