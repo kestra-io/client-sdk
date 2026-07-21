@@ -68,6 +68,20 @@ public class BlueprintsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    /**
+     * Search community blueprints.
+     *
+     * <p>Community blueprints are served from the external Kestra blueprint catalog and
+     * proxied through the server unchanged. The {@code sort} value (e.g. {@code "title:asc"})
+     * is forwarded to the catalog as-is; <strong>ordering is defined server-side and is not
+     * guaranteed to match the verbatim display field</strong>. In particular {@code "title:asc"}
+     * orders on the catalog's internal key rather than the visible {@code title}, so callers
+     * must not assume results are alphabetically ordered by {@code getTitle()}. Sort the results
+     * client-side if a specific display order is required.
+     *
+     * @param sort catalog sort expression, e.g. {@code "field:asc"} / {@code "field:desc"};
+     *             passed through to the server, whose ordering semantics apply
+     */
     public PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(
             @jakarta.annotation.Nonnull BlueprintControllerKind kind,
             @jakarta.annotation.Nonnull String tenant,
