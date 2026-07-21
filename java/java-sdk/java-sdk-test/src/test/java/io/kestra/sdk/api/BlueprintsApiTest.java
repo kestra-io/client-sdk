@@ -39,10 +39,10 @@ public class BlueprintsApiTest {
 
     @Test
     void searchBlueprints_withSort() throws ApiException {
-        // Note: the community catalog's "title:asc" does not sort by the display
-        // title verbatim (it orders on an internal key), so we only assert the sort
-        // parameter is accepted and a well-formed result comes back — not that the
-        // visible titles are alphabetically ordered.
+        // Note: the community catalog currently ignores "sort" and returns a fixed,
+        // curated order (e.g. "title:asc" and "title:desc" yield identical results),
+        // so we only assert the sort parameter is accepted and a well-formed result
+        // comes back — not that the visible titles are alphabetically ordered.
         PagedResultsBlueprintControllerApiBlueprintItem result =
                 api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, "title:asc", null, 1, 10);
 

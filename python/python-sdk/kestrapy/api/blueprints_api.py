@@ -38,6 +38,18 @@ class BlueprintsApi(BaseApi):
         page: Optional[int] = None,
         size: Optional[int] = None,
     ) -> PagedResultsBlueprintControllerApiBlueprintItem:
+        """Search community blueprints.
+
+        Community blueprints are served from the external Kestra blueprint catalog
+        and proxied through the server unchanged. **The ``sort`` value is currently
+        ignored by the catalog**: it returns a fixed, curated order regardless of the
+        expression passed (e.g. ``"title:asc"`` and ``"title:desc"`` yield identical
+        results). Do not rely on ``sort`` to order community blueprints — sort the
+        results client-side if a specific order is required.
+
+        :param sort: catalog sort expression, e.g. ``"field:asc"`` / ``"field:desc"``;
+            accepted for API-contract parity but currently ignored by the community catalog.
+        """
         path = self._tenant_path(tenant, "blueprints", "community", kind.value)
         params = list(self._build_query_params(q=q, sort=sort, page=page, size=size).items())
         self._append_repeated_param(params, "tags", tags)
