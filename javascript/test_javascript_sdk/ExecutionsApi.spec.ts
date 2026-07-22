@@ -76,6 +76,20 @@ tasks:
     pauseDuration: PT2S
 `;
 
+const PAUSE_FLOW_WITH_RESUME_INPUT = (id: string, ns: string): string => `
+id: ${id}
+namespace: ${ns}
+
+tasks:
+  - id: pause_flow
+    type: io.kestra.plugin.core.flow.Pause
+    pauseDuration: PT2S
+    onResume:
+      - id: reason
+        type: STRING
+        defaults: approved
+`;
+
 const WEBHOOK_FLOW = (id: string, ns: string): string => `
 id: ${id}
 namespace: ${ns}
@@ -1328,5 +1342,189 @@ describe("ExecutionsApi read-only long tail", () => {
             body: "{{ execution.id }}",
         });
         expect(result.result).toBe(execution.id);
+    });
+
+    // --- export executions (CSV by query) ---
+    it("export_executions", async () => {
+        const ns = randomId();
+        const flowId = randomId();
+        const e = await createFlowWithExecution(flowId, ns);
+
+        const csv = await Executions.exportExecutions({
+            filters: [
+                {
+                    field: QF_FIELD.NAMESPACE,
+                    operation: QF_OP.EQUALS,
+                    value: ns,
+                },
+            ],
+        });
+        // Streamed as CSV text; the exported row carries the flow id.
+        const text = typeof csv === "string" ? csv : JSON.stringify(csv);
+        expect(text).toContain(flowId);
+        expect(text).toContain(e.id);
+    });
+
+    // --- flow from execution (by namespace + flow id) ---
+    it("flow_from_execution", async () => {
+        const ns = randomId();
+        const flowId = randomId();
+        await createFlowWithExecution(flowId, ns);
+
+        const flow = await Executions.flowFromExecution({
+            namespace: ns,
+            flowId,
+        });
+        expect(flow.id).toBe(flowId);
+        expect(flow.namespace).toBe(ns);
+    });
+
+    it("trigger_execution_by_post_webhook", async () => {
+        const namespace = randomId();
+        const id = randomId();
+        await createFlow(WEBHOOK_FLOW(id, namespace));
+
+        const resp = await Executions.triggerExecutionByPostWebhook({
+            namespace,
+            id,
+            key: "a-secret-key",
+        });
+        expect(resp.flowId).toBe(id);
+        expect(resp.namespace).toBe(namespace);
+        const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
+        expect(done.state?.current).toBe("SUCCESS");
+    }, 10000);
+
+    it("trigger_execution_by_put_webhook", async () => {
+        const namespace = randomId();
+        const id = randomId();
+        await createFlow(WEBHOOK_FLOW(id, namespace));
+
+        const resp = await Executions.triggerExecutionByPutWebhook({
+            namespace,
+            id,
+            key: "a-secret-key",
+        });
+        expect(resp.flowId).toBe(id);
+        expect(resp.namespace).toBe(namespace);
+        const done = await awaitExecution(resp.id ?? "", "SUCCESS", 5000, 100);
+        expect(done.state?.current).toBe("SUCCESS");
+    }, 10000);
+
+    it("eval_taskrun_expression", async () => {
+        const e = await createdExecution(LOG_FLOW, "SUCCESS");
+        const taskRunId = e.taskRunList?.[0]?.id ?? "";
+        expect(taskRunId).toBeTruthy();
+
+        const result = await Executions.evalTaskRunExpression({
+            executionId: e.id ?? "",
+            taskRunId,
+            body: "{{ flow.id }}",
+        });
+        expect(result.result).toBe(e.flowId);
+        expect(result.error).toBeUndefined();
+    });
+
+    it("resume_execution_from_breakpoint", async () => {
+        const ns = randomId();
+        const id = randomId();
+        await createSimpleFlow(id, ns, LOG_FLOW);
+
+        // Start with a breakpoint on the only task so the execution parks in BREAKPOINT.
+        const e = await Executions.createExecution({
+            namespace: ns,
+            id,
+            breakpoints: "hello",
+        });
+        const paused = await awaitExecution(e.id, "BREAKPOINT", 5000, 100);
+        expect(paused.state?.current).toBe("BREAKPOINT");
+
+        await Executions.resumeExecutionFromBreakpoint({ executionId: e.id });
+        const done = await awaitExecution(e.id, "SUCCESS", 5000, 100);
+        expect(done.state?.current).toBe("SUCCESS");
+    }, 10000);
+
+    it("validate_resume_execution_inputs", async () => {
+        const e = await createdExecution(PAUSE_FLOW_WITH_RESUME_INPUT, "PAUSED");
+
+        const result = await Executions.validateResumeExecutionInputs({
+            executionId: e.id ?? "",
+            body: [],
+        }) as any;
+        // Returns a validation summary for the Pause task's onResume inputs.
+        expect(result.namespace).toBe(e.namespace);
+        // The single onResume input `reason` resolves to its declared default.
+        expect(result.inputs).toHaveLength(1);
+        const reasonInput = result.inputs?.[0];
+        expect(reasonInput?.input?.id).toBe("reason");
+        expect(reasonInput?.input?.type).toBe("STRING");
+        expect(reasonInput?.value).toBe("approved");
+        expect(reasonInput?.isDefault).toBe(true);
+        expect(reasonInput?.errors).toEqual([]);
+        // A satisfiable default means no blocking checks.
+        expect(result.checks).toEqual([]);
+    });
+
+    it("update_taskrun_state", async () => {
+        const e = await createdExecution(LOG_FLOW, "SUCCESS");
+        const taskRunId = e.taskRunList?.[0]?.id ?? "";
+        expect(taskRunId).toBeTruthy();
+
+        const updated = await Executions.updateTaskRunState({
+            executionId: e.id ?? "",
+            taskRunId,
+            state: "FAILED",
+        });
+        const changed = updated.taskRunList?.find((t) => t.id === taskRunId);
+        expect(changed?.state?.current).toBe("FAILED");
+    });
+
+    it("preview_file_from_execution", async () => {
+        const ns = randomId();
+        const flowId = randomId();
+        const done = await (async () => {
+            const e = await createFlowWithExecutionFromYaml(
+                FILE_FLOW(flowId, ns),
+            );
+            return await awaitExecution(e.id, "SUCCESS", 5000, 100);
+        })();
+
+        const uri = await getOutputUriFromExecution({
+            executionId: done.id,
+            taskRunId: done.taskRunList?.[0]?.id ?? "",
+        });
+        const preview = await Executions.previewFileFromExecution({
+            executionId: done.id ?? "",
+            path: uri,
+            maxRows: 10,
+        }) as any;
+        // A .txt output previews as an untruncated TEXT block echoing the
+        // exact contents written by the Write task.
+        expect(preview.type).toBe("TEXT");
+        expect(preview.extension).toBe("txt");
+        expect(preview.content).toBe("Hello from file");
+        expect(preview.truncated).toBe(false);
+    });
+
+    it("validate_new_execution_inputs", async () => {
+        const ns = randomId();
+        const id = randomId();
+        await createSimpleFlow(id, ns, LOG_FLOW);
+
+        const result = await Executions.validateNewExecutionInputs({
+            namespace: ns,
+            id,
+            labels: [],
+            body: [],
+        }) as any;
+        // Returns a single validation summary for the flow's inputs.
+        expect(result.namespace).toBe(ns);
+        expect(result.id).toBe(id);
+        // LOG_FLOW declares one STRING input `key` resolved to its default.
+        const keyInput = result.inputs?.[0];
+        expect(keyInput?.input?.id).toBe("key");
+        expect(keyInput?.input?.type).toBe("STRING");
+        expect(keyInput?.value).toBe("empty");
+        expect(keyInput?.isDefault).toBe(true);
     });
 });
