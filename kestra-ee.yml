@@ -4265,11 +4265,11 @@ paths:
         required: true
       responses:
         "200":
-          description: bulkDeleteApps 200 response
+          description: Ok
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/AppsController.ApiBulkOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -4341,11 +4341,11 @@ paths:
         required: true
       responses:
         "200":
-          description: bulkDisableApps 200 response
+          description: Ok
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/AppsController.ApiBulkOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -4370,11 +4370,11 @@ paths:
         required: true
       responses:
         "200":
-          description: bulkEnableApps 200 response
+          description: Ok
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/AppsController.ApiBulkOperationResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5155,7 +5155,7 @@ paths:
           type: string
       responses:
         "200":
-          description: deleteAssetLineageEventsByQuery 200 response
+          description: Ok
           content:
             application/json:
               schema:
@@ -5302,7 +5302,7 @@ paths:
           type: string
       responses:
         "200":
-          description: deleteAssetUsagesByQuery 200 response
+          description: Ok
           content:
             application/json:
               schema:
@@ -16984,7 +16984,7 @@ paths:
         required: true
       responses:
         "200":
-          description: deleteTestSuitesByIds 200 response
+          description: Ok
           content:
             application/json:
               schema:
@@ -17014,7 +17014,7 @@ paths:
         required: true
       responses:
         "200":
-          description: disableTestSuitesByIds 200 response
+          description: Ok
           content:
             application/json:
               schema:
@@ -17044,7 +17044,7 @@ paths:
         required: true
       responses:
         "200":
-          description: enableTestSuitesByIds 200 response
+          description: Ok
           content:
             application/json:
               schema:
@@ -19850,6 +19850,13 @@ components:
       type: object
       properties:
         uids:
+          type: array
+          items:
+            type: string
+    AppsController.ApiBulkOperationResponse:
+      type: object
+      properties:
+        success:
           type: array
           items:
             type: string
