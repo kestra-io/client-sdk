@@ -42,6 +42,12 @@ services:
     # Generous heap buys margin so a single shard never approaches the
     # scheduler-leak OOM threshold within its (short) lifetime.
     mem_limit: 10g
+    # A 2026-07-20 main run proved the JVM can still die within ~40s of boot
+    # (well before the timer leak could matter), killing every remaining test
+    # in the shard with ConnectionRefused. Auto-restart so pytest's reruns hit
+    # a live server again; the death stays visible via Restarts>0 in the
+    # per-shard diagnostics that run-tests.sh dumps on failure.
+    restart: on-failure
     depends_on:
       postgres:
         condition: service_healthy
@@ -59,6 +65,9 @@ services:
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/confs/application-postgres.yml,/app/secrets/application-secrets.yml
       # Keep fail-fast on OOM so any regression is obvious instead of hanging.
-      JAVA_OPTS: "-Xms512m -Xmx8g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError"
+      # -Xlog:gc writes one line per GC (heap before->after) to stdout, i.e.
+      # into `docker logs`, so the per-shard log captured on failure shows
+      # whether the heap was climbing before the JVM died.
+      JAVA_OPTS: "-Xms512m -Xmx8g -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError -Xlog:gc:stdout:time,uptime"
     ports:
       - "9902:8080"

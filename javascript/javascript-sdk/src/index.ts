@@ -1,201 +1,162 @@
-import axios from "axios"
-import type { AxiosRequestConfig, AxiosError, AxiosInstance } from "axios"
 import { client } from "./openapi/client.gen"
-import type { ClientOptions, Config } from "./openapi/client"
+import { formDataBodySerializer } from "./openapi/client"
+import type { ResolvedRequestOptions } from "./openapi/client"
+import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
 
 export * from "./openapi/index"
 
-function canBeJsonified(str: any): boolean {
-    if (typeof str !== "string" && typeof str !== "object") return false;
-    try {
-        const type = str.toString();
-        return type === "[object Object]" || type === "[object Array]";
-    } catch {
-        return false;
+declare global {
+    interface Window {
+        KESTRA_BASE_PATH: string
     }
 }
 
-function serializeQueryValue(val: unknown) {
-    if (canBeJsonified(val)) {
-        return JSON.stringify(val);
+export interface AxiosLikeConfig {
+    params?: Record<string, unknown>
+    headers?: Record<string, string>
+    responseType?: "json" | "text" | "blob"
+    timeout?: number
+    validateStatus?: (status: number) => boolean
+    [key: string]: any
+}
+
+export interface AxiosLikeResponse<T = any> {
+    data: T
+    status: number
+    headers: Record<string, string>
+    // Optional so existing setMockClient()/test mocks aren't forced to fabricate one.
+    request?: { responseURL: string }
+}
+
+const commonHeaders: Record<string, string> = {}
+
+function withQuery(url: string, params?: Record<string, unknown>): string {
+    if (!params) return url
+    const search = new URLSearchParams()
+    for (const [key, value] of Object.entries(params)) {
+        if (value === undefined || value === null) continue
+        if (Array.isArray(value)) {
+            value.forEach(v => search.append(key, String(v)))
+        } else {
+            search.append(key, typeof value === "object" ? JSON.stringify(value) : String(value))
+        }
     }
-    return val?.toString();
+    const query = search.toString()
+    if (!query) return url
+    return url.includes("?") ? `${url}&${query}` : `${url}?${query}`
 }
 
-export function configureClient(clientConfig: Config<ClientOptions> = {}, axiosConfig: AxiosRequestConfig = {}) {
-    const instance = axios.create(axiosConfig)
+/** Shares client.interceptors.* with configureClient() so ad-hoc useClient() calls get the same behavior as generated endpoint calls. */
+async function axiosLikeRequest<T>(
+    method: string,
+    url: string,
+    data?: any,
+    config: AxiosLikeConfig = {}
+): Promise<AxiosLikeResponse<T>> {
+    const fullUrl = withQuery(url, config.params)
+    const headers = new Headers({ ...commonHeaders, ...(config.headers ?? {}) })
+    const isFormData = data instanceof FormData
 
-    instance.interceptors.request.use((config) => {
-        // Axios omits Content-Type for body-less requests, which causes servers that
-        // expect application/json (e.g. Kestra) to reject them with 401/415.
-        // Force application/json for POST/PUT/PATCH when the body is strictly absent.
-        const method = config.method?.toLowerCase()
-        if (method === "post" || method === "put" || method === "patch") {
-            if (config.data == null) {
-                config.headers["Content-Type"] = "application/json"
+    let body: BodyInit | undefined
+    if (isFormData || data instanceof Blob) {
+        body = data
+    } else if (data !== undefined) {
+        if (typeof data === "string") {
+            body = data
+        } else {
+            body = JSON.stringify(data)
+            if (!headers.has("content-type")) {
+                headers.set("content-type", "application/json")
             }
         }
+    }
 
-        // hey-api sets responseType:'blob'/'text' so Axios decodes the response body
-        // correctly, but does NOT set the Accept request header. Without an explicit
-        // Accept header, Kestra performs content negotiation and may return 404 when
-        // it finds no handler matching the client's implicit "Accept: application/json".
-        // Note: Axios injects a default "application/json, text/plain, */*" Accept header,
-        // so we must override whenever responseType indicates a non-JSON response — not
-        // only when the header is absent.
-        const axiosDefaultAccept = "application/json, text/plain, */*"
-        const currentAccept = config.headers["Accept"]
-        const hasCustomAccept = currentAccept && currentAccept !== axiosDefaultAccept
-        if (!hasCustomAccept) {
-            if (config.responseType === "blob") {
-                config.headers["Accept"] = "application/octet-stream, text/plain, */*"
-            } else if (config.responseType === "text") {
-                config.headers["Accept"] = "text/csv, text/plain, text/json, application/json"
+    const requestInit: RequestInit = { method, headers, body, credentials: "include", redirect: "follow" }
+    if (config.timeout) requestInit.signal = AbortSignal.timeout(config.timeout)
+
+    // bodySerializer identity marks a multipart endpoint for the shared request interceptor.
+    const interceptorOptions = {
+        ...config,
+        bodySerializer: isFormData ? formDataBodySerializer.bodySerializer : undefined,
+        parseAs: config.responseType,
+    } as unknown as ResolvedRequestOptions
+
+    let request = new Request(fullUrl, requestInit)
+    for (const fn of client.interceptors.request.fns) {
+        if (fn) request = await fn(request, interceptorOptions)
+    }
+
+    let response = await fetch(request)
+    for (const fn of client.interceptors.response.fns) {
+        if (fn) response = await fn(response, request, interceptorOptions)
+    }
+
+    const { validateStatus } = config
+    const isSuccess = validateStatus ? validateStatus(response.status) : response.status < 400
+
+    const headersObj: Record<string, string> = {}
+    response.headers.forEach((value, key) => { headersObj[key] = value })
+
+    if (!isSuccess) {
+        const textError = await response.text()
+        let parsedError: unknown
+        try {
+            parsedError = JSON.parse(textError)
+        } catch {
+            parsedError = textError
+        }
+
+        let finalError: unknown = parsedError
+        for (const fn of client.interceptors.error.fns) {
+            if (fn) finalError = await fn(finalError, response, request, interceptorOptions)
+        }
+        if (finalError && typeof finalError === "object") {
+            (finalError as Record<string, unknown>).response = {
+                data: parsedError, status: response.status, headers: headersObj, request: { responseURL: response.url },
             }
         }
-        return config
-    })
+        throw finalError
+    }
 
-    client.setConfig({
-        axios: instance,
-        querySerializer(query) {
-            const queryParameters = new URLSearchParams();
-            for (const key in query) {
-                const param = query[key];
-                if (query[key] === undefined) {
-                    continue
-                }
-                const looksLikeQueryFilterArray =
-                    Array.isArray(param) &&
-                    param.length > 0 &&
-                    typeof param[0] === "object" &&
-                    param[0] != null &&
-                    "field" in param[0] &&
-                    "operation" in param[0] &&
-                    "value" in param[0];
+    let responseData: T
+    if (config.responseType === "blob") {
+        responseData = await response.blob() as T
+    } else if (response.status === 204 || response.headers.get("content-length") === "0") {
+        responseData = null as T
+    } else if (config.responseType !== "text" && (response.headers.get("content-type") ?? "").includes("application/json")) {
+        responseData = await response.json() as T
+    } else {
+        responseData = await response.text() as unknown as T
+    }
 
-                if (looksLikeQueryFilterArray) {
-                    const toCamel = (s: string) => {
-                        const parts = String(s || "")
-                            .trim()
-                            .split(/[^A-Za-z0-9]+/g) // split on any non-alphanumeric: _, -, spaces, etc.
-                            .filter(Boolean); // remove empties from multiple separators
-
-                        if (parts.length === 0) return "";
-
-                        const [first, ...rest] = parts;
-                        return (
-                            first.toLowerCase() +
-                            rest
-                                .map(
-                                    (p) =>
-                                        p.charAt(0).toUpperCase() +
-                                        p.slice(1).toLowerCase(),
-                                )
-                                .join("")
-                        );
-                    };
-
-                    for (const qf of param) {
-                        const fieldStr = String(qf.field);
-                        const op = String(qf.operation);
-                        const keyField =
-                            fieldStr.toLowerCase() === "query"
-                                ? "q"
-                                : toCamel(fieldStr);
-
-                        if (
-                            typeof qf.value === "object" &&
-                            qf.value != null &&
-                            !Array.isArray(qf.value)
-                        ) {
-                            for (const [k, v] of Object.entries(qf.value)) {
-                                const ser = serializeQueryValue(v);
-                                if (ser !== undefined) {
-                                    queryParameters.append(`filters[${keyField}][${op}][${k}]`, ser);
-                                }
-                            }
-                        } else {
-                            const ser = serializeQueryValue(
-                                qf.value,
-                            );
-                            if (ser !== undefined) {
-                                queryParameters.append(`filters[${keyField}][${op}]`, ser);
-                            }
-                        }
-                    }
-                } else if (param instanceof Array) {
-                    param.forEach((value: any) => {
-                        const ser = serializeQueryValue(value)
-                        if (ser !== undefined) {
-                            queryParameters.append(key, ser);
-                        }
-                    });
-                } else {
-                    const ser = serializeQueryValue(param)
-                    if (ser !== undefined) {
-                        queryParameters.append(key, ser);
-                    }
-                }
-            }
-            return queryParameters.toString();
-        },
-        ...clientConfig,
-    })
-
-    // When responseType:'blob' is set (e.g. for AI generate endpoints that return YAML),
-    // Axios may parse the error response body as a Blob (browser) or raw string (Node.js)
-    // instead of JSON, hiding the real server error message. Normalise it so callers see
-    // the actual error object (e.g. { message: "BAD_REQUEST: ..." }) in both environments.
-    instance.interceptors.response.use(undefined, async (error: AxiosError) => {
-        if (error.response?.data instanceof Blob) {
-            const text = await (error.response.data as Blob).text()
-            try {
-                error.response.data = JSON.parse(text)
-            } catch {
-                error.response.data = text
-            }
-        } else if (typeof error.response?.data === 'string' && error.response.data.length > 0) {
-            try {
-                error.response.data = JSON.parse(error.response.data)
-            } catch {
-                // not JSON, leave as-is
-            }
-        }
-        return Promise.reject(error)
-    })
-
-    instance.defaults.paramsSerializer = {
-        indexes: null
-    };
-
-    axiosInstance = instance
-
-    return instance
+    return { data: responseData, status: response.status, headers: headersObj, request: { responseURL: response.url } }
 }
 
-let axiosInstance: AxiosInstance | null = null;
+const axiosLikeClient = {
+    defaults: { headers: { common: commonHeaders } },
+    get: <T = any>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("GET", url, undefined, config),
+    post: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("POST", url, data, config),
+    put: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PUT", url, data, config),
+    delete: <T = any>(url: string, config?: AxiosLikeConfig) => axiosLikeRequest<T>("DELETE", url, undefined, config),
+    patch: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
+} as const
+
+export const configureClient = createConfigureClient(client, formDataBodySerializer)
 
 /**
- * Set a mock instance of axios controlled in tests
- * @param mockClient
+ * Set a mock client instance controlled in tests
  */
-export function setMockClient(mockClient: any) {
-    axiosInstance = mockClient;
+export function setMockClient(mockClient: Partial<typeof axiosLikeClient> = {}) {
+    for (const method of ["get", "post", "put", "delete", "patch"] as const) {
+        if (mockClient[method]) {
+            (axiosLikeClient as any)[method] = mockClient[method] as any
+        }
+    }
 }
 
 /**
- * Get the current Axios client instance
- * @returns AxiosInstance
+ * Get the current fetch client instance
  */
-export function useClient(): AxiosInstance {
-    return new Proxy({} as AxiosInstance, {
-        get(_target, prop) {
-            if (!axiosInstance) {
-                throw new Error("Axios instance not initialized. Please call configureClient first.")
-            }
-            const value = (axiosInstance as any)[prop]
-            return typeof value === "function" ? value.bind(axiosInstance) : value
-        }
-    })
+export function useClient() {
+    return axiosLikeClient
 }

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient, randomId } from './CommonTestSetup.js';
+import { randomId } from './_utils.js';
+import * as KillSwitches from '@kestra-io/kestra-sdk/kill-switches';
 import type { KillSwitch, EvaluationType } from '@kestra-io/kestra-sdk';
 
 function makeKillSwitch(): KillSwitch {
@@ -15,20 +16,20 @@ function makeKillSwitch(): KillSwitch {
 
 describe('KillSwitchesApi', () => {
     it('searchKillSwitches: returns a list of kill switches', async () => {
-        const result = await kestraClient.KillSwitches.searchKillSwitches();
+        const result = await KillSwitches.searchKillSwitches();
         expect(result).toBeDefined();
         expect(Array.isArray(result)).toBe(true);
     });
 
     it('createKillSwitch: creates a new kill switch', async () => {
         const ks = makeKillSwitch();
-        const result = await kestraClient.KillSwitches.createKillSwitch(ks);
+        const result = await KillSwitches.createKillSwitch(ks);
         expect(result).toBeDefined();
         expect((result as any).name).toBe(ks.name);
     });
 
     it('updateKillSwitch: updates an existing kill switch', async () => {
-        const created = await kestraClient.KillSwitches.createKillSwitch(makeKillSwitch());
+        const created = await KillSwitches.createKillSwitch(makeKillSwitch());
         const id = (created as any).id;
         const updated: KillSwitch = {
             ...created as KillSwitch,
@@ -36,14 +37,14 @@ describe('KillSwitchesApi', () => {
             evaluationType: 'CANCEL' as EvaluationType,
         };
 
-        const result = await kestraClient.KillSwitches.updateKillSwitch({ id, ...updated });
+        const result = await KillSwitches.updateKillSwitch({ id, ...updated });
         expect(result).toBeDefined();
     });
 
     it('deleteKillSwitch: deletes a kill switch', async () => {
-        const created = await kestraClient.KillSwitches.createKillSwitch(makeKillSwitch());
+        const created = await KillSwitches.createKillSwitch(makeKillSwitch());
         const id = (created as any).id;
 
-        await kestraClient.KillSwitches.deleteKillSwitch({ id });
+        await KillSwitches.deleteKillSwitch({ id });
     });
 });

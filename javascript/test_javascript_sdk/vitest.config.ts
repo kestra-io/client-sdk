@@ -29,6 +29,7 @@ export default defineConfig({
     },
 
     test: {
+        setupFiles: ["test_javascript_sdk/_setup.ts"],
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
         reporters: ["default", "json"],
@@ -46,11 +47,15 @@ export default defineConfig({
                 `javascript-sdk/src/openapi/sdk/${api}.gen.ts`,
             ]),
             reporter: ["text", "json"],
-            // TODO: reenable this once we have the necessary coverage
-            // thresholds: {
-            //     perFile: true,
-            //     functions: 60,
-            // }
+            // Ratcheting floor: gates against coverage regressions. Bump this
+            // number up as each coverage PR lands (see #332); the goal is 90
+            // with perFile: true. Kept just below the current global level so
+            // normal test flakiness doesn't trip it, while a real regression
+            // (a whole untested domain) still fails CI.
+            thresholds: {
+                perFile: false,
+                functions: 75,
+            },
         },
     },
 });

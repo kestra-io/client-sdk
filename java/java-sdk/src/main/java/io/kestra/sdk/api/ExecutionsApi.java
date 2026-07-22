@@ -35,7 +35,9 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExecutionsApi extends BaseApi {
 
@@ -342,10 +344,18 @@ public class ExecutionsApi extends BaseApi {
     public Execution resumeExecution(
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return resumeExecution(executionId, tenant, null);
+    }
+
+    public Execution resumeExecution(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
         return invoke("POST",
                 tenantPath(tenant, "executions", executionId, "resume"),
                 null, null, null,
                 JSON, MULTIPART,
+                inputs != null ? inputs : new HashMap<>(),
                 new TypeReference<>() {});
     }
 
