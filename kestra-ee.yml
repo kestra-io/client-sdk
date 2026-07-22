@@ -5061,6 +5061,8 @@ paths:
               type: string
         required: true
       responses:
+        "423":
+          description: Asset locked
         "200":
           description: createAsset 200 response
           content:
@@ -5104,6 +5106,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkErrorResponse"
+        "423":
+          description: Asset locked
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5148,6 +5152,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkErrorResponse"
+        "423":
+          description: Asset locked
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5440,6 +5446,8 @@ paths:
         schema:
           type: string
       responses:
+        "423":
+          description: Asset locked
         "200":
           description: deleteAsset 200 response
       security:
@@ -5485,6 +5493,74 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AssetTopologyGraph"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/assets/{id}/lock:
+    post:
+      tags:
+      - Assets
+      summary: "Lock an asset (manual user lock, or an execution lock when executionId\
+        \ is set)"
+      operationId: lockAsset
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the asset
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The lock options
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssetsController.AssetLockRequest"
+      responses:
+        "200":
+          description: lockAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAssetLock"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Assets
+      summary: "Unlock an asset (forced manual unlock, or an execution releasing its\
+        \ own lock when executionId is set)"
+      operationId: unlockAsset
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the asset
+        required: true
+        schema:
+          type: string
+      - name: executionId
+        in: query
+        description: "When set, the execution releases ONLY its own lock (owner-checked,\
+          \ no-op otherwise). When absent, a forced manual unlock removes the lock\
+          \ regardless of owner."
+        explode: false
+        schema:
+          type: string
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unlockAsset 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -18842,6 +18918,7 @@ components:
       - ENABLE
       - VALIDATE
       - UNLOCK
+      - LOCK
       - BACKFILL
       - MANAGE_FILES
       - MANAGE_MEMBERS
@@ -20046,6 +20123,10 @@ components:
           format: date-time
         deleted:
           type: boolean
+        lock:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AssetsController.ApiAssetLock"
     AssetsController.ApiAssetLineageEvent:
       type: object
       properties:
@@ -20083,6 +20164,27 @@ components:
         endDate:
           type: string
           format: date-time
+    AssetsController.ApiAssetLock:
+      type: object
+      properties:
+        lockedUntil:
+          type: string
+          format: date-time
+        acquiredAt:
+          type: string
+          format: date-time
+        ownerType:
+          type: string
+        executionId:
+          type: string
+        flowId:
+          type: string
+        flowNamespace:
+          type: string
+        namespace:
+          type: string
+        username:
+          type: string
     AssetsController.ApiAssetUsage:
       type: object
       properties:
@@ -20104,6 +20206,23 @@ components:
         created:
           type: string
           format: date-time
+    AssetsController.AssetLockRequest:
+      type: object
+      properties:
+        ttl:
+          type: string
+        executionId:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        flowNamespace:
+          type: string
+          nullable: true
+        taskRunId:
+          type: string
+          nullable: true
     AssetsDeclaration:
       type: object
       properties:
