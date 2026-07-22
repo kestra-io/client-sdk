@@ -21396,6 +21396,10 @@ components:
         originalCreatedDate:
           type: string
           format: date-time
+        concurrencyScopes:
+          type: array
+          items:
+            type: string
     ExecutionRepositoryInterface.DateFilter:
       type: string
       enum:
@@ -23881,6 +23885,11 @@ components:
             $ref: "#/components/schemas/Namespace.AllowedNamespace"
         defaultWorkerSelector:
           $ref: "#/components/schemas/WorkerSelector"
+        concurrency:
+          description: The concurrency limit applying to the executions of every flow
+            inside this namespace and its descendants.
+          allOf:
+          - $ref: "#/components/schemas/Concurrency"
         storageType:
           type: string
         storageConfiguration:
@@ -26770,6 +26779,8 @@ components:
           type: boolean
         defaultWorkerSelector:
           $ref: "#/components/schemas/WorkerSelector"
+        concurrency:
+          $ref: "#/components/schemas/Concurrency"
         storageType:
           type: string
         storageConfiguration:
