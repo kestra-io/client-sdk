@@ -183,14 +183,6 @@ func TestNamespacesAPI_All(t *testing.T) {
 		require.True(t, found, "search should return the created namespace")
 	})
 
-	t.Run("exportPluginDefaultsTest", func(t *testing.T) {
-		t.Skip("Server returns 500 when namespace has no pluginDefaults configured")
-	})
-
-	t.Run("importPluginDefaultsTest", func(t *testing.T) {
-		t.Skip("Requires a pre-built plugin defaults file")
-	})
-
 	t.Run("updateNamespaceTest", func(t *testing.T) {
 		ctx := context.Background()
 
