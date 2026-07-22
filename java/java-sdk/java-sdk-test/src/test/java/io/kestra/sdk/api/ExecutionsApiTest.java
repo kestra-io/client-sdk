@@ -59,6 +59,20 @@ public class ExecutionsApiTest {
                 """.formatted(id, ns);
     }
 
+    static String pauseWithInputsFlowYaml(String id, String ns) {
+        return """
+                id: %s
+                namespace: %s
+                tasks:
+                  - id: pause
+                    type: io.kestra.plugin.core.flow.Pause
+                    onResume:
+                      - id: quorum_status
+                        type: STRING
+                        required: true
+                """.formatted(id, ns);
+    }
+
     static String webhookFlowYaml(String id, String ns, String key) {
         return """
                 id: %s
@@ -602,6 +616,29 @@ public class ExecutionsApiTest {
 
         // Resume
         Execution resumed = api().resumeExecution(executionId, TENANT);
+        assertThat(resumed).isNotNull();
+        assertThat(resumed.getId()).isEqualTo(executionId);
+    }
+
+    @Test
+    @Disabled("Kestra 2.0: returns 404 'Requested Flow is not found' — execution action now requires the source flow to exist")
+    void resumeExecution_withInputs() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(pauseWithInputsFlowYaml(flowId, ns));
+
+        ExecutionControllerExecutionResponse resp = executeFlow(ns, flowId);
+        String executionId = resp.getId();
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+            ApiExecution exec = api().execution(executionId, TENANT);
+            StateType state = exec.getState() != null ? exec.getState().getCurrent() : null;
+            return state == StateType.PAUSED;
+        });
+
+        // onResume declares a required input, so resume succeeds only if inputs are forwarded
+        Execution resumed = api().resumeExecution(executionId, TENANT, Map.of("quorum_status", "TIMEOUT"));
+
         assertThat(resumed).isNotNull();
         assertThat(resumed.getId()).isEqualTo(executionId);
     }

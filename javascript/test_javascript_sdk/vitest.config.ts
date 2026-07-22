@@ -29,6 +29,7 @@ export default defineConfig({
     },
 
     test: {
+        setupFiles: ["test_javascript_sdk/_setup.ts"],
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
         reporters: ["default", "json"],
@@ -53,7 +54,7 @@ export default defineConfig({
             // (a whole untested domain) still fails CI.
             thresholds: {
                 perFile: false,
-                functions: 69,
+                functions: 75,
             },
         },
     },
