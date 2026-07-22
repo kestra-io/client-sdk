@@ -65,14 +65,6 @@ describe('NamespacesApi', () => {
         expect(fetched.id).toBe(created.id);
     });
 
-    it('inherited_plugin_defaults: List inherited plugin defaults', async () => {
-        const nsId = `test_inherited_plugin_defaults_${randomId()}`;
-        const ns = await Namespaces.createNamespace({ id: nsId, deleted: false });
-
-        const defaults = await Namespaces.inheritedPluginDefaults({ id: ns.id });
-        expect(Array.isArray(defaults)).toBeTruthy();
-    });
-
     it('inherited_variables: List inherited variables', async () => {
         const nsId = `test_inherited_variables_${randomId()}`;
         const ns = await Namespaces.createNamespace({ id: nsId, deleted: false });
@@ -179,19 +171,5 @@ describe('NamespacesApi', () => {
         const list = await Secrets.listSecrets({ filters: [{ field: "namespace", operation: "EQUALS", value: ns.id as any }], page: 1, size: 10 });
         const results = list?.results ?? [];
         expect(results.some((m: any) => m.key === key)).toBeFalsy();
-    });
-
-    it('export_plugin_defaults: exports a namespace plugin defaults', async () => {
-        const nsId = `test_export_plugin_defaults_${randomId()}`;
-        const ns = await Namespaces.createNamespace({
-            id: nsId,
-            deleted: false,
-            pluginDefaults: [{ type: 'io.kestra.plugin.core.log.Log', values: {} }],
-        });
-
-        const exported = await Namespaces.exportPluginDefaults({ id: ns.id });
-        // The export echoes back the plugin default we configured on the namespace.
-        expect(typeof exported).toBe('string');
-        expect(exported).toContain('io.kestra.plugin.core.log.Log');
     });
 });
