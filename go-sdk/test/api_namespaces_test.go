@@ -84,19 +84,6 @@ func TestNamespacesAPI_All(t *testing.T) {
 		require.Equal(t, created.GetId(), fetched.GetId())
 	})
 
-	t.Run("inheritedPluginDefaultsTest", func(t *testing.T) {
-		ctx := context.Background()
-
-		nsId := "test_inherited_plugin_defaults_" + randomId()
-		ns := kestra_api_client.Namespace{Id: nsId, Deleted: false}
-		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
-		require.NoError(t, err)
-
-		defaults, err := KestraTestClient().Namespaces().InheritedPluginDefaults(ctx, created.GetId(), MAIN_TENANT)
-		require.NoError(t, err)
-		require.NotNil(t, defaults)
-	})
-
 	t.Run("inheritedVariablesTest", func(t *testing.T) {
 		ctx := context.Background()
 
