@@ -19,7 +19,6 @@ import * as Flows from "@kestra-io/kestra-sdk/flows";
 import * as Groups from "@kestra-io/kestra-sdk/groups";
 import * as Invitations from "@kestra-io/kestra-sdk/invitations";
 import * as Kv from "@kestra-io/kestra-sdk/kv";
-import * as Login from "@kestra-io/kestra-sdk/login";
 import * as Logs from "@kestra-io/kestra-sdk/logs";
 import * as Maintenance from "@kestra-io/kestra-sdk";
 import * as Metrics from "@kestra-io/kestra-sdk/metrics";
@@ -106,7 +105,6 @@ export const kestraClient = {
     Groups,
     Invitations,
     Kv,
-    Login,
     Logs,
     Maintenance,
     Metrics,
