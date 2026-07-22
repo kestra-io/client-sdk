@@ -360,7 +360,8 @@ paths:
       tags:
       - Misc
       summary: Retrieve the instance configuration.
-      description: Global endpoint available to all users.
+      description: "Requires authentication; see /configs/login for the public, unauthenticated\
+        \ subset used by the login page."
       operationId: getConfiguration
       responses:
         "200":
@@ -369,6 +370,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MiscController.EEConfiguration"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/configs/login:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve the configuration required by the login page.
+      description: Public endpoint available to unauthenticated users; exposes only
+        what the login/setup UI needs.
+      operationId: getLoginConfiguration
+      responses:
+        "200":
+          description: getLoginConfiguration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MiscController.LoginConfiguration"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -23666,6 +23685,11 @@ components:
         gracePeriod:
           type: string
           format: date-time
+    MiscController.LoginConfiguration:
+      type: object
+      properties:
+        isBasicAuthInitialized:
+          type: boolean
     MiscController.LoginRequest:
       type: object
       properties:
