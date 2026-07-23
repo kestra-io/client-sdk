@@ -33,6 +33,28 @@ async function createTestNamespace() {
     return Namespaces.createNamespace({ id: nsId, deleted: false, tenant: tenantId });
 }
 
+const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
+
+// Policy search reads from an index that's updated asynchronously after a create,
+// so a search issued immediately afterwards can miss a just-created policy. Poll
+// until it shows up (or give up after timeoutMs) instead of asserting on a single read.
+async function waitForPolicyInSearch(
+    search: () => Promise<{ results?: any[] } | undefined>,
+    id: string,
+    timeoutMs = 5000,
+    pollMs = 200,
+) {
+    const start = Date.now();
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        const result = await search();
+        const results = result?.results ?? [];
+        if (results.some((p: any) => p.id === id)) return results;
+        if (Date.now() - start > timeoutMs) return results;
+        await sleep(pollMs);
+    }
+}
+
 describe('PoliciesApi (instance scope)', () => {
     it('createInstancePolicy + instancePolicy: creates and retrieves a policy', async () => {
         const id = `test-instance-policy-${randomId()}`;
@@ -48,8 +70,10 @@ describe('PoliciesApi (instance scope)', () => {
         const id = `test-search-instance-policy-${randomId()}`;
         await Policies.createInstancePolicy(policyRequest(id));
 
-        const result = await Policies.searchInstancePolicies({ page: 1, size: 100 });
-        const results = result?.results ?? [];
+        const results = await waitForPolicyInSearch(
+            () => Policies.searchInstancePolicies({ page: 1, size: 100 }),
+            id,
+        );
         expect(results.some((p: any) => p.id === id)).toBeTruthy();
     });
 
@@ -106,8 +130,10 @@ describe('PoliciesApi (namespace scope)', () => {
         const id = `test-search-namespace-policy-${randomId()}`;
         await Policies.createNamespacePolicy({ ...policyRequest(id), namespace: ns.id });
 
-        const result = await Policies.searchNamespacePolicies({ namespace: ns.id, page: 1, size: 100 });
-        const results = result?.results ?? [];
+        const results = await waitForPolicyInSearch(
+            () => Policies.searchNamespacePolicies({ namespace: ns.id, page: 1, size: 100 }),
+            id,
+        );
         expect(results.some((p: any) => p.id === id)).toBeTruthy();
     });
 
@@ -175,8 +201,10 @@ describe('PoliciesApi (tenant scope)', () => {
         const id = `test-search-policies-${randomId()}`;
         await Policies.createTenantPolicy(policyRequest(id));
 
-        const result = await Policies.searchPolicies({ page: 1, size: 100 });
-        const results = result?.results ?? [];
+        const results = await waitForPolicyInSearch(
+            () => Policies.searchPolicies({ page: 1, size: 100 }),
+            id,
+        );
         expect(results.some((p: any) => p.id === id)).toBeTruthy();
     });
 
