@@ -145,6 +145,37 @@ describe('NamespacesApi', () => {
         expect(results).toContainEqual(expect.objectContaining({ id: ns.id }));
     });
 
+    it('create_namespace: Sets a namespace-level concurrency limit', async () => {
+        const nsId = `test_namespace_concurrency_${randomId()}`;
+        const created = await Namespaces.createNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 3, behavior: 'QUEUE' },
+        });
+
+        expect(created.concurrency).toEqual({ limit: 3, behavior: 'QUEUE' });
+
+        const fetched = await Namespaces.loadNamespace({ id: nsId });
+        expect(fetched.concurrency).toEqual({ limit: 3, behavior: 'QUEUE' });
+    });
+
+    it('update_namespace: Updates a namespace-level concurrency limit', async () => {
+        const nsId = `test_update_namespace_concurrency_${randomId()}`;
+        await Namespaces.createNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 3, behavior: 'QUEUE' },
+        });
+
+        const updated = await Namespaces.updateNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 10, behavior: 'CANCEL' },
+        });
+
+        expect(updated.concurrency).toEqual({ limit: 10, behavior: 'CANCEL' });
+    });
+
     it('update_namespace: Update a namespace', async () => {
         const nsId = `test_update_namespace_${randomId()}`;
         const created = await Namespaces.createNamespace({ id: nsId, deleted: false });
