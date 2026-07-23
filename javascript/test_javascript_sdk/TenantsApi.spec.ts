@@ -35,6 +35,29 @@ describe('TenantsApi', () => {
         expect((result as any).id).toBe(id);
     });
 
+    it('create: sets a tenant-level concurrency limit', async () => {
+        const id = randomId();
+        const tenant: Tenant = { ...makeTenant(id), concurrency: { limit: 5, behavior: 'FAIL' } };
+
+        const result = await TenantsAdmin.create(tenant);
+        expect((result as any).concurrency).toEqual({ limit: 5, behavior: 'FAIL' });
+
+        const fetched = await TenantsAdmin.get({ id });
+        expect((fetched as any).concurrency).toEqual({ limit: 5, behavior: 'FAIL' });
+    });
+
+    it('update: updates a tenant-level concurrency limit', async () => {
+        const id = randomId();
+        await TenantsAdmin.create(makeTenant(id));
+
+        const updated = await TenantsAdmin.update({
+            ...makeTenant(id),
+            concurrency: { limit: 2, behavior: 'QUEUE' },
+        });
+
+        expect((updated as any).concurrency).toEqual({ limit: 2, behavior: 'QUEUE' });
+    });
+
     it('update: updates a tenant', async () => {
         const id = randomId();
         const tenant = makeTenant(id);
