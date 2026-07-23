@@ -29,7 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "@vitest/coverage-v8": "^4.1.9",
-    "eslint": "^9.35.0",
+    "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "prettier": "^3.6.2",
@@ -39,6 +39,6 @@
     "vitest": "^4.1.9"
   },
   "dependencies": {
-    "js-yaml": "^4.2.0"
+    "js-yaml": "^5.2.1"
   }
 }
