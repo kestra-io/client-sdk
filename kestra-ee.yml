@@ -2666,6 +2666,7 @@ paths:
         explode: false
         schema:
           type: boolean
+          nullable: true
           default: false
       responses:
         "200":
