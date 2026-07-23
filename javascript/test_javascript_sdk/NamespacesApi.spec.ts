@@ -1,7 +1,6 @@
 // testApis/NamespacesApi.spec.js
 import { describe, it, expect } from 'vitest';
-import { randomId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { randomId, tenantId } from './_utils.js';
 import * as Namespaces from '@kestra-io/kestra-sdk/namespaces';
 import * as Secrets from '@kestra-io/kestra-sdk/secrets';
 

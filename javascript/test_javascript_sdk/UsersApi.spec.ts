@@ -1,7 +1,6 @@
 // testApis/test_users_api.test.js
 import { describe, it, expect } from 'vitest';
-import { randomId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { tenantId, randomId } from './_utils.js';
 import * as Groups from '@kestra-io/kestra-sdk/groups';
 import * as Users from '@kestra-io/kestra-sdk/users';
 

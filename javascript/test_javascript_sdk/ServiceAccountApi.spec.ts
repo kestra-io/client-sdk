@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { randomIdWith } from './_utils.js';
-import { tenantId } from './_setup.js';
 import * as ServiceAccount from '@kestra-io/kestra-sdk/service-account';
 
 

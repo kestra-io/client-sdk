@@ -1,8 +1,7 @@
 // TestSuitesApi.spec.js
 
 import { describe, it, expect } from 'vitest';
-import { randomId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { tenantId, randomId } from './_utils.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as TestSuites from '@kestra-io/kestra-sdk/test-suites';
 import type { TestSuite } from '@kestra-io/kestra-sdk';

@@ -1,7 +1,6 @@
 // FlowsApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { tenantId, getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId } from './_utils.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 

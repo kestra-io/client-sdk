@@ -1,5 +1,8 @@
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
+import fixtures from "./fixtures.json" with { type: "json" };
+
+export const tenantId = fixtures.tenantId
 
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);

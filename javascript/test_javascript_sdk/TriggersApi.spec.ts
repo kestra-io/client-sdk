@@ -2,8 +2,7 @@
 /* eslint-disable jest/no-standalone-expect */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import { randomId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { tenantId, randomId } from './_utils.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Triggers from '@kestra-io/kestra-sdk/triggers';
 

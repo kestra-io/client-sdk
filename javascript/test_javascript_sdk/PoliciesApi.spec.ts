@@ -1,7 +1,6 @@
 // PoliciesApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId } from './_utils.js';
-import { tenantId } from './_setup.js';
+import { tenantId, randomId, getSimpleFlowAndId } from './_utils.js';
 import * as Policies from '@kestra-io/kestra-sdk/policies';
 import * as Namespaces from '@kestra-io/kestra-sdk/namespaces';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
