@@ -90,4 +90,25 @@ describe('AssetsApi', () => {
 
         await Assets.unlockAsset({ id: assetId });
     });
+
+    it('lockAsset: acquires a manual user lock', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+
+        const lock = await Assets.lockAsset({ id: created.id ?? "", ttl: "PT1H" });
+        expect(lock).toBeDefined();
+        expect(lock.ownerType).toBe("USER");
+        expect(lock.lockedUntil).toBeDefined();
+    });
+
+    it('unlockAsset: releases the lock so it can be re-acquired', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        await Assets.lockAsset({ id: created.id ?? "", ttl: "PT1H" });
+
+        await Assets.unlockAsset({ id: created.id ?? "" });
+
+        const relock = await Assets.lockAsset({ id: created.id ?? "", ttl: "PT1H" });
+        expect(relock).toBeDefined();
+    });
 });

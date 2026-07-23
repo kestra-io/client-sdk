@@ -9,6 +9,8 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.AssetsControllerApiAsset;
+import io.kestra.sdk.model.AssetsControllerApiAssetLock;
+import io.kestra.sdk.model.AssetsControllerAssetLockRequest;
 import io.kestra.sdk.model.AssetTopologyGraph;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.PagedResultsAssetsControllerApiAsset;
@@ -62,6 +64,31 @@ public class AssetsApi extends BaseApi {
         invoke("DELETE",
                 tenantPath(tenant, "assets", id),
                 null, null, null,
+                null, null, null);
+    }
+
+    // ========================================================================
+    // Lock
+    // ========================================================================
+
+    public AssetsControllerApiAssetLock lockAsset(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable AssetsControllerAssetLockRequest request) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "assets", id, "lock"),
+                request, null, null,
+                JSON, JSON,
+                new TypeReference<>() {});
+    }
+
+    public void unlockAsset(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable String executionId) throws ApiException {
+        invoke("DELETE",
+                tenantPath(tenant, "assets", id, "lock"),
+                null, queryParams("executionId", executionId), null,
                 null, null, null);
     }
 
