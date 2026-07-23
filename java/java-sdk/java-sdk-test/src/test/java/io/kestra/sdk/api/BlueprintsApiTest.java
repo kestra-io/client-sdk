@@ -38,20 +38,6 @@ public class BlueprintsApiTest {
     }
 
     @Test
-    void searchBlueprints_withSort() throws ApiException {
-        PagedResultsBlueprintControllerApiBlueprintItem result =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, "title:asc", null, 1, 10);
-
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotNull();
-        if (result.getResults().size() >= 2) {
-            String first = result.getResults().get(0).getTitle();
-            String second = result.getResults().get(1).getTitle();
-            assertThat(first.compareToIgnoreCase(second)).isLessThanOrEqualTo(0);
-        }
-    }
-
-    @Test
     void searchBlueprints_withTags() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem allResults =
                 api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);

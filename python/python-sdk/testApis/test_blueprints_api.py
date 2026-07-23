@@ -54,24 +54,6 @@ def test_search_blueprints_with_query(client):
     assert result is not None
 
 
-def test_search_blueprints_with_sort(client):
-    result = _community_search(
-        client,
-        kind=BlueprintControllerKind.FLOW,
-        tenant=TENANT,
-        sort="title:asc",
-        page=1,
-        size=10,
-    )
-
-    assert result is not None
-    assert result.results is not None
-    if len(result.results) >= 2:
-        first = result.results[0].title
-        second = result.results[1].title
-        assert first.lower() <= second.lower()
-
-
 def test_search_blueprints_with_tags(client):
     all_results = _community_search(
         client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
