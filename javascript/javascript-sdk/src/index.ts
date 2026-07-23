@@ -1,9 +1,11 @@
 import { client } from "./openapi/client.gen"
 import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
-import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
+import { ENTERPRISE_ONLY_ROUTES_JSON } from "./openapi/sdk/enterpriseOnlyRoutes.gen"
+import { createConfigureClient, EnterpriseFeatureError, type EnterpriseFeatureConfig } from "@kestra-io/hey-api-plugin/runtime"
 
 export * from "./openapi/index"
+export { EnterpriseFeatureError }
 
 declare global {
     interface Window {
@@ -141,7 +143,19 @@ const axiosLikeClient = {
     patch: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
 } as const
 
-export const configureClient = createConfigureClient(client, formDataBodySerializer)
+// Populated by kestra-ee's update-openapi-spec.yml, which stamps `x-kestra: {edition: ee}` onto
+// EE-only operations before the spec reaches this repo (see enterprise-only-routes-plugin.ts).
+// Empty until that tagging lands and this SDK is regenerated against a tagged spec.
+const enterpriseOnlyRoutes: Record<string, { feature: string }> = JSON.parse(ENTERPRISE_ONLY_ROUTES_JSON)
+
+// TODO(marketing/docs): confirm the final docs and contact-sales URLs before this ships.
+const enterpriseFeature: EnterpriseFeatureConfig = {
+    matchRoute: (method, path) => enterpriseOnlyRoutes[`${method} ${path}`],
+    docsUrl: (feature) => `https://kestra.io/docs/enterprise-edition/${feature}`,
+    contactSalesUrl: (feature) => `https://kestra.io/contact-sales?utm_source=sdk&utm_medium=error&feature=${feature}`,
+}
+
+export const configureClient = createConfigureClient(client, formDataBodySerializer, enterpriseFeature)
 
 /**
  * Set a mock client instance controlled in tests

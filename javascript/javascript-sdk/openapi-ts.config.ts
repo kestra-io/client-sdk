@@ -2,6 +2,7 @@ import type { UserConfig } from "@hey-api/openapi-ts";
 import * as path from "path";
 import { fileURLToPath } from "url";
 import { defineConfigKestraHeyOptionalTenant, fixYamlSourceRequestBodyContentType } from "@kestra-io/hey-api-plugin";
+import { defineEnterpriseOnlyRoutesPlugin } from "./enterprise-only-routes-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +49,7 @@ export default {
                 },
             }
         },
-        defineConfigKestraHeyOptionalTenant()
+        defineConfigKestraHeyOptionalTenant(),
+        defineEnterpriseOnlyRoutesPlugin()
     ],
 } satisfies UserConfig
