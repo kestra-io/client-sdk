@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { load, dump } from "js-yaml";
+import * as yaml from "js-yaml";
 import { sanitizeOpenAPI } from "./openapi-customizer";
 
 async function run(confPath: string, inputPath: string, outputPath?: string) {
@@ -8,7 +8,7 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
     const out = outputPath || absIn.replace(/\.ya?ml$/, ".sanitized.yml");
 
     const raw = await fs.readFile(absIn, "utf8");
-    const spec = load(raw);
+    const spec = yaml.load(raw);
 
     const absConf = path.resolve(confPath);
     const configuration = JSON.parse(await fs.readFile(absConf, "utf8")) as {
@@ -19,7 +19,7 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
     };
 
     const counters = sanitizeOpenAPI(spec, configuration);
-    const dumped = dump(spec, {
+    const dumped = yaml.dump(spec, {
         lineWidth: 120,
         noRefs: true,
         quoteStyle: "double",   // ← forces double quotes
