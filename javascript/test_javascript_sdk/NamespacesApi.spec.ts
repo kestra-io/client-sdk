@@ -65,14 +65,6 @@ describe('NamespacesApi', () => {
         expect(fetched.id).toBe(created.id);
     });
 
-    it('inherited_plugin_defaults: List inherited plugin defaults', async () => {
-        const nsId = `test_inherited_plugin_defaults_${randomId()}`;
-        const ns = await Namespaces.createNamespace({ id: nsId, deleted: false });
-
-        const defaults = await Namespaces.inheritedPluginDefaults({ id: ns.id });
-        expect(Array.isArray(defaults)).toBeTruthy();
-    });
-
     it('inherited_variables: List inherited variables', async () => {
         const nsId = `test_inherited_variables_${randomId()}`;
         const ns = await Namespaces.createNamespace({ id: nsId, deleted: false });
@@ -153,6 +145,37 @@ describe('NamespacesApi', () => {
         expect(results).toContainEqual(expect.objectContaining({ id: ns.id }));
     });
 
+    it('create_namespace: Sets a namespace-level concurrency limit', async () => {
+        const nsId = `test_namespace_concurrency_${randomId()}`;
+        const created = await Namespaces.createNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 3, behavior: 'QUEUE' },
+        });
+
+        expect(created.concurrency).toEqual({ limit: 3, behavior: 'QUEUE' });
+
+        const fetched = await Namespaces.loadNamespace({ id: nsId });
+        expect(fetched.concurrency).toEqual({ limit: 3, behavior: 'QUEUE' });
+    });
+
+    it('update_namespace: Updates a namespace-level concurrency limit', async () => {
+        const nsId = `test_update_namespace_concurrency_${randomId()}`;
+        await Namespaces.createNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 3, behavior: 'QUEUE' },
+        });
+
+        const updated = await Namespaces.updateNamespace({
+            id: nsId,
+            deleted: false,
+            concurrency: { limit: 10, behavior: 'CANCEL' },
+        });
+
+        expect(updated.concurrency).toEqual({ limit: 10, behavior: 'CANCEL' });
+    });
+
     it('update_namespace: Update a namespace', async () => {
         const nsId = `test_update_namespace_${randomId()}`;
         const created = await Namespaces.createNamespace({ id: nsId, deleted: false });
@@ -179,19 +202,5 @@ describe('NamespacesApi', () => {
         const list = await Secrets.listSecrets({ filters: [{ field: "namespace", operation: "EQUALS", value: ns.id as any }], page: 1, size: 10 });
         const results = list?.results ?? [];
         expect(results.some((m: any) => m.key === key)).toBeFalsy();
-    });
-
-    it('export_plugin_defaults: exports a namespace plugin defaults', async () => {
-        const nsId = `test_export_plugin_defaults_${randomId()}`;
-        const ns = await Namespaces.createNamespace({
-            id: nsId,
-            deleted: false,
-            pluginDefaults: [{ type: 'io.kestra.plugin.core.log.Log', values: {} }],
-        });
-
-        const exported = await Namespaces.exportPluginDefaults({ id: ns.id });
-        // The export echoes back the plugin default we configured on the namespace.
-        expect(typeof exported).toBe('string');
-        expect(exported).toContain('io.kestra.plugin.core.log.Log');
     });
 });

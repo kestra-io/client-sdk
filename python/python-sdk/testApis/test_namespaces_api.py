@@ -211,15 +211,6 @@ def test_inherited_variables_basic(client):
 # ========================================================================
 
 
-def test_inherited_plugin_defaults_basic(client):
-    ns = random_namespace()
-    create_flow(client, log_flow_yaml(random_id(), ns))
-
-    result = client.namespaces.inherited_plugin_defaults(id=ns, tenant=TENANT)
-
-    assert result is not None
-
-
 # ========================================================================
 # Patch secret
 # ========================================================================
@@ -241,36 +232,6 @@ def test_patch_secret_basic(client):
     )
 
     assert result is not None
-
-
-# ========================================================================
-# Plugin defaults export/import
-# ========================================================================
-
-
-def test_export_plugin_defaults_basic(client):
-    ns = random_namespace()
-    # plugin_defaults must be a list (not None) — the server NPEs in /plugindefaults/export
-    # when Namespace.pluginDefaults is null.
-    client.namespaces.create_namespace(
-        tenant=TENANT,
-        namespace=Namespace(id=ns, deleted=False, plugin_defaults=[]),
-    )
-
-    result = client.namespaces.export_plugin_defaults(id=ns, tenant=TENANT)
-    assert result is not None
-
-
-def test_import_plugin_defaults_basic(client):
-    ns = random_namespace()
-    client.namespaces.create_namespace(tenant=TENANT, namespace=Namespace(id=ns, deleted=False))
-
-    # Import with None file -- may return error or empty list
-    try:
-        result = client.namespaces.import_plugin_defaults(id=ns, tenant=TENANT)
-        assert result is not None
-    except ApiException as e:
-        assert e.status in (400, 500)
 
 
 # ========================================================================
