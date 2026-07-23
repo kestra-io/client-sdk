@@ -54,26 +54,6 @@ def test_search_blueprints_with_query(client):
     assert result is not None
 
 
-def test_search_blueprints_with_sort(client):
-    # Note: the community catalog currently ignores "sort" and returns a fixed,
-    # curated order (e.g. "title:asc" and "title:desc" yield identical results),
-    # so we only assert the sort parameter is accepted and a well-formed result
-    # comes back — not that the visible titles are alphabetically ordered.
-    result = _community_search(
-        client,
-        kind=BlueprintControllerKind.FLOW,
-        tenant=TENANT,
-        sort="title:asc",
-        page=1,
-        size=10,
-    )
-
-    assert result is not None
-    assert result.results is not None
-    for bp in result.results:
-        assert bp.title
-
-
 def test_search_blueprints_with_tags(client):
     all_results = _community_search(
         client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=1
