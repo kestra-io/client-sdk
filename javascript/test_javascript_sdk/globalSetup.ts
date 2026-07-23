@@ -1,4 +1,3 @@
-import { beforeAll } from "vitest";
 import fixtures from "./fixtures.json" with { type: "json" };
 
 const { baseURL, username, password, tenantId } = fixtures;
@@ -15,7 +14,7 @@ export async function setup() {
                 return;
             }
             break; // If we got a 200, break out of the loop and run setup
-        } catch (error) {
+        } catch {
             console.error("Error checking setup status, retrying...");
             await sleep(500); // Wait for 2 seconds before retrying
             continue;
