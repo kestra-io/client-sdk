@@ -136,6 +136,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/auditlogs/search:
     get:
       tags:
@@ -187,13 +189,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/auditlogs/{id}/diff:
     get:
       tags:
       - Audit Logs
       summary: Retrieve the diff between audit logs from global resource like users
-      description: Retrieves the diff between the current version and a selected previous
-        version of a given resource based on audit logs.
+      description: Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
       operationId: getGlobalResourceDiffFromAuditLog
       parameters:
       - name: id
@@ -219,6 +222,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/auths:
     get:
       tags:
@@ -232,13 +237,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthController.Auth"
+      x-kestra:
+        edition: ee
   /api/v1/banners:
     post:
       tags:
       - Banners
       summary: Create an announcement banner
-      description: Superadmin-only. Creates a global announcement banner visible to
-        all tenants.
+      description: Superadmin-only. Creates a global announcement banner visible to all tenants.
       operationId: createBanner
       requestBody:
         description: The announcement banner to create
@@ -257,6 +263,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/banners/search:
     get:
       tags:
@@ -286,6 +294,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/banners/{id}:
     put:
       tags:
@@ -317,6 +327,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Banners
@@ -336,6 +348,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/basicAuthValidationErrors:
     get:
       tags:
@@ -360,8 +374,7 @@ paths:
       tags:
       - Misc
       summary: Retrieve the instance configuration.
-      description: "Requires authentication; see /configs/login for the public, unauthenticated\
-        \ subset used by the login page."
+      description: "Requires authentication; see /configs/login for the public, unauthenticated subset used by the login page."
       operationId: getConfiguration
       responses:
         "200":
@@ -378,8 +391,7 @@ paths:
       tags:
       - Misc
       summary: Retrieve the configuration required by the login page.
-      description: Public endpoint available to unauthenticated users; exposes only
-        what the login/setup UI needs.
+      description: Public endpoint available to unauthenticated users; exposes only what the login/setup UI needs.
       operationId: getLoginConfiguration
       responses:
         "200":
@@ -396,8 +408,7 @@ paths:
       tags:
       - Auths
       summary: Sends an email to reset a password.
-      description: "Sends an email to reset a password. Note that whatever the username\
-        \ is found or not, the response will always be 200 to avoid leaking information."
+      description: "Sends an email to reset a password. Note that whatever the username is found or not, the response will always be 200 to avoid leaking information."
       operationId: forgottenPassword
       requestBody:
         description: The username of the user trying to reset its password
@@ -413,6 +424,8 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
   /api/v1/instance/maintenance/enter:
     post:
       tags:
@@ -431,6 +444,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/maintenance/exit:
     post:
       tags:
@@ -449,6 +464,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/maintenance/status:
     get:
       tags:
@@ -467,6 +484,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/mcp/servers:
     get:
       tags:
@@ -511,6 +530,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/metrics/{serviceType}:
     get:
       tags:
@@ -536,6 +557,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies:
     post:
       tags:
@@ -558,6 +581,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/delete/by-ids:
     delete:
       tags:
@@ -582,6 +607,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/export:
     post:
       tags:
@@ -599,12 +626,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/export/by-ids:
     post:
       tags:
       - Policies
-      summary: Export instance-scope policies by their IDs as YAML documents joined
-        by '---'
+      summary: Export instance-scope policies by their IDs as YAML documents joined by '---'
       operationId: exportInstancePoliciesByIds
       requestBody:
         content:
@@ -625,12 +653,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/search:
     get:
       tags:
       - Policies
-      summary: "Search instance-scope policies, including the read-only STATIC policies\
-        \ declared in configuration"
+      summary: "Search instance-scope policies, including the read-only STATIC policies declared in configuration"
       operationId: searchInstancePolicies
       parameters:
       - name: page
@@ -674,12 +703,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/{id}:
     get:
       tags:
       - Policies
-      summary: "Get an instance-scope policy, or with scope=STATIC a read-only policy\
-        \ declared in configuration"
+      summary: "Get an instance-scope policy, or with scope=STATIC a read-only policy declared in configuration"
       operationId: getInstancePolicy
       parameters:
       - name: id
@@ -689,9 +719,7 @@ paths:
           type: string
       - name: scope
         in: query
-        description: "INSTANCE (default) or STATIC — ids are only unique per scope,\
-          \ so the scope disambiguates a config-declared policy from a persisted one\
-          \ sharing its id"
+        description: "INSTANCE (default) or STATIC — ids are only unique per scope, so the scope disambiguates a config-declared policy from a persisted one sharing its id"
         explode: false
         schema:
           $ref: "#/components/schemas/Scope"
@@ -705,6 +733,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Policies
@@ -732,6 +762,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Policies
@@ -749,12 +781,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/{id}/evaluate:
     get:
       tags:
       - Policies
-      summary: "Dry-run an instance-scope policy, or with scope=STATIC a policy declared\
-        \ in configuration, against every flow"
+      summary: "Dry-run an instance-scope policy, or with scope=STATIC a policy declared in configuration, against every flow"
       operationId: evaluateInstancePolicy
       parameters:
       - name: id
@@ -778,9 +811,7 @@ paths:
           default: 25
       - name: scope
         in: query
-        description: "INSTANCE (default) or STATIC — ids are only unique per scope,\
-          \ so the scope disambiguates a config-declared policy from a persisted one\
-          \ sharing its id"
+        description: "INSTANCE (default) or STATIC — ids are only unique per scope, so the scope disambiguates a config-declared policy from a persisted one sharing its id"
         explode: false
         schema:
           $ref: "#/components/schemas/Scope"
@@ -794,6 +825,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/services/active:
     get:
       tags:
@@ -811,6 +844,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/services/search:
     get:
       tags:
@@ -863,6 +898,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/services/{id}:
     get:
       tags:
@@ -886,13 +923,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins:
     get:
       tags:
       - Plugins
       summary: List installed plugin artifacts
-      description: Superadmin-only. Lists all currently installed plugin artifacts.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: listVersionedPlugin
       parameters:
       - name: page
@@ -939,13 +977,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/available:
     get:
       tags:
       - Plugins
       summary: List available plugin artifacts
-      description: Superadmin-only. Lists all plugin artifacts available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPlugins
       responses:
         "200":
@@ -957,13 +996,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/available/secrets-managers:
     get:
       tags:
       - Plugins
       summary: List available plugin artifacts for Kestra Secret Manager
-      description: Superadmin-only. Lists all secret managers available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForSecretManager
       responses:
         "200":
@@ -975,13 +1015,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/available/storages:
     get:
       tags:
       - Plugins
       summary: List available plugin artifacts for Kestra Internal Storage
-      description: Superadmin-only. Lists all internal storages available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForStorage
       responses:
         "200":
@@ -993,13 +1034,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/install:
     post:
       tags:
       - Plugins
       summary: Install specified plugin artifacts
-      description: Superadmin-only. Installs one or more plugin artifacts. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: installVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1018,13 +1060,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/resolve:
     post:
       tags:
       - Plugins
       summary: Resolve versions for specified plugin artifacts
-      description: Superadmin-only. Resolves compatible versions for a list of plugin
-        artifacts. Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: resolveVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1043,13 +1086,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/uninstall:
     delete:
       tags:
       - Plugins
       summary: Uninstall plugin artifacts
-      description: Superadmin-only. Uninstalls one or more plugin artifacts. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: uninstallVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1068,13 +1112,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/upload:
     post:
       tags:
       - Plugins
       summary: Upload a plugin artifact JAR file
-      description: Superadmin-only. Uploads a plugin JAR file for installation. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
       operationId: uploadVersionedPlugins
       requestBody:
         content:
@@ -1105,13 +1150,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}:
     get:
       tags:
       - Plugins
       summary: Retrieve details of a plugin artifact
-      description: Superadmin-only. Retrieves metadata and available versions for
-        a given plugin artifact. Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
       operationId: getVersionedPluginDetails
       parameters:
       - name: groupId
@@ -1134,16 +1180,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/icon.svg:
     get:
       tags:
       - Plugins
       summary: Get a plugin artifact icon as a raw SVG
-      description: "Superadmin-only. Serves the plugin artifact icon as a standalone,\
-        \ browser-cacheable `image/svg+xml` resource so icons are no longer inlined\
-        \ (base64) in the artifact listings. Installed artifacts are served from the\
-        \ local plugin; other artifacts have their icon proxied lazily from the Kestra\
-        \ API. Requires INFRASTRUCTURE permission."
+      description: "Superadmin-only. Serves the plugin artifact icon as a standalone, browser-cacheable `image/svg+xml` resource so icons are no longer inlined (base64) in the artifact listings. Installed artifacts are served from the local plugin; other artifacts have their icon proxied lazily from the Kestra API. Requires INFRASTRUCTURE permission."
       operationId: getVersionedPluginIcon
       parameters:
       - name: groupId
@@ -1158,8 +1202,7 @@ paths:
           type: string
       - name: v
         in: query
-        description: Content hash used as a cache-busting token; when present the
-          icon is cached indefinitely.
+        description: Content hash used as a cache-busting token; when present the icon is cached indefinitely.
         explode: false
         schema:
           type: string
@@ -1175,13 +1218,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/release-notes:
     get:
       tags:
       - Plugins
       summary: Fetch release notes content for a plugin version
-      description: Superadmin-only. Fetches and returns the Markdown release notes
-        for a given plugin artifact version.
+      description: Superadmin-only. Fetches and returns the Markdown release notes for a given plugin artifact version.
       operationId: getPluginReleaseNotesContent
       parameters:
       - name: groupId
@@ -1210,13 +1254,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version}:
     get:
       tags:
       - Plugins
       summary: Retrieve details of a specific plugin artifact version
-      description: Superadmin-only. Retrieves metadata for a specific version of a
-        plugin artifact. Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
       operationId: getVersionedPluginDetailsFromVersion
       parameters:
       - name: groupId
@@ -1244,13 +1289,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups:
     get:
       tags:
       - Worker Groups
       summary: List all worker groups
-      description: SuperAdmin only. Lists all worker groups with their configuration
-        and token summaries.
+      description: SuperAdmin only. Lists all worker groups with their configuration and token summaries.
       operationId: list
       parameters:
       - name: filters
@@ -1272,6 +1318,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Worker Groups
@@ -1294,13 +1342,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}:
     get:
       tags:
       - Worker Groups
       summary: Get worker group detail
-      description: SuperAdmin only. Retrieves details of a specific worker group including
-        token summaries.
+      description: SuperAdmin only. Retrieves details of a specific worker group including token summaries.
       operationId: get
       parameters:
       - name: id
@@ -1319,17 +1368,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Worker Groups
       summary: Update a worker group
-      description: "SuperAdmin only. Replaces the worker group's full desired state\
-        \ (name, description, subscriptions) in a single transactional save. Subscriptions\
-        \ absent from the submitted list are dropped; the underlying WorkerQueue is\
-        \ preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for\
-        \ one-off edits. When the Worker Queues feature is disabled, subscriptions\
-        \ are immutable: the stored set is preserved and only the name and description\
-        \ are updated."
+      description: "SuperAdmin only. Replaces the worker group's full desired state (name, description, subscriptions) in a single transactional save. Subscriptions absent from the submitted list are dropped; the underlying WorkerQueue is preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for one-off edits. When the Worker Queues feature is disabled, subscriptions are immutable: the stored set is preserved and only the name and description are updated."
       operationId: update
       parameters:
       - name: id
@@ -1354,6 +1399,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Worker Groups
@@ -1382,19 +1429,18 @@ paths:
         "404":
           description: Worker group not found
         "409":
-          description: Active workers are still connected and force deletion was not
-            requested
+          description: Active workers are still connected and force deletion was not requested
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/capacity:
     get:
       tags:
       - Worker Groups
       summary: Live capacity snapshot for a worker group
-      description: "SuperAdmin only. Returns the live allocated and used slot counts\
-        \ per subscription, aggregated across all running workers in the group. Backed\
-        \ by service-liveness metrics emitted by the controller."
+      description: "SuperAdmin only. Returns the live allocated and used slot counts per subscription, aggregated across all running workers in the group. Backed by service-liveness metrics emitted by the controller."
       operationId: getCapacity
       parameters:
       - name: id
@@ -1413,14 +1459,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/subscriptions:
     post:
       tags:
       - Worker Groups
       summary: Add a Worker Queue subscription to a worker group
-      description: SuperAdmin only. Adds a subscription edge from the worker group
-        to an existing WorkerQueue identified by its id (or the reserved "default"
-        sentinel for the global default queue). Returns the updated worker group.
+      description: SuperAdmin only. Adds a subscription edge from the worker group to an existing WorkerQueue identified by its id (or the reserved "default" sentinel for the global default queue). Returns the updated worker group.
       operationId: addSubscription
       parameters:
       - name: id
@@ -1445,14 +1491,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/subscriptions/{workerQueueId}:
     delete:
       tags:
       - Worker Groups
       summary: Remove a subscription by WorkerQueue id
-      description: SuperAdmin only. Drops the subscription edge from this worker group
-        to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains
-        available for other worker groups and can be re-subscribed later.
+      description: SuperAdmin only. Drops the subscription edge from this worker group to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains available for other worker groups and can be re-subscribed later.
       operationId: removeSubscription
       parameters:
       - name: id
@@ -1477,14 +1523,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - Worker Groups
       summary: Update a subscription's reserved capacity
-      description: "SuperAdmin only. Updates the {@code reservedPercent} commitment\
-        \ on an existing subscription. Tags are immutable on a subscription (they\
-        \ belong to the WorkerQueue itself); only the worker-group-side reservation\
-        \ can be edited via this endpoint."
+      description: "SuperAdmin only. Updates the {@code reservedPercent} commitment on an existing subscription. Tags are immutable on a subscription (they belong to the WorkerQueue itself); only the worker-group-side reservation can be edited via this endpoint."
       operationId: updateSubscriptionReservation
       parameters:
       - name: id
@@ -1515,13 +1560,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/tokens:
     post:
       tags:
       - Worker Groups
       summary: Generate a registration token
-      description: SuperAdmin only. Generates a new registration token for the worker
-        group. The plaintext token is returned only once.
+      description: SuperAdmin only. Generates a new registration token for the worker group. The plaintext token is returned only once.
       operationId: generateToken
       parameters:
       - name: id
@@ -1546,6 +1592,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/tokens/{tokenId}:
     delete:
       tags:
@@ -1576,6 +1624,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/tokens/{tokenId}/revoke:
     post:
       tags:
@@ -1606,13 +1656,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-groups/{id}/workers:
     get:
       tags:
       - Worker Groups
       summary: List running workers for a worker group
-      description: "SuperAdmin only. Lists all running workers registered to this\
-        \ worker group, with their metrics."
+      description: "SuperAdmin only. Lists all running workers registered to this worker group, with their metrics."
       operationId: listRunningWorkers
       parameters:
       - name: id
@@ -1631,13 +1682,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-queues:
     get:
       tags:
       - WorkerQueues
       summary: List all Worker Queues
-      description: "SuperAdmin only. Lists all Worker Queues with their tag set, tenant\
-        \ scope, and active worker count."
+      description: "SuperAdmin only. Lists all Worker Queues with their tag set, tenant scope, and active worker count."
       operationId: list_1
       responses:
         "200":
@@ -1649,12 +1701,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - WorkerQueues
       summary: Create a Worker Queue
-      description: SuperAdmin only. Creates a new Worker Queue with the given tag
-        set and tenant scope.
+      description: SuperAdmin only. Creates a new Worker Queue with the given tag set and tenant scope.
       operationId: create_1
       requestBody:
         description: The Worker Queue definition
@@ -1673,13 +1726,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-queues/{id}:
     get:
       tags:
       - WorkerQueues
       summary: Get Worker Queue detail
-      description: SuperAdmin only. Retrieves details of a specific Worker Queue including
-        its active workers.
+      description: SuperAdmin only. Retrieves details of a specific Worker Queue including its active workers.
       operationId: get_1
       parameters:
       - name: id
@@ -1697,12 +1751,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - WorkerQueues
       summary: Update a Worker Queue
-      description: "SuperAdmin only. Updates a Worker Queue's tags, tenant scope,\
-        \ name, and description. The id is immutable."
+      description: "SuperAdmin only. Updates a Worker Queue's tags, tenant scope, name, and description. The id is immutable."
       operationId: update_1
       parameters:
       - name: id
@@ -1727,6 +1782,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - WorkerQueues
@@ -1749,14 +1806,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/worker-queues/{id}/subscribers:
     get:
       tags:
       - WorkerQueues
       summary: List worker groups subscribing to a Worker Queue
-      description: SuperAdmin only. Returns the worker groups that subscribe to this
-        Worker Queue. A non-empty list means the queue cannot be deleted until the
-        subscription(s) are removed.
+      description: SuperAdmin only. Returns the worker groups that subscribe to this Worker Queue. A non-empty list means the queue cannot be deleted until the subscription(s) are removed.
       operationId: subscribers
       parameters:
       - name: id
@@ -1776,13 +1833,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/workers/credentials:
     get:
       tags:
       - Worker Auth
       summary: List all registered workers
-      description: SuperAdmin only. Lists all workers that have registered with the
-        controller.
+      description: SuperAdmin only. Lists all workers that have registered with the controller.
       operationId: list_2
       responses:
         "200":
@@ -1794,6 +1852,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/workers/credentials/{id}:
     get:
       tags:
@@ -1817,13 +1877,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/workers/credentials/{id}/revoke:
     post:
       tags:
       - Worker Auth
       summary: Revoke worker credentials
-      description: "SuperAdmin only. Revokes a worker's credentials, forcing it to\
-        \ re-register."
+      description: "SuperAdmin only. Revokes a worker's credentials, forcing it to re-register."
       operationId: revoke
       parameters:
       - name: id
@@ -1841,6 +1902,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/invitation/accept/{invitationId}:
     post:
       tags:
@@ -1859,6 +1922,8 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
   /api/v1/invitation/create/{invitationId}:
     post:
       tags:
@@ -1884,6 +1949,8 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
   /api/v1/kill-switches:
     post:
       tags:
@@ -1908,6 +1975,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/kill-switches/search:
     get:
       tags:
@@ -1927,6 +1996,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/kill-switches/{id}:
     put:
       tags:
@@ -1958,6 +2029,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - KillSwitches
@@ -1977,6 +2050,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/license-info:
     get:
       tags:
@@ -1994,6 +2069,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/license/refresh:
     get:
       tags:
@@ -2007,13 +2084,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/login:
     post:
       tags:
       - Misc
       summary: Authenticate with basic auth credentials.
-      description: "On success, issues an HttpOnly session cookie; the credentials\
-        \ never need to be readable by client-side JavaScript."
+      description: "On success, issues an HttpOnly session cookie; the credentials never need to be readable by client-side JavaScript."
       operationId: login
       requestBody:
         content:
@@ -2063,6 +2141,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/me:
     get:
       tags:
@@ -2080,12 +2160,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - Auths
       summary: Update authenticated user details
-      description: Updates the authenticated user's profile information and returns
-        the updated user.
+      description: Updates the authenticated user's profile information and returns the updated user.
       operationId: patchCurrentUser
       requestBody:
         description: The user details
@@ -2104,6 +2185,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/me/api-tokens:
     get:
       tags:
@@ -2121,6 +2204,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Auths
@@ -2142,6 +2227,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/me/api-tokens/{tokenId}:
     delete:
       tags:
@@ -2165,13 +2252,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/me/invitations:
     get:
       tags:
       - Invitations
       summary: List invitations for the authenticated user
-      description: Returns all invitations for the authenticated user's email across
-        all tenants.
+      description: Returns all invitations for the authenticated user's email across all tenants.
       operationId: findAllInvitationsForCurrentUser
       responses:
         "200":
@@ -2185,6 +2273,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/me/password:
     put:
       tags:
@@ -2208,21 +2298,19 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/history:
     get:
       tags:
       - Notifications
       summary: Browse notification history
-      description: "Cursor-based (not offset-based): returns up to `limit` notifications\
-        \ older than `before`, most recent first, plus a `nextCursor` for the following\
-        \ page. Offset pagination is unsafe here because rows are purged on a rolling\
-        \ TTL while the user scrolls."
+      description: "Cursor-based (not offset-based): returns up to `limit` notifications older than `before`, most recent first, plus a `nextCursor` for the following page. Offset pagination is unsafe here because rows are purged on a rolling TTL while the user scrolls."
       operationId: history
       parameters:
       - name: before
         in: query
-        description: "Cursor of the previous page, as `<createdDate>,<id>`. Omit for\
-          \ the first page."
+        description: "Cursor of the previous page, as `<createdDate>,<id>`. Omit for the first page."
         explode: false
         schema:
           type: string
@@ -2245,13 +2333,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/read-all:
     post:
       tags:
       - Notifications
       summary: Mark all of the authenticated user's notifications as read
-      description: Only affects notifications for tenants the user currently has access
-        to.
+      description: Only affects notifications for tenants the user currently has access to.
       operationId: markAllRead
       responses:
         "200":
@@ -2263,20 +2352,19 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/since:
     get:
       tags:
       - Notifications
       summary: Poll for notifications updated since a given instant
-      description: "Interval-polling delta endpoint: returns notifications updated\
-        \ strictly after `since`, plus a fresh server timestamp to pass as `since`\
-        \ on the next poll."
+      description: "Interval-polling delta endpoint: returns notifications updated strictly after `since`, plus a fresh server timestamp to pass as `since` on the next poll."
       operationId: pollSince
       parameters:
       - name: since
         in: query
-        description: The server timestamp returned by a previous call to this endpoint
-          (or to /history)
+        description: The server timestamp returned by a previous call to this endpoint (or to /history)
         required: true
         explode: false
         schema:
@@ -2292,6 +2380,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/unread-count:
     get:
       tags:
@@ -2309,15 +2399,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/{id}/read:
     post:
       tags:
       - Notifications
       summary: Mark a single notification as read
-      description: "Idempotent: a missing/already-read/foreign id is a no-op, not\
-        \ an error — the frontend never needs to special-case a 'not found' response\
-        \ for this action, and the global 404 handler never gets a chance to blow\
-        \ up the routed UI over what is functionally a success."
+      description: "Idempotent: a missing/already-read/foreign id is a no-op, not an error — the frontend never needs to special-case a 'not found' response for this action, and the global 404 handler never gets a chance to blow up the routed UI over what is functionally a success."
       operationId: markRead
       parameters:
       - name: id
@@ -2331,13 +2420,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/notifications/{id}/unread:
     post:
       tags:
       - Notifications
       summary: Mark a single notification as unread
-      description: "Idempotent: a missing/already-unread/foreign id is a no-op, not\
-        \ an error — same rationale as POST /{id}/read."
+      description: "Idempotent: a missing/already-unread/foreign id is a no-op, not an error — same rationale as POST /{id}/read."
       operationId: markUnread
       parameters:
       - name: id
@@ -2351,6 +2441,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/pebble/filters:
     get:
       tags:
@@ -2373,8 +2465,7 @@ paths:
     get:
       tags:
       - Misc
-      summary: Retrieve the available Pebble expression functions with their arguments
-        and defaults.
+      summary: Retrieve the available Pebble expression functions with their arguments and defaults.
       operationId: getExpressionFunctions
       responses:
         "200":
@@ -2498,13 +2589,7 @@ paths:
       tags:
       - Plugins
       summary: Get a single plugin icon
-      description: "Lightweight alternative to `GET /plugins/icons` for resolving\
-        \ one icon at a time, so callers don't have to download the whole plugin catalog\
-        \ just to render one task icon. Not every class has an icon, which is a normal\
-        \ outcome (not every plugin ships one), so this always answers 200 with `icon:\
-        \ null` rather than 404 — a bare 404 here would be indistinguishable, to the\
-        \ frontend's shared HTTP client, from a genuine routing error and trip its\
-        \ global error page."
+      description: "Lightweight alternative to `GET /plugins/icons` for resolving one icon at a time, so callers don't have to download the whole plugin catalog just to render one task icon. Not every class has an icon, which is a normal outcome (not every plugin ships one), so this always answers 200 with `icon: null` rather than 404 — a bare 404 here would be indistinguishable, to the frontend's shared HTTP client, from a genuine routing error and trip its global error page."
       operationId: getPluginIcon
       parameters:
       - name: cls
@@ -2528,13 +2613,7 @@ paths:
       tags:
       - Plugins
       summary: Get a single plugin icon as a raw SVG
-      description: "Serves the plugin icon as a real, browser-cacheable `image/svg+xml`\
-        \ resource so it can be referenced directly from an `<img src>` or CSS `mask-image`\
-        \ instead of being inlined as a data URI. Falls back to the Kestra plugin\
-        \ catalog when the class or group isn't locally registered, or is registered\
-        \ but ships no bundled icon. Cached indefinitely by the browser — callers\
-        \ append `PluginIcon#hash` as a query param so the URL changes whenever the\
-        \ icon's bytes do."
+      description: "Serves the plugin icon as a real, browser-cacheable `image/svg+xml` resource so it can be referenced directly from an `<img src>` or CSS `mask-image` instead of being inlined as a data URI. Falls back to the Kestra plugin catalog when the class or group isn't locally registered, or is registered but ships no bundled icon. Cached indefinitely by the browser — callers append `PluginIcon#hash` as a query param so the URL changes whenever the icon's bytes do."
       operationId: getPluginIconSvg
       parameters:
       - name: cls
@@ -2685,9 +2764,7 @@ paths:
       tags:
       - Plugins
       summary: Get list of trigger plugins grouped by category
-      description: "Feeds the 'Add Trigger' catalog UI. Returns one entry per non-internal,\
-        \ non-deprecated trigger class, classified as core (bundled with Kestra Core),\
-        \ realtime (implements RealtimeTriggerInterface) or app (implements PollingTriggerInterface)."
+      description: "Feeds the 'Add Trigger' catalog UI. Returns one entry per non-internal, non-deprecated trigger class, classified as core (bundled with Kestra Core), realtime (implements RealtimeTriggerInterface) or app (implements PollingTriggerInterface)."
       operationId: listTriggerPlugins
       responses:
         "200":
@@ -2837,13 +2914,14 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
   /api/v1/reset-password:
     post:
       tags:
       - Auths
       summary: Change a password for given token.
-      description: "Change a password for given token. If password does not match\
-        \ password policy, use can still retry."
+      description: "Change a password for given token. If password does not match password policy, use can still retry."
       operationId: resetPassword
       requestBody:
         description: The password
@@ -2859,6 +2937,8 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts:
     get:
       tags:
@@ -2912,12 +2992,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - ServiceAccount
       summary: Create a service account
-      description: Superadmin-only. CReate service account with access to multiple
-        tenants.
+      description: Superadmin-only. CReate service account with access to multiple tenants.
       operationId: createServiceAccount
       requestBody:
         description: The service account
@@ -2936,6 +3017,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts/{id}:
     get:
       tags:
@@ -2962,6 +3045,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - ServiceAccount
@@ -2983,6 +3068,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - ServiceAccount
@@ -3013,6 +3100,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts/{id}/api-tokens:
     get:
       tags:
@@ -3036,6 +3125,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - ServiceAccount
@@ -3065,6 +3156,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
@@ -3094,6 +3187,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts/{id}/superadmin:
     patch:
       tags:
@@ -3122,6 +3217,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/setup:
     get:
       tags:
@@ -3138,6 +3235,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Misc
@@ -3160,6 +3259,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants:
     post:
       tags:
@@ -3183,6 +3284,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/search:
     get:
       tags:
@@ -3235,6 +3338,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/{id}:
     get:
       tags:
@@ -3259,6 +3364,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Tenants
@@ -3288,12 +3395,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Tenants
       summary: Delete a tenant and all its resources
-      description: "Superadmin-only. Deletes all resources linked to the tenant, including\
-        \ flows, namespaces, apps, etc."
+      description: "Superadmin-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc."
       operationId: delete_2
       parameters:
       - name: id
@@ -3308,6 +3416,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/{id}/apps-catalog:
     get:
       tags:
@@ -3332,6 +3442,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Tenants
@@ -3361,6 +3473,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/{id}/apps-catalog/logo:
     post:
       tags:
@@ -3400,6 +3514,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Tenants
@@ -3419,6 +3535,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/{id}/logo:
     post:
       tags:
@@ -3458,6 +3576,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/tenants/{id}/settings/default-dashboards:
     get:
       tags:
@@ -3481,6 +3601,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Tenants
@@ -3509,6 +3631,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users:
     get:
       tags:
@@ -3560,12 +3684,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Users
       summary: Create a new user account
-      description: Superadmin-only. Create a new user account with an optional password
-        based authentication method.
+      description: Superadmin-only. Create a new user account with an optional password based authentication method.
       operationId: createUser
       requestBody:
         content:
@@ -3585,6 +3710,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}:
     get:
       tags:
@@ -3611,12 +3738,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Users
       summary: Update a user account
-      description: Superadmin-only. Update an existing user account with an optional
-        password based authentication method.
+      description: Superadmin-only. Update an existing user account with an optional password based authentication method.
       operationId: updateUser
       parameters:
       - name: id
@@ -3643,6 +3771,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Users
@@ -3664,6 +3794,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - Users
@@ -3694,6 +3826,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/api-tokens:
     get:
       tags:
@@ -3720,6 +3854,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Users
@@ -3752,6 +3888,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/api-tokens/{tokenId}:
     delete:
       tags:
@@ -3780,13 +3918,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/auths/{auth}:
     delete:
       tags:
       - Users
       summary: Delete user auth method
-      description: Superadmin-only. Deletes a specific authentication method from
-        a user.
+      description: Superadmin-only. Deletes a specific authentication method from a user.
       operationId: deleteUserAuthMethod
       parameters:
       - name: id
@@ -3813,6 +3952,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/impersonate:
     post:
       tags:
@@ -3839,6 +3980,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/password:
     patch:
       tags:
@@ -3871,6 +4014,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/refresh-token:
     delete:
       tags:
@@ -3892,6 +4037,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/restricted:
     patch:
       tags:
@@ -3920,6 +4067,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/superadmin:
     patch:
       tags:
@@ -3948,6 +4097,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/validate-password:
     post:
       tags:
@@ -3962,6 +4113,8 @@ paths:
       responses:
         "200":
           description: validatePassword 200 response
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/acls/permissions:
     get:
       tags:
@@ -4062,6 +4215,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/acls/templates:
     get:
       tags:
@@ -4096,6 +4251,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/ai/generate/app:
     post:
       tags:
@@ -4125,6 +4282,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/ai/generate/dashboard:
     post:
       tags:
@@ -4154,6 +4313,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/ai/generate/flow:
     post:
       tags:
@@ -4183,6 +4344,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/ai/generate/test:
     post:
       tags:
@@ -4212,6 +4375,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/ai/providers:
     get:
       tags:
@@ -4236,6 +4401,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -4265,6 +4432,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Apps
@@ -4293,6 +4462,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/catalog:
     get:
       tags:
@@ -4340,6 +4511,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/disable:
     post:
       tags:
@@ -4369,6 +4542,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/enable:
     post:
       tags:
@@ -4398,6 +4573,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/export:
     post:
       tags:
@@ -4428,6 +4605,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/import:
     post:
       tags:
@@ -4451,8 +4630,7 @@ paths:
               properties:
                 fileUpload:
                   type: string
-                  description: "The file to import, can be a ZIP archive or a multi-objects\
-                    \ YAML file"
+                  description: "The file to import, can be a ZIP archive or a multi-objects YAML file"
                   format: binary
             encoding:
               fileUpload:
@@ -4469,6 +4647,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/preview:
     post:
       tags:
@@ -4498,6 +4678,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/preview/dispatch/{dispatch}:
     post:
       tags:
@@ -4517,8 +4699,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: The app source (part '__kestra_app_source__') and the dispatch
-          data
+        description: The app source (part '__kestra_app_source__') and the dispatch data
         content:
           multipart/form-data:
             schema:
@@ -4536,6 +4717,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/search:
     get:
       tags:
@@ -4592,6 +4775,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/tags:
     get:
       tags:
@@ -4614,6 +4799,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}:
     post:
       tags:
@@ -4657,6 +4844,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{id}/file/download:
     get:
       tags:
@@ -4694,6 +4883,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{id}/file/meta:
     get:
       tags:
@@ -4730,6 +4921,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{id}/file/preview:
     get:
       tags:
@@ -4782,6 +4975,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{id}/streams/{stream}:
     get:
       tags:
@@ -4816,6 +5011,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{uid}:
     get:
       tags:
@@ -4844,6 +5041,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/view/{uid}/logs/download:
     get:
       tags:
@@ -4897,6 +5096,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/{uid}:
     get:
       tags:
@@ -4925,6 +5126,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Apps
@@ -4959,6 +5162,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Apps
@@ -4986,6 +5191,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/{uid}/disable:
     post:
       tags:
@@ -5014,6 +5221,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps/{uid}/enable:
     post:
       tags:
@@ -5042,6 +5251,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets:
     post:
       tags:
@@ -5073,6 +5284,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/by-ids:
     delete:
       tags:
@@ -5112,6 +5325,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/by-query:
     delete:
       tags:
@@ -5158,6 +5373,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/lineage-events/by-query:
     delete:
       tags:
@@ -5189,6 +5406,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/lineage-events/search:
     get:
       tags:
@@ -5247,6 +5466,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/search:
     get:
       tags:
@@ -5305,6 +5526,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/usages/by-query:
     delete:
       tags:
@@ -5336,6 +5559,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/usages/search:
     get:
       tags:
@@ -5394,6 +5619,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/{id}:
     get:
       tags:
@@ -5429,6 +5656,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Assets
@@ -5454,6 +5683,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/{id}/dependencies:
     get:
       tags:
@@ -5469,8 +5700,7 @@ paths:
           type: string
       - name: destinationOnly
         in: query
-        description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+        description: "If true, list only destination dependencies, otherwise list also source dependencies"
         explode: false
         schema:
           type: boolean
@@ -5497,12 +5727,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/assets/{id}/lock:
     post:
       tags:
       - Assets
-      summary: "Lock an asset (manual user lock, or an execution lock when executionId\
-        \ is set)"
+      summary: "Lock an asset (manual user lock, or an execution lock when executionId is set)"
       operationId: lockAsset
       parameters:
       - name: id
@@ -5532,11 +5763,12 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Assets
-      summary: "Unlock an asset (forced manual unlock, or an execution releasing its\
-        \ own lock when executionId is set)"
+      summary: "Unlock an asset (forced manual unlock, or an execution releasing its own lock when executionId is set)"
       operationId: unlockAsset
       parameters:
       - name: id
@@ -5547,9 +5779,7 @@ paths:
           type: string
       - name: executionId
         in: query
-        description: "When set, the execution releases ONLY its own lock (owner-checked,\
-          \ no-op otherwise). When absent, a forced manual unlock removes the lock\
-          \ regardless of owner."
+        description: "When set, the execution releases ONLY its own lock (owner-checked, no-op otherwise). When absent, a forced manual unlock removes the lock regardless of owner."
         explode: false
         schema:
           type: string
@@ -5565,6 +5795,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/auditlogs/export:
     get:
       tags:
@@ -5671,6 +5903,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/auditlogs/find:
     post:
       tags:
@@ -5700,6 +5934,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/auditlogs/history/{detailId}:
     get:
       tags:
@@ -5730,6 +5966,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/auditlogs/search:
     get:
       tags:
@@ -5786,13 +6024,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/auditlogs/{id}/diff:
     get:
       tags:
       - Audit Logs
       summary: Retrieve the diff between audit logs
-      description: Retrieves the diff between the current version and a selected previous
-        version of a given resource based on audit logs.
+      description: Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
       operationId: getResourceDiffFromAuditLog
       parameters:
       - name: id
@@ -5823,6 +6062,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/basicAuth:
     post:
       tags:
@@ -5881,6 +6122,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/bindings/bulk:
     post:
       tags:
@@ -5914,6 +6157,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/bindings/search:
     get:
       tags:
@@ -5992,6 +6237,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/bindings/{id}:
     get:
       tags:
@@ -6020,6 +6267,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Bindings
@@ -6043,13 +6292,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/community/{kind}:
     get:
       tags:
       - Blueprints
       summary: List all blueprints
-      description: Lists all community blueprints of the specified kind. Community
-        blueprints are shared and versioned.
+      description: Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
       operationId: searchBlueprints
       parameters:
       - name: sort
@@ -6112,8 +6362,7 @@ paths:
       tags:
       - Blueprint Tags
       summary: List blueprint tags matching the filter
-      description: "Lists tags for community blueprints of the specified kind, optionally\
-        \ filtered by query."
+      description: "Lists tags for community blueprints of the specified kind, optionally filtered by query."
       operationId: listBlueprintTags
       parameters:
       - name: kind
@@ -6188,8 +6437,7 @@ paths:
       tags:
       - Blueprints
       summary: Retrieve a blueprint graph
-      description: Retrieves the topology graph representation of a specific community
-        blueprint.
+      description: Retrieves the topology graph representation of a specific community blueprint.
       operationId: getBlueprintGraph
       parameters:
       - name: id
@@ -6261,8 +6509,7 @@ paths:
       tags:
       - Blueprints
       summary: List all internal blueprints
-      description: Lists all internal (custom) blueprints for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
       operationId: searchInternalBlueprints
       parameters:
       - name: sort
@@ -6320,12 +6567,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Blueprints
       summary: Create a new internal blueprint
-      description: Creates a new internal (custom) blueprint for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Creates a new internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: createInternalBlueprints
       parameters:
       - name: tenant
@@ -6351,13 +6599,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/custom/tags:
     get:
       tags:
       - Blueprint Tags
       summary: List all internal blueprint tags
-      description: Lists all tags used by internal (custom) blueprints for the current
-        tenant.
+      description: Lists all tags used by internal (custom) blueprints for the current tenant.
       operationId: internalBlueprintTags
       parameters:
       - name: filters
@@ -6386,13 +6635,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/custom/{id}:
     get:
       tags:
       - Blueprints
       summary: Retrieve an internal blueprint
-      description: Retrieves details of a specific internal (custom) blueprint. Requires
-        BLUEPRINT permission.
+      description: Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT permission.
       operationId: internalBlueprint
       parameters:
       - name: id
@@ -6416,12 +6666,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Blueprints
       summary: Update an internal blueprint
-      description: Updates an existing internal (custom) blueprint for the current
-        tenant. Requires BLUEPRINT permission.
+      description: Updates an existing internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: updateInternalBlueprints
       parameters:
       - name: id
@@ -6453,12 +6704,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Blueprints
       summary: Delete an internal blueprint
-      description: Deletes an internal (custom) blueprint for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: deleteInternalBlueprints
       parameters:
       - name: id
@@ -6479,13 +6731,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/custom/{id}/source:
     get:
       tags:
       - Blueprints
       summary: Retrieve an internal blueprint source code
-      description: Retrieves the YAML source code for a specific internal (custom)
-        blueprint. Requires BLUEPRINT permission.
+      description: Retrieves the YAML source code for a specific internal (custom) blueprint. Requires BLUEPRINT permission.
       operationId: internalBlueprintFlow
       parameters:
       - name: id
@@ -6509,13 +6762,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/flow/{id}:
     get:
       tags:
       - Blueprints
       summary: Retrieve an flow blueprint
-      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
-        permission.
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
       operationId: getFlowBlueprint
       parameters:
       - name: id
@@ -6539,6 +6793,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/flows:
     post:
       tags:
@@ -6567,13 +6823,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/flows/{id}:
     get:
       tags:
       - Blueprints
       summary: Retrieve an flow blueprint
-      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
-        permission.
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
       operationId: getFlowBlueprintById
       parameters:
       - name: id
@@ -6597,6 +6854,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Blueprints
@@ -6630,12 +6889,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Blueprints
       summary: Delete an Flow Blueprint
-      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT
-        permission.
+      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: deleteFlowBlueprints
       parameters:
       - name: id
@@ -6655,6 +6915,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/blueprints/flows/{id}/use-template:
     post:
       tags:
@@ -6689,6 +6951,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/concurrency-limit/search:
     get:
       tags:
@@ -6805,6 +7069,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Credentials
@@ -6832,6 +7098,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/credentials/{id}:
     get:
       tags:
@@ -6860,6 +7128,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Credentials
@@ -6893,6 +7163,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Credentials
@@ -6916,6 +7188,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/credentials/{id}/test:
     post:
       tags:
@@ -6944,6 +7218,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards:
     get:
       tags:
@@ -7275,8 +7551,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: "The filters to apply, some can override chart definition like\
-          \ labels & namespace"
+        description: "The filters to apply, some can override chart definition like labels & namespace"
         content:
           application/json:
             schema:
@@ -7317,8 +7592,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: "The filters to apply, some can override chart definition like\
-          \ labels & namespace"
+        description: "The filters to apply, some can override chart definition like labels & namespace"
         content:
           application/json:
             schema:
@@ -7344,8 +7618,7 @@ paths:
       parameters:
       - name: destinationOnly
         in: query
-        description: "if true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+        description: "if true, list only destination dependencies, otherwise list also source dependencies"
         explode: false
         schema:
           type: boolean
@@ -7365,6 +7638,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/executions:
     get:
       tags:
@@ -7497,9 +7772,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -7618,9 +7891,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -7665,22 +7936,19 @@ paths:
     get:
       tags:
       - Executions
-      summary: "List distinct values for one of the executions filter fields, optionally\
-        \ narrowed by additional query filters"
+      summary: "List distinct values for one of the executions filter fields, optionally narrowed by additional query filters"
       operationId: findDistinctFieldValues
       parameters:
       - name: field
         in: query
-        description: The field whose distinct values to return. Must be a field supported
-          by the EXECUTION resource.
+        description: The field whose distinct values to return. Must be a field supported by the EXECUTION resource.
         required: true
         explode: false
         schema:
           $ref: "#/components/schemas/QueryFilter.Field"
       - name: filters
         in: query
-        description: "Additional filters to narrow the distinct values. PHP-style\
-          \ nested query is used - examples: `filters[flowId][CONTAINS]=test`, `filters[state][IN]=FAILED,WARNING`"
+        description: "Additional filters to narrow the distinct values. PHP-style nested query is used - examples: `filters[flowId][CONTAINS]=test`, `filters[state][IN]=FAILED,WARNING`"
         required: true
         explode: false
         schema:
@@ -7840,9 +8108,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -7928,9 +8194,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8014,9 +8278,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8119,9 +8381,7 @@ paths:
     get:
       tags:
       - Executions
-      summary: Get all flow ids for a namespace. Data returned are FlowForExecution
-        containing minimal information about a Flow for when you are allowed to executing
-        but not reading.
+      summary: Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
       operationId: listFlowExecutionsByNamespace
       parameters:
       - name: namespace
@@ -8199,9 +8459,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8290,15 +8548,12 @@ paths:
     post:
       tags:
       - Executions
-      summary: Create new executions from old ones filter by query parameters asynchronously.
-        Keep the flow revision
+      summary: Create new executions from old ones filter by query parameters asynchronously. Keep the flow revision
       operationId: replayExecutionsByQuery
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8392,9 +8647,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8480,9 +8733,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8557,9 +8808,7 @@ paths:
             value: namespace:desc
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -8648,9 +8897,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`,\
-          \ `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`,\
-          \ `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[timeRange][EQUALS]=PT168H`, `filters[scope][EQUALS]=USER`, `filters[state][IN]=FAILED,CANCELLED`, `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -9184,8 +9431,7 @@ paths:
           type: string
       - name: isOnKillCascade
         in: query
-        description: Specifies whether killing the execution also kill all subflow
-          executions.
+        description: Specifies whether killing the execution also kill all subflow executions.
         explode: false
         schema:
           type: boolean
@@ -9286,8 +9532,7 @@ paths:
     post:
       tags:
       - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
+      summary: Create a new execution from an old one and start it from a specified task run id
       operationId: replayExecution
       parameters:
       - name: executionId
@@ -9313,8 +9558,7 @@ paths:
           nullable: true
       - name: breakpoints
         in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated by a coma."
         explode: false
         schema:
           type: string
@@ -9340,8 +9584,7 @@ paths:
     post:
       tags:
       - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
+      summary: Create a new execution from an old one and start it from a specified task run id
       operationId: replayExecutionWithinputs
       parameters:
       - name: executionId
@@ -9367,8 +9610,7 @@ paths:
           nullable: true
       - name: breakpoints
         in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated by a coma."
         explode: false
         schema:
           type: string
@@ -9498,8 +9740,7 @@ paths:
           type: string
       - name: breakpoints
         in: query
-        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+        description: "\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma."
         explode: false
         schema:
           type: string
@@ -9517,8 +9758,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Execution"
         "409":
-          description: If the executions is not in the 'BREAKPOINT' state or has no
-            breakpoint
+          description: If the executions is not in the 'BREAKPOINT' state or has no breakpoint
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -9663,8 +9903,7 @@ paths:
           format: uri
       - name: format
         in: query
-        description: "The requested file format; RAW returns the raw bytes (default),\
-          \ JSONL converts Ion records to JSON Lines"
+        description: "The requested file format; RAW returns the raw bytes (default), JSONL converts Ion records to JSON Lines"
         explode: false
         schema:
           $ref: "#/components/schemas/FileFormat"
@@ -9850,8 +10089,7 @@ paths:
           type: string
       - name: destinationOnly
         in: query
-        description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+        description: "If true, list only destination dependencies, otherwise list also source dependencies"
         explode: false
         schema:
           type: boolean
@@ -9970,8 +10208,7 @@ paths:
           nullable: true
       - name: breakpoints
         in: query
-        description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+        description: "Set a list of breakpoints at specific tasks 'id.value', separated by a coma."
         explode: false
         schema:
           type: string
@@ -10081,13 +10318,7 @@ paths:
       tags:
       - Expressions
       summary: Render Pebble expressions for display
-      description: "Renders a list of Pebble expressions for display purposes only,\
-        \ using a restricted engine: secret() is masked as [secret: KEY], env() is\
-        \ kept raw, only a safe allowlist of pure functions is invoked, and anything\
-        \ else is kept raw. Resolution is all-or-nothing per expression: an expression\
-        \ that references anything unresolvable is returned unchanged. Provide an\
-        \ executionId to resolve against an execution context, or a flow source to\
-        \ resolve against a flow context; otherwise only globals are available."
+      description: "Renders a list of Pebble expressions for display purposes only, using a restricted engine: secret() is masked as [secret: KEY], env() is kept raw, only a safe allowlist of pure functions is invoked, and anything else is kept raw. Resolution is all-or-nothing per expression: an expression that references anything unresolvable is returned unchanged. Provide an executionId to resolve against an execution context, or a flow source to resolve against a flow context; otherwise only globals are available."
       operationId: renderExpressions
       parameters:
       - name: tenant
@@ -10120,8 +10351,7 @@ paths:
       parameters:
       - name: draft
         in: query
-        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
-          \ schedules or subflows and are not validated for constraint violations."
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations."
         explode: false
         schema:
           type: boolean
@@ -10243,8 +10473,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -10337,8 +10566,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -10431,8 +10659,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -10495,8 +10722,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -10557,8 +10783,7 @@ paths:
       tags:
       - Flows
       summary: Get available Pebble expressions for a flow
-      description: Returns a categorized map of expression strings available for autocompletion
-        in the No-Code editor.
+      description: Returns a categorized map of expression strings available for autocompletion in the No-Code editor.
       operationId: expressions
       parameters:
       - name: taskId
@@ -10658,8 +10883,7 @@ paths:
               properties:
                 fileUpload:
                   type: string
-                  description: "The file to import, can be a ZIP archive or a multi-objects\
-                    \ YAML file"
+                  description: "The file to import, can be a ZIP archive or a multi-objects YAML file"
                   format: binary
             encoding:
               fileUpload:
@@ -10682,8 +10906,7 @@ paths:
     post:
       tags:
       - Flows
-      summary: Preview the governance policy effects (mutations + violations) on a
-        flow source
+      summary: Preview the governance policy effects (mutations + violations) on a flow source
       operationId: previewPolicies
       parameters:
       - name: tenant
@@ -10707,6 +10930,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/search:
     get:
       tags:
@@ -10748,8 +10973,7 @@ paths:
             value: id:desc
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[labels][NOT_EQUALS][foo]=bar`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -11096,8 +11320,7 @@ paths:
           type: string
       - name: draft
         in: query
-        description: "Save the flow as a draft. Drafts are not picked up by webhooks,\
-          \ schedules or subflows and are not validated for constraint violations."
+        description: "Save the flow as a draft. Drafts are not picked up by webhooks, schedules or subflows and are not validated for constraint violations."
         explode: false
         schema:
           type: boolean
@@ -11176,8 +11399,7 @@ paths:
           type: string
       - name: destinationOnly
         in: query
-        description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+        description: "If true, list only destination dependencies, otherwise list also source dependencies"
         explode: false
         schema:
           type: boolean
@@ -11416,6 +11638,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/autocomplete:
     post:
       tags:
@@ -11456,6 +11680,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/ids:
     post:
       tags:
@@ -11487,6 +11713,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/search:
     get:
       tags:
@@ -11543,13 +11771,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/{id}:
     get:
       tags:
       - Groups
       summary: Retrieve a group
-      description: Retrieves details of a specific group by its ID within the current
-        tenant.
+      description: Retrieves details of a specific group by its ID within the current tenant.
       operationId: getGroup
       parameters:
       - name: id
@@ -11575,6 +11804,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Groups
@@ -11613,6 +11844,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Groups
@@ -11638,6 +11871,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/{id}/members:
     get:
       tags:
@@ -11700,13 +11935,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/{id}/members/membership/{userId}:
     put:
       tags:
       - Groups
       summary: Update a user's membership type in a group
-      description: Allows a group owner or an authorized user to change the role of
-        a user within a group to OWNER or MEMBER.
+      description: Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
       operationId: setUserMembershipForGroup
       parameters:
       - name: id
@@ -11747,13 +11983,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/groups/{id}/members/{userId}:
     put:
       tags:
       - Groups
       summary: Add a user to a group
-      description: "Adds the specified user to the given group. If the user does not\
-        \ already have access to the tenant, tenant access will be created automatically."
+      description: "Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically."
       operationId: addUserToGroup
       parameters:
       - name: id
@@ -11787,13 +12024,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Groups
       summary: Remove a user from a group
-      description: "Removes the specified user from the given group. If the user has\
-        \ no other group bindings within the tenant, their access to the tenant will\
-        \ also be revoked."
+      description: "Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked."
       operationId: deleteUserFromGroup
       parameters:
       - name: id
@@ -11827,6 +12064,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups:
     get:
       tags:
@@ -11907,6 +12146,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - SCIM-Groups
@@ -11959,6 +12200,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search:
     post:
       tags:
@@ -11998,6 +12241,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}:
     get:
       tags:
@@ -12050,6 +12295,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - SCIM-Groups
@@ -12105,6 +12352,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - SCIM-Groups
@@ -12140,6 +12389,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - SCIM-Groups
@@ -12193,6 +12444,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes:
     get:
       tags:
@@ -12222,6 +12475,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -12254,6 +12509,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -12283,6 +12540,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri}:
     get:
       tags:
@@ -12315,6 +12574,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig:
     get:
       tags:
@@ -12342,6 +12603,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users:
     get:
       tags:
@@ -12422,6 +12685,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - SCIM-Users
@@ -12474,6 +12739,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search:
     post:
       tags:
@@ -12513,6 +12780,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}:
     get:
       tags:
@@ -12565,6 +12834,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - SCIM-Users
@@ -12620,6 +12891,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - SCIM-Users
@@ -12655,6 +12928,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - SCIM-Users
@@ -12708,13 +12983,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/invitations:
     post:
       tags:
       - Invitations
       summary: Create an invitation
-      description: Creates a new invitation and sends an email if the mail server
-        is enabled.
+      description: Creates a new invitation and sends an email if the mail server is enabled.
       operationId: createInvitation
       parameters:
       - name: tenant
@@ -12723,8 +12999,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: "Create a new invitation, send an email if the server-mail is\
-          \ enabled"
+        description: "Create a new invitation, send an email if the server-mail is enabled"
         content:
           application/json:
             schema:
@@ -12738,18 +13013,18 @@ paths:
         "403":
           description: Insufficient privileges to invite a Superadmin user
         "409":
-          description: "Invitation already exists for the given email, or user already\
-            \ had access to the tenant"
+          description: "Invitation already exists for the given email, or user already had access to the tenant"
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/invitations/email/{email}:
     get:
       tags:
       - Invitations
       summary: Retrieve all invitations for a given email
-      description: Returns all invitations created for a given email address in the
-        current tenant.
+      description: Returns all invitations created for a given email address in the current tenant.
       operationId: listInvitationsByEmail
       parameters:
       - name: email
@@ -12775,6 +13050,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/invitations/search:
     get:
       tags:
@@ -12832,6 +13109,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/invitations/{id}:
     get:
       tags:
@@ -12863,6 +13142,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Invitations
@@ -12889,6 +13170,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/kv:
     get:
       tags:
@@ -12989,16 +13272,14 @@ paths:
             value: timestamp:asc
       - name: cursor
         in: query
-        description: An opaque cursor token (from a previous response's nextCursor)
-          for cursor-paginated log stores
+        description: An opaque cursor token (from a previous response's nextCursor) for cursor-paginated log stores
         explode: false
         schema:
           type: string
           nullable: true
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[timeRange][EQUALS]=P7D`, `filters[level][EQUALS]=DEBUG`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[timeRange][EQUALS]=P7D`, `filters[level][EQUALS]=DEBUG`"
         explode: false
         schema:
           type: array
@@ -13654,8 +13935,7 @@ paths:
     get:
       tags:
       - Metrics
-      summary: "Get tasks id that have metrics for a specific flow, include deleted\
-        \ or renamed tasks"
+      summary: "Get tasks id that have metrics for a specific flow, include deleted or renamed tasks"
       operationId: listTasksWithMetrics
       parameters:
       - name: namespace
@@ -13785,13 +14065,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/autocomplete:
     post:
       tags:
       - Namespaces
       summary: List namespaces for autocomplete
-      description: "Returns a list of namespaces for use in autocomplete fields, optionally\
-        \ allowing to filter by query and ids. Used especially for binding creation."
+      description: "Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation."
       operationId: autocompleteNamespaces
       parameters:
       - name: tenant
@@ -13944,6 +14225,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Namespaces
@@ -13967,6 +14250,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{id}/inherited-variables:
     get:
       tags:
@@ -13997,6 +14282,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials:
     get:
       tags:
@@ -14060,6 +14347,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Credentials
@@ -14094,6 +14383,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials/inherited:
     get:
       tags:
@@ -14123,6 +14414,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}:
     get:
       tags:
@@ -14158,6 +14451,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Credentials
@@ -14198,6 +14493,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Credentials
@@ -14228,6 +14525,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}/test:
     post:
       tags:
@@ -14263,6 +14562,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/dependencies:
     get:
       tags:
@@ -14278,8 +14579,7 @@ paths:
           type: string
       - name: destinationOnly
         in: query
-        description: "if true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+        description: "if true, list only destination dependencies, otherwise list also source dependencies"
         explode: false
         schema:
           type: boolean
@@ -14631,8 +14931,7 @@ paths:
     get:
       tags:
       - Files
-      summary: "Get namespace file stats such as size, creation & modification dates\
-        \ and type"
+      summary: "Get namespace file stats such as size, creation & modification dates and type"
       operationId: getFileMetadatas
       parameters:
       - name: namespace
@@ -14896,6 +15195,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/delete/by-ids:
     delete:
       tags:
@@ -14931,12 +15232,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/export:
     post:
       tags:
       - Policies
-      summary: Export every namespace-scope policy of a namespace as YAML documents
-        joined by '---'
+      summary: Export every namespace-scope policy of a namespace as YAML documents joined by '---'
       operationId: exportNamespacePolicies
       parameters:
       - name: tenant
@@ -14960,12 +15262,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/export/by-ids:
     post:
       tags:
       - Policies
-      summary: Export namespace-scope policies by their IDs as YAML documents joined
-        by '---'
+      summary: Export namespace-scope policies by their IDs as YAML documents joined by '---'
       operationId: exportNamespacePoliciesByIds
       parameters:
       - name: tenant
@@ -14997,14 +15300,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/search:
     get:
       tags:
       - Policies
-      summary: "Search the policies applying to a namespace — its whole scope chain\
-        \ (STATIC, INSTANCE, TENANT, ancestors and own), ordered outermost → leaf.\
-        \ Backed by the resolution metastore: results converge with writes within\
-        \ the broadcast latency (typically sub-second)."
+      summary: "Search the policies applying to a namespace — its whole scope chain (STATIC, INSTANCE, TENANT, ancestors and own), ordered outermost → leaf. Backed by the resolution metastore: results converge with writes within the broadcast latency (typically sub-second)."
       operationId: searchNamespacePolicies
       parameters:
       - name: tenant
@@ -15050,6 +15352,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/{id}:
     get:
       tags:
@@ -15082,6 +15386,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Policies
@@ -15119,6 +15425,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Policies
@@ -15146,6 +15454,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/{id}/evaluate:
     get:
       tags:
@@ -15192,12 +15502,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs:
     get:
       tags:
       - Reusable Inputs
-      summary: List reusable inputs visible from a namespace (including inherited
-        ones)
+      summary: List reusable inputs visible from a namespace (including inherited ones)
       operationId: list_3
       parameters:
       - name: namespace
@@ -15238,6 +15549,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}:
     get:
       tags:
@@ -15277,6 +15590,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Reusable Inputs
@@ -15295,8 +15610,7 @@ paths:
           type: string
       - name: failIfExists
         in: query
-        description: Reject instead of overwriting if a block with this id already
-          exists in the namespace
+        description: Reject instead of overwriting if a block with this id already exists in the namespace
         explode: false
         schema:
           type: boolean
@@ -15328,6 +15642,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Reusable Inputs
@@ -15355,6 +15671,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/reusable-inputs/{id}/revisions:
     get:
       tags:
@@ -15389,6 +15707,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
     put:
       tags:
@@ -15425,6 +15745,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/secrets/{key}:
     delete:
       tags:
@@ -15455,6 +15777,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     patch:
       tags:
       - Namespaces
@@ -15496,6 +15820,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/outputs/{executionId}:
     get:
       tags:
@@ -15589,6 +15915,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/delete/by-ids:
     delete:
       tags:
@@ -15619,6 +15947,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/export:
     post:
       tags:
@@ -15642,12 +15972,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/export/by-ids:
     post:
       tags:
       - Policies
-      summary: Export tenant-scope policies by their IDs as YAML documents joined
-        by '---'
+      summary: Export tenant-scope policies by their IDs as YAML documents joined by '---'
       operationId: exportTenantPoliciesByIds
       parameters:
       - name: tenant
@@ -15674,14 +16005,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/import:
     post:
       tags:
       - Policies
-      summary: "Import policies from YAML documents of any scope. Every document is\
-        \ authorized against its own scope before anything is written: a denial rejects\
-        \ the whole import. Content problems (unparseable document, missing scope)\
-        \ are accumulated as per-document errors."
+      summary: "Import policies from YAML documents of any scope. Every document is authorized against its own scope before anything is written: a denial rejects the whole import. Content problems (unparseable document, missing scope) are accumulated as per-document errors."
       operationId: importPolicies
       parameters:
       - name: tenant
@@ -15713,13 +16043,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/search:
     get:
       tags:
       - Policies
-      summary: "Search for policies across scopes (without a global grant, restricted\
-        \ to what concerns the caller's namespaces: INSTANCE and TENANT policies plus\
-        \ NAMESPACE policies on their subtrees and ancestors)"
+      summary: "Search for policies across scopes (without a global grant, restricted to what concerns the caller's namespaces: INSTANCE and TENANT policies plus NAMESPACE policies on their subtrees and ancestors)"
       operationId: searchPolicies
       parameters:
       - name: tenant
@@ -15768,6 +16098,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/{id}:
     get:
       tags:
@@ -15795,6 +16127,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Policies
@@ -15827,6 +16161,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Policies
@@ -15849,6 +16185,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/{id}/evaluate:
     get:
       tags:
@@ -15890,6 +16228,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/quota-limits:
     get:
       tags:
@@ -15914,12 +16254,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/reusable-inputs/namespaces:
     get:
       tags:
       - Reusable Inputs
-      summary: List namespaces that define at least one reusable inputs definition
-        (editor autocompletion)
+      summary: List namespaces that define at least one reusable inputs definition (editor autocompletion)
       operationId: namespacesWithBlocks
       parameters:
       - name: tenant
@@ -15939,6 +16280,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/roles:
     post:
       tags:
@@ -15969,6 +16312,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/roles/autocomplete:
     post:
       tags:
@@ -16000,6 +16345,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/roles/ids:
     post:
       tags:
@@ -16031,6 +16378,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/roles/search:
     get:
       tags:
@@ -16087,6 +16436,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/roles/{id}:
     get:
       tags:
@@ -16117,6 +16468,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Roles
@@ -16154,6 +16507,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Roles
@@ -16177,6 +16532,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/secrets:
     get:
       tags:
@@ -16257,6 +16614,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - SecurityIntegrations
@@ -16286,6 +16645,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/security-integrations/search:
     get:
       tags:
@@ -16343,6 +16704,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/security-integrations/{id}:
     get:
       tags:
@@ -16372,6 +16735,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - SecurityIntegrations
@@ -16400,6 +16765,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/security-integrations/{id}/disable:
     post:
       tags:
@@ -16429,6 +16796,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/security-integrations/{id}/enable:
     post:
       tags:
@@ -16458,6 +16827,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/service-accounts:
     get:
       tags:
@@ -16514,6 +16885,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - ServiceAccount
@@ -16544,6 +16917,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/service-accounts/{id}:
     get:
       tags:
@@ -16574,6 +16949,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - ServiceAccount
@@ -16610,6 +16987,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - ServiceAccount
@@ -16635,6 +17014,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/service-accounts/{id}/api-tokens:
     get:
       tags:
@@ -16663,6 +17044,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - ServiceAccount
@@ -16697,6 +17080,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
@@ -16731,6 +17116,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/stats/generate-reports:
     get:
       tags:
@@ -16760,13 +17147,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/support/debug-info:
     get:
       tags:
       - Misc
       summary: Retrieve debug information for a support ticket
-      description: Returns aggregated debug information about the current Kestra instance.
-        Requires the SUPPORT permission.
+      description: Returns aggregated debug information about the current Kestra instance. Requires the SUPPORT permission.
       operationId: supportDebugInfo
       parameters:
       - name: tenant
@@ -16784,6 +17172,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/support/forward:
     post:
       tags:
@@ -16829,6 +17219,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tenant-access:
     get:
       tags:
@@ -16885,6 +17277,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Tenant Access
@@ -16913,6 +17307,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tenant-access/autocomplete:
     post:
       tags:
@@ -16944,6 +17340,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tenant-access/{userId}:
     get:
       tags:
@@ -16975,6 +17373,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Tenant Access
@@ -17001,6 +17401,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Tenant Access
@@ -17027,13 +17429,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests:
     post:
       tags:
       - TestSuites
       summary: Create a test from YAML source
-      description: Creates a new test from a YAML definition. Requires TEST permission
-        with the CREATE action.
+      description: Creates a new test from a YAML definition. Requires TEST permission with the CREATE action.
       operationId: createTestSuite
       parameters:
       - name: tenant
@@ -17058,13 +17461,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/by-ids:
     delete:
       tags:
       - TestSuites
       summary: Delete multiple tests by id
-      description: Deletes a test by namespace and ID. Requires TEST permission with
-        the DELETE action.
+      description: Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
       operationId: deleteTestSuitesByIds
       parameters:
       - name: tenant
@@ -17088,13 +17492,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/disable/by-ids:
     post:
       tags:
       - TestSuites
       summary: Disable multiple tests by id
-      description: Disable a test by namespace and ID. Requires TEST permission with
-        the UPDATE action.
+      description: Disable a test by namespace and ID. Requires TEST permission with the UPDATE action.
       operationId: disableTestSuitesByIds
       parameters:
       - name: tenant
@@ -17118,13 +17523,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/enable/by-ids:
     post:
       tags:
       - TestSuites
       summary: Enable multiple tests by id
-      description: Enable a test by namespace and ID. Requires TEST permission with
-        the UPDATE action.
+      description: Enable a test by namespace and ID. Requires TEST permission with the UPDATE action.
       operationId: enableTestSuitesByIds
       parameters:
       - name: tenant
@@ -17148,13 +17554,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/results/search:
     get:
       tags:
       - TestSuites
       summary: Search for tests results
-      description: "with optional filtering by namespace, test suite ID and flow ID.\
-        \ Requires TEST permission with the READ action."
+      description: "with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action."
       operationId: searchTestSuitesResults
       parameters:
       - name: page
@@ -17220,6 +17627,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/results/search/last:
     post:
       tags:
@@ -17249,6 +17658,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/results/{id}:
     get:
       tags:
@@ -17278,13 +17689,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/run:
     post:
       tags:
       - TestSuites
       summary: Run multiple TestSuites by query
-      description: Executes all TestSuites impacted by the specified filter. Requires
-        TESTSUITE permission with the EXECUTE action.
+      description: Executes all TestSuites impacted by the specified filter. Requires TESTSUITE permission with the EXECUTE action.
       operationId: runTestSuitesByQuery
       parameters:
       - name: tenant
@@ -17308,13 +17720,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/search:
     get:
       tags:
       - TestSuites
       summary: Search for tests
-      description: Searches for tests with optional filtering by namespace and flow
-        ID. Requires TEST permission with the READ action.
+      description: Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
       operationId: searchTestSuites
       parameters:
       - name: page
@@ -17380,13 +17793,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/validate:
     post:
       tags:
       - TestSuites
       summary: Validate a test
-      description: Validates a test YAML definition without persisting it. Returns
-        constraint violations if any. Requires TEST permission with the READ action.
+      description: Validates a test YAML definition without persisting it. Returns constraint violations if any. Requires TEST permission with the READ action.
       operationId: validateTestSuite
       parameters:
       - name: tenant
@@ -17411,13 +17825,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/{namespace}/{id}:
     get:
       tags:
       - TestSuites
       summary: Retrieve a test
-      description: Retrieves a test by namespace and ID. Requires TEST permission
-        with the READ action.
+      description: Retrieves a test by namespace and ID. Requires TEST permission with the READ action.
       operationId: getTestSuite
       parameters:
       - name: namespace
@@ -17447,12 +17862,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - TestSuites
       summary: Update a test from YAML source
-      description: Updates an existing test with a new YAML definition. Requires TEST
-        permission with the UPDATE action.
+      description: Updates an existing test with a new YAML definition. Requires TEST permission with the UPDATE action.
       operationId: updateTestSuite
       parameters:
       - name: namespace
@@ -17489,12 +17905,13 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - TestSuites
       summary: Delete a test
-      description: Deletes a test by namespace and ID. Requires TEST permission with
-        the DELETE action.
+      description: Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
       operationId: deleteTestSuite
       parameters:
       - name: namespace
@@ -17524,13 +17941,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/tests/{namespace}/{id}/run:
     post:
       tags:
       - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TESTSUITE
-        permission with the EXECUTE action.
+      description: Executes all test cases in the specified test. Requires TESTSUITE permission with the EXECUTE action.
       operationId: runTestSuite
       parameters:
       - name: namespace
@@ -17565,6 +17983,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/triggers/backfill/create:
     put:
       tags:
@@ -17634,8 +18054,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -17738,8 +18157,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -17842,8 +18260,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -17927,8 +18344,7 @@ paths:
               properties:
                 filters:
                   type: array
-                  description: "Filters. PHP-style nested query is used - examples:\
-                    \ `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
+                  description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
                   items:
                     $ref: "#/components/schemas/QueryFilter"
         required: true
@@ -18056,8 +18472,7 @@ paths:
             value: triggerId:desc
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -18184,8 +18599,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -18263,8 +18677,7 @@ paths:
       parameters:
       - name: filters
         in: query
-        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`,\
-          \ `filters[namespace][CONTAINS]=test`"
+        description: "Filters. PHP-style nested query is used - examples: `filters[flowId][EQUALS]=hello-world`, `filters[namespace][CONTAINS]=test`"
         explode: false
         schema:
           type: array
@@ -18544,6 +18957,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/usages/all:
     get:
       tags:
@@ -18600,6 +19015,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/worker-selectors/tags:
     get:
       tags:
@@ -18622,6 +19039,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /login:
     post:
       tags:
@@ -18643,6 +19062,8 @@ paths:
             application/json:
               schema:
                 type: object
+      x-kestra:
+        edition: ee
 components:
   schemas:
     AbstractFilter.FilterType:
@@ -18707,13 +19128,9 @@ components:
           type: boolean
         draft:
           type: boolean
-          description: "Whether this flow revision is a draft. Draft revisions are\
-            \ skipped when an execution starts without an explicit revision (webhooks,\
-            \ schedules, subflows, manual triggers). Executions can still target a\
-            \ draft by passing the revision explicitly."
+          description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
         labels:
-          description: Labels as a list of Label (key/value pairs) or as a map of
-            string to string.
+          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
           oneOf:
           - $ref: "#/components/schemas/Map_Object.Object_"
         variables:
@@ -18775,11 +19192,7 @@ components:
         when:
           title: A condition that determines whether the trigger should run.
           type: string
-          description: "A Pebble expression evaluated at trigger time. The trigger\
-            \ fires only when the expression evaluates to a truthy value (`true`,\
-            \ a non-empty string, a non-zero number). Use this to gate trigger execution\
-            \ on dynamic runtime values such as execution labels, flow variables,\
-            \ or environment conditions."
+          description: "A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions."
         disabled:
           type: boolean
           default: false
@@ -18789,9 +19202,7 @@ components:
           - $ref: "#/components/schemas/WorkerSelector"
         policyRefs:
           type: array
-          description: "Identifiers of `enforcement: REFERENCE` governance policies\
-            \ to attach to this trigger and everything nested under it (Enterprise\
-            \ Edition; ignored in the open-source edition)."
+          description: "Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition; ignored in the open-source edition)."
           items:
             type: string
         logLevel:
@@ -18803,8 +19214,7 @@ components:
           - type: array
           - $ref: "#/components/schemas/Map_Object.Object_"
         stopAfter:
-          title: List of execution states after which a trigger should be stopped
-            (a.k.a. disabled).
+          title: List of execution states after which a trigger should be stopped (a.k.a. disabled).
           type: array
           items:
             $ref: "#/components/schemas/State.Type"
@@ -18813,8 +19223,7 @@ components:
         failOnTriggerError:
           type: boolean
         allowConcurrent:
-          title: Specifies whether a trigger is allowed to start a new execution even
-            if a previous run is still in progress.
+          title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
         assets:
           $ref: "#/components/schemas/AssetsDeclaration"
@@ -18957,8 +19366,7 @@ components:
       properties:
         operationId:
           type: string
-          description: The operation identifier used to correlate logs and progress
-            indicators
+          description: The operation identifier used to correlate logs and progress indicators
         totalItems:
           type: integer
           description: The number of domain events submitted for asynchronous processing
@@ -18988,8 +19396,7 @@ components:
     ApiCreateCredentialRequest:
       title: Create Credential Request
       type: object
-      description: Request to create a new credential. Use 'type' field to specify
-        credential type.
+      description: Request to create a new credential. Use 'type' field to specify credential type.
       discriminator:
         propertyName: type
         mapping:
@@ -19078,8 +19485,7 @@ components:
     ApiCredentialResponse:
       title: Credential Response
       type: object
-      description: Response containing credential details. Use 'type' field to determine
-        credential type.
+      description: Response containing credential details. Use 'type' field to determine credential type.
       discriminator:
         propertyName: type
         mapping:
@@ -19304,8 +19710,7 @@ components:
       properties:
         namespace:
           type: string
-          description: "The namespace from which credentials are inherited, or 'tenant'\
-            \ for tenant-level"
+          description: "The namespace from which credentials are inherited, or 'tenant' for tenant-level"
         credentials:
           type: array
           description: Credentials available at this level
@@ -19348,9 +19753,7 @@ components:
           description: Timestamp when the server was last updated.
           format: date-time
           readOnly: true
-      description: "Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer\
-        \ with a `tenantId` field so super-admins can identify which tenant owns each\
-        \ server."
+      description: "Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer with a `tenantId` field so super-admins can identify which tenant owns each server."
     ApiLightExecution:
       required:
       - flowId
@@ -19426,13 +19829,10 @@ components:
           - $ref: "#/components/schemas/McpServer.AuthType"
         oauthProvider:
           type: string
-          description: OAuth provider key from micronaut.security.oauth2.clients.
-            Required when authType is OAUTH.
+          description: OAuth provider key from micronaut.security.oauth2.clients. Required when authType is OAUTH.
         oauthScopesSupported:
           type: array
-          description: Scopes advertised in the server's RFC 9728 Protected Resource
-            Metadata document. Only meaningful when authType is OAUTH. When null or
-            empty the field is omitted from the PRM document.
+          description: Scopes advertised in the server's RFC 9728 Protected Resource Metadata document. Only meaningful when authType is OAUTH. When null or empty the field is omitted from the PRM document.
           items:
             type: string
         disabled:
@@ -19440,8 +19840,7 @@ components:
           description: Whether the MCP server is disabled.
         isDefault:
           type: boolean
-          description: "Whether this is the default MCP server, auto-provisioned per\
-            \ tenant."
+          description: "Whether this is the default MCP server, auto-provisioned per tenant."
           readOnly: true
         created:
           type: string
@@ -19745,8 +20144,7 @@ components:
     ApiUpdateCredentialRequest:
       title: Update Credential Request
       type: object
-      description: Request to update an existing credential. Use 'type' field to specify
-        credential type.
+      description: Request to update an existing credential. Use 'type' field to specify credential type.
       discriminator:
         propertyName: type
         mapping:
@@ -21105,8 +21503,7 @@ components:
         nano:
           type: integer
           format: int32
-      description: "The duration is a string in ISO 8601 Duration format, e.g. `PT1M`\
-        \ for 1 minute, `PT30S` for 30 seconds."
+      description: "The duration is a string in ISO 8601 Duration format, e.g. `PT1M` for 1 minute, `PT30S` for 30 seconds."
     EditionProvider.Edition:
       type: string
       enum:
@@ -21641,13 +22038,9 @@ components:
             type: boolean
           draft:
             type: boolean
-            description: "Whether this flow revision is a draft. Draft revisions are\
-              \ skipped when an execution starts without an explicit revision (webhooks,\
-              \ schedules, subflows, manual triggers). Executions can still target\
-              \ a draft by passing the revision explicitly."
+            description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
+            description: Labels as a list of Label (key/value pairs) or as a map of string to string.
             oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
           workerSelector:
@@ -21684,9 +22077,7 @@ components:
           policyRefs:
             title: References to governance policies (Enterprise Edition).
             type: array
-            description: "Identifiers of `enforcement: REFERENCE` policies to attach\
-              \ to this flow, resolved within the flow's tenant/namespace scope chain.\
-              \ Enterprise Edition only; parsed but ignored in the open-source edition."
+            description: "Identifiers of `enforcement: REFERENCE` policies to attach to this flow, resolved within the flow's tenant/namespace scope chain. Enterprise Edition only; parsed but ignored in the open-source edition."
             items:
               type: string
           concurrency:
@@ -21694,9 +22085,7 @@ components:
           outputs:
             title: Output values available and exposes to other flows.
             type: array
-            description: Output values make information about the execution of your
-              Flow available and expose for other Kestra flows to use. Output values
-              are similar to return values in programming languages.
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
             items:
               $ref: "#/components/schemas/Output"
           retry:
@@ -21710,8 +22099,7 @@ components:
           checks:
             title: Conditions evaluated before the flow is executed.
             type: array
-            description: "A list of conditions that are evaluated before the flow\
-              \ is executed.  If no checks are defined, the flow executes normally."
+            description: "A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally."
             items:
               $ref: "#/components/schemas/Check"
           quotas:
@@ -21782,13 +22170,9 @@ components:
             type: boolean
           draft:
             type: boolean
-            description: "Whether this flow revision is a draft. Draft revisions are\
-              \ skipped when an execution starts without an explicit revision (webhooks,\
-              \ schedules, subflows, manual triggers). Executions can still target\
-              \ a draft by passing the revision explicitly."
+            description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
+            description: Labels as a list of Label (key/value pairs) or as a map of string to string.
             oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
           variables:
@@ -22159,13 +22543,9 @@ components:
             type: boolean
           draft:
             type: boolean
-            description: "Whether this flow revision is a draft. Draft revisions are\
-              \ skipped when an execution starts without an explicit revision (webhooks,\
-              \ schedules, subflows, manual triggers). Executions can still target\
-              \ a draft by passing the revision explicitly."
+            description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
+            description: Labels as a list of Label (key/value pairs) or as a map of string to string.
             oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
           workerSelector:
@@ -22182,9 +22562,7 @@ components:
           outputs:
             title: Output values available and exposes to other flows.
             type: array
-            description: Output values make information about the execution of your
-              Flow available and expose for other Kestra flows to use. Output values
-              are similar to return values in programming languages.
+            description: Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
             items:
               $ref: "#/components/schemas/Output"
           sla:
@@ -22999,8 +23377,7 @@ components:
           - $ref: "#/components/schemas/Property_Object_"
         prefill:
           title: The suggested value for the input.
-          description: Optional UI hint for pre-filling the input. Cannot be used
-            together with a default value.
+          description: Optional UI hint for pre-filling the input. Cannot be used together with a default value.
           allOf:
           - $ref: "#/components/schemas/Property_Object_"
         displayName:
@@ -23323,14 +23700,11 @@ components:
           minLength: 1
           pattern: "^[\\p{Ll}][\\p{L}0-9._-]*$"
           type: string
-          x-pattern-message: Invalid label key. A valid key contains only lowercase
-            letters numbers hyphens (-) underscores (_) or periods (.) and must begin
-            with a lowercase letter.
+          x-pattern-message: Invalid label key. A valid key contains only lowercase letters numbers hyphens (-) underscores (_) or periods (.) and must begin with a lowercase letter.
         value:
           minLength: 1
           type: string
-      description: A key/value pair that can be attached to a Flow or Execution. Labels
-        are often used to organize and categorize objects.
+      description: A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
     LeftSidebarConfiguration:
       type: object
       properties:
@@ -23481,19 +23855,16 @@ components:
       properties:
         toolName:
           type: string
-          description: Unique MCP tool identifier (the trigger's `toolName`). This
-            is the name AI agents use to invoke the tool.
+          description: Unique MCP tool identifier (the trigger's `toolName`). This is the name AI agents use to invoke the tool.
         triggerId:
           type: string
-          description: Trigger id within the flow (the `id` field of the McpToolTrigger).
-            Distinct from `toolName`.
+          description: Trigger id within the flow (the `id` field of the McpToolTrigger). Distinct from `toolName`.
         title:
           type: string
           description: Human-readable display title shown to AI agents.
         description:
           type: string
-          description: Description of what the tool does and when an AI agent should
-            call it.
+          description: Description of what the tool does and when an AI agent should call it.
         annotations:
           description: MCP tool behavioural annotations.
           allOf:
@@ -23510,8 +23881,7 @@ components:
           format: int32
         disabled:
           type: boolean
-          description: Whether this tool is currently disabled (trigger disabled or
-            flow disabled).
+          description: Whether this tool is currently disabled (trigger disabled or flow disabled).
     McpServerController.ApiMcpTool.Annotations:
       type: object
       properties:
@@ -23904,8 +24274,7 @@ components:
         defaultWorkerSelector:
           $ref: "#/components/schemas/WorkerSelector"
         concurrency:
-          description: The concurrency limit applying to the executions of every flow
-            inside this namespace and its descendants.
+          description: The concurrency limit applying to the executions of every flow inside this namespace and its descendants.
           allOf:
           - $ref: "#/components/schemas/Concurrency"
         storageType:
@@ -23930,8 +24299,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Quota"
-      description: A namespace is a logical grouping of flows and tasks. It is used
-        to organize and manage flows and tasks within Kestra.
+      description: A namespace is a logical grouping of flows and tasks. It is used to organize and manage flows and tasks within Kestra.
       allOf:
       - $ref: "#/components/schemas/NamespaceLight"
     Namespace.AllowedNamespace:
@@ -24972,8 +25340,7 @@ components:
       type: object
       properties:
         id:
-          title: "The policy identity — a lowercase RFC 1123 label, unique per (scope,\
-            \ tenantId, namespace)."
+          title: "The policy identity — a lowercase RFC 1123 label, unique per (scope, tenantId, namespace)."
           type: string
         displayName:
           title: Human-friendly name rendered in the Governance UI.
@@ -24986,9 +25353,7 @@ components:
           allOf:
           - $ref: "#/components/schemas/Enforcement"
         target:
-          title: "Optional application refinement within the scope's reach: tenants\
-            \ for INSTANCE/STATIC, namespace subtrees for TENANT. Absent = the whole\
-            \ placement."
+          title: "Optional application refinement within the scope's reach: tenants for INSTANCE/STATIC, namespace subtrees for TENANT. Absent = the whole placement."
           allOf:
           - $ref: "#/components/schemas/PolicyTarget"
         rules:
@@ -24998,13 +25363,11 @@ components:
           items:
             $ref: "#/components/schemas/Rule"
         source:
-          title: "The original YAML source, preserved for round-trip editing; null\
-            \ when the policy was authored through the structured API."
+          title: "The original YAML source, preserved for round-trip editing; null when the policy was authored through the structured API."
           type: string
         deleted:
           type: boolean
-      description: A governance policy bundling a scope placement with mutate and
-        validate rules applied to flows.
+      description: A governance policy bundling a scope placement with mutate and validate rules applied to flows.
     PolicyConflict:
       type: object
       properties:
@@ -25025,14 +25388,12 @@ components:
           title: The scope of the policy whose Delete rule removes the property.
           allOf:
           - $ref: "#/components/schemas/Scope"
-      description: An Add-vs-Delete collision on the same property within one scope
-        chain.
+      description: An Add-vs-Delete collision on the same property within one scope chain.
     PolicyEvaluation:
       type: object
       properties:
         counts:
-          title: The aggregate counters over every scanned resource; counts.scanned
-            is the denominator.
+          title: The aggregate counters over every scanned resource; counts.scanned is the denominator.
           allOf:
           - $ref: "#/components/schemas/ApiPolicyEvaluation.Counts"
         total:
@@ -25040,13 +25401,11 @@ components:
           type: integer
           format: int64
         results:
-          title: "The requested page of affected resources — those the policy would\
-            \ mutate, block, or conflict on."
+          title: "The requested page of affected resources — those the policy would mutate, block, or conflict on."
           type: array
           items:
             $ref: "#/components/schemas/PolicyEvaluationResult"
-      description: Stateless dry-run of a single policy against every resource in
-        its scope.
+      description: Stateless dry-run of a single policy against every resource in its scope.
     PolicyEvaluationResult:
       type: object
       properties:
@@ -25069,8 +25428,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PolicyConflict"
-      description: "One affected resource with the mutations, violations, and conflicts\
-        \ the policy would produce on it."
+      description: "One affected resource with the mutations, violations, and conflicts the policy would produce on it."
     PolicyImportResult:
       type: object
       properties:
@@ -25081,8 +25439,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiPolicyImportResult.Error"
-      description: "Result of a policy import: how many policies were imported, plus\
-        \ per-document errors (valid documents still import)."
+      description: "Result of a policy import: how many policies were imported, plus per-document errors (valid documents still import)."
     PolicyMutation:
       type: object
       properties:
@@ -25106,8 +25463,7 @@ components:
           title: The scope of the policy that made the change.
           allOf:
           - $ref: "#/components/schemas/Scope"
-      description: "A single change a policy made to a property, attributed to the\
-        \ policy that last wrote it."
+      description: "A single change a policy made to a property, attributed to the policy that last wrote it."
     PolicyPreviewRequest:
       required:
       - namespace
@@ -25118,14 +25474,12 @@ components:
           type: string
         source:
           type: string
-      description: "Request body for the merged policy preview: a flow source to resolve\
-        \ policies against, plus the namespace it targets."
+      description: "Request body for the merged policy preview: a flow source to resolve policies against, plus the namespace it targets."
     PolicyPreviewResponse:
       type: object
       properties:
         resolvedSource:
-          title: The flow source after applying the policy mutations; identical to
-            the input when no policy applies.
+          title: The flow source after applying the policy mutations; identical to the input when no policy applies.
           type: string
         mutations:
           title: The per-property changes the policies made to the flow.
@@ -25142,8 +25496,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PolicyConflict"
-      description: Result of dry-running the applicable policy chain against a flow
-        source.
+      description: Result of dry-running the applicable policy chain against a flow source.
     PolicyRequest:
       required:
       - id
@@ -25159,8 +25512,7 @@ components:
         enforcement:
           $ref: "#/components/schemas/Enforcement"
         target:
-          title: "Optional application refinement within the scope's reach: tenants\
-            \ for INSTANCE, namespace subtrees for TENANT."
+          title: "Optional application refinement within the scope's reach: tenants for INSTANCE, namespace subtrees for TENANT."
           allOf:
           - $ref: "#/components/schemas/Target"
         rules:
@@ -25168,8 +25520,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Rule"
-      description: "Create/update payload for a policy; scope, tenant and namespace\
-        \ are derived from the URL."
+      description: "Create/update payload for a policy; scope, tenant and namespace are derived from the URL."
     PolicyRuleSummary:
       type: object
       properties:
@@ -25204,25 +25555,21 @@ components:
       type: object
       properties:
         tenants:
-          title: The tenants the policy applies to; INSTANCE and STATIC scopes only.
-            Absent = every tenant.
+          title: The tenants the policy applies to; INSTANCE and STATIC scopes only. Absent = every tenant.
           type: array
           items:
             type: string
         namespaces:
-          title: The namespace subtrees the policy applies to; TENANT scope only.
-            Absent = the whole tenant.
+          title: The namespace subtrees the policy applies to; TENANT scope only. Absent = the whole tenant.
           type: array
           items:
             type: string
-      description: "Narrows where the policy applies within its scope: tenants for\
-        \ INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
+      description: "Narrows where the policy applies within its scope: tenants for INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     PolicyViolation:
       type: object
       properties:
         severity:
-          title: "The severity of the violation — BLOCK rejects the resource, WARN\
-            \ only reports."
+          title: "The severity of the violation — BLOCK rejects the resource, WARN only reports."
           allOf:
           - $ref: "#/components/schemas/RuleAction"
         ruleType:
@@ -25242,8 +25589,7 @@ components:
           allOf:
           - $ref: "#/components/schemas/Scope"
         taskId:
-          title: The id of the violating task or trigger; null for resource-level
-            violations.
+          title: The id of the violating task or trigger; null for resource-level violations.
           type: string
       description: A single rule violation reported against the post-mutation resource.
     Property_Boolean_:
@@ -25655,8 +26001,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Input_Object_"
-      description: A reusable set of inputs referenced from flows via a REUSABLE_INPUTS
-        input.
+      description: A reusable set of inputs referenced from flows via a REUSABLE_INPUTS input.
     RightSidebarConfiguration:
       type: object
       properties:
@@ -25793,8 +26138,7 @@ components:
           items:
             $ref: "#/components/schemas/Condition"
     RuleAction:
-      title: "The severity of the violation — BLOCK rejects the resource, WARN only\
-        \ reports."
+      title: "The severity of the violation — BLOCK rejects the resource, WARN only reports."
       type: string
       enum:
       - BLOCK
@@ -26410,8 +26754,7 @@ components:
           type: string
         secretType:
           type: string
-      description: Debug information collected automatically and attached to a support
-        ticket.
+      description: Debug information collected automatically and attached to a support ticket.
     SupportDebugInfo.AuthType:
       type: string
       description: Authentication type configured on the instance.
@@ -26433,19 +26776,16 @@ components:
       type: object
       properties:
         tenants:
-          title: The tenants the policy applies to; INSTANCE and STATIC scopes only.
-            Absent = every tenant.
+          title: The tenants the policy applies to; INSTANCE and STATIC scopes only. Absent = every tenant.
           type: array
           items:
             type: string
         namespaces:
-          title: The namespace subtrees the policy applies to; TENANT scope only.
-            Absent = the whole tenant.
+          title: The namespace subtrees the policy applies to; TENANT scope only. Absent = the whole tenant.
           type: array
           items:
             type: string
-      description: "Narrows where the policy applies within its scope: tenants for\
-        \ INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
+      description: "Narrows where the policy applies within its scope: tenants for INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     Task:
       required:
       - id
@@ -26490,9 +26830,7 @@ components:
           - $ref: "#/components/schemas/WorkerSelector"
         policyRefs:
           type: array
-          description: "Identifiers of `enforcement: REFERENCE` governance policies\
-            \ to attach to this task and everything nested under it (Enterprise Edition;\
-            \ ignored in the open-source edition)."
+          description: "Identifiers of `enforcement: REFERENCE` governance policies to attach to this task and everything nested under it (Enterprise Edition; ignored in the open-source edition)."
           items:
             type: string
         logLevel:
@@ -26939,8 +27277,7 @@ components:
           type: boolean
         refreshBeforeExpiry:
           title: Duration before expiry when the token should be refreshed.
-          description: "The duration is a string in ISO 8601 Duration format, e.g.\
-            \ `PT1M` for 1 minute, `PT30S` for 30 seconds."
+          description: "The duration is a string in ISO 8601 Duration format, e.g. `PT1M` for 1 minute, `PT30S` for 30 seconds."
           allOf:
           - $ref: "#/components/schemas/Duration"
       description: Token caching configuration
@@ -27361,11 +27698,7 @@ components:
           format: int32
         mode:
           $ref: "#/components/schemas/QueueSubscription.Mode"
-      description: The worker-group ↔ WorkerQueue subscription edge as exposed on
-        the API. Embeds the resolved queue's name + tags + tenants so consumers don't
-        need a separate lookup. The default subscription is represented by a queue
-        summary with the reserved io.kestra.core.worker.WorkerQueues#DEFAULT_ID "default"
-        id and empty tags.
+      description: The worker-group ↔ WorkerQueue subscription edge as exposed on the API. Embeds the resolved queue's name + tags + tenants so consumers don't need a separate lookup. The default subscription is represented by a queue summary with the reserved io.kestra.core.worker.WorkerQueues#DEFAULT_ID "default" id and empty tags.
     WorkerGroupController.ApiUpdateSubscriptionRequest:
       type: object
       properties:
@@ -27402,10 +27735,7 @@ components:
         endedRate:
           type: number
           format: double
-      description: "Compact per-worker capacity projection extracted from the worker's\
-        \ heartbeat metric set. Replaces the previous full `Set` payload --- the Workers\
-        \ tab only needs these three numbers, and shipping the rest forced tag-disambiguation\
-        \ logic onto the client."
+      description: "Compact per-worker capacity projection extracted from the worker's heartbeat metric set. Replaces the previous full `Set` payload --- the Workers tab only needs these three numbers, and shipping the rest forced tag-disambiguation logic onto the client."
     WorkerGroupController.ApiWorkerGroup:
       type: object
       properties:
@@ -27534,9 +27864,7 @@ components:
           type: array
           items:
             type: string
-      description: "Compact WorkerQueue summary embedded in subscription responses.\
-        \ Carries the user-supplied routing identity (id), the optional display name,\
-        \ the canonical tag set, and the tenant scope."
+      description: "Compact WorkerQueue summary embedded in subscription responses. Carries the user-supplied routing identity (id), the optional display name, the canonical tag set, and the tenant scope."
     WorkerQueueController.ApiCreateOrUpdateWorkerQueueRequest:
       required:
       - id
@@ -27546,8 +27874,7 @@ components:
         id:
           minLength: 1
           type: string
-          description: "User-supplied RFC 1123 label, used as the routing identity,\
-            \ the Prometheus tag value, and in log output. Immutable."
+          description: "User-supplied RFC 1123 label, used as the routing identity, the Prometheus tag value, and in log output. Immutable."
         name:
           type: string
           description: Optional human-readable name.
@@ -27659,27 +27986,20 @@ components:
         tags:
           maxItems: 20
           type: array
-          description: "Required tags used to route to a matching Worker Queue. Each\
-            \ tag is an RFC 1123 label: lowercase alphanumerics and hyphens, must\
-            \ start and end with alphanumeric, max 64 chars per tag, max 20 tags."
+          description: "Required tags used to route to a matching Worker Queue. Each tag is an RFC 1123 label: lowercase alphanumerics and hyphens, must start and end with alphanumeric, max 64 chars per tag, max 20 tags."
           items:
             type: string
         match:
-          description: "How selector tags are matched against a Worker Queue's tag\
-            \ set. ALL: queue tags must be a superset of the selector tags. ANY: queue\
-            \ tags must intersect the selector tags. Defaults to ALL when null."
+          description: "How selector tags are matched against a Worker Queue's tag set. ALL: queue tags must be a superset of the selector tags. ANY: queue tags must intersect the selector tags. Defaults to ALL when null."
           allOf:
           - $ref: "#/components/schemas/WorkerSelectorMatch"
         fallback:
-          description: Strategy when no worker is available. Defaults to FAIL when
-            null.
+          description: Strategy when no worker is available. Defaults to FAIL when null.
           allOf:
           - $ref: "#/components/schemas/WorkerQueueFallback"
     WorkerSelectorMatch:
       type: string
-      description: "How selector tags are matched against a Worker Queue's tag set.\
-        \ ALL: queue tags must be a superset of the selector tags. ANY: queue tags\
-        \ must intersect the selector tags. Defaults to ALL when null."
+      description: "How selector tags are matched against a Worker Queue's tag set. ALL: queue tags must be a superset of the selector tags. ANY: queue tags must intersect the selector tags. Defaults to ALL when null."
       enum:
       - ALL
       - ANY
