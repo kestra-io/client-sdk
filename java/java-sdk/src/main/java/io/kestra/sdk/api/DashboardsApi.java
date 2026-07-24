@@ -118,24 +118,26 @@ public class DashboardsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public byte[] exportChartToCsv(
+    public byte[] exportChart(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull DashboardControllerPreviewRequest request) throws ApiException {
+            @jakarta.annotation.Nonnull DashboardControllerPreviewRequest request,
+            @jakarta.annotation.Nullable String format) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "dashboards", "charts", "export", "to-csv"),
-                request, null, null,
+                tenantPath(tenant, "dashboards", "charts", "export"),
+                request, queryParams("format", format), null,
                 OCTET_STREAM, JSON,
                 new TypeReference<>() {});
     }
 
-    public byte[] exportDashboardChartDataToCSV(
+    public byte[] exportDashboardChart(
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull String chartId,
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull ChartFiltersOverrides filters) throws ApiException {
+            @jakarta.annotation.Nonnull ChartFiltersOverrides filters,
+            @jakarta.annotation.Nullable String format) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "dashboards", id, "charts", chartId, "export", "to-csv"),
-                filters, null, null,
+                tenantPath(tenant, "dashboards", id, "charts", chartId, "export"),
+                filters, queryParams("format", format), null,
                 OCTET_STREAM, JSON,
                 new TypeReference<>() {});
     }

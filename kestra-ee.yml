@@ -7304,18 +7304,27 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/charts/export/to-csv:
+  /api/v1/{tenant}/dashboards/charts/export:
     post:
       tags:
       - Dashboards
-      summary: Export a table chart data to CSV
-      operationId: exportChartToCsv
+      summary: Export a chart data to CSV or ION
+      operationId: exportChart
       parameters:
       - name: tenant
         in: path
         required: true
         schema:
           type: string
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          nullable: true
+          enum:
+          - CSV
+          - ION
       requestBody:
         content:
           application/json:
@@ -7324,7 +7333,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportChartToCsv 200 response
+          description: exportChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -7567,12 +7576,12 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv:
+  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export:
     post:
       tags:
       - Dashboards
-      summary: Export a dashboard chart data to CSV
-      operationId: exportDashboardChartDataToCSV
+      summary: Export a dashboard chart data to CSV or ION
+      operationId: exportDashboardChart
       parameters:
       - name: id
         in: path
@@ -7591,6 +7600,15 @@ paths:
         required: true
         schema:
           type: string
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          nullable: true
+          enum:
+          - CSV
+          - ION
       requestBody:
         description: "The filters to apply, some can override chart definition like labels & namespace"
         content:
@@ -7600,7 +7618,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportDashboardChartDataToCSV 200 response
+          description: exportDashboardChart 200 response
           content:
             application/octet-stream:
               schema:

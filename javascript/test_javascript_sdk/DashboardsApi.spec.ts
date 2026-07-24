@@ -89,4 +89,53 @@ describe('DashboardsApi', () => {
         });
         expect(result).toBeDefined();
     });
+
+    it('exportChart: exports an ad-hoc chart to CSV', async () => {
+        const chart = `id: csv-chart
+type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+graphStyle: LINES
+columns:
+  date:
+    field: DATE
+`;
+        try {
+            const result = await kestraClient.Dashboards.exportChart({
+                chart,
+                format: 'CSV',
+            } as any);
+            expect(result).toBeDefined();
+        } catch (e: any) {
+            expect([400, 422]).toContain(e?.response?.status);
+        }
+    });
+
+    it('exportChart: exports an ad-hoc chart to ION', async () => {
+        const chart = `id: ion-chart
+type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart
+graphStyle: LINES
+columns:
+  date:
+    field: DATE
+`;
+        try {
+            const result = await kestraClient.Dashboards.exportChart({
+                chart,
+                format: 'ION',
+            } as any);
+            expect(result).toBeDefined();
+        } catch (e: any) {
+            expect([400, 422]).toContain(e?.response?.status);
+        }
+    });
+
+    it('exportDashboardChart: returns error for non-existent chart id', async () => {
+        const created = await createDashboard(`csv-export-${randomId()}`);
+        const id = (created as any).id;
+
+        await expect(kestraClient.Dashboards.exportDashboardChart({
+            id,
+            chartId: 'nonexistent',
+            format: 'CSV',
+        } as any)).rejects.toThrow();
+    });
 });

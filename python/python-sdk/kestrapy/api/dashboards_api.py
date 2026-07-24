@@ -52,13 +52,15 @@ class DashboardsApi(BaseApi):
         path = self._tenant_path(tenant, "dashboards", "charts", "preview")
         return self._json_request("POST", path, PagedResultsMapStringObject, body=request)
 
-    def export_chart_to_csv(self, tenant: str, request: DashboardControllerPreviewRequest) -> bytes:
-        path = self._tenant_path(tenant, "dashboards", "charts", "export", "to-csv")
-        return self._download_request("POST", path, body=request, accept=self.OCTET)
+    def export_chart(self, tenant: str, request: DashboardControllerPreviewRequest, format: Optional[str] = None) -> bytes:
+        path = self._tenant_path(tenant, "dashboards", "charts", "export")
+        params = list(self._build_query_params(format=format).items())
+        return self._download_request("POST", path, body=request, params=params, accept=self.OCTET)
 
-    def export_dashboard_chart_data_to_csv(self, id: str, chart_id: str, tenant: str, filters: ChartFiltersOverrides) -> bytes:
-        path = self._tenant_path(tenant, "dashboards", id, "charts", chart_id, "export", "to-csv")
-        return self._download_request("POST", path, body=filters, accept=self.OCTET)
+    def export_dashboard_chart(self, id: str, chart_id: str, tenant: str, filters: ChartFiltersOverrides, format: Optional[str] = None) -> bytes:
+        path = self._tenant_path(tenant, "dashboards", id, "charts", chart_id, "export")
+        params = list(self._build_query_params(format=format).items())
+        return self._download_request("POST", path, body=filters, params=params, accept=self.OCTET)
 
     # ---- Settings ----
 
