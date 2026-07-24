@@ -1,9 +1,12 @@
 import { client } from "./openapi/client.gen"
 import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
-import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
+import { createConfigureClient, EnterpriseFeatureError } from "@kestra-io/hey-api-plugin/runtime"
+import type { EnterpriseFeatureConfig } from "@kestra-io/hey-api-plugin/runtime"
+import { ENTERPRISE_ONLY_ROUTES_JSON } from "./openapi/sdk/enterpriseOnlyRoutes.gen"
 
 export * from "./openapi/index"
+export { EnterpriseFeatureError }
 
 declare global {
     interface Window {
@@ -141,7 +144,28 @@ const axiosLikeClient = {
     patch: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
 } as const
 
-export const configureClient = createConfigureClient(client, formDataBodySerializer)
+// Route registry baked in at generation time from the EE spec's `x-kestra: {edition: ee}` tags
+// (see enterprise-only-routes-plugin.ts) — lets the shared error interceptor tell a 404 on an
+// EE-only route (e.g. listAuditLogs on an OSS server) apart from a genuinely-missing resource.
+const enterpriseOnlyRoutes: Record<string, { feature: string }> = JSON.parse(ENTERPRISE_ONLY_ROUTES_JSON)
+
+// docsUrl/contactSalesUrl are intentionally generic (not a per-feature marketing URL table) —
+// pending the real per-feature marketing links, a generic destination is more honest than a
+// guessed one.
+//
+// NOTE: matchRoute + 404 alone can misfire on a real EE server (a genuine not-found on an
+// EE-only route with a path param, or an SDK/server version mismatch) — see kestra's
+// ErrorController/EditionHeaderFilter (X-Kestra-Entity / X-Kestra-Edition response headers) and
+// @kestra-io/hey-api-plugin's runtime.ts, which reads them to disambiguate. That header-reading
+// logic ships in @kestra-io/hey-api-plugin >= 0.3.0 (not yet released as of this pin at 0.2.0) —
+// re-pin the devDependency above once it is, no other change needed here.
+const enterpriseFeature: EnterpriseFeatureConfig = {
+    matchRoute: (method, path) => enterpriseOnlyRoutes[`${method} ${path}`],
+    docsUrl: (feature) => `https://kestra.io/docs/enterprise-edition/${feature}`,
+    contactSalesUrl: () => "https://kestra.io/demo",
+}
+
+export const configureClient = createConfigureClient(client, formDataBodySerializer, enterpriseFeature)
 
 /**
  * Set a mock client instance controlled in tests
