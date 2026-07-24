@@ -21734,8 +21734,6 @@ components:
           type: string
         error:
           type: string
-        stackTrace:
-          type: string
     ExecutionController.ExecutionResponse:
       required:
       - deleted
