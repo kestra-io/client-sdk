@@ -563,13 +563,13 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create an instance-scope policy
+      summary: Create an instance-scope policy from its YAML source
       operationId: createInstancePolicy
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -705,6 +705,30 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/instance/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate an instance-scope policy YAML source without persisting it
+      operationId: validateInstancePolicy
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/{id}:
     get:
       tags:
@@ -738,7 +762,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update an instance-scope policy
+      summary: Update an instance-scope policy from its YAML source
       operationId: updateInstancePolicy
       parameters:
       - name: id
@@ -748,9 +772,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15166,7 +15190,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a namespace-scope policy
+      summary: Create a namespace-scope policy from its YAML source
       operationId: createNamespacePolicy
       parameters:
       - name: tenant
@@ -15181,9 +15205,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15354,6 +15378,41 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{namespace}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a namespace-scope policy YAML source without persisting it
+      operationId: validateNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/{id}:
     get:
       tags:
@@ -15391,7 +15450,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a namespace-scope policy
+      summary: Update a namespace-scope policy from its YAML source
       operationId: updateNamespacePolicy
       parameters:
       - name: tenant
@@ -15411,9 +15470,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15891,7 +15950,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a tenant-scope policy
+      summary: Create a tenant-scope policy from its YAML source
       operationId: createTenantPolicy
       parameters:
       - name: tenant
@@ -15901,9 +15960,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -16100,6 +16159,36 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a tenant-scope policy YAML source without persisting it
+      operationId: validateTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/{id}:
     get:
       tags:
@@ -16132,7 +16221,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a tenant-scope policy
+      summary: Update a tenant-scope policy from its YAML source
       operationId: updateTenantPolicy
       parameters:
       - name: tenant
@@ -16147,9 +16236,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -25361,7 +25450,7 @@ components:
           items:
             $ref: "#/components/schemas/Rule"
         source:
-          title: "The original YAML source, preserved for round-trip editing; null when the policy was authored through the structured API."
+          title: "The YAML source, preserved for round-trip editing: the authored source for API/imported policies, or a canonical serialization for the config-declared and migrated ones."
           type: string
         deleted:
           type: boolean
@@ -25495,30 +25584,6 @@ components:
           items:
             $ref: "#/components/schemas/PolicyConflict"
       description: Result of dry-running the applicable policy chain against a flow source.
-    PolicyRequest:
-      required:
-      - id
-      - rules
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        enforcement:
-          $ref: "#/components/schemas/Enforcement"
-        target:
-          title: "Optional application refinement within the scope's reach: tenants for INSTANCE, namespace subtrees for TENANT."
-          allOf:
-          - $ref: "#/components/schemas/Target"
-        rules:
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Rule"
-      description: "Create/update payload for a policy; scope, tenant and namespace are derived from the URL."
     PolicyRuleSummary:
       type: object
       properties:
@@ -26770,20 +26835,6 @@ components:
       - DOCKER
       - STANDALONE
       x-type: String
-    Target:
-      type: object
-      properties:
-        tenants:
-          title: The tenants the policy applies to; INSTANCE and STATIC scopes only. Absent = every tenant.
-          type: array
-          items:
-            type: string
-        namespaces:
-          title: The namespace subtrees the policy applies to; TENANT scope only. Absent = the whole tenant.
-          type: array
-          items:
-            type: string
-      description: "Narrows where the policy applies within its scope: tenants for INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     Task:
       required:
       - id
