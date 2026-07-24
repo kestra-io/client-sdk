@@ -2,12 +2,8 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import { configureClient, EnterpriseFeatureError } from "@kestra-io/kestra-sdk";
 import { searchAuditLogsForAllTenants } from "@kestra-io/kestra-sdk/audit-logs";
 
-// Unit tests, no live backend needed: fetch is stubbed directly.
-//
-// searchAuditLogsForAllTenants calls "GET /api/v1/auditlogs/search", a real EE-only route from
-// the generated registry (see enterprise-only-routes-plugin.ts /
-// src/openapi/sdk/enterpriseOnlyRoutes.gen.ts) — unlike the axios-like useClient() facade, the
-// generated SDK functions pass the templated OpenAPI path that matchRoute needs.
+// Unit test, no live backend needed: fetch is stubbed. Uses a real EE-only route
+// (GET /api/v1/auditlogs/search) via a generated SDK function so matchRoute gets a templated path.
 describe("EE-only-route 404 disambiguation", () => {
     beforeEach(() => {
         configureClient({ baseUrl: "http://localhost:8080" });

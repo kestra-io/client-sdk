@@ -1,15 +1,7 @@
 import { $, definePluginConfig, type DefinePlugin } from "@hey-api/openapi-ts"
 
-// Local (client-sdk-only) hey-api codegen plugin: reads the `x-kestra: {edition: ee}` vendor
-// extension that kestra-ee's update-openapi-spec.yml workflow stamps onto EE-only operations
-// before the merged spec reaches this repo, and bakes a route registry into the generated SDK.
-// Consumed by src/index.ts to build the `enterpriseFeature` config passed to
-// createConfigureClient (see @kestra-io/hey-api-plugin/runtime's EnterpriseFeatureError /
-// SdkVersionMismatchError).
-//
-// This lives here, not in @kestra-io/hey-api-plugin: only client-sdk (the one SDK spanning both
-// editions) needs to tell an EE-only route apart from a genuinely-missing resource — ui/ and
-// ui-ee/ each generate from their own locally-accurate spec and never hit this case.
+// Local (client-sdk-only): reads the `x-kestra: {edition: ee}` tag off each operation and bakes a
+// route registry into the generated SDK, consumed by src/index.ts's enterpriseFeature config.
 
 type UserConfig = { name: "enterprise-only-routes" }
 type EnterpriseOnlyRoutesPlugin = DefinePlugin<UserConfig>
