@@ -21,7 +21,7 @@ describe('AuditLogsApi', () => {
     });
 
     it('exportAuditLogs: response matches declared type (object[])', async () => {
-        const result = await kestraClient.AuditLogs.exportAuditLogs({});
+        const result = await AuditLogs.exportAuditLogs({});
 
         // The declared return type is object[] but the endpoint returns text/csv (a raw string).
         // This test fails until the OpenAPI annotation is corrected to type: string.
@@ -39,7 +39,7 @@ describe('AuditLogsApi', () => {
     });
 
     it('exportAuditLogsForAllTenants: response matches declared type (object[])', async () => {
-        const result = await kestraClient.AuditLogs.exportAuditLogsForAllTenants({});
+        const result = await AuditLogs.exportAuditLogsForAllTenants({});
 
         // The declared return type is object[] but the endpoint returns text/csv (a raw string).
         // This test fails until the OpenAPI annotation is corrected to type: string.

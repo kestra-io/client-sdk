@@ -324,9 +324,9 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await sleep(500);
 
-        const result = await kestraClient.Triggers.exportTriggers({
+        const result = await Triggers.exportTriggers({
             filters: [{
-                field: 'NAMESPACE',
+                field: 'namespace',
                 operation: 'EQUALS',
                 value: namespace as any,
             }],
