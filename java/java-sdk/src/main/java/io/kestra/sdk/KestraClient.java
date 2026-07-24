@@ -102,6 +102,8 @@ public class KestraClient {
 
     public BlueprintsApi blueprints() { return new BlueprintsApi(this.apiClient); }
 
+    public CasesApi cases() { return new CasesApi(this.apiClient); }
+
     // END -- Individual API
 
     /**
