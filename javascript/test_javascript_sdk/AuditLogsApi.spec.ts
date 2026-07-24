@@ -20,6 +20,14 @@ describe('AuditLogsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('exportAuditLogs: response matches declared type (object[])', async () => {
+        const result = await AuditLogs.exportAuditLogs({});
+
+        // The declared return type is object[] but the endpoint returns text/csv (a raw string).
+        // This test fails until the OpenAPI annotation is corrected to type: string.
+        expect(Array.isArray(result)).toBe(true);
+    });
+
     it('searchAuditLogsForAllTenants: returns a paged result', async () => {
         const result = await AuditLogs.searchAuditLogsForAllTenants({ page: 1, size: 10 });
         expect(result).toBeDefined();
@@ -28,6 +36,14 @@ describe('AuditLogsApi', () => {
     it('exportAuditLogsForAllTenants: exports audit logs for all tenants', async () => {
         const result = await AuditLogs.exportAuditLogsForAllTenants({});
         expect(result).toBeDefined();
+    });
+
+    it('exportAuditLogsForAllTenants: response matches declared type (object[])', async () => {
+        const result = await AuditLogs.exportAuditLogsForAllTenants({});
+
+        // The declared return type is object[] but the endpoint returns text/csv (a raw string).
+        // This test fails until the OpenAPI annotation is corrected to type: string.
+        expect(Array.isArray(result)).toBe(true);
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {
