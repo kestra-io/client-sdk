@@ -1,12 +1,12 @@
 import { client } from "./openapi/client.gen"
 import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
-import { createConfigureClient, EnterpriseFeatureError } from "@kestra-io/hey-api-plugin/runtime"
+import { createConfigureClient, EnterpriseFeatureError, SdkVersionMismatchError } from "@kestra-io/hey-api-plugin/runtime"
 import type { EnterpriseFeatureConfig } from "@kestra-io/hey-api-plugin/runtime"
 import { ENTERPRISE_ONLY_ROUTES_JSON } from "./openapi/sdk/enterpriseOnlyRoutes.gen"
 
 export * from "./openapi/index"
-export { EnterpriseFeatureError }
+export { EnterpriseFeatureError, SdkVersionMismatchError }
 
 declare global {
     interface Window {
@@ -188,7 +188,6 @@ const featureToSlugMap: Record<string, string> = {
     "login": "/auth/authentication",
 }
 
-// TODO: re-pin @kestra-io/hey-api-plugin to >= 0.3.0 once released, for header-based disambiguation.
 const enterpriseFeature: EnterpriseFeatureConfig = {
     matchRoute: (method, path) => enterpriseOnlyRoutes[`${method} ${path}`],
     docsUrl: (feature) => `https://kestra.io/docs/enterprise${featureToSlugMap[feature] ?? ""}`,
