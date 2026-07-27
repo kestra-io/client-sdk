@@ -18702,6 +18702,13 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: recoverMissedSchedules
+        in: query
+        description: "When true, missed schedules are recovered on enable according to the trigger's recoverMissedSchedules configuration; omitted or false, missed schedules are skipped"
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -27369,6 +27376,9 @@ components:
           type: string
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerController.ApiTriggerId:
       type: object
       properties:
@@ -27391,6 +27401,9 @@ components:
             $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerFixture:
       required:
       - id
