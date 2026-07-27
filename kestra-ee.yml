@@ -16324,7 +16324,7 @@ paths:
       tags:
       - Quotas
       summary: Search for quota limits
-      operationId: search
+      operationId: searchQuotaLimits
       parameters:
       - name: tenant
         in: path
@@ -16333,13 +16333,39 @@ paths:
           type: string
       responses:
         "200":
-          description: search 200 response
+          description: searchQuotaLimits 200 response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/QuotaLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/quota-limits/reset:
+    post:
+      tags:
+      - Quotas
+      summary: Reset a quota limit
+      operationId: resetQuotaLimit
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuotaLimitController.ApiQuotaLimitResetRequest"
+        required: true
+      responses:
+        "200":
+          description: resetQuotaLimit 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -25945,6 +25971,21 @@ components:
         count:
           type: integer
           format: int64
+    QuotaLimitController.ApiQuotaLimitResetRequest:
+      required:
+      - id
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        id:
+          minLength: 1
+          type: string
+      description: Request body for resetting a quota limit.
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
