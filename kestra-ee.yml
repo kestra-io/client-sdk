@@ -7319,6 +7319,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: createDashboard 200 response
           content:
@@ -7328,13 +7330,19 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/charts/export/to-csv:
+  /api/v1/{tenant}/dashboards/charts/export:
     post:
       tags:
       - Dashboards
-      summary: Export a table chart data to CSV
-      operationId: exportChartToCsv
+      summary: Export a chart data
+      operationId: exportChart
       parameters:
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7348,7 +7356,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportChartToCsv 200 response
+          description: exportChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -7382,6 +7390,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/dashboards/defaults/definitions:
+    get:
+      tags:
+      - Dashboards
+      summary: Get the built-in default dashboard definitions
+      operationId: getDefaultDashboardDefinitions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getDefaultDashboardDefinitions 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7518,6 +7550,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: updateDashboard 200 response
           content:
@@ -7591,12 +7625,12 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv:
+  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export:
     post:
       tags:
       - Dashboards
-      summary: Export a dashboard chart data to CSV
-      operationId: exportDashboardChartDataToCSV
+      summary: Export a dashboard chart data
+      operationId: exportDashboardChart
       parameters:
       - name: id
         in: path
@@ -7610,6 +7644,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7624,7 +7664,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportDashboardChartDataToCSV 200 response
+          description: exportDashboardChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -21993,6 +22033,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
+    ExportFormat:
+      type: string
+      enum:
+      - CSV
+      - ION
     ExpressionContext:
       type: object
       properties:
