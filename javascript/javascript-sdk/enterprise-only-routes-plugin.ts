@@ -18,8 +18,8 @@ const handler: EnterpriseOnlyRoutesPlugin["Handler"] = ({ plugin }) => {
 
     plugin.forEach(
         "operation",
-        ({ operation }: { operation: any }) => {
-            const extension = (operation as { "x-kestra"?: { edition?: string } })["x-kestra"]
+        ({ operation }) => {
+            const extension = (operation as unknown as { "x-kestra"?: { edition?: string } })["x-kestra"]
             if (extension?.edition !== "ee") return
 
             const method = String(operation.method).toUpperCase()
@@ -29,6 +29,12 @@ const handler: EnterpriseOnlyRoutesPlugin["Handler"] = ({ plugin }) => {
         },
         { order: "declarations" },
     )
+
+    // Cheap guard against silent drift: if the x-kestra tag is ever renamed or dropped upstream,
+    // generation would otherwise succeed with an empty registry and no signal that anything broke.
+    if (Object.keys(routes).length === 0) {
+        console.warn("[enterprise-only-routes-plugin] Collected zero EE-only routes from the spec — check the x-kestra tag is still present.")
+    }
 
     const routesSymbol = plugin.symbol("ENTERPRISE_ONLY_ROUTES_JSON", {
         getFilePath: () => "sdk/enterpriseOnlyRoutes",

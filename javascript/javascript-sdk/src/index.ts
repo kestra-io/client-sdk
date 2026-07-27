@@ -148,7 +148,8 @@ const axiosLikeClient = {
 // enterprise-only-routes-plugin.ts.
 const enterpriseOnlyRoutes: Record<string, { feature: string }> = JSON.parse(ENTERPRISE_ONLY_ROUTES_JSON)
 
-const featureToSlugMap: Record<string, string> = {
+// Exported for the exhaustiveness test (registry features ⊆ this map's keys), not for consumer use.
+export const featureToSlugMap: Record<string, string> = {
     "audit-logs": "/governance/audit-logs",
     "bindings": "/auth/rbac",
     "auths": "/auth/authentication",

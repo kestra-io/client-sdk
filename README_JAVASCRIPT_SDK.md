@@ -90,6 +90,13 @@ import * as WorkerAuthAPI           from "@kestra-io/kestra-sdk/worker-auth";
 import * as WorkerGroupsAPI         from "@kestra-io/kestra-sdk/worker-groups";
 ```
 
+### Enterprise-only routes
+
+A 404 on a route that only exists in Kestra EE throws `EnterpriseFeatureError`
+(feature unavailable on this server) or `SdkVersionMismatchError` (server is EE
+but doesn't have this route — likely an SDK/server version mismatch), both
+exported from `@kestra-io/kestra-sdk`.
+
 ### Example: a flow lifecycle
 
 Configure the client once (see [Configure the client](#configure-the-client)), pick a tenant, then
