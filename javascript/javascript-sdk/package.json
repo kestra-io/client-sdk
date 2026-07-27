@@ -11,6 +11,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./ai": "./dist/ai.js",
+    "./ai-admin": "./dist/ai-admin.js",
     "./apps": "./dist/apps.js",
     "./assets": "./dist/assets.js",
     "./audit-logs": "./dist/audit-logs.js",

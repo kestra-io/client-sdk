@@ -4427,6 +4427,211 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/ai/threads:
+    get:
+      tags:
+      - AI
+      summary: List the caller's Copilot conversation threads (EE)
+      operationId: list_3
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list_3 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - AI
+      summary: Create a Copilot conversation thread
+      operationId: create_3
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreateThreadRequest"
+        required: true
+      responses:
+        "200":
+          description: create_3 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}:
+    get:
+      tags:
+      - AI
+      summary: Fetch a Copilot thread with its full message history
+      operationId: get_4
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadDetail"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - AI
+      summary: Soft-delete a Copilot conversation thread (EE)
+      operationId: delete_3
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: delete_3 204 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/ai/threads/{threadId}/chat:
+    post:
+      tags:
+      - AI
+      summary: Open a streaming agent chat turn (SSE)
+      operationId: chat
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiChatTurnRequest"
+        required: true
+      responses:
+        "200":
+          description: chat 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_Object_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}/confirm:
+    post:
+      tags:
+      - AI
+      summary: Confirm a proposed action and stream the resumed turn (SSE)
+      operationId: confirm
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiConfirmActionRequest"
+        required: true
+      responses:
+        "200":
+          description: confirm 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_Object_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}/rename:
+    patch:
+      tags:
+      - AI
+      summary: Rename a Copilot conversation thread (EE)
+      operationId: rename
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiRenameThreadRequest"
+        required: true
+      responses:
+        "200":
+          description: rename 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -15608,7 +15813,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: List reusable inputs visible from a namespace (including inherited ones)
-      operationId: list_3
+      operationId: list_4
       parameters:
       - name: namespace
         in: path
@@ -15640,7 +15845,7 @@ paths:
           type: string
       responses:
         "200":
-          description: list_3 200 response
+          description: list_4 200 response
           content:
             application/json:
               schema:
@@ -15655,7 +15860,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: "Get reusable inputs by id, resolving namespace inheritance"
-      operationId: get_4
+      operationId: get_5
       parameters:
       - name: namespace
         in: path
@@ -15681,7 +15886,7 @@ paths:
           type: string
       responses:
         "200":
-          description: get_4 200 response
+          description: get_5 200 response
           content:
             application/json:
               schema:
@@ -15747,7 +15952,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: Delete reusable inputs
-      operationId: delete_3
+      operationId: delete_4
       parameters:
       - name: namespace
         in: path
@@ -15766,7 +15971,7 @@ paths:
           type: string
       responses:
         "200":
-          description: delete_3 200 response
+          description: delete_4 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -19498,6 +19703,81 @@ components:
       - USE
       - IMPERSONATE
       - UNKNOWN
+    AgentMessageRole:
+      type: string
+      enum:
+      - USER
+      - ASSISTANT
+      - TOOL
+      - SYSTEM
+    AgentMessageType:
+      type: string
+      enum:
+      - TEXT
+      - TOOL_CALL
+      - TOOL_RESULT
+      - PROPOSED_ACTION
+      - ARTEFACT_DRAFT
+      - CANCELLED
+    AgentMode:
+      type: string
+      enum:
+      - ASK
+      - PLAN
+      - EDIT
+    AgentThinking:
+      type: object
+      properties:
+        text:
+          type: string
+          nullable: true
+        signature:
+          type: string
+          nullable: true
+        redacted:
+          type: array
+          nullable: true
+          items:
+            type: string
+    AgentThreadStatus:
+      type: string
+      enum:
+      - IDLE
+      - RUNNING
+      - AWAITING_CONFIRMATION
+    AgentToolCall:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        kind:
+          $ref: "#/components/schemas/AgentToolCall.Kind"
+        tool:
+          type: string
+        family:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentToolFamily"
+        arguments:
+          type: object
+          additionalProperties:
+            type: object
+        thinking:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentThinking"
+    AgentToolCall.Kind:
+      type: string
+      enum:
+      - PLATFORM
+      - AUTHORING
+    AgentToolFamily:
+      type: string
+      enum:
+      - READ
+      - MUTATE
+      - ACT
     AiController.AiProviderResponse:
       type: object
       properties:
@@ -19555,6 +19835,36 @@ components:
             type: string
         existingOnly:
           type: boolean
+    ApiChatTurnRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+        mode:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentMode"
+        additionalContext:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        providerId:
+          type: string
+          nullable: true
+    ApiConfirmActionRequest:
+      type: object
+      properties:
+        confirmationId:
+          type: string
+        decision:
+          $ref: "#/components/schemas/ApiDecision"
+        reason:
+          type: string
+          nullable: true
+        providerId:
+          type: string
+          nullable: true
     ApiCreateCredentialRequest:
       title: Create Credential Request
       type: object
@@ -19644,6 +19954,16 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to create a new OAuth2 credential.
+    ApiCreateThreadRequest:
+      type: object
+      properties:
+        mode:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentMode"
+        title:
+          type: string
+          nullable: true
     ApiCredentialResponse:
       title: Credential Response
       type: object
@@ -19747,6 +20067,11 @@ components:
           description: Updated timestamp
           format: date-time
       description: Response containing OAuth2 credential details.
+    ApiDecision:
+      type: string
+      enum:
+      - APPROVE
+      - REJECT
     ApiExecution:
       required:
       - flowId
@@ -20014,6 +20339,34 @@ components:
           description: Timestamp when the server was last updated.
           format: date-time
           readOnly: true
+    ApiMessageView:
+      type: object
+      properties:
+        uid:
+          type: string
+        role:
+          $ref: "#/components/schemas/AgentMessageRole"
+        type:
+          $ref: "#/components/schemas/AgentMessageType"
+        content:
+          type: string
+          nullable: true
+        toolCall:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentToolCall"
+        toolResult:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        draft:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ArtefactDraft"
+        createdAt:
+          type: string
+          format: date-time
     ApiPatchSuperAdminRequest:
       required:
       - superAdmin
@@ -20068,6 +20421,14 @@ components:
       - ADDED
       - REPLACED
       - REMOVED
+    ApiRenameThreadRequest:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          minLength: 1
+          type: string
     ApiRoleSummary:
       required:
       - id
@@ -20210,6 +20571,47 @@ components:
           type: string
           description: Result message
       description: Response from testing a credential connection.
+    ApiThreadDetail:
+      type: object
+      properties:
+        uid:
+          type: string
+        title:
+          type: string
+          nullable: true
+        mode:
+          $ref: "#/components/schemas/AgentMode"
+        status:
+          $ref: "#/components/schemas/AgentThreadStatus"
+        pendingConfirmationId:
+          type: string
+          nullable: true
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiMessageView"
+    ApiThreadSummary:
+      type: object
+      properties:
+        uid:
+          type: string
+        title:
+          type: string
+          nullable: true
+        mode:
+          $ref: "#/components/schemas/AgentMode"
+        status:
+          $ref: "#/components/schemas/AgentThreadStatus"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        lastTurnAt:
+          type: string
+          format: date-time
+          nullable: true
     ApiToken:
       required:
       - iat
@@ -20517,6 +20919,26 @@ components:
           type: array
           items:
             type: string
+    ArtefactDraft:
+      type: object
+      properties:
+        draftId:
+          type: string
+        kind:
+          $ref: "#/components/schemas/ArtefactKind"
+        yaml:
+          type: string
+        valid:
+          type: boolean
+        constraints:
+          type: string
+          nullable: true
+    ArtefactKind:
+      type: string
+      enum:
+      - FLOW
+      - DASHBOARD
+      - APP
     Assertion:
       required:
       - value
@@ -21739,6 +22161,19 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/FollowLogEvent"
+        id:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+        retry:
+          type: string
+    Event_Object_:
+      type: object
+      properties:
+        data:
+          type: object
         id:
           type: string
         name:
