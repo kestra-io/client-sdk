@@ -158,6 +158,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -507,6 +508,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -673,6 +675,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -823,6 +826,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -830,6 +834,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -891,6 +897,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -970,6 +977,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -2523,9 +2531,10 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
-          default: 10000
+          default: 1000
       - name: sort
         in: query
         description: A list of sort fields
@@ -2983,6 +2992,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -3331,6 +3341,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -3677,6 +3688,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -4713,6 +4725,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -4968,6 +4981,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -5658,6 +5672,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -5718,6 +5733,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -5811,6 +5827,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -6217,6 +6234,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -6408,6 +6426,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -6552,6 +6571,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -6761,6 +6781,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 1
@@ -7262,6 +7283,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -7470,6 +7492,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -7944,6 +7967,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -8229,6 +8253,7 @@ paths:
         description: Maximum number of distinct values to return.
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -9057,6 +9082,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -11222,6 +11248,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -11285,6 +11312,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -12004,6 +12032,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -12168,6 +12197,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13342,6 +13372,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13461,6 +13492,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13523,6 +13555,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -13795,6 +13828,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -14257,6 +14291,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -14388,6 +14423,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -14580,6 +14616,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -15599,6 +15636,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -15786,6 +15824,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -15793,6 +15832,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -15834,6 +15875,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -16372,6 +16414,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16542,6 +16585,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -16549,6 +16593,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -16760,6 +16806,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16914,6 +16961,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17020,6 +17068,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17209,6 +17258,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17601,6 +17651,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17938,6 +17989,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -18104,6 +18156,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -18812,6 +18865,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -19129,6 +19183,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
