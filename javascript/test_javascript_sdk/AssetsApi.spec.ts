@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { randomId } from './_utils.js';
 import * as Assets from '@kestra-io/kestra-sdk/assets';
+import * as Flows from '@kestra-io/kestra-sdk/flows';
+import * as Executions from '@kestra-io/kestra-sdk/executions';
 
 function assetYaml(id: string): string {
     return `id: ${id}
@@ -9,6 +11,25 @@ namespace: assets.test
 tableName: ${id}
 description: Test asset ${id}
 `;
+}
+
+function logFlowYaml(id: string, ns: string): string {
+    return `id: ${id}
+namespace: ${ns}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+`;
+}
+
+async function createLogFlowExecution() {
+    const flowId = randomId();
+    const namespace = randomId();
+    await Flows.createFlow({ body: logFlowYaml(flowId, namespace) });
+    const execution = await Executions.createExecution({ namespace, id: flowId, wait: true });
+    return { flowId, namespace, executionId: execution.id ?? "" };
 }
 
 describe('AssetsApi', () => {
@@ -73,6 +94,7 @@ describe('AssetsApi', () => {
 
         const locked = await Assets.lockAsset({ id: assetId, ttl: 'PT5M' });
         expect(locked).toBeDefined();
+        expect(locked.ownerType).toBe("USER");
 
         await Assets.unlockAsset({ id: assetId });
     });
@@ -89,5 +111,44 @@ describe('AssetsApi', () => {
         expect(updated.id).toBe(assetId);
 
         await Assets.unlockAsset({ id: assetId });
+    });
+
+    it('unlockAsset: execution-owned lock is released by its own matching executionId', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        const assetId = created.id ?? "";
+        const { flowId, namespace, executionId } = await createLogFlowExecution();
+
+        const lock = await Assets.lockAsset({
+            id: assetId, ttl: 'PT1H',
+            executionId, flowId, flowNamespace: namespace, taskRunId: randomId(),
+        });
+        expect(lock.ownerType).toBe("EXECUTION");
+
+        // matching executionId is the owner-checked release path: the execution releases its own lock
+        await Assets.unlockAsset({ id: assetId, executionId });
+
+        const relock = await Assets.lockAsset({ id: assetId, ttl: 'PT1H' });
+        expect(relock.ownerType).toBe("USER");
+
+        await Assets.unlockAsset({ id: assetId });
+    });
+
+    it('unlockAsset: a mismatched executionId is owner-checked and is a no-op', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        const assetId = created.id ?? "";
+        const owner = await createLogFlowExecution();
+        const other = await createLogFlowExecution();
+
+        await Assets.lockAsset({ id: assetId, ttl: 'PT1H', executionId: owner.executionId });
+
+        // a different execution's unlock is owner-checked against the lock holder: no-op, does not throw
+        await Assets.unlockAsset({ id: assetId, executionId: other.executionId });
+
+        // lock is still held by the original owner: a manual USER lock attempt is rejected
+        await expect(Assets.lockAsset({ id: assetId, ttl: 'PT1H' })).rejects.toThrow();
+
+        await Assets.unlockAsset({ id: assetId, executionId: owner.executionId });
     });
 });

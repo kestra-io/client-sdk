@@ -19,6 +19,15 @@ func (a *AssetsAPI) DeleteAsset(ctx context.Context, id, tenant string) error {
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "assets", id), nil, nil)
 }
 
+func (a *AssetsAPI) LockAsset(ctx context.Context, id, tenant string, request AssetsControllerAssetLockRequest) (*AssetsControllerApiAssetLock, error) {
+	return doJSON[*AssetsControllerApiAssetLock](&a.baseAPI, ctx, "POST", tenantPath(tenant, "assets", id, "lock"), request, nil)
+}
+
+func (a *AssetsAPI) UnlockAsset(ctx context.Context, id, tenant string, executionId *string) error {
+	params := buildQueryParams("executionId", executionId)
+	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "assets", id, "lock"), nil, params)
+}
+
 func (a *AssetsAPI) AssetDependencies(ctx context.Context, id, tenant string, destinationOnly, expandAll *bool) (*AssetTopologyGraph, error) {
 	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
 	return doJSON[*AssetTopologyGraph](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id, "dependencies"), nil, params)
