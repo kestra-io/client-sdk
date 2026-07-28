@@ -97,6 +97,12 @@ A 404 on a route that only exists in Kestra EE throws `EnterpriseFeatureError`
 but doesn't have this route — likely an SDK/server version mismatch), both
 exported from `@kestra-io/kestra-sdk`.
 
+`EnterpriseFeatureError` carries `feature`, `docsUrl` and `contactSalesUrl` so
+you can render your own "upgrade to unlock X" message. The two URLs are
+UTM-tagged (`utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error`,
+with the feature key in `utm_content`); strip the query string if you'd rather
+not pass it through.
+
 ### Example: a flow lifecycle
 
 Configure the client once (see [Configure the client](#configure-the-client)), pick a tenant, then

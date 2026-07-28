@@ -189,10 +189,21 @@ export const featureToSlugMap: Record<string, string> = {
     "login": "/auth/authentication",
 }
 
+// Same UTM convention the app already uses on its own kestra.io links, with utm_source=sdk. An
+// EnterpriseFeatureError is the only thing we get to say to someone at the moment they hit an
+// Enterprise boundary, so the links are tagged to tell whether they lead anywhere. utm_content
+// carries the feature key, which is what keeps the features falling back to the bare
+// /docs/enterprise page distinguishable from one another.
+const UTM_CAMPAIGN = "utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error"
+
+function withUtm(url: string, feature: string): string {
+    return `${url}?${UTM_CAMPAIGN}&utm_content=${encodeURIComponent(feature)}`
+}
+
 const enterpriseFeature: EnterpriseFeatureConfig = {
     matchRoute: (method, path) => enterpriseOnlyRoutes[`${method} ${path}`],
-    docsUrl: (feature) => `https://kestra.io/docs/enterprise${featureToSlugMap[feature] ?? ""}`,
-    contactSalesUrl: () => "https://kestra.io/demo",
+    docsUrl: (feature) => withUtm(`https://kestra.io/docs/enterprise${featureToSlugMap[feature] ?? ""}`, feature),
+    contactSalesUrl: (feature) => withUtm("https://kestra.io/demo", feature),
 }
 
 export const configureClient = createConfigureClient(client, formDataBodySerializer, enterpriseFeature)

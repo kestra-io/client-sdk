@@ -26,6 +26,14 @@ describe("EE-only-route 404 disambiguation", () => {
 
         expect(error).toBeInstanceOf(EnterpriseFeatureError);
         expect((error as EnterpriseFeatureError).feature).toBe("audit-logs");
+        // Links are UTM-tagged so growth can tell whether an Enterprise-boundary error leads
+        // anywhere, and utm_content keeps the features distinguishable.
+        expect((error as EnterpriseFeatureError).docsUrl).toBe(
+            "https://kestra.io/docs/enterprise/governance/audit-logs?utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error&utm_content=audit-logs"
+        );
+        expect((error as EnterpriseFeatureError).contactSalesUrl).toBe(
+            "https://kestra.io/demo?utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error&utm_content=audit-logs"
+        );
     });
 
     it("throws EnterpriseFeatureError for a 404 on a templated {tenant}-scoped EE-only route", async () => {
@@ -42,5 +50,8 @@ describe("EE-only-route 404 disambiguation", () => {
 
         expect(error).toBeInstanceOf(EnterpriseFeatureError);
         expect((error as EnterpriseFeatureError).feature).toBe("invitations");
+        expect((error as EnterpriseFeatureError).docsUrl).toBe(
+            "https://kestra.io/docs/enterprise/auth/invitations?utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error&utm_content=invitations"
+        );
     });
 });
