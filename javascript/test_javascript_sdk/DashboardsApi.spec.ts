@@ -264,7 +264,7 @@ describe('DashboardsApi', () => {
         const created = await createDashboard(`csv-export-${randomId()}`);
         const id = (created as any).id;
 
-        await expect(kestraClient.Dashboards.exportDashboardChart({
+        await expect(Dashboards.exportDashboardChart({
             id,
             chartId: 'nonexistent',
             format: 'CSV',
