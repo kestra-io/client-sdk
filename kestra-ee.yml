@@ -563,13 +563,13 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create an instance-scope policy
+      summary: Create an instance-scope policy from its YAML source
       operationId: createInstancePolicy
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -705,6 +705,30 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/instance/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate an instance-scope policy YAML source without persisting it
+      operationId: validateInstancePolicy
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/instance/policies/{id}:
     get:
       tags:
@@ -738,7 +762,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update an instance-scope policy
+      summary: Update an instance-scope policy from its YAML source
       operationId: updateInstancePolicy
       parameters:
       - name: id
@@ -748,9 +772,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -7295,6 +7319,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: createDashboard 200 response
           content:
@@ -7304,13 +7330,19 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/charts/export/to-csv:
+  /api/v1/{tenant}/dashboards/charts/export:
     post:
       tags:
       - Dashboards
-      summary: Export a table chart data to CSV
-      operationId: exportChartToCsv
+      summary: Export a chart data
+      operationId: exportChart
       parameters:
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7324,7 +7356,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportChartToCsv 200 response
+          description: exportChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -7358,6 +7390,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/dashboards/defaults/definitions:
+    get:
+      tags:
+      - Dashboards
+      summary: Get the built-in default dashboard definitions
+      operationId: getDefaultDashboardDefinitions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getDefaultDashboardDefinitions 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7494,6 +7550,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: updateDashboard 200 response
           content:
@@ -7567,12 +7625,12 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv:
+  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export:
     post:
       tags:
       - Dashboards
-      summary: Export a dashboard chart data to CSV
-      operationId: exportDashboardChartDataToCSV
+      summary: Export a dashboard chart data
+      operationId: exportDashboardChart
       parameters:
       - name: id
         in: path
@@ -7586,6 +7644,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7600,7 +7664,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportDashboardChartDataToCSV 200 response
+          description: exportDashboardChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -15166,7 +15230,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a namespace-scope policy
+      summary: Create a namespace-scope policy from its YAML source
       operationId: createNamespacePolicy
       parameters:
       - name: tenant
@@ -15181,9 +15245,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15354,6 +15418,41 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/namespaces/{namespace}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a namespace-scope policy YAML source without persisting it
+      operationId: validateNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/namespaces/{namespace}/policies/{id}:
     get:
       tags:
@@ -15391,7 +15490,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a namespace-scope policy
+      summary: Update a namespace-scope policy from its YAML source
       operationId: updateNamespacePolicy
       parameters:
       - name: tenant
@@ -15411,9 +15510,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15891,7 +15990,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a tenant-scope policy
+      summary: Create a tenant-scope policy from its YAML source
       operationId: createTenantPolicy
       parameters:
       - name: tenant
@@ -15901,9 +16000,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -16100,6 +16199,36 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a tenant-scope policy YAML source without persisting it
+      operationId: validateTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/policies/{id}:
     get:
       tags:
@@ -16132,7 +16261,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a tenant-scope policy
+      summary: Update a tenant-scope policy from its YAML source
       operationId: updateTenantPolicy
       parameters:
       - name: tenant
@@ -16147,9 +16276,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -16235,7 +16364,7 @@ paths:
       tags:
       - Quotas
       summary: Search for quota limits
-      operationId: search
+      operationId: searchQuotaLimits
       parameters:
       - name: tenant
         in: path
@@ -16244,13 +16373,39 @@ paths:
           type: string
       responses:
         "200":
-          description: search 200 response
+          description: searchQuotaLimits 200 response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/QuotaLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/quota-limits/reset:
+    post:
+      tags:
+      - Quotas
+      summary: Reset a quota limit
+      operationId: resetQuotaLimit
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuotaLimitController.ApiQuotaLimitResetRequest"
+        required: true
+      responses:
+        "200":
+          description: resetQuotaLimit 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -18613,6 +18768,13 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: recoverMissedSchedules
+        in: query
+        description: "When true, missed schedules are recovered on enable according to the trigger's recoverMissedSchedules configuration; omitted or false, missed schedules are skipped"
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -21734,8 +21896,6 @@ components:
           type: string
         error:
           type: string
-        stackTrace:
-          type: string
     ExecutionController.ExecutionResponse:
       required:
       - deleted
@@ -21873,6 +22033,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
+    ExportFormat:
+      type: string
+      enum:
+      - CSV
+      - ION
     ExpressionContext:
       type: object
       properties:
@@ -25363,7 +25528,7 @@ components:
           items:
             $ref: "#/components/schemas/Rule"
         source:
-          title: "The original YAML source, preserved for round-trip editing; null when the policy was authored through the structured API."
+          title: "The YAML source, preserved for round-trip editing: the authored source for API/imported policies, or a canonical serialization for the config-declared and migrated ones."
           type: string
         deleted:
           type: boolean
@@ -25497,30 +25662,6 @@ components:
           items:
             $ref: "#/components/schemas/PolicyConflict"
       description: Result of dry-running the applicable policy chain against a flow source.
-    PolicyRequest:
-      required:
-      - id
-      - rules
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        enforcement:
-          $ref: "#/components/schemas/Enforcement"
-        target:
-          title: "Optional application refinement within the scope's reach: tenants for INSTANCE, namespace subtrees for TENANT."
-          allOf:
-          - $ref: "#/components/schemas/Target"
-        rules:
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Rule"
-      description: "Create/update payload for a policy; scope, tenant and namespace are derived from the URL."
     PolicyRuleSummary:
       type: object
       properties:
@@ -25875,6 +26016,21 @@ components:
         count:
           type: integer
           format: int64
+    QuotaLimitController.ApiQuotaLimitResetRequest:
+      required:
+      - id
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        id:
+          minLength: 1
+          type: string
+      description: Request body for resetting a quota limit.
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -26772,20 +26928,6 @@ components:
       - DOCKER
       - STANDALONE
       x-type: String
-    Target:
-      type: object
-      properties:
-        tenants:
-          title: The tenants the policy applies to; INSTANCE and STATIC scopes only. Absent = every tenant.
-          type: array
-          items:
-            type: string
-        namespaces:
-          title: The namespace subtrees the policy applies to; TENANT scope only. Absent = the whole tenant.
-          type: array
-          items:
-            type: string
-      description: "Narrows where the policy applies within its scope: tenants for INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     Task:
       required:
       - id
@@ -27320,6 +27462,9 @@ components:
           type: string
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerController.ApiTriggerId:
       type: object
       properties:
@@ -27342,6 +27487,9 @@ components:
             $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerFixture:
       required:
       - id
