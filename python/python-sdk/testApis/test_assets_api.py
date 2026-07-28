@@ -6,8 +6,11 @@ from test_helpers import (
     random_id,
     ns_filter,
     type_filter,
+    create_log_flow,
+    create_execution,
 )
 from kestrapy import ApiException
+from kestrapy.models.assets_controller_asset_lock_request import AssetsControllerAssetLockRequest
 
 
 def asset_yaml(asset_id):
@@ -152,6 +155,141 @@ def test_delete_asset_basic(client):
 
     # Should not raise
     client.assets.delete_asset(id=created.id, tenant=TENANT)
+
+
+# ========================================================================
+# Lock
+# ========================================================================
+
+
+def test_lock_asset_manual(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+
+    lock = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+    )
+
+    assert lock is not None
+    assert lock.owner_type == "USER"
+    assert lock.locked_until is not None
+
+    client.assets.unlock_asset(id=created.id, tenant=TENANT)
+
+
+def test_lock_asset_held_by_another_owner_is_rejected(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    flow = create_log_flow(client)
+    execution = create_execution(client, flow.namespace, flow.id)
+
+    lock = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H", execution_id=execution.id),
+    )
+    assert lock.owner_type == "EXECUTION"
+
+    # held by an EXECUTION owner: a manual USER lock attempt is a different owner and must be rejected
+    with pytest.raises(ApiException):
+        client.assets.lock_asset(
+            id=created.id, tenant=TENANT,
+            request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+        )
+
+
+def test_lock_asset_same_owner_reacquire_extends(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+
+    first = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1M"),
+    )
+    second = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+    )
+
+    assert second.owner_type == "USER"
+    assert second.locked_until > first.locked_until
+
+    client.assets.unlock_asset(id=created.id, tenant=TENANT)
+
+
+def test_unlock_asset_then_relock(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+    )
+
+    # Should not raise
+    client.assets.unlock_asset(id=created.id, tenant=TENANT)
+
+    relock = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+    )
+    assert relock is not None
+
+    client.assets.unlock_asset(id=created.id, tenant=TENANT)
+
+
+def test_unlock_asset_execution_owned_lock_released_by_matching_execution_id(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    flow = create_log_flow(client)
+    execution = create_execution(client, flow.namespace, flow.id)
+
+    lock = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(
+            ttl="PT1H",
+            execution_id=execution.id,
+            flow_id=flow.id,
+            flow_namespace=flow.namespace,
+            task_run_id=random_id(),
+        ),
+    )
+    assert lock.owner_type == "EXECUTION"
+
+    # matching execution_id is the owner-checked release path: the execution releases its own lock
+    client.assets.unlock_asset(id=created.id, tenant=TENANT, execution_id=execution.id)
+
+    relock = client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+    )
+    assert relock.owner_type == "USER"
+
+    client.assets.unlock_asset(id=created.id, tenant=TENANT)
+
+
+def test_unlock_asset_execution_owned_lock_mismatched_execution_id_is_noop(client):
+    asset_id = random_id()
+    created = client.assets.create_asset(tenant=TENANT, yaml_body=asset_yaml(asset_id))
+    flow = create_log_flow(client)
+    owner = create_execution(client, flow.namespace, flow.id)
+    other = create_execution(client, flow.namespace, flow.id)
+
+    client.assets.lock_asset(
+        id=created.id, tenant=TENANT,
+        request=AssetsControllerAssetLockRequest(ttl="PT1H", execution_id=owner.id),
+    )
+
+    # a different execution's unlock is owner-checked against the lock holder: no-op, does not raise
+    client.assets.unlock_asset(id=created.id, tenant=TENANT, execution_id=other.id)
+
+    # lock is still held by the original owner: a manual USER lock attempt is rejected
+    with pytest.raises(ApiException):
+        client.assets.lock_asset(
+            id=created.id, tenant=TENANT,
+            request=AssetsControllerAssetLockRequest(ttl="PT1H"),
+        )
+
+    client.assets.unlock_asset(id=created.id, tenant=TENANT, execution_id=owner.id)
 
 
 # ========================================================================

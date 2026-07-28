@@ -3,7 +3,9 @@ from typing import Any, List, Optional
 from kestrapy.base_api import BaseApi
 from kestrapy.models.assets_controller_api_asset import AssetsControllerApiAsset
 from kestrapy.models.assets_controller_api_asset_lineage_event import AssetsControllerApiAssetLineageEvent
+from kestrapy.models.assets_controller_api_asset_lock import AssetsControllerApiAssetLock
 from kestrapy.models.assets_controller_api_asset_usage import AssetsControllerApiAssetUsage
+from kestrapy.models.assets_controller_asset_lock_request import AssetsControllerAssetLockRequest
 from kestrapy.models.asset_topology_graph import AssetTopologyGraph
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.paged_results_assets_controller_api_asset import PagedResultsAssetsControllerApiAsset
@@ -28,6 +30,22 @@ class AssetsApi(BaseApi):
     def delete_asset(self, id: str, tenant: str) -> None:
         path = self._tenant_path(tenant, "assets", id)
         self._void_request("DELETE", path)
+
+    # ---- Lock ----
+
+    def lock_asset(
+        self,
+        id: str,
+        tenant: str,
+        request: Optional[AssetsControllerAssetLockRequest] = None,
+    ) -> AssetsControllerApiAssetLock:
+        path = self._tenant_path(tenant, "assets", id, "lock")
+        return self._json_request("POST", path, AssetsControllerApiAssetLock, body=request)
+
+    def unlock_asset(self, id: str, tenant: str, execution_id: Optional[str] = None) -> None:
+        path = self._tenant_path(tenant, "assets", id, "lock")
+        params = self._build_query_params(executionId=execution_id)
+        self._void_request("DELETE", path, params=params)
 
     # ---- Dependencies ----
 
