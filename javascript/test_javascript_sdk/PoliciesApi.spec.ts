@@ -5,27 +5,30 @@ import { tenantId } from './_setup.js';
 import * as Policies from '@kestra-io/kestra-sdk/policies';
 import * as Namespaces from '@kestra-io/kestra-sdk/namespaces';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
-import type { PolicyRequest, Rule } from '@kestra-io/kestra-sdk';
 
+// Policies are created and updated from their YAML source (`application/x-yaml`): the API
+// parses it, stamps the scope/tenant/namespace from the URL and stores the source alongside
+// the parsed model, so the body is a plain string rather than a structured request object.
+//
 // `io.kestra.plugin.ee.rules.Require` is a built-in FLOW-scoped governance rule: it reports
 // a violation when the listed properties are missing from a flow after mutation.
-function requireTimeoutRule(): Rule {
-    return {
-        type: 'io.kestra.plugin.ee.rules.Require',
-        on: 'FLOW',
-        action: 'WARN',
-        errorMessage: 'timeout is required',
-        properties: ['timeout'],
-    } as Rule;
-}
-
-function policyRequest(id: string): PolicyRequest {
-    return {
+function policySource(id: string, overrides: Record<string, string> = {}): string {
+    const fields: Record<string, string> = {
         id,
         displayName: `Test policy ${id}`,
         enforcement: 'EVALUATE',
-        rules: [requireTimeoutRule()],
+        ...overrides,
     };
+    return [
+        ...Object.entries(fields).map(([key, value]) => `${key}: ${value}`),
+        'rules:',
+        '  - type: io.kestra.plugin.ee.rules.Require',
+        '    on: FLOW',
+        '    action: WARN',
+        '    errorMessage: timeout is required',
+        '    properties:',
+        '      - timeout',
+    ].join('\n') + '\n';
 }
 
 async function createTestNamespace() {
@@ -58,7 +61,7 @@ async function waitForPolicyInSearch(
 describe('PoliciesApi (instance scope)', () => {
     it('createInstancePolicy + instancePolicy: creates and retrieves a policy', async () => {
         const id = `test-instance-policy-${randomId()}`;
-        const created = await Policies.createInstancePolicy(policyRequest(id));
+        const created = await Policies.createInstancePolicy({ body: policySource(id) });
         expect(created.id).toBe(id);
 
         const fetched = await Policies.instancePolicy({ id });
@@ -68,7 +71,7 @@ describe('PoliciesApi (instance scope)', () => {
 
     it('searchInstancePolicies: finds a created policy', async () => {
         const id = `test-search-instance-policy-${randomId()}`;
-        await Policies.createInstancePolicy(policyRequest(id));
+        await Policies.createInstancePolicy({ body: policySource(id) });
 
         const results = await waitForPolicyInSearch(
             () => Policies.searchInstancePolicies({ page: 1, size: 100 }),
@@ -79,12 +82,14 @@ describe('PoliciesApi (instance scope)', () => {
 
     it('updateInstancePolicy: updates displayName and enforcement', async () => {
         const id = `test-update-instance-policy-${randomId()}`;
-        await Policies.createInstancePolicy(policyRequest(id));
+        await Policies.createInstancePolicy({ body: policySource(id) });
 
         const updated = await Policies.updateInstancePolicy({
-            ...policyRequest(id),
-            displayName: 'Updated display name',
-            enforcement: 'ACTIVE',
+            id,
+            body: policySource(id, {
+                displayName: 'Updated display name',
+                enforcement: 'ACTIVE',
+            }),
         });
 
         expect(updated.displayName).toBe('Updated display name');
@@ -93,7 +98,7 @@ describe('PoliciesApi (instance scope)', () => {
 
     it('evaluateInstancePolicy: dry-runs the policy against flows in scope', async () => {
         const id = `test-evaluate-instance-policy-${randomId()}`;
-        await Policies.createInstancePolicy(policyRequest(id));
+        await Policies.createInstancePolicy({ body: policySource(id) });
 
         const result = await Policies.evaluateInstancePolicy({ id, page: 1, size: 10 });
         expect(result).toBeDefined();
@@ -102,7 +107,7 @@ describe('PoliciesApi (instance scope)', () => {
 
     it('deleteInstancePoliciesByIds: removes a policy', async () => {
         const id = `test-delete-instance-policy-${randomId()}`;
-        await Policies.createInstancePolicy(policyRequest(id));
+        await Policies.createInstancePolicy({ body: policySource(id) });
 
         await Policies.deleteInstancePoliciesByIds({ body: [id] });
 
@@ -116,8 +121,8 @@ describe('PoliciesApi (namespace scope)', () => {
         const id = `test-namespace-policy-${randomId()}`;
 
         const created = await Policies.createNamespacePolicy({
-            ...policyRequest(id),
             namespace: ns.id,
+            body: policySource(id),
         });
         expect(created.id).toBe(id);
 
@@ -128,7 +133,7 @@ describe('PoliciesApi (namespace scope)', () => {
     it('searchNamespacePolicies: resolves the scope chain for a namespace', async () => {
         const ns = await createTestNamespace();
         const id = `test-search-namespace-policy-${randomId()}`;
-        await Policies.createNamespacePolicy({ ...policyRequest(id), namespace: ns.id });
+        await Policies.createNamespacePolicy({ namespace: ns.id, body: policySource(id) });
 
         const results = await waitForPolicyInSearch(
             () => Policies.searchNamespacePolicies({ namespace: ns.id, page: 1, size: 100 }),
@@ -140,12 +145,12 @@ describe('PoliciesApi (namespace scope)', () => {
     it('updateNamespacePolicy: updates the policy description', async () => {
         const ns = await createTestNamespace();
         const id = `test-update-namespace-policy-${randomId()}`;
-        await Policies.createNamespacePolicy({ ...policyRequest(id), namespace: ns.id });
+        await Policies.createNamespacePolicy({ namespace: ns.id, body: policySource(id) });
 
         const updated = await Policies.updateNamespacePolicy({
-            ...policyRequest(id),
             namespace: ns.id,
-            description: 'now requires a timeout',
+            id,
+            body: policySource(id, { description: 'now requires a timeout' }),
         });
         expect(updated.description).toBe('now requires a timeout');
     });
@@ -153,7 +158,7 @@ describe('PoliciesApi (namespace scope)', () => {
     it('evaluateNamespacePolicy: dry-runs the policy against flows in the namespace', async () => {
         const ns = await createTestNamespace();
         const id = `test-evaluate-namespace-policy-${randomId()}`;
-        await Policies.createNamespacePolicy({ ...policyRequest(id), namespace: ns.id });
+        await Policies.createNamespacePolicy({ namespace: ns.id, body: policySource(id) });
 
         const result = await Policies.evaluateNamespacePolicy({ namespace: ns.id, id, page: 1, size: 10 });
         expect(result).toBeDefined();
@@ -162,7 +167,7 @@ describe('PoliciesApi (namespace scope)', () => {
     it('deleteNamespacePolicy: removes a policy', async () => {
         const ns = await createTestNamespace();
         const id = `test-delete-namespace-policy-${randomId()}`;
-        await Policies.createNamespacePolicy({ ...policyRequest(id), namespace: ns.id });
+        await Policies.createNamespacePolicy({ namespace: ns.id, body: policySource(id) });
 
         await Policies.deleteNamespacePolicy({ namespace: ns.id, id });
 
@@ -173,9 +178,8 @@ describe('PoliciesApi (namespace scope)', () => {
         const ns = await createTestNamespace();
         const policyId = `test-preview-policy-${randomId()}`;
         await Policies.createNamespacePolicy({
-            ...policyRequest(policyId),
             namespace: ns.id,
-            enforcement: 'ACTIVE',
+            body: policySource(policyId, { enforcement: 'ACTIVE' }),
         });
 
         const { flowBody } = getSimpleFlowAndId();
@@ -190,7 +194,7 @@ describe('PoliciesApi (namespace scope)', () => {
 describe('PoliciesApi (tenant scope)', () => {
     it('createTenantPolicy + tenantPolicy: creates and retrieves a policy', async () => {
         const id = `test-tenant-policy-${randomId()}`;
-        const created = await Policies.createTenantPolicy(policyRequest(id));
+        const created = await Policies.createTenantPolicy({ body: policySource(id) });
         expect(created.id).toBe(id);
 
         const fetched = await Policies.tenantPolicy({ id });
@@ -199,7 +203,7 @@ describe('PoliciesApi (tenant scope)', () => {
 
     it('searchPolicies: finds a tenant-scope policy across scopes', async () => {
         const id = `test-search-policies-${randomId()}`;
-        await Policies.createTenantPolicy(policyRequest(id));
+        await Policies.createTenantPolicy({ body: policySource(id) });
 
         const results = await waitForPolicyInSearch(
             () => Policies.searchPolicies({ page: 1, size: 100 }),
@@ -210,7 +214,7 @@ describe('PoliciesApi (tenant scope)', () => {
 
     it('exportTenantPolicies: exports every tenant-scope policy as YAML', async () => {
         const id = `test-export-policy-${randomId()}`;
-        await Policies.createTenantPolicy(policyRequest(id));
+        await Policies.createTenantPolicy({ body: policySource(id) });
 
         const exported = await Policies.exportTenantPolicies();
         expect(typeof exported).toBe('string');
@@ -230,7 +234,7 @@ describe('PoliciesApi (tenant scope)', () => {
 
     it('deleteTenantPoliciesByIds: removes tenant-scope policies', async () => {
         const id = `test-delete-tenant-policy-${randomId()}`;
-        await Policies.createTenantPolicy(policyRequest(id));
+        await Policies.createTenantPolicy({ body: policySource(id) });
 
         await Policies.deleteTenantPoliciesByIds({ body: [id] });
 

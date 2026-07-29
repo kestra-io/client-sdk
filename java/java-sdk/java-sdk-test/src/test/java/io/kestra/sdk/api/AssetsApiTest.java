@@ -154,6 +154,127 @@ public class AssetsApiTest {
     }
 
     // ========================================================================
+    // Lock
+    // ========================================================================
+
+    @Test
+    void lockAsset_manual() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+
+        AssetsControllerApiAssetLock lock = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H"));
+
+        assertThat(lock).isNotNull();
+        assertThat(lock.getOwnerType()).isEqualTo("USER");
+        assertThat(lock.getLockedUntil()).isNotNull();
+
+        api().unlockAsset(created.getId(), TENANT, null);
+    }
+
+    @Test
+    void lockAsset_heldByAnotherOwnerIsRejected() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        FlowWithSource flow = createLogFlow();
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, flow.getNamespace(), flow.getId(), null, null, null, null, null, null);
+        AssetsControllerApiAssetLock lock = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H").executionId(execution.getId()));
+        assertThat(lock.getOwnerType()).isEqualTo("EXECUTION");
+
+        // held by an EXECUTION owner: a manual USER lock attempt is a different owner and must be rejected
+        assertThatThrownBy(() -> api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void lockAsset_sameOwnerReacquireExtends() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        AssetsControllerApiAssetLock first = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1M"));
+
+        AssetsControllerApiAssetLock second = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H"));
+
+        assertThat(second.getOwnerType()).isEqualTo("USER");
+        assertThat(second.getLockedUntil()).isAfter(first.getLockedUntil());
+
+        api().unlockAsset(created.getId(), TENANT, null);
+    }
+
+    @Test
+    void unlockAsset_thenRelock() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        api().lockAsset(created.getId(), TENANT, new AssetsControllerAssetLockRequest().ttl("PT1H"));
+
+        assertThatCode(() -> api().unlockAsset(created.getId(), TENANT, null))
+                .doesNotThrowAnyException();
+
+        AssetsControllerApiAssetLock relock = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H"));
+        assertThat(relock).isNotNull();
+
+        api().unlockAsset(created.getId(), TENANT, null);
+    }
+
+    @Test
+    void unlockAsset_executionOwnedLock_releasedByMatchingExecutionId() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        FlowWithSource flow = createLogFlow();
+        ExecutionControllerExecutionResponse execution = client().executions()
+                .createExecution(TENANT, flow.getNamespace(), flow.getId(), null, null, null, null, null, null);
+
+        AssetsControllerApiAssetLock lock = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest()
+                        .ttl("PT1H")
+                        .executionId(execution.getId())
+                        .flowId(flow.getId())
+                        .flowNamespace(flow.getNamespace())
+                        .taskRunId(randomId()));
+        assertThat(lock.getOwnerType()).isEqualTo("EXECUTION");
+
+        // matching executionId is the owner-checked release path: the execution releases its own lock
+        assertThatCode(() -> api().unlockAsset(created.getId(), TENANT, execution.getId()))
+                .doesNotThrowAnyException();
+
+        AssetsControllerApiAssetLock relock = api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H"));
+        assertThat(relock.getOwnerType()).isEqualTo("USER");
+
+        api().unlockAsset(created.getId(), TENANT, null);
+    }
+
+    @Test
+    void unlockAsset_executionOwnedLock_mismatchedExecutionIdIsNoop() throws ApiException {
+        String id = randomId();
+        AssetsControllerApiAsset created = api().createAsset(TENANT, assetYaml(id));
+        FlowWithSource flow = createLogFlow();
+        ExecutionControllerExecutionResponse owner = client().executions()
+                .createExecution(TENANT, flow.getNamespace(), flow.getId(), null, null, null, null, null, null);
+        ExecutionControllerExecutionResponse other = client().executions()
+                .createExecution(TENANT, flow.getNamespace(), flow.getId(), null, null, null, null, null, null);
+
+        api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H").executionId(owner.getId()));
+
+        // a different execution's unlock is owner-checked against the lock holder: no-op, does not throw
+        assertThatCode(() -> api().unlockAsset(created.getId(), TENANT, other.getId()))
+                .doesNotThrowAnyException();
+
+        // lock is still held by the original owner: a manual USER lock attempt is rejected
+        assertThatThrownBy(() -> api().lockAsset(created.getId(), TENANT,
+                new AssetsControllerAssetLockRequest().ttl("PT1H")))
+                .isInstanceOf(ApiException.class);
+
+        api().unlockAsset(created.getId(), TENANT, owner.getId());
+    }
+
+    // ========================================================================
     // Dependencies
     // ========================================================================
 

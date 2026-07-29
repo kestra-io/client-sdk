@@ -5,11 +5,11 @@ import * as TenantsAdmin from '@kestra-io/kestra-sdk/tenants-admin';
 import type { Tenant } from '@kestra-io/kestra-sdk';
 
 describe('QuotasApi', () => {
-    it('search: lists quota limits for the tenant', async () => {
-        // `search` (GET /quota-limits) returns QuotaLimit usage counters, which are
-        // materialized lazily as quota-consuming activity occurs. A tenant with no
+    it('searchQuotaLimits: lists quota limits for the tenant', async () => {
+        // `searchQuotaLimits` (GET /quota-limits) returns QuotaLimit usage counters, which
+        // are materialized lazily as quota-consuming activity occurs. A tenant with no
         // recorded usage returns an empty array, so assert the response shape.
-        const result = await Quotas.search();
+        const result = await Quotas.searchQuotaLimits();
         expect(Array.isArray(result)).toBe(true);
     });
 

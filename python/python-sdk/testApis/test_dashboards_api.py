@@ -4,6 +4,11 @@ import pytest
 from test_helpers import (
     TENANT,
     random_id,
+    random_namespace,
+    log_flow_yaml,
+    create_flow,
+    create_execution,
+    wait_for_execution,
 )
 from kestrapy import (
     ChartFiltersOverrides,
@@ -24,6 +29,93 @@ def dashboard_yaml(title, dashboard_id=None):
         "  max: P365D\n"
         "charts: []\n"
     )
+
+
+def executions_table_dashboard_yaml(dashboard_id, title, chart_id, namespace):
+    """Dashboard with a single OSS-native Table chart over the Executions data
+    type, scoped to namespace so its export content is deterministic even on
+    a shared test instance with unrelated executions."""
+    return (
+        f"id: {dashboard_id}\n"
+        f"title: {title}\n"
+        "description: Test dashboard\n"
+        "timeWindow:\n"
+        "  default: P30D\n"
+        "  max: P365D\n"
+        "charts:\n"
+        f"  - id: {chart_id}\n"
+        "    type: io.kestra.plugin.core.dashboard.chart.Table\n"
+        "    chartOptions:\n"
+        "      displayName: Executions\n"
+        "    data:\n"
+        "      type: io.kestra.plugin.core.dashboard.data.Executions\n"
+        "      where:\n"
+        "        - field: NAMESPACE\n"
+        "          type: EQUAL_TO\n"
+        f"          value: {namespace}\n"
+        "      columns:\n"
+        "        id:\n"
+        "          field: ID\n"
+        "          displayName: Execution ID\n"
+        "        namespace:\n"
+        "          field: NAMESPACE\n"
+        "          displayName: Namespace\n"
+        "        flow:\n"
+        "          field: FLOW_ID\n"
+        "          displayName: Flow\n"
+        "        state:\n"
+        "          field: STATE\n"
+        "          displayName: State\n"
+    )
+
+
+def executions_table_chart_yaml(chart_id, namespace):
+    """executions_table_dashboard_yaml's chart block on its own, usable
+    directly in an ad-hoc PreviewRequest (no dashboard wrapper)."""
+    return (
+        f"id: {chart_id}\n"
+        "type: io.kestra.plugin.core.dashboard.chart.Table\n"
+        "chartOptions:\n"
+        "  displayName: Executions\n"
+        "data:\n"
+        "  type: io.kestra.plugin.core.dashboard.data.Executions\n"
+        "  where:\n"
+        "    - field: NAMESPACE\n"
+        "      type: EQUAL_TO\n"
+        f"      value: {namespace}\n"
+        "  columns:\n"
+        "    id:\n"
+        "      field: ID\n"
+        "      displayName: Execution ID\n"
+        "    namespace:\n"
+        "      field: NAMESPACE\n"
+        "      displayName: Namespace\n"
+        "    flow:\n"
+        "      field: FLOW_ID\n"
+        "      displayName: Flow\n"
+        "    state:\n"
+        "      field: STATE\n"
+        "      displayName: State\n"
+    )
+
+
+# The CSV header uses the executions_table_*_yaml column keys (not their
+# displayName), and the SQL layer does not guarantee they come back in
+# declaration order, so tests compare against a sorted copy of the header.
+EXPECTED_EXPORT_COLUMNS = sorted(["flow", "id", "namespace", "state"])
+
+# Every Amazon Ion 1.0 binary stream starts with this fixed 4-byte header;
+# FileSerde writes ION exports in binary form.
+ION_BINARY_VERSION_MARKER = b"\xe0\x01\x00\xea"
+
+
+def assert_csv_header(csv):
+    header = csv.split("\n", 1)[0].rstrip("\r")
+    assert sorted(header.split(",")) == EXPECTED_EXPORT_COLUMNS
+
+
+def assert_ion_binary_marker(result):
+    assert result[:4] == ION_BINARY_VERSION_MARKER
 
 
 # ========================================================================
@@ -276,23 +368,118 @@ def test_preview_chart_basic(client):
         assert e.status in (400, 422)
 
 
-def test_export_chart_to_csv_basic(client):
+def test_export_chart_basic(client):
+    namespace = random_namespace()
+    flow_id = random_id()
+
+    create_flow(client, log_flow_yaml(flow_id, namespace))
+    execution = create_execution(client, namespace, flow_id)
+    execution = wait_for_execution(client, execution.id)
+
     request = DashboardControllerPreviewRequest(
-        chart=(
-            "id: csv-chart\n"
-            "type: io.kestra.plugin.ee.core.dashboard.charts.TimeSeriesChart\n"
-            "graphStyle: LINES\n"
-            "columns:\n"
-            "  date:\n"
-            "    field: DATE\n"
-        )
+        chart=executions_table_chart_yaml("adhoc-chart", namespace)
     )
 
-    try:
-        result = client.dashboards.export_chart_to_csv(tenant=TENANT, request=request)
-        assert result is not None
-    except ApiException as e:
-        assert e.status in (400, 422)
+    result = client.dashboards.export_chart(tenant=TENANT, request=request, format="CSV")
+    assert result
+
+    csv = result.decode()
+    assert namespace in csv
+    assert flow_id in csv
+    assert execution.id in csv
+    assert_csv_header(csv)
+
+
+def test_export_chart_ion(client):
+    namespace = random_namespace()
+    flow_id = random_id()
+
+    create_flow(client, log_flow_yaml(flow_id, namespace))
+    execution = create_execution(client, namespace, flow_id)
+    execution = wait_for_execution(client, execution.id)
+
+    request = DashboardControllerPreviewRequest(
+        chart=executions_table_chart_yaml("adhoc-chart", namespace)
+    )
+
+    result = client.dashboards.export_chart(tenant=TENANT, request=request, format="ION")
+    assert result
+
+    # Binary Ion: decode leniently just to assert the string values are
+    # present inline, same as the byte-level check below.
+    ion = result.decode("utf-8", errors="ignore")
+    assert namespace in ion
+    assert flow_id in ion
+    assert execution.id in ion
+    assert_ion_binary_marker(result)
+
+
+def test_export_dashboard_chart_csv(client):
+    namespace = random_namespace()
+    flow_id = random_id()
+    chart_id = "recent_executions"
+
+    create_flow(client, log_flow_yaml(flow_id, namespace))
+    execution = create_execution(client, namespace, flow_id)
+    execution = wait_for_execution(client, execution.id)
+
+    created = client.dashboards.create_dashboard(
+        tenant=TENANT,
+        yaml_body=executions_table_dashboard_yaml(
+            random_id(), f"export-csv-{random_id()}", chart_id, namespace
+        ),
+    )
+
+    filters = ChartFiltersOverrides()
+    result = client.dashboards.export_dashboard_chart(
+        id=created["id"],
+        chart_id=chart_id,
+        tenant=TENANT,
+        filters=filters,
+        format="CSV",
+    )
+    assert result
+
+    csv = result.decode()
+    assert namespace in csv
+    assert flow_id in csv
+    assert execution.id in csv
+    assert_csv_header(csv)
+
+
+def test_export_dashboard_chart_ion(client):
+    namespace = random_namespace()
+    flow_id = random_id()
+    chart_id = "recent_executions"
+
+    create_flow(client, log_flow_yaml(flow_id, namespace))
+    execution = create_execution(client, namespace, flow_id)
+    execution = wait_for_execution(client, execution.id)
+
+    created = client.dashboards.create_dashboard(
+        tenant=TENANT,
+        yaml_body=executions_table_dashboard_yaml(
+            random_id(), f"export-ion-{random_id()}", chart_id, namespace
+        ),
+    )
+
+    filters = ChartFiltersOverrides()
+    result = client.dashboards.export_dashboard_chart(
+        id=created["id"],
+        chart_id=chart_id,
+        tenant=TENANT,
+        filters=filters,
+        format="ION",
+    )
+    assert result
+
+    # Binary Ion: decode leniently just to assert the string values are
+    # present inline, same as the byte-level check below.
+    ion = result.decode("utf-8", errors="ignore")
+    assert namespace in ion
+    assert flow_id in ion
+    assert execution.id in ion
+    assert_ion_binary_marker(result)
 
 
 @pytest.mark.xfail(
@@ -302,7 +489,7 @@ def test_export_chart_to_csv_basic(client):
     "every other shard-8 test passed) — same hang as test_dashboard_chart_data_not_found",
     strict=False,
 )
-def test_export_dashboard_chart_data_to_csv_not_found(client):
+def test_export_dashboard_chart_not_found(client):
     title = f"csv-export-{random_id()}"
     created = client.dashboards.create_dashboard(
         tenant=TENANT, yaml_body=dashboard_yaml(title)
@@ -311,9 +498,10 @@ def test_export_dashboard_chart_data_to_csv_not_found(client):
     filters = ChartFiltersOverrides()
 
     with pytest.raises(ApiException):
-        client.dashboards.export_dashboard_chart_data_to_csv(
+        client.dashboards.export_dashboard_chart(
             id=created["id"],
             chart_id="nonexistent",
             tenant=TENANT,
             filters=filters,
+            format="CSV",
         )

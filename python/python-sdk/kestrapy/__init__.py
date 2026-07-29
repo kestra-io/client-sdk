@@ -87,7 +87,9 @@ __all__ = [
     "AssetTopologyGraphNodeNodeType",
     "AssetsControllerApiAsset",
     "AssetsControllerApiAssetLineageEvent",
+    "AssetsControllerApiAssetLock",
     "AssetsControllerApiAssetUsage",
+    "AssetsControllerAssetLockRequest",
     "AssetsDeclaration",
     "AssetsInOut",
     "AttributeReference",
@@ -512,7 +514,9 @@ from kestrapy.models.asset_topology_graph_node import AssetTopologyGraphNode as 
 from kestrapy.models.asset_topology_graph_node_node_type import AssetTopologyGraphNodeNodeType as AssetTopologyGraphNodeNodeType
 from kestrapy.models.assets_controller_api_asset import AssetsControllerApiAsset as AssetsControllerApiAsset
 from kestrapy.models.assets_controller_api_asset_lineage_event import AssetsControllerApiAssetLineageEvent as AssetsControllerApiAssetLineageEvent
+from kestrapy.models.assets_controller_api_asset_lock import AssetsControllerApiAssetLock as AssetsControllerApiAssetLock
 from kestrapy.models.assets_controller_api_asset_usage import AssetsControllerApiAssetUsage as AssetsControllerApiAssetUsage
+from kestrapy.models.assets_controller_asset_lock_request import AssetsControllerAssetLockRequest as AssetsControllerAssetLockRequest
 from kestrapy.models.assets_declaration import AssetsDeclaration as AssetsDeclaration
 from kestrapy.models.assets_in_out import AssetsInOut as AssetsInOut
 from kestrapy.models.attribute_reference import AttributeReference as AttributeReference

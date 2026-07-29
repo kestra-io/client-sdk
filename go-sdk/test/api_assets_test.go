@@ -138,6 +138,160 @@ func TestAssetsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 	})
 
+	t.Run("lockAsset_manual", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+
+		lock, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.NoError(t, err)
+		require.NotNil(t, lock)
+		require.Equal(t, "USER", lock.GetOwnerType())
+		require.NotNil(t, lock.LockedUntil)
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+	})
+
+	t.Run("lockAsset_heldByAnotherOwnerIsRejected", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+		flowId := randomId()
+		ns := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+		createSimpleFlow(ctx, flowId, ns)
+		execution := createExecution(t, ctx, flowId, ns)
+
+		lock, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{
+				Ttl:         kestra_api_client.PtrString("PT1H"),
+				ExecutionId: kestra_api_client.PtrString(execution.GetId()),
+			})
+		require.NoError(t, err)
+		require.Equal(t, "EXECUTION", lock.GetOwnerType())
+
+		// held by an EXECUTION owner: a manual USER lock attempt is a different owner and must be rejected
+		_, err = KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.Error(t, err)
+	})
+
+	t.Run("lockAsset_sameOwnerReacquireExtends", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+
+		first, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1M")})
+		require.NoError(t, err)
+
+		second, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.NoError(t, err)
+
+		require.Equal(t, "USER", second.GetOwnerType())
+		require.True(t, second.GetLockedUntil().After(first.GetLockedUntil()))
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+	})
+
+	t.Run("unlockAsset_thenRelock", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+		_, err = KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.NoError(t, err)
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+
+		relock, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.NoError(t, err)
+		require.NotNil(t, relock)
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+	})
+
+	t.Run("unlockAsset_executionOwnedLock_releasedByMatchingExecutionId", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+		flowId := randomId()
+		ns := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+		createSimpleFlow(ctx, flowId, ns)
+		execution := createExecution(t, ctx, flowId, ns)
+
+		lock, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{
+				Ttl:           kestra_api_client.PtrString("PT1H"),
+				ExecutionId:   kestra_api_client.PtrString(execution.GetId()),
+				FlowId:        kestra_api_client.PtrString(flowId),
+				FlowNamespace: kestra_api_client.PtrString(ns),
+				TaskRunId:     kestra_api_client.PtrString(randomId()),
+			})
+		require.NoError(t, err)
+		require.Equal(t, "EXECUTION", lock.GetOwnerType())
+
+		// matching executionId is the owner-checked release path: the execution releases its own lock
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, kestra_api_client.PtrString(execution.GetId()))
+		require.NoError(t, err)
+
+		relock, err := KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.NoError(t, err)
+		require.Equal(t, "USER", relock.GetOwnerType())
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+	})
+
+	t.Run("unlockAsset_executionOwnedLock_mismatchedExecutionIdIsNoop", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+		flowId := randomId()
+		ns := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+		createSimpleFlow(ctx, flowId, ns)
+		owner := createExecution(t, ctx, flowId, ns)
+		other := createExecution(t, ctx, flowId, ns)
+
+		_, err = KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{
+				Ttl:         kestra_api_client.PtrString("PT1H"),
+				ExecutionId: kestra_api_client.PtrString(owner.GetId()),
+			})
+		require.NoError(t, err)
+
+		// a different execution's unlock is owner-checked against the lock holder: no-op, does not error
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, kestra_api_client.PtrString(other.GetId()))
+		require.NoError(t, err)
+
+		// lock is still held by the original owner: a manual USER lock attempt is rejected
+		_, err = KestraTestClient().Assets().LockAsset(ctx, created.GetId(), MAIN_TENANT,
+			kestra_api_client.AssetsControllerAssetLockRequest{Ttl: kestra_api_client.PtrString("PT1H")})
+		require.Error(t, err)
+
+		err = KestraTestClient().Assets().UnlockAsset(ctx, created.GetId(), MAIN_TENANT, kestra_api_client.PtrString(owner.GetId()))
+		require.NoError(t, err)
+	})
+
 	t.Run("assetDependencies_basic", func(t *testing.T) {
 		ctx := context.Background()
 		id := randomId()

@@ -158,6 +158,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -507,6 +508,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -563,13 +565,13 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create an instance-scope policy
+      summary: Create an instance-scope policy from its YAML source
       operationId: createInstancePolicy
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -673,6 +675,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -700,6 +703,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/instance/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate an instance-scope policy YAML source without persisting it
+      operationId: validateInstancePolicy
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateInstancePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -738,7 +765,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update an instance-scope policy
+      summary: Update an instance-scope policy from its YAML source
       operationId: updateInstancePolicy
       parameters:
       - name: id
@@ -748,9 +775,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -799,6 +826,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -806,6 +834,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -867,6 +897,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -946,6 +977,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -2499,9 +2531,10 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
-          default: 10000
+          default: 1000
       - name: sort
         in: query
         description: A list of sort fields
@@ -2959,6 +2992,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -3307,6 +3341,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -3653,6 +3688,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -4403,6 +4439,211 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/ai/threads:
+    get:
+      tags:
+      - AI
+      summary: List the caller's Copilot conversation threads (EE)
+      operationId: list_3
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list_3 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - AI
+      summary: Create a Copilot conversation thread
+      operationId: create_3
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreateThreadRequest"
+        required: true
+      responses:
+        "200":
+          description: create_3 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}:
+    get:
+      tags:
+      - AI
+      summary: Fetch a Copilot thread with its full message history
+      operationId: get_4
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadDetail"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    delete:
+      tags:
+      - AI
+      summary: Soft-delete a Copilot conversation thread (EE)
+      operationId: delete_3
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: delete_3 204 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/ai/threads/{threadId}/chat:
+    post:
+      tags:
+      - AI
+      summary: Open a streaming agent chat turn (SSE)
+      operationId: chat
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiChatTurnRequest"
+        required: true
+      responses:
+        "200":
+          description: chat 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_Object_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}/confirm:
+    post:
+      tags:
+      - AI
+      summary: Confirm a proposed action and stream the resumed turn (SSE)
+      operationId: confirm
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiConfirmActionRequest"
+        required: true
+      responses:
+        "200":
+          description: confirm 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_Object_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/ai/threads/{threadId}/rename:
+    patch:
+      tags:
+      - AI
+      summary: Rename a Copilot conversation thread (EE)
+      operationId: rename
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiRenameThreadRequest"
+        required: true
+      responses:
+        "200":
+          description: rename 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiThreadSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/apps:
     post:
       tags:
@@ -4484,6 +4725,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -4739,6 +4981,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -5429,6 +5672,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -5489,6 +5733,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -5582,6 +5827,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -5988,6 +6234,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -6179,6 +6426,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -6323,6 +6571,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -6532,6 +6781,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 1
@@ -7033,6 +7283,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -7241,6 +7492,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -7295,6 +7547,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: createDashboard 200 response
           content:
@@ -7304,13 +7558,19 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/charts/export/to-csv:
+  /api/v1/{tenant}/dashboards/charts/export:
     post:
       tags:
       - Dashboards
-      summary: Export a table chart data to CSV
-      operationId: exportChartToCsv
+      summary: Export a chart data
+      operationId: exportChart
       parameters:
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7324,7 +7584,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportChartToCsv 200 response
+          description: exportChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -7358,6 +7618,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Map_String.Object__"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/dashboards/defaults/definitions:
+    get:
+      tags:
+      - Dashboards
+      summary: Get the built-in default dashboard definitions
+      operationId: getDefaultDashboardDefinitions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getDefaultDashboardDefinitions 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7494,6 +7778,8 @@ paths:
               type: string
         required: true
       responses:
+        "422":
+          description: If the dashboard id is reserved ('_default')
         "200":
           description: updateDashboard 200 response
           content:
@@ -7567,12 +7853,12 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv:
+  /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export:
     post:
       tags:
       - Dashboards
-      summary: Export a dashboard chart data to CSV
-      operationId: exportDashboardChartDataToCSV
+      summary: Export a dashboard chart data
+      operationId: exportDashboardChart
       parameters:
       - name: id
         in: path
@@ -7586,6 +7872,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: format
+        in: query
+        description: The export format
+        explode: false
+        schema:
+          $ref: "#/components/schemas/ExportFormat"
       - name: tenant
         in: path
         required: true
@@ -7600,7 +7892,7 @@ paths:
         required: true
       responses:
         "200":
-          description: exportDashboardChartDataToCSV 200 response
+          description: exportDashboardChart 200 response
           content:
             application/octet-stream:
               schema:
@@ -7675,6 +7967,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -7960,6 +8253,7 @@ paths:
         description: Maximum number of distinct values to return.
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -8788,6 +9082,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -10953,6 +11248,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -11016,6 +11312,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -11735,6 +12032,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -11899,6 +12197,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13073,6 +13372,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13192,6 +13492,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -13254,6 +13555,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -13526,6 +13828,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -13988,6 +14291,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -14119,6 +14423,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -14311,6 +14616,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -15166,7 +15472,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a namespace-scope policy
+      summary: Create a namespace-scope policy from its YAML source
       operationId: createNamespacePolicy
       parameters:
       - name: tenant
@@ -15181,9 +15487,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15330,6 +15636,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -15349,6 +15656,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/namespaces/{namespace}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a namespace-scope policy YAML source without persisting it
+      operationId: validateNamespacePolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateNamespacePolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15391,7 +15733,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a namespace-scope policy
+      summary: Update a namespace-scope policy from its YAML source
       operationId: updateNamespacePolicy
       parameters:
       - name: tenant
@@ -15411,9 +15753,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -15482,6 +15824,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -15489,6 +15832,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -15509,7 +15854,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: List reusable inputs visible from a namespace (including inherited ones)
-      operationId: list_3
+      operationId: list_4
       parameters:
       - name: namespace
         in: path
@@ -15530,6 +15875,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -15541,7 +15887,7 @@ paths:
           type: string
       responses:
         "200":
-          description: list_3 200 response
+          description: list_4 200 response
           content:
             application/json:
               schema:
@@ -15556,7 +15902,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: "Get reusable inputs by id, resolving namespace inheritance"
-      operationId: get_4
+      operationId: get_5
       parameters:
       - name: namespace
         in: path
@@ -15582,7 +15928,7 @@ paths:
           type: string
       responses:
         "200":
-          description: get_4 200 response
+          description: get_5 200 response
           content:
             application/json:
               schema:
@@ -15648,7 +15994,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: Delete reusable inputs
-      operationId: delete_3
+      operationId: delete_4
       parameters:
       - name: namespace
         in: path
@@ -15667,7 +16013,7 @@ paths:
           type: string
       responses:
         "200":
-          description: delete_3 200 response
+          description: delete_4 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15891,7 +16237,7 @@ paths:
     post:
       tags:
       - Policies
-      summary: Create a tenant-scope policy
+      summary: Create a tenant-scope policy from its YAML source
       operationId: createTenantPolicy
       parameters:
       - name: tenant
@@ -15901,9 +16247,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -16068,6 +16414,7 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16095,6 +16442,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_ApiPolicySummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/policies/validate:
+    post:
+      tags:
+      - Policies
+      summary: Validate a tenant-scope policy YAML source without persisting it
+      operationId: validateTenantPolicy
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateTenantPolicy 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16132,7 +16509,7 @@ paths:
     put:
       tags:
       - Policies
-      summary: Update a tenant-scope policy
+      summary: Update a tenant-scope policy from its YAML source
       operationId: updateTenantPolicy
       parameters:
       - name: tenant
@@ -16147,9 +16524,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json:
+          application/x-yaml:
             schema:
-              $ref: "#/components/schemas/PolicyRequest"
+              type: string
         required: true
       responses:
         "200":
@@ -16208,6 +16585,7 @@ paths:
         in: query
         explode: false
         schema:
+          minimum: 1
           type: integer
           format: int32
           default: 1
@@ -16215,6 +16593,8 @@ paths:
         in: query
         explode: false
         schema:
+          maximum: 1000
+          minimum: 1
           type: integer
           format: int32
           default: 25
@@ -16235,7 +16615,7 @@ paths:
       tags:
       - Quotas
       summary: Search for quota limits
-      operationId: search
+      operationId: searchQuotaLimits
       parameters:
       - name: tenant
         in: path
@@ -16244,13 +16624,39 @@ paths:
           type: string
       responses:
         "200":
-          description: search 200 response
+          description: searchQuotaLimits 200 response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/QuotaLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/quota-limits/reset:
+    post:
+      tags:
+      - Quotas
+      summary: Reset a quota limit
+      operationId: resetQuotaLimit
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuotaLimitController.ApiQuotaLimitResetRequest"
+        required: true
+      responses:
+        "200":
+          description: resetQuotaLimit 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16400,6 +16806,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16554,6 +16961,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16660,6 +17068,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -16849,6 +17258,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17241,6 +17651,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           type: integer
           format: int32
           default: 10
@@ -17578,6 +17989,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -17744,6 +18156,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -18452,6 +18865,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -18613,6 +19027,13 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: recoverMissedSchedules
+        in: query
+        description: "When true, missed schedules are recovered on enable according to the trigger's recoverMissedSchedules configuration; omitted or false, missed schedules are skipped"
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -18762,6 +19183,7 @@ paths:
         description: The current page size
         explode: false
         schema:
+          maximum: 1000
           minimum: 1
           type: integer
           format: int32
@@ -19336,6 +19758,81 @@ components:
       - USE
       - IMPERSONATE
       - UNKNOWN
+    AgentMessageRole:
+      type: string
+      enum:
+      - USER
+      - ASSISTANT
+      - TOOL
+      - SYSTEM
+    AgentMessageType:
+      type: string
+      enum:
+      - TEXT
+      - TOOL_CALL
+      - TOOL_RESULT
+      - PROPOSED_ACTION
+      - ARTEFACT_DRAFT
+      - CANCELLED
+    AgentMode:
+      type: string
+      enum:
+      - ASK
+      - PLAN
+      - EDIT
+    AgentThinking:
+      type: object
+      properties:
+        text:
+          type: string
+          nullable: true
+        signature:
+          type: string
+          nullable: true
+        redacted:
+          type: array
+          nullable: true
+          items:
+            type: string
+    AgentThreadStatus:
+      type: string
+      enum:
+      - IDLE
+      - RUNNING
+      - AWAITING_CONFIRMATION
+    AgentToolCall:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        kind:
+          $ref: "#/components/schemas/AgentToolCall.Kind"
+        tool:
+          type: string
+        family:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentToolFamily"
+        arguments:
+          type: object
+          additionalProperties:
+            type: object
+        thinking:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentThinking"
+    AgentToolCall.Kind:
+      type: string
+      enum:
+      - PLATFORM
+      - AUTHORING
+    AgentToolFamily:
+      type: string
+      enum:
+      - READ
+      - MUTATE
+      - ACT
     AiController.AiProviderResponse:
       type: object
       properties:
@@ -19393,6 +19890,36 @@ components:
             type: string
         existingOnly:
           type: boolean
+    ApiChatTurnRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+        mode:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentMode"
+        additionalContext:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        providerId:
+          type: string
+          nullable: true
+    ApiConfirmActionRequest:
+      type: object
+      properties:
+        confirmationId:
+          type: string
+        decision:
+          $ref: "#/components/schemas/ApiDecision"
+        reason:
+          type: string
+          nullable: true
+        providerId:
+          type: string
+          nullable: true
     ApiCreateCredentialRequest:
       title: Create Credential Request
       type: object
@@ -19482,6 +20009,16 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to create a new OAuth2 credential.
+    ApiCreateThreadRequest:
+      type: object
+      properties:
+        mode:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentMode"
+        title:
+          type: string
+          nullable: true
     ApiCredentialResponse:
       title: Credential Response
       type: object
@@ -19585,6 +20122,11 @@ components:
           description: Updated timestamp
           format: date-time
       description: Response containing OAuth2 credential details.
+    ApiDecision:
+      type: string
+      enum:
+      - APPROVE
+      - REJECT
     ApiExecution:
       required:
       - flowId
@@ -19852,6 +20394,34 @@ components:
           description: Timestamp when the server was last updated.
           format: date-time
           readOnly: true
+    ApiMessageView:
+      type: object
+      properties:
+        uid:
+          type: string
+        role:
+          $ref: "#/components/schemas/AgentMessageRole"
+        type:
+          $ref: "#/components/schemas/AgentMessageType"
+        content:
+          type: string
+          nullable: true
+        toolCall:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/AgentToolCall"
+        toolResult:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        draft:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ArtefactDraft"
+        createdAt:
+          type: string
+          format: date-time
     ApiPatchSuperAdminRequest:
       required:
       - superAdmin
@@ -19906,6 +20476,14 @@ components:
       - ADDED
       - REPLACED
       - REMOVED
+    ApiRenameThreadRequest:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          minLength: 1
+          type: string
     ApiRoleSummary:
       required:
       - id
@@ -20048,6 +20626,47 @@ components:
           type: string
           description: Result message
       description: Response from testing a credential connection.
+    ApiThreadDetail:
+      type: object
+      properties:
+        uid:
+          type: string
+        title:
+          type: string
+          nullable: true
+        mode:
+          $ref: "#/components/schemas/AgentMode"
+        status:
+          $ref: "#/components/schemas/AgentThreadStatus"
+        pendingConfirmationId:
+          type: string
+          nullable: true
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiMessageView"
+    ApiThreadSummary:
+      type: object
+      properties:
+        uid:
+          type: string
+        title:
+          type: string
+          nullable: true
+        mode:
+          $ref: "#/components/schemas/AgentMode"
+        status:
+          $ref: "#/components/schemas/AgentThreadStatus"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        lastTurnAt:
+          type: string
+          format: date-time
+          nullable: true
     ApiToken:
       required:
       - iat
@@ -20355,6 +20974,26 @@ components:
           type: array
           items:
             type: string
+    ArtefactDraft:
+      type: object
+      properties:
+        draftId:
+          type: string
+        kind:
+          $ref: "#/components/schemas/ArtefactKind"
+        yaml:
+          type: string
+        valid:
+          type: boolean
+        constraints:
+          type: string
+          nullable: true
+    ArtefactKind:
+      type: string
+      enum:
+      - FLOW
+      - DASHBOARD
+      - APP
     Assertion:
       required:
       - value
@@ -21585,6 +22224,19 @@ components:
           type: string
         retry:
           type: string
+    Event_Object_:
+      type: object
+      properties:
+        data:
+          type: object
+        id:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+        retry:
+          type: string
     ExecutableTask.SubflowId:
       type: object
       properties:
@@ -21734,8 +22386,6 @@ components:
           type: string
         error:
           type: string
-        stackTrace:
-          type: string
     ExecutionController.ExecutionResponse:
       required:
       - deleted
@@ -21873,6 +22523,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
+    ExportFormat:
+      type: string
+      enum:
+      - CSV
+      - ION
     ExpressionContext:
       type: object
       properties:
@@ -25363,7 +26018,7 @@ components:
           items:
             $ref: "#/components/schemas/Rule"
         source:
-          title: "The original YAML source, preserved for round-trip editing; null when the policy was authored through the structured API."
+          title: "The YAML source, preserved for round-trip editing: the authored source for API/imported policies, or a canonical serialization for the config-declared and migrated ones."
           type: string
         deleted:
           type: boolean
@@ -25497,30 +26152,6 @@ components:
           items:
             $ref: "#/components/schemas/PolicyConflict"
       description: Result of dry-running the applicable policy chain against a flow source.
-    PolicyRequest:
-      required:
-      - id
-      - rules
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        enforcement:
-          $ref: "#/components/schemas/Enforcement"
-        target:
-          title: "Optional application refinement within the scope's reach: tenants for INSTANCE, namespace subtrees for TENANT."
-          allOf:
-          - $ref: "#/components/schemas/Target"
-        rules:
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Rule"
-      description: "Create/update payload for a policy; scope, tenant and namespace are derived from the URL."
     PolicyRuleSummary:
       type: object
       properties:
@@ -25875,6 +26506,21 @@ components:
         count:
           type: integer
           format: int64
+    QuotaLimitController.ApiQuotaLimitResetRequest:
+      required:
+      - id
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        id:
+          minLength: 1
+          type: string
+      description: Request body for resetting a quota limit.
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -26772,20 +27418,6 @@ components:
       - DOCKER
       - STANDALONE
       x-type: String
-    Target:
-      type: object
-      properties:
-        tenants:
-          title: The tenants the policy applies to; INSTANCE and STATIC scopes only. Absent = every tenant.
-          type: array
-          items:
-            type: string
-        namespaces:
-          title: The namespace subtrees the policy applies to; TENANT scope only. Absent = the whole tenant.
-          type: array
-          items:
-            type: string
-      description: "Narrows where the policy applies within its scope: tenants for INSTANCE/STATIC policies, namespace subtrees for TENANT policies."
     Task:
       required:
       - id
@@ -27320,6 +27952,9 @@ components:
           type: string
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerController.ApiTriggerId:
       type: object
       properties:
@@ -27342,6 +27977,9 @@ components:
             $ref: "#/components/schemas/TriggerController.ApiTriggerId"
         disabled:
           type: boolean
+        recoverMissedSchedules:
+          type: boolean
+          nullable: true
     TriggerFixture:
       required:
       - id
