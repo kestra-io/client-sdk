@@ -23009,6 +23009,7 @@ components:
       enum:
       - FLOW_TASK
       - FLOW_TRIGGER
+      - SUBFLOW_FUNCTION
     FlowService.TaskDeprecation:
       type: object
       properties:
@@ -25677,7 +25678,7 @@ components:
           default: 1
         passwordAllowedSpecialCharacters:
           type: string
-          default: '!@#$%^&*'
+          default: '!@#$%^&*_-'
         passwordReset:
           $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
     PasswordConfiguration.PasswordReset:
