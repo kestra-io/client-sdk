@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
@@ -327,11 +328,14 @@ columns:
 `)
 		request := kestra_api_client.NewDashboardControllerPreviewRequest(chartYaml)
 
-		// May fail with 400/422 if chart type not available, verifies endpoint reachability
+		// This minimal chart definition may legitimately be refused with a 400/422. Any other
+		// status means the endpoint itself is gone rather than the chart being rejected — EE
+		// answers an unmatched /api path with 403 — so those must fail the test.
 		_, err := KestraTestClient().Dashboards().PreviewChart(ctx, MAIN_TENANT, request)
-		// We accept success or a controlled API error
 		if err != nil {
-			require.Contains(t, err.Error(), "")
+			var apiErr *kestra_api_client.ApiError
+			require.True(t, errors.As(err, &apiErr), "expected an *ApiError, got %v", err)
+			require.Contains(t, []int{400, 422}, apiErr.StatusCode, "unexpected status, body: %s", apiErr.Body)
 		}
 	})
 
