@@ -8896,6 +8896,14 @@ paths:
       summary: Restart a list of executions asynchronously
       operationId: restartExecutionsByIds
       parameters:
+      - name: latestRevision
+        in: query
+        description: If latest revision should be used
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
+          default: false
       - name: tenant
         in: path
         required: true
@@ -8948,6 +8956,14 @@ paths:
           nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
+      - name: latestRevision
+        in: query
+        description: If latest revision should be used
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
+          default: false
       - name: tenant
         in: path
         required: true
