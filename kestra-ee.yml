@@ -14463,10 +14463,10 @@ paths:
       - name: filters
         in: query
         description: A list of query filters
-        required: true
         explode: false
         schema:
           type: array
+          nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
       - name: tenant
