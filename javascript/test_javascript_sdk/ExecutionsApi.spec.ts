@@ -984,7 +984,8 @@ tasks:
         `);
     });
 
-    // SKIPPED: Server-side bug in Kestra's H2 queue subscriber.
+    // SKIPPED: Server-side bug in Kestra's H2 queue subscriber. Tracked in
+    // https://github.com/kestra-io/kestra/issues/17730.
     //
     // When followDependenciesExecutions (or followExecution) opens an SSE stream,
     // Kestra registers a FollowExecutionEvent subscriber in the H2 queue. When the
