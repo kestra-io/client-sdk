@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import type { Reporter, SerializedError, TestCase, TestModule } from "vitest/node";
 
 /**
  * Writes `coverage/test-failures.json`, consumed by
@@ -48,7 +49,7 @@ function relativeSpec(moduleId: string | undefined): string {
 }
 
 /** `AssertionError: expected 1 to be 2`, without duplicating the name. */
-function describeError(error: { name?: string; message?: string }): string {
+function describeError(error: SerializedError): string {
     const message = (error.message ?? "").trim();
     const name = (error.name ?? "").trim();
     if (!message) return name || "Unknown error (no message recorded)";
@@ -60,7 +61,7 @@ function describeError(error: { name?: string; message?: string }): string {
  * With `retry`, vitest keeps one error per attempt — almost always the same
  * message repeated. Show each distinct one once.
  */
-function collectErrors(errors: { name?: string; message?: string }[]): string {
+function collectErrors(errors: ReadonlyArray<SerializedError>): string {
     const seen: string[] = [];
     for (const error of errors ?? []) {
         const described = describeError(error);
@@ -69,7 +70,7 @@ function collectErrors(errors: { name?: string; message?: string }[]): string {
     return seen.join("\n\n") || "Test failed with no recorded error.";
 }
 
-export default class FailureReporter {
+export default class FailureReporter implements Reporter {
     private report: FailureReport = {
         failures: [],
         moduleErrors: [],
@@ -80,9 +81,9 @@ export default class FailureReporter {
      * Fires once per test with its final result, so a flaky test that passes on
      * a retry is never recorded as a failure.
      */
-    onTestCaseResult(testCase: any) {
+    onTestCaseResult(testCase: TestCase) {
         const result = testCase.result();
-        if (result?.state !== "failed") return;
+        if (result.state !== "failed") return;
 
         const name = testCase.name ?? "<unnamed test>";
         const fullName: string = testCase.fullName ?? name;
@@ -100,11 +101,9 @@ export default class FailureReporter {
         });
     }
 
-    onTestRunEnd(testModules: any[], unhandledErrors: unknown[]) {
+    onTestRunEnd(testModules: ReadonlyArray<TestModule>, unhandledErrors: ReadonlyArray<SerializedError>) {
         for (const module of testModules ?? []) {
-            const errors =
-                typeof module.errors === "function" ? module.errors() : [];
-            for (const error of errors) {
+            for (const error of module.errors()) {
                 this.report.moduleErrors.push({
                     file: relativeSpec(module.moduleId),
                     error: describeError(error),
@@ -113,9 +112,7 @@ export default class FailureReporter {
         }
 
         for (const error of unhandledErrors ?? []) {
-            this.report.unhandledErrors.push(
-                describeError(error as { name?: string; message?: string }),
-            );
+            this.report.unhandledErrors.push(describeError(error));
         }
 
         // Always write the file, even for a green run: an empty report tells the
