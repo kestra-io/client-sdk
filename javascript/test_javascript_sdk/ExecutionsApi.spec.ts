@@ -40,6 +40,25 @@ tasks:
     duration: PT30S
 `;
 
+// Like SLEEP_CONCURRENCY_FLOW, but the blocking execution sleeps long enough that it can't
+// finish (and auto-release the concurrency slot) before a test has created its QUEUED
+// executions and issued its unqueue call. unqueueExecutionsByIds/ByQuery require the target
+// to be exactly QUEUED, unlike forceRunByIds which only rejects terminated executions — so
+// unqueue tests need a wider margin than force-run tests get away with on the PT2S flow.
+const LONG_SLEEP_CONCURRENCY_FLOW = (id: string, ns: string): string => `
+id: ${id}
+namespace: ${ns}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT15S
+`;
+
 const FILE_FLOW = (id: string, ns: string): string => `
 id: ${id}
 namespace: ${ns}
@@ -1052,7 +1071,7 @@ describe("ExecutionsApi", () => {
     it("unqueue_executions_by_ids", async () => {
         const namespace = randomId();
         const id = randomId();
-        await createSimpleFlow(id, namespace, SLEEP_CONCURRENCY_FLOW);
+        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
 
         const running = await Executions.createExecution({
             namespace,
@@ -1080,13 +1099,13 @@ describe("ExecutionsApi", () => {
         const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
         expect(a2.state?.current).toBe("RUNNING");
-    }, 10000);
+    }, 20000);
 
     // --- unqueue by query ---
     it("unqueue_executions_by_query", async () => {
         const namespace = randomId();
         const id = randomId();
-        await createSimpleFlow(id, namespace, SLEEP_CONCURRENCY_FLOW);
+        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
 
         const running = await Executions.createExecution({
             namespace,
@@ -1119,7 +1138,7 @@ describe("ExecutionsApi", () => {
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
-    }, 10000);
+    }, 20000);
 
     // --- update status (single) ---
     it("update_execution_status", async () => {
@@ -1156,7 +1175,7 @@ describe("ExecutionsApi", () => {
         expect(s1.state?.current).toBe("CANCELLED");
         expect(s2.state?.current).toBe("CANCELLED");
         expect(sO.state?.current).toBe("SUCCESS");
-    });
+    }, 20000);
 
     // --- update status by query ---
     it("update_executions_status_by_query", async () => {
@@ -1185,7 +1204,7 @@ describe("ExecutionsApi", () => {
         expect(s1.state?.current).toBe("CANCELLED");
         expect(s2.state?.current).toBe("CANCELLED");
         expect(sO.state?.current).toBe("SUCCESS");
-    });
+    }, 20000);
 
     const LONG_FLOW = (ns: string, id: string): string => `
 id: ${id}

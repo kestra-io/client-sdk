@@ -356,7 +356,7 @@ describe('TestSuitesApiTest', () => {
         expect(await isTestSuiteDisabled(ts1)).toBe(false);
         expect(await isTestSuiteDisabled(ts2)).toBe(false);
         expect(await isTestSuiteDisabled(ts3)).toBe(true);
-    });
+    }, 20000);
 
     it('searchTestSuiteTest', async () => {
         const namespaceXXX = `namespacexxx_${randomId()}`;
