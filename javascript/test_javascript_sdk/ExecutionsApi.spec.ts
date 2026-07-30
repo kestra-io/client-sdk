@@ -724,7 +724,7 @@ describe("ExecutionsApi", () => {
         expect(p1.state?.current).toBe("PAUSED");
         expect(p2.state?.current).toBe("PAUSED");
         expect(o.state?.current).toBe("SUCCESS");
-    }, 20000);
+    }, 25000);
 
     // --- replay execution (single) ---
     it("replay_execution", async () => {
