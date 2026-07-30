@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { randomId } from './_utils.js';
+import { MAX_PAGE_SIZE, randomId } from './_utils.js';
 import * as Roles from '@kestra-io/kestra-sdk/roles';
 
 describe('RolesApi', () => {
@@ -98,7 +98,7 @@ describe('RolesApi', () => {
 
         const results = await Roles.searchRoles({
             page: 1,
-            size: 10000,
+            size: MAX_PAGE_SIZE,
             filters: [],
         });
 

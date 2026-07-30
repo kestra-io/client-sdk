@@ -15,6 +15,13 @@ export function randomEmail() {
 
 export const TEST_DATA_PATH = "../../test-utils";
 
+/**
+ * Largest page size the API accepts (`PageableUtils.MAX_PAGE_SIZE`); anything above is rejected with
+ * a 422. Use it only where a test genuinely needs "every row" — otherwise omit `size` and let the
+ * endpoint's own default apply.
+ */
+export const MAX_PAGE_SIZE = 1000;
+
 export function get(filePath: string) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
