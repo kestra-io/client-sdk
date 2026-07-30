@@ -72,7 +72,7 @@ const sha = COMMIT_SHA || GITHUB_SHA;
 /** Escape the characters that would break a markdown table cell or inline text. */
 const escapeMd = (s) => s.replace(/([|`*_[\]<>])/g, "\\$1");
 
-const stripAnsi = (s) => s.replace(/\[[0-9;]*m/g, "");
+const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, "");
 
 /**
  * Permalink to a spec file (optionally a given line) on GitHub. Returns null
@@ -303,7 +303,9 @@ ${items}
 </details>`;
 }
 
-function buildFailingSection() {
+/** @param dropTrailingGroups Extra file groups to drop from the tail, beyond
+ *   the MAX_FAILURES_SHOWN cap, to shrink the section under MAX_BODY_CHARS. */
+function buildFailingSection(dropTrailingGroups = 0) {
     if (failingTests.length === 0 && unhandledErrors.length > 0) {
         return `### ❌ JavaScript SDK — tests failed
 
@@ -326,17 +328,28 @@ ${reason}.${RUN_URL ? ` See the [workflow logs](${RUN_URL}).` : ""}`;
         return "";
     }
 
-    const shown = failingTests.slice(0, MAX_FAILURES_SHOWN);
-    const shownFiles = new Set(shown.map((t) => t.file));
-    const hidden = failingTests.length - shown.length;
+    // Slice whole file groups, not individual tests, so each group's
+    // "N failing" header always matches what's listed beneath it.
+    const countCappedGroups = [];
+    let countCappedTotal = 0;
+    for (const group of failingByFile) {
+        if (countCappedTotal > 0 && countCappedTotal + group.tests.length > MAX_FAILURES_SHOWN) {
+            break;
+        }
+        countCappedGroups.push(group);
+        countCappedTotal += group.tests.length;
+    }
+    const shownGroups = dropTrailingGroups > 0
+        ? countCappedGroups.slice(0, Math.max(0, countCappedGroups.length - dropTrailingGroups))
+        : countCappedGroups;
+    const shownCount = shownGroups.reduce((n, g) => n + g.tests.length, 0);
+    const hidden = failingTests.length - shownCount;
     // Expand automatically while the list is still short enough to skim.
     const open = failingTests.length <= 20 ? " open" : "";
 
-    const groups = failingByFile
-        .filter(({ file }) => shownFiles.has(file))
+    const groups = shownGroups
         .map(({ file, tests }) => {
             const items = tests
-                .filter((t) => shown.includes(t))
                 .map((t) => {
                     const link = specLink(file, t.line);
                     const label = escapeMd(t.title);
@@ -423,18 +436,37 @@ ${rows}
 // ---------------------------------------------------------------------------
 
 // Failures first: they are what a dev opening the PR needs to act on.
-const sections = [buildFailingSection(), buildCoverageSection()].filter(Boolean);
+function assembleBody(dropTrailingGroups) {
+    const sections = [buildFailingSection(dropTrailingGroups), buildCoverageSection()].filter(
+        Boolean,
+    );
+    return sections.length === 0 ? null : `${MARKER}\n${sections.join("\n\n---\n\n")}`;
+}
 
-if (sections.length === 0) {
+let body = assembleBody(0);
+
+if (body === null) {
     console.log("Nothing to report (no coverage data, no test results) — skipping comment.");
     process.exit(0);
 }
 
-let body = `${MARKER}\n${sections.join("\n\n---\n\n")}`;
+// Drop whole failing-test groups from the tail to fit the size limit — a
+// raw byte-offset slice can land inside a fence or an open <details>.
+for (
+    let dropTrailingGroups = 1;
+    body.length > MAX_BODY_CHARS && dropTrailingGroups <= failingByFile.length;
+    dropTrailingGroups++
+) {
+    body = assembleBody(dropTrailingGroups);
+}
 
 if (body.length > MAX_BODY_CHARS) {
-    body = `${body.slice(0, MAX_BODY_CHARS)}\n\n_…comment truncated._${
-        RUN_URL ? ` [Full logs](${RUN_URL})` : ""
+    // Still too big with every group dropped (huge coverage data) — fall
+    // back to a minimal notice instead of truncating mid-markdown.
+    body = `${MARKER}\n### ⚠️ JavaScript SDK report truncated
+
+The generated report exceeded GitHub's comment size limit even after dropping all failing-test detail groups.${
+        RUN_URL ? ` See the [workflow logs](${RUN_URL}) for the full result.` : ""
     }`;
 }
 
