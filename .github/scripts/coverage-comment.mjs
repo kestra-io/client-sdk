@@ -303,12 +303,8 @@ ${items}
 </details>`;
 }
 
-/**
- * @param dropTrailingGroups How many file groups to additionally drop from
- *   the tail, beyond the `MAX_FAILURES_SHOWN` cap. Used to shrink the section
- *   by whole groups when the assembled body is still over the size limit,
- *   instead of slicing the final markdown at an arbitrary byte offset.
- */
+/** @param dropTrailingGroups Extra file groups to drop from the tail, beyond
+ *   the MAX_FAILURES_SHOWN cap, to shrink the section under MAX_BODY_CHARS. */
 function buildFailingSection(dropTrailingGroups = 0) {
     if (failingTests.length === 0 && unhandledErrors.length > 0) {
         return `### ❌ JavaScript SDK — tests failed
@@ -332,9 +328,8 @@ ${reason}.${RUN_URL ? ` See the [workflow logs](${RUN_URL}).` : ""}`;
         return "";
     }
 
-    // Slice whole file groups (not individual tests) so a group's displayed
-    // "N failing" count always matches the number of entries under it. At
-    // least one group is always shown, even if it alone exceeds the cap.
+    // Slice whole file groups, not individual tests, so each group's
+    // "N failing" header always matches what's listed beneath it.
     const countCappedGroups = [];
     let countCappedTotal = 0;
     for (const group of failingByFile) {
@@ -455,11 +450,8 @@ if (body === null) {
     process.exit(0);
 }
 
-// If the body is still over GitHub's limit, drop whole failing-test file
-// groups from the tail instead of slicing the final markdown at an arbitrary
-// byte offset — a raw slice regularly lands inside a fenced code block or an
-// open <details>, swallowing the truncation notice and rendering the tail as
-// code.
+// Drop whole failing-test groups from the tail to fit the size limit — a
+// raw byte-offset slice can land inside a fence or an open <details>.
 for (
     let dropTrailingGroups = 1;
     body.length > MAX_BODY_CHARS && dropTrailingGroups <= failingByFile.length;
@@ -469,9 +461,8 @@ for (
 }
 
 if (body.length > MAX_BODY_CHARS) {
-    // Even with every failing-test group dropped, the report (mostly
-    // coverage data) is still too big. Fall back to a minimal, self-contained
-    // notice rather than truncate mid-markdown.
+    // Still too big with every group dropped (huge coverage data) — fall
+    // back to a minimal notice instead of truncating mid-markdown.
     body = `${MARKER}\n### ⚠️ JavaScript SDK report truncated
 
 The generated report exceeded GitHub's comment size limit even after dropping all failing-test detail groups.${
