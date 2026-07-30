@@ -1058,7 +1058,7 @@ tasks:
         expect(p2.state?.current).toBe("PAUSED");
 
         // let "other" finish or keep running (not paused assertion necessary here)
-    }, 20000);
+    }, 12000);
 
     // --- pause by query ---
     it("pause_executions_by_query", async () => {
@@ -1085,7 +1085,7 @@ tasks:
         expect(p1.state?.current).toBe("PAUSED");
         expect(p2.state?.current).toBe("PAUSED");
         expect(o.state?.current).toBe("SUCCESS");
-    }, 25000);
+    }, 15000);
 
     const has = (e: { labels?: { key: string; value: string }[] }, k: string, v: string) =>
         (e.labels ?? []).some((l) => l.key === k && l.value === v);
@@ -1129,7 +1129,7 @@ tasks:
         expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
             true,
         );
-    }, 20000);
+    }, 12000);
 
     // --- set labels by query ---
     it("set_labels_on_terminated_executions_by_query", async () => {
@@ -1170,7 +1170,7 @@ tasks:
         expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
             true,
         );
-    }, 20000);
+    }, 12000);
 
     // --- unqueue by ids ---
     it("unqueue_executions_by_ids", async () => {
@@ -1204,7 +1204,7 @@ tasks:
         const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
         expect(a2.state?.current).toBe("RUNNING");
-    }, 20000);
+    }, 10000);
 
     // --- unqueue by query ---
     it("unqueue_executions_by_query", async () => {
@@ -1243,7 +1243,7 @@ tasks:
 
         const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
         expect(a1.state?.current).toBe("RUNNING");
-    }, 20000);
+    }, 10000);
 
     // --- update status by ids ---
     it("update_executions_status_by_ids", async () => {
@@ -1265,7 +1265,7 @@ tasks:
         expect(s1.state?.current).toBe("CANCELLED");
         expect(s2.state?.current).toBe("CANCELLED");
         expect(sO.state?.current).toBe("SUCCESS");
-    }, 20000);
+    }, 12000);
 
     // --- update status by query ---
     it("update_executions_status_by_query", async () => {
@@ -1294,7 +1294,7 @@ tasks:
         expect(s1.state?.current).toBe("CANCELLED");
         expect(s2.state?.current).toBe("CANCELLED");
         expect(sO.state?.current).toBe("SUCCESS");
-    }, 20000);
+    }, 12000);
 });
 
 describe("ExecutionsApi read-only long tail", () => {

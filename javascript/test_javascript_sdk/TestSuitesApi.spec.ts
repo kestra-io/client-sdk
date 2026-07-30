@@ -356,7 +356,7 @@ describe('TestSuitesApiTest', () => {
         expect(await isTestSuiteDisabled(ts1)).toBe(false);
         expect(await isTestSuiteDisabled(ts2)).toBe(false);
         expect(await isTestSuiteDisabled(ts3)).toBe(true);
-    }, 20000);
+    }, 12000);
 
     it('searchTestSuiteTest', async () => {
         const namespaceXXX = `namespacexxx_${randomId()}`;
@@ -561,7 +561,7 @@ describe('TestSuitesApiTest', () => {
             const ids = results.map((r) => r.testSuiteId).sort();
             expect(ids).toEqual([ts4.id].sort());
         }
-    }, 60000);
+    }, 18000);
 
     it('getTestResult', async () => {
         const namespace = randomId();
