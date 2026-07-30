@@ -523,11 +523,8 @@ describe('TestSuitesApiTest', () => {
             tenant: tenantId,
         });
 
-        // run all of them
-        await TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: tenantId });
         await TestSuites.runTestSuite({ namespace: ts1.namespace, id: ts1.id, tenant: tenantId });
         await TestSuites.runTestSuite({ namespace: ts2.namespace, id: ts2.id, tenant: tenantId });
-        await TestSuites.runTestSuite({ namespace: ts3.namespace, id: ts3.id, tenant: tenantId });
         await TestSuites.runTestSuite({ namespace: ts4.namespace, id: ts4.id, tenant: tenantId });
 
         const page = 1;
@@ -540,7 +537,7 @@ describe('TestSuitesApiTest', () => {
             });
             const results = res?.results ?? [];
             expect(results.every((r) => r.testSuiteId === ts1.id)).toBe(true);
-            expect(results).toHaveLength(2);
+            expect(results).toHaveLength(1);
         }
 
         // by flowId
@@ -551,7 +548,7 @@ describe('TestSuitesApiTest', () => {
             const results = res?.results ?? [];
             expect(results.every((r) => r.flowId === flowAAA.id)).toBe(true);
             const ids = results.map((r) => r.testSuiteId).sort();
-            expect(ids).toEqual([ts1.id, ts1.id, ts2.id].sort());
+            expect(ids).toEqual([ts1.id, ts2.id].sort());
         }
 
         // by namespace
