@@ -44,6 +44,12 @@ export default defineConfig({
         // to the failing test's source on GitHub.
         includeTaskLocation: true,
         retry: 3,
+        // All spec files share a single Kestra instance (docker-compose-ci.yml starts one
+        // container), so unbounded file parallelism has every file's HTTP calls and
+        // executions contending for the same worker threads and queue. Cap it to reduce
+        // that contention; ExecutionsApi.spec.ts alone already dominates the suite's wall
+        // clock, so the other files have slack to spare even at reduced concurrency.
+        maxWorkers: 3,
         globalSetup: ["test_javascript_sdk/globalSetup.ts"],
         coverage: {
             // Paths are relative to root (".."), so no "../" needed.

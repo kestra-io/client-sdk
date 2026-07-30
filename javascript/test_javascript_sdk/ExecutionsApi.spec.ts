@@ -680,52 +680,6 @@ describe("ExecutionsApi", () => {
         expect(paused.state?.current).toBe("PAUSED");
     });
 
-    // --- pause by ids ---
-    it("pause_executions_by_ids", async () => {
-        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-        const other = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-
-        const bulk: any = await Executions.pauseExecutionsByIds({
-            body: [e1.id ?? "", e2.id ?? ""],
-        });
-        expect(bulk.totalItems).toBe(2);
-
-        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
-        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
-        expect(p1.state?.current).toBe("PAUSED");
-        expect(p2.state?.current).toBe("PAUSED");
-
-        // let "other" finish or keep running (not paused assertion necessary here)
-    }, 20000);
-
-    // --- pause by query ---
-    it("pause_executions_by_query", async () => {
-        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
-
-        const filters = [
-            {
-                field: QF_FIELD.NAMESPACE,
-                operation: QF_OP.IN,
-                value: [e1.namespace, e2.namespace],
-            },
-        ];
-        const bulk: any = await Executions.pauseExecutionsByQuery(
-            { filters: filters },
-        );
-        expect(bulk.totalItems).toBe(2);
-
-        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
-        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
-        const o = await awaitExecution(other.id ?? "", "SUCCESS", 4000, 100);
-
-        expect(p1.state?.current).toBe("PAUSED");
-        expect(p2.state?.current).toBe("PAUSED");
-        expect(o.state?.current).toBe("SUCCESS");
-    }, 25000);
-
     // --- replay execution (single) ---
     it("replay_execution", async () => {
         const e = await createdExecution(LOG_FLOW, "SUCCESS");
@@ -926,91 +880,6 @@ describe("ExecutionsApi", () => {
         ).toBe(true);
     });
 
-    const has = (e: { labels?: { key: string; value: string }[] }, k: string, v: string) =>
-        (e.labels ?? []).some((l) => l.key === k && l.value === v);
-
-    async function awaitLabel(executionId: string, k: string, v: string, timeoutMs = 3000, pollMs = 100) {
-        const start = Date.now();
-        while (true) {
-            const ex = await Executions.execution({ executionId });
-            if (has(ex, k, v)) return ex;
-            if (Date.now() - start > timeoutMs) return ex;
-            await sleep(pollMs);
-        }
-    }
-
-    // --- set labels by ids ---
-    it("set_labels_on_terminated_executions_by_ids", async () => {
-        const a = await createdExecution(LOG_FLOW, "SUCCESS");
-        const b = await createdExecution(LOG_FLOW, "SUCCESS");
-        const c = await createdExecution(LOG_FLOW, "SUCCESS");
-
-        const labels = [
-            { key: "foo", value: "bar" },
-            { key: "terminated", value: "yes" },
-        ];
-        const bulk: any =
-            await Executions.setLabelsOnTerminatedExecutionsByIds({ executionsId: [a.id ?? "", b.id ?? ""], executionLabels: labels });
-        expect(bulk.totalItems).toBe(2);
-
-        const a2 = await awaitLabel(a.id, "foo", "bar");
-        const b2 = await awaitLabel(b.id, "foo", "bar");
-        const c2 = await Executions.execution({
-            executionId: c.id,
-        });
-
-        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
-            true,
-        );
-        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
-            true,
-        );
-        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
-            true,
-        );
-    }, 20000);
-
-    // --- set labels by query ---
-    it("set_labels_on_terminated_executions_by_query", async () => {
-        const a = await createdExecution(LOG_FLOW, "SUCCESS");
-        const b = await createdExecution(LOG_FLOW, "SUCCESS");
-        const c = await createdExecution(LOG_FLOW, "SUCCESS");
-
-        const labels = [
-            { key: "foo", value: "bar" },
-            { key: "terminated", value: "yes" },
-        ];
-        const filters = [
-            {
-                field: QF_FIELD.NAMESPACE,
-                operation: QF_OP.IN,
-                value: [a.namespace, b.namespace],
-            },
-        ];
-        const resp =
-            await Executions.setLabelsOnTerminatedExecutionsByQuery({
-                filters: filters,
-                body: labels,
-            });
-        expect(resp.totalItems).toBe(2);
-
-        const a2 = await awaitLabel(a.id, "foo", "bar");
-        const b2 = await awaitLabel(b.id, "foo", "bar");
-        const c2 = await Executions.execution({
-            executionId: c.id
-        });
-
-        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
-            true,
-        );
-        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
-            true,
-        );
-        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
-            true,
-        );
-    }, 20000);
-
     // --- trigger by GET webhook ---
     it("trigger_execution_by_get_webhook", async () => {
         const namespace = randomId();
@@ -1054,79 +923,6 @@ describe("ExecutionsApi", () => {
         expect(after.state?.current).toBe("RUNNING");
     }, 10000);
 
-    // --- unqueue by ids ---
-    it("unqueue_executions_by_ids", async () => {
-        const namespace = randomId();
-        const id = randomId();
-        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
-
-        const running = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(running.id, "RUNNING", 1500, 100);
-        const q1 = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(q1.id, "QUEUED", 1500, 100);
-        const q2 = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(q2.id, "QUEUED", 1500, 100);
-
-        const bulk: any = await Executions.unqueueExecutionsByIds({
-            state: "RUNNING",
-            body: [q1.id, q2.id],
-        });
-        expect(bulk.totalItems).toBe(2);
-
-        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
-        const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
-        expect(a1.state?.current).toBe("RUNNING");
-        expect(a2.state?.current).toBe("RUNNING");
-    }, 20000);
-
-    // --- unqueue by query ---
-    it("unqueue_executions_by_query", async () => {
-        const namespace = randomId();
-        const id = randomId();
-        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
-
-        const running = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(running.id, "RUNNING", 1500, 100);
-        const q1 = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(q1.id, "QUEUED", 1500, 100);
-        const q2 = await Executions.createExecution({
-            namespace,
-            id,
-        });
-        await awaitExecution(q2.id, "QUEUED", 1500, 100);
-
-        const filters = [
-            {
-                field: QF_FIELD.QUERY,
-                operation: QF_OP.EQUALS,
-                value: [q1.id],
-            },
-        ];
-        const resp: any = await Executions.unqueueExecutionsByQuery({
-            filters: filters,
-            newState: "RUNNING",
-        });
-        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
-
-        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
-        expect(a1.state?.current).toBe("RUNNING");
-    }, 20000);
-
     // --- update status (single) ---
     it("update_execution_status", async () => {
         const e = await createdExecution(LOG_FLOW, "SUCCESS");
@@ -1141,57 +937,6 @@ describe("ExecutionsApi", () => {
         });
         expect(fetched.state?.current).toBe("CANCELLED");
     });
-
-    // --- update status by ids ---
-    it("update_executions_status_by_ids", async () => {
-        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
-        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
-        const other = await createdExecution(LOG_FLOW, "SUCCESS");
-
-        const bulk: any = await Executions.updateExecutionsStatusByIds({
-            newStatus: "CANCELLED",
-            body: [e1.id ?? "", e2.id ?? ""],
-        });
-        expect(bulk.totalItems).toBe(2);
-
-        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
-        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
-        const sO = await Executions.execution({
-            executionId: other.id ?? "",
-        });
-        expect(s1.state?.current).toBe("CANCELLED");
-        expect(s2.state?.current).toBe("CANCELLED");
-        expect(sO.state?.current).toBe("SUCCESS");
-    }, 20000);
-
-    // --- update status by query ---
-    it("update_executions_status_by_query", async () => {
-        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
-        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
-        const other = await createdExecution(LOG_FLOW, "SUCCESS");
-
-        const filters = [
-            {
-                field: QF_FIELD.NAMESPACE,
-                operation: QF_OP.IN,
-                value: [e1.namespace, e2.namespace],
-            },
-        ];
-        const bulk: any = await Executions.updateExecutionsStatusByQuery({
-            newStatus: "CANCELLED",
-            filters: filters,
-        });
-        expect(bulk.totalItems).toBe(2);
-
-        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
-        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
-        const sO = await Executions.execution({
-            executionId: other.id ?? "",
-        });
-        expect(s1.state?.current).toBe("CANCELLED");
-        expect(s2.state?.current).toBe("CANCELLED");
-        expect(sO.state?.current).toBe("SUCCESS");
-    }, 20000);
 
     const LONG_FLOW = (ns: string, id: string): string => `
 id: ${id}
@@ -1295,6 +1040,261 @@ tasks:
 
         expect(result).toContain(e.id);
     }, 25000);
+
+    // --- pause by ids ---
+    it("pause_executions_by_ids", async () => {
+        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const other = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+
+        const bulk: any = await Executions.pauseExecutionsByIds({
+            body: [e1.id ?? "", e2.id ?? ""],
+        });
+        expect(bulk.totalItems).toBe(2);
+
+        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
+        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
+        expect(p1.state?.current).toBe("PAUSED");
+        expect(p2.state?.current).toBe("PAUSED");
+
+        // let "other" finish or keep running (not paused assertion necessary here)
+    }, 20000);
+
+    // --- pause by query ---
+    it("pause_executions_by_query", async () => {
+        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+
+        const filters = [
+            {
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            },
+        ];
+        const bulk: any = await Executions.pauseExecutionsByQuery(
+            { filters: filters },
+        );
+        expect(bulk.totalItems).toBe(2);
+
+        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
+        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
+        const o = await awaitExecution(other.id ?? "", "SUCCESS", 4000, 100);
+
+        expect(p1.state?.current).toBe("PAUSED");
+        expect(p2.state?.current).toBe("PAUSED");
+        expect(o.state?.current).toBe("SUCCESS");
+    }, 25000);
+
+    const has = (e: { labels?: { key: string; value: string }[] }, k: string, v: string) =>
+        (e.labels ?? []).some((l) => l.key === k && l.value === v);
+
+    async function awaitLabel(executionId: string, k: string, v: string, timeoutMs = 3000, pollMs = 100) {
+        const start = Date.now();
+        while (true) {
+            const ex = await Executions.execution({ executionId });
+            if (has(ex, k, v)) return ex;
+            if (Date.now() - start > timeoutMs) return ex;
+            await sleep(pollMs);
+        }
+    }
+
+    // --- set labels by ids ---
+    it("set_labels_on_terminated_executions_by_ids", async () => {
+        const a = await createdExecution(LOG_FLOW, "SUCCESS");
+        const b = await createdExecution(LOG_FLOW, "SUCCESS");
+        const c = await createdExecution(LOG_FLOW, "SUCCESS");
+
+        const labels = [
+            { key: "foo", value: "bar" },
+            { key: "terminated", value: "yes" },
+        ];
+        const bulk: any =
+            await Executions.setLabelsOnTerminatedExecutionsByIds({ executionsId: [a.id ?? "", b.id ?? ""], executionLabels: labels });
+        expect(bulk.totalItems).toBe(2);
+
+        const a2 = await awaitLabel(a.id, "foo", "bar");
+        const b2 = await awaitLabel(b.id, "foo", "bar");
+        const c2 = await Executions.execution({
+            executionId: c.id,
+        });
+
+        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
+            true,
+        );
+    }, 20000);
+
+    // --- set labels by query ---
+    it("set_labels_on_terminated_executions_by_query", async () => {
+        const a = await createdExecution(LOG_FLOW, "SUCCESS");
+        const b = await createdExecution(LOG_FLOW, "SUCCESS");
+        const c = await createdExecution(LOG_FLOW, "SUCCESS");
+
+        const labels = [
+            { key: "foo", value: "bar" },
+            { key: "terminated", value: "yes" },
+        ];
+        const filters = [
+            {
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [a.namespace, b.namespace],
+            },
+        ];
+        const resp =
+            await Executions.setLabelsOnTerminatedExecutionsByQuery({
+                filters: filters,
+                body: labels,
+            });
+        expect(resp.totalItems).toBe(2);
+
+        const a2 = await awaitLabel(a.id, "foo", "bar");
+        const b2 = await awaitLabel(b.id, "foo", "bar");
+        const c2 = await Executions.execution({
+            executionId: c.id
+        });
+
+        expect(has(a2, "foo", "bar") && has(a2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(has(b2, "foo", "bar") && has(b2, "terminated", "yes")).toBe(
+            true,
+        );
+        expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
+            true,
+        );
+    }, 20000);
+
+    // --- unqueue by ids ---
+    it("unqueue_executions_by_ids", async () => {
+        const namespace = randomId();
+        const id = randomId();
+        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
+
+        const running = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        const q1 = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(q1.id, "QUEUED", 1500, 100);
+        const q2 = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(q2.id, "QUEUED", 1500, 100);
+
+        const bulk: any = await Executions.unqueueExecutionsByIds({
+            state: "RUNNING",
+            body: [q1.id, q2.id],
+        });
+        expect(bulk.totalItems).toBe(2);
+
+        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
+        const a2 = await awaitExecution(q2.id, "RUNNING", 1500, 100);
+        expect(a1.state?.current).toBe("RUNNING");
+        expect(a2.state?.current).toBe("RUNNING");
+    }, 20000);
+
+    // --- unqueue by query ---
+    it("unqueue_executions_by_query", async () => {
+        const namespace = randomId();
+        const id = randomId();
+        await createSimpleFlow(id, namespace, LONG_SLEEP_CONCURRENCY_FLOW);
+
+        const running = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        const q1 = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(q1.id, "QUEUED", 1500, 100);
+        const q2 = await Executions.createExecution({
+            namespace,
+            id,
+        });
+        await awaitExecution(q2.id, "QUEUED", 1500, 100);
+
+        const filters = [
+            {
+                field: QF_FIELD.QUERY,
+                operation: QF_OP.EQUALS,
+                value: [q1.id],
+            },
+        ];
+        const resp: any = await Executions.unqueueExecutionsByQuery({
+            filters: filters,
+            newState: "RUNNING",
+        });
+        expect(resp.totalItems).toBeGreaterThanOrEqual(1);
+
+        const a1 = await awaitExecution(q1.id, "RUNNING", 1500, 100);
+        expect(a1.state?.current).toBe("RUNNING");
+    }, 20000);
+
+    // --- update status by ids ---
+    it("update_executions_status_by_ids", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const other = await createdExecution(LOG_FLOW, "SUCCESS");
+
+        const bulk: any = await Executions.updateExecutionsStatusByIds({
+            newStatus: "CANCELLED",
+            body: [e1.id ?? "", e2.id ?? ""],
+        });
+        expect(bulk.totalItems).toBe(2);
+
+        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
+        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
+        const sO = await Executions.execution({
+            executionId: other.id ?? "",
+        });
+        expect(s1.state?.current).toBe("CANCELLED");
+        expect(s2.state?.current).toBe("CANCELLED");
+        expect(sO.state?.current).toBe("SUCCESS");
+    }, 20000);
+
+    // --- update status by query ---
+    it("update_executions_status_by_query", async () => {
+        const e1 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const e2 = await createdExecution(LOG_FLOW, "SUCCESS");
+        const other = await createdExecution(LOG_FLOW, "SUCCESS");
+
+        const filters = [
+            {
+                field: QF_FIELD.NAMESPACE,
+                operation: QF_OP.IN,
+                value: [e1.namespace, e2.namespace],
+            },
+        ];
+        const bulk: any = await Executions.updateExecutionsStatusByQuery({
+            newStatus: "CANCELLED",
+            filters: filters,
+        });
+        expect(bulk.totalItems).toBe(2);
+
+        const s1 = await awaitExecution(e1.id ?? "", "CANCELLED", 2000, 100);
+        const s2 = await awaitExecution(e2.id ?? "", "CANCELLED", 2000, 100);
+        const sO = await Executions.execution({
+            executionId: other.id ?? "",
+        });
+        expect(s1.state?.current).toBe("CANCELLED");
+        expect(s2.state?.current).toBe("CANCELLED");
+        expect(sO.state?.current).toBe("SUCCESS");
+    }, 20000);
 });
 
 describe("ExecutionsApi read-only long tail", () => {
