@@ -80,8 +80,6 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts');
         const created = await ServiceAccount.createServiceAccount({ name });
 
-        // Narrow on the service account name: the page size is capped at 1000 server-side, so
-        // the created account can no longer be guaranteed to land on an unfiltered first page.
         const results = await ServiceAccount.listServiceAccounts({
             page: 1,
             size: 5,

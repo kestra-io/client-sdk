@@ -40,11 +40,6 @@ tasks:
     duration: PT30S
 `;
 
-// Like SLEEP_CONCURRENCY_FLOW, but the blocking execution sleeps long enough that it can't
-// finish (and auto-release the concurrency slot) before a test has created its QUEUED
-// executions and issued its unqueue call. unqueueExecutionsByIds/ByQuery require the target
-// to be exactly QUEUED, unlike forceRunByIds which only rejects terminated executions — so
-// unqueue tests need a wider margin than force-run tests get away with on the PT2S flow.
 const LONG_SLEEP_CONCURRENCY_FLOW = (id: string, ns: string): string => `
 id: ${id}
 namespace: ${ns}
@@ -686,11 +681,6 @@ describe("ExecutionsApi", () => {
     });
 
     // --- pause by ids ---
-    // The executions to pause use LONG_SLEEP_FLOW, not SLEEP_CONCURRENCY_FLOW: the server
-    // rejects the whole batch with `400 invalid bulk pause` as soon as one id is no longer
-    // RUNNING, and SLEEP_CONCURRENCY_FLOW only sleeps PT2S — less than the time it takes to
-    // create the remaining executions. (Its `concurrency` block never applied here anyway:
-    // createdExecution() puts every execution in its own flow and namespace.)
     it("pause_executions_by_ids", async () => {
         const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
         const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
@@ -710,9 +700,6 @@ describe("ExecutionsApi", () => {
     }, 20000);
 
     // --- pause by query ---
-    // e1/e2 sleep PT30S so they are still RUNNING when the bulk pause lands (see the note on
-    // pause_executions_by_ids). "other" keeps the short PT2S flow and is created last, so it
-    // still terminates on its own and proves the namespace filter left it alone.
     it("pause_executions_by_query", async () => {
         const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
         const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
