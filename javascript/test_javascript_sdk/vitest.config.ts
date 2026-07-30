@@ -32,13 +32,16 @@ export default defineConfig({
         setupFiles: ["test_javascript_sdk/_setup.ts"],
         environment: "node",
         include: ["test_javascript_sdk/**/*.spec.ts"],
-        reporters: ["default", "json"],
+        // failureReporter writes coverage/test-failures.json, which the PR
+        // comment is built from (.github/scripts/coverage-comment.mjs). It reads
+        // the error objects directly because the json report loses the message
+        // of a timed-out test — see the comment in failureReporter.ts.
+        reporters: ["default", "json", "./test_javascript_sdk/failureReporter.ts"],
         outputFile: {
             json: "coverage/test-results.json"
         },
-        // Records each test's line number in the json report, so the PR comment
-        // posted on a failed run can link straight to the failing test source
-        // (.github/scripts/coverage-comment.mjs).
+        // Records each test's line number, so the PR comment can link straight
+        // to the failing test's source on GitHub.
         includeTaskLocation: true,
         retry: 3,
         globalSetup: ["test_javascript_sdk/globalSetup.ts"],

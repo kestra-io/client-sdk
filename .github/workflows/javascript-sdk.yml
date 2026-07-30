@@ -158,7 +158,7 @@ jobs:
           COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           TESTS_OUTCOME: ${{ steps.tests.outcome }}
-        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json javascript/coverage/test-failures.json
 
       - name: Slack - Notify CI failure
         if: failure() && github.event_name != 'pull_request'

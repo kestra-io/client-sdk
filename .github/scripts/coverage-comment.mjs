@@ -8,7 +8,11 @@
  *    the PR without digging through the job logs;
  *  - every uncovered function in `openapi/sdk/`.
  *
- * Usage: node coverage-comment.mjs <path-to-coverage-final.json> [path-to-test-results.json]
+ * Failure data comes from `coverage/test-failures.json` (written by
+ * test_javascript_sdk/failureReporter.ts), falling back to vitest's built-in
+ * json report when that file is absent.
+ *
+ * Usage: node coverage-comment.mjs <coverage-final.json> [test-results.json] [test-failures.json]
  *
  * Env vars:
  *   GITHUB_REPOSITORY  – e.g. "owner/repo"       (required to post)
@@ -42,9 +46,12 @@ const coveragePathArg =
     process.argv[2] ?? "javascript/coverage/coverage-final.json";
 const testResultsPathArg =
     process.argv[3] ?? "javascript/coverage/test-results.json";
+const failuresPathArg =
+    process.argv[4] ?? "javascript/coverage/test-failures.json";
 const repoRoot = join(import.meta.dirname, "..", "..");
 const coveragePath = join(repoRoot, coveragePathArg);
 const testResultsPath = join(repoRoot, testResultsPathArg);
+const failuresPath = join(repoRoot, failuresPathArg);
 
 const {
     GITHUB_REPOSITORY: repo,
@@ -112,10 +119,50 @@ function formatError(rawMessages) {
  *          line: number | null; error: string }[]}
  */
 const failingTests = [];
+/** @type {string[]} */
+const unhandledErrors = [];
 let testResultsFound = false;
 let testRunSucceeded = null;
 
-if (existsSync(testResultsPath)) {
+// Preferred source: our own reporter, which keeps the real error message for
+// timed-out tests (vitest's json report replaces it with an internal sentinel).
+if (existsSync(failuresPath)) {
+    try {
+        const report = JSON.parse(readFileSync(failuresPath, "utf8"));
+        testResultsFound = true;
+
+        for (const failure of report.failures ?? []) {
+            failingTests.push({
+                file: failure.file ?? "unknown",
+                name: failure.name ?? "<unnamed test>",
+                title: failure.name ?? "<unnamed test>",
+                suite: failure.suite ?? "",
+                line: failure.line ?? null,
+                error: formatError([failure.error]),
+            });
+        }
+
+        for (const moduleError of report.moduleErrors ?? []) {
+            failingTests.push({
+                file: moduleError.file ?? "unknown",
+                name: "(spec failed to load)",
+                title: "(spec failed to load)",
+                suite: "",
+                line: null,
+                error: formatError([moduleError.error]),
+            });
+        }
+
+        unhandledErrors.push(...(report.unhandledErrors ?? []));
+        testRunSucceeded =
+            failingTests.length === 0 && unhandledErrors.length === 0;
+    } catch (err) {
+        console.warn("Could not parse failure report:", err.message);
+    }
+}
+
+// Fallback: vitest's built-in json report.
+if (!testResultsFound && existsSync(testResultsPath)) {
     try {
         const results = JSON.parse(readFileSync(testResultsPath, "utf8"));
         testResultsFound = true;
@@ -239,7 +286,32 @@ const pct =
 // Build the failing-tests section
 // ---------------------------------------------------------------------------
 
+/** Errors vitest could not attribute to any test (unhandled rejections, …). */
+function buildUnhandledErrorsBlock() {
+    if (unhandledErrors.length === 0) return "";
+    const items = unhandledErrors
+        .slice(0, 5)
+        .map((e) => `  ${formatError([e]).split("\n").join("\n  ")}`)
+        .join("\n\n");
+    return `\n\n<details>
+<summary>⚠️ ${unhandledErrors.length} unhandled error(s) outside of any test</summary>
+
+\`\`\`
+${items}
+\`\`\`
+
+</details>`;
+}
+
 function buildFailingSection() {
+    if (failingTests.length === 0 && unhandledErrors.length > 0) {
+        return `### ❌ JavaScript SDK — tests failed
+
+No individual test failed, but the run recorded unhandled error(s).${
+            RUN_URL ? ` See the [workflow logs](${RUN_URL}).` : ""
+        }${buildUnhandledErrorsBlock()}`;
+    }
+
     if (failingTests.length === 0) {
         // Nothing parseable, but the test step still went red: say so instead of
         // leaving the PR with a green-looking comment.
@@ -303,7 +375,7 @@ ${items}
 
 ${summary}
 
-${groups}${hidden > 0 ? `\n\n_…and ${hidden} more failing test(s) — see the [workflow logs](${RUN_URL ?? "the run"})._` : ""}
+${groups}${hidden > 0 ? `\n\n_…and ${hidden} more failing test(s) — see the [workflow logs](${RUN_URL ?? "the run"})._` : ""}${buildUnhandledErrorsBlock()}
 
 > Reproduce locally: \`cd javascript && sh run-tests.sh <kestra-version>\`, or target one file with
 > \`npm test --workspace test_javascript_sdk -- ${failingByFile[0].file}\`.`;
