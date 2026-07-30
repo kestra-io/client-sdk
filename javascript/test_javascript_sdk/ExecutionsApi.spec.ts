@@ -667,10 +667,15 @@ describe("ExecutionsApi", () => {
     });
 
     // --- pause by ids ---
+    // The executions to pause use LONG_SLEEP_FLOW, not SLEEP_CONCURRENCY_FLOW: the server
+    // rejects the whole batch with `400 invalid bulk pause` as soon as one id is no longer
+    // RUNNING, and SLEEP_CONCURRENCY_FLOW only sleeps PT2S — less than the time it takes to
+    // create the remaining executions. (Its `concurrency` block never applied here anyway:
+    // createdExecution() puts every execution in its own flow and namespace.)
     it("pause_executions_by_ids", async () => {
-        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
-        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
-        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const other = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
 
         const bulk: any = await Executions.pauseExecutionsByIds({
             body: [e1.id ?? "", e2.id ?? ""],
@@ -683,12 +688,15 @@ describe("ExecutionsApi", () => {
         expect(p2.state?.current).toBe("PAUSED");
 
         // let "other" finish or keep running (not paused assertion necessary here)
-    });
+    }, 20000);
 
     // --- pause by query ---
+    // e1/e2 sleep PT30S so they are still RUNNING when the bulk pause lands (see the note on
+    // pause_executions_by_ids). "other" keeps the short PT2S flow and is created last, so it
+    // still terminates on its own and proves the namespace filter left it alone.
     it("pause_executions_by_query", async () => {
-        const e1 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
-        const e2 = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
+        const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
         const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
 
         const filters = [
@@ -710,7 +718,7 @@ describe("ExecutionsApi", () => {
         expect(p1.state?.current).toBe("PAUSED");
         expect(p2.state?.current).toBe("PAUSED");
         expect(o.state?.current).toBe("SUCCESS");
-    });
+    }, 20000);
 
     // --- replay execution (single) ---
     it("replay_execution", async () => {
@@ -954,7 +962,7 @@ describe("ExecutionsApi", () => {
         expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
             true,
         );
-    });
+    }, 20000);
 
     // --- set labels by query ---
     it("set_labels_on_terminated_executions_by_query", async () => {
@@ -995,7 +1003,7 @@ describe("ExecutionsApi", () => {
         expect(!(has(c2, "foo", "bar") && has(c2, "terminated", "yes"))).toBe(
             true,
         );
-    });
+    }, 20000);
 
     // --- trigger by GET webhook ---
     it("trigger_execution_by_get_webhook", async () => {

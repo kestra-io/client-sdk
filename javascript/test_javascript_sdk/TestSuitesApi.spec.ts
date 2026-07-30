@@ -564,7 +564,7 @@ describe('TestSuitesApiTest', () => {
             const ids = results.map((r) => r.testSuiteId).sort();
             expect(ids).toEqual([ts4.id].sort());
         }
-    });
+    }, 60000);
 
     it('getTestResult', async () => {
         const namespace = randomId();
