@@ -19519,6 +19519,7 @@ components:
       - IS_TRUE
       - LESS_THAN
       - LESS_THAN_OR_EQUAL_TO
+      - NOT_CONTAINS
       - NOT_EQUAL_TO
       - NOT_IN
       - OR
@@ -26475,6 +26476,9 @@ components:
       - STARTS_WITH
       - ENDS_WITH
       - CONTAINS
+      - NOT_CONTAINS
+      - IS_NULL
+      - IS_NOT_NULL
       - REGEX
       - PREFIX
     QueueSubscription.Mode:
