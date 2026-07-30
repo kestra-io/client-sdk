@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.CaseAction;
 import io.kestra.sdk.model.CaseSeverity;
 import io.kestra.sdk.model.CaseStatus;
 import io.kestra.sdk.model.Label;
@@ -42,13 +43,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_ASSIGNEES,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_WATCHERS,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_LABELS,
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_ACTIONS,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_ASSET_IDS,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_LINK_MATCHING_EXECUTIONS,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_FLOW_NAMESPACE,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_FLOW_ID,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_TASK_ID,
   CasesControllerCaseFromTaskRequest.JSON_PROPERTY_EXECUTION_ID,
-  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_EXECUTION_STATE
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_EXECUTION_STATE,
+  CasesControllerCaseFromTaskRequest.JSON_PROPERTY_CASE_ID
 })
 @JsonTypeName("CasesController.CaseFromTaskRequest")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -80,6 +83,9 @@ public class CasesControllerCaseFromTaskRequest {
   public static final String JSON_PROPERTY_LABELS = "labels";
   @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_ACTIONS = "actions";
+  @jakarta.annotation.Nullable  private List<CaseAction> actions = new ArrayList<>();
+
   public static final String JSON_PROPERTY_ASSET_IDS = "assetIds";
   @jakarta.annotation.Nullable  private List<String> assetIds = new ArrayList<>();
 
@@ -100,6 +106,9 @@ public class CasesControllerCaseFromTaskRequest {
 
   public static final String JSON_PROPERTY_EXECUTION_STATE = "executionState";
   @jakarta.annotation.Nullable  private String executionState;
+
+  public static final String JSON_PROPERTY_CASE_ID = "caseId";
+  @jakarta.annotation.Nullable  private String caseId;
 
   public CasesControllerCaseFromTaskRequest() {
   }
@@ -328,6 +337,38 @@ public class CasesControllerCaseFromTaskRequest {
     this.labels = labels;
   }
 
+  public CasesControllerCaseFromTaskRequest actions(@jakarta.annotation.Nullable List<CaseAction> actions) {
+
+    this.actions = actions;
+    return this;
+  }
+
+  public CasesControllerCaseFromTaskRequest addActionsItem(CaseAction actionsItem) {
+    if (this.actions == null) {
+      this.actions = new ArrayList<>();
+    }
+    this.actions.add(actionsItem);
+    return this;
+  }
+
+  /**
+   * Get actions
+   * @return actions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<CaseAction> getActions() {
+    return actions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setActions(@jakarta.annotation.Nullable List<CaseAction> actions) {
+    this.actions = actions;
+  }
+
   public CasesControllerCaseFromTaskRequest assetIds(@jakarta.annotation.Nullable List<String> assetIds) {
 
     this.assetIds = assetIds;
@@ -504,6 +545,30 @@ public class CasesControllerCaseFromTaskRequest {
     this.executionState = executionState;
   }
 
+  public CasesControllerCaseFromTaskRequest caseId(@jakarta.annotation.Nullable String caseId) {
+
+    this.caseId = caseId;
+    return this;
+  }
+
+  /**
+   * When set, attaches the triggering execution to this existing case instead of creating one.
+   * @return caseId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CASE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCaseId() {
+    return caseId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CASE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCaseId(@jakarta.annotation.Nullable String caseId) {
+    this.caseId = caseId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -522,18 +587,20 @@ public class CasesControllerCaseFromTaskRequest {
         Objects.equals(this.assignees, casesControllerCaseFromTaskRequest.assignees) &&
         Objects.equals(this.watchers, casesControllerCaseFromTaskRequest.watchers) &&
         Objects.equals(this.labels, casesControllerCaseFromTaskRequest.labels) &&
+        Objects.equals(this.actions, casesControllerCaseFromTaskRequest.actions) &&
         Objects.equals(this.assetIds, casesControllerCaseFromTaskRequest.assetIds) &&
         Objects.equals(this.linkMatchingExecutions, casesControllerCaseFromTaskRequest.linkMatchingExecutions) &&
         Objects.equals(this.flowNamespace, casesControllerCaseFromTaskRequest.flowNamespace) &&
         Objects.equals(this.flowId, casesControllerCaseFromTaskRequest.flowId) &&
         Objects.equals(this.taskId, casesControllerCaseFromTaskRequest.taskId) &&
         Objects.equals(this.executionId, casesControllerCaseFromTaskRequest.executionId) &&
-        Objects.equals(this.executionState, casesControllerCaseFromTaskRequest.executionState);
+        Objects.equals(this.executionState, casesControllerCaseFromTaskRequest.executionState) &&
+        Objects.equals(this.caseId, casesControllerCaseFromTaskRequest.caseId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState);
+    return Objects.hash(namespace, title, description, severity, status, sla, assignees, watchers, labels, actions, assetIds, linkMatchingExecutions, flowNamespace, flowId, taskId, executionId, executionState, caseId);
   }
 
   @Override
@@ -549,6 +616,7 @@ public class CasesControllerCaseFromTaskRequest {
     sb.append("    assignees: ").append(toIndentedString(assignees)).append("\n");
     sb.append("    watchers: ").append(toIndentedString(watchers)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
     sb.append("    assetIds: ").append(toIndentedString(assetIds)).append("\n");
     sb.append("    linkMatchingExecutions: ").append(toIndentedString(linkMatchingExecutions)).append("\n");
     sb.append("    flowNamespace: ").append(toIndentedString(flowNamespace)).append("\n");
@@ -556,6 +624,7 @@ public class CasesControllerCaseFromTaskRequest {
     sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
     sb.append("    executionId: ").append(toIndentedString(executionId)).append("\n");
     sb.append("    executionState: ").append(toIndentedString(executionState)).append("\n");
+    sb.append("    caseId: ").append(toIndentedString(caseId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
