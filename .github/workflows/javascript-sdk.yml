@@ -130,6 +130,7 @@ jobs:
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
+        id: tests
         if: inputs.skip-test != 'true'
         env:
           KESTRA_VERSION: ${{ steps.extract_version.outputs.root_version }}
@@ -144,12 +145,19 @@ jobs:
           name: coverage-report
           path: ./javascript/coverage
 
-      - name: Comment coverage on PR
+      # Reports failing tests (grouped by spec file, linked to their source) and
+      # uncovered functions. Runs on failure too — that is the case where the
+      # comment matters most.
+      - name: Comment test results and coverage on PR
         if: always() && github.event_name == 'pull_request' && inputs.skip-test != 'true'
         working-directory: .
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          # Link spec files at the PR head, not the ephemeral merge commit.
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
         run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
 
       - name: Slack - Notify CI failure

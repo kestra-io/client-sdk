@@ -36,6 +36,10 @@ export default defineConfig({
         outputFile: {
             json: "coverage/test-results.json"
         },
+        // Records each test's line number in the json report, so the PR comment
+        // posted on a failed run can link straight to the failing test source
+        // (.github/scripts/coverage-comment.mjs).
+        includeTaskLocation: true,
         retry: 3,
         globalSetup: ["test_javascript_sdk/globalSetup.ts"],
         coverage: {
