@@ -96,10 +96,12 @@ describe('RolesApi', () => {
             name,
         });
 
+        // Narrow on the role name: the page size is capped at 1000 server-side, so the
+        // created role can no longer be guaranteed to land on an unfiltered first page.
         const results = await Roles.searchRoles({
             page: 1,
-            size: 10000,
-            filters: [],
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
         });
 
         // search typically returns { results, total, ... }

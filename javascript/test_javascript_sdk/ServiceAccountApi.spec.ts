@@ -80,8 +80,13 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts');
         const created = await ServiceAccount.createServiceAccount({ name });
 
-        // Many SDKs use {page, size}; some use {page: 1, size: 50}, others 0-based.
-        const results = await ServiceAccount.listServiceAccounts({ page: 1, size: 10000, filters: [] });
+        // Narrow on the service account name: the page size is capped at 1000 server-side, so
+        // the created account can no longer be guaranteed to land on an unfiltered first page.
+        const results = await ServiceAccount.listServiceAccounts({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
 
         // tolerate different result shapes: {results: []} or direct array
         const items = Array.isArray(results) ? results : results?.results ?? [];
@@ -180,7 +185,11 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts-for-tenant');
         const created = await ServiceAccount.createServiceAccountForTenant({ name });
 
-        const results = await ServiceAccount.listServiceAccountsForTenant({ page: 1, size: 10000, filters: [] });
+        const results = await ServiceAccount.listServiceAccountsForTenant({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
         const items = Array.isArray(results) ? results : (results as any)?.results ?? [];
         expect(items.map((r: any) => r?.id)).toContain(created.id);
     });
