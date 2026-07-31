@@ -21108,6 +21108,12 @@ components:
           type: object
           additionalProperties:
             type: object
+    AssetFailureBehavior:
+      type: string
+      enum:
+      - IGNORE
+      - FAIL
+      - WARN
     AssetIdentifier:
       type: object
       properties:
@@ -21287,6 +21293,11 @@ components:
           $ref: "#/components/schemas/Property_List_AssetIdentifier__"
         outputs:
           $ref: "#/components/schemas/Property_List_Asset__"
+        assetFailureBehavior:
+          title: Asset failure behavior
+          description: "Behavior applied to the task state when a declared asset fails to render, emit, or be persisted (e.g. a lock conflict): FAIL escalates it to FAILED, WARN (default) warns it if it would otherwise succeed, IGNORE leaves the state untouched."
+          allOf:
+          - $ref: "#/components/schemas/Property_AssetFailureBehavior_"
     AssetsInOut:
       type: object
       properties:
@@ -26241,6 +26252,16 @@ components:
           title: The id of the violating task or trigger; null for resource-level violations.
           type: string
       description: A single rule violation reported against the post-mutation resource.
+    Property_AssetFailureBehavior_:
+      type: object
+      properties:
+        expression:
+          type: string
+        value:
+          $ref: "#/components/schemas/AssetFailureBehavior"
+      oneOf:
+      - type: object
+      - type: string
     Property_Boolean_:
       type: object
       properties:
