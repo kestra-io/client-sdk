@@ -487,7 +487,7 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
-  /api/v1/instance/mcp/servers:
+  /api/v1/instance/mcp-servers:
     get:
       tags:
       - Mcp
@@ -8701,6 +8701,40 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/executions/namespaces/{namespace}/flows/{flowId}/average-duration:
+    get:
+      tags:
+      - Executions
+      summary: "Get the average duration of the recent executions of a flow, used to estimate the progress of a running execution."
+      operationId: getExecutionAverageDuration
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getExecutionAverageDuration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecutionController.ExecutionAverageDuration"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/pause/by-ids:
     post:
       tags:
@@ -13823,7 +13857,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers:
+  /api/v1/{tenant}/mcp-servers:
     get:
       tags:
       - Mcp
@@ -13873,6 +13907,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Mcp
@@ -13901,7 +13937,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}:
     get:
       tags:
       - Mcp
@@ -13929,6 +13967,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Mcp
@@ -13963,6 +14003,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Mcp
@@ -13986,7 +14028,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}/toggle:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}/toggle:
     patch:
       tags:
       - Mcp
@@ -14014,7 +14058,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}/tools:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}/tools:
     get:
       tags:
       - Mcp
@@ -14044,6 +14090,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
     get:
       tags:
@@ -22414,6 +22462,16 @@ components:
           type: string
         error:
           type: string
+    ExecutionController.ExecutionAverageDuration:
+      type: object
+      properties:
+        avgDurationMs:
+          type: integer
+          format: int64
+          nullable: true
+        count:
+          type: integer
+          format: int64
     ExecutionController.ExecutionResponse:
       required:
       - deleted
@@ -24795,8 +24853,6 @@ components:
         pluginsHash:
           type: integer
           format: int64
-        isConcurrencyViewEnabled:
-          type: boolean
     MiscController.EEConfiguration:
       type: object
       allOf:
