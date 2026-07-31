@@ -504,6 +504,27 @@ public class FlowsApiTest {
         assertThat(page2.getResults()).hasSize(1);
     }
 
+    // Pins both sides of the server's page-size cap: the cap itself is a valid
+    // request, above it the server answers 422 instead of clamping. A call asking
+    // for "everything" with size=10000 used to work and now breaks, so keep the
+    // boundary asserted rather than rediscovering it endpoint by endpoint.
+    @Test
+    void searchFlows_pageSizeCap() throws ApiException {
+        String ns = randomId();
+        FlowWithSource flow = createFlow(logFlowYaml(randomId(), ns));
+
+        PagedResultsFlow atCap = api().searchFlows(TENANT, 1, MAX_PAGE_SIZE, null, List.of(nsFilter(ns)));
+        assertThat(atCap.getResults()).hasSize(1);
+        assertThat(atCap.getResults().get(0).getId()).isEqualTo(flow.getId());
+
+        try {
+            api().searchFlows(TENANT, 1, MAX_PAGE_SIZE + 1, null, List.of(nsFilter(ns)));
+            fail("Expected a 422 for size=" + (MAX_PAGE_SIZE + 1) + ", but the call succeeded.");
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isEqualTo(422);
+        }
+    }
+
     @Test
     void searchFlows_sortAsc() throws ApiException {
         String ns = randomId();

@@ -16,6 +16,12 @@ tasks:
     type: io.kestra.plugin.core.execution.Fail
 `;
 
+// Sleeps long enough that the state a test set up (RUNNING here, QUEUED for the
+// executions behind the concurrency limit) is still true by the time the test
+// acts on it, even on a slow CI server. It used to sleep PT2S, which a sequence
+// of fixture calls can outlast: the executions then complete early and the
+// endpoint under test rejects them (`400 invalid bulk pause`,
+// "execution not in state RUNNING"). No test waits for this flow to finish.
 const SLEEP_CONCURRENCY_FLOW = (id: string, ns: string): string => `
 id: ${id}
 namespace: ${ns}
@@ -27,7 +33,7 @@ concurrency:
 tasks:
   - id: sleep
     type: io.kestra.plugin.core.flow.Sleep
-    duration: PT2S
+    duration: PT10S
 `;
 
 const LONG_SLEEP_FLOW = (id: string, ns: string): string => `
@@ -181,19 +187,26 @@ async function awaitExecution(
     pollMs = 100,
 ) {
     const start = Date.now();
+    let last: ApiExecution | undefined;
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        let last = {} as ApiExecution;
-
         last = await Executions.execution({
             executionId,
         });
 
-        if (last.state?.current === desiredState) return last;
+        if (last?.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) {
-            if (!last) throw new Error("Execution not found within timeout");
-            return last;
-        };
+            // Never hand back an execution in a state the caller did not ask
+            // for. Every call site either asserts on the state or relies on it
+            // as a precondition, so returning "whatever we last saw" moved the
+            // failure away from its cause — a bulk pause rejected with
+            // `400 invalid bulk pause` because the executions had already
+            // completed reads as an API break rather than a timing problem.
+            throw new Error(
+                `Execution ${executionId} never reached ${desiredState} within ${timeoutMs}ms `
+                + `(last state: ${last?.state?.current ?? "unknown"}).`,
+            );
+        }
         await sleep(pollMs);
     }
 }
@@ -202,7 +215,7 @@ async function createdExecution(flowTemplate: (id: string, ns: string) => string
     const ns = randomId();
     const id = randomId();
     const ex = await createFlowWithExecutionFromYaml(flowTemplate(id, ns), false);
-    return await awaitExecution(ex.id, desiredState, 3000, 100);
+    return await awaitExecution(ex.id, desiredState, 5000, 100);
 }
 
 async function getOutputUriFromExecution(opt: { executionId: string, taskRunId: string }) {
@@ -388,7 +401,7 @@ describe("ExecutionsApi", () => {
             namespace: ns,
             id: flowId,
         });
-        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        await awaitExecution(running.id, "RUNNING", 5000, 100);
 
         const queued1 = await Executions.createExecution({
             namespace: ns,
@@ -399,8 +412,8 @@ describe("ExecutionsApi", () => {
             id: flowId,
         });
         await Promise.all([
-            awaitExecution(queued1.id, "QUEUED", 1500, 100),
-            awaitExecution(queued2.id, "QUEUED", 1500, 100)
+            awaitExecution(queued1.id, "QUEUED", 5000, 100),
+            awaitExecution(queued2.id, "QUEUED", 5000, 100)
         ])
 
         const bulk = await Executions.forceRunByIds({
@@ -408,8 +421,8 @@ describe("ExecutionsApi", () => {
         });
         expect(bulk.totalItems).toBe(2);
 
-        const after = await awaitExecution(queued1.id, "RUNNING", 1500, 100);
-        const after2 = await awaitExecution(queued2.id, "RUNNING", 1500, 100);
+        const after = await awaitExecution(queued1.id, "RUNNING", 5000, 100);
+        const after2 = await awaitExecution(queued2.id, "RUNNING", 5000, 100);
         expect(after.state?.current).toBe("RUNNING");
         expect(after2.state?.current).toBe("RUNNING");
     }, 10000);
@@ -424,19 +437,19 @@ describe("ExecutionsApi", () => {
             namespace: ns,
             id: flowId,
         });
-        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        await awaitExecution(running.id, "RUNNING", 5000, 100);
 
         const queued = await Executions.createExecution({
             namespace: ns,
             id: flowId,
         });
-        await awaitExecution(queued.id, "QUEUED", 1500, 100);
+        await awaitExecution(queued.id, "QUEUED", 5000, 100);
 
         const resp = await Executions.forceRunExecution({
             executionId: queued.id,
         });
 
-        const after = await awaitExecution(resp.id, "RUNNING", 1500, 100);
+        const after = await awaitExecution(resp.id, "RUNNING", 5000, 100);
         expect(after.state?.current).toBe("RUNNING");
     });
 
@@ -450,12 +463,12 @@ describe("ExecutionsApi", () => {
             namespace: ns,
             id: flowId,
         });
-        await awaitExecution(e1.id, "RUNNING", 1500, 100);
+        await awaitExecution(e1.id, "RUNNING", 5000, 100);
         const e2 = await Executions.createExecution({
             namespace: ns,
             id: flowId,
         });
-        await awaitExecution(e2.id, "QUEUED", 1500, 100);
+        await awaitExecution(e2.id, "QUEUED", 5000, 100);
 
         const filters = [
             {
@@ -470,7 +483,7 @@ describe("ExecutionsApi", () => {
 
         expect(resp.totalItems).toBeGreaterThanOrEqual(1);
 
-        const after = await awaitExecution(e2.id, "RUNNING", 1500, 100);
+        const after = await awaitExecution(e2.id, "RUNNING", 5000, 100);
         expect(after.state?.current).toBe("RUNNING");
     });
 
@@ -676,7 +689,7 @@ describe("ExecutionsApi", () => {
         await Executions.pauseExecution({
             executionId: e.id ?? "",
         });
-        const paused = await awaitExecution(e.id ?? '', "PAUSED", 2000, 100);
+        const paused = await awaitExecution(e.id ?? '', "PAUSED", 5000, 100);
         expect(paused.state?.current).toBe("PAUSED");
     });
 
@@ -907,19 +920,19 @@ describe("ExecutionsApi", () => {
             namespace,
             id,
         });
-        await awaitExecution(running.id, "RUNNING", 1500, 100);
+        await awaitExecution(running.id, "RUNNING", 5000, 100);
         const queued = await Executions.createExecution({
             namespace,
             id,
         });
-        await awaitExecution(queued.id, "QUEUED", 1500, 100);
+        await awaitExecution(queued.id, "QUEUED", 5000, 100);
 
         const resp = await Executions.unqueueExecution({
             executionId: queued.id,
             state: "RUNNING",
         });
         expect(resp.state?.current).toBe("RUNNING");
-        const after = await awaitExecution(queued.id, "RUNNING", 1500, 100);
+        const after = await awaitExecution(queued.id, "RUNNING", 5000, 100);
         expect(after.state?.current).toBe("RUNNING");
     }, 10000);
 
@@ -1053,19 +1066,23 @@ tasks:
         });
         expect(bulk.totalItems).toBe(2);
 
-        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
-        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
+        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 5000, 100);
+        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 5000, 100);
         expect(p1.state?.current).toBe("PAUSED");
         expect(p2.state?.current).toBe("PAUSED");
 
-        // let "other" finish or keep running (not paused assertion necessary here)
+        // `other` was not in the batch, so it must still be RUNNING — "it
+        // finished" would also hold for an execution that was never a candidate
+        // for pausing in the first place.
+        const o = await Executions.execution({ executionId: other.id ?? "" });
+        expect(o.state?.current).toBe("RUNNING");
     }, 12000);
 
     // --- pause by query ---
     it("pause_executions_by_query", async () => {
         const e1 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
         const e2 = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
-        const other = await createdExecution(SLEEP_CONCURRENCY_FLOW, "RUNNING");
+        const other = await createdExecution(LONG_SLEEP_FLOW, "RUNNING");
 
         const filters = [
             {
@@ -1079,13 +1096,17 @@ tasks:
         );
         expect(bulk.totalItems).toBe(2);
 
-        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 2000, 100);
-        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 2000, 100);
-        const o = await awaitExecution(other.id ?? "", "SUCCESS", 4000, 100);
-
+        const p1 = await awaitExecution(e1.id ?? "", "PAUSED", 5000, 100);
+        const p2 = await awaitExecution(e2.id ?? "", "PAUSED", 5000, 100);
         expect(p1.state?.current).toBe("PAUSED");
         expect(p2.state?.current).toBe("PAUSED");
-        expect(o.state?.current).toBe("SUCCESS");
+
+        // `other` lives in a third namespace, so the filter must not match it:
+        // assert it is still RUNNING rather than waiting for it to complete —
+        // "it finished" would also hold for an execution that was never a
+        // candidate for pausing in the first place.
+        const o = await Executions.execution({ executionId: other.id ?? "" });
+        expect(o.state?.current).toBe("RUNNING");
     }, 15000);
 
     const has = (e: { labels?: { key: string; value: string }[] }, k: string, v: string) =>
