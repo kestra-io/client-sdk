@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId, waitForExecutionSuccess } from './_utils.js';
+import { randomId, getExecutableFlowAndId, waitForExecutionSuccess } from './_utils.js';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Metrics from '@kestra-io/kestra-sdk/metrics';
 
 async function createFlowAndWaitForExecution(): Promise<{ namespace: string; flowId: string; executionId: string }> {
-    const { flowId, flowNamespace, flowBody } = getSimpleFlowAndId();
+    const { flowId, flowNamespace, flowBody } = getExecutableFlowAndId();
     await Flows.createFlow({ body: flowBody });
 
     const exec = await Executions.createExecution({ namespace: flowNamespace, id: flowId, wait: true });

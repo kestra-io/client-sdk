@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId, waitForExecutionSuccess } from './_utils.js';
+import { randomId, getExecutableFlowAndId, waitForExecutionSuccess } from './_utils.js';
 import * as Dashboards from '@kestra-io/kestra-sdk/dashboards';
 import * as DashboardsAdmin from '@kestra-io/kestra-sdk/dashboards-admin';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
@@ -90,7 +90,7 @@ data:
 }
 
 async function createFlowAndWaitForExecution(): Promise<{ namespace: string; flowId: string; executionId: string }> {
-    const { flowId, flowNamespace, flowBody } = getSimpleFlowAndId();
+    const { flowId, flowNamespace, flowBody } = getExecutableFlowAndId();
     await Flows.createFlow({ body: flowBody });
 
     const exec = await Executions.createExecution({ namespace: flowNamespace, id: flowId, wait: true });
