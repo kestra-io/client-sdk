@@ -8896,6 +8896,14 @@ paths:
       summary: Restart a list of executions asynchronously
       operationId: restartExecutionsByIds
       parameters:
+      - name: latestRevision
+        in: query
+        description: If latest revision should be used
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
+          default: false
       - name: tenant
         in: path
         required: true
@@ -8948,6 +8956,14 @@ paths:
           nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
+      - name: latestRevision
+        in: query
+        description: If latest revision should be used
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
+          default: false
       - name: tenant
         in: path
         required: true
@@ -14447,10 +14463,10 @@ paths:
       - name: filters
         in: query
         description: A list of query filters
-        required: true
         explode: false
         schema:
           type: array
+          nullable: true
           items:
             $ref: "#/components/schemas/QueryFilter"
       - name: tenant
@@ -19503,6 +19519,7 @@ components:
       - IS_TRUE
       - LESS_THAN
       - LESS_THAN_OR_EQUAL_TO
+      - NOT_CONTAINS
       - NOT_EQUAL_TO
       - NOT_IN
       - OR
@@ -22993,6 +23010,7 @@ components:
       enum:
       - FLOW_TASK
       - FLOW_TRIGGER
+      - SUBFLOW_FUNCTION
     FlowService.TaskDeprecation:
       type: object
       properties:
@@ -25661,7 +25679,7 @@ components:
           default: 1
         passwordAllowedSpecialCharacters:
           type: string
-          default: '!@#$%^&*'
+          default: '!@#$%^&*_-'
         passwordReset:
           $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
     PasswordConfiguration.PasswordReset:
@@ -26458,6 +26476,9 @@ components:
       - STARTS_WITH
       - ENDS_WITH
       - CONTAINS
+      - NOT_CONTAINS
+      - IS_NULL
+      - IS_NOT_NULL
       - REGEX
       - PREFIX
     QueueSubscription.Mode:

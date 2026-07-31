@@ -252,7 +252,7 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const resp = await Flows.searchFlowsBySourceCode({
             page: 1,
-            size: MAX_PAGE_SIZE,
+            size: 5,
             q: flow.id,
             namespace: flow.namespace,
         });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { randomIdWith, MAX_PAGE_SIZE } from './_utils.js';
+import { randomIdWith } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as ServiceAccount from '@kestra-io/kestra-sdk/service-account';
 
@@ -80,8 +80,11 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts');
         const created = await ServiceAccount.createServiceAccount({ name });
 
-        // Many SDKs use {page, size}; some use {page: 1, size: 50}, others 0-based.
-        const results = await ServiceAccount.listServiceAccounts({ page: 1, size: MAX_PAGE_SIZE, filters: [] });
+        const results = await ServiceAccount.listServiceAccounts({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
 
         // tolerate different result shapes: {results: []} or direct array
         const items = Array.isArray(results) ? results : results?.results ?? [];
@@ -180,7 +183,11 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-list-service-accounts-for-tenant');
         const created = await ServiceAccount.createServiceAccountForTenant({ name });
 
-        const results = await ServiceAccount.listServiceAccountsForTenant({ page: 1, size: MAX_PAGE_SIZE, filters: [] });
+        const results = await ServiceAccount.listServiceAccountsForTenant({
+            page: 1,
+            size: 5,
+            filters: [{ field: 'name', operation: 'EQUALS', value: name as any }],
+        });
         const items = Array.isArray(results) ? results : (results as any)?.results ?? [];
         expect(items.map((r: any) => r?.id)).toContain(created.id);
     });
