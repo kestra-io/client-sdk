@@ -28222,6 +28222,8 @@ components:
       - ldapAuthCount
       - oidcCount
       - passwordlessCount
+      - restrictedCount
+      - superAdminCount
       type: object
       properties:
         count:
@@ -28240,6 +28242,12 @@ components:
           type: integer
           format: int64
         passwordlessCount:
+          type: integer
+          format: int64
+        superAdminCount:
+          type: integer
+          format: int64
+        restrictedCount:
           type: integer
           format: int64
     UsernamePasswordCredentials:
