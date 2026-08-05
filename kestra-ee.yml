@@ -1264,17 +1264,20 @@ paths:
         in: path
         required: true
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-]*$"
           type: string
       - name: artifactId
         in: path
         required: true
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-]*$"
           type: string
       - name: version
         in: query
         required: true
         explode: false
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-.]*$"
           type: string
       responses:
         "200":
@@ -25749,7 +25752,17 @@ components:
           default: '!@#$%^&*_-'
         passwordReset:
           $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
+        passwordValidate:
+          $ref: "#/components/schemas/PasswordConfiguration.PasswordValidate"
     PasswordConfiguration.PasswordReset:
+      type: object
+      properties:
+        cooldown:
+          type: string
+          default: PT5M
+        rateLimit:
+          $ref: "#/components/schemas/PasswordConfiguration.RateLimit"
+    PasswordConfiguration.PasswordValidate:
       type: object
       properties:
         cooldown:
