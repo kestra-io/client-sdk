@@ -4237,6 +4237,8 @@ paths:
                     type: array
                   SECURITY_INTEGRATION:
                     type: array
+                  BANNER:
+                    type: array
                   KILL_SWITCH:
                     type: array
                   TENANT:
@@ -23648,6 +23650,8 @@ components:
               type: array
             SECURITY_INTEGRATION:
               type: array
+            BANNER:
+              type: array
             KILL_SWITCH:
               type: array
             TENANT:
@@ -23742,6 +23746,8 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            BANNER:
               type: array
             KILL_SWITCH:
               type: array
@@ -26693,6 +26699,7 @@ components:
       - TESTSUITE_RUN
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
+      - BANNER
       - KILL_SWITCH
       - TENANT
       - VERSIONED_PLUGIN
@@ -26846,6 +26853,8 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            BANNER:
               type: array
             KILL_SWITCH:
               type: array
