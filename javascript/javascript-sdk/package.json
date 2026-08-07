@@ -20,6 +20,8 @@
     "./bindings": "./dist/bindings.js",
     "./blueprint-tags": "./dist/blueprint-tags.js",
     "./blueprints": "./dist/blueprints.js",
+    "./cases": "./dist/cases.js",
+    "./cases-admin": "./dist/cases-admin.js",
     "./client": "./dist/client.js",
     "./cluster": "./dist/cluster.js",
     "./dashboards": "./dist/dashboards.js",

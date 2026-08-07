@@ -4227,6 +4227,8 @@ paths:
                     type: array
                   POLICY:
                     type: array
+                  CASE:
+                    type: array
                   APP_EXECUTION:
                     type: array
                   NAMESPACE_FILE:
@@ -4236,6 +4238,8 @@ paths:
                   TENANT_ACCESS:
                     type: array
                   SECURITY_INTEGRATION:
+                    type: array
+                  CASE_TEMPLATE:
                     type: array
                   BANNER:
                     type: array
@@ -7203,6 +7207,1586 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/case-templates:
+    post:
+      tags:
+      - Cases
+      summary: Create a case template
+      operationId: create_4
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CaseTemplatesController.CaseTemplateRequest"
+        required: true
+      responses:
+        "200":
+          description: create_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/case-templates/search:
+    get:
+      tags:
+      - Cases
+      summary: Search for case templates
+      operationId: search
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CaseTemplatesController.ApiCaseTemplate_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/case-templates/{id}:
+    get:
+      tags:
+      - Cases
+      summary: Retrieve a case template
+      operationId: get_5
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_5 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Cases
+      summary: Update a case template
+      operationId: update_3
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CaseTemplatesController.CaseTemplateRequest"
+        required: true
+      responses:
+        "200":
+          description: update_3 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Delete a case template
+      operationId: delete_4
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: delete_4 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases:
+    post:
+      tags:
+      - Cases
+      summary: Create a new case
+      operationId: createCase
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        required: true
+      responses:
+        "200":
+          description: createCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/assignees:
+    get:
+      tags:
+      - Cases
+      summary: List the distinct assignees among cases matching the given filters
+      description: Used to build the board's per-assignee columns.
+      operationId: assignees
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: assignees 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiSubjectRef_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-asset/{assetId}:
+    get:
+      tags:
+      - Cases
+      summary: "List the cases linked to an asset, explicit and auto-detected"
+      description: Used to build the asset detail page's linked-cases panel.
+      operationId: byAsset
+      parameters:
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: byAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseSummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-executions:
+    post:
+      tags:
+      - Cases
+      summary: Look up the cases linked to a batch of executions
+      operationId: byExecutions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: byExecutions 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/CasesController.ApiCaseSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-ids/acknowledge:
+    post:
+      tags:
+      - Cases
+      summary: Acknowledge cases by case ids
+      operationId: acknowledgeCasesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: Number of acknowledged cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-ids/delete:
+    post:
+      tags:
+      - Cases
+      summary: Delete cases by case ids
+      operationId: deleteCasesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: Number of deleted cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-query:
+    delete:
+      tags:
+      - Cases
+      summary: Delete cases by query
+      operationId: deleteCasesByQuery
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Number of deleted cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/counts:
+    get:
+      tags:
+      - Cases
+      summary: Count cases by status
+      operationId: counts
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: counts 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  OPEN:
+                    type: integer
+                    format: int64
+                  ACKNOWLEDGED:
+                    type: integer
+                    format: int64
+                  INVESTIGATING:
+                    type: integer
+                    format: int64
+                  RESOLVED:
+                    type: integer
+                    format: int64
+                  CANCELLED:
+                    type: integer
+                    format: int64
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-executions:
+    post:
+      tags:
+      - Cases
+      summary: Create a case from a selection of executions
+      operationId: createFromExecutions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.FromExecutionsRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromExecutions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-executions/by-query:
+    post:
+      tags:
+      - Cases
+      summary: Create a case from executions matching a query
+      operationId: createFromExecutionsByQuery
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.FromExecutionsByQueryRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromExecutionsByQuery 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-task:
+    post:
+      tags:
+      - Cases
+      summary: "Create a case from a task run, or attach to a matching open case"
+      description: "Best-effort creates a case from a task run, or attaches the triggering execution to a matching already-open case (same tenant + flow namespace/id + task id), used by the `CreateCase` plugin task. This is a check-then-act, not atomic: concurrent runs of the same task can each create their own case. Unlike #createCaseFromRequest, title/description are stored verbatim: the task has already rendered any Pebble expressions itself."
+      operationId: createFromTask
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseFromTaskRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromTask 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/search:
+    get:
+      tags:
+      - Cases
+      summary: Search for cases
+      operationId: search_1
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCase_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}:
+    get:
+      tags:
+      - Cases
+      summary: Retrieve a case
+      operationId: getCase
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the case
+        required: true
+        schema:
+          type: string
+      - name: allowDeleted
+        in: query
+        description: Get case even if soft deleted
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Cases
+      summary: Update a case
+      operationId: updateCase
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: updateCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Delete a case
+      operationId: deleteCase
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deleteCase 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/acknowledge:
+    post:
+      tags:
+      - Cases
+      summary: Acknowledge a case
+      operationId: acknowledge
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: acknowledge 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions:
+    post:
+      tags:
+      - Cases
+      summary: Attach a flow as a runnable action on a case
+      operationId: attachAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachActionRequest"
+        required: true
+      responses:
+        "200":
+          description: attachAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions/run:
+    post:
+      tags:
+      - Cases
+      summary: Run one of a case's attached flow actions
+      operationId: runAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.RunActionRequest"
+        required: true
+      responses:
+        "200":
+          description: runAction 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions/{namespace}/{flowId}:
+    put:
+      tags:
+      - Cases
+      summary: Replace an attached action's label or target flow
+      operationId: updateAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachActionRequest"
+        required: true
+      responses:
+        "200":
+          description: updateAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Detach a flow action from a case
+      operationId: detachAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: detachAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assets:
+    get:
+      tags:
+      - Cases
+      summary: "List a case's linked assets, explicit and auto-detected"
+      operationId: assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: assets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseAsset_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Cases
+      summary: Explicitly link an asset to a case
+      operationId: attachAsset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachAssetRequest"
+        required: true
+      responses:
+        "200":
+          description: attachAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assets/{assetId}:
+    delete:
+      tags:
+      - Cases
+      summary: Unlink an asset from a case
+      operationId: detachAsset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: detachAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assign:
+    post:
+      tags:
+      - Cases
+      summary: Assign a case to users/groups
+      operationId: assign
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AssignRequest"
+        required: true
+      responses:
+        "200":
+          description: assign 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/attachments/{attachmentId}:
+    get:
+      tags:
+      - Cases
+      summary: Download a comment attachment
+      operationId: downloadAttachment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: attachmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: downloadAttachment 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/auto-attach:
+    post:
+      tags:
+      - Cases
+      summary: Enable auto-attaching future matching executions to a case
+      operationId: enableAutoAttach
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AutoAttachRequest"
+        required: true
+      responses:
+        "200":
+          description: enableAutoAttach 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Disable auto-attaching future matching executions from a case
+      operationId: disableAutoAttach
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: disableAutoAttach 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/cancel:
+    post:
+      tags:
+      - Cases
+      summary: Cancel a case
+      operationId: cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CancelRequest"
+      responses:
+        "200":
+          description: cancel 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/comments:
+    post:
+      tags:
+      - Cases
+      summary: Comment on a case
+      description: "Accepts an optional markdown body and up to 5 file attachments, stored via the internal storage."
+      operationId: addComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  nullable: true
+                filesPublisher:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              filesPublisher:
+                contentType: application/octet-stream
+                explode: false
+              body:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: addComment 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCaseEvent"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/events:
+    get:
+      tags:
+      - Cases
+      summary: List a case's timeline (system events + comments)
+      operationId: events
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: events 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseEvent_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions:
+    get:
+      tags:
+      - Cases
+      summary: "List a case's linked executions, hydrated with live state"
+      operationId: executions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: executions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseExecution_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Cases
+      summary: Link executions to a case by id
+      operationId: linkExecutions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.LinkExecutionsRequest"
+        required: true
+      responses:
+        "200":
+          description: linkExecutions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions/by-query:
+    post:
+      tags:
+      - Cases
+      summary: Link executions matching a query to a case
+      operationId: linkExecutionsByQuery
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.LinkExecutionsByQueryRequest"
+        required: true
+      responses:
+        "200":
+          description: linkExecutionsByQuery 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions/{executionId}:
+    delete:
+      tags:
+      - Cases
+      summary: Unlink an execution from a case
+      operationId: unlinkExecution
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: executionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unlinkExecution 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/follow:
+    post:
+      tags:
+      - Cases
+      summary: Follow a case
+      operationId: follow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: follow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/resolve:
+    post:
+      tags:
+      - Cases
+      summary: Resolve a case
+      operationId: resolve
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.ResolveRequest"
+        required: true
+      responses:
+        "200":
+          description: resolve 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/status:
+    post:
+      tags:
+      - Cases
+      summary: Change a case's status
+      description: Generic transition endpoint; also allows reopening a terminal case.
+      operationId: changeStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.StatusRequest"
+        required: true
+      responses:
+        "200":
+          description: changeStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/unfollow:
+    post:
+      tags:
+      - Cases
+      summary: Unfollow a case
+      operationId: unfollow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unfollow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15971,7 +17555,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: "Get reusable inputs by id, resolving namespace inheritance"
-      operationId: get_5
+      operationId: get_6
       parameters:
       - name: namespace
         in: path
@@ -15997,7 +17581,7 @@ paths:
           type: string
       responses:
         "200":
-          description: get_5 200 response
+          description: get_6 200 response
           content:
             application/json:
               schema:
@@ -16063,7 +17647,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: Delete reusable inputs
-      operationId: delete_4
+      operationId: delete_5
       parameters:
       - name: namespace
         in: path
@@ -16082,7 +17666,7 @@ paths:
           type: string
       responses:
         "200":
-          description: delete_4 200 response
+          description: delete_5 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -18995,6 +20579,8 @@ paths:
           - EXPIRATION_DATE
           - STATE
           - STATUS
+          - SEVERITY
+          - ASSIGNEE
           - EMAIL
           - TIME_RANGE
           - PARENT_ID
@@ -19810,6 +21396,7 @@ components:
       - UNQUEUE
       - FORCE_RUN
       - FOLLOW
+      - TEMPLATE
       - CHANGE_LABELS
       - ACCESS_LOGS
       - ACCESS_OUTPUTS
@@ -21504,6 +23091,17 @@ components:
       properties:
         type:
           $ref: "#/components/schemas/AuthProperty.Type"
+    AutoAttach:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/State.Type"
     Backfill:
       title: A backfill configuration.
       required:
@@ -21843,6 +23441,621 @@ components:
           type: boolean
         ttl:
           type: string
+    CaseAction:
+      type: object
+      properties:
+        label:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+    CaseAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        fileName:
+          type: string
+        size:
+          type: integer
+          format: int64
+        contentType:
+          type: string
+    CaseEventType:
+      type: string
+      enum:
+      - COMMENT
+      - CREATED
+      - UPDATED
+      - STATUS_CHANGED
+      - SEVERITY_CHANGED
+      - ASSIGNED
+      - EXECUTION_LINKED
+      - EXECUTION_UNLINKED
+      - ASSET_LINKED
+      - ASSET_UNLINKED
+      - ACTION_ATTACHED
+      - ACTION_DETACHED
+      - ACTION_UPDATED
+      - ACTION_RUN
+      - AUTO_ATTACH_ENABLED
+      - AUTO_ATTACH_DISABLED
+      - SLA_ACKNOWLEDGEMENT_BREACHED
+      - SLA_RESOLUTION_BREACHED
+    CaseSeverity:
+      type: string
+      enum:
+      - CRITICAL
+      - HIGH
+      - MEDIUM
+      - LOW
+    CaseStatus:
+      type: string
+      enum:
+      - OPEN
+      - ACKNOWLEDGED
+      - INVESTIGATING
+      - RESOLVED
+      - CANCELLED
+    CaseTemplatesController.ApiCaseTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantId:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        defaultSeverity:
+          $ref: "#/components/schemas/CaseSeverity"
+        defaultAssignees:
+          $ref: "#/components/schemas/CaseTemplatesController.ApiSubjects"
+        defaultWatchers:
+          $ref: "#/components/schemas/CaseTemplatesController.ApiSubjects"
+        titlePattern:
+          type: string
+        description:
+          type: string
+        sla:
+          $ref: "#/components/schemas/SlaConfig"
+        resolutionReasons:
+          type: array
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
+        customFields:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomField"
+        defaultActions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        isDefault:
+          type: boolean
+        createdBy:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+    CaseTemplatesController.ApiSubjectRef:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+    CaseTemplatesController.ApiSubjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiSubjectRef"
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiSubjectRef"
+    CaseTemplatesController.CaseTemplateRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        namespace:
+          maxLength: 150
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+          nullable: true
+        defaultSeverity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        defaultAssignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        defaultWatchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        titlePattern:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        resolutionReasons:
+          type: array
+          nullable: true
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+        defaultActions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        isDefault:
+          type: boolean
+    CasesController.ApiCase:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantId:
+          type: string
+        namespace:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        severity:
+          $ref: "#/components/schemas/CaseSeverity"
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        assignees:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+        watchers:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+        customFields:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomField"
+        sla:
+          $ref: "#/components/schemas/SlaConfig"
+        acknowledgementSla:
+          $ref: "#/components/schemas/SlaStatus"
+        resolutionSla:
+          $ref: "#/components/schemas/SlaStatus"
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        acknowledgedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+        resolution:
+          $ref: "#/components/schemas/Resolution"
+        resolvedBy:
+          type: string
+        resolvedByName:
+          type: string
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        assetIds:
+          type: array
+          items:
+            type: string
+        createdBy:
+          type: string
+        origin:
+          $ref: "#/components/schemas/Origin"
+        templateId:
+          type: string
+        autoAttach:
+          type: array
+          items:
+            $ref: "#/components/schemas/AutoAttach"
+        deleted:
+          type: boolean
+    CasesController.ApiCaseAsset:
+      type: object
+      properties:
+        assetId:
+          type: string
+        origin:
+          type: string
+    CasesController.ApiCaseEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        caseId:
+          type: string
+        type:
+          $ref: "#/components/schemas/CaseEventType"
+        authorId:
+          type: string
+        authorName:
+          type: string
+        body:
+          type: string
+        payload:
+          type: object
+          additionalProperties:
+            type: object
+        attachments:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAttachment"
+        created:
+          type: string
+          format: date-time
+    CasesController.ApiCaseExecution:
+      type: object
+      properties:
+        executionId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        state:
+          type: string
+        auto:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        found:
+          type: boolean
+    CasesController.ApiCaseSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        severity:
+          $ref: "#/components/schemas/CaseSeverity"
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        updated:
+          type: string
+          format: date-time
+        assignees:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+    CasesController.ApiSubjectRef:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+    CasesController.ApiSubjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
+    CasesController.AssignRequest:
+      type: object
+      properties:
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        note:
+          type: string
+          nullable: true
+    CasesController.AttachActionRequest:
+      required:
+      - flowId
+      - label
+      - namespace
+      type: object
+      properties:
+        label:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+    CasesController.AttachAssetRequest:
+      required:
+      - assetId
+      type: object
+      properties:
+        assetId:
+          type: string
+    CasesController.AutoAttachRequest:
+      required:
+      - flowId
+      - namespace
+      - states
+      type: object
+      properties:
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+        flowId:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/State.Type"
+    CasesController.CancelRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          nullable: true
+        note:
+          type: string
+          nullable: true
+    CasesController.CaseCreateRequest:
+      required:
+      - namespace
+      - title
+      type: object
+      properties:
+        namespace:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        status:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseStatus"
+        templateId:
+          type: string
+          nullable: true
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+        actions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+    CasesController.CaseFromTaskRequest:
+      required:
+      - flowId
+      - flowNamespace
+      - namespace
+      - taskId
+      type: object
+      properties:
+        namespace:
+          type: string
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        status:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseStatus"
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        labels:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/Label"
+        assetIds:
+          type: array
+          nullable: true
+          items:
+            type: string
+        actions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        linkMatchingExecutions:
+          type: boolean
+        flowNamespace:
+          type: string
+        flowId:
+          type: string
+        taskId:
+          type: string
+        executionId:
+          type: string
+          nullable: true
+        executionState:
+          type: string
+          nullable: true
+        caseId:
+          type: string
+          nullable: true
+    CasesController.CaseUpdateRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+    CasesController.FromExecutionsByQueryRequest:
+      required:
+      - case
+      - filters
+      type: object
+      properties:
+        case:
+          $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+    CasesController.FromExecutionsRequest:
+      required:
+      - case
+      - executionIds
+      type: object
+      properties:
+        case:
+          $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        executionIds:
+          type: array
+          items:
+            type: string
+    CasesController.LinkExecutionsByQueryRequest:
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+    CasesController.LinkExecutionsRequest:
+      required:
+      - executionIds
+      type: object
+      properties:
+        executionIds:
+          type: array
+          items:
+            type: string
+    CasesController.ResolveRequest:
+      required:
+      - reason
+      type: object
+      properties:
+        reason:
+          type: string
+        note:
+          type: string
+          nullable: true
+    CasesController.RunActionRequest:
+      required:
+      - flowId
+      - namespace
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        labels:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/Label"
+    CasesController.StatusRequest:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        resolution:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Resolution"
     ChartFiltersOverrides:
       type: object
       properties:
@@ -22029,6 +24242,29 @@ components:
           $ref: "#/components/schemas/PaginationType"
         nextCursor:
           type: string
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: "#/components/schemas/CustomFieldType"
+        options:
+          type: array
+          nullable: true
+          items:
+            type: string
+        value:
+          type: array
+          nullable: true
+          items:
+            type: string
+    CustomFieldType:
+      type: string
+      enum:
+      - STRING
+      - SELECT
+      - MULTISELECT
     DailyExecutionStatistics:
       required:
       - duration
@@ -23640,6 +25876,8 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -23649,6 +25887,8 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
               type: array
             BANNER:
               type: array
@@ -23737,6 +25977,8 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -23746,6 +25988,8 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
               type: array
             BANNER:
               type: array
@@ -25144,6 +27388,14 @@ components:
       type: string
       enum:
       - GENERIC
+      - CASE_CREATED
+      - CASE_ASSIGNED
+      - CASE_STATUS_CHANGED
+      - CASE_COMMENTED
+      - CASE_SEVERITY_CHANGED
+      - CASE_SLA_ACKNOWLEDGEMENT_BREACHED
+      - CASE_SLA_RESOLUTION_BREACHED
+      - HUMAN_TASK_PENDING
     OAuth2Config:
       type: object
       properties:
@@ -25158,6 +27410,18 @@ components:
       - PRIVATE_KEY_JWT
       - UNKNOWN
       x-type: String
+    Origin:
+      type: object
+      properties:
+        flowNamespace:
+          type: string
+        flowId:
+          type: string
+        taskId:
+          type: string
+        executionId:
+          type: string
+          nullable: true
     Output:
       required:
       - id
@@ -25422,6 +27686,97 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Blueprint"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CaseTemplatesController.ApiCaseTemplate_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseAsset_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseAsset"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseEvent_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseEvent"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseExecution_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseExecution"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseSummary_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseSummary"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCase_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCase"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiSubjectRef_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
         total:
           type: integer
           format: int64
@@ -26464,6 +28819,8 @@ components:
       - expirationDate
       - state
       - status
+      - SEVERITY
+      - ASSIGNEE
       - email
       - timeRange
       - parentId
@@ -26519,6 +28876,8 @@ components:
       - EXPIRATION_DATE
       - STATE
       - STATUS
+      - SEVERITY
+      - ASSIGNEE
       - EMAIL
       - TIME_RANGE
       - PARENT_ID
@@ -26665,6 +29024,14 @@ components:
           $ref: "#/components/schemas/RelationType"
         value:
           type: string
+    Resolution:
+      type: object
+      properties:
+        reason:
+          type: string
+        note:
+          type: string
+          nullable: true
     Resource:
       type: string
       enum:
@@ -26694,11 +29061,13 @@ components:
       - MCP_SERVER
       - SUPPORT
       - POLICY
+      - CASE
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
+      - CASE_TEMPLATE
       - BANNER
       - KILL_SWITCH
       - TENANT
@@ -26844,6 +29213,8 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -26853,6 +29224,8 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
               type: array
             BANNER:
               type: array
@@ -27402,6 +29775,36 @@ components:
           type: string
         tenant:
           $ref: "#/components/schemas/Tenant"
+    SlaConfig:
+      type: object
+      properties:
+        acknowledgement:
+          type: string
+          nullable: true
+        resolution:
+          type: string
+          nullable: true
+    SlaState:
+      type: string
+      enum:
+      - NOT_STARTED
+      - RUNNING
+      - OVERDUE
+      - MET
+      - MISSED
+      - VOIDED
+    SlaStatus:
+      type: object
+      properties:
+        state:
+          $ref: "#/components/schemas/SlaState"
+        deadline:
+          type: string
+          format: date-time
+          nullable: true
+        remaining:
+          type: string
+          nullable: true
     SoftDeletable_FlowInterface_:
       type: object
       properties:
@@ -27489,6 +29892,17 @@ components:
       - SKIPPED
       - BREAKPOINT
       - RESUBMITTED
+    Subjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
     SupportDebugInfo:
       required:
       - authType
