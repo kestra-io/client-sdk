@@ -12979,6 +12979,33 @@ paths:
         schema:
           type: string
           nullable: true
+      - name: caseSensitive
+        in: query
+        description: Whether the query must match with exact case
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: wholeWord
+        in: query
+        description: Whether the query must match on word boundaries only
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: regex
+        in: query
+        description: Whether the query is a regular expression rather than a literal string
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: scope
+        in: query
+        description: Restricts matches to a top-level section of the flow YAML
+        explode: false
+        schema:
+          $ref: "#/components/schemas/SourceSearchScope"
       - name: tenant
         in: path
         required: true
@@ -12990,7 +13017,97 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_SearchResult_Flow__"
+                $ref: "#/components/schemas/PagedResults_SourceSearchResult_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/apply:
+    post:
+      tags:
+      - Flows
+      summary: Apply a Source Search replace-all operation
+      description: Replaces every match in the given flows and persists the new revisions. Flows the caller is not allowed to edit are skipped.
+      operationId: applyReplaceBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The search query, replacement and target flows"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplaceApplyRequest"
+        required: true
+      responses:
+        "200":
+          description: applyReplaceBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplaceApplyResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/line:
+    post:
+      tags:
+      - Flows
+      summary: Apply a Source Search replace on a single match line
+      description: Replaces the matches on one line of one flow and persists the new revision. Returns the flow as skipped if it is not editable or fails validation.
+      operationId: replaceLineBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The search query, replacement and target match line"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplaceLineRequest"
+        required: true
+      responses:
+        "200":
+          description: replaceLineBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplaceApplyResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/preview:
+    post:
+      tags:
+      - Flows
+      summary: Preview a Source Search replace-all operation
+      description: "Computes the matched lines and their proposed replacement for every matching flow, without persisting anything."
+      operationId: previewReplaceBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The search query and replacement
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplacePreviewRequest"
+        required: true
+      responses:
+        "200":
+          description: previewReplaceBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplacePreviewResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -28016,19 +28133,6 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_SearchResult_Flow__:
-      required:
-      - results
-      - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/SearchResult_Flow_"
-        total:
-          type: integer
-          format: int64
     PagedResults_SecurityIntegration_:
       required:
       - results
@@ -28039,6 +28143,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SecurityIntegration"
+        total:
+          type: integer
+          format: int64
+    PagedResults_SourceSearchResult_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchResult"
         total:
           type: integer
           format: int64
@@ -29537,15 +29654,6 @@ components:
           count:
             type: integer
             format: int32
-    SearchResult_Flow_:
-      type: object
-      properties:
-        model:
-          $ref: "#/components/schemas/Flow"
-        fragments:
-          type: array
-          items:
-            type: string
     SecretAuthProperty:
       required:
       - secretKey
@@ -29822,6 +29930,197 @@ components:
           $ref: "#/components/schemas/AttributeReference"
         sortOrder:
           $ref: "#/components/schemas/SortOrder"
+    SourceMatch:
+      type: object
+      properties:
+        line:
+          type: integer
+          format: int32
+        column:
+          type: integer
+          format: int32
+        snippet:
+          type: string
+    SourceSearchReplaceApplyRequest:
+      required:
+      - flows
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        scope:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SourceSearchScope"
+        replacement:
+          type: string
+        flows:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/IdWithNamespace"
+    SourceSearchReplaceApplyResponse:
+      type: object
+      properties:
+        updated:
+          type: array
+          description: "The flows that were rewritten, with their new revision."
+          items:
+            $ref: "#/components/schemas/FlowWithSource"
+        skipped:
+          type: array
+          description: "The flows that were left untouched, each with the reason it was skipped."
+          items:
+            $ref: "#/components/schemas/SourceSearchReplaceApplyResponse.SkippedFlow"
+    SourceSearchReplaceApplyResponse.SkipReason:
+      type: string
+      enum:
+      - NOT_FOUND
+      - READ_ONLY
+      - NO_CHANGE
+      - NO_MATCH
+      - INVALID_FLOW
+      - UNKNOWN
+    SourceSearchReplaceApplyResponse.SkippedFlow:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        reason:
+          $ref: "#/components/schemas/SourceSearchReplaceApplyResponse.SkipReason"
+        message:
+          type: string
+          description: "The underlying validation error, when the reason is INVALID_FLOW."
+          nullable: true
+      description: "A flow that the replace operation did not modify, and why."
+    SourceSearchReplaceLineRequest:
+      required:
+      - id
+      - namespace
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        replacement:
+          type: string
+        namespace:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        line:
+          minimum: 1
+          type: integer
+          format: int32
+        column:
+          minimum: 0
+          type: integer
+          format: int32
+    SourceSearchReplacePreviewRequest:
+      required:
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        namespace:
+          type: string
+          nullable: true
+        scope:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SourceSearchScope"
+        replacement:
+          type: string
+    SourceSearchReplacePreviewResponse:
+      type: object
+      properties:
+        totalMatches:
+          type: integer
+          format: int32
+        totalFlows:
+          type: integer
+          format: int32
+        editableFlowCount:
+          type: integer
+          format: int32
+        flows:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchReplacePreviewResponse.FlowMatches"
+    SourceSearchReplacePreviewResponse.FlowMatches:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        editable:
+          type: boolean
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchReplacePreviewResponse.Match"
+    SourceSearchReplacePreviewResponse.Match:
+      type: object
+      properties:
+        line:
+          type: integer
+          format: int32
+        before:
+          type: string
+        after:
+          type: string
+    SourceSearchResult:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        editable:
+          type: boolean
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceMatch"
+    SourceSearchScope:
+      type: string
+      enum:
+      - ALL
+      - TASKS
+      - TRIGGERS
+      - INPUTS
     State:
       required:
       - current
