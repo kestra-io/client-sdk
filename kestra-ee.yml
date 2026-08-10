@@ -4229,6 +4229,8 @@ paths:
                     type: array
                   CASE:
                     type: array
+                  PROMOTION_TARGET:
+                    type: array
                   APP_EXECUTION:
                     type: array
                   NAMESPACE_FILE:
@@ -12787,6 +12789,38 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/hashes/by-ids:
+    post:
+      tags:
+      - Flows
+      summary: Batch-compute source hashes for flows by id (drift detection)
+      operationId: flowHashesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/IdWithNamespace"
+        required: true
+      responses:
+        "200":
+          description: flowHashesByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowHashesResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/import:
     post:
       tags:
@@ -12861,6 +12895,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PolicyPreviewResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/promote/by-ids:
+    post:
+      tags:
+      - Promote
+      summary: Promote flows by their IDs to one or more SERVER-mode targets
+      operationId: promoteByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromote.BatchRequest"
+        required: true
+      responses:
+        "200":
+          description: promoteByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromote.BatchResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -13530,6 +13594,190 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/{namespace}/{id}/promote:
+    post:
+      tags:
+      - Promote
+      summary: Promote a flow to one or more SERVER-mode targets
+      operationId: promote
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromote.Request"
+        required: true
+      responses:
+        "422":
+          description: "The flow's latest revision is a draft, which cannot be promoted"
+        "200":
+          description: promote 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromote.Response"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/{namespace}/{id}/promotions:
+    get:
+      tags:
+      - Promote
+      summary: List a flow's promotion history
+      operationId: listPromotions
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listPromotions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPromotionResponse_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Promote
+      summary: Report a CLIENT-mode promote performed by the browser
+      operationId: reportPromote
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromoteReportRequest"
+        required: true
+      responses:
+        "200":
+          description: reportPromote 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/{namespace}/{id}/promotions/{auditId}/diff:
+    get:
+      tags:
+      - Promote
+      summary: Recompute the diff of a past promote from its audit record
+      operationId: promoteDiff
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: auditId
+        in: path
+        description: The audit log id of the promote
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: promoteDiff 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromoteDiffResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/{namespace}/{id}/revisions:
     get:
       tags:
@@ -18380,6 +18628,334 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/promotion-targets:
+    get:
+      tags:
+      - Promote
+      summary: List all promotion targets
+      operationId: listPromotionTargets
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listPromotionTargets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPromotionTargetResponse_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Promote
+      summary: Create a new promotion target
+      operationId: createPromotionTarget
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: createPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/test:
+    post:
+      tags:
+      - Promote
+      summary: Test connectivity to an unsaved SERVER-mode promotion target definition
+      operationId: testPromotionTarget
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: testPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTestConnectionResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}:
+    get:
+      tags:
+      - Promote
+      summary: Get a promotion target by id
+      operationId: getPromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Promote
+      summary: Update an existing promotion target
+      operationId: updatePromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiUpdatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: updatePromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Promote
+      summary: Delete a promotion target
+      operationId: deletePromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deletePromotionTarget 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/flow-hashes:
+    post:
+      tags:
+      - Promote
+      summary: Batch-fetch flow source hashes from a SERVER-mode target (flows-table drift column)
+      operationId: getTargetFlowHashes
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiFlowHashBatch.Request"
+        required: true
+      responses:
+        "200":
+          description: getTargetFlowHashes 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowHashBatch.Response"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/flow-source:
+    get:
+      tags:
+      - Promote
+      summary: Fetch a flow's source and revision from a SERVER-mode target (for drift/diff)
+      operationId: getTargetFlowSource
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: query
+        description: The flow namespace
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: flowId
+        in: query
+        description: The flow id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: revision
+        in: query
+        description: The flow revision (latest if omitted)
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getTargetFlowSource 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowSourceResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/test:
+    post:
+      tags:
+      - Promote
+      summary: Test connectivity to a saved promotion target
+      operationId: testSavedPromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: testSavedPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTestConnectionResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/quota-limits:
     get:
       tags:
@@ -21526,6 +22102,7 @@ components:
       - UNLOCK
       - LOCK
       - BACKFILL
+      - PROMOTE
       - MANAGE_FILES
       - MANAGE_MEMBERS
       - MANAGE_GROUP_MEMBERSHIP
@@ -21783,6 +22360,46 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to create a new OAuth2 credential.
+    ApiCreatePromotionTargetRequest:
+      title: Create Promotion Target Request
+      required:
+      - connectionMode
+      - name
+      - targetTenant
+      - url
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: The promotion target name
+          example: production
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          minLength: 1
+          type: string
+          description: Base URL of the remote Kestra instance
+          example: https://prod.kestra.company.com
+        targetTenant:
+          minLength: 1
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        apiToken:
+          type: string
+          description: "Service-account API token used by the backend (SERVER mode only, encrypted at rest, never returned; CLIENT-mode targets must not carry one)"
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+      description: Request to create a new PromotionTarget.
     ApiCreateThreadRequest:
       type: object
       properties:
@@ -21971,6 +22588,99 @@ components:
             $ref: "#/components/schemas/Breakpoint"
         loopRun:
           $ref: "#/components/schemas/LoopRun"
+    ApiFlowHashBatch.Ref:
+      title: Flow Reference
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+    ApiFlowHashBatch.Request:
+      title: Flow Hash Batch Request
+      required:
+      - flows
+      type: object
+      properties:
+        flows:
+          maxItems: 100
+          type: array
+          description: The flows to fetch hashes for (max 100 per request)
+          items:
+            $ref: "#/components/schemas/ApiFlowHashBatch.Ref"
+    ApiFlowHashBatch.Response:
+      title: Flow Hash Batch Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: Per-flow results
+          items:
+            $ref: "#/components/schemas/ApiFlowHashBatch.Result"
+    ApiFlowHashBatch.Result:
+      title: Flow Hash Result
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        hash:
+          type: string
+          description: "The source hash on the target, or null when the flow is absent"
+        revision:
+          type: integer
+          description: The flow revision on the target when present
+          format: int32
+    ApiFlowHashesResponse:
+      title: Flow Hashes Response
+      type: object
+      properties:
+        hashes:
+          type: array
+          description: Per-flow source hashes
+          items:
+            $ref: "#/components/schemas/ApiFlowHashesResponse.Hash"
+      description: Response of the bulk flow-hash endpoint. Wrapped in an object (never a bare array) so the API can evolve backwards-compatibly. One entry per requested flow; `hash`/`revision` are `null` when the flow does not exist on this instance.
+    ApiFlowHashesResponse.Hash:
+      title: Flow Hash
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        id:
+          type: string
+          description: The flow id
+        hash:
+          type: string
+          description: "The source hash, or null when the flow is absent"
+        revision:
+          type: integer
+          description: The flow revision when present
+          format: int32
+    ApiFlowSourceResponse:
+      title: Flow Source Response
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        source:
+          type: string
+          description: The raw flow source (YAML)
+        revision:
+          type: integer
+          description: The flow revision on the target
+          format: int32
+      description: A flow's raw source and revision fetched from a target.
     ApiGroupSummary:
       required:
       - id
@@ -22250,6 +22960,293 @@ components:
       - ADDED
       - REPLACED
       - REMOVED
+    ApiPromote.BatchRequest:
+      title: Batch Promote Request
+      required:
+      - flows
+      - targetIds
+      type: object
+      properties:
+        flows:
+          maxItems: 100
+          minItems: 1
+          type: array
+          description: The flows to promote (max 100 per request)
+          items:
+            $ref: "#/components/schemas/IdWithNamespace"
+        targetIds:
+          minItems: 1
+          type: array
+          description: The ids of the targets to promote every flow to
+          items:
+            type: string
+        confirmed:
+          type: boolean
+          description: Confirmation for gated targets
+    ApiPromote.BatchResponse:
+      title: Batch Promote Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: "Per-flow results, in request order"
+          items:
+            $ref: "#/components/schemas/ApiPromote.FlowResult"
+    ApiPromote.FlowResult:
+      title: Batch Promote Flow Result
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision (null when the flow could not be read)
+          format: int32
+        error:
+          type: string
+          description: Why the flow itself could not be promoted (null when it was attempted)
+        results:
+          type: array
+          description: Per-target results (empty when the flow could not be read)
+          items:
+            $ref: "#/components/schemas/ApiPromote.Result"
+    ApiPromote.Request:
+      title: Promote Request
+      required:
+      - sourceRevision
+      - targets
+      type: object
+      properties:
+        sourceRevision:
+          type: integer
+          description: The source revision to promote (must be the latest)
+          format: int32
+        targets:
+          minItems: 1
+          type: array
+          description: The targets to promote to
+          items:
+            $ref: "#/components/schemas/ApiPromote.Target"
+        confirmed:
+          type: boolean
+          description: Confirmation for gated targets
+    ApiPromote.Response:
+      title: Promote Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: Per-target results
+          items:
+            $ref: "#/components/schemas/ApiPromote.Result"
+    ApiPromote.Result:
+      title: Promote Result
+      type: object
+      properties:
+        targetId:
+          type: string
+          description: The promotion target id
+        success:
+          type: boolean
+          description: Whether the promote succeeded
+        needsConfirmation:
+          type: boolean
+          description: The gated target requires confirmation; no promote was attempted or recorded
+        state:
+          description: The terminal state (null when confirmation is required)
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+        promotionId:
+          type: string
+          description: The promote id (null when confirmation is required)
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target (when successful)
+          format: int32
+        error:
+          type: string
+          description: The failure reason (when failed)
+    ApiPromote.Target:
+      title: Promotion Target
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: The promotion target id
+        expectedTargetRevision:
+          type: integer
+          description: The target revision the diff was reviewed against (null = expected absent)
+          format: int32
+    ApiPromoteDiffResponse:
+      title: Promote Diff Response
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        sourceSource:
+          type: string
+          description: The source-side flow source at sourceRevision
+        targetId:
+          type: string
+          description: The promotion target id
+        mode:
+          description: The connection mode of the target
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        targetRevision:
+          type: integer
+          description: The target revision the promote diffed against
+          format: int32
+        targetSource:
+          type: string
+          description: The target-side source (SERVER mode only; null for CLIENT)
+        clientFetchRequired:
+          type: boolean
+          description: True when the browser must fetch the target side itself (CLIENT mode)
+      description: "The two source sides of a past promote, for recomputing its diff on demand. For CLIENT-mode targets `targetSource` is null and `clientFetchRequired` is true --- the browser must fetch the target side itself (the backend cannot reach the target)."
+    ApiPromoteReportRequest:
+      title: Promote Report Request
+      required:
+      - gateOutcome
+      - promotionId
+      - state
+      - targetId
+      type: object
+      properties:
+        promotionId:
+          minLength: 1
+          type: string
+          description: Client-generated idempotency key for this promote
+        targetId:
+          minLength: 1
+          type: string
+          description: The promotion target id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        targetRevision:
+          type: integer
+          description: The target revision before the push (null on first promote)
+          format: int32
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target
+          format: int32
+        gateOutcome:
+          description: Gate outcome (NONE or CONFIRMED)
+          allOf:
+          - $ref: "#/components/schemas/GateOutcome"
+        state:
+          description: Terminal state (SUCCESS or FAILED)
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+      description: A CLIENT-mode promote reported by the browser after it performed the upsert directly against the target. `by` and the timestamp are stamped server-side and never taken from this payload.
+    ApiPromotionResponse:
+      title: Promotion
+      type: object
+      properties:
+        auditId:
+          type: string
+          description: The audit-log id of this promotion
+        date:
+          type: string
+          description: When the promotion happened
+          format: date-time
+        by:
+          type: string
+          description: Who performed the promotion
+        user:
+          description: "The acting user, when it can still be resolved"
+          allOf:
+          - $ref: "#/components/schemas/ApiUser"
+        targetId:
+          type: string
+          description: The promotion target id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        targetRevision:
+          type: integer
+          description: The target revision before the push
+          format: int32
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target
+          format: int32
+        mode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        gateOutcome:
+          description: Gate outcome
+          allOf:
+          - $ref: "#/components/schemas/GateOutcome"
+        state:
+          description: Terminal state
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+        error:
+          type: string
+          description: "Failure reason, when failed"
+      description: "A promotion-history item, projected from the underlying `AuditLog` + `PromoteAuditLog`. Target attributes (name/URL) are resolved client-side from `targetId`. `by` always carries the acting user id; `user` carries its display projection when the user can still be resolved (it is null for a deleted user, or when audit logs are not licensed and no user was stamped at all)."
+    ApiPromotionTargetResponse:
+      title: Promotion Target Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: The promotion target id
+        tenantId:
+          type: string
+          description: The tenant id
+        name:
+          type: string
+          description: The promotion target name
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          type: string
+          description: Base URL of the remote Kestra instance
+        targetTenant:
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+        createdAt:
+          type: string
+          description: Created timestamp
+          format: date-time
+        updatedAt:
+          type: string
+          description: Updated timestamp
+          format: date-time
+      description: "API response for a PromotionTarget. The stored API token is never returned (a SERVER-mode target always has one, so its presence is implied by the connection mode)."
     ApiRenameThreadRequest:
       required:
       - title
@@ -22603,6 +23600,48 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to update an existing OAuth2 credential.
+    ApiUpdatePromotionTargetRequest:
+      title: Update Promotion Target Request
+      required:
+      - connectionMode
+      - name
+      - targetTenant
+      - url
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: The promotion target name
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          minLength: 1
+          type: string
+          description: Base URL of the remote Kestra instance
+        targetTenant:
+          minLength: 1
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        apiToken:
+          type: string
+          description: Service-account API token used by the backend (SERVER mode only; omit to keep the stored token)
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+      description: |-
+        Request to update an existing PromotionTarget.
+
+
+        `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
       allOf:
@@ -23157,6 +24196,7 @@ components:
       - IMPERSONATE
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
+      - PROMOTE
       - UNKNOWN
     AuthController.Auth:
       type: object
@@ -24292,6 +25332,12 @@ components:
           $ref: "#/components/schemas/AbstractFilter.FilterType"
         value:
           type: object
+    ConnectionMode:
+      type: string
+      description: Connection mode (SERVER or CLIENT)
+      enum:
+      - SERVER
+      - CLIENT
     CreateApiTokenRequest:
       required:
       - name
@@ -25712,6 +26758,12 @@ components:
           $ref: "#/components/schemas/ExecutionKind"
         progress:
           type: string
+    GateOutcome:
+      type: string
+      description: Gate outcome (NONE or CONFIRMED)
+      enum:
+      - NONE
+      - CONFIRMED
     GithubAppConfig:
       required:
       - appId
@@ -25995,6 +27047,8 @@ components:
               type: array
             CASE:
               type: array
+            PROMOTION_TARGET:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -26095,6 +27149,8 @@ components:
             POLICY:
               type: array
             CASE:
+              type: array
+            PROMOTION_TARGET:
               type: array
             APP_EXECUTION:
               type: array
@@ -27663,6 +28719,32 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ApiPromotionResponse_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiPromotionResponse"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiPromotionTargetResponse_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiPromotionTargetResponse"
+        total:
+          type: integer
+          format: int64
     PagedResults_ApiRoleSummary_:
       required:
       - results
@@ -28799,6 +29881,12 @@ components:
           title: The id of the violating task or trigger; null for resource-level violations.
           type: string
       description: A single rule violation reported against the post-mutation resource.
+    PromotionState:
+      type: string
+      description: The terminal state (null when confirmation is required)
+      enum:
+      - SUCCESS
+      - FAILED
     Property_AssetFailureBehavior_:
       type: object
       properties:
@@ -29179,6 +30267,7 @@ components:
       - SUPPORT
       - POLICY
       - CASE
+      - PROMOTION_TARGET
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
@@ -29331,6 +30420,8 @@ components:
             POLICY:
               type: array
             CASE:
+              type: array
+            PROMOTION_TARGET:
               type: array
             APP_EXECUTION:
               type: array

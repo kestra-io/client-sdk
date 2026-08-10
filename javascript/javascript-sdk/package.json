@@ -44,6 +44,7 @@
     "./outputs": "./dist/outputs.js",
     "./plugins": "./dist/plugins.js",
     "./policies": "./dist/policies.js",
+    "./promote": "./dist/promote.js",
     "./quotas": "./dist/quotas.js",
     "./reusable-inputs": "./dist/reusable-inputs.js",
     "./reusable-inputs-admin": "./dist/reusable-inputs-admin.js",
