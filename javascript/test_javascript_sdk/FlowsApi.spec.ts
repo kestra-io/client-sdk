@@ -21,6 +21,19 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
     expect(result).toBeDefined();
 }
 
+// `searchFlowsBySourceCode` returns `SourceSearchResult`
+// (`{ namespace, id, editable, matches }`) — a flat record with the flow id at
+// the top level. kestra-ee.yml still declares the older
+// `PagedResults<SearchResult<Flow>>` shape, which nests the flow under `model`
+// and calls the excerpts `fragments`, so the generated `SearchResultFlow` type
+// does not match what the server sends. Read the id from whichever wrapper
+// arrives so the test holds against both the current spec and older servers;
+// drop the `model` fallback once the spec sync lands.
+function sourceSearchFlowId(result: unknown) {
+    const hit = result as { id?: string; model?: { id?: string } } | undefined;
+    return hit?.id ?? hit?.model?.id;
+}
+
 async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
     try {
         await Flows.flow({
@@ -256,7 +269,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        const ids = resp.results.map((x: any) => x?.model?.id);
+        const ids = resp.results.map(sourceSearchFlowId);
         expect(ids).toContain(flow.id);
     });
 
@@ -273,7 +286,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        expect(atCap.results.map((x: any) => x?.model?.id)).toContain(flow.id);
+        expect(atCap.results.map(sourceSearchFlowId)).toContain(flow.id);
 
         try {
             await Flows.searchFlowsBySourceCode({
