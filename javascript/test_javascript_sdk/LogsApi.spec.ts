@@ -1,27 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId } from './_utils.js';
+import { randomId, getExecutableFlowAndId, getSimpleFlowAndId, waitForExecutionSuccess } from './_utils.js';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Logs from '@kestra-io/kestra-sdk/logs';
 
-const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
-
 async function createExecutionWithLogs(): Promise<string> {
-    const { flowId, flowNamespace, flowBody } = getSimpleFlowAndId();
+    const { flowId, flowNamespace, flowBody } = getExecutableFlowAndId();
     await Flows.createFlow({ body: flowBody });
 
     const exec = await Executions.createExecution({ namespace: flowNamespace, id: flowId, wait: true });
     const executionId = (exec as any).id;
 
-    const deadline = Date.now() + 10_000;
-    while (Date.now() < deadline) {
-        try {
-            const e = await Executions.execution({ executionId });
-            const state = (e as any).state?.current;
-            if (state === 'SUCCESS' || state === 'FAILED') break;
-        } catch (_) { /* execution may not be in DB yet */ }
-        await sleep(500);
-    }
+    await waitForExecutionSuccess(executionId);
     return executionId;
 }
 

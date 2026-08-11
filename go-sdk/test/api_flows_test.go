@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"errors"
 	"os"
 	"strings"
 	"testing"
@@ -373,6 +374,32 @@ func TestFlowsAPI_All(t *testing.T) {
 			foundIds = append(foundIds, result.GetModel().Id)
 		}
 		require.Contains(t, foundIds, flowId)
+	})
+
+	// Pins both sides of the server's page-size cap: the cap itself is a valid
+	// request, above it the server answers 422 instead of clamping. A test asking
+	// for "everything" with size=10000 used to work and now breaks, so keep the
+	// boundary asserted rather than rediscovering it endpoint by endpoint.
+	t.Run("searchFlowsBySourceCodePageSizeCapTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		atCap, err := KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace))
+		require.NoError(t, err, "size == MAX_PAGE_SIZE must be accepted")
+		require.NotNil(t, atCap.Results)
+		foundIds := []string{}
+		for _, result := range atCap.Results {
+			foundIds = append(foundIds, result.GetModel().Id)
+		}
+		require.Contains(t, foundIds, flowId)
+
+		_, err = KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE+1), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace))
+		require.Error(t, err, "size > MAX_PAGE_SIZE must be rejected")
+		var apiErr *kestra_api_client.ApiError
+		require.True(t, errors.As(err, &apiErr))
+		require.Equal(t, 422, apiErr.StatusCode)
 	})
 
 	t.Run("updateFlowTest", func(t *testing.T) {

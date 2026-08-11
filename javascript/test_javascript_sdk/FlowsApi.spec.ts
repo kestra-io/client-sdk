@@ -1,6 +1,6 @@
 // FlowsApi.spec.ts
 import { describe, it, expect } from 'vitest';
-import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId } from './_utils.js';
+import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
@@ -252,12 +252,41 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
         const resp = await Flows.searchFlowsBySourceCode({
             page: 1,
-            size: 10000,
+            size: 5,
             q: flow.id,
             namespace: flow.namespace,
         });
         const ids = resp.results.map((x: any) => x?.model?.id);
         expect(ids).toContain(flow.id);
+    });
+
+    // Page size cap: the server rejects any `size` above MAX_PAGE_SIZE with a
+    // 422 (PageableUtils.MAX_PAGE_SIZE + `@Max(1000)` on every size query
+    // param). Pin both sides of the boundary so a future change of the cap
+    // surfaces here instead of as a mass failure across every search test.
+    it('search_flows_by_source_code: rejects a page size above the cap', async () => {
+        const flow = await createSimpleFlow();
+
+        const atCap = await Flows.searchFlowsBySourceCode({
+            page: 1,
+            size: MAX_PAGE_SIZE,
+            q: flow.id,
+            namespace: flow.namespace,
+        });
+        expect(atCap.results.map((x: any) => x?.model?.id)).toContain(flow.id);
+
+        try {
+            await Flows.searchFlowsBySourceCode({
+                page: 1,
+                size: MAX_PAGE_SIZE + 1,
+                q: flow.id,
+                namespace: flow.namespace,
+            });
+            throw new Error(`Expected a 422 for size=${MAX_PAGE_SIZE + 1}, but the call succeeded.`);
+        } catch (err: unknown) {
+            const status = (err as any)?.status ?? (err as any)?.code ?? (err as any)?.response?.status;
+            expect(status).toBe(422);
+        }
     });
 
     // Update a flow
