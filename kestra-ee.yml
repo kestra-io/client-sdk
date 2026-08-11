@@ -10944,6 +10944,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -10983,6 +10993,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -11076,6 +11096,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -11122,6 +11152,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -23936,7 +23976,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation"
+          $ref: "#/components/schemas/Relation_1"
     AssetTopologyGraph.Node:
       required:
       - uid
@@ -26408,7 +26448,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation_1"
+          $ref: "#/components/schemas/Relation"
     FlowId:
       type: object
       properties:
@@ -30208,10 +30248,12 @@ components:
       - BINDING
       - GROUP
     Relation:
-      type: string
-      enum:
-      - UPSERT
-      - USED_BY
+      type: object
+      properties:
+        relationType:
+          $ref: "#/components/schemas/RelationType"
+        value:
+          type: string
     RelationType:
       type: string
       enum:
@@ -30223,12 +30265,10 @@ components:
       - PARALLEL
       - DYNAMIC
     Relation_1:
-      type: object
-      properties:
-        relationType:
-          $ref: "#/components/schemas/RelationType"
-        value:
-          type: string
+      type: string
+      enum:
+      - UPSERT
+      - USED_BY
     Resolution:
       type: object
       properties:
