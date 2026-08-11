@@ -28022,6 +28022,8 @@ components:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             WORKER:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            SYSTEM_WORKER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             CONTROLLER:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             INVALID:
@@ -30986,6 +30988,7 @@ components:
       - SCHEDULER
       - WEBSERVER
       - WORKER
+      - SYSTEM_WORKER
       - CONTROLLER
       - INVALID
     SetupConfiguration:
