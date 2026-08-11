@@ -2126,7 +2126,7 @@ paths:
       tags:
       - Misc
       summary: Authenticate with basic auth credentials.
-      description: "On success, issues an HttpOnly session cookie; the credentials never need to be readable by client-side JavaScript."
+      description: "On success, issues an HttpOnly session cookie holding the credentials, plus a non-HttpOnly flag cookie the UI reads to know it is logged in."
       operationId: login
       requestBody:
         content:
@@ -13258,11 +13258,11 @@ paths:
       parameters:
       - name: section
         in: query
-        description: The type of task
+        description: "The flow section the definition belongs to (triggers, or any task-holding section: tasks, errors, finally, afterExecution)"
         required: true
         explode: false
         schema:
-          $ref: "#/components/schemas/FlowController.TaskValidationType"
+          type: string
       - name: tenant
         in: path
         required: true
@@ -21936,7 +21936,9 @@ components:
           items:
             $ref: "#/components/schemas/Output"
         disabled:
+          title: Whether the flow is disabled.
           type: boolean
+          description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
         draft:
           type: boolean
           description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -26220,7 +26222,9 @@ components:
             items:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -26309,11 +26313,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FlowService.TaskDeprecation"
-    FlowController.TaskValidationType:
-      type: string
-      enum:
-      - TASKS
-      - TRIGGERS
     FlowForExecution:
       required:
       - deleted
@@ -26352,7 +26351,9 @@ components:
             items:
               $ref: "#/components/schemas/Output"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -26726,7 +26727,9 @@ components:
             items:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
