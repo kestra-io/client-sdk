@@ -25,7 +25,7 @@ describe('AuditLogsApi', () => {
 
         // text/csv is returned as a raw string by the generated client, and the
         // OpenAPI annotation now declares `type: string` to match.
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     });
 
     it('searchAuditLogsForAllTenants: returns a paged result', async () => {
@@ -43,7 +43,7 @@ describe('AuditLogsApi', () => {
 
         // text/csv is returned as a raw string by the generated client, and the
         // OpenAPI annotation now declares `type: string` to match.
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {

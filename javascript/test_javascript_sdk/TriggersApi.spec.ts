@@ -334,7 +334,7 @@ describe('TriggersApiTest', () => {
 
         // text/csv is returned as a raw string by the generated client, and the
         // OpenAPI annotation now declares `type: string` to match.
-        expect(typeof result).toBe('string');
+        expect(result).toBeTypeOf('string');
     }, 120000);
 
     it('unlockTriggersByQueryTest', async () => {
