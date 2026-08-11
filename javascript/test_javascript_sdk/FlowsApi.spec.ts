@@ -21,17 +21,17 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
     expect(result).toBeDefined();
 }
 
-// `searchFlowsBySourceCode` returns `SourceSearchResult`
-// (`{ namespace, id, editable, matches }`) — a flat record with the flow id at
-// the top level. kestra-ee.yml still declares the older
-// `PagedResults<SearchResult<Flow>>` shape, which nests the flow under `model`
-// and calls the excerpts `fragments`, so the generated `SearchResultFlow` type
-// does not match what the server sends. Read the id from whichever wrapper
-// arrives so the test holds against both the current spec and older servers;
-// drop the `model` fallback once the spec sync lands.
-function sourceSearchFlowId(result: unknown) {
-    const hit = result as { id?: string; model?: { id?: string } } | undefined;
-    return hit?.id ?? hit?.model?.id;
+// `searchFlowsBySourceCode` responds with `PagedResults<SourceSearchResult>`:
+// `{ namespace, id, editable, matches }`, the flow id at the top level.
+// kestra-ee.yml is behind the server and still declares the older
+// `PagedResults<SearchResult<Flow>>` (flow nested under `model`, excerpts named
+// `fragments`), so the generated `SearchResultFlow` type does not describe the
+// response. This cast is the single place that discrepancy is acknowledged; it
+// goes away once the spec sync lands and the generated type is correct.
+type SourceSearchHit = { namespace: string; id: string; editable: boolean; matches: unknown[] };
+
+function sourceSearchHits(results: unknown[]) {
+    return results as SourceSearchHit[];
 }
 
 async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
@@ -269,7 +269,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        const ids = resp.results.map(sourceSearchFlowId);
+        const ids = sourceSearchHits(resp.results).map((hit) => hit.id);
         expect(ids).toContain(flow.id);
     });
 
@@ -286,7 +286,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        expect(atCap.results.map(sourceSearchFlowId)).toContain(flow.id);
+        expect(sourceSearchHits(atCap.results).map((hit) => hit.id)).toContain(flow.id);
 
         try {
             await Flows.searchFlowsBySourceCode({
