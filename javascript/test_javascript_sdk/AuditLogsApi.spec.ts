@@ -20,12 +20,12 @@ describe('AuditLogsApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('exportAuditLogs: response matches declared type (object[])', async () => {
+    it('exportAuditLogs: response matches declared type (string)', async () => {
         const result = await AuditLogs.exportAuditLogs({});
 
-        // The declared return type is object[] but the endpoint returns text/csv (a raw string).
-        // This test fails until the OpenAPI annotation is corrected to type: string.
-        expect(Array.isArray(result)).toBe(true);
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(typeof result).toBe('string');
     });
 
     it('searchAuditLogsForAllTenants: returns a paged result', async () => {
@@ -38,12 +38,12 @@ describe('AuditLogsApi', () => {
         expect(result).toBeDefined();
     });
 
-    it('exportAuditLogsForAllTenants: response matches declared type (object[])', async () => {
+    it('exportAuditLogsForAllTenants: response matches declared type (string)', async () => {
         const result = await AuditLogs.exportAuditLogsForAllTenants({});
 
-        // The declared return type is object[] but the endpoint returns text/csv (a raw string).
-        // This test fails until the OpenAPI annotation is corrected to type: string.
-        expect(Array.isArray(result)).toBe(true);
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(typeof result).toBe('string');
     });
 
     it('findAuditLog: finds audit logs by criteria', async () => {

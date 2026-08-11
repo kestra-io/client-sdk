@@ -316,7 +316,7 @@ describe('TriggersApiTest', () => {
         expect(resp).toBeTruthy();
     }, 120000);
 
-    it('exportTriggersTest: response matches declared type (string[])', async () => {
+    it('exportTriggersTest: response matches declared type (string)', async () => {
         const flowId = `exportTriggersTest_${randomId()}`;
         const triggerId = `${flowId}_trigger`;
         const namespace = `test.triggers.${randomId()}`;
@@ -332,10 +332,10 @@ describe('TriggersApiTest', () => {
             }],
         });
 
-        // The declared return type is string[] but the endpoint returns text/csv (a raw string).
-        // This test fails until the OpenAPI annotation is corrected to type: string.
-        expect(Array.isArray(result)).toBe(true);
-    });
+        // text/csv is returned as a raw string by the generated client, and the
+        // OpenAPI annotation now declares `type: string` to match.
+        expect(typeof result).toBe('string');
+    }, 120000);
 
     it('unlockTriggersByQueryTest', async () => {
         const flowId = `unlockTriggersByQueryTest_${randomId()}`;
