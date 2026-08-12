@@ -24299,7 +24299,6 @@ components:
       required:
       - firstName
       - lastName
-      - password
       type: object
       properties:
         firstName:
@@ -24308,6 +24307,7 @@ components:
           type: string
         password:
           type: string
+          nullable: true
     AuthController.ResetPasswordRequest:
       type: object
       properties:
@@ -32041,6 +32041,7 @@ components:
       - DURATION
       - FILE
       - JSON
+      - ION
       - URI
       - SECRET
       - ARRAY
