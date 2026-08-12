@@ -23400,8 +23400,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TaskRunAttempt"
-        assets:
-          $ref: "#/components/schemas/AssetsInOut"
+        assetEmits:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetsInOut"
         state:
           $ref: "#/components/schemas/State"
         iteration:
@@ -31344,6 +31346,7 @@ components:
     SupportDebugInfo:
       required:
       - authType
+      - deploymentTopology
       - deploymentType
       - kestraVersion
       - queueType
@@ -31360,6 +31363,8 @@ components:
           $ref: "#/components/schemas/SupportDebugInfo.AuthType"
         deploymentType:
           $ref: "#/components/schemas/SupportDebugInfo.DeploymentType"
+        deploymentTopology:
+          $ref: "#/components/schemas/SupportDebugInfo.DeploymentTopology"
         queueType:
           type: string
         queueVersion:
@@ -31381,14 +31386,19 @@ components:
       - LDAP
       - BASIC_AUTH
       x-type: String
+    SupportDebugInfo.DeploymentTopology:
+      type: string
+      enum:
+      - STANDALONE
+      - DISTRIBUTED
+      x-type: String
     SupportDebugInfo.DeploymentType:
       type: string
-      description: Deployment type detected from active Micronaut environments.
+      description: "Infrastructure platform: Kubernetes, a Docker container, or a plain JAR."
       enum:
       - KUBERNETES
-      - DOCKER_COMPOSE
       - DOCKER
-      - STANDALONE
+      - JAR
       x-type: String
     Task:
       required:
@@ -31520,6 +31530,10 @@ components:
       - taskId
       type: object
       properties:
+        assets:
+          deprecated: true
+          allOf:
+          - $ref: "#/components/schemas/AssetsInOut"
         id:
           type: string
         executionId:
@@ -31538,10 +31552,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TaskRunAttempt"
-        assets:
+        assetEmits:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/AssetsInOut"
+          items:
+            $ref: "#/components/schemas/AssetsInOut"
         state:
           $ref: "#/components/schemas/State"
         iteration:
