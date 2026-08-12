@@ -4909,6 +4909,13 @@ paths:
       summary: Open the app for the given source
       operationId: previewApp
       parameters:
+      - name: state
+        in: query
+        description: Render a specific execution state's layout (preview-first builder)
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -5026,6 +5033,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_AppsController.ApiApp_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/apps/states:
+    get:
+      tags:
+      - Apps
+      summary: List the execution layout states available in the app builder
+      operationId: listStates
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listStates 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
