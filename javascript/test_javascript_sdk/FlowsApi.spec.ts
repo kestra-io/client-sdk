@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest';
 import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
-import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 
 // ---------- helpers ----------
 async function createSimpleFlow() {
@@ -19,19 +18,6 @@ async function assertFlowExist(flow: { namespace: string; id: string }) {
         id: flow.id,
     });
     expect(result).toBeDefined();
-}
-
-// `searchFlowsBySourceCode` responds with `PagedResults<SourceSearchResult>`:
-// `{ namespace, id, editable, matches }`, the flow id at the top level.
-// kestra-ee.yml is behind the server and still declares the older
-// `PagedResults<SearchResult<Flow>>` (flow nested under `model`, excerpts named
-// `fragments`), so the generated `SearchResultFlow` type does not describe the
-// response. This cast is the single place that discrepancy is acknowledged; it
-// goes away once the spec sync lands and the generated type is correct.
-type SourceSearchHit = { namespace: string; id: string; editable: boolean; matches: unknown[] };
-
-function sourceSearchHits(results: unknown[]) {
-    return results as SourceSearchHit[];
 }
 
 async function assertFlowDoesNotExist(flow: { namespace: string; id: string }) {
@@ -269,7 +255,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        const ids = sourceSearchHits(resp.results).map((hit) => hit.id);
+        const ids = resp.results.map((hit) => hit.id);
         expect(ids).toContain(flow.id);
     });
 
@@ -286,7 +272,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        expect(sourceSearchHits(atCap.results).map((hit) => hit.id)).toContain(flow.id);
+        expect(atCap.results.map((hit) => hit.id)).toContain(flow.id);
 
         try {
             await Flows.searchFlowsBySourceCode({
@@ -331,7 +317,7 @@ describe('FlowsApi', () => {
 
     // Validate a task
     it('validate_task', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.Log',
@@ -345,7 +331,7 @@ describe('FlowsApi', () => {
 
     // Validate a task (invalid)
     it('validate_task_invalid', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.InvalidTask',
