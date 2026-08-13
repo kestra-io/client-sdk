@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest';
 import { getSimpleFlow, getCompleteFlow, getSimpleFlowAndId, randomId, MAX_PAGE_SIZE } from './_utils.js';
 import { tenantId } from './_setup.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
-import type { FlowControllerTaskValidationType } from '@kestra-io/kestra-sdk';
 
 // ---------- helpers ----------
 async function createSimpleFlow() {
@@ -256,7 +255,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        const ids = resp.results.map((x: any) => x?.model?.id);
+        const ids = resp.results.map((hit) => hit.id);
         expect(ids).toContain(flow.id);
     });
 
@@ -273,7 +272,7 @@ describe('FlowsApi', () => {
             q: flow.id,
             namespace: flow.namespace,
         });
-        expect(atCap.results.map((x: any) => x?.model?.id)).toContain(flow.id);
+        expect(atCap.results.map((hit) => hit.id)).toContain(flow.id);
 
         try {
             await Flows.searchFlowsBySourceCode({
@@ -318,7 +317,7 @@ describe('FlowsApi', () => {
 
     // Validate a task
     it('validate_task', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.Log',
@@ -332,7 +331,7 @@ describe('FlowsApi', () => {
 
     // Validate a task (invalid)
     it('validate_task_invalid', async () => {
-        const section: FlowControllerTaskValidationType = 'TASKS';
+        const section = 'TASKS';
         const taskObj = {
             id: 'task_one',
             type: 'io.kestra.plugin.core.log.InvalidTask',
