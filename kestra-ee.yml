@@ -487,7 +487,7 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
-  /api/v1/instance/mcp/servers:
+  /api/v1/instance/mcp-servers:
     get:
       tags:
       - Mcp
@@ -1264,17 +1264,20 @@ paths:
         in: path
         required: true
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-]*$"
           type: string
       - name: artifactId
         in: path
         required: true
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-]*$"
           type: string
       - name: version
         in: query
         required: true
         explode: false
         schema:
+          pattern: "^[a-z0-9][a-z0-9\\-.]*$"
           type: string
       responses:
         "200":
@@ -2123,7 +2126,7 @@ paths:
       tags:
       - Misc
       summary: Authenticate with basic auth credentials.
-      description: "On success, issues an HttpOnly session cookie; the credentials never need to be readable by client-side JavaScript."
+      description: "On success, issues an HttpOnly session cookie holding the credentials, plus a non-HttpOnly flag cookie the UI reads to know it is logged in."
       operationId: login
       requestBody:
         content:
@@ -4224,6 +4227,10 @@ paths:
                     type: array
                   POLICY:
                     type: array
+                  CASE:
+                    type: array
+                  PROMOTION_TARGET:
+                    type: array
                   APP_EXECUTION:
                     type: array
                   NAMESPACE_FILE:
@@ -4233,6 +4240,10 @@ paths:
                   TENANT_ACCESS:
                     type: array
                   SECURITY_INTEGRATION:
+                    type: array
+                  CASE_TEMPLATE:
+                    type: array
+                  BANNER:
                     type: array
                   KILL_SWITCH:
                     type: array
@@ -4898,6 +4909,13 @@ paths:
       summary: Open the app for the given source
       operationId: previewApp
       parameters:
+      - name: state
+        in: query
+        description: Render a specific execution state's layout (preview-first builder)
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
@@ -5015,6 +5033,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_AppsController.ApiApp_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/apps/states:
+    get:
+      tags:
+      - Apps
+      summary: List the execution layout states available in the app builder
+      operationId: listStates
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listStates 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -7203,6 +7247,1586 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/case-templates:
+    post:
+      tags:
+      - Cases
+      summary: Create a case template
+      operationId: create_4
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CaseTemplatesController.CaseTemplateRequest"
+        required: true
+      responses:
+        "200":
+          description: create_4 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/case-templates/search:
+    get:
+      tags:
+      - Cases
+      summary: Search for case templates
+      operationId: search
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CaseTemplatesController.ApiCaseTemplate_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/case-templates/{id}:
+    get:
+      tags:
+      - Cases
+      summary: Retrieve a case template
+      operationId: get_5
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: get_5 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Cases
+      summary: Update a case template
+      operationId: update_3
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CaseTemplatesController.CaseTemplateRequest"
+        required: true
+      responses:
+        "200":
+          description: update_3 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Delete a case template
+      operationId: delete_4
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: delete_4 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases:
+    post:
+      tags:
+      - Cases
+      summary: Create a new case
+      operationId: createCase
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        required: true
+      responses:
+        "200":
+          description: createCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/assignees:
+    get:
+      tags:
+      - Cases
+      summary: List the distinct assignees among cases matching the given filters
+      description: Used to build the board's per-assignee columns.
+      operationId: assignees
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: assignees 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiSubjectRef_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-asset/{assetId}:
+    get:
+      tags:
+      - Cases
+      summary: "List the cases linked to an asset, explicit and auto-detected"
+      description: Used to build the asset detail page's linked-cases panel.
+      operationId: byAsset
+      parameters:
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: byAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseSummary_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-executions:
+    post:
+      tags:
+      - Cases
+      summary: Look up the cases linked to a batch of executions
+      operationId: byExecutions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: byExecutions 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/CasesController.ApiCaseSummary"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-ids/acknowledge:
+    post:
+      tags:
+      - Cases
+      summary: Acknowledge cases by case ids
+      operationId: acknowledgeCasesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: Number of acknowledged cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-ids/delete:
+    post:
+      tags:
+      - Cases
+      summary: Delete cases by case ids
+      operationId: deleteCasesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The case ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: Number of deleted cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/by-query:
+    delete:
+      tags:
+      - Cases
+      summary: Delete cases by query
+      operationId: deleteCasesByQuery
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Number of deleted cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: "If any caseId didn't match an existing case, or wasn't allowed for the requested action"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/counts:
+    get:
+      tags:
+      - Cases
+      summary: Count cases by status
+      operationId: counts
+      parameters:
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: counts 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  OPEN:
+                    type: integer
+                    format: int64
+                  ACKNOWLEDGED:
+                    type: integer
+                    format: int64
+                  INVESTIGATING:
+                    type: integer
+                    format: int64
+                  RESOLVED:
+                    type: integer
+                    format: int64
+                  CANCELLED:
+                    type: integer
+                    format: int64
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-executions:
+    post:
+      tags:
+      - Cases
+      summary: Create a case from a selection of executions
+      operationId: createFromExecutions
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.FromExecutionsRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromExecutions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-executions/by-query:
+    post:
+      tags:
+      - Cases
+      summary: Create a case from executions matching a query
+      operationId: createFromExecutionsByQuery
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.FromExecutionsByQueryRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromExecutionsByQuery 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/from-task:
+    post:
+      tags:
+      - Cases
+      summary: "Create a case from a task run, or attach to a matching open case"
+      description: "Best-effort creates a case from a task run, or attaches the triggering execution to a matching already-open case (same tenant + flow namespace/id + task id), used by the `CreateCase` plugin task. This is a check-then-act, not atomic: concurrent runs of the same task can each create their own case. Unlike #createCaseFromRequest, title/description are stored verbatim: the task has already rendered any Pebble expressions itself."
+      operationId: createFromTask
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseFromTaskRequest"
+        required: true
+      responses:
+        "200":
+          description: createFromTask 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/search:
+    get:
+      tags:
+      - Cases
+      summary: Search for cases
+      operationId: search_1
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: dateFilter
+        in: query
+        description: Which case date field the time range filter is applied to
+        explode: false
+        schema:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/ExecutionRepositoryInterface.DateFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCase_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}:
+    get:
+      tags:
+      - Cases
+      summary: Retrieve a case
+      operationId: getCase
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the case
+        required: true
+        schema:
+          type: string
+      - name: allowDeleted
+        in: query
+        description: Get case even if soft deleted
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Cases
+      summary: Update a case
+      operationId: updateCase
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CaseUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: updateCase 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Delete a case
+      operationId: deleteCase
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deleteCase 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/acknowledge:
+    post:
+      tags:
+      - Cases
+      summary: Acknowledge a case
+      operationId: acknowledge
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: acknowledge 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions:
+    post:
+      tags:
+      - Cases
+      summary: Attach a flow as a runnable action on a case
+      operationId: attachAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachActionRequest"
+        required: true
+      responses:
+        "200":
+          description: attachAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions/run:
+    post:
+      tags:
+      - Cases
+      summary: Run one of a case's attached flow actions
+      operationId: runAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.RunActionRequest"
+        required: true
+      responses:
+        "200":
+          description: runAction 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/actions/{namespace}/{flowId}:
+    put:
+      tags:
+      - Cases
+      summary: Replace an attached action's label or target flow
+      operationId: updateAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachActionRequest"
+        required: true
+      responses:
+        "200":
+          description: updateAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Detach a flow action from a case
+      operationId: detachAction
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: detachAction 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assets:
+    get:
+      tags:
+      - Cases
+      summary: "List a case's linked assets, explicit and auto-detected"
+      operationId: assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: assets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseAsset_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Cases
+      summary: Explicitly link an asset to a case
+      operationId: attachAsset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AttachAssetRequest"
+        required: true
+      responses:
+        "200":
+          description: attachAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assets/{assetId}:
+    delete:
+      tags:
+      - Cases
+      summary: Unlink an asset from a case
+      operationId: detachAsset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: detachAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/assign:
+    post:
+      tags:
+      - Cases
+      summary: Assign a case to users/groups
+      operationId: assign
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AssignRequest"
+        required: true
+      responses:
+        "200":
+          description: assign 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/attachments/{attachmentId}:
+    get:
+      tags:
+      - Cases
+      summary: Download a comment attachment
+      operationId: downloadAttachment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: attachmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: downloadAttachment 200 response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/auto-attach:
+    post:
+      tags:
+      - Cases
+      summary: Enable auto-attaching future matching executions to a case
+      operationId: enableAutoAttach
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.AutoAttachRequest"
+        required: true
+      responses:
+        "200":
+          description: enableAutoAttach 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Cases
+      summary: Disable auto-attaching future matching executions from a case
+      operationId: disableAutoAttach
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: disableAutoAttach 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/cancel:
+    post:
+      tags:
+      - Cases
+      summary: Cancel a case
+      operationId: cancel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.CancelRequest"
+      responses:
+        "200":
+          description: cancel 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/comments:
+    post:
+      tags:
+      - Cases
+      summary: Comment on a case
+      description: "Accepts an optional markdown body and up to 5 file attachments, stored via the internal storage."
+      operationId: addComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  nullable: true
+                filesPublisher:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              filesPublisher:
+                contentType: application/octet-stream
+                explode: false
+              body:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: addComment 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCaseEvent"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/events:
+    get:
+      tags:
+      - Cases
+      summary: List a case's timeline (system events + comments)
+      operationId: events
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: events 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseEvent_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions:
+    get:
+      tags:
+      - Cases
+      summary: "List a case's linked executions, hydrated with live state"
+      operationId: executions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: executions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_CasesController.ApiCaseExecution_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Cases
+      summary: Link executions to a case by id
+      operationId: linkExecutions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.LinkExecutionsRequest"
+        required: true
+      responses:
+        "200":
+          description: linkExecutions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions/by-query:
+    post:
+      tags:
+      - Cases
+      summary: Link executions matching a query to a case
+      operationId: linkExecutionsByQuery
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.LinkExecutionsByQueryRequest"
+        required: true
+      responses:
+        "200":
+          description: linkExecutionsByQuery 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/executions/{executionId}:
+    delete:
+      tags:
+      - Cases
+      summary: Unlink an execution from a case
+      operationId: unlinkExecution
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: executionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unlinkExecution 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/follow:
+    post:
+      tags:
+      - Cases
+      summary: Follow a case
+      operationId: follow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: follow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/resolve:
+    post:
+      tags:
+      - Cases
+      summary: Resolve a case
+      operationId: resolve
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.ResolveRequest"
+        required: true
+      responses:
+        "200":
+          description: resolve 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/status:
+    post:
+      tags:
+      - Cases
+      summary: Change a case's status
+      description: Generic transition endpoint; also allows reopening a terminal case.
+      operationId: changeStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CasesController.StatusRequest"
+        required: true
+      responses:
+        "200":
+          description: changeStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/cases/{id}/unfollow:
+    post:
+      tags:
+      - Cases
+      summary: Unfollow a case
+      operationId: unfollow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unfollow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CasesController.ApiCase"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/concurrency-limit/search:
     get:
       tags:
@@ -8701,6 +10325,40 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/executions/namespaces/{namespace}/flows/{flowId}/average-duration:
+    get:
+      tags:
+      - Executions
+      summary: "Get the average duration of the recent executions of a flow, used to estimate the progress of a running execution."
+      operationId: getExecutionAverageDuration
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getExecutionAverageDuration 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecutionController.ExecutionAverageDuration"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/{tenant}/executions/pause/by-ids:
     post:
       tags:
@@ -9319,6 +10977,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -9358,6 +11026,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -9451,6 +11129,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -9497,6 +11185,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        description: "The webhook payload, of any content type. What the flow sees of it depends on the `fetchType` of the trigger: `trigger.body` by default, `trigger.uri` when the trigger stores it. A `multipart/form-data` payload is handled by a dedicated route: its file parts are stored in Kestra's internal storage and reach the flow as `trigger.parts`, its other parts as `trigger.formFields`."
+        content:
+          '*/*':
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              description: "A form whose part names are chosen by the caller: each file part is exposed on `trigger.parts` with the URI of its content in Kestra's internal storage, each other part on `trigger.formFields`."
       responses:
         "200":
           description: On success
@@ -11164,6 +12862,38 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/hashes/by-ids:
+    post:
+      tags:
+      - Flows
+      summary: Batch-compute source hashes for flows by id (drift detection)
+      operationId: flowHashesByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/IdWithNamespace"
+        required: true
+      responses:
+        "200":
+          description: flowHashesByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowHashesResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/import:
     post:
       tags:
@@ -11238,6 +12968,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PolicyPreviewResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/promote/by-ids:
+    post:
+      tags:
+      - Promote
+      summary: Promote flows by their IDs to one or more SERVER-mode targets
+      operationId: promoteByIds
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromote.BatchRequest"
+        required: true
+      responses:
+        "200":
+          description: promoteByIds 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromote.BatchResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -11356,6 +13116,33 @@ paths:
         schema:
           type: string
           nullable: true
+      - name: caseSensitive
+        in: query
+        description: Whether the query must match with exact case
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: wholeWord
+        in: query
+        description: Whether the query must match on word boundaries only
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: regex
+        in: query
+        description: Whether the query is a regular expression rather than a literal string
+        explode: false
+        schema:
+          type: boolean
+          default: false
+      - name: scope
+        in: query
+        description: Restricts matches to a top-level section of the flow YAML
+        explode: false
+        schema:
+          $ref: "#/components/schemas/SourceSearchScope"
       - name: tenant
         in: path
         required: true
@@ -11367,7 +13154,97 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_SearchResult_Flow__"
+                $ref: "#/components/schemas/PagedResults_SourceSearchResult_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/apply:
+    post:
+      tags:
+      - Flows
+      summary: Apply a Source Search replace-all operation
+      description: Replaces every match in the given flows and persists the new revisions. Flows the caller is not allowed to edit are skipped.
+      operationId: applyReplaceBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The search query, replacement and target flows"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplaceApplyRequest"
+        required: true
+      responses:
+        "200":
+          description: applyReplaceBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplaceApplyResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/line:
+    post:
+      tags:
+      - Flows
+      summary: Apply a Source Search replace on a single match line
+      description: Replaces the matches on one line of one flow and persists the new revision. Returns the flow as skipped if it is not editable or fails validation.
+      operationId: replaceLineBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The search query, replacement and target match line"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplaceLineRequest"
+        required: true
+      responses:
+        "200":
+          description: replaceLineBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplaceApplyResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/flows/source/replace/preview:
+    post:
+      tags:
+      - Flows
+      summary: Preview a Source Search replace-all operation
+      description: "Computes the matched lines and their proposed replacement for every matching flow, without persisting anything."
+      operationId: previewReplaceBySourceCode
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The search query and replacement
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SourceSearchReplacePreviewRequest"
+        required: true
+      responses:
+        "200":
+          description: previewReplaceBySourceCode 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SourceSearchReplacePreviewResponse"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -11414,11 +13291,11 @@ paths:
       parameters:
       - name: section
         in: query
-        description: The type of task
+        description: "The flow section the definition belongs to (triggers, or any task-holding section: tasks, errors, finally, afterExecution)"
         required: true
         explode: false
         schema:
-          $ref: "#/components/schemas/FlowController.TaskValidationType"
+          type: string
       - name: tenant
         in: path
         required: true
@@ -11790,6 +13667,190 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/{tenant}/flows/{namespace}/{id}/promote:
+    post:
+      tags:
+      - Promote
+      summary: Promote a flow to one or more SERVER-mode targets
+      operationId: promote
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromote.Request"
+        required: true
+      responses:
+        "422":
+          description: "The flow's latest revision is a draft, which cannot be promoted"
+        "200":
+          description: promote 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromote.Response"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/{namespace}/{id}/promotions:
+    get:
+      tags:
+      - Promote
+      summary: List a flow's promotion history
+      operationId: listPromotions
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listPromotions 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPromotionResponse_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Promote
+      summary: Report a CLIENT-mode promote performed by the browser
+      operationId: reportPromote
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPromoteReportRequest"
+        required: true
+      responses:
+        "200":
+          description: reportPromote 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/flows/{namespace}/{id}/promotions/{auditId}/diff:
+    get:
+      tags:
+      - Promote
+      summary: Recompute the diff of a past promote from its audit record
+      operationId: promoteDiff
+      parameters:
+      - name: namespace
+        in: path
+        description: The flow namespace
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The flow id
+        required: true
+        schema:
+          type: string
+      - name: auditId
+        in: path
+        description: The audit log id of the promote
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: promoteDiff 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromoteDiffResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/flows/{namespace}/{id}/revisions:
     get:
       tags:
@@ -13823,7 +15884,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers:
+  /api/v1/{tenant}/mcp-servers:
     get:
       tags:
       - Mcp
@@ -13873,6 +15934,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     post:
       tags:
       - Mcp
@@ -13901,7 +15964,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}:
     get:
       tags:
       - Mcp
@@ -13929,6 +15994,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     put:
       tags:
       - Mcp
@@ -13963,6 +16030,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Mcp
@@ -13986,7 +16055,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}/toggle:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}/toggle:
     patch:
       tags:
       - Mcp
@@ -14014,7 +16085,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/mcp/servers/{id}/tools:
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/mcp-servers/{id}/tools:
     get:
       tags:
       - Mcp
@@ -14044,6 +16117,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
     get:
       tags:
@@ -15918,7 +17993,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: "Get reusable inputs by id, resolving namespace inheritance"
-      operationId: get_5
+      operationId: get_6
       parameters:
       - name: namespace
         in: path
@@ -15944,7 +18019,7 @@ paths:
           type: string
       responses:
         "200":
-          description: get_5 200 response
+          description: get_6 200 response
           content:
             application/json:
               schema:
@@ -16010,7 +18085,7 @@ paths:
       tags:
       - Reusable Inputs
       summary: Delete reusable inputs
-      operationId: delete_4
+      operationId: delete_5
       parameters:
       - name: namespace
         in: path
@@ -16029,7 +18104,7 @@ paths:
           type: string
       responses:
         "200":
-          description: delete_4 200 response
+          description: delete_5 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16626,6 +18701,334 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/{tenant}/promotion-targets:
+    get:
+      tags:
+      - Promote
+      summary: List all promotion targets
+      operationId: listPromotionTargets
+      parameters:
+      - name: page
+        in: query
+        description: The current page
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: size
+        in: query
+        description: The current page size
+        explode: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: sort
+        in: query
+        description: The sort of current page
+        explode: false
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      - name: filters
+        in: query
+        description: Filters
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: listPromotionTargets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ApiPromotionTargetResponse_"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    post:
+      tags:
+      - Promote
+      summary: Create a new promotion target
+      operationId: createPromotionTarget
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: createPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/test:
+    post:
+      tags:
+      - Promote
+      summary: Test connectivity to an unsaved SERVER-mode promotion target definition
+      operationId: testPromotionTarget
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiCreatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: testPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTestConnectionResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}:
+    get:
+      tags:
+      - Promote
+      summary: Get a promotion target by id
+      operationId: getPromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Promote
+      summary: Update an existing promotion target
+      operationId: updatePromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiUpdatePromotionTargetRequest"
+        required: true
+      responses:
+        "200":
+          description: updatePromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiPromotionTargetResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    delete:
+      tags:
+      - Promote
+      summary: Delete a promotion target
+      operationId: deletePromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: deletePromotionTarget 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/flow-hashes:
+    post:
+      tags:
+      - Promote
+      summary: Batch-fetch flow source hashes from a SERVER-mode target (flows-table drift column)
+      operationId: getTargetFlowHashes
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiFlowHashBatch.Request"
+        required: true
+      responses:
+        "200":
+          description: getTargetFlowHashes 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowHashBatch.Response"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/flow-source:
+    get:
+      tags:
+      - Promote
+      summary: Fetch a flow's source and revision from a SERVER-mode target (for drift/diff)
+      operationId: getTargetFlowSource
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: query
+        description: The flow namespace
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: flowId
+        in: query
+        description: The flow id
+        required: true
+        explode: false
+        schema:
+          type: string
+      - name: revision
+        in: query
+        description: The flow revision (latest if omitted)
+        explode: false
+        schema:
+          type: integer
+          format: int32
+          nullable: true
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getTargetFlowSource 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiFlowSourceResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/promotion-targets/{id}/test:
+    post:
+      tags:
+      - Promote
+      summary: Test connectivity to a saved promotion target
+      operationId: testSavedPromotionTarget
+      parameters:
+      - name: id
+        in: path
+        description: The promotion target id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: testSavedPromotionTarget 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiTestConnectionResponse"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/quota-limits:
     get:
       tags:
@@ -16731,6 +19134,8 @@ paths:
                 $ref: "#/components/schemas/IAMRoleController.ApiRoleDetail"
         "403":
           description: Insufficient privileges to create the role
+        "422":
+          description: Invalid role (e.g. missing or blank name)
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -18942,6 +21347,8 @@ paths:
           - EXPIRATION_DATE
           - STATE
           - STATUS
+          - SEVERITY
+          - ASSIGNEE
           - EMAIL
           - TIME_RANGE
           - PARENT_ID
@@ -19564,7 +21971,9 @@ components:
           items:
             $ref: "#/components/schemas/Output"
         disabled:
+          title: Whether the flow is disabled.
           type: boolean
+          description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
         draft:
           type: boolean
           description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -19757,6 +22166,7 @@ components:
       - UNQUEUE
       - FORCE_RUN
       - FOLLOW
+      - TEMPLATE
       - CHANGE_LABELS
       - ACCESS_LOGS
       - ACCESS_OUTPUTS
@@ -19769,6 +22179,7 @@ components:
       - UNLOCK
       - LOCK
       - BACKFILL
+      - PROMOTE
       - MANAGE_FILES
       - MANAGE_MEMBERS
       - MANAGE_GROUP_MEMBERSHIP
@@ -20026,6 +22437,46 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to create a new OAuth2 credential.
+    ApiCreatePromotionTargetRequest:
+      title: Create Promotion Target Request
+      required:
+      - connectionMode
+      - name
+      - targetTenant
+      - url
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: The promotion target name
+          example: production
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          minLength: 1
+          type: string
+          description: Base URL of the remote Kestra instance
+          example: https://prod.kestra.company.com
+        targetTenant:
+          minLength: 1
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        apiToken:
+          type: string
+          description: "Service-account API token used by the backend (SERVER mode only, encrypted at rest, never returned; CLIENT-mode targets must not carry one)"
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+      description: Request to create a new PromotionTarget.
     ApiCreateThreadRequest:
       type: object
       properties:
@@ -20214,6 +22665,99 @@ components:
             $ref: "#/components/schemas/Breakpoint"
         loopRun:
           $ref: "#/components/schemas/LoopRun"
+    ApiFlowHashBatch.Ref:
+      title: Flow Reference
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+    ApiFlowHashBatch.Request:
+      title: Flow Hash Batch Request
+      required:
+      - flows
+      type: object
+      properties:
+        flows:
+          maxItems: 100
+          type: array
+          description: The flows to fetch hashes for (max 100 per request)
+          items:
+            $ref: "#/components/schemas/ApiFlowHashBatch.Ref"
+    ApiFlowHashBatch.Response:
+      title: Flow Hash Batch Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: Per-flow results
+          items:
+            $ref: "#/components/schemas/ApiFlowHashBatch.Result"
+    ApiFlowHashBatch.Result:
+      title: Flow Hash Result
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        hash:
+          type: string
+          description: "The source hash on the target, or null when the flow is absent"
+        revision:
+          type: integer
+          description: The flow revision on the target when present
+          format: int32
+    ApiFlowHashesResponse:
+      title: Flow Hashes Response
+      type: object
+      properties:
+        hashes:
+          type: array
+          description: Per-flow source hashes
+          items:
+            $ref: "#/components/schemas/ApiFlowHashesResponse.Hash"
+      description: Response of the bulk flow-hash endpoint. Wrapped in an object (never a bare array) so the API can evolve backwards-compatibly. One entry per requested flow; `hash`/`revision` are `null` when the flow does not exist on this instance.
+    ApiFlowHashesResponse.Hash:
+      title: Flow Hash
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        id:
+          type: string
+          description: The flow id
+        hash:
+          type: string
+          description: "The source hash, or null when the flow is absent"
+        revision:
+          type: integer
+          description: The flow revision when present
+          format: int32
+    ApiFlowSourceResponse:
+      title: Flow Source Response
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        source:
+          type: string
+          description: The raw flow source (YAML)
+        revision:
+          type: integer
+          description: The flow revision on the target
+          format: int32
+      description: A flow's raw source and revision fetched from a target.
     ApiGroupSummary:
       required:
       - id
@@ -20493,6 +23037,293 @@ components:
       - ADDED
       - REPLACED
       - REMOVED
+    ApiPromote.BatchRequest:
+      title: Batch Promote Request
+      required:
+      - flows
+      - targetIds
+      type: object
+      properties:
+        flows:
+          maxItems: 100
+          minItems: 1
+          type: array
+          description: The flows to promote (max 100 per request)
+          items:
+            $ref: "#/components/schemas/IdWithNamespace"
+        targetIds:
+          minItems: 1
+          type: array
+          description: The ids of the targets to promote every flow to
+          items:
+            type: string
+        confirmed:
+          type: boolean
+          description: Confirmation for gated targets
+    ApiPromote.BatchResponse:
+      title: Batch Promote Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: "Per-flow results, in request order"
+          items:
+            $ref: "#/components/schemas/ApiPromote.FlowResult"
+    ApiPromote.FlowResult:
+      title: Batch Promote Flow Result
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision (null when the flow could not be read)
+          format: int32
+        error:
+          type: string
+          description: Why the flow itself could not be promoted (null when it was attempted)
+        results:
+          type: array
+          description: Per-target results (empty when the flow could not be read)
+          items:
+            $ref: "#/components/schemas/ApiPromote.Result"
+    ApiPromote.Request:
+      title: Promote Request
+      required:
+      - sourceRevision
+      - targets
+      type: object
+      properties:
+        sourceRevision:
+          type: integer
+          description: The source revision to promote (must be the latest)
+          format: int32
+        targets:
+          minItems: 1
+          type: array
+          description: The targets to promote to
+          items:
+            $ref: "#/components/schemas/ApiPromote.Target"
+        confirmed:
+          type: boolean
+          description: Confirmation for gated targets
+    ApiPromote.Response:
+      title: Promote Response
+      type: object
+      properties:
+        results:
+          type: array
+          description: Per-target results
+          items:
+            $ref: "#/components/schemas/ApiPromote.Result"
+    ApiPromote.Result:
+      title: Promote Result
+      type: object
+      properties:
+        targetId:
+          type: string
+          description: The promotion target id
+        success:
+          type: boolean
+          description: Whether the promote succeeded
+        needsConfirmation:
+          type: boolean
+          description: The gated target requires confirmation; no promote was attempted or recorded
+        state:
+          description: The terminal state (null when confirmation is required)
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+        promotionId:
+          type: string
+          description: The promote id (null when confirmation is required)
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target (when successful)
+          format: int32
+        error:
+          type: string
+          description: The failure reason (when failed)
+    ApiPromote.Target:
+      title: Promotion Target
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: The promotion target id
+        expectedTargetRevision:
+          type: integer
+          description: The target revision the diff was reviewed against (null = expected absent)
+          format: int32
+    ApiPromoteDiffResponse:
+      title: Promote Diff Response
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The flow namespace
+        flowId:
+          type: string
+          description: The flow id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        sourceSource:
+          type: string
+          description: The source-side flow source at sourceRevision
+        targetId:
+          type: string
+          description: The promotion target id
+        mode:
+          description: The connection mode of the target
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        targetRevision:
+          type: integer
+          description: The target revision the promote diffed against
+          format: int32
+        targetSource:
+          type: string
+          description: The target-side source (SERVER mode only; null for CLIENT)
+        clientFetchRequired:
+          type: boolean
+          description: True when the browser must fetch the target side itself (CLIENT mode)
+      description: "The two source sides of a past promote, for recomputing its diff on demand. For CLIENT-mode targets `targetSource` is null and `clientFetchRequired` is true --- the browser must fetch the target side itself (the backend cannot reach the target)."
+    ApiPromoteReportRequest:
+      title: Promote Report Request
+      required:
+      - gateOutcome
+      - promotionId
+      - state
+      - targetId
+      type: object
+      properties:
+        promotionId:
+          minLength: 1
+          type: string
+          description: Client-generated idempotency key for this promote
+        targetId:
+          minLength: 1
+          type: string
+          description: The promotion target id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        targetRevision:
+          type: integer
+          description: The target revision before the push (null on first promote)
+          format: int32
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target
+          format: int32
+        gateOutcome:
+          description: Gate outcome (NONE or CONFIRMED)
+          allOf:
+          - $ref: "#/components/schemas/GateOutcome"
+        state:
+          description: Terminal state (SUCCESS or FAILED)
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+      description: A CLIENT-mode promote reported by the browser after it performed the upsert directly against the target. `by` and the timestamp are stamped server-side and never taken from this payload.
+    ApiPromotionResponse:
+      title: Promotion
+      type: object
+      properties:
+        auditId:
+          type: string
+          description: The audit-log id of this promotion
+        date:
+          type: string
+          description: When the promotion happened
+          format: date-time
+        by:
+          type: string
+          description: Who performed the promotion
+        user:
+          description: "The acting user, when it can still be resolved"
+          allOf:
+          - $ref: "#/components/schemas/ApiUser"
+        targetId:
+          type: string
+          description: The promotion target id
+        sourceRevision:
+          type: integer
+          description: The promoted source revision
+          format: int32
+        targetRevision:
+          type: integer
+          description: The target revision before the push
+          format: int32
+        resultingTargetRevision:
+          type: integer
+          description: The revision produced on the target
+          format: int32
+        mode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        gateOutcome:
+          description: Gate outcome
+          allOf:
+          - $ref: "#/components/schemas/GateOutcome"
+        state:
+          description: Terminal state
+          allOf:
+          - $ref: "#/components/schemas/PromotionState"
+        error:
+          type: string
+          description: "Failure reason, when failed"
+      description: "A promotion-history item, projected from the underlying `AuditLog` + `PromoteAuditLog`. Target attributes (name/URL) are resolved client-side from `targetId`. `by` always carries the acting user id; `user` carries its display projection when the user can still be resolved (it is null for a deleted user, or when audit logs are not licensed and no user was stamped at all)."
+    ApiPromotionTargetResponse:
+      title: Promotion Target Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: The promotion target id
+        tenantId:
+          type: string
+          description: The tenant id
+        name:
+          type: string
+          description: The promotion target name
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          type: string
+          description: Base URL of the remote Kestra instance
+        targetTenant:
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+        createdAt:
+          type: string
+          description: Created timestamp
+          format: date-time
+        updatedAt:
+          type: string
+          description: Updated timestamp
+          format: date-time
+      description: "API response for a PromotionTarget. The stored API token is never returned (a SERVER-mode target always has one, so its presence is implied by the connection mode)."
     ApiRenameThreadRequest:
       required:
       - title
@@ -20602,8 +23433,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TaskRunAttempt"
-        assets:
-          $ref: "#/components/schemas/AssetsInOut"
+        assetEmits:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetsInOut"
         state:
           $ref: "#/components/schemas/State"
         iteration:
@@ -20846,16 +23679,58 @@ components:
           allOf:
           - $ref: "#/components/schemas/OAuth2Config"
       description: Request to update an existing OAuth2 credential.
+    ApiUpdatePromotionTargetRequest:
+      title: Update Promotion Target Request
+      required:
+      - connectionMode
+      - name
+      - targetTenant
+      - url
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+          description: The promotion target name
+        description:
+          type: string
+          description: The promotion target description
+        disabled:
+          type: boolean
+          description: Whether the target is disabled
+        url:
+          minLength: 1
+          type: string
+          description: Base URL of the remote Kestra instance
+        targetTenant:
+          minLength: 1
+          type: string
+          description: The tenant on the target instance
+        connectionMode:
+          description: Connection mode (SERVER or CLIENT)
+          allOf:
+          - $ref: "#/components/schemas/ConnectionMode"
+        apiToken:
+          type: string
+          description: Service-account API token used by the backend (SERVER mode only; omit to keep the stored token)
+        gate:
+          type: boolean
+          description: Whether promotions to this target require confirmation
+      description: |-
+        Request to update an existing PromotionTarget.
+
+
+        `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiAuth"
+      description: "The acting user, when it can still be resolved"
       allOf:
       - $ref: "#/components/schemas/AbstractUser"
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: "#/components/schemas/ApiAuth"
     AppGenerationPrompt:
       type: object
       properties:
@@ -21140,7 +24015,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation"
+          $ref: "#/components/schemas/Relation_1"
     AssetTopologyGraph.Node:
       required:
       - uid
@@ -21400,6 +24275,7 @@ components:
       - IMPERSONATE
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
+      - PROMOTE
       - UNKNOWN
     AuthController.Auth:
       type: object
@@ -21423,7 +24299,6 @@ components:
       required:
       - firstName
       - lastName
-      - password
       type: object
       properties:
         firstName:
@@ -21432,6 +24307,7 @@ components:
           type: string
         password:
           type: string
+          nullable: true
     AuthController.ResetPasswordRequest:
       type: object
       properties:
@@ -21451,6 +24327,17 @@ components:
       properties:
         type:
           $ref: "#/components/schemas/AuthProperty.Type"
+    AutoAttach:
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/State.Type"
     Backfill:
       title: A backfill configuration.
       required:
@@ -21790,6 +24677,621 @@ components:
           type: boolean
         ttl:
           type: string
+    CaseAction:
+      type: object
+      properties:
+        label:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+    CaseAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        fileName:
+          type: string
+        size:
+          type: integer
+          format: int64
+        contentType:
+          type: string
+    CaseEventType:
+      type: string
+      enum:
+      - COMMENT
+      - CREATED
+      - UPDATED
+      - STATUS_CHANGED
+      - SEVERITY_CHANGED
+      - ASSIGNED
+      - EXECUTION_LINKED
+      - EXECUTION_UNLINKED
+      - ASSET_LINKED
+      - ASSET_UNLINKED
+      - ACTION_ATTACHED
+      - ACTION_DETACHED
+      - ACTION_UPDATED
+      - ACTION_RUN
+      - AUTO_ATTACH_ENABLED
+      - AUTO_ATTACH_DISABLED
+      - SLA_ACKNOWLEDGEMENT_BREACHED
+      - SLA_RESOLUTION_BREACHED
+    CaseSeverity:
+      type: string
+      enum:
+      - CRITICAL
+      - HIGH
+      - MEDIUM
+      - LOW
+    CaseStatus:
+      type: string
+      enum:
+      - OPEN
+      - ACKNOWLEDGED
+      - INVESTIGATING
+      - RESOLVED
+      - CANCELLED
+    CaseTemplatesController.ApiCaseTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantId:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        defaultSeverity:
+          $ref: "#/components/schemas/CaseSeverity"
+        defaultAssignees:
+          $ref: "#/components/schemas/CaseTemplatesController.ApiSubjects"
+        defaultWatchers:
+          $ref: "#/components/schemas/CaseTemplatesController.ApiSubjects"
+        titlePattern:
+          type: string
+        description:
+          type: string
+        sla:
+          $ref: "#/components/schemas/SlaConfig"
+        resolutionReasons:
+          type: array
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
+        customFields:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomField"
+        defaultActions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        isDefault:
+          type: boolean
+        createdBy:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+    CaseTemplatesController.ApiSubjectRef:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+    CaseTemplatesController.ApiSubjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiSubjectRef"
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiSubjectRef"
+    CaseTemplatesController.CaseTemplateRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        namespace:
+          maxLength: 150
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+          nullable: true
+        defaultSeverity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        defaultAssignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        defaultWatchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        titlePattern:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        resolutionReasons:
+          type: array
+          nullable: true
+          items:
+            type: string
+        requireResolutionNote:
+          type: boolean
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+        defaultActions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        isDefault:
+          type: boolean
+    CasesController.ApiCase:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantId:
+          type: string
+        namespace:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        severity:
+          $ref: "#/components/schemas/CaseSeverity"
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        assignees:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+        watchers:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+        customFields:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomField"
+        sla:
+          $ref: "#/components/schemas/SlaConfig"
+        acknowledgementSla:
+          $ref: "#/components/schemas/SlaStatus"
+        resolutionSla:
+          $ref: "#/components/schemas/SlaStatus"
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        acknowledgedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+        resolution:
+          $ref: "#/components/schemas/Resolution"
+        resolvedBy:
+          type: string
+        resolvedByName:
+          type: string
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        assetIds:
+          type: array
+          items:
+            type: string
+        createdBy:
+          type: string
+        origin:
+          $ref: "#/components/schemas/Origin"
+        templateId:
+          type: string
+        autoAttach:
+          type: array
+          items:
+            $ref: "#/components/schemas/AutoAttach"
+        deleted:
+          type: boolean
+    CasesController.ApiCaseAsset:
+      type: object
+      properties:
+        assetId:
+          type: string
+        origin:
+          type: string
+    CasesController.ApiCaseEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        caseId:
+          type: string
+        type:
+          $ref: "#/components/schemas/CaseEventType"
+        authorId:
+          type: string
+        authorName:
+          type: string
+        body:
+          type: string
+        payload:
+          type: object
+          additionalProperties:
+            type: object
+        attachments:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseAttachment"
+        created:
+          type: string
+          format: date-time
+    CasesController.ApiCaseExecution:
+      type: object
+      properties:
+        executionId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        state:
+          type: string
+        auto:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        found:
+          type: boolean
+    CasesController.ApiCaseSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        severity:
+          $ref: "#/components/schemas/CaseSeverity"
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        updated:
+          type: string
+          format: date-time
+        assignees:
+          $ref: "#/components/schemas/CasesController.ApiSubjects"
+    CasesController.ApiSubjectRef:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+    CasesController.ApiSubjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
+    CasesController.AssignRequest:
+      type: object
+      properties:
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        note:
+          type: string
+          nullable: true
+    CasesController.AttachActionRequest:
+      required:
+      - flowId
+      - label
+      - namespace
+      type: object
+      properties:
+        label:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+    CasesController.AttachAssetRequest:
+      required:
+      - assetId
+      type: object
+      properties:
+        assetId:
+          type: string
+    CasesController.AutoAttachRequest:
+      required:
+      - flowId
+      - namespace
+      - states
+      type: object
+      properties:
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+        flowId:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/State.Type"
+    CasesController.CancelRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          nullable: true
+        note:
+          type: string
+          nullable: true
+    CasesController.CaseCreateRequest:
+      required:
+      - namespace
+      - title
+      type: object
+      properties:
+        namespace:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        status:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseStatus"
+        templateId:
+          type: string
+          nullable: true
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+        actions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+    CasesController.CaseFromTaskRequest:
+      required:
+      - flowId
+      - flowNamespace
+      - namespace
+      - taskId
+      type: object
+      properties:
+        namespace:
+          type: string
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        status:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseStatus"
+        sla:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SlaConfig"
+        assignees:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        watchers:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Subjects"
+        labels:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/Label"
+        assetIds:
+          type: array
+          nullable: true
+          items:
+            type: string
+        actions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CaseAction"
+        linkMatchingExecutions:
+          type: boolean
+        flowNamespace:
+          type: string
+        flowId:
+          type: string
+        taskId:
+          type: string
+        executionId:
+          type: string
+          nullable: true
+        executionState:
+          type: string
+          nullable: true
+        caseId:
+          type: string
+          nullable: true
+    CasesController.CaseUpdateRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        severity:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/CaseSeverity"
+        customFields:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomField"
+    CasesController.FromExecutionsByQueryRequest:
+      required:
+      - case
+      - filters
+      type: object
+      properties:
+        case:
+          $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+    CasesController.FromExecutionsRequest:
+      required:
+      - case
+      - executionIds
+      type: object
+      properties:
+        case:
+          $ref: "#/components/schemas/CasesController.CaseCreateRequest"
+        executionIds:
+          type: array
+          items:
+            type: string
+    CasesController.LinkExecutionsByQueryRequest:
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+    CasesController.LinkExecutionsRequest:
+      required:
+      - executionIds
+      type: object
+      properties:
+        executionIds:
+          type: array
+          items:
+            type: string
+    CasesController.ResolveRequest:
+      required:
+      - reason
+      type: object
+      properties:
+        reason:
+          type: string
+        note:
+          type: string
+          nullable: true
+    CasesController.RunActionRequest:
+      required:
+      - flowId
+      - namespace
+      type: object
+      properties:
+        namespace:
+          type: string
+        flowId:
+          type: string
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+          nullable: true
+        labels:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/Label"
+    CasesController.StatusRequest:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/CaseStatus"
+        resolution:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/Resolution"
     ChartFiltersOverrides:
       type: object
       properties:
@@ -21909,6 +25411,12 @@ components:
           $ref: "#/components/schemas/AbstractFilter.FilterType"
         value:
           type: object
+    ConnectionMode:
+      type: string
+      description: Connection mode (SERVER or CLIENT)
+      enum:
+      - SERVER
+      - CLIENT
     CreateApiTokenRequest:
       required:
       - name
@@ -21976,6 +25484,29 @@ components:
           $ref: "#/components/schemas/PaginationType"
         nextCursor:
           type: string
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: "#/components/schemas/CustomFieldType"
+        options:
+          type: array
+          nullable: true
+          items:
+            type: string
+        value:
+          type: array
+          nullable: true
+          items:
+            type: string
+    CustomFieldType:
+      type: string
+      enum:
+      - STRING
+      - SELECT
+      - MULTISELECT
     DailyExecutionStatistics:
       required:
       - duration
@@ -22414,6 +25945,16 @@ components:
           type: string
         error:
           type: string
+    ExecutionController.ExecutionAverageDuration:
+      type: object
+      properties:
+        avgDurationMs:
+          type: integer
+          format: int64
+          nullable: true
+        count:
+          type: integer
+          format: int64
     ExecutionController.ExecutionResponse:
       required:
       - deleted
@@ -22718,7 +26259,9 @@ components:
             items:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -22807,11 +26350,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FlowService.TaskDeprecation"
-    FlowController.TaskValidationType:
-      type: string
-      enum:
-      - TASKS
-      - TRIGGERS
     FlowForExecution:
       required:
       - deleted
@@ -22850,7 +26388,9 @@ components:
             items:
               $ref: "#/components/schemas/Output"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -22946,7 +26486,7 @@ components:
         target:
           type: string
         relation:
-          $ref: "#/components/schemas/Relation_1"
+          $ref: "#/components/schemas/Relation"
     FlowId:
       type: object
       properties:
@@ -23224,7 +26764,9 @@ components:
             items:
               $ref: "#/components/schemas/Input_Object_"
           disabled:
+            title: Whether the flow is disabled.
             type: boolean
+            description: "A disabled flow does not run: its triggers are paused and new executions are rejected."
           draft:
             type: boolean
             description: "Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly."
@@ -23296,6 +26838,12 @@ components:
           $ref: "#/components/schemas/ExecutionKind"
         progress:
           type: string
+    GateOutcome:
+      type: string
+      description: Gate outcome (NONE or CONFIRMED)
+      enum:
+      - NONE
+      - CONFIRMED
     GithubAppConfig:
       required:
       - appId
@@ -23577,6 +27125,10 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
+            PROMOTION_TARGET:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -23586,6 +27138,10 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
+              type: array
+            BANNER:
               type: array
             KILL_SWITCH:
               type: array
@@ -23672,6 +27228,10 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
+            PROMOTION_TARGET:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -23681,6 +27241,10 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
+              type: array
+            BANNER:
               type: array
             KILL_SWITCH:
               type: array
@@ -24498,6 +28062,8 @@ components:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             WORKER:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
+            SYSTEM_WORKER:
+              $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             CONTROLLER:
               $ref: "#/components/schemas/MaintenanceStatusResponse.ServiceStatus"
             INVALID:
@@ -24795,8 +28361,6 @@ components:
         pluginsHash:
           type: integer
           format: int64
-        isConcurrencyViewEnabled:
-          type: boolean
     MiscController.EEConfiguration:
       type: object
       allOf:
@@ -25079,6 +28643,14 @@ components:
       type: string
       enum:
       - GENERIC
+      - CASE_CREATED
+      - CASE_ASSIGNED
+      - CASE_STATUS_CHANGED
+      - CASE_COMMENTED
+      - CASE_SEVERITY_CHANGED
+      - CASE_SLA_ACKNOWLEDGEMENT_BREACHED
+      - CASE_SLA_RESOLUTION_BREACHED
+      - HUMAN_TASK_PENDING
     OAuth2Config:
       type: object
       properties:
@@ -25093,6 +28665,18 @@ components:
       - PRIVATE_KEY_JWT
       - UNKNOWN
       x-type: String
+    Origin:
+      type: object
+      properties:
+        flowNamespace:
+          type: string
+        flowId:
+          type: string
+        taskId:
+          type: string
+        executionId:
+          type: string
+          nullable: true
     Output:
       required:
       - id
@@ -25214,6 +28798,32 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PolicySummary"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiPromotionResponse_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiPromotionResponse"
+        total:
+          type: integer
+          format: int64
+    PagedResults_ApiPromotionTargetResponse_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiPromotionTargetResponse"
         total:
           type: integer
           format: int64
@@ -25357,6 +28967,97 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Blueprint"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CaseTemplatesController.ApiCaseTemplate_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTemplatesController.ApiCaseTemplate"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseAsset_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseAsset"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseEvent_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseEvent"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseExecution_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseExecution"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCaseSummary_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCaseSummary"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiCase_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiCase"
+        total:
+          type: integer
+          format: int64
+    PagedResults_CasesController.ApiSubjectRef_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CasesController.ApiSubjectRef"
         total:
           type: integer
           format: int64
@@ -25596,19 +29297,6 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_SearchResult_Flow__:
-      required:
-      - results
-      - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/SearchResult_Flow_"
-        total:
-          type: integer
-          format: int64
     PagedResults_SecurityIntegration_:
       required:
       - results
@@ -25619,6 +29307,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SecurityIntegration"
+        total:
+          type: integer
+          format: int64
+    PagedResults_SourceSearchResult_:
+      required:
+      - results
+      - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchResult"
         total:
           type: integer
           format: int64
@@ -25693,7 +29394,17 @@ components:
           default: '!@#$%^&*_-'
         passwordReset:
           $ref: "#/components/schemas/PasswordConfiguration.PasswordReset"
+        passwordValidate:
+          $ref: "#/components/schemas/PasswordConfiguration.PasswordValidate"
     PasswordConfiguration.PasswordReset:
+      type: object
+      properties:
+        cooldown:
+          type: string
+          default: PT5M
+        rateLimit:
+          $ref: "#/components/schemas/PasswordConfiguration.RateLimit"
+    PasswordConfiguration.PasswordValidate:
       type: object
       properties:
         cooldown:
@@ -26252,6 +29963,12 @@ components:
           title: The id of the violating task or trigger; null for resource-level violations.
           type: string
       description: A single rule violation reported against the post-mutation resource.
+    PromotionState:
+      type: string
+      description: The terminal state (null when confirmation is required)
+      enum:
+      - SUCCESS
+      - FAILED
     Property_AssetFailureBehavior_:
       type: object
       properties:
@@ -26389,6 +30106,8 @@ components:
       - expirationDate
       - state
       - status
+      - SEVERITY
+      - ASSIGNEE
       - email
       - timeRange
       - parentId
@@ -26444,6 +30163,8 @@ components:
       - EXPIRATION_DATE
       - STATE
       - STATUS
+      - SEVERITY
+      - ASSIGNEE
       - EMAIL
       - TIME_RANGE
       - PARENT_ID
@@ -26569,10 +30290,12 @@ components:
       - BINDING
       - GROUP
     Relation:
-      type: string
-      enum:
-      - UPSERT
-      - USED_BY
+      type: object
+      properties:
+        relationType:
+          $ref: "#/components/schemas/RelationType"
+        value:
+          type: string
     RelationType:
       type: string
       enum:
@@ -26584,12 +30307,18 @@ components:
       - PARALLEL
       - DYNAMIC
     Relation_1:
+      type: string
+      enum:
+      - UPSERT
+      - USED_BY
+    Resolution:
       type: object
       properties:
-        relationType:
-          $ref: "#/components/schemas/RelationType"
-        value:
+        reason:
           type: string
+        note:
+          type: string
+          nullable: true
     Resource:
       type: string
       enum:
@@ -26619,11 +30348,15 @@ components:
       - MCP_SERVER
       - SUPPORT
       - POLICY
+      - CASE
+      - PROMOTION_TARGET
       - APP_EXECUTION
       - NAMESPACE_FILE
       - TESTSUITE_RUN
       - TENANT_ACCESS
       - SECURITY_INTEGRATION
+      - CASE_TEMPLATE
+      - BANNER
       - KILL_SWITCH
       - TENANT
       - VERSIONED_PLUGIN
@@ -26768,6 +30501,10 @@ components:
               type: array
             POLICY:
               type: array
+            CASE:
+              type: array
+            PROMOTION_TARGET:
+              type: array
             APP_EXECUTION:
               type: array
             NAMESPACE_FILE:
@@ -26777,6 +30514,10 @@ components:
             TENANT_ACCESS:
               type: array
             SECURITY_INTEGRATION:
+              type: array
+            CASE_TEMPLATE:
+              type: array
+            BANNER:
               type: array
             KILL_SWITCH:
               type: array
@@ -27086,15 +30827,6 @@ components:
           count:
             type: integer
             format: int32
-    SearchResult_Flow_:
-      type: object
-      properties:
-        model:
-          $ref: "#/components/schemas/Flow"
-        fragments:
-          type: array
-          items:
-            type: string
     SecretAuthProperty:
       required:
       - secretKey
@@ -27296,6 +31028,7 @@ components:
       - SCHEDULER
       - WEBSERVER
       - WORKER
+      - SYSTEM_WORKER
       - CONTROLLER
       - INVALID
     SetupConfiguration:
@@ -27324,6 +31057,36 @@ components:
           type: string
         tenant:
           $ref: "#/components/schemas/Tenant"
+    SlaConfig:
+      type: object
+      properties:
+        acknowledgement:
+          type: string
+          nullable: true
+        resolution:
+          type: string
+          nullable: true
+    SlaState:
+      type: string
+      enum:
+      - NOT_STARTED
+      - RUNNING
+      - OVERDUE
+      - MET
+      - MISSED
+      - VOIDED
+    SlaStatus:
+      type: object
+      properties:
+        state:
+          $ref: "#/components/schemas/SlaState"
+        deadline:
+          type: string
+          format: date-time
+          nullable: true
+        remaining:
+          type: string
+          nullable: true
     SoftDeletable_FlowInterface_:
       type: object
       properties:
@@ -27341,6 +31104,197 @@ components:
           $ref: "#/components/schemas/AttributeReference"
         sortOrder:
           $ref: "#/components/schemas/SortOrder"
+    SourceMatch:
+      type: object
+      properties:
+        line:
+          type: integer
+          format: int32
+        column:
+          type: integer
+          format: int32
+        snippet:
+          type: string
+    SourceSearchReplaceApplyRequest:
+      required:
+      - flows
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        scope:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SourceSearchScope"
+        replacement:
+          type: string
+        flows:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/IdWithNamespace"
+    SourceSearchReplaceApplyResponse:
+      type: object
+      properties:
+        updated:
+          type: array
+          description: "The flows that were rewritten, with their new revision."
+          items:
+            $ref: "#/components/schemas/FlowWithSource"
+        skipped:
+          type: array
+          description: "The flows that were left untouched, each with the reason it was skipped."
+          items:
+            $ref: "#/components/schemas/SourceSearchReplaceApplyResponse.SkippedFlow"
+    SourceSearchReplaceApplyResponse.SkipReason:
+      type: string
+      enum:
+      - NOT_FOUND
+      - READ_ONLY
+      - NO_CHANGE
+      - NO_MATCH
+      - INVALID_FLOW
+      - UNKNOWN
+    SourceSearchReplaceApplyResponse.SkippedFlow:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        reason:
+          $ref: "#/components/schemas/SourceSearchReplaceApplyResponse.SkipReason"
+        message:
+          type: string
+          description: "The underlying validation error, when the reason is INVALID_FLOW."
+          nullable: true
+      description: "A flow that the replace operation did not modify, and why."
+    SourceSearchReplaceLineRequest:
+      required:
+      - id
+      - namespace
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        replacement:
+          type: string
+        namespace:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        line:
+          minimum: 1
+          type: integer
+          format: int32
+        column:
+          minimum: 0
+          type: integer
+          format: int32
+    SourceSearchReplacePreviewRequest:
+      required:
+      - query
+      - replacement
+      type: object
+      properties:
+        query:
+          minLength: 1
+          type: string
+        caseSensitive:
+          type: boolean
+        wholeWord:
+          type: boolean
+        regex:
+          type: boolean
+        namespace:
+          type: string
+          nullable: true
+        scope:
+          nullable: true
+          allOf:
+          - $ref: "#/components/schemas/SourceSearchScope"
+        replacement:
+          type: string
+    SourceSearchReplacePreviewResponse:
+      type: object
+      properties:
+        totalMatches:
+          type: integer
+          format: int32
+        totalFlows:
+          type: integer
+          format: int32
+        editableFlowCount:
+          type: integer
+          format: int32
+        flows:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchReplacePreviewResponse.FlowMatches"
+    SourceSearchReplacePreviewResponse.FlowMatches:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        editable:
+          type: boolean
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceSearchReplacePreviewResponse.Match"
+    SourceSearchReplacePreviewResponse.Match:
+      type: object
+      properties:
+        line:
+          type: integer
+          format: int32
+        before:
+          type: string
+        after:
+          type: string
+    SourceSearchResult:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        editable:
+          type: boolean
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceMatch"
+    SourceSearchScope:
+      type: string
+      enum:
+      - ALL
+      - TASKS
+      - TRIGGERS
+      - INPUTS
     State:
       required:
       - current
@@ -27411,9 +31365,21 @@ components:
       - SKIPPED
       - BREAKPOINT
       - RESUBMITTED
+    Subjects:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
     SupportDebugInfo:
       required:
       - authType
+      - deploymentTopology
       - deploymentType
       - kestraVersion
       - queueType
@@ -27430,6 +31396,8 @@ components:
           $ref: "#/components/schemas/SupportDebugInfo.AuthType"
         deploymentType:
           $ref: "#/components/schemas/SupportDebugInfo.DeploymentType"
+        deploymentTopology:
+          $ref: "#/components/schemas/SupportDebugInfo.DeploymentTopology"
         queueType:
           type: string
         queueVersion:
@@ -27451,14 +31419,19 @@ components:
       - LDAP
       - BASIC_AUTH
       x-type: String
+    SupportDebugInfo.DeploymentTopology:
+      type: string
+      enum:
+      - STANDALONE
+      - DISTRIBUTED
+      x-type: String
     SupportDebugInfo.DeploymentType:
       type: string
-      description: Deployment type detected from active Micronaut environments.
+      description: "Infrastructure platform: Kubernetes, a Docker container, or a plain JAR."
       enum:
       - KUBERNETES
-      - DOCKER_COMPOSE
       - DOCKER
-      - STANDALONE
+      - JAR
       x-type: String
     Task:
       required:
@@ -27590,6 +31563,10 @@ components:
       - taskId
       type: object
       properties:
+        assets:
+          deprecated: true
+          allOf:
+          - $ref: "#/components/schemas/AssetsInOut"
         id:
           type: string
         executionId:
@@ -27608,10 +31585,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TaskRunAttempt"
-        assets:
+        assetEmits:
+          type: array
           nullable: true
-          allOf:
-          - $ref: "#/components/schemas/AssetsInOut"
+          items:
+            $ref: "#/components/schemas/AssetsInOut"
         state:
           $ref: "#/components/schemas/State"
         iteration:
@@ -28063,6 +32041,7 @@ components:
       - DURATION
       - FILE
       - JSON
+      - ION
       - URI
       - SECRET
       - ARRAY
@@ -28166,6 +32145,8 @@ components:
       - ldapAuthCount
       - oidcCount
       - passwordlessCount
+      - restrictedCount
+      - superAdminCount
       type: object
       properties:
         count:
@@ -28184,6 +32165,12 @@ components:
           type: integer
           format: int64
         passwordlessCount:
+          type: integer
+          format: int64
+        superAdminCount:
+          type: integer
+          format: int64
+        restrictedCount:
           type: integer
           format: int64
     UsernamePasswordCredentials:
