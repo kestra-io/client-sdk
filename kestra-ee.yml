@@ -2,8 +2,8 @@ openapi: 3.0.1
 info:
   title: Kestra EE
   description: |-
-    All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
-    Endpoints designated as Superadmin-only are not tenant-scoped.
+    All API operations, except for Instance-owner-only endpoints, require a tenant identifier in the HTTP path.<br/>
+    Endpoints designated as Instance-owner-only are not tenant-scoped.
   version: 2.0.0-SNAPSHOT
 tags:
 - name: Flows
@@ -142,7 +142,7 @@ paths:
     get:
       tags:
       - Audit Logs
-      summary: "Search for audit logs across all tenants, required to be SuperAdmin"
+      summary: "Search for audit logs across all tenants, required to be an instance owner"
       operationId: searchAuditLogsForAllTenants
       parameters:
       - name: page
@@ -245,7 +245,7 @@ paths:
       tags:
       - Banners
       summary: Create an announcement banner
-      description: Superadmin-only. Creates a global announcement banner visible to all tenants.
+      description: Instance-owner-only. Creates a global announcement banner visible to all tenants.
       operationId: createBanner
       requestBody:
         description: The announcement banner to create
@@ -271,7 +271,7 @@ paths:
       tags:
       - Banners
       summary: Retrieve all announcement banners
-      description: Superadmin-only. Returns all global announcement banners.
+      description: Instance-owner-only. Returns all global announcement banners.
       operationId: searchBanners
       parameters:
       - name: filters
@@ -302,7 +302,7 @@ paths:
       tags:
       - Banners
       summary: Update an announcement banner
-      description: Superadmin-only. Updates a global announcement banner by its ID.
+      description: Instance-owner-only. Updates a global announcement banner by its ID.
       operationId: updateBanner
       parameters:
       - name: id
@@ -334,7 +334,7 @@ paths:
       tags:
       - Banners
       summary: Delete an announcement banner
-      description: Superadmin-only. Deletes a global announcement banner by its ID.
+      description: Instance-owner-only. Deletes a global announcement banner by its ID.
       operationId: deleteBanner
       parameters:
       - name: id
@@ -433,7 +433,7 @@ paths:
       - Cluster
       - Maintenance
       summary: Enter cluster maintenance mode
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
       operationId: enterMaintenance
       responses:
         "200":
@@ -453,7 +453,7 @@ paths:
       - Cluster
       - Maintenance
       summary: Exit cluster maintenance mode
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
       operationId: exitMaintenance
       responses:
         "200":
@@ -862,7 +862,7 @@ paths:
       tags:
       - Services
       summary: List all active services
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
       operationId: getActiveServices
       responses:
         "200":
@@ -881,7 +881,7 @@ paths:
       tags:
       - Services
       summary: "Search for a service (e.g. Worker, Executor, etc)"
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
       operationId: searchServices
       parameters:
       - name: page
@@ -936,7 +936,7 @@ paths:
       tags:
       - Services
       summary: Retrieve details of a specific service
-      description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+      description: Requires a role with the INFRASTRUCTURE permission (Instance-owner-only).
       operationId: getService
       parameters:
       - name: id
@@ -961,7 +961,7 @@ paths:
       tags:
       - Plugins
       summary: List installed plugin artifacts
-      description: Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: listVersionedPlugin
       parameters:
       - name: page
@@ -1016,7 +1016,7 @@ paths:
       tags:
       - Plugins
       summary: List available plugin artifacts
-      description: Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPlugins
       responses:
         "200":
@@ -1035,7 +1035,7 @@ paths:
       tags:
       - Plugins
       summary: List available plugin artifacts for Kestra Secret Manager
-      description: Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForSecretManager
       responses:
         "200":
@@ -1054,7 +1054,7 @@ paths:
       tags:
       - Plugins
       summary: List available plugin artifacts for Kestra Internal Storage
-      description: Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForStorage
       responses:
         "200":
@@ -1073,7 +1073,7 @@ paths:
       tags:
       - Plugins
       summary: Install specified plugin artifacts
-      description: Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: installVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1099,7 +1099,7 @@ paths:
       tags:
       - Plugins
       summary: Resolve versions for specified plugin artifacts
-      description: Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: resolveVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1125,7 +1125,7 @@ paths:
       tags:
       - Plugins
       summary: Uninstall plugin artifacts
-      description: Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: uninstallVersionedPlugins
       requestBody:
         description: List of plugins
@@ -1151,7 +1151,7 @@ paths:
       tags:
       - Plugins
       summary: Upload a plugin artifact JAR file
-      description: Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
       operationId: uploadVersionedPlugins
       requestBody:
         content:
@@ -1189,7 +1189,7 @@ paths:
       tags:
       - Plugins
       summary: Retrieve details of a plugin artifact
-      description: Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
       operationId: getVersionedPluginDetails
       parameters:
       - name: groupId
@@ -1219,7 +1219,7 @@ paths:
       tags:
       - Plugins
       summary: Get a plugin artifact icon as a raw SVG
-      description: "Superadmin-only. Serves the plugin artifact icon as a standalone, browser-cacheable `image/svg+xml` resource so icons are no longer inlined (base64) in the artifact listings. Installed artifacts are served from the local plugin; other artifacts have their icon proxied lazily from the Kestra API. Requires INFRASTRUCTURE permission."
+      description: "Instance-owner-only. Serves the plugin artifact icon as a standalone, browser-cacheable `image/svg+xml` resource so icons are no longer inlined (base64) in the artifact listings. Installed artifacts are served from the local plugin; other artifacts have their icon proxied lazily from the Kestra API. Requires INFRASTRUCTURE permission."
       operationId: getVersionedPluginIcon
       parameters:
       - name: groupId
@@ -1257,14 +1257,14 @@ paths:
       tags:
       - Plugins
       summary: Fetch release notes content for a plugin version
-      description: Superadmin-only. Fetches and returns the Markdown release notes for a given plugin artifact version.
+      description: Instance-owner-only. Fetches and returns the Markdown release notes for a given plugin artifact version.
       operationId: getPluginReleaseNotesContent
       parameters:
       - name: groupId
         in: path
         required: true
         schema:
-          pattern: "^[a-z0-9][a-z0-9\\-]*$"
+          pattern: "^[a-z0-9][a-z0-9.\\-]*$"
           type: string
       - name: artifactId
         in: path
@@ -1296,7 +1296,7 @@ paths:
       tags:
       - Plugins
       summary: Retrieve details of a specific plugin artifact version
-      description: Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
+      description: Instance-owner-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
       operationId: getVersionedPluginDetailsFromVersion
       parameters:
       - name: groupId
@@ -1331,7 +1331,7 @@ paths:
       tags:
       - Worker Groups
       summary: List all worker groups
-      description: SuperAdmin only. Lists all worker groups with their configuration and token summaries.
+      description: Instance owner only. Lists all worker groups with their configuration and token summaries.
       operationId: list
       parameters:
       - name: filters
@@ -1359,7 +1359,7 @@ paths:
       tags:
       - Worker Groups
       summary: Create a worker group
-      description: SuperAdmin only. Creates a new worker group with routing configuration.
+      description: Instance owner only. Creates a new worker group with routing configuration.
       operationId: create
       requestBody:
         content:
@@ -1384,7 +1384,7 @@ paths:
       tags:
       - Worker Groups
       summary: Get worker group detail
-      description: SuperAdmin only. Retrieves details of a specific worker group including token summaries.
+      description: Instance owner only. Retrieves details of a specific worker group including token summaries.
       operationId: get
       parameters:
       - name: id
@@ -1409,7 +1409,7 @@ paths:
       tags:
       - Worker Groups
       summary: Update a worker group
-      description: "SuperAdmin only. Replaces the worker group's full desired state (name, description, subscriptions) in a single transactional save. Subscriptions absent from the submitted list are dropped; the underlying WorkerQueue is preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for one-off edits. When the Worker Queues feature is disabled, subscriptions are immutable: the stored set is preserved and only the name and description are updated."
+      description: "Instance owner only. Replaces the worker group's full desired state (name, description, subscriptions) in a single transactional save. Subscriptions absent from the submitted list are dropped; the underlying WorkerQueue is preserved. Granular POST/PATCH/DELETE /subscriptions endpoints remain for one-off edits. When the Worker Queues feature is disabled, subscriptions are immutable: the stored set is preserved and only the name and description are updated."
       operationId: update
       parameters:
       - name: id
@@ -1440,7 +1440,7 @@ paths:
       tags:
       - Worker Groups
       summary: Delete a worker group
-      description: SuperAdmin only.
+      description: Instance owner only.
       operationId: delete
       parameters:
       - name: id
@@ -1475,7 +1475,7 @@ paths:
       tags:
       - Worker Groups
       summary: Live capacity snapshot for a worker group
-      description: "SuperAdmin only. Returns the live allocated and used slot counts per subscription, aggregated across all running workers in the group. Backed by service-liveness metrics emitted by the controller."
+      description: "Instance owner only. Returns the live allocated and used slot counts per subscription, aggregated across all running workers in the group. Backed by service-liveness metrics emitted by the controller."
       operationId: getCapacity
       parameters:
       - name: id
@@ -1501,7 +1501,7 @@ paths:
       tags:
       - Worker Groups
       summary: Add a Worker Queue subscription to a worker group
-      description: SuperAdmin only. Adds a subscription edge from the worker group to an existing WorkerQueue identified by its id (or the reserved "default" sentinel for the global default queue). Returns the updated worker group.
+      description: Instance owner only. Adds a subscription edge from the worker group to an existing WorkerQueue identified by its id (or the reserved "default" sentinel for the global default queue). Returns the updated worker group.
       operationId: addSubscription
       parameters:
       - name: id
@@ -1533,7 +1533,7 @@ paths:
       tags:
       - Worker Groups
       summary: Remove a subscription by WorkerQueue id
-      description: SuperAdmin only. Drops the subscription edge from this worker group to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains available for other worker groups and can be re-subscribed later.
+      description: Instance owner only. Drops the subscription edge from this worker group to the given WorkerQueue. The WorkerQueue itself is not deleted — it remains available for other worker groups and can be re-subscribed later.
       operationId: removeSubscription
       parameters:
       - name: id
@@ -1564,7 +1564,7 @@ paths:
       tags:
       - Worker Groups
       summary: Update a subscription's reserved capacity
-      description: "SuperAdmin only. Updates the {@code reservedPercent} commitment on an existing subscription. Tags are immutable on a subscription (they belong to the WorkerQueue itself); only the worker-group-side reservation can be edited via this endpoint."
+      description: "Instance owner only. Updates the {@code reservedPercent} commitment on an existing subscription. Tags are immutable on a subscription (they belong to the WorkerQueue itself); only the worker-group-side reservation can be edited via this endpoint."
       operationId: updateSubscriptionReservation
       parameters:
       - name: id
@@ -1602,7 +1602,7 @@ paths:
       tags:
       - Worker Groups
       summary: Generate a registration token
-      description: SuperAdmin only. Generates a new registration token for the worker group. The plaintext token is returned only once.
+      description: Instance owner only. Generates a new registration token for the worker group. The plaintext token is returned only once.
       operationId: generateToken
       parameters:
       - name: id
@@ -1634,7 +1634,7 @@ paths:
       tags:
       - Worker Groups
       summary: Delete a registration token
-      description: SuperAdmin only. Permanently deletes a token from the worker group.
+      description: Instance owner only. Permanently deletes a token from the worker group.
       operationId: deleteToken
       parameters:
       - name: id
@@ -1666,7 +1666,7 @@ paths:
       tags:
       - Worker Groups
       summary: Revoke a registration token
-      description: "SuperAdmin only. Revokes a token, preventing further authentication."
+      description: "Instance owner only. Revokes a token, preventing further authentication."
       operationId: revokeToken
       parameters:
       - name: id
@@ -1698,7 +1698,7 @@ paths:
       tags:
       - Worker Groups
       summary: List running workers for a worker group
-      description: "SuperAdmin only. Lists all running workers registered to this worker group, with their metrics."
+      description: "Instance owner only. Lists all running workers registered to this worker group, with their metrics."
       operationId: listRunningWorkers
       parameters:
       - name: id
@@ -1724,7 +1724,7 @@ paths:
       tags:
       - WorkerQueues
       summary: List all Worker Queues
-      description: "SuperAdmin only. Lists all Worker Queues with their tag set, tenant scope, and active worker count."
+      description: "Instance owner only. Lists all Worker Queues with their tag set, tenant scope, and active worker count."
       operationId: list_1
       responses:
         "200":
@@ -1742,7 +1742,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Create a Worker Queue
-      description: SuperAdmin only. Creates a new Worker Queue with the given tag set and tenant scope.
+      description: Instance owner only. Creates a new Worker Queue with the given tag set and tenant scope.
       operationId: create_1
       requestBody:
         description: The Worker Queue definition
@@ -1768,7 +1768,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Get Worker Queue detail
-      description: SuperAdmin only. Retrieves details of a specific Worker Queue including its active workers.
+      description: Instance owner only. Retrieves details of a specific Worker Queue including its active workers.
       operationId: get_1
       parameters:
       - name: id
@@ -1792,7 +1792,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Update a Worker Queue
-      description: "SuperAdmin only. Updates a Worker Queue's tags, tenant scope, name, and description. The id is immutable."
+      description: "Instance owner only. Updates a Worker Queue's tags, tenant scope, name, and description. The id is immutable."
       operationId: update_1
       parameters:
       - name: id
@@ -1823,7 +1823,7 @@ paths:
       tags:
       - WorkerQueues
       summary: Delete a Worker Queue
-      description: SuperAdmin only.
+      description: Instance owner only.
       operationId: delete_1
       parameters:
       - name: id
@@ -1848,7 +1848,7 @@ paths:
       tags:
       - WorkerQueues
       summary: List worker groups subscribing to a Worker Queue
-      description: SuperAdmin only. Returns the worker groups that subscribe to this Worker Queue. A non-empty list means the queue cannot be deleted until the subscription(s) are removed.
+      description: Instance owner only. Returns the worker groups that subscribe to this Worker Queue. A non-empty list means the queue cannot be deleted until the subscription(s) are removed.
       operationId: subscribers
       parameters:
       - name: id
@@ -1875,7 +1875,7 @@ paths:
       tags:
       - Worker Auth
       summary: List all registered workers
-      description: SuperAdmin only. Lists all workers that have registered with the controller.
+      description: Instance owner only. Lists all workers that have registered with the controller.
       operationId: list_2
       responses:
         "200":
@@ -1894,7 +1894,7 @@ paths:
       tags:
       - Worker Auth
       summary: Get worker credentials ID
-      description: SuperAdmin only. Retrieves details of a specific registered worker.
+      description: Instance owner only. Retrieves details of a specific registered worker.
       operationId: get_2
       parameters:
       - name: id
@@ -1919,7 +1919,7 @@ paths:
       tags:
       - Worker Auth
       summary: Revoke worker credentials
-      description: "SuperAdmin only. Revokes a worker's credentials, forcing it to re-register."
+      description: "Instance owner only. Revokes a worker's credentials, forcing it to re-register."
       operationId: revoke
       parameters:
       - name: id
@@ -1991,7 +1991,7 @@ paths:
       tags:
       - KillSwitches
       summary: Create a kill switch
-      description: Superadmin-only. Creates a kill switch.
+      description: Instance-owner-only. Creates a kill switch.
       operationId: createKillSwitch
       requestBody:
         description: The kill switch to create
@@ -2017,7 +2017,7 @@ paths:
       tags:
       - KillSwitches
       summary: Retrieve all kill switches
-      description: Superadmin-only. Returns all kill switches.
+      description: Instance-owner-only. Returns all kill switches.
       operationId: searchKillSwitches
       responses:
         "200":
@@ -2038,7 +2038,7 @@ paths:
       tags:
       - KillSwitches
       summary: Update a kill switch
-      description: Superadmin-only. Updates a kill switch by its ID.
+      description: Instance-owner-only. Updates a kill switch by its ID.
       operationId: updateKillSwitch
       parameters:
       - name: id
@@ -2070,7 +2070,7 @@ paths:
       tags:
       - KillSwitches
       summary: Delete a kill switch
-      description: Superadmin-only. Deletes a kill switch by its ID.
+      description: Instance-owner-only. Deletes a kill switch by its ID.
       operationId: deleteKillSwitch
       parameters:
       - name: id
@@ -2111,7 +2111,7 @@ paths:
       tags:
       - Misc
       summary: Force the refresh of the license online
-      description: Only for Super Admins.
+      description: Only for Instance Owners.
       operationId: refreshLicense
       responses:
         "200":
@@ -2589,6 +2589,7 @@ paths:
       tags:
       - Plugins
       summary: Get plugins icons
+      description: "Answers the icon metadata of every registered class. The `icon` field is always null here: icon bytes are served per class, and cached by the browser, by `GET /plugins/icons/{cls}/icon.svg`. `hash` is non-null exactly when the class has an icon, so callers can still tell which classes to render an icon for."
       operationId: getPluginIcons
       responses:
         "200":
@@ -2606,7 +2607,8 @@ paths:
     get:
       tags:
       - Plugins
-      summary: Get plugins icons
+      summary: Get plugin group and subgroup icons
+      description: "Answers the icon metadata of every plugin group and subgroup. As on `GET /plugins/icons` the `icon` field is always null; the bytes come from `GET /plugins/icons/{cls}/icon.svg`."
       operationId: getPluginGroupIcons
       responses:
         "200":
@@ -2979,7 +2981,7 @@ paths:
     get:
       tags:
       - ServiceAccount
-      summary: 'List service accounts. Superadmin-only. '
+      summary: 'List service accounts. Instance-owner-only. '
       operationId: listServiceAccounts
       parameters:
       - name: page
@@ -3035,7 +3037,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Create a service account
-      description: Superadmin-only. CReate service account with access to multiple tenants.
+      description: Instance-owner-only. CReate service account with access to multiple tenants.
       operationId: createServiceAccount
       requestBody:
         description: The service account
@@ -3061,7 +3063,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Get a service account
-      description: Superadmin-only. Get user account details.
+      description: Instance-owner-only. Get user account details.
       operationId: getServiceAccount
       parameters:
       - name: id
@@ -3088,7 +3090,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Delete a service account
-      description: Superadmin-only. Delete a service account including all its access.
+      description: Instance-owner-only. Delete a service account including all its access.
       operationId: deleteServiceAccount
       parameters:
       - name: id
@@ -3111,7 +3113,7 @@ paths:
       tags:
       - ServiceAccount
       summary: Update service account details
-      description: Superadmin-only. Updates the details of a service account.
+      description: Instance-owner-only. Updates the details of a service account.
       operationId: patchServiceAccountDetails
       parameters:
       - name: id
@@ -3226,13 +3228,43 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/service-accounts/{id}/instanceowner:
+    patch:
+      tags:
+      - ServiceAccount
+      summary: Update service account instance-owner privileges
+      description: Instance-owner-only. Updates whether a service account is an instance owner.
+      operationId: patchServiceAccountInstanceOwner
+      parameters:
+      - name: id
+        in: path
+        description: The user id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPatchInstanceOwnerRequest"
+        required: true
+      responses:
+        "200":
+          description: Service account successfully updated
+        "404":
+          description: Service account not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/service-accounts/{id}/superadmin:
     patch:
       tags:
       - ServiceAccount
-      summary: Update service account superadmin privileges
-      description: Superadmin-only. Updates whether a service account is a superadmin.
-      operationId: patchServiceAccountSuperAdmin
+      summary: Update service account instance-owner privileges (deprecated)
+      description: "Deprecated: use PATCH service-accounts/{id}/instanceowner instead."
+      operationId: patchServiceAccountInstanceOwnerLegacy
       parameters:
       - name: id
         in: path
@@ -3251,9 +3283,11 @@ paths:
           description: Service account successfully updated
         "404":
           description: Service account not found
+      deprecated: true
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-deprecated-message: "use `PATCH service-accounts/{id}/instanceowner` instead. Kept for backward-compatibility."
       x-kestra:
         edition: ee
   /api/v1/setup:
@@ -3277,7 +3311,7 @@ paths:
     post:
       tags:
       - Misc
-      summary: Create the first Superadmin user
+      summary: Create the first instance owner
       description: Only used during initial instance setup.
       operationId: setupKestra
       requestBody:
@@ -3303,7 +3337,7 @@ paths:
       tags:
       - Tenants
       summary: Create a tenant
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: create_2
       requestBody:
         content:
@@ -3328,7 +3362,7 @@ paths:
       tags:
       - Tenants
       summary: Search for tenants
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: find
       parameters:
       - name: page
@@ -3383,7 +3417,7 @@ paths:
       tags:
       - Tenants
       summary: Retrieve a tenant
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: get_3
       parameters:
       - name: id
@@ -3408,7 +3442,7 @@ paths:
       tags:
       - Tenants
       summary: Update a tenant
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: update_2
       parameters:
       - name: id
@@ -3439,7 +3473,7 @@ paths:
       tags:
       - Tenants
       summary: Delete a tenant and all its resources
-      description: "Superadmin-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc."
+      description: "Instance-owner-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc."
       operationId: delete_2
       parameters:
       - name: id
@@ -3486,7 +3520,7 @@ paths:
       tags:
       - Tenants
       summary: Set the apps catalog config for the specified tenant.
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: setAppsCatalogConfig
       parameters:
       - name: id
@@ -3518,7 +3552,7 @@ paths:
       tags:
       - Tenants
       summary: Set the apps catalog logo for the specified tenant.
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: setAppsCatalogLogo
       parameters:
       - name: id
@@ -3558,7 +3592,7 @@ paths:
       tags:
       - Tenants
       summary: Remove the apps catalog logo for the specified tenant.
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: deleteAppsCatalogLogo
       parameters:
       - name: id
@@ -3580,7 +3614,7 @@ paths:
       tags:
       - Tenants
       summary: Set a tenant logo
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: setLogo
       parameters:
       - name: id
@@ -3729,7 +3763,7 @@ paths:
       tags:
       - Users
       summary: Create a new user account
-      description: Superadmin-only. Create a new user account with an optional password based authentication method.
+      description: Instance-owner-only. Create a new user account with an optional password based authentication method.
       operationId: createUser
       requestBody:
         content:
@@ -3756,7 +3790,7 @@ paths:
       tags:
       - Users
       summary: Get a user
-      description: Superadmin-only. Get user account details.
+      description: Instance-owner-only. Get user account details.
       operationId: getUser
       parameters:
       - name: id
@@ -3783,7 +3817,7 @@ paths:
       tags:
       - Users
       summary: Update a user account
-      description: Superadmin-only. Update an existing user account with an optional password based authentication method.
+      description: Instance-owner-only. Update an existing user account with an optional password based authentication method.
       operationId: updateUser
       parameters:
       - name: id
@@ -3816,7 +3850,7 @@ paths:
       tags:
       - Users
       summary: Delete a user
-      description: Superadmin-only. Delete a user including all its access.
+      description: Instance-owner-only. Delete a user including all its access.
       operationId: deleteUser
       parameters:
       - name: id
@@ -3839,7 +3873,7 @@ paths:
       tags:
       - Users
       summary: Update user details
-      description: Superadmin-only. Updates the the details of a user.
+      description: Instance-owner-only. Updates the the details of a user.
       operationId: patchUser
       parameters:
       - name: id
@@ -3872,7 +3906,7 @@ paths:
       tags:
       - Users
       summary: List API tokens for a specific user
-      description: Superadmin-only. Get all API token existing for a user.
+      description: Instance-owner-only. Get all API token existing for a user.
       operationId: listApiTokensForUser
       parameters:
       - name: id
@@ -3899,7 +3933,7 @@ paths:
       tags:
       - Users
       summary: Create new API Token for a specific user
-      description: Superadmin-only. Create a new API token for a user.
+      description: Instance-owner-only. Create a new API token for a user.
       operationId: createApiTokensForUser
       parameters:
       - name: id
@@ -3934,7 +3968,7 @@ paths:
       tags:
       - Users
       summary: Delete an API Token for specific user and token id
-      description: Superadmin-only. Delete an API token for a user.
+      description: Instance-owner-only. Delete an API token for a user.
       operationId: deleteApiTokenForUser
       parameters:
       - name: id
@@ -3964,7 +3998,7 @@ paths:
       tags:
       - Users
       summary: Delete user auth method
-      description: Superadmin-only. Deletes a specific authentication method from a user.
+      description: Instance-owner-only. Deletes a specific authentication method from a user.
       operationId: deleteUserAuthMethod
       parameters:
       - name: id
@@ -3998,7 +4032,7 @@ paths:
       tags:
       - Users
       summary: Impersonate a user
-      description: Superadmin-only. Allows an admin to impersonate another user.
+      description: Instance-owner-only. Allows an admin to impersonate another user.
       operationId: impersonate
       parameters:
       - name: id
@@ -4021,12 +4055,42 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/users/{id}/instanceowner:
+    patch:
+      tags:
+      - Users
+      summary: Update user instance-owner privileges
+      description: Instance-owner-only. Updates whether a user is an instance owner.
+      operationId: patchUserInstanceOwner
+      parameters:
+      - name: id
+        in: path
+        description: The user id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPatchInstanceOwnerRequest"
+        required: true
+      responses:
+        "200":
+          description: User successfully updated
+        "404":
+          description: User not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}/password:
     patch:
       tags:
       - Users
       summary: Update user password
-      description: Superadmin-only. Updates the password of a user.
+      description: Instance-owner-only. Updates the password of a user.
       operationId: patchUserPassword
       parameters:
       - name: id
@@ -4083,7 +4147,7 @@ paths:
       tags:
       - Users
       summary: Update user demo
-      description: Superadmin-only. Updates whether a user is for demo.
+      description: Instance-owner-only. Updates whether a user is for demo.
       operationId: patchUserDemo
       parameters:
       - name: id
@@ -4112,9 +4176,9 @@ paths:
     patch:
       tags:
       - Users
-      summary: Update user superadmin privileges
-      description: Superadmin-only. Updates whether a user is a superadmin.
-      operationId: patchUserSuperAdmin
+      summary: Update user instance-owner privileges (deprecated)
+      description: "Deprecated: use PATCH {id}/instanceowner instead."
+      operationId: patchUserInstanceOwnerLegacy
       parameters:
       - name: id
         in: path
@@ -4133,9 +4197,11 @@ paths:
           description: User successfully updated
         "404":
           description: User not found
+      deprecated: true
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-deprecated-message: "use `PATCH {id}/instanceowner` instead. Kept for backward-compatibility."
       x-kestra:
         edition: ee
   /api/v1/validate-password:
@@ -5545,6 +5611,7 @@ paths:
       tags:
       - Assets
       summary: Create a new asset
+      description: "Asset IDs are unique per tenant: neither the namespace nor the type is part of the identity. Creating an asset with an ID that is already taken is rejected with HTTP 409."
       operationId: createAsset
       parameters:
       - name: tenant
@@ -5560,6 +5627,8 @@ paths:
               type: string
         required: true
       responses:
+        "409":
+          description: An asset with the same ID already exists
         "423":
           description: Asset locked
         "200":
@@ -5939,6 +6008,45 @@ paths:
       responses:
         "200":
           description: getAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAsset"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+    put:
+      tags:
+      - Assets
+      summary: Update an existing asset
+      description: The asset must already exist. The namespace of an existing asset cannot be changed; its type can.
+      operationId: updateAsset
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the asset
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The asset
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "423":
+          description: Asset locked
+        "200":
+          description: updateAsset 200 response
           content:
             application/json:
               schema:
@@ -7114,6 +7222,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
+  /api/v1/{tenant}/blueprints/flows/validate:
+    post:
+      tags:
+      - Blueprints
+      summary: Validate a Flow Blueprint
+      description: Validates a flow blueprint source without persisting it. Returns constraint violations if any. Requires BLUEPRINT permission with the VIEW action.
+      operationId: validateFlowBlueprint
+      parameters:
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The flow blueprint source code
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: validateFlowBlueprint 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateConstraintViolation"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8477,14 +8617,14 @@ paths:
                 body:
                   type: string
                   nullable: true
-                filesPublisher:
+                files:
                   type: array
                   nullable: true
                   items:
                     type: string
                     format: binary
             encoding:
-              filesPublisher:
+              files:
                 contentType: application/octet-stream
                 explode: false
               body:
@@ -15387,7 +15527,7 @@ paths:
         "204":
           description: Tenant access granted to the user
         "403":
-          description: Insufficient privileges to invite a Superadmin user
+          description: Insufficient privileges to invite an instance owner
         "409":
           description: "Invitation already exists for the given email, or user already had access to the tenant"
       security:
@@ -18259,11 +18399,40 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
-  /api/v1/{tenant}/outputs/{executionId}:
+  /api/v1/{tenant}/outputs/executions/{executionId}:
     get:
       tags:
       - Outputs
-      summary: Get task run outputs
+      summary: Get the flow-level outputs of an execution
+      operationId: getExecutionOutputs
+      parameters:
+      - name: executionId
+        in: path
+        description: The execution id
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: The execution outputs as a map of output names to their values
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/{tenant}/outputs/tasks/{executionId}:
+    get:
+      tags:
+      - Outputs
+      summary: List the task runs of an execution having outputs
       operationId: getTaskOutputsInformation
       parameters:
       - name: executionId
@@ -18289,7 +18458,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-  /api/v1/{tenant}/outputs/{executionId}/{taskRunId}:
+  /api/v1/{tenant}/outputs/tasks/{executionId}/{taskRunId}:
     get:
       tags:
       - Outputs
@@ -19424,7 +19593,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: List all security integrations
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: listSecurityIntegrations
       parameters:
       - name: tenant
@@ -19449,7 +19618,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Create a security integration
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: createSecurityIntegration
       parameters:
       - name: tenant
@@ -19481,7 +19650,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Retrieve security integrations filtered by Filters
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: searchSecurityIntegration
       parameters:
       - name: size
@@ -19541,7 +19710,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Retrieve a security integration
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: getSecurityIntegration
       parameters:
       - name: id
@@ -19571,7 +19740,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Delete a security integration
-      description: Superadmin-only.
+      description: Instance-owner-only.
       operationId: deleteSecurityIntegration
       parameters:
       - name: id
@@ -19602,7 +19771,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Disable a security integration
-      description: Superadmin-only. Disables the specified integration.
+      description: Instance-owner-only. Disables the specified integration.
       operationId: disableSecurityIntegration
       parameters:
       - name: id
@@ -19633,7 +19802,7 @@ paths:
       tags:
       - SecurityIntegrations
       summary: Enable a security integration
-      description: Superadmin-only. Enables the specified integration.
+      description: Instance-owner-only. Enables the specified integration.
       operationId: enableSecurityIntegration
       parameters:
       - name: id
@@ -20026,7 +20195,7 @@ paths:
               properties:
                 payload:
                   type: string
-                filesPublisher:
+                files:
                   type: array
                   nullable: true
                   items:
@@ -20036,7 +20205,7 @@ paths:
               payload:
                 contentType: application/octet-stream
                 explode: false
-              filesPublisher:
+              files:
                 contentType: application/octet-stream
                 explode: false
         required: true
@@ -21375,7 +21544,7 @@ paths:
           - GROUP
           - EXTERNAL_ID
           - EXPIRED_AT
-          - SUPER_ADMIN
+          - INSTANCE_OWNER
           - SOURCE
           - LOCKED
           - LAST_TRIGGERED_DATE
@@ -22124,7 +22293,7 @@ components:
         email:
           pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           type: string
-        superAdmin:
+        instanceOwner:
           type: boolean
         id:
           type: string
@@ -22626,10 +22795,6 @@ components:
           type: object
           additionalProperties:
             type: object
-        outputs:
-          type: object
-          additionalProperties:
-            type: object
         labels:
           type: array
           items:
@@ -22856,7 +23021,7 @@ components:
           description: Timestamp when the server was last updated.
           format: date-time
           readOnly: true
-      description: "Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer with a `tenantId` field so super-admins can identify which tenant owns each server."
+      description: "Instance-scoped API DTO for MCP servers, extending io.kestra.webserver.models.api.ApiMcpServer with a `tenantId` field so instance owners can identify which tenant owns each server."
     ApiLightExecution:
       required:
       - flowId
@@ -22880,10 +23045,6 @@ components:
           type: integer
           format: int32
         inputs:
-          type: object
-          additionalProperties:
-            type: object
-        outputs:
           type: object
           additionalProperties:
             type: object
@@ -22983,13 +23144,27 @@ components:
         createdAt:
           type: string
           format: date-time
-    ApiPatchSuperAdminRequest:
+    ApiPatchInstanceOwnerRequest:
       required:
-      - superAdmin
+      - instanceOwner
       type: object
       properties:
+        instanceOwner:
+          type: boolean
+    ApiPatchSuperAdminRequest:
+      type: object
+      properties:
+        instanceOwner:
+          type: boolean
         superAdmin:
           type: boolean
+      description: |-
+        Request body for the deprecated `/superadmin` endpoints, kept for backward-compatibility. It accepts both the current `instanceOwner` field and the legacy `superAdmin` field.
+
+
+        The legacy field cannot be expressed as a `@JsonAlias` on ApiPatchInstanceOwnerRequest
+        because Micronaut's `BeanIntrospectionModule` does not honor Jackson aliases when binding an
+        HTTP request body, so it must be bound as its own property and merged in #resolveInstanceOwner().
     ApiPolicyEvaluation.Counts:
       type: object
       properties:
@@ -23723,14 +23898,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiAuth"
+      description: "The acting user, when it can still be resolved"
       allOf:
       - $ref: "#/components/schemas/AbstractUser"
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: "#/components/schemas/ApiAuth"
     AppGenerationPrompt:
       type: object
       properties:
@@ -25838,8 +26013,6 @@ components:
             $ref: "#/components/schemas/TaskRun"
         inputs:
           type: object
-        outputs:
-          type: object
         variables:
           type: object
         state:
@@ -26307,7 +26480,10 @@ components:
             items:
               type: string
           concurrency:
-            $ref: "#/components/schemas/Concurrency"
+            title: Concurrency
+            description: Limits the number of concurrent executions of the flow.
+            allOf:
+            - $ref: "#/components/schemas/Concurrency"
           outputs:
             title: Output values available and exposes to other flows.
             type: array
@@ -26784,7 +26960,10 @@ components:
             type: object
             additionalProperties: false
           concurrency:
-            $ref: "#/components/schemas/Concurrency"
+            title: Concurrency
+            description: Limits the number of concurrent executions of the flow.
+            allOf:
+            - $ref: "#/components/schemas/Concurrency"
           outputs:
             title: Output values available and exposes to other flows.
             type: array
@@ -27009,7 +27188,7 @@ components:
       properties:
         createUserIfNotExist:
           type: boolean
-        superAdmin:
+        instanceOwner:
           type: boolean
         roles:
           type: array
@@ -27049,7 +27228,7 @@ components:
         acceptedAt:
           type: string
           format: date-time
-        superAdmin:
+        instanceOwner:
           type: boolean
         link:
           type: string
@@ -27274,7 +27453,7 @@ components:
           type: string
         description:
           type: string
-        superAdmin:
+        instanceOwner:
           type: boolean
         tenants:
           type: array
@@ -27316,7 +27495,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiTenantSummary"
-        superAdmin:
+        instanceOwner:
           type: boolean
       description: A User Service Account.
     IAMServiceAccountController.ApiServiceAccountRequest:
@@ -27333,7 +27512,7 @@ components:
           type: string
         description:
           type: string
-        superAdmin:
+        instanceOwner:
           type: boolean
       description: A User Service Account.
     IAMServiceAccountController.ApiServiceAccountResponse:
@@ -27355,7 +27534,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/IAMServiceAccountController.ApiGroup"
-        superAdmin:
+        instanceOwner:
           type: boolean
       description: A User Service Account.
     IAMTenantAccessController.ApiAuthentication:
@@ -27417,7 +27596,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/IAMTenantAccessController.ApiRoleAssignment"
-        superAdmin:
+        instanceOwner:
           type: boolean
     IAMTenantAccessController.ApiUserPermission:
       type: object
@@ -27477,7 +27656,7 @@ components:
           type: string
         password:
           type: string
-        superAdmin:
+        instanceOwner:
           type: boolean
         restricted:
           type: boolean
@@ -27529,7 +27708,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/IAMUserController.ApiGroup"
-        superAdmin:
+        instanceOwner:
           type: boolean
         restricted:
           type: boolean
@@ -27559,7 +27738,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/IAMUserController.ApiUserAuth"
-        superAdmin:
+        instanceOwner:
           type: boolean
     IAMUserGroupController.ApiUpdateUserGroupsRequest:
       type: object
@@ -27824,7 +28003,7 @@ components:
           type: boolean
         userType:
           $ref: "#/components/schemas/UserType"
-        superAdmin:
+        instanceOwner:
           type: boolean
         link:
           type: string
@@ -28151,7 +28330,7 @@ components:
       properties:
         id:
           type: string
-        superAdmin:
+        instanceOwner:
           type: boolean
         restricted:
           type: boolean
@@ -28165,6 +28344,17 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MeController.ApiTenant"
+        ownedGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/MeController.ApiOwnedGroup"
+    MeController.ApiOwnedGroup:
+      type: object
+      properties:
+        tenantId:
+          type: string
+        id:
+          type: string
     MeController.ApiProfile:
       type: object
       properties:
@@ -28186,11 +28376,16 @@ components:
         logo:
           type: string
     MeController.ApiUpdatePasswordRequest:
+      required:
+      - newPassword
+      - oldPassword
       type: object
       properties:
         oldPassword:
+          minLength: 1
           type: string
         newPassword:
+          minLength: 1
           type: string
     MeController.ApiUserDetailsRequest:
       type: object
@@ -28539,6 +28734,8 @@ components:
           type: object
           additionalProperties:
             type: object
+        workerSecretManagerMode:
+          $ref: "#/components/schemas/SecretConfiguration.WorkerSecretManagerMode"
         outputsInInternalStorage:
           type: boolean
         sdkDefaultAuthentication:
@@ -28651,6 +28848,7 @@ components:
       - CASE_SLA_ACKNOWLEDGEMENT_BREACHED
       - CASE_SLA_RESOLUTION_BREACHED
       - HUMAN_TASK_PENDING
+      - SYSTEM_EXECUTION_FAILED
     OAuth2Config:
       type: object
       properties:
@@ -29616,6 +29814,8 @@ components:
           type: string
         name:
           type: string
+        pluginTitle:
+          type: string
         description:
           type: string
         group:
@@ -30134,7 +30334,7 @@ components:
       - groupList
       - external_id
       - expired_at
-      - super_admin
+      - instance_owner
       - source
       - locked
       - lastTriggeredDate
@@ -30191,7 +30391,7 @@ components:
       - GROUP
       - EXTERNAL_ID
       - EXPIRED_AT
-      - SUPER_ADMIN
+      - INSTANCE_OWNER
       - SOURCE
       - LOCKED
       - LAST_TRIGGERED_DATE
@@ -30580,6 +30780,9 @@ components:
     SDK.Auth:
       type: object
       properties:
+        url:
+          type: string
+          nullable: true
         apiToken:
           type: string
           nullable: true
@@ -30836,6 +31039,12 @@ components:
           type: string
         namespace:
           type: string
+    SecretConfiguration.WorkerSecretManagerMode:
+      type: string
+      enum:
+      - DIRECT
+      - CONTROLLER
+      - CONTROLLER_ONLY
     SecurityIntegration:
       type: object
       properties:
@@ -31667,6 +31876,8 @@ components:
           type: object
           additionalProperties:
             type: object
+        workerSecretManagerMode:
+          $ref: "#/components/schemas/SecretConfiguration.WorkerSecretManagerMode"
         requireExistingNamespace:
           type: boolean
         outputsInInternalStorage:
@@ -32142,11 +32353,11 @@ components:
       - apiKeyCount
       - basicAuthCount
       - count
+      - instanceOwnerCount
       - ldapAuthCount
       - oidcCount
       - passwordlessCount
       - restrictedCount
-      - superAdminCount
       type: object
       properties:
         count:
@@ -32167,7 +32378,7 @@ components:
         passwordlessCount:
           type: integer
           format: int64
-        superAdminCount:
+        instanceOwnerCount:
           type: integer
           format: int64
         restrictedCount:
@@ -32397,6 +32608,9 @@ components:
           type: integer
           format: int32
         max:
+          type: integer
+          format: int32
+        threads:
           type: integer
           format: int32
         endedRate:
