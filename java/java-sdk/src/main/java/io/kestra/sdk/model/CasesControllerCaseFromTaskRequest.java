@@ -60,7 +60,7 @@ public class CasesControllerCaseFromTaskRequest {
   @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @jakarta.annotation.Nonnull  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -90,7 +90,7 @@ public class CasesControllerCaseFromTaskRequest {
   @jakarta.annotation.Nullable  private List<String> assetIds = new ArrayList<>();
 
   public static final String JSON_PROPERTY_LINK_MATCHING_EXECUTIONS = "linkMatchingExecutions";
-  @jakarta.annotation.Nonnull  private Boolean linkMatchingExecutions;
+  @jakarta.annotation.Nullable  private Boolean linkMatchingExecutions;
 
   public static final String JSON_PROPERTY_FLOW_NAMESPACE = "flowNamespace";
   @jakarta.annotation.Nonnull  private String flowNamespace;
@@ -137,7 +137,7 @@ public class CasesControllerCaseFromTaskRequest {
     this.namespace = namespace;
   }
 
-  public CasesControllerCaseFromTaskRequest title(@jakarta.annotation.Nonnull String title) {
+  public CasesControllerCaseFromTaskRequest title(@jakarta.annotation.Nullable String title) {
 
     this.title = title;
     return this;
@@ -147,8 +147,8 @@ public class CasesControllerCaseFromTaskRequest {
    * Get title
    * @return title
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
@@ -156,8 +156,8 @@ public class CasesControllerCaseFromTaskRequest {
 
 
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(@jakarta.annotation.Nonnull String title) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
@@ -401,7 +401,7 @@ public class CasesControllerCaseFromTaskRequest {
     this.assetIds = assetIds;
   }
 
-  public CasesControllerCaseFromTaskRequest linkMatchingExecutions(@jakarta.annotation.Nonnull Boolean linkMatchingExecutions) {
+  public CasesControllerCaseFromTaskRequest linkMatchingExecutions(@jakarta.annotation.Nullable Boolean linkMatchingExecutions) {
 
     this.linkMatchingExecutions = linkMatchingExecutions;
     return this;
@@ -411,8 +411,8 @@ public class CasesControllerCaseFromTaskRequest {
    * Get linkMatchingExecutions
    * @return linkMatchingExecutions
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LINK_MATCHING_EXECUTIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LINK_MATCHING_EXECUTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLinkMatchingExecutions() {
     return linkMatchingExecutions;
@@ -420,8 +420,8 @@ public class CasesControllerCaseFromTaskRequest {
 
 
   @JsonProperty(JSON_PROPERTY_LINK_MATCHING_EXECUTIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLinkMatchingExecutions(@jakarta.annotation.Nonnull Boolean linkMatchingExecutions) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLinkMatchingExecutions(@jakarta.annotation.Nullable Boolean linkMatchingExecutions) {
     this.linkMatchingExecutions = linkMatchingExecutions;
   }
 
