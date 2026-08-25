@@ -595,11 +595,11 @@ public class FlowsApiTest {
     void searchFlowsBySourceCode_byFlowId() throws ApiException {
         FlowWithSource f = createLogFlow();
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, f.getId(), null);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, f.getId(), null, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
-        assertThat(result.getResults()).anyMatch(r -> r.getModel() != null && f.getId().equals(r.getModel().getId()));
+        assertThat(result.getResults()).anyMatch(r -> f.getId().equals(r.getId()));
     }
 
     @Test
@@ -607,8 +607,8 @@ public class FlowsApiTest {
         String ns = randomId();
         FlowWithSource f = createFlow(logFlowYaml(randomId(), ns));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, f.getId(), ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, f.getId(), ns, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
     }
@@ -621,12 +621,12 @@ public class FlowsApiTest {
         createFlow(logFlowYamlWithDescription(id1, ns, "Hello World unique marker"));
         createFlow(logFlowYamlWithDescription(id2, ns, "Goodbye World different text"));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, "Hello World unique marker", ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, "Hello World unique marker", ns, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
         assertThat(result.getResults()).allSatisfy(r ->
-                assertThat(r.getModel()).isNotNull());
+                assertThat(r.getId()).isNotNull());
     }
 
     @Test
@@ -637,12 +637,12 @@ public class FlowsApiTest {
         createFlow(logFlowYaml(id1, ns));
         createFlow(logFlowYaml(id2, ns));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, List.of("id:asc"), null, ns);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, List.of("id:asc"), null, ns, null, null, null, null);
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> ids = result.getResults().stream()
-                .map(r -> r.getModel().getId())
+                .map(SourceSearchResult::getId)
                 .toList();
         int idx1 = ids.indexOf(id1);
         int idx2 = ids.indexOf(id2);
@@ -656,8 +656,8 @@ public class FlowsApiTest {
         String uniqueDesc = "unique_" + randomId();
         createFlow(logFlowYamlWithDescription(randomId(), ns, uniqueDesc));
 
-        PagedResultsSearchResultFlow result = api().searchFlowsBySourceCode(
-                TENANT, 1, 10, null, uniqueDesc, null);
+        PagedResultsSourceSearchResult result = api().searchFlowsBySourceCode(
+                TENANT, 1, 10, null, uniqueDesc, null, null, null, null, null);
 
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
     }
