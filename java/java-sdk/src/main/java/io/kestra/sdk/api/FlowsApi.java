@@ -21,8 +21,9 @@ import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.IdWithNamespace;
 import io.kestra.sdk.model.PagedResultsConcurrencyLimit;
 import io.kestra.sdk.model.PagedResultsFlow;
-import io.kestra.sdk.model.PagedResultsSearchResultFlow;
+import io.kestra.sdk.model.PagedResultsSourceSearchResult;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.SourceSearchScope;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
@@ -241,16 +242,21 @@ public class FlowsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public PagedResultsSearchResultFlow searchFlowsBySourceCode(
+    public PagedResultsSourceSearchResult searchFlowsBySourceCode(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
             @jakarta.annotation.Nullable List<String> sort,
             @jakarta.annotation.Nullable String q,
-            @jakarta.annotation.Nullable String namespace) throws ApiException {
+            @jakarta.annotation.Nullable String namespace,
+            @jakarta.annotation.Nullable Boolean caseSensitive,
+            @jakarta.annotation.Nullable Boolean wholeWord,
+            @jakarta.annotation.Nullable Boolean regex,
+            @jakarta.annotation.Nullable SourceSearchScope scope) throws ApiException {
         return get(
                 tenantPath(tenant, "flows", "source"),
-                queryParams("page", page, "size", size, "q", q, "namespace", namespace),
+                queryParams("page", page, "size", size, "q", q, "namespace", namespace,
+                        "caseSensitive", caseSensitive, "wholeWord", wholeWord, "regex", regex, "scope", scope),
                 csvParams("sort", sort),
                 new TypeReference<>() {});
     }
