@@ -17,8 +17,9 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**List&lt;Label&gt;**](Label.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
+|**draft** | **Boolean** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. |  |
 
 
 

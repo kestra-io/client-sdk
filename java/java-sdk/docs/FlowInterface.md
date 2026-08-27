@@ -18,10 +18,11 @@
 |**inputs** | [**List&lt;InputObject&gt;**](InputObject.md) |  |  [optional] |
 |**outputs** | [**List&lt;Output&gt;**](Output.md) |  |  [optional] |
 |**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
 |**concurrency** | [**Concurrency**](Concurrency.md) |  |  [optional] |
 |**sla** | [**List&lt;SLA&gt;**](SLA.md) |  |  [optional] |
 |**source** | **String** |  |  [optional] |
+|**draft** | **Boolean** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. |  [optional] |
 
 
 

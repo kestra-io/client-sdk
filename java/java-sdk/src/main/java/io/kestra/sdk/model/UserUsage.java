@@ -53,13 +53,13 @@ public class UserUsage {
   @jakarta.annotation.Nonnull  private Long passwordlessCount;
 
   public static final String JSON_PROPERTY_INSTANCE_OWNER_COUNT = "instanceOwnerCount";
-  @jakarta.annotation.Nullable  private Long instanceOwnerCount;
+  @jakarta.annotation.Nonnull  private Long instanceOwnerCount;
 
   public static final String JSON_PROPERTY_LDAP_AUTH_COUNT = "ldapAuthCount";
-  @jakarta.annotation.Nullable  private Long ldapAuthCount;
+  @jakarta.annotation.Nonnull  private Long ldapAuthCount;
 
   public static final String JSON_PROPERTY_RESTRICTED_COUNT = "restrictedCount";
-  @jakarta.annotation.Nullable  private Long restrictedCount;
+  @jakarta.annotation.Nonnull  private Long restrictedCount;
 
   public UserUsage() {
   }
@@ -184,7 +184,7 @@ public class UserUsage {
     this.passwordlessCount = passwordlessCount;
   }
 
-  public UserUsage instanceOwnerCount(@jakarta.annotation.Nullable Long instanceOwnerCount) {
+  public UserUsage instanceOwnerCount(@jakarta.annotation.Nonnull Long instanceOwnerCount) {
     
     this.instanceOwnerCount = instanceOwnerCount;
     return this;
@@ -194,8 +194,8 @@ public class UserUsage {
    * Get instanceOwnerCount
    * @return instanceOwnerCount
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getInstanceOwnerCount() {
     return instanceOwnerCount;
@@ -203,12 +203,12 @@ public class UserUsage {
 
 
   @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInstanceOwnerCount(@jakarta.annotation.Nullable Long instanceOwnerCount) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInstanceOwnerCount(@jakarta.annotation.Nonnull Long instanceOwnerCount) {
     this.instanceOwnerCount = instanceOwnerCount;
   }
 
-  public UserUsage ldapAuthCount(@jakarta.annotation.Nullable Long ldapAuthCount) {
+  public UserUsage ldapAuthCount(@jakarta.annotation.Nonnull Long ldapAuthCount) {
     
     this.ldapAuthCount = ldapAuthCount;
     return this;
@@ -218,8 +218,8 @@ public class UserUsage {
    * Get ldapAuthCount
    * @return ldapAuthCount
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LDAP_AUTH_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LDAP_AUTH_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getLdapAuthCount() {
     return ldapAuthCount;
@@ -227,12 +227,12 @@ public class UserUsage {
 
 
   @JsonProperty(JSON_PROPERTY_LDAP_AUTH_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLdapAuthCount(@jakarta.annotation.Nullable Long ldapAuthCount) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLdapAuthCount(@jakarta.annotation.Nonnull Long ldapAuthCount) {
     this.ldapAuthCount = ldapAuthCount;
   }
 
-  public UserUsage restrictedCount(@jakarta.annotation.Nullable Long restrictedCount) {
+  public UserUsage restrictedCount(@jakarta.annotation.Nonnull Long restrictedCount) {
     
     this.restrictedCount = restrictedCount;
     return this;
@@ -242,8 +242,8 @@ public class UserUsage {
    * Get restrictedCount
    * @return restrictedCount
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESTRICTED_COUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getRestrictedCount() {
     return restrictedCount;
@@ -251,8 +251,8 @@ public class UserUsage {
 
 
   @JsonProperty(JSON_PROPERTY_RESTRICTED_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRestrictedCount(@jakarta.annotation.Nullable Long restrictedCount) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRestrictedCount(@jakarta.annotation.Nonnull Long restrictedCount) {
     this.restrictedCount = restrictedCount;
   }
 

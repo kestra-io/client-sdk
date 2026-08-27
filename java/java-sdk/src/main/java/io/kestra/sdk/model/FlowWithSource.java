@@ -138,7 +138,7 @@ public class FlowWithSource {
   @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_DRAFT = "draft";
-  @jakarta.annotation.Nullable  private Boolean draft;
+  @jakarta.annotation.Nonnull  private Boolean draft;
 
   public FlowWithSource() {
   }
@@ -784,7 +784,7 @@ public class FlowWithSource {
     this.source = source;
   }
 
-  public FlowWithSource draft(@jakarta.annotation.Nullable Boolean draft) {
+  public FlowWithSource draft(@jakarta.annotation.Nonnull Boolean draft) {
     
     this.draft = draft;
     return this;
@@ -794,8 +794,8 @@ public class FlowWithSource {
    * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
    * @return draft
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DRAFT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDraft() {
     return draft;
@@ -803,8 +803,8 @@ public class FlowWithSource {
 
 
   @JsonProperty(JSON_PROPERTY_DRAFT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDraft(@jakarta.annotation.Nullable Boolean draft) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
     this.draft = draft;
   }
 

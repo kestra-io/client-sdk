@@ -17,7 +17,7 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**List&lt;Label&gt;**](Label.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**_finally** | [**List&lt;Task&gt;**](Task.md) |  |  [optional] |
 |**tasks** | [**Map&lt;Task&gt;**](Task.md) |  |  |
@@ -30,6 +30,7 @@
 |**sla** | [**List&lt;SLA&gt;**](SLA.md) |  |  [optional] |
 |**checks** | [**List&lt;Check&gt;**](Check.md) | A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally. |  [optional] |
 |**source** | **String** |  |  [optional] |
+|**draft** | **Boolean** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. |  |
 
 
 

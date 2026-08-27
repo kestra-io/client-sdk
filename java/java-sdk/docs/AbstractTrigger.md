@@ -13,7 +13,7 @@
 |**description** | **String** |  |  [optional] |
 |**when** | **String** | A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (&#x60;true&#x60;, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions. |  |
 |**disabled** | **Boolean** |  |  [optional] |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
 |**logLevel** | **Level** |  |  [optional] |
 |**labels** | [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  |  [optional] |
 |**stopAfter** | **List&lt;StateType&gt;** |  |  [optional] |

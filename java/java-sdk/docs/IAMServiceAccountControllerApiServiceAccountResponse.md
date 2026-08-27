@@ -12,7 +12,7 @@ A User Service Account.
 |**name** | **String** | the name of this service account. |  |
 |**description** | **String** | the description of this service account. |  [optional] |
 |**groups** | [**List&lt;IAMServiceAccountControllerApiGroup&gt;**](IAMServiceAccountControllerApiGroup.md) |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 
 
 

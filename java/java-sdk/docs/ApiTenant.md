@@ -12,7 +12,7 @@
 |**id** | **String** |  |  |
 |**name** | **String** |  |  |
 |**deleted** | **Boolean** |  |  |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**defaultWorkerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |
 |**storageConfiguration** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**secretType** | **String** |  |  [optional] |

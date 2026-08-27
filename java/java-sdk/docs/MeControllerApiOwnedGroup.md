@@ -1,13 +1,14 @@
 
 
-# ApiPatchSuperAdminRequest
+# MeControllerApiOwnedGroup
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**instanceOwner** | **Boolean** |  |  |
+|**tenantId** | **String** |  |  [optional] |
+|**id** | **String** |  |  [optional] |
 
 
 
