@@ -69,12 +69,13 @@ def test_search_blueprints_with_tags(client):
     ):
         tag = all_results.results[0].tags[0]
 
-        result = client.blueprints.search_blueprints(
+        result = _community_search(
+            client,
             kind=BlueprintControllerKind.FLOW,
             tenant=TENANT,
-            tags=[tag],
             page=1,
             size=10,
+            filters=[tags_filter([tag])],
         )
 
         assert len(result.results) > 0

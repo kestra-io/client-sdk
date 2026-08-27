@@ -28,8 +28,9 @@ def test_field_map_query_is_q():
     assert _FIELD_MAP["QUERY"] == "q"
 
 
-def test_field_map_min_level_is_level():
-    assert _FIELD_MAP["MIN_LEVEL"] == "level"
+def test_level_field_is_not_remapped():
+    # LEVEL needs no _FIELD_MAP entry: the camelCase conversion already yields "level".
+    assert "LEVEL" not in _FIELD_MAP
 
 
 # ========================================================================
@@ -62,11 +63,11 @@ def test_query_field_uses_q():
     assert ("filters[q][EQUALS]", "hello world") in params
 
 
-def test_min_level_field_uses_level():
+def test_level_field_uses_level():
     params = []
     filters = [
         QueryFilter(
-            var_field=QueryFilterField.MIN_LEVEL,
+            var_field=QueryFilterField.LEVEL,
             operation=QueryFilterOp.EQUALS,
             value={"value": "INFO"},
         )
