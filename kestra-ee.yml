@@ -2566,6 +2566,31 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/auto-install/detect:
+    post:
+      tags:
+      - Plugins
+      summary: Detect missing plugins in a flow
+      description: "Parses the provided flow YAML, identifies task and trigger types that are not yet registered, and maps them to their Maven artifacts via the plugin catalog. Returns 403 when the auto-install feature is disabled on this instance."
+      operationId: detectMissingPlugins
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Detection result
+          content:
+            application/json:
+              schema:
+                type: object
+        "403":
+          description: Auto-install feature is disabled on this instance
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/groups/subgroups:
     get:
       tags:
@@ -2713,6 +2738,65 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+  /api/v1/plugins/install:
+    post:
+      tags:
+      - Plugins
+      summary: Start async plugin installation
+      description: "Enqueues installation of the specified plugin artifacts and returns a job id immediately (HTTP 202). Poll GET /plugins/install/{jobId} for status and per-artifact byte-level progress. Only artifacts provided by the plugin catalog (as returned by POST /plugins/auto-install/detect) are accepted. In distributed (EE) deployments the installation is propagated cluster-wide after the job succeeds. Returns 403 when the auto-install feature is disabled on this instance."
+      operationId: installPlugins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/PluginArtifact"
+        required: true
+      responses:
+        "202":
+          description: Installation job accepted
+        "400":
+          description: An artifact is not part of the plugin catalog
+        "403":
+          description: Auto-install feature is disabled on this instance
+        "429":
+          description: Too many install jobs are already pending or running
+        "200":
+          description: installPlugins 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+  /api/v1/plugins/install/{jobId}:
+    get:
+      tags:
+      - Plugins
+      summary: Get plugin installation job status
+      description: "Returns the current state of an async plugin installation job, including per-artifact byte-level transfer progress. Returns 404 when the job is unknown or has been evicted (jobs are kept for one hour after completion)."
+      operationId: getInstallJob
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: Job snapshot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PluginInstallJob"
+        "404":
+          description: Job not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
   /api/v1/plugins/pluginUiManifest:
     post:
       tags:
@@ -2780,6 +2864,14 @@ paths:
       - name: arrayOf
         in: query
         description: If schema should be an array of requested type
+        explode: false
+        schema:
+          type: boolean
+          nullable: true
+          default: false
+      - name: includeCatalog
+        in: query
+        description: Whether to merge the pre-baked plugin schema bundle for un-installed types
         explode: false
         schema:
           type: boolean
@@ -28559,6 +28651,8 @@ components:
         pluginsHash:
           type: integer
           format: int64
+        isPluginAutoInstallEnabled:
+          type: boolean
     MiscController.EEConfiguration:
       type: object
       allOf:
@@ -29854,6 +29948,57 @@ components:
           type: boolean
         hash:
           type: string
+    PluginInstallJob:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          $ref: "#/components/schemas/PluginInstallJob.Status"
+        artifacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginArtifact"
+        progress:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/PluginInstallJob.ArtifactProgress"
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        error:
+          type: string
+    PluginInstallJob.ArtifactProgress:
+      type: object
+      properties:
+        resource:
+          type: string
+        transferred:
+          type: integer
+          format: int64
+        total:
+          type: integer
+          format: int64
+        state:
+          $ref: "#/components/schemas/PluginInstallJob.ArtifactState"
+    PluginInstallJob.ArtifactState:
+      type: string
+      enum:
+      - STARTED
+      - PROGRESSING
+      - SUCCEEDED
+      - FAILED
+    PluginInstallJob.Status:
+      type: string
+      enum:
+      - PENDING
+      - RUNNING
+      - SUCCEEDED
+      - FAILED
     PluginSchema:
       type: object
       properties:
