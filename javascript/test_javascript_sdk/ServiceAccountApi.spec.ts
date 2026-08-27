@@ -124,6 +124,20 @@ describe('ServiceAccountApi', () => {
         expect(fetched.instanceOwner).toBe(true);
     });
 
+    it('patch_service_account_instance_owner_legacy: accepts the deprecated superAdmin field', async () => {
+        const name = randomIdWith('test-patch-service-account-instance-owner-legacy');
+
+        const created = await ServiceAccount.createServiceAccount({ name });
+        if (!created.id) {
+            throw new Error('Failed to create service account');
+        }
+
+        await ServiceAccount.patchServiceAccountInstanceOwnerLegacy({ id: created.id, superAdmin: true });
+
+        const fetched = await ServiceAccount.serviceAccount({ id: created.id });
+        expect(fetched.instanceOwner).toBe(true);
+    });
+
     it('update_service_account', async () => {
         const name = randomIdWith('test-update-service-account');
 
