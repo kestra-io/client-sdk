@@ -21,13 +21,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AbstractTriggerForExecution;
 import io.kestra.sdk.model.InputObject;
-import io.kestra.sdk.model.MapObjectObject;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
 import io.kestra.sdk.model.WorkerGroup;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import io.kestra.sdk.model.Label;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -81,7 +81,7 @@ public class FlowForExecution {
   @jakarta.annotation.Nonnull  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private MapObjectObject labels;
+  @jakarta.annotation.Nullable  private List<Label> labels;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
@@ -319,7 +319,7 @@ public class FlowForExecution {
     this.disabled = disabled;
   }
 
-  public FlowForExecution labels(@jakarta.annotation.Nullable MapObjectObject labels) {
+  public FlowForExecution labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -332,14 +332,14 @@ public class FlowForExecution {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public MapObjectObject getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable MapObjectObject labels) {
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
