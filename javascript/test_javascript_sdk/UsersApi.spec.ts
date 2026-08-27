@@ -213,6 +213,19 @@ describe('UsersApi', () => {
         await Users.deleteUser({ id: created.id });
     });
 
+    it('patch_user_instance_owner_legacy: accepts the deprecated superAdmin field', async () => {
+        const base = `test_patch_user_instance_owner_legacy_${randomId()}`;
+        const created = await Users.createUser({ email: `${base}@kestra.io` });
+
+        await Users.patchUserInstanceOwnerLegacy({ id: created.id, superAdmin: true });
+
+        const fetched =
+            (await Users.user?.({ id: created.id }));
+        expect(Boolean(fetched.instanceOwner)).toBe(true);
+
+        await Users.deleteUser({ id: created.id });
+    });
+
     // This one requires creating a *new client* authenticated as the created user.
     // If you have a helper like `makeClient({ username, password })`, replace the `.skip`
     // and use it exactly like in your Java test.
