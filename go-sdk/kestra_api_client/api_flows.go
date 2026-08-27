@@ -3007,14 +3007,18 @@ func (a *FlowsAPIService) SearchFlowsExecute(r ApiSearchFlowsRequest) (*PagedRes
 }
 
 type ApiSearchFlowsBySourceCodeRequest struct {
-	ctx        context.Context
-	ApiService *FlowsAPIService
-	page       *int32
-	size       *int32
-	tenant     string
-	sort       *[]string
-	q          *string
-	namespace  *string
+	ctx           context.Context
+	ApiService    *FlowsAPIService
+	page          *int32
+	size          *int32
+	tenant        string
+	sort          *[]string
+	q             *string
+	namespace     *string
+	caseSensitive *bool
+	wholeWord     *bool
+	regex         *bool
+	scope         *SourceSearchScope
 }
 
 // The current page
@@ -3047,6 +3051,42 @@ func (r ApiSearchFlowsBySourceCodeRequest) Namespace(namespace string) ApiSearch
 	return r
 }
 
+// Match case when comparing the query against the source
+func (r ApiSearchFlowsBySourceCodeRequest) CaseSensitive(caseSensitive bool) ApiSearchFlowsBySourceCodeRequest {
+	r.caseSensitive = &caseSensitive
+	return r
+}
+
+// Only match the query on whole words
+func (r ApiSearchFlowsBySourceCodeRequest) WholeWord(wholeWord bool) ApiSearchFlowsBySourceCodeRequest {
+	r.wholeWord = &wholeWord
+	return r
+}
+
+// Interpret the query as a regular expression
+func (r ApiSearchFlowsBySourceCodeRequest) Regex(regex bool) ApiSearchFlowsBySourceCodeRequest {
+	r.regex = &regex
+	return r
+}
+
+// Restrict the search to a part of the source
+func (r ApiSearchFlowsBySourceCodeRequest) Scope(scope SourceSearchScope) ApiSearchFlowsBySourceCodeRequest {
+	r.scope = &scope
+	return r
+}
+
+func (r ApiSearchFlowsBySourceCodeRequest) GetCaseSensitive() *bool {
+	return r.caseSensitive
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetWholeWord() *bool {
+	return r.wholeWord
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetRegex() *bool {
+	return r.regex
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetScope() *SourceSearchScope {
+	return r.scope
+}
 func (r ApiSearchFlowsBySourceCodeRequest) GetPage() *int32 {
 	return r.page
 }
@@ -3066,7 +3106,7 @@ func (r ApiSearchFlowsBySourceCodeRequest) GetNamespace() *string {
 	return r.namespace
 }
 
-func (r ApiSearchFlowsBySourceCodeRequest) Execute() (*PagedResultsSearchResultFlow, *http.Response, error) {
+func (r ApiSearchFlowsBySourceCodeRequest) Execute() (*PagedResultsSourceSearchResult, *http.Response, error) {
 	return r.ApiService.SearchFlowsBySourceCodeExecute(r)
 }
 
@@ -3089,13 +3129,13 @@ func (a *FlowsAPIService) SearchFlowsBySourceCode(ctx context.Context, tenant st
 
 // Execute executes the request
 //
-//	@return PagedResultsSearchResultFlow
-func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourceCodeRequest) (*PagedResultsSearchResultFlow, *http.Response, error) {
+//	@return PagedResultsSourceSearchResult
+func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourceCodeRequest) (*PagedResultsSourceSearchResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsSearchResultFlow
+		localVarReturnValue *PagedResultsSourceSearchResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.SearchFlowsBySourceCode")
@@ -3132,6 +3172,18 @@ func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourc
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
+	}
+	if r.caseSensitive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "caseSensitive", r.caseSensitive, "form", "")
+	}
+	if r.wholeWord != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wholeWord", r.wholeWord, "form", "")
+	}
+	if r.regex != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "regex", r.regex, "form", "")
+	}
+	if r.scope != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -21,7 +21,7 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationCreateRequest{}
 // IAMInvitationControllerApiInvitationCreateRequest struct for IAMInvitationControllerApiInvitationCreateRequest
 type IAMInvitationControllerApiInvitationCreateRequest struct {
 	CreateUserIfNotExist *bool `json:"createUserIfNotExist,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	Roles []IAMInvitationControllerApiInvitationRole `json:"roles,omitempty"`
 	Groups []string `json:"groups,omitempty"`
 	Email string `json:"email"`
@@ -80,36 +80,36 @@ func (o *IAMInvitationControllerApiInvitationCreateRequest) SetCreateUserIfNotEx
 	o.CreateUserIfNotExist = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMInvitationControllerApiInvitationCreateRequest) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMInvitationControllerApiInvitationCreateRequest) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMInvitationControllerApiInvitationCreateRequest) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationCreateRequest) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMInvitationControllerApiInvitationCreateRequest) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
@@ -213,8 +213,8 @@ func (o IAMInvitationControllerApiInvitationCreateRequest) ToMap() (map[string]i
 	if !IsNil(o.CreateUserIfNotExist) {
 		toSerialize["createUserIfNotExist"] = o.CreateUserIfNotExist
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
@@ -267,7 +267,7 @@ func (o *IAMInvitationControllerApiInvitationCreateRequest) UnmarshalJSON(data [
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "createUserIfNotExist")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		delete(additionalProperties, "roles")
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "email")

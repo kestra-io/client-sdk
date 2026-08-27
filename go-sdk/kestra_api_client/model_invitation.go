@@ -33,7 +33,7 @@ type Invitation struct {
 	AcceptedAt *time.Time `json:"acceptedAt,omitempty"`
 	Deleted bool `json:"deleted"`
 	UserType *UserType `json:"userType,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	Link *string `json:"link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -427,36 +427,36 @@ func (o *Invitation) SetUserType(v UserType) {
 	o.UserType = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *Invitation) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *Invitation) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Invitation) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *Invitation) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *Invitation) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *Invitation) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *Invitation) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *Invitation) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 // GetLink returns the Link field value if set, zero value otherwise.
@@ -533,8 +533,8 @@ func (o Invitation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserType) {
 		toSerialize["userType"] = o.UserType
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 	if !IsNil(o.Link) {
 		toSerialize["link"] = o.Link
@@ -595,7 +595,7 @@ func (o *Invitation) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "acceptedAt")
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "userType")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		delete(additionalProperties, "link")
 		o.AdditionalProperties = additionalProperties
 	}

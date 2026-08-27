@@ -24,7 +24,7 @@ type IAMUserControllerApiUserSummary struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	Tenants []ApiTenantSummary `json:"tenants,omitempty"`
 	Auths []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -207,36 +207,36 @@ func (o *IAMUserControllerApiUserSummary) SetAuths(v []IAMUserControllerApiUserA
 	o.Auths = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMUserControllerApiUserSummary) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMUserControllerApiUserSummary) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMUserControllerApiUserSummary) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMUserControllerApiUserSummary) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUserSummary) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMUserControllerApiUserSummary) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMUserControllerApiUserSummary) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMUserControllerApiUserSummary) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 func (o IAMUserControllerApiUserSummary) MarshalJSON() ([]byte, error) {
@@ -264,8 +264,8 @@ func (o IAMUserControllerApiUserSummary) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Auths) {
 		toSerialize["auths"] = o.Auths
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -294,7 +294,7 @@ func (o *IAMUserControllerApiUserSummary) UnmarshalJSON(data []byte) (err error)
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "tenants")
 		delete(additionalProperties, "auths")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		o.AdditionalProperties = additionalProperties
 	}
 

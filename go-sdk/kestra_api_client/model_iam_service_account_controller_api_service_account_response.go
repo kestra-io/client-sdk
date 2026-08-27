@@ -27,7 +27,7 @@ type IAMServiceAccountControllerApiServiceAccountResponse struct {
 	// the description of this service account.
 	Description *string `json:"description,omitempty"`
 	Groups []IAMServiceAccountControllerApiGroup `json:"groups,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -171,36 +171,36 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetGroups(v []IAM
 	o.Groups = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 func (o IAMServiceAccountControllerApiServiceAccountResponse) MarshalJSON() ([]byte, error) {
@@ -223,8 +223,8 @@ func (o IAMServiceAccountControllerApiServiceAccountResponse) ToMap() (map[strin
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -273,7 +273,7 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) UnmarshalJSON(dat
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "groups")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		o.AdditionalProperties = additionalProperties
 	}
 

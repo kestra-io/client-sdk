@@ -11,6 +11,7 @@ API version: 2.0.0-SNAPSHOT
 package kestra_api_client
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -95,7 +96,25 @@ func (o MapObjectObject) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
+// UnmarshalJSON accepts both shapes the server uses for a label map. Kestra 2.0
+// serializes labels as a list of {key, value} pairs, while the spec only
+// declares the map form; both are normalized into AdditionalProperties.
 func (o *MapObjectObject) UnmarshalJSON(data []byte) (err error) {
+	if trimmed := bytes.TrimLeft(data, " \t\r\n"); len(trimmed) > 0 && trimmed[0] == '[' {
+		var pairs []struct {
+			Key   string      `json:"key"`
+			Value interface{} `json:"value"`
+		}
+		if err = json.Unmarshal(data, &pairs); err != nil {
+			return err
+		}
+		o.AdditionalProperties = make(map[string]interface{}, len(pairs))
+		for _, pair := range pairs {
+			o.AdditionalProperties[pair.Key] = pair.Value
+		}
+		return nil
+	}
+
 	varMapObjectObject := _MapObjectObject{}
 
 	err = json.Unmarshal(data, &varMapObjectObject)

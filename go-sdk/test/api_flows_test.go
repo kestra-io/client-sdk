@@ -3,6 +3,7 @@ package test
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"strings"
 	"testing"
@@ -44,6 +45,34 @@ func TestFlowsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.Greater(t, len(response), 0)
 		require.Equal(t, "simple_flow_description_updated", response[0].GetDescription())
+	})
+
+	// Kestra 2.0 serializes flow labels as a list of {key, value} pairs, while
+	// the spec only declares the map form. Deserializing either shape has to
+	// work, or every labelled flow fails to read back at all.
+	t.Run("createFlowTest_withLabels", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+
+		body := fmt.Sprintf(`
+id: %s
+namespace: %s
+labels:
+  phase: created
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: hello
+`, flowId, namespace)
+
+		created, err := KestraTestClient().Flows().CreateFlow(ctx, MAIN_TENANT, body)
+		require.NoError(t, err)
+		require.Equal(t, "created", created.GetLabels().AdditionalProperties["phase"])
+
+		read, err := KestraTestClient().Flows().Flow(ctx, namespace, flowId, MAIN_TENANT, nil, nil, nil)
+		require.NoError(t, err)
+		require.Equal(t, "created", read.GetLabels().AdditionalProperties["phase"])
 	})
 
 	t.Run("createFlowTest_simple", func(t *testing.T) {
@@ -363,15 +392,14 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		searchResponse, err := KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace))
+		searchResponse, err := KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace), nil, nil, nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, searchResponse.Results)
 		require.Greater(t, len(searchResponse.Results), 0)
 
-		// Verify search results contain our flow - matching Java: assertThat(response.getResults().stream().map(x -> x.getModel().getId())).containsOnly(flow.getId());
 		foundIds := []string{}
 		for _, result := range searchResponse.Results {
-			foundIds = append(foundIds, result.GetModel().Id)
+			foundIds = append(foundIds, result.GetId())
 		}
 		require.Contains(t, foundIds, flowId)
 	})
@@ -386,16 +414,16 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := context.Background()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		atCap, err := KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace))
+		atCap, err := KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace), nil, nil, nil, nil)
 		require.NoError(t, err, "size == MAX_PAGE_SIZE must be accepted")
 		require.NotNil(t, atCap.Results)
 		foundIds := []string{}
 		for _, result := range atCap.Results {
-			foundIds = append(foundIds, result.GetModel().Id)
+			foundIds = append(foundIds, result.GetId())
 		}
 		require.Contains(t, foundIds, flowId)
 
-		_, err = KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE+1), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace))
+		_, err = KestraTestClient().Flows().SearchFlowsBySourceCode(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(MAX_PAGE_SIZE+1), nil, kestra_api_client.PtrString(flowId), kestra_api_client.PtrString(namespace), nil, nil, nil, nil)
 		require.Error(t, err, "size > MAX_PAGE_SIZE must be rejected")
 		var apiErr *kestra_api_client.ApiError
 		require.True(t, errors.As(err, &apiErr))

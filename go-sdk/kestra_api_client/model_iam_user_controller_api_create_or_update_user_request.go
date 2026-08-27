@@ -26,7 +26,7 @@ type IAMUserControllerApiCreateOrUpdateUserRequest struct {
 	LastName *string `json:"lastName,omitempty"`
 	Email string `json:"email"`
 	Password *string `json:"password,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	Restricted *bool `json:"restricted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -235,36 +235,36 @@ func (o *IAMUserControllerApiCreateOrUpdateUserRequest) SetPassword(v string) {
 	o.Password = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMUserControllerApiCreateOrUpdateUserRequest) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMUserControllerApiCreateOrUpdateUserRequest) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMUserControllerApiCreateOrUpdateUserRequest) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMUserControllerApiCreateOrUpdateUserRequest) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMUserControllerApiCreateOrUpdateUserRequest) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMUserControllerApiCreateOrUpdateUserRequest) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 // GetRestricted returns the Restricted field value if set, zero value otherwise.
@@ -325,8 +325,8 @@ func (o IAMUserControllerApiCreateOrUpdateUserRequest) ToMap() (map[string]inter
 	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 	if !IsNil(o.Restricted) {
 		toSerialize["restricted"] = o.Restricted
@@ -380,7 +380,7 @@ func (o *IAMUserControllerApiCreateOrUpdateUserRequest) UnmarshalJSON(data []byt
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "password")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		delete(additionalProperties, "restricted")
 		o.AdditionalProperties = additionalProperties
 	}
