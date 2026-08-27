@@ -21,8 +21,8 @@ var _ MappedNullable = &QuotaLimit{}
 // QuotaLimit struct for QuotaLimit
 type QuotaLimit struct {
 	TenantId *string `json:"tenantId,omitempty"`
-	Namespace *string `json:"namespace,omitempty"`
-	FlowId *string `json:"flowId,omitempty"`
+	Namespace NullableString `json:"namespace,omitempty"`
+	FlowId NullableString `json:"flowId,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Start *time.Time `json:"start,omitempty"`
 	Count *int64 `json:"count,omitempty"`
@@ -80,68 +80,88 @@ func (o *QuotaLimit) SetTenantId(v string) {
 	o.TenantId = &v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *QuotaLimit) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil || IsNil(o.Namespace.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+	return *o.Namespace.Get()
 }
 
 // GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *QuotaLimit) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return o.Namespace.Get(), o.Namespace.IsSet()
 }
 
 // HasNamespace returns a boolean if a field has been set.
 func (o *QuotaLimit) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
+	if o != nil && o.Namespace.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace gets a reference to the given NullableString and assigns it to the Namespace field.
 func (o *QuotaLimit) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace.Set(&v)
+}
+// SetNamespaceNil sets the value for Namespace to be an explicit nil
+func (o *QuotaLimit) SetNamespaceNil() {
+	o.Namespace.Set(nil)
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
+func (o *QuotaLimit) UnsetNamespace() {
+	o.Namespace.Unset()
+}
+
+// GetFlowId returns the FlowId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *QuotaLimit) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil || IsNil(o.FlowId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+	return *o.FlowId.Get()
 }
 
 // GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *QuotaLimit) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return o.FlowId.Get(), o.FlowId.IsSet()
 }
 
 // HasFlowId returns a boolean if a field has been set.
 func (o *QuotaLimit) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
+	if o != nil && o.FlowId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId gets a reference to the given NullableString and assigns it to the FlowId field.
 func (o *QuotaLimit) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId.Set(&v)
+}
+// SetFlowIdNil sets the value for FlowId to be an explicit nil
+func (o *QuotaLimit) SetFlowIdNil() {
+	o.FlowId.Set(nil)
+}
+
+// UnsetFlowId ensures that no value is present for FlowId, not even an explicit nil
+func (o *QuotaLimit) UnsetFlowId() {
+	o.FlowId.Unset()
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -253,11 +273,11 @@ func (o QuotaLimit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TenantId) {
 		toSerialize["tenantId"] = o.TenantId
 	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
+	if o.Namespace.IsSet() {
+		toSerialize["namespace"] = o.Namespace.Get()
 	}
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
+	if o.FlowId.IsSet() {
+		toSerialize["flowId"] = o.FlowId.Get()
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id

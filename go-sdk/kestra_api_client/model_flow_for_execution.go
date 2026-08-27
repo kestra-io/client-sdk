@@ -460,11 +460,11 @@ func (o *FlowForExecution) GetTasks() []TaskForExecution {
 
 // GetTasksOk returns a tuple with the Tasks field value
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetTasksOk() (*[]TaskForExecution, bool) {
+func (o *FlowForExecution) GetTasksOk() ([]TaskForExecution, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Tasks, true
+	return o.Tasks, true
 }
 
 // SetTasks sets field value

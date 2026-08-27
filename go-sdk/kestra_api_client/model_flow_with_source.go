@@ -506,11 +506,11 @@ func (o *FlowWithSource) GetTasks() []Task {
 
 // GetTasksOk returns a tuple with the Tasks field value
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetTasksOk() (*[]Task, bool) {
+func (o *FlowWithSource) GetTasksOk() ([]Task, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Tasks, true
+	return o.Tasks, true
 }
 
 // SetTasks sets field value
