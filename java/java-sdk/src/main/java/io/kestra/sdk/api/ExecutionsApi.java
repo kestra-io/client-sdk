@@ -214,7 +214,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String expression) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "eval"),
+                tenantPath(tenant, "executions", executionId, "actions", "eval"),
                 expression, null, null,
                 JSON, TEXT_PLAIN,
                 new TypeReference<>() {});
@@ -229,7 +229,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Boolean isOnKillCascade) throws ApiException {
         return invoke("DELETE",
-                tenantPath(tenant, "executions", executionId, "kill"),
+                tenantPath(tenant, "executions", executionId, "actions", "kill"),
                 null, queryParams("isOnKillCascade", isOnKillCascade), null,
                 TEXT_JSON, null,
                 new TypeReference<>() {});
@@ -315,7 +315,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "pause"),
+                tenantPath(tenant, "executions", executionId, "actions", "pause"),
                 null, null, null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -352,7 +352,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "resume"),
+                tenantPath(tenant, "executions", executionId, "actions", "resume"),
                 null, null, null,
                 JSON, MULTIPART,
                 inputs != null ? inputs : new HashMap<>(),
@@ -388,7 +388,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer revision) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "restart"),
+                tenantPath(tenant, "executions", executionId, "actions", "restart"),
                 null, queryParams("revision", revision), null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -425,7 +425,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nullable Integer revision,
             @jakarta.annotation.Nullable String breakpoints) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "replay"),
+                tenantPath(tenant, "executions", executionId, "actions", "replay"),
                 null, queryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints), null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -438,7 +438,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nullable Integer revision,
             @jakarta.annotation.Nullable String breakpoints) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "replay-with-inputs"),
+                tenantPath(tenant, "executions", executionId, "actions", "replay-with-inputs"),
                 null, queryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints), null,
                 JSON, MULTIPART,
                 new TypeReference<>() {});
@@ -474,7 +474,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String executionId,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "force-run"),
+                tenantPath(tenant, "executions", executionId, "actions", "force-run"),
                 null, null, null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -509,7 +509,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable StateType state) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "unqueue"),
+                tenantPath(tenant, "executions", executionId, "actions", "unqueue"),
                 null, queryParams("state", state), null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -546,7 +546,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull List<Label> labels) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "labels"),
+                tenantPath(tenant, "executions", executionId, "actions", "labels"),
                 labels, null, null,
                 JSON, JSON,
                 new TypeReference<>() {});
@@ -582,7 +582,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull StateType status,
             @jakarta.annotation.Nonnull String tenant) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "change-status"),
+                tenantPath(tenant, "executions", executionId, "actions", "change-status"),
                 null, queryParams("status", status), null,
                 JSON, null,
                 new TypeReference<>() {});
@@ -619,7 +619,7 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull ExecutionControllerStateRequest request) throws ApiException {
         return invoke("POST",
-                tenantPath(tenant, "executions", executionId, "state"),
+                tenantPath(tenant, "executions", executionId, "actions", "state"),
                 request, null, null,
                 JSON, JSON,
                 new TypeReference<>() {});
