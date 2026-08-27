@@ -9064,7 +9064,7 @@ paths:
       tags:
       - Flows
       summary: Search for flow concurrency limits
-      operationId: searchConcurrencyLimits
+      operationId: searchConcurrencyLimitsasInstanceOwner
       parameters:
       - name: tenant
         in: path
@@ -9073,7 +9073,7 @@ paths:
           type: string
       responses:
         "200":
-          description: searchConcurrencyLimits 200 response
+          description: searchConcurrencyLimitsasInstanceOwner 200 response
           content:
             application/json:
               schema:
@@ -9082,11 +9082,42 @@ paths:
       - bearerAuth: []
       - basicAuth: []
   /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}:
+    get:
+      tags:
+      - Flows
+      summary: Get the concurrency limit of a flow
+      operationId: getConcurrencyLimit
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getConcurrencyLimit 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConcurrencyLimit"
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - Flows
       summary: Update a flow concurrency limit
-      operationId: updateConcurrencyLimit
+      operationId: updateConcurrencyLimitasInstanceOwner
       parameters:
       - name: namespace
         in: path
@@ -9111,7 +9142,7 @@ paths:
         required: true
       responses:
         "200":
-          description: updateConcurrencyLimit 200 response
+          description: updateConcurrencyLimitasInstanceOwner 200 response
           content:
             application/json:
               schema:
