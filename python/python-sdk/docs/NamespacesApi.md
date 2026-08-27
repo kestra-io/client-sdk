@@ -683,7 +683,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_namespaces**
-> PagedResultsNamespace search_namespaces(tenant, q=q, page=page, size=size, sort=sort, existing=existing)
+> PagedResultsNamespace search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
 
 Search for namespaces
 
@@ -708,12 +708,12 @@ with KestraClient(configuration) as kestra_client:
     size = 10 # int | The current page size (default to 10)
     existing = False # bool | Return only existing namespace (default to False)
     tenant = 'tenant_example' # str | 
-    q = 'q_example' # str | A string filter (optional)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | A list of query filters (optional)
 
     try:
         # Search for namespaces
-        api_response = kestra_client.namespaces.search_namespaces(tenant, q=q, page=page, size=size, sort=sort, existing=existing)
+        api_response = kestra_client.namespaces.search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
         print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -731,8 +731,8 @@ Name | Type | Description  | Notes
  **size** | **int**| The current page size | [default to 10]
  **existing** | **bool**| Return only existing namespace | [default to False]
  **tenant** | **str**|  | 
- **q** | **str**| A string filter | [optional] 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| A list of query filters | [optional] 
 
 ### Return type
 
