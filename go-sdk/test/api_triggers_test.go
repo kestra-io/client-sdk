@@ -252,7 +252,7 @@ func TestTriggersAPI_All(t *testing.T) {
 				Value:     namespace,
 			},
 		}
-		page, err := KestraTestClient().Triggers().SearchTriggers(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
+		page, err := KestraTestClient().Triggers().SearchTriggers(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters, nil)
 		require.NoError(t, err)
 		require.NotNil(t, page)
 	})

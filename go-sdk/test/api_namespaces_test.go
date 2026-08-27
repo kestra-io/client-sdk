@@ -212,7 +212,7 @@ func TestNamespacesAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
 		require.NoError(t, err)
 
-		results, err := KestraTestClient().Namespaces().SearchNamespaces(ctx, MAIN_TENANT, kestra_api_client.PtrString(nsId), kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrBool(false))
+		results, err := KestraTestClient().Namespaces().SearchNamespaces(ctx, MAIN_TENANT, kestra_api_client.PtrString(nsId), kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrBool(false), nil)
 		require.NoError(t, err)
 		require.NotNil(t, results)
 		require.NotNil(t, results.GetResults())
