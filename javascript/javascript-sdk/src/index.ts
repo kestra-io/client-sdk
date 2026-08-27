@@ -3,7 +3,9 @@ import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
 import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
 
-export * from "./openapi/index"
+// Types only. The generated operations live on their per-tag subpaths, or all together on
+// `@kestra-io/kestra-sdk/all`.
+export type * from "./openapi/types.gen"
 
 declare global {
     interface Window {
