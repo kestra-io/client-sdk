@@ -236,9 +236,6 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**create_namespace**](docs/NamespacesApi.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**delete_namespace**](docs/NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**delete_secret**](docs/NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-*NamespacesApi* | [**export_plugin_defaults**](docs/NamespacesApi.md#export_plugin_defaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
-*NamespacesApi* | [**import_plugin_defaults**](docs/NamespacesApi.md#import_plugin_defaults) | **POST** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
-*NamespacesApi* | [**inherited_plugin_defaults**](docs/NamespacesApi.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesApi* | [**inherited_secrets**](docs/NamespacesApi.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inherited_variables**](docs/NamespacesApi.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesApi* | [**list_namespace_secrets**](docs/NamespacesApi.md#list_namespace_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -495,7 +492,6 @@ Class | Method | HTTP request | Description
  - [IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
  - [IdWithNamespace](docs/IdWithNamespace.md)
  - [IdentityProvider](docs/IdentityProvider.md)
- - [ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
  - [InputObject](docs/InputObject.md)
  - [InputType](docs/InputType.md)
  - [InstanceControllerApiActiveService](docs/InstanceControllerApiActiveService.md)
@@ -552,7 +548,6 @@ Class | Method | HTTP request | Description
  - [Name](docs/Name.md)
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
- - [NamespaceControllerApiInheritedPluginDefaultFromNamespace](docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
@@ -585,7 +580,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsMapStringObject](docs/PagedResultsMapStringObject.md)
  - [PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [PagedResultsNamespace](docs/PagedResultsNamespace.md)
- - [PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
+ - [PagedResultsSourceSearchResult](docs/PagedResultsSourceSearchResult.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
@@ -600,7 +595,6 @@ Class | Method | HTTP request | Description
  - [PluginArtifact](docs/PluginArtifact.md)
  - [PluginArtifactMetadata](docs/PluginArtifactMetadata.md)
  - [PluginControllerApiPluginVersions](docs/PluginControllerApiPluginVersions.md)
- - [PluginDefault](docs/PluginDefault.md)
  - [PluginIcon](docs/PluginIcon.md)
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
@@ -642,7 +636,6 @@ Class | Method | HTTP request | Description
  - [ScimResourceWithOptionalId](docs/ScimResourceWithOptionalId.md)
  - [ScimUser](docs/ScimUser.md)
  - [SearchRequest](docs/SearchRequest.md)
- - [SearchResultFlow](docs/SearchResultFlow.md)
  - [SecurityIntegrationType](docs/SecurityIntegrationType.md)
  - [ServerConfig](docs/ServerConfig.md)
  - [ServerConfigLiveness](docs/ServerConfigLiveness.md)
@@ -663,6 +656,9 @@ Class | Method | HTTP request | Description
  - [SoftDeletableFlowInterface](docs/SoftDeletableFlowInterface.md)
  - [SortOrder](docs/SortOrder.md)
  - [SortRequest](docs/SortRequest.md)
+ - [SourceMatch](docs/SourceMatch.md)
+ - [SourceSearchResult](docs/SourceSearchResult.md)
+ - [SourceSearchScope](docs/SourceSearchScope.md)
  - [State](docs/State.md)
  - [StateHistory](docs/StateHistory.md)
  - [StateType](docs/StateType.md)

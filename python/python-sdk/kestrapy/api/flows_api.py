@@ -14,6 +14,7 @@ from kestrapy.models.paged_results_concurrency_limit import PagedResultsConcurre
 from kestrapy.models.paged_results_flow import PagedResultsFlow
 from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
 from kestrapy.models.query_filter import QueryFilter
+from kestrapy.models.source_search_scope import SourceSearchScope
 from kestrapy.models.task import Task
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
@@ -132,6 +133,10 @@ class FlowsApi(BaseApi):
         sort: Optional[List[str]] = None,
         q: Optional[str] = None,
         namespace: Optional[str] = None,
+        case_sensitive: Optional[bool] = None,
+        whole_word: Optional[bool] = None,
+        regex: Optional[bool] = None,
+        scope: Optional[SourceSearchScope] = None,
     ) -> PagedResultsSourceSearchResult:
         """Search flows by their source code content.
 
@@ -139,7 +144,10 @@ class FlowsApi(BaseApi):
         not a wrapper around the flow itself.
         """
         path = self._tenant_path(tenant, "flows", "source")
-        params = list(self._build_query_params(page=page, size=size, q=q, namespace=namespace).items())
+        params = list(self._build_query_params(
+            page=page, size=size, q=q, namespace=namespace,
+            caseSensitive=case_sensitive, wholeWord=whole_word, regex=regex, scope=scope,
+        ).items())
         self._append_repeated_param(params, "sort", sort)
         return self._json_request("GET", path, PagedResultsSourceSearchResult, params=params)
 

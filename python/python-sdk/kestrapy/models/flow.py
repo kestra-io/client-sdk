@@ -26,7 +26,6 @@ from kestrapy.models.concurrency import Concurrency
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.label import Label
 from kestrapy.models.output import Output
-from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.sla import SLA
 from kestrapy.models.task import Task
 from kestrapy.models.worker_group import WorkerGroup
@@ -54,13 +53,12 @@ class Flow(BaseModel):
     errors: Optional[List[Task]] = None
     after_execution: Optional[List[Task]] = Field(default=None, alias="afterExecution")
     triggers: Optional[List[AbstractTrigger]] = None
-    plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
     concurrency: Optional[Concurrency] = None
     retry: Optional[Dict[str, Any]] = None
     sla: Optional[List[SLA]] = None
     checks: Optional[List[Check]] = Field(default=None, description="A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally.")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla", "checks"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "updated", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "concurrency", "retry", "sla", "checks"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -176,13 +174,6 @@ class Flow(BaseModel):
                 if _item_triggers:
                     _items.append(_item_triggers.to_dict())
             _dict['triggers'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in plugin_defaults (list)
-        _items = []
-        if self.plugin_defaults:
-            for _item_plugin_defaults in self.plugin_defaults:
-                if _item_plugin_defaults:
-                    _items.append(_item_plugin_defaults.to_dict())
-            _dict['pluginDefaults'] = _items
         # override the default output from pydantic by calling `to_dict()` of concurrency
         if self.concurrency:
             _dict['concurrency'] = self.concurrency.to_dict()
@@ -234,7 +225,6 @@ class Flow(BaseModel):
             "errors": [Task.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
             "afterExecution": [Task.from_dict(_item) for _item in obj["afterExecution"]] if obj.get("afterExecution") is not None else None,
             "triggers": [AbstractTrigger.from_dict(_item) for _item in obj["triggers"]] if obj.get("triggers") is not None else None,
-            "pluginDefaults": [PluginDefault.from_dict(_item) for _item in obj["pluginDefaults"]] if obj.get("pluginDefaults") is not None else None,
             "concurrency": Concurrency.from_dict(obj["concurrency"]) if obj.get("concurrency") is not None else None,
             "retry": obj.get("retry"),
             "sla": [SLA.from_dict(_item) for _item in obj["sla"]] if obj.get("sla") is not None else None,

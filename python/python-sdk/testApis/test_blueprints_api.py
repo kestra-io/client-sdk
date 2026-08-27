@@ -5,6 +5,8 @@ from test_helpers import (
     TENANT,
     random_id,
     log_flow_yaml,
+    query_filter,
+    tags_filter,
 )
 from kestrapy import (
     BlueprintControllerApiBlueprintItemWithSource,
@@ -48,7 +50,7 @@ def test_search_blueprints_flow(client):
 
 def test_search_blueprints_with_query(client):
     result = _community_search(
-        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, q="hello", page=1, size=5
+        client, kind=BlueprintControllerKind.FLOW, tenant=TENANT, page=1, size=5, filters=[query_filter("hello")]
     )
 
     assert result is not None
@@ -67,12 +69,13 @@ def test_search_blueprints_with_tags(client):
     ):
         tag = all_results.results[0].tags[0]
 
-        result = client.blueprints.search_blueprints(
+        result = _community_search(
+            client,
             kind=BlueprintControllerKind.FLOW,
             tenant=TENANT,
-            tags=[tag],
             page=1,
             size=10,
+            filters=[tags_filter([tag])],
         )
 
         assert len(result.results) > 0
@@ -202,7 +205,7 @@ def test_search_internal_blueprints_with_tags(client):
     )
 
     result = client.blueprints.search_internal_blueprints(
-        tenant=TENANT, tags=[tag], page=1, size=10
+        tenant=TENANT, page=1, size=10, filters=[tags_filter([tag])]
     )
 
     assert len(result.results) > 0
@@ -237,7 +240,7 @@ def test_search_internal_blueprints_basic(client):
     created = client.blueprints.create_flow_blueprint(tenant=TENANT, request=request)
 
     result = client.blueprints.search_internal_blueprints(
-        tenant=TENANT, q=created.title, page=1, size=10
+        tenant=TENANT, page=1, size=10, filters=[query_filter(created.title)]
     )
 
     assert result is not None

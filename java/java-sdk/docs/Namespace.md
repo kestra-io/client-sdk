@@ -13,7 +13,6 @@
 |**deleted** | **Boolean** |  |  |
 |**description** | **String** |  |  [optional] |
 |**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  [optional] |
 |**allowedNamespaces** | [**List&lt;NamespaceAllowedNamespace&gt;**](NamespaceAllowedNamespace.md) |  |  [optional] |
 |**defaultWorkerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |

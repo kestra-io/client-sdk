@@ -18,8 +18,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.permission import Permission
-from kestrapy.models.resource_type import ResourceType
+from kestrapy.models.resource import Resource
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,12 +26,12 @@ class AuditLogDetail(BaseModel):
     """
     AuditLogDetail
     """ # noqa: E501
-    permission: Optional[Permission] = None
-    resource_type: Optional[ResourceType] = Field(default=None, alias="resourceType")
+    resource: Optional[Resource] = None
+    resource_type: Optional[Resource] = Field(default=None, alias="resourceType")
     type: StrictStr
     id: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["permission", "resourceType", "type", "id"]
+    __properties: ClassVar[List[str]] = ["resource", "resourceType", "type", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,7 +91,7 @@ class AuditLogDetail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "permission": obj.get("permission"),
+            "resource": obj.get("resource"),
             "resourceType": obj.get("resourceType"),
             "type": obj.get("type"),
             "id": obj.get("id")

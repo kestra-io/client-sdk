@@ -185,7 +185,6 @@ docs/IAMUserControllerApiUserSummary.md
 docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md
 docs/IdWithNamespace.md
 docs/IdentityProvider.md
-docs/ImportPluginDefaultsRequest.md
 docs/InputObject.md
 docs/InputType.md
 docs/InstanceControllerApiActiveService.md
@@ -243,7 +242,6 @@ docs/ModelSchema.md
 docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
-docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md
 docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
@@ -277,7 +275,7 @@ docs/PagedResultsLogEntry.md
 docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
-docs/PagedResultsSearchResultFlow.md
+docs/PagedResultsSourceSearchResult.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -292,7 +290,6 @@ docs/Plugin.md
 docs/PluginArtifact.md
 docs/PluginArtifactMetadata.md
 docs/PluginControllerApiPluginVersions.md
-docs/PluginDefault.md
 docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
@@ -335,7 +332,6 @@ docs/ScimResource.md
 docs/ScimResourceWithOptionalId.md
 docs/ScimUser.md
 docs/SearchRequest.md
-docs/SearchResultFlow.md
 docs/SecurityIntegrationType.md
 docs/ServerConfig.md
 docs/ServerConfigLiveness.md
@@ -357,6 +353,9 @@ docs/SetupConfiguration.md
 docs/SoftDeletableFlowInterface.md
 docs/SortOrder.md
 docs/SortRequest.md
+docs/SourceMatch.md
+docs/SourceSearchResult.md
+docs/SourceSearchScope.md
 docs/State.md
 docs/StateHistory.md
 docs/StateType.md
@@ -600,7 +599,6 @@ kestrapy/models/iam_user_controller_api_user_summary.py
 kestrapy/models/iam_user_group_controller_api_update_user_groups_request.py
 kestrapy/models/id_with_namespace.py
 kestrapy/models/identity_provider.py
-kestrapy/models/import_plugin_defaults_request.py
 kestrapy/models/input_object.py
 kestrapy/models/input_type.py
 kestrapy/models/instance_controller_api_active_service.py
@@ -657,7 +655,6 @@ kestrapy/models/model_schema.py
 kestrapy/models/name.py
 kestrapy/models/namespace.py
 kestrapy/models/namespace_allowed_namespace.py
-kestrapy/models/namespace_controller_api_inherited_plugin_default_from_namespace.py
 kestrapy/models/namespace_file_revision.py
 kestrapy/models/namespace_light.py
 kestrapy/models/output.py
@@ -690,7 +687,7 @@ kestrapy/models/paged_results_log_entry.py
 kestrapy/models/paged_results_map_string_object.py
 kestrapy/models/paged_results_metric_entry.py
 kestrapy/models/paged_results_namespace.py
-kestrapy/models/paged_results_search_result_flow.py
+kestrapy/models/paged_results_source_search_result.py
 kestrapy/models/paged_results_tenant.py
 kestrapy/models/paged_results_test_suite.py
 kestrapy/models/paged_results_test_suite_run_result.py
@@ -705,7 +702,6 @@ kestrapy/models/plugin.py
 kestrapy/models/plugin_artifact.py
 kestrapy/models/plugin_artifact_metadata.py
 kestrapy/models/plugin_controller_api_plugin_versions.py
-kestrapy/models/plugin_default.py
 kestrapy/models/plugin_icon.py
 kestrapy/models/plugin_plugin_element_metadata.py
 kestrapy/models/plugin_schema.py
@@ -743,7 +739,6 @@ kestrapy/models/scim_resource_with_optional_id.py
 kestrapy/models/scim_user.py
 kestrapy/models/sdk_auth.py
 kestrapy/models/search_request.py
-kestrapy/models/search_result_flow.py
 kestrapy/models/security_integration_type.py
 kestrapy/models/server_config.py
 kestrapy/models/server_config_liveness.py
@@ -768,6 +763,9 @@ kestrapy/models/sla_type.py
 kestrapy/models/soft_deletable_flow_interface.py
 kestrapy/models/sort_order.py
 kestrapy/models/sort_request.py
+kestrapy/models/source_match.py
+kestrapy/models/source_search_result.py
+kestrapy/models/source_search_scope.py
 kestrapy/models/state.py
 kestrapy/models/state_history.py
 kestrapy/models/state_type.py

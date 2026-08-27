@@ -13,6 +13,9 @@ from test_helpers import (
     log_flow_yaml,
     create_flow,
     ns_filter,
+    flow_id_filter,
+    query_filter,
+    tags_filter,
 )
 
 
@@ -143,7 +146,7 @@ class TestSearch:
     def test_search_apps_with_namespace(self, client):
         created, ns, _ = _create_app_with_flow(client)
 
-        result = client.apps.search_apps(TENANT, 1, 10, namespace=ns)
+        result = client.apps.search_apps(TENANT, 1, 10, filters=[ns_filter(ns)])
         assert result is not None
         assert len(result.results) > 0
         assert any(app.uid == created.uid for app in result.results)
@@ -154,7 +157,7 @@ class TestSearch:
         create_flow(client, log_flow_yaml(flow_id, ns))
         created = client.apps.create_app(TENANT, _app_yaml(random_id(), ns, flow_id))
 
-        result = client.apps.search_apps(TENANT, 1, 10, namespace=ns, flow_id=flow_id)
+        result = client.apps.search_apps(TENANT, 1, 10, filters=[ns_filter(ns), flow_id_filter(flow_id)])
         assert result is not None
         assert len(result.results) > 0
         assert any(app.uid == created.uid for app in result.results)
@@ -174,7 +177,7 @@ class TestSearch:
         client.apps.create_app(TENANT, _app_yaml(app_id1, ns, flow_id))
         client.apps.create_app(TENANT, _app_yaml(app_id2, ns, flow_id))
 
-        result = client.apps.search_apps(TENANT, 1, 10, q=f"Test App {app_id1}", namespace=ns)
+        result = client.apps.search_apps(TENANT, 1, 10, filters=[query_filter(f"Test App {app_id1}"), ns_filter(ns)])
         assert len(result.results) > 0
         for app in result.results:
             assert app_id1 in app.name
@@ -189,7 +192,7 @@ class TestSearch:
         client.apps.create_app(TENANT, _app_yaml(app_id2, ns, flow_id))
         client.apps.create_app(TENANT, _app_yaml(app_id1, ns, flow_id))
 
-        result = client.apps.search_apps(TENANT, 1, 10, namespace=ns, sort=["id:asc"])
+        result = client.apps.search_apps(TENANT, 1, 10, sort=["id:asc"], filters=[ns_filter(ns)])
         assert len(result.results) >= 2
         ids = [app.id for app in result.results]
         idx1 = ids.index(app_id1)
@@ -207,7 +210,7 @@ class TestSearch:
             )
             if first_with_tags is not None:
                 tag = first_with_tags.tags[0]
-                result = client.apps.search_apps(TENANT, 1, 10, tags=[tag])
+                result = client.apps.search_apps(TENANT, 1, 10, filters=[tags_filter([tag])])
                 assert len(result.results) > 0
                 for app in result.results:
                     assert tag in app.tags
@@ -244,7 +247,7 @@ class TestSearch:
         strict=False,
     )
     def test_search_apps_no_results(self, client):
-        result = client.apps.search_apps(TENANT, 1, 10, namespace="nonexistent_ns_" + random_id())
+        result = client.apps.search_apps(TENANT, 1, 10, filters=[ns_filter("nonexistent_ns_" + random_id())])
         assert result is not None
         assert len(result.results) == 0
 
