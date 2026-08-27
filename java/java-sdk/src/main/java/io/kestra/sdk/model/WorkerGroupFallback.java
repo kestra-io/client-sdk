@@ -23,6 +23,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Gets or Sets WorkerGroup.Fallback
  */
+/**
+ * @deprecated Kestra 2.0 replaced worker groups with worker selectors on flows, tasks,
+ *             triggers, namespaces and tenants. Use {@link WorkerSelector}. This type is
+ *             no longer produced or consumed by any endpoint and is kept only so existing
+ *             code keeps linking.
+ */
+@Deprecated
 public enum WorkerGroupFallback {
   
   FAIL("FAIL"),

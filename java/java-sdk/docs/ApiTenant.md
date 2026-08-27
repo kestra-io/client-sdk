@@ -12,7 +12,7 @@
 |**id** | **String** |  |  |
 |**name** | **String** |  |  |
 |**deleted** | **Boolean** |  |  |
-|**defaultWorkerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
+|**defaultWorkerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |
 |**storageConfiguration** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**secretType** | **String** |  |  [optional] |
@@ -24,6 +24,9 @@
 |**settings** | [**TenantPreferencesSettings**](TenantPreferencesSettings.md) |  |  [optional] |
 |**sdkDefaultAuthentication** | [**SDKAuth**](SDKAuth.md) |  |  [optional] |
 |**logo** | **String** |  |  [optional] |
+|**concurrency** | [**Concurrency**](Concurrency.md) |  |  [optional] |
+|**quotas** | [**List&lt;Quota&gt;**](Quota.md) |  |  [optional] |
+|**workerSecretManagerMode** | [**SecretConfigurationWorkerSecretManagerMode**](SecretConfigurationWorkerSecretManagerMode.md) |  |  [optional] |
 
 
 

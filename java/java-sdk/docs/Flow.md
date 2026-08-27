@@ -17,7 +17,7 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**List&lt;Label&gt;**](Label.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**_finally** | [**List&lt;Task&gt;**](Task.md) |  |  [optional] |
 |**tasks** | [**Map&lt;Task&gt;**](Task.md) |  |  |

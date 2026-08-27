@@ -17,7 +17,7 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**MapObjectObject**](MapObjectObject.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**tasks** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  |
 |**errors** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  [optional] |

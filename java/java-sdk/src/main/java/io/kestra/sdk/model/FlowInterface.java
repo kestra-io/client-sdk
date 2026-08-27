@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import io.kestra.sdk.model.Quota;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -52,7 +53,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowInterface.JSON_PROPERTY_CONCURRENCY,
   FlowInterface.JSON_PROPERTY_SLA,
   FlowInterface.JSON_PROPERTY_SOURCE,
-  FlowInterface.JSON_PROPERTY_DRAFT
+  FlowInterface.JSON_PROPERTY_DRAFT,
+  FlowInterface.JSON_PROPERTY_QUOTAS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowInterface {
@@ -103,6 +105,9 @@ public class FlowInterface {
 
   public static final String JSON_PROPERTY_DRAFT = "draft";
   @jakarta.annotation.Nullable  private Boolean draft;
+
+  public static final String JSON_PROPERTY_QUOTAS = "quotas";
+  @jakarta.annotation.Nullable  private List<Quota> quotas;
 
   public FlowInterface() {
   }
@@ -531,6 +536,38 @@ public class FlowInterface {
     this.draft = draft;
   }
 
+  public FlowInterface quotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    
+    this.quotas = quotas;
+    return this;
+  }
+
+  public FlowInterface addQuotasItem(Quota quotasItem) {
+    if (this.quotas == null) {
+      this.quotas = new ArrayList<>();
+    }
+    this.quotas.add(quotasItem);
+    return this;
+  }
+
+  /**
+   * Get quotas
+   * @return quotas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Quota> getQuotas() {
+    return quotas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQuotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    this.quotas = quotas;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -555,12 +592,13 @@ public class FlowInterface {
         Objects.equals(this.concurrency, flowInterface.concurrency) &&
         Objects.equals(this.sla, flowInterface.sla) &&
         Objects.equals(this.source, flowInterface.source) &&
-        Objects.equals(this.draft, flowInterface.draft);
+        Objects.equals(this.draft, flowInterface.draft) &&
+        Objects.equals(this.quotas, flowInterface.quotas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, tenantId, deleted, description, disabled, labels, inputs, outputs, variables, workerSelector, concurrency, sla, source, draft);
+    return Objects.hash(id, namespace, revision, tenantId, deleted, description, disabled, labels, inputs, outputs, variables, workerSelector, concurrency, sla, source, draft, quotas);
   }
 
   @Override
@@ -583,6 +621,7 @@ public class FlowInterface {
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
     sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("    quotas: ").append(toIndentedString(quotas)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -14,7 +14,7 @@
 |**retry** | **Object** | Retry policy applied when the task fails. |  [optional] |
 |**timeout** | [**String**](PropertyDuration.md) |  |  [optional] |
 |**disabled** | **Boolean** |  |  [optional] |
-|**workerSelector** | [**WorkerSelector**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**logLevel** | **Level** |  |  [optional] |
 |**allowFailure** | **Boolean** |  |  [optional] |
 |**logToFile** | **Boolean** |  |  [optional] |
