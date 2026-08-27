@@ -191,6 +191,10 @@ def query_filter(q):
     return QueryFilter(var_field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": q})
 
 
+def tags_filter(tags):
+    return QueryFilter(var_field=QueryFilterField.TAGS, operation=QueryFilterOp.EQUALS, value={"value": tags})
+
+
 def flow_id_filter(flow_id):
     return QueryFilter(var_field=QueryFilterField.FLOW_ID, operation=QueryFilterOp.EQUALS, value={"value": flow_id})
 

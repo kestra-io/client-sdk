@@ -22,7 +22,6 @@ Name | Type | Description | Notes
 **errors** | [**List[Task]**](Task.md) |  | [optional] 
 **after_execution** | [**List[Task]**](Task.md) |  | [optional] 
 **triggers** | [**List[AbstractTrigger]**](AbstractTrigger.md) |  | [optional] 
-**plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **retry** | **object** |  | [optional] 
 **sla** | [**List[SLA]**](SLA.md) |  | [optional] 

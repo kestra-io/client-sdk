@@ -21,7 +21,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace
-from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
@@ -37,7 +36,6 @@ class Namespace(BaseModel):
     deleted: StrictBool
     description: Optional[StrictStr] = None
     variables: Optional[Dict[str, Dict[str, Any]]] = None
-    plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
     allowed_namespaces: Optional[List[NamespaceAllowedNamespace]] = Field(default=None, alias="allowedNamespaces")
     worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
     storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
@@ -48,7 +46,7 @@ class Namespace(BaseModel):
     outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
     sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "storageIsolation", "secretIsolation", "deleted", "description", "variables", "pluginDefaults", "allowedNamespaces", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "outputsInInternalStorage", "sdkDefaultAuthentication"]
+    __properties: ClassVar[List[str]] = ["id", "storageIsolation", "secretIsolation", "deleted", "description", "variables", "allowedNamespaces", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "outputsInInternalStorage", "sdkDefaultAuthentication"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -104,13 +102,6 @@ class Namespace(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of secret_isolation
         if self.secret_isolation:
             _dict['secretIsolation'] = self.secret_isolation.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in plugin_defaults (list)
-        _items = []
-        if self.plugin_defaults:
-            for _item_plugin_defaults in self.plugin_defaults:
-                if _item_plugin_defaults:
-                    _items.append(_item_plugin_defaults.to_dict())
-            _dict['pluginDefaults'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in allowed_namespaces (list)
         _items = []
         if self.allowed_namespaces:
@@ -147,7 +138,6 @@ class Namespace(BaseModel):
             "deleted": obj.get("deleted"),
             "description": obj.get("description"),
             "variables": obj.get("variables"),
-            "pluginDefaults": [PluginDefault.from_dict(_item) for _item in obj["pluginDefaults"]] if obj.get("pluginDefaults") is not None else None,
             "allowedNamespaces": [NamespaceAllowedNamespace.from_dict(_item) for _item in obj["allowedNamespaces"]] if obj.get("allowedNamespaces") is not None else None,
             "workerGroup": WorkerGroup.from_dict(obj["workerGroup"]) if obj.get("workerGroup") is not None else None,
             "storageType": obj.get("storageType"),

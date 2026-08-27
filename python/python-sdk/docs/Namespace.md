@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **deleted** | **bool** |  | 
 **description** | **str** |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
-**plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **allowed_namespaces** | [**List[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | [optional] 
 **worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **storage_type** | **str** |  | [optional] 
