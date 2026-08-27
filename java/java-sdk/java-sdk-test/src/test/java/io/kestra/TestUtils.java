@@ -296,6 +296,13 @@ public class TestUtils {
                 .value(q);
     }
 
+    public static QueryFilter tagsFilter(java.util.List<String> tags) {
+        return new QueryFilter()
+                .field(QueryFilterField.TAGS)
+                .operation(QueryFilterOp.EQUALS)
+                .value(tags);
+    }
+
     public static QueryFilter flowIdFilter(String flowId) {
         return new QueryFilter()
                 .field(QueryFilterField.FLOW_ID)

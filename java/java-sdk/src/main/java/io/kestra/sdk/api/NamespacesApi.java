@@ -12,10 +12,9 @@ import io.kestra.sdk.model.ApiAutocomplete;
 import io.kestra.sdk.model.ApiSecretMetaEE;
 import io.kestra.sdk.model.ApiSecretValue;
 import io.kestra.sdk.model.Namespace;
-import io.kestra.sdk.model.NamespaceControllerApiInheritedPluginDefaultFromNamespace;
 import io.kestra.sdk.model.PagedResultsNamespace;
+import io.kestra.sdk.model.QueryFilter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -110,16 +109,17 @@ public class NamespacesApi extends BaseApi {
 
     public PagedResultsNamespace searchNamespaces(
             @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable String q,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
             @jakarta.annotation.Nullable List<String> sort,
-            @jakarta.annotation.Nullable Boolean existing) throws ApiException {
+            @jakarta.annotation.Nullable Boolean existing,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         List<Pair> collectionParams = new ArrayList<>();
         collectionParams.addAll(csvParams("sort", sort));
+        collectionParams.addAll(filterParams(filters));
         return get(
                 tenantPath(tenant, "namespaces", "search"),
-                queryParams("q", q, "page", page, "size", size, "existing", existing),
+                queryParams("page", page, "size", size, "existing", existing),
                 collectionParams,
                 new TypeReference<>() {});
     }
@@ -184,44 +184,6 @@ public class NamespacesApi extends BaseApi {
         return get(
                 tenantPath(tenant, "namespaces", id, "inherited-variables"),
                 Collections.emptyList(), Collections.emptyList(),
-                new TypeReference<>() {});
-    }
-
-    // ========================================================================
-    // Plugin Defaults
-    // ========================================================================
-
-    public List<NamespaceControllerApiInheritedPluginDefaultFromNamespace> inheritedPluginDefaults(
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
-        return get(
-                tenantPath(tenant, "namespaces", id, "inherited-plugindefaults"),
-                Collections.emptyList(), Collections.emptyList(),
-                new TypeReference<>() {});
-    }
-
-    public byte[] exportPluginDefaults(
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
-        return invoke("POST",
-                tenantPath(tenant, "namespaces", id, "plugindefaults", "export"),
-                null, Collections.emptyList(), Collections.emptyList(),
-                OCTET_STREAM, null, new HashMap<>(),
-                new TypeReference<>() {});
-    }
-
-    public List<String> importPluginDefaults(
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable File fileUpload) throws ApiException {
-        Map<String, Object> formParams = new HashMap<>();
-        if (fileUpload != null) {
-            formParams.put("fileUpload", fileUpload);
-        }
-        return invoke("POST",
-                tenantPath(tenant, "namespaces", id, "plugindefaults", "import"),
-                null, Collections.emptyList(), Collections.emptyList(),
-                JSON, MULTIPART, formParams,
                 new TypeReference<>() {});
     }
 

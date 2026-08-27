@@ -70,7 +70,7 @@ public class NamespacesApiTest {
 
     @Test
     void searchNamespaces_basic() throws ApiException {
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, null, 1, 10, null, null);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -82,7 +82,7 @@ public class NamespacesApiTest {
         String id = randomId();
         api().createNamespace(TENANT, new Namespace().id(id));
 
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, id, 1, 10, null, null);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, null, List.of(queryFilter(id)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -91,7 +91,7 @@ public class NamespacesApiTest {
 
     @Test
     void searchNamespaces_withPagination() throws ApiException {
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, null, 1, 2, null, null);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 2, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -103,7 +103,7 @@ public class NamespacesApiTest {
         String id = randomId();
         api().createNamespace(TENANT, new Namespace().id(id));
 
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, id, 1, 10, null, true);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, true, List.of(queryFilter(id)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -119,7 +119,7 @@ public class NamespacesApiTest {
         api().createNamespace(TENANT, new Namespace().id(id2));
         api().createNamespace(TENANT, new Namespace().id(id1));
 
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, prefix, 1, 10, List.of("id:asc"), null);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, List.of("id:asc"), null, List.of(queryFilter(prefix)));
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> ids = result.getResults().stream().map(Namespace::getId).toList();
@@ -132,7 +132,7 @@ public class NamespacesApiTest {
     @Test
     @Disabled("Kestra 2.0: namespace search no longer filters server-side — empty-result query still returns namespaces")
     void searchNamespaces_noResults() throws ApiException {
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, "nonexistent_ns_" + randomId(), 1, 10, null, null);
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, null, List.of(queryFilter("nonexistent_ns_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();

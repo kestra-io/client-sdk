@@ -39,18 +39,23 @@ public class TriggersApi extends BaseApi {
     // Search
     // ========================================================================
 
+    /**
+     * @param dateFilter which trigger date field the time interval is applied to:
+     *                   {@code NEXT_EXECUTION_DATE} or {@code LAST_TRIGGERED_DATE}.
+     */
     public PagedResultsApiTriggerAndState searchTriggers(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
             @jakarta.annotation.Nullable List<String> sort,
-            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+            @jakarta.annotation.Nullable List<QueryFilter> filters,
+            @jakarta.annotation.Nullable String dateFilter) throws ApiException {
         List<Pair> collectionParams = new ArrayList<>();
         collectionParams.addAll(csvParams("sort", sort));
         collectionParams.addAll(filterParams(filters));
         return invoke("GET",
                 tenantPath(tenant, "triggers", "search"),
-                null, queryParams("page", page, "size", size), collectionParams,
+                null, queryParams("page", page, "size", size, "dateFilter", dateFilter), collectionParams,
                 JSON, null,
                 new TypeReference<>() {});
     }

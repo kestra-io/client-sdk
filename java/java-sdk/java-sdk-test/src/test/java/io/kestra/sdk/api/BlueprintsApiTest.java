@@ -23,7 +23,7 @@ public class BlueprintsApiTest {
     @Test
     void searchBlueprints_flow() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem result =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 5);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 5, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -32,7 +32,7 @@ public class BlueprintsApiTest {
     @Test
     void searchBlueprints_withQuery() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem result =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, "hello", null, null, 1, 5);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 5, List.of(queryFilter("hello")));
 
         assertThat(result).isNotNull();
     }
@@ -40,7 +40,7 @@ public class BlueprintsApiTest {
     @Test
     void searchBlueprints_withTags() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem allResults =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 1, null);
 
         if (allResults.getResults() != null && !allResults.getResults().isEmpty()
                 && allResults.getResults().get(0).getTags() != null
@@ -48,7 +48,7 @@ public class BlueprintsApiTest {
             String tag = allResults.getResults().get(0).getTags().get(0);
 
             PagedResultsBlueprintControllerApiBlueprintItem result =
-                    api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, List.of(tag), 1, 10);
+                    api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 10, List.of(tagsFilter(List.of(tag))));
 
             assertThat(result.getResults()).isNotEmpty();
             assertThat(result.getResults()).allSatisfy(bp ->
@@ -135,7 +135,7 @@ public class BlueprintsApiTest {
         api().createFlowBlueprint(TENANT, new BlueprintControllerFlowBlueprintCreateOrUpdate()
                 .title(title1).source(logFlowYaml(randomId(), randomId())));
 
-        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, "title:asc", null, 1, 100, null);
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, "title:asc", 1, 100, null, null);
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> titles = result.getResults().stream().map(Blueprint::getTitle).toList();
@@ -157,7 +157,7 @@ public class BlueprintsApiTest {
                 .title("untagged-bp-" + randomId())
                 .source(logFlowYaml(randomId(), randomId())));
 
-        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, null, List.of(tag), 1, 10, null);
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, 1, 10, null, List.of(tagsFilter(List.of(tag))));
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(bp ->
@@ -170,7 +170,7 @@ public class BlueprintsApiTest {
                 .title("source-bp-" + randomId())
                 .source(logFlowYaml(randomId(), randomId())));
 
-        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, null, null, 1, 10, true);
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, 1, 10, true, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -186,7 +186,7 @@ public class BlueprintsApiTest {
 
         BlueprintControllerApiFlowBlueprint created = api().createFlowBlueprint(TENANT, request);
 
-        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, created.getTitle(), null, null, 1, 10, null);
+        PagedResultsBlueprint result = api().searchInternalBlueprints(TENANT, null, 1, 10, null, List.of(queryFilter(created.getTitle())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
@@ -199,7 +199,7 @@ public class BlueprintsApiTest {
     @Test
     void blueprint_basic() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem search =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 1, null);
 
         if (search.getResults() != null && !search.getResults().isEmpty()) {
             String bpId = search.getResults().get(0).getId();
@@ -215,7 +215,7 @@ public class BlueprintsApiTest {
     @Test
     void blueprintGraph_basic() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem search =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 1, null);
 
         if (search.getResults() != null && !search.getResults().isEmpty()) {
             String bpId = search.getResults().get(0).getId();
@@ -230,7 +230,7 @@ public class BlueprintsApiTest {
     @Test
     void blueprintSource_basic() throws ApiException {
         PagedResultsBlueprintControllerApiBlueprintItem search =
-                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, null, null, 1, 1);
+                api().searchBlueprints(BlueprintControllerKind.FLOW, TENANT, null, 1, 1, null);
 
         if (search.getResults() != null && !search.getResults().isEmpty()) {
             String bpId = search.getResults().get(0).getId();
