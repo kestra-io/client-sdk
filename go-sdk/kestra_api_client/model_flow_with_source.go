@@ -12,8 +12,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
 
 // checks if the FlowWithSource type satisfies the MappedNullable interface at compile time
@@ -30,24 +30,33 @@ type FlowWithSource struct {
 	Inputs []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
 	Outputs []Output `json:"outputs,omitempty"`
+	// A disabled flow does not run: its triggers are paused and new executions are rejected.
 	Disabled bool `json:"disabled"`
+	// Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+	Draft bool `json:"draft"`
 	// Labels as a list of Label (key/value pairs) or as a map of string to string.
 	Labels *MapObjectObject `json:"labels,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	// Routing requirements (tags + fallback) for this flow.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
 	Deleted bool `json:"deleted"`
 	Finally []Task `json:"finally,omitempty"`
 	Tasks []Task `json:"tasks"`
 	Errors []Task `json:"errors,omitempty"`
 	AfterExecution []Task `json:"afterExecution,omitempty"`
 	Triggers []AbstractTrigger `json:"triggers,omitempty"`
-	PluginDefaults []FlowPluginDefault `json:"pluginDefaults,omitempty"`
+	// Identifiers of `enforcement: REFERENCE` policies to attach to this flow, resolved within the flow's tenant/namespace scope chain. Enterprise Edition only; parsed but ignored in the open-source edition.
+	PolicyRefs []string `json:"policyRefs,omitempty"`
+	// Limits the number of concurrent executions of the flow.
 	Concurrency *Concurrency `json:"concurrency,omitempty"`
 	// Retry policy applied when the flow fails.
 	Retry map[string]interface{} `json:"retry,omitempty"`
 	Sla []SLA `json:"sla,omitempty"`
 	// A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally.
 	Checks []Check `json:"checks,omitempty"`
+	// A list of quotas that are evaluated before the flow is executed. If no quotas are defined, the flow executes normally.
+	// Quotas can also be defined at the namespace and tenant level.
+	Quotas []Quota `json:"quotas,omitempty"`
 	Source *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -58,11 +67,12 @@ type _FlowWithSource FlowWithSource
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowWithSource(id string, namespace string, disabled bool, deleted bool, tasks []Task) *FlowWithSource {
+func NewFlowWithSource(id string, namespace string, disabled bool, draft bool, deleted bool, tasks []Task) *FlowWithSource {
 	this := FlowWithSource{}
 	this.Id = id
 	this.Namespace = namespace
 	this.Disabled = disabled
+	this.Draft = draft
 	this.Deleted = deleted
 	this.Tasks = tasks
 	return &this
@@ -308,6 +318,30 @@ func (o *FlowWithSource) SetDisabled(v bool) {
 	o.Disabled = v
 }
 
+// GetDraft returns the Draft field value
+func (o *FlowWithSource) GetDraft() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value
+// and a boolean to check if the value has been set.
+func (o *FlowWithSource) GetDraftOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Draft, true
+}
+
+// SetDraft sets field value
+func (o *FlowWithSource) SetDraft(v bool) {
+	o.Draft = v
+}
+
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *FlowWithSource) GetLabels() MapObjectObject {
 	if o == nil || IsNil(o.Labels) {
@@ -372,36 +406,36 @@ func (o *FlowWithSource) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *FlowWithSource) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *FlowWithSource) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.WorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *FlowWithSource) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.WorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *FlowWithSource) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *FlowWithSource) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *FlowWithSource) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *FlowWithSource) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -472,11 +506,11 @@ func (o *FlowWithSource) GetTasks() []Task {
 
 // GetTasksOk returns a tuple with the Tasks field value
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetTasksOk() ([]Task, bool) {
+func (o *FlowWithSource) GetTasksOk() (*[]Task, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Tasks, true
+	return &o.Tasks, true
 }
 
 // SetTasks sets field value
@@ -580,36 +614,36 @@ func (o *FlowWithSource) SetTriggers(v []AbstractTrigger) {
 	o.Triggers = v
 }
 
-// GetPluginDefaults returns the PluginDefaults field value if set, zero value otherwise.
-func (o *FlowWithSource) GetPluginDefaults() []FlowPluginDefault {
-	if o == nil || IsNil(o.PluginDefaults) {
-		var ret []FlowPluginDefault
+// GetPolicyRefs returns the PolicyRefs field value if set, zero value otherwise.
+func (o *FlowWithSource) GetPolicyRefs() []string {
+	if o == nil || IsNil(o.PolicyRefs) {
+		var ret []string
 		return ret
 	}
-	return o.PluginDefaults
+	return o.PolicyRefs
 }
 
-// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value if set, nil otherwise
+// GetPolicyRefsOk returns a tuple with the PolicyRefs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetPluginDefaultsOk() ([]FlowPluginDefault, bool) {
-	if o == nil || IsNil(o.PluginDefaults) {
+func (o *FlowWithSource) GetPolicyRefsOk() ([]string, bool) {
+	if o == nil || IsNil(o.PolicyRefs) {
 		return nil, false
 	}
-	return o.PluginDefaults, true
+	return o.PolicyRefs, true
 }
 
-// HasPluginDefaults returns a boolean if a field has been set.
-func (o *FlowWithSource) HasPluginDefaults() bool {
-	if o != nil && !IsNil(o.PluginDefaults) {
+// HasPolicyRefs returns a boolean if a field has been set.
+func (o *FlowWithSource) HasPolicyRefs() bool {
+	if o != nil && !IsNil(o.PolicyRefs) {
 		return true
 	}
 
 	return false
 }
 
-// SetPluginDefaults gets a reference to the given []FlowPluginDefault and assigns it to the PluginDefaults field.
-func (o *FlowWithSource) SetPluginDefaults(v []FlowPluginDefault) {
-	o.PluginDefaults = v
+// SetPolicyRefs gets a reference to the given []string and assigns it to the PolicyRefs field.
+func (o *FlowWithSource) SetPolicyRefs(v []string) {
+	o.PolicyRefs = v
 }
 
 // GetConcurrency returns the Concurrency field value if set, zero value otherwise.
@@ -740,6 +774,38 @@ func (o *FlowWithSource) SetChecks(v []Check) {
 	o.Checks = v
 }
 
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *FlowWithSource) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowWithSource) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *FlowWithSource) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *FlowWithSource) SetQuotas(v []Quota) {
+	o.Quotas = v
+}
+
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *FlowWithSource) GetSource() string {
 	if o == nil || IsNil(o.Source) {
@@ -800,14 +866,15 @@ func (o FlowWithSource) ToMap() (map[string]interface{}, error) {
 		toSerialize["outputs"] = o.Outputs
 	}
 	toSerialize["disabled"] = o.Disabled
+	toSerialize["draft"] = o.Draft
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
 	}
 	toSerialize["deleted"] = o.Deleted
 	if !IsNil(o.Finally) {
@@ -823,8 +890,8 @@ func (o FlowWithSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Triggers) {
 		toSerialize["triggers"] = o.Triggers
 	}
-	if !IsNil(o.PluginDefaults) {
-		toSerialize["pluginDefaults"] = o.PluginDefaults
+	if !IsNil(o.PolicyRefs) {
+		toSerialize["policyRefs"] = o.PolicyRefs
 	}
 	if !IsNil(o.Concurrency) {
 		toSerialize["concurrency"] = o.Concurrency
@@ -837,6 +904,9 @@ func (o FlowWithSource) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Checks) {
 		toSerialize["checks"] = o.Checks
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
@@ -857,6 +927,7 @@ func (o *FlowWithSource) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"namespace",
 		"disabled",
+		"draft",
 		"deleted",
 		"tasks",
 	}
@@ -896,20 +967,22 @@ func (o *FlowWithSource) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")
 		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "draft")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "variables")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "workerSelector")
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "finally")
 		delete(additionalProperties, "tasks")
 		delete(additionalProperties, "errors")
 		delete(additionalProperties, "afterExecution")
 		delete(additionalProperties, "triggers")
-		delete(additionalProperties, "pluginDefaults")
+		delete(additionalProperties, "policyRefs")
 		delete(additionalProperties, "concurrency")
 		delete(additionalProperties, "retry")
 		delete(additionalProperties, "sla")
 		delete(additionalProperties, "checks")
+		delete(additionalProperties, "quotas")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -952,5 +1025,3 @@ func (v *NullableFlowWithSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

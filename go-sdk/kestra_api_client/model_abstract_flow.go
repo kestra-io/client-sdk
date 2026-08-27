@@ -12,8 +12,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
 
 // checks if the AbstractFlow type satisfies the MappedNullable interface at compile time
@@ -29,11 +29,15 @@ type AbstractFlow struct {
 	Description *string `json:"description,omitempty"`
 	Inputs []InputObject `json:"inputs,omitempty"`
 	Outputs []Output `json:"outputs,omitempty"`
+	// A disabled flow does not run: its triggers are paused and new executions are rejected.
 	Disabled bool `json:"disabled"`
+	// Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+	Draft bool `json:"draft"`
 	// Labels as a list of Label (key/value pairs) or as a map of string to string.
 	Labels *MapObjectObject `json:"labels,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	// Routing requirements (tags + fallback) for this flow.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
 	Deleted bool `json:"deleted"`
 	AdditionalProperties map[string]interface{}
 }
@@ -44,11 +48,12 @@ type _AbstractFlow AbstractFlow
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAbstractFlow(id string, namespace string, disabled bool, deleted bool) *AbstractFlow {
+func NewAbstractFlow(id string, namespace string, disabled bool, draft bool, deleted bool) *AbstractFlow {
 	this := AbstractFlow{}
 	this.Id = id
 	this.Namespace = namespace
 	this.Disabled = disabled
+	this.Draft = draft
 	this.Deleted = deleted
 	return &this
 }
@@ -293,6 +298,30 @@ func (o *AbstractFlow) SetDisabled(v bool) {
 	o.Disabled = v
 }
 
+// GetDraft returns the Draft field value
+func (o *AbstractFlow) GetDraft() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetDraftOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Draft, true
+}
+
+// SetDraft sets field value
+func (o *AbstractFlow) SetDraft(v bool) {
+	o.Draft = v
+}
+
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *AbstractFlow) GetLabels() MapObjectObject {
 	if o == nil || IsNil(o.Labels) {
@@ -357,36 +386,36 @@ func (o *AbstractFlow) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *AbstractFlow) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *AbstractFlow) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.WorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractFlow) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *AbstractFlow) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.WorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *AbstractFlow) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *AbstractFlow) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *AbstractFlow) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractFlow) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -441,14 +470,15 @@ func (o AbstractFlow) ToMap() (map[string]interface{}, error) {
 		toSerialize["outputs"] = o.Outputs
 	}
 	toSerialize["disabled"] = o.Disabled
+	toSerialize["draft"] = o.Draft
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
 	}
 	toSerialize["deleted"] = o.Deleted
 
@@ -467,6 +497,7 @@ func (o *AbstractFlow) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"namespace",
 		"disabled",
+		"draft",
 		"deleted",
 	}
 
@@ -505,9 +536,10 @@ func (o *AbstractFlow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")
 		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "draft")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "variables")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "workerSelector")
 		delete(additionalProperties, "deleted")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -550,5 +582,3 @@ func (v *NullableAbstractFlow) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

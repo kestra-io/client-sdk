@@ -33,6 +33,11 @@ func (a *BlueprintsAPI) CreateFlowBlueprint(ctx context.Context, tenant string, 
 	return doJSON[*BlueprintControllerApiFlowBlueprint](&a.baseAPI, ctx, "POST", tenantPath(tenant, "blueprints", "flows"), request, nil)
 }
 
+// ValidateFlowBlueprint validates a flow blueprint source without persisting it.
+func (a *BlueprintsAPI) ValidateFlowBlueprint(ctx context.Context, tenant, yamlBody string) (*ValidateConstraintViolation, error) {
+	return doJSONWithYAMLBody[*ValidateConstraintViolation](&a.baseAPI, ctx, "POST", tenantPath(tenant, "blueprints", "flows", "validate"), yamlBody, nil)
+}
+
 func (a *BlueprintsAPI) FlowBlueprintById(ctx context.Context, id, tenant string) (*BlueprintControllerApiFlowBlueprint, error) {
 	return doJSON[*BlueprintControllerApiFlowBlueprint](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "flows", id), nil, nil)
 }
