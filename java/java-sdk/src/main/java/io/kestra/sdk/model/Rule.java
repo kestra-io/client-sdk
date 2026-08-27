@@ -28,7 +28,7 @@ public class Rule {
   @Nonnull  private String type;
 
   public static final String JSON_PROPERTY_ON = "on";
-  @Nullable  private RuleTarget on;
+  @Nonnull  private RuleTarget on;
 
   public static final String JSON_PROPERTY_WHERE = "where";
   @Nullable  private List<PolicyCondition> where = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Rule {
     this.type = type;
   }
 
-  public Rule on(@Nullable RuleTarget on) {
+  public Rule on(@Nonnull RuleTarget on) {
     
     this.on = on;
     return this;
@@ -70,7 +70,7 @@ public class Rule {
    * Get on
    * @return on
    */
-  @Nullable  @JsonProperty(JSON_PROPERTY_ON)
+  @Nonnull  @JsonProperty(JSON_PROPERTY_ON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RuleTarget getOn() {
@@ -80,7 +80,7 @@ public class Rule {
 
   @JsonProperty(JSON_PROPERTY_ON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOn(@Nullable RuleTarget on) {
+  public void setOn(@Nonnull RuleTarget on) {
     this.on = on;
   }
 

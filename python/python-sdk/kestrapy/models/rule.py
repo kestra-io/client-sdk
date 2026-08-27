@@ -24,7 +24,7 @@ class Rule(BaseModel):
     Rule
     """ # noqa: E501
     type: StrictStr
-    on: Optional[RuleTarget] = None
+    on: RuleTarget
     where: Optional[List[PolicyCondition]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "on", "where"]

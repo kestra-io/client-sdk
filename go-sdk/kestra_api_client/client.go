@@ -115,6 +115,10 @@ func (c *KestraClient) Namespaces() *NamespacesAPI {
 	return &NamespacesAPI{baseAPI{client: c}}
 }
 
+func (c *KestraClient) Policies() *PoliciesAPI {
+	return &PoliciesAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Roles() *RolesAPI {
 	return &RolesAPI{baseAPI{client: c}}
 }
