@@ -14,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * Condition
+ * PolicyCondition
  */
 @JsonPropertyOrder({
-  Condition.JSON_PROPERTY_FIELD,
-  Condition.JSON_PROPERTY_OPERATOR,
-  Condition.JSON_PROPERTY_VALUE
+  PolicyCondition.JSON_PROPERTY_FIELD,
+  PolicyCondition.JSON_PROPERTY_OPERATOR,
+  PolicyCondition.JSON_PROPERTY_VALUE
 })
-public class Condition {
+public class PolicyCondition {
   public static final String JSON_PROPERTY_FIELD = "field";
   @Nonnull  private String field;
 
@@ -31,10 +31,10 @@ public class Condition {
   public static final String JSON_PROPERTY_VALUE = "value";
   @Nullable  private Object value;
 
-  public Condition() {
+  public PolicyCondition() {
   }
 
-  public Condition field(@Nonnull String field) {
+  public PolicyCondition field(@Nonnull String field) {
     
     this.field = field;
     return this;
@@ -58,7 +58,7 @@ public class Condition {
     this.field = field;
   }
 
-  public Condition operator(@Nonnull AbstractFilterFilterType operator) {
+  public PolicyCondition operator(@Nonnull AbstractFilterFilterType operator) {
     
     this.operator = operator;
     return this;
@@ -82,7 +82,7 @@ public class Condition {
     this.operator = operator;
   }
 
-  public Condition value(@Nullable Object value) {
+  public PolicyCondition value(@Nullable Object value) {
     
     this.value = value;
     return this;
@@ -114,10 +114,10 @@ public class Condition {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Condition condition = (Condition) o;
-    return Objects.equals(this.field, condition.field) &&
-        Objects.equals(this.operator, condition.operator) &&
-        Objects.equals(this.value, condition.value);
+    PolicyCondition policyCondition = (PolicyCondition) o;
+    return Objects.equals(this.field, policyCondition.field) &&
+        Objects.equals(this.operator, policyCondition.operator) &&
+        Objects.equals(this.value, policyCondition.value);
   }
 
   @Override
@@ -128,7 +128,7 @@ public class Condition {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Condition {\n");
+    sb.append("class PolicyCondition {\n");
     sb.append("    field: ").append(toIndentedString(field)).append("\n");
     sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");

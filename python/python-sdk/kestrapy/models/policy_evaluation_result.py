@@ -1,0 +1,117 @@
+# coding: utf-8
+
+"""
+    Kestra EE
+
+    All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+"""  # noqa: E501
+
+
+from __future__ import annotations
+import pprint
+import regex as re
+import json
+
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.api_policy_evaluation_resource import ApiPolicyEvaluationResource
+from kestrapy.models.policy_mutation import PolicyMutation
+from kestrapy.models.policy_violation import PolicyViolation
+from kestrapy.models.policy_conflict import PolicyConflict
+from typing import Optional, Set
+from typing_extensions import Self
+
+class PolicyEvaluationResult(BaseModel):
+    """
+    PolicyEvaluationResult
+    """ # noqa: E501
+    resource: Optional[ApiPolicyEvaluationResource] = None
+    mutations: Optional[List[PolicyMutation]] = None
+    violations: Optional[List[PolicyViolation]] = None
+    conflicts: Optional[List[PolicyConflict]] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["resource", "mutations", "violations", "conflicts"]
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of PolicyEvaluationResult from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([
+            "additional_properties",
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of resource
+        if self.resource:
+            _dict['resource'] = self.resource.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in mutations (list)
+        _items = []
+        if self.mutations:
+            for _item_mutations in self.mutations:
+                if _item_mutations:
+                    _items.append(_item_mutations.to_dict())
+            _dict['mutations'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in violations (list)
+        _items = []
+        if self.violations:
+            for _item_violations in self.violations:
+                if _item_violations:
+                    _items.append(_item_violations.to_dict())
+            _dict['violations'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in conflicts (list)
+        _items = []
+        if self.conflicts:
+            for _item_conflicts in self.conflicts:
+                if _item_conflicts:
+                    _items.append(_item_conflicts.to_dict())
+            _dict['conflicts'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of PolicyEvaluationResult from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "resource": ApiPolicyEvaluationResource.from_dict(obj["resource"]) if obj.get("resource") is not None else None,
+            "mutations": [PolicyMutation.from_dict(_item) for _item in obj["mutations"]] if obj.get("mutations") is not None else None,
+            "violations": [PolicyViolation.from_dict(_item) for _item in obj["violations"]] if obj.get("violations") is not None else None,
+            "conflicts": [PolicyConflict.from_dict(_item) for _item in obj["conflicts"]] if obj.get("conflicts") is not None else None
+        })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
+        return _obj

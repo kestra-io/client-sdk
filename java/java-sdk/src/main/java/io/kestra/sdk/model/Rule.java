@@ -31,7 +31,7 @@ public class Rule {
   @Nullable  private RuleTarget on;
 
   public static final String JSON_PROPERTY_WHERE = "where";
-  @Nullable  private List<Condition> where = new ArrayList<>();
+  @Nullable  private List<PolicyCondition> where = new ArrayList<>();
 
   public Rule() {
   }
@@ -84,13 +84,13 @@ public class Rule {
     this.on = on;
   }
 
-  public Rule where(@Nullable List<Condition> where) {
+  public Rule where(@Nullable List<PolicyCondition> where) {
     
     this.where = where;
     return this;
   }
 
-  public Rule addWhereItem(Condition whereItem) {
+  public Rule addWhereItem(PolicyCondition whereItem) {
     if (this.where == null) {
       this.where = new ArrayList<>();
     }
@@ -105,14 +105,14 @@ public class Rule {
   @Nullable  @JsonProperty(JSON_PROPERTY_WHERE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Condition> getWhere() {
+  public List<PolicyCondition> getWhere() {
     return where;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WHERE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWhere(@Nullable List<Condition> where) {
+  public void setWhere(@Nullable List<PolicyCondition> where) {
     this.where = where;
   }
 

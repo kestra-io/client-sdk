@@ -8,6 +8,7 @@ from kestrapy.api.groups_api import GroupsApi
 from kestrapy.api.users_api import UsersApi
 from kestrapy.api.service_account_api import ServiceAccountApi
 from kestrapy.api.namespaces_api import NamespacesApi
+from kestrapy.api.policies_api import PoliciesApi
 from kestrapy.api.triggers_api import TriggersApi
 from kestrapy.api.flows_api import FlowsApi
 from kestrapy.api.executions_api import ExecutionsApi
@@ -81,6 +82,9 @@ class KestraClient:
     def kv(self): return self._get_api(KVApi)
     @property
     def namespaces(self): return self._get_api(NamespacesApi)
+
+    @property
+    def policies(self): return self._get_api(PoliciesApi)
     @property
     def triggers(self): return self._get_api(TriggersApi)
     @property

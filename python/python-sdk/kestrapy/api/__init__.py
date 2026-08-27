@@ -13,6 +13,7 @@ from kestrapy.api.invitations_api import InvitationsApi
 from kestrapy.api.kv_api import KVApi
 from kestrapy.api.logs_api import LogsApi
 from kestrapy.api.namespaces_api import NamespacesApi
+from kestrapy.api.policies_api import PoliciesApi
 from kestrapy.api.roles_api import RolesApi
 from kestrapy.api.service_account_api import ServiceAccountApi
 from kestrapy.api.test_suites_api import TestSuitesApi
