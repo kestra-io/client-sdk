@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_LAST_NAME,
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_EMAIL,
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_PASSWORD,
-  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_SUPER_ADMIN,
+  IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_INSTANCE_OWNER,
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiCreateOrUpdateUserRequest")
@@ -59,8 +59,8 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
   public static final String JSON_PROPERTY_PASSWORD = "password";
   @jakarta.annotation.Nullable  private String password;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
   @jakarta.annotation.Nullable  private Boolean restricted;
@@ -228,28 +228,28 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
     this.password = password;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public IAMUserControllerApiCreateOrUpdateUserRequest restricted(@jakarta.annotation.Nullable Boolean restricted) {
@@ -291,13 +291,13 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
         Objects.equals(this.lastName, iaMUserControllerApiCreateOrUpdateUserRequest.lastName) &&
         Objects.equals(this.email, iaMUserControllerApiCreateOrUpdateUserRequest.email) &&
         Objects.equals(this.password, iaMUserControllerApiCreateOrUpdateUserRequest.password) &&
-        Objects.equals(this.superAdmin, iaMUserControllerApiCreateOrUpdateUserRequest.superAdmin) &&
+        Objects.equals(this.instanceOwner, iaMUserControllerApiCreateOrUpdateUserRequest.instanceOwner) &&
         Objects.equals(this.restricted, iaMUserControllerApiCreateOrUpdateUserRequest.restricted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tenants, groups, firstName, lastName, email, password, superAdmin, restricted);
+    return Objects.hash(tenants, groups, firstName, lastName, email, password, instanceOwner, restricted);
   }
 
   @Override
@@ -310,7 +310,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
     sb.append("}");
     return sb.toString();

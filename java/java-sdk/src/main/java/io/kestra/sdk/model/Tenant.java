@@ -12,6 +12,8 @@
 
 package io.kestra.sdk.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,12 @@ import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.TenantAppCatalogConfig;
 import io.kestra.sdk.model.TenantPreferencesSettings;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.util.HashMap;
 import java.util.Map;
+import io.kestra.sdk.model.Concurrency;
+import io.kestra.sdk.model.Quota;
+import io.kestra.sdk.model.SecretConfigurationWorkerSecretManagerMode;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -38,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_ID,
   Tenant.JSON_PROPERTY_NAME,
   Tenant.JSON_PROPERTY_DELETED,
-  Tenant.JSON_PROPERTY_WORKER_GROUP,
+  Tenant.JSON_PROPERTY_DEFAULT_WORKER_SELECTOR,
   Tenant.JSON_PROPERTY_STORAGE_TYPE,
   Tenant.JSON_PROPERTY_STORAGE_CONFIGURATION,
   Tenant.JSON_PROPERTY_SECRET_TYPE,
@@ -48,7 +53,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
   Tenant.JSON_PROPERTY_APP_CATALOG_CONFIG,
   Tenant.JSON_PROPERTY_SETTINGS,
-  Tenant.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION
+  Tenant.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION,
+  Tenant.JSON_PROPERTY_CONCURRENCY,
+  Tenant.JSON_PROPERTY_QUOTAS,
+  Tenant.JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Tenant {
@@ -67,8 +75,8 @@ public class Tenant {
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_DEFAULT_WORKER_SELECTOR = "defaultWorkerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector defaultWorkerSelector;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
   @jakarta.annotation.Nullable  private String storageType;
@@ -99,6 +107,15 @@ public class Tenant {
 
   public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
   @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
+
+  public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
+  @jakarta.annotation.Nullable  private Concurrency concurrency;
+
+  public static final String JSON_PROPERTY_QUOTAS = "quotas";
+  @jakarta.annotation.Nullable  private List<Quota> quotas;
+
+  public static final String JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE = "workerSecretManagerMode";
+  @jakarta.annotation.Nullable  private SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode;
 
   public Tenant() {
   }
@@ -223,28 +240,28 @@ public class Tenant {
     this.deleted = deleted;
   }
 
-  public Tenant workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public Tenant defaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.defaultWorkerSelector = defaultWorkerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get defaultWorkerSelector
+   * @return defaultWorkerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getDefaultWorkerSelector() {
+    return defaultWorkerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setDefaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
+    this.defaultWorkerSelector = defaultWorkerSelector;
   }
 
   public Tenant storageType(@jakarta.annotation.Nullable String storageType) {
@@ -503,6 +520,86 @@ public class Tenant {
     this.sdkDefaultAuthentication = sdkDefaultAuthentication;
   }
 
+  public Tenant concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    
+    this.concurrency = concurrency;
+    return this;
+  }
+
+  /**
+   * Get concurrency
+   * @return concurrency
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Concurrency getConcurrency() {
+    return concurrency;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConcurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    this.concurrency = concurrency;
+  }
+
+  public Tenant quotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    
+    this.quotas = quotas;
+    return this;
+  }
+
+  public Tenant addQuotasItem(Quota quotasItem) {
+    if (this.quotas == null) {
+      this.quotas = new ArrayList<>();
+    }
+    this.quotas.add(quotasItem);
+    return this;
+  }
+
+  /**
+   * Get quotas
+   * @return quotas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Quota> getQuotas() {
+    return quotas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQuotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    this.quotas = quotas;
+  }
+
+  public Tenant workerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    
+    this.workerSecretManagerMode = workerSecretManagerMode;
+    return this;
+  }
+
+  /**
+   * Get workerSecretManagerMode
+   * @return workerSecretManagerMode
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SecretConfigurationWorkerSecretManagerMode getWorkerSecretManagerMode() {
+    return workerSecretManagerMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    this.workerSecretManagerMode = workerSecretManagerMode;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -517,7 +614,7 @@ public class Tenant {
         Objects.equals(this.id, tenant.id) &&
         Objects.equals(this.name, tenant.name) &&
         Objects.equals(this.deleted, tenant.deleted) &&
-        Objects.equals(this.workerGroup, tenant.workerGroup) &&
+        Objects.equals(this.defaultWorkerSelector, tenant.defaultWorkerSelector) &&
         Objects.equals(this.storageType, tenant.storageType) &&
         Objects.equals(this.storageConfiguration, tenant.storageConfiguration) &&
         Objects.equals(this.secretType, tenant.secretType) &&
@@ -527,12 +624,15 @@ public class Tenant {
         Objects.equals(this.outputsInInternalStorage, tenant.outputsInInternalStorage) &&
         Objects.equals(this.appCatalogConfig, tenant.appCatalogConfig) &&
         Objects.equals(this.settings, tenant.settings) &&
-        Objects.equals(this.sdkDefaultAuthentication, tenant.sdkDefaultAuthentication);
+        Objects.equals(this.sdkDefaultAuthentication, tenant.sdkDefaultAuthentication) &&
+        Objects.equals(this.concurrency, tenant.concurrency) &&
+        Objects.equals(this.quotas, tenant.quotas) &&
+        Objects.equals(this.workerSecretManagerMode, tenant.workerSecretManagerMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, concurrency, quotas, workerSecretManagerMode);
   }
 
   @Override
@@ -544,7 +644,7 @@ public class Tenant {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    defaultWorkerSelector: ").append(toIndentedString(defaultWorkerSelector)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    storageConfiguration: ").append(toIndentedString(storageConfiguration)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
@@ -555,6 +655,9 @@ public class Tenant {
     sb.append("    appCatalogConfig: ").append(toIndentedString(appCatalogConfig)).append("\n");
     sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
     sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
+    sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
+    sb.append("    quotas: ").append(toIndentedString(quotas)).append("\n");
+    sb.append("    workerSecretManagerMode: ").append(toIndentedString(workerSecretManagerMode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,8 +44,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractFlow.JSON_PROPERTY_DISABLED,
   AbstractFlow.JSON_PROPERTY_LABELS,
   AbstractFlow.JSON_PROPERTY_VARIABLES,
-  AbstractFlow.JSON_PROPERTY_WORKER_GROUP,
-  AbstractFlow.JSON_PROPERTY_DELETED
+  AbstractFlow.JSON_PROPERTY_WORKER_SELECTOR,
+  AbstractFlow.JSON_PROPERTY_DELETED,
+  AbstractFlow.JSON_PROPERTY_DRAFT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AbstractFlow {
@@ -79,11 +80,14 @@ public class AbstractFlow {
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nullable  private Boolean draft;
 
   public AbstractFlow() {
   }
@@ -353,28 +357,28 @@ public class AbstractFlow {
     this.variables = variables;
   }
 
-  public AbstractFlow workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public AbstractFlow workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public AbstractFlow deleted(@jakarta.annotation.Nonnull Boolean deleted) {
@@ -401,6 +405,30 @@ public class AbstractFlow {
     this.deleted = deleted;
   }
 
+  public AbstractFlow draft(@jakarta.annotation.Nullable Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDraft(@jakarta.annotation.Nullable Boolean draft) {
+    this.draft = draft;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -420,13 +448,14 @@ public class AbstractFlow {
         Objects.equals(this.disabled, abstractFlow.disabled) &&
         Objects.equals(this.labels, abstractFlow.labels) &&
         Objects.equals(this.variables, abstractFlow.variables) &&
-        Objects.equals(this.workerGroup, abstractFlow.workerGroup) &&
-        Objects.equals(this.deleted, abstractFlow.deleted);
+        Objects.equals(this.workerSelector, abstractFlow.workerSelector) &&
+        Objects.equals(this.deleted, abstractFlow.deleted) &&
+        Objects.equals(this.draft, abstractFlow.draft);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, draft);
   }
 
   @Override
@@ -443,8 +472,9 @@ public class AbstractFlow {
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
     sb.append("}");
     return sb.toString();
   }

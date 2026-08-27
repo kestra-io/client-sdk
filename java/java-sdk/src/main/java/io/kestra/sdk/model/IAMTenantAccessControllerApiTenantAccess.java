@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_DISPLAY_NAME,
   IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_GROUPS,
   IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_ROLES,
-  IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_SUPER_ADMIN
+  IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_INSTANCE_OWNER
 })
 @JsonTypeName("IAMTenantAccessController.ApiTenantAccess")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -60,8 +60,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
   public static final String JSON_PROPERTY_ROLES = "roles";
   @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiRoleAssignment> roles = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public IAMTenantAccessControllerApiTenantAccess() {
   }
@@ -226,28 +226,28 @@ public class IAMTenantAccessControllerApiTenantAccess {
     this.roles = roles;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMTenantAccessControllerApiTenantAccess instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   @Override
@@ -265,12 +265,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
         Objects.equals(this.displayName, iaMTenantAccessControllerApiTenantAccess.displayName) &&
         Objects.equals(this.groups, iaMTenantAccessControllerApiTenantAccess.groups) &&
         Objects.equals(this.roles, iaMTenantAccessControllerApiTenantAccess.roles) &&
-        Objects.equals(this.superAdmin, iaMTenantAccessControllerApiTenantAccess.superAdmin);
+        Objects.equals(this.instanceOwner, iaMTenantAccessControllerApiTenantAccess.instanceOwner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tenantId, userId, username, displayName, groups, roles, superAdmin);
+    return Objects.hash(tenantId, userId, username, displayName, groups, roles, instanceOwner);
   }
 
   @Override
@@ -283,7 +283,7 @@ public class IAMTenantAccessControllerApiTenantAccess {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("}");
     return sb.toString();
   }

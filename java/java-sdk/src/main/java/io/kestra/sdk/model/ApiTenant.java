@@ -23,7 +23,7 @@ import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.TenantAppCatalogConfig;
 import io.kestra.sdk.model.TenantPreferencesSettings;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiTenant.JSON_PROPERTY_ID,
   ApiTenant.JSON_PROPERTY_NAME,
   ApiTenant.JSON_PROPERTY_DELETED,
-  ApiTenant.JSON_PROPERTY_WORKER_GROUP,
+  ApiTenant.JSON_PROPERTY_DEFAULT_WORKER_SELECTOR,
   ApiTenant.JSON_PROPERTY_STORAGE_TYPE,
   ApiTenant.JSON_PROPERTY_STORAGE_CONFIGURATION,
   ApiTenant.JSON_PROPERTY_SECRET_TYPE,
@@ -68,8 +68,8 @@ public class ApiTenant {
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_DEFAULT_WORKER_SELECTOR = "defaultWorkerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector defaultWorkerSelector;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
   @jakarta.annotation.Nullable  private String storageType;
@@ -227,28 +227,28 @@ public class ApiTenant {
     this.deleted = deleted;
   }
 
-  public ApiTenant workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public ApiTenant defaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.defaultWorkerSelector = defaultWorkerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get defaultWorkerSelector
+   * @return defaultWorkerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getDefaultWorkerSelector() {
+    return defaultWorkerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setDefaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
+    this.defaultWorkerSelector = defaultWorkerSelector;
   }
 
   public ApiTenant storageType(@jakarta.annotation.Nullable String storageType) {
@@ -545,7 +545,7 @@ public class ApiTenant {
         Objects.equals(this.id, apiTenant.id) &&
         Objects.equals(this.name, apiTenant.name) &&
         Objects.equals(this.deleted, apiTenant.deleted) &&
-        Objects.equals(this.workerGroup, apiTenant.workerGroup) &&
+        Objects.equals(this.defaultWorkerSelector, apiTenant.defaultWorkerSelector) &&
         Objects.equals(this.storageType, apiTenant.storageType) &&
         Objects.equals(this.storageConfiguration, apiTenant.storageConfiguration) &&
         Objects.equals(this.secretType, apiTenant.secretType) &&
@@ -561,7 +561,7 @@ public class ApiTenant {
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, logo);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, logo);
   }
 
   @Override
@@ -573,7 +573,7 @@ public class ApiTenant {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    defaultWorkerSelector: ").append(toIndentedString(defaultWorkerSelector)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    storageConfiguration: ").append(toIndentedString(storageConfiguration)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");

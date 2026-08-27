@@ -25,6 +25,7 @@ import io.kestra.sdk.model.MeControllerApiTenant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import io.kestra.sdk.model.MeControllerApiOwnedGroup;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -33,11 +34,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   MeControllerApiMe.JSON_PROPERTY_ID,
-  MeControllerApiMe.JSON_PROPERTY_SUPER_ADMIN,
+  MeControllerApiMe.JSON_PROPERTY_INSTANCE_OWNER,
   MeControllerApiMe.JSON_PROPERTY_RESTRICTED,
   MeControllerApiMe.JSON_PROPERTY_PROFILE,
   MeControllerApiMe.JSON_PROPERTY_AUTHS,
-  MeControllerApiMe.JSON_PROPERTY_TENANTS
+  MeControllerApiMe.JSON_PROPERTY_TENANTS,
+  MeControllerApiMe.JSON_PROPERTY_OWNED_GROUPS
 })
 @JsonTypeName("MeController.ApiMe")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -45,8 +47,8 @@ public class MeControllerApiMe {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
   @jakarta.annotation.Nullable  private Boolean restricted;
@@ -59,6 +61,9 @@ public class MeControllerApiMe {
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @jakarta.annotation.Nullable  private List<MeControllerApiTenant> tenants = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_OWNED_GROUPS = "ownedGroups";
+  @jakarta.annotation.Nullable  private List<MeControllerApiOwnedGroup> ownedGroups;
 
   public MeControllerApiMe() {
   }
@@ -87,28 +92,28 @@ public class MeControllerApiMe {
     this.id = id;
   }
 
-  public MeControllerApiMe superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public MeControllerApiMe instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public MeControllerApiMe restricted(@jakarta.annotation.Nullable Boolean restricted) {
@@ -223,6 +228,38 @@ public class MeControllerApiMe {
     this.tenants = tenants;
   }
 
+  public MeControllerApiMe ownedGroups(@jakarta.annotation.Nullable List<MeControllerApiOwnedGroup> ownedGroups) {
+    
+    this.ownedGroups = ownedGroups;
+    return this;
+  }
+
+  public MeControllerApiMe addOwnedGroupsItem(MeControllerApiOwnedGroup ownedGroupsItem) {
+    if (this.ownedGroups == null) {
+      this.ownedGroups = new ArrayList<>();
+    }
+    this.ownedGroups.add(ownedGroupsItem);
+    return this;
+  }
+
+  /**
+   * Get ownedGroups
+   * @return ownedGroups
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OWNED_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<MeControllerApiOwnedGroup> getOwnedGroups() {
+    return ownedGroups;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OWNED_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOwnedGroups(@jakarta.annotation.Nullable List<MeControllerApiOwnedGroup> ownedGroups) {
+    this.ownedGroups = ownedGroups;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -233,16 +270,17 @@ public class MeControllerApiMe {
     }
     MeControllerApiMe meControllerApiMe = (MeControllerApiMe) o;
     return Objects.equals(this.id, meControllerApiMe.id) &&
-        Objects.equals(this.superAdmin, meControllerApiMe.superAdmin) &&
+        Objects.equals(this.instanceOwner, meControllerApiMe.instanceOwner) &&
         Objects.equals(this.restricted, meControllerApiMe.restricted) &&
         Objects.equals(this.profile, meControllerApiMe.profile) &&
         Objects.equals(this.auths, meControllerApiMe.auths) &&
-        Objects.equals(this.tenants, meControllerApiMe.tenants);
+        Objects.equals(this.tenants, meControllerApiMe.tenants) &&
+        Objects.equals(this.ownedGroups, meControllerApiMe.ownedGroups);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, superAdmin, restricted, profile, auths, tenants);
+    return Objects.hash(id, instanceOwner, restricted, profile, auths, tenants, ownedGroups);
   }
 
   @Override
@@ -250,11 +288,12 @@ public class MeControllerApiMe {
     StringBuilder sb = new StringBuilder();
     sb.append("class MeControllerApiMe {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
     sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
     sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
+    sb.append("    ownedGroups: ").append(toIndentedString(ownedGroups)).append("\n");
     sb.append("}");
     return sb.toString();
   }

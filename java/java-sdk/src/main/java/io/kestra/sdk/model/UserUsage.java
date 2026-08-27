@@ -30,7 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UserUsage.JSON_PROPERTY_API_KEY_COUNT,
   UserUsage.JSON_PROPERTY_OIDC_COUNT,
   UserUsage.JSON_PROPERTY_BASIC_AUTH_COUNT,
-  UserUsage.JSON_PROPERTY_PASSWORDLESS_COUNT
+  UserUsage.JSON_PROPERTY_PASSWORDLESS_COUNT,
+  UserUsage.JSON_PROPERTY_INSTANCE_OWNER_COUNT,
+  UserUsage.JSON_PROPERTY_LDAP_AUTH_COUNT,
+  UserUsage.JSON_PROPERTY_RESTRICTED_COUNT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UserUsage {
@@ -48,6 +51,15 @@ public class UserUsage {
 
   public static final String JSON_PROPERTY_PASSWORDLESS_COUNT = "passwordlessCount";
   @jakarta.annotation.Nonnull  private Long passwordlessCount;
+
+  public static final String JSON_PROPERTY_INSTANCE_OWNER_COUNT = "instanceOwnerCount";
+  @jakarta.annotation.Nullable  private Long instanceOwnerCount;
+
+  public static final String JSON_PROPERTY_LDAP_AUTH_COUNT = "ldapAuthCount";
+  @jakarta.annotation.Nullable  private Long ldapAuthCount;
+
+  public static final String JSON_PROPERTY_RESTRICTED_COUNT = "restrictedCount";
+  @jakarta.annotation.Nullable  private Long restrictedCount;
 
   public UserUsage() {
   }
@@ -172,6 +184,78 @@ public class UserUsage {
     this.passwordlessCount = passwordlessCount;
   }
 
+  public UserUsage instanceOwnerCount(@jakarta.annotation.Nullable Long instanceOwnerCount) {
+    
+    this.instanceOwnerCount = instanceOwnerCount;
+    return this;
+  }
+
+  /**
+   * Get instanceOwnerCount
+   * @return instanceOwnerCount
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getInstanceOwnerCount() {
+    return instanceOwnerCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInstanceOwnerCount(@jakarta.annotation.Nullable Long instanceOwnerCount) {
+    this.instanceOwnerCount = instanceOwnerCount;
+  }
+
+  public UserUsage ldapAuthCount(@jakarta.annotation.Nullable Long ldapAuthCount) {
+    
+    this.ldapAuthCount = ldapAuthCount;
+    return this;
+  }
+
+  /**
+   * Get ldapAuthCount
+   * @return ldapAuthCount
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LDAP_AUTH_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getLdapAuthCount() {
+    return ldapAuthCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LDAP_AUTH_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLdapAuthCount(@jakarta.annotation.Nullable Long ldapAuthCount) {
+    this.ldapAuthCount = ldapAuthCount;
+  }
+
+  public UserUsage restrictedCount(@jakarta.annotation.Nullable Long restrictedCount) {
+    
+    this.restrictedCount = restrictedCount;
+    return this;
+  }
+
+  /**
+   * Get restrictedCount
+   * @return restrictedCount
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getRestrictedCount() {
+    return restrictedCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESTRICTED_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRestrictedCount(@jakarta.annotation.Nullable Long restrictedCount) {
+    this.restrictedCount = restrictedCount;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -185,12 +269,15 @@ public class UserUsage {
         Objects.equals(this.apiKeyCount, userUsage.apiKeyCount) &&
         Objects.equals(this.oidcCount, userUsage.oidcCount) &&
         Objects.equals(this.basicAuthCount, userUsage.basicAuthCount) &&
-        Objects.equals(this.passwordlessCount, userUsage.passwordlessCount);
+        Objects.equals(this.passwordlessCount, userUsage.passwordlessCount) &&
+        Objects.equals(this.instanceOwnerCount, userUsage.instanceOwnerCount) &&
+        Objects.equals(this.ldapAuthCount, userUsage.ldapAuthCount) &&
+        Objects.equals(this.restrictedCount, userUsage.restrictedCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(count, apiKeyCount, oidcCount, basicAuthCount, passwordlessCount);
+    return Objects.hash(count, apiKeyCount, oidcCount, basicAuthCount, passwordlessCount, instanceOwnerCount, ldapAuthCount, restrictedCount);
   }
 
   @Override
@@ -202,6 +289,9 @@ public class UserUsage {
     sb.append("    oidcCount: ").append(toIndentedString(oidcCount)).append("\n");
     sb.append("    basicAuthCount: ").append(toIndentedString(basicAuthCount)).append("\n");
     sb.append("    passwordlessCount: ").append(toIndentedString(passwordlessCount)).append("\n");
+    sb.append("    instanceOwnerCount: ").append(toIndentedString(instanceOwnerCount)).append("\n");
+    sb.append("    ldapAuthCount: ").append(toIndentedString(ldapAuthCount)).append("\n");
+    sb.append("    restrictedCount: ").append(toIndentedString(restrictedCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

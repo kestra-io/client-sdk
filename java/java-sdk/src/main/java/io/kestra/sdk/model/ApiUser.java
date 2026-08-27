@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiUser.JSON_PROPERTY_GROUPS,
   ApiUser.JSON_PROPERTY_USERNAME,
   ApiUser.JSON_PROPERTY_EMAIL,
-  ApiUser.JSON_PROPERTY_SUPER_ADMIN,
+  ApiUser.JSON_PROPERTY_INSTANCE_OWNER,
   ApiUser.JSON_PROPERTY_ID,
   ApiUser.JSON_PROPERTY_NAME,
   ApiUser.JSON_PROPERTY_DESCRIPTION,
@@ -64,8 +64,8 @@ public class ApiUser {
   public static final String JSON_PROPERTY_EMAIL = "email";
   @jakarta.annotation.Nonnull  private String email;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;
@@ -227,28 +227,28 @@ public class ApiUser {
     this.email = email;
   }
 
-  public ApiUser superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public ApiUser instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public ApiUser id(@jakarta.annotation.Nullable String id) {
@@ -449,7 +449,7 @@ public class ApiUser {
         Objects.equals(this.groups, apiUser.groups) &&
         Objects.equals(this.username, apiUser.username) &&
         Objects.equals(this.email, apiUser.email) &&
-        Objects.equals(this.superAdmin, apiUser.superAdmin) &&
+        Objects.equals(this.instanceOwner, apiUser.instanceOwner) &&
         Objects.equals(this.id, apiUser.id) &&
         Objects.equals(this.name, apiUser.name) &&
         Objects.equals(this.description, apiUser.description) &&
@@ -461,7 +461,7 @@ public class ApiUser {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, groupList, groups, username, email, superAdmin, id, name, description, firstName, lastName, providers, auths);
+    return Objects.hash(type, groupList, groups, username, email, instanceOwner, id, name, description, firstName, lastName, providers, auths);
   }
 
   @Override
@@ -473,7 +473,7 @@ public class ApiUser {
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

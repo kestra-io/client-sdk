@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_NAME,
   IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_DESCRIPTION,
-  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_SUPER_ADMIN,
+  IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_INSTANCE_OWNER,
   IAMServiceAccountControllerApiCreateServiceAccountRequest.JSON_PROPERTY_TENANTS
 })
 @JsonTypeName("IAMServiceAccountController.ApiCreateServiceAccountRequest")
@@ -43,8 +43,8 @@ public class IAMServiceAccountControllerApiCreateServiceAccountRequest {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @jakarta.annotation.Nullable  private List<String> tenants = new ArrayList<>();
@@ -100,28 +100,28 @@ public class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     this.description = description;
   }
 
-  public IAMServiceAccountControllerApiCreateServiceAccountRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMServiceAccountControllerApiCreateServiceAccountRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public IAMServiceAccountControllerApiCreateServiceAccountRequest tenants(@jakarta.annotation.Nullable List<String> tenants) {
@@ -167,13 +167,13 @@ public class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest = (IAMServiceAccountControllerApiCreateServiceAccountRequest) o;
     return Objects.equals(this.name, iaMServiceAccountControllerApiCreateServiceAccountRequest.name) &&
         Objects.equals(this.description, iaMServiceAccountControllerApiCreateServiceAccountRequest.description) &&
-        Objects.equals(this.superAdmin, iaMServiceAccountControllerApiCreateServiceAccountRequest.superAdmin) &&
+        Objects.equals(this.instanceOwner, iaMServiceAccountControllerApiCreateServiceAccountRequest.instanceOwner) &&
         Objects.equals(this.tenants, iaMServiceAccountControllerApiCreateServiceAccountRequest.tenants);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, superAdmin, tenants);
+    return Objects.hash(name, description, instanceOwner, tenants);
   }
 
   @Override
@@ -182,7 +182,7 @@ public class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     sb.append("class IAMServiceAccountControllerApiCreateServiceAccountRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_SENT_AT,
   IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_EXPIRED_AT,
   IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_ACCEPTED_AT,
-  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_SUPER_ADMIN,
+  IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_INSTANCE_OWNER,
   IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_LINK
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationDetail")
@@ -75,8 +75,8 @@ public class IAMInvitationControllerApiInvitationDetail {
   public static final String JSON_PROPERTY_ACCEPTED_AT = "acceptedAt";
   @jakarta.annotation.Nullable  private OffsetDateTime acceptedAt;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_LINK = "link";
   @jakarta.annotation.Nullable  private String link;
@@ -316,28 +316,28 @@ public class IAMInvitationControllerApiInvitationDetail {
     this.acceptedAt = acceptedAt;
   }
 
-  public IAMInvitationControllerApiInvitationDetail superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMInvitationControllerApiInvitationDetail instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public IAMInvitationControllerApiInvitationDetail link(@jakarta.annotation.Nullable String link) {
@@ -382,13 +382,13 @@ public class IAMInvitationControllerApiInvitationDetail {
         Objects.equals(this.sentAt, iaMInvitationControllerApiInvitationDetail.sentAt) &&
         Objects.equals(this.expiredAt, iaMInvitationControllerApiInvitationDetail.expiredAt) &&
         Objects.equals(this.acceptedAt, iaMInvitationControllerApiInvitationDetail.acceptedAt) &&
-        Objects.equals(this.superAdmin, iaMInvitationControllerApiInvitationDetail.superAdmin) &&
+        Objects.equals(this.instanceOwner, iaMInvitationControllerApiInvitationDetail.instanceOwner) &&
         Objects.equals(this.link, iaMInvitationControllerApiInvitationDetail.link);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, superAdmin, link);
+    return Objects.hash(id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, instanceOwner, link);
   }
 
   @Override
@@ -404,7 +404,7 @@ public class IAMInvitationControllerApiInvitationDetail {
     sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
     sb.append("    expiredAt: ").append(toIndentedString(expiredAt)).append("\n");
     sb.append("    acceptedAt: ").append(toIndentedString(acceptedAt)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    link: ").append(toIndentedString(link)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiUserSummary.JSON_PROPERTY_DISPLAY_NAME,
   IAMUserControllerApiUserSummary.JSON_PROPERTY_TENANTS,
   IAMUserControllerApiUserSummary.JSON_PROPERTY_AUTHS,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_SUPER_ADMIN
+  IAMUserControllerApiUserSummary.JSON_PROPERTY_INSTANCE_OWNER
 })
 @JsonTypeName("IAMUserController.ApiUserSummary")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -56,8 +56,8 @@ public class IAMUserControllerApiUserSummary {
   public static final String JSON_PROPERTY_AUTHS = "auths";
   @jakarta.annotation.Nullable  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public IAMUserControllerApiUserSummary() {
   }
@@ -198,28 +198,28 @@ public class IAMUserControllerApiUserSummary {
     this.auths = auths;
   }
 
-  public IAMUserControllerApiUserSummary superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMUserControllerApiUserSummary instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   @Override
@@ -236,12 +236,12 @@ public class IAMUserControllerApiUserSummary {
         Objects.equals(this.displayName, iaMUserControllerApiUserSummary.displayName) &&
         Objects.equals(this.tenants, iaMUserControllerApiUserSummary.tenants) &&
         Objects.equals(this.auths, iaMUserControllerApiUserSummary.auths) &&
-        Objects.equals(this.superAdmin, iaMUserControllerApiUserSummary.superAdmin);
+        Objects.equals(this.instanceOwner, iaMUserControllerApiUserSummary.instanceOwner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, displayName, tenants, auths, superAdmin);
+    return Objects.hash(id, username, displayName, tenants, auths, instanceOwner);
   }
 
   @Override
@@ -253,7 +253,7 @@ public class IAMUserControllerApiUserSummary {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
     sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("}");
     return sb.toString();
   }

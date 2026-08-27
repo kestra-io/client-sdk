@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Invitation.JSON_PROPERTY_ACCEPTED_AT,
   Invitation.JSON_PROPERTY_DELETED,
   Invitation.JSON_PROPERTY_USER_TYPE,
-  Invitation.JSON_PROPERTY_SUPER_ADMIN,
+  Invitation.JSON_PROPERTY_INSTANCE_OWNER,
   Invitation.JSON_PROPERTY_LINK
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -86,8 +86,8 @@ public class Invitation {
   public static final String JSON_PROPERTY_USER_TYPE = "userType";
   @jakarta.annotation.Nullable  private UserType userType;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_LINK = "link";
   @jakarta.annotation.Nullable  private String link;
@@ -399,28 +399,28 @@ public class Invitation {
     this.userType = userType;
   }
 
-  public Invitation superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public Invitation instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public Invitation link(@jakarta.annotation.Nullable String link) {
@@ -468,13 +468,13 @@ public class Invitation {
         Objects.equals(this.acceptedAt, invitation.acceptedAt) &&
         Objects.equals(this.deleted, invitation.deleted) &&
         Objects.equals(this.userType, invitation.userType) &&
-        Objects.equals(this.superAdmin, invitation.superAdmin) &&
+        Objects.equals(this.instanceOwner, invitation.instanceOwner) &&
         Objects.equals(this.link, invitation.link);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, superAdmin, link);
+    return Objects.hash(isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, instanceOwner, link);
   }
 
   @Override
@@ -493,7 +493,7 @@ public class Invitation {
     sb.append("    acceptedAt: ").append(toIndentedString(acceptedAt)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    userType: ").append(toIndentedString(userType)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    link: ").append(toIndentedString(link)).append("\n");
     sb.append("}");
     return sb.toString();
