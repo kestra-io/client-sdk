@@ -372,6 +372,10 @@ __all__ = [
     "ScimUser",
     "SearchRequest",
     "SearchResultFlow",
+    "SourceMatch",
+    "SourceSearchResult",
+    "PagedResultsSourceSearchResult",
+    "SourceSearchScope",
     "SecurityIntegrationType",
     "ServerConfig",
     "ServerConfigLiveness",
@@ -799,6 +803,10 @@ from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptio
 from kestrapy.models.scim_user import ScimUser as ScimUser
 from kestrapy.models.search_request import SearchRequest as SearchRequest
 from kestrapy.models.search_result_flow import SearchResultFlow as SearchResultFlow
+from kestrapy.models.source_match import SourceMatch as SourceMatch
+from kestrapy.models.source_search_result import SourceSearchResult as SourceSearchResult
+from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult as PagedResultsSourceSearchResult
+from kestrapy.models.source_search_scope import SourceSearchScope as SourceSearchScope
 from kestrapy.models.security_integration_type import SecurityIntegrationType as SecurityIntegrationType
 from kestrapy.models.server_config import ServerConfig as ServerConfig
 from kestrapy.models.server_config_liveness import ServerConfigLiveness as ServerConfigLiveness

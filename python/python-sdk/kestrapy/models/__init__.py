@@ -341,6 +341,10 @@ from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptio
 from kestrapy.models.scim_user import ScimUser
 from kestrapy.models.search_request import SearchRequest
 from kestrapy.models.search_result_flow import SearchResultFlow
+from kestrapy.models.source_match import SourceMatch
+from kestrapy.models.source_search_result import SourceSearchResult
+from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
+from kestrapy.models.source_search_scope import SourceSearchScope
 from kestrapy.models.security_integration_type import SecurityIntegrationType
 from kestrapy.models.server_config import ServerConfig
 from kestrapy.models.server_config_liveness import ServerConfigLiveness
