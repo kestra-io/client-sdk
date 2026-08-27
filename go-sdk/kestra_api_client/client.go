@@ -170,3 +170,7 @@ func (c *KestraClient) Blueprints() *BlueprintsAPI {
 func (c *KestraClient) Invitations() *InvitationsAPI {
 	return &InvitationsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Outputs() *OutputsAPI {
+	return &OutputsAPI{baseAPI{client: c}}
+}

@@ -28,7 +28,10 @@ type AbstractTrigger struct {
 	// A Pebble expression evaluated at trigger time. The trigger fires only when the expression evaluates to a truthy value (`true`, a non-empty string, a non-zero number). Use this to gate trigger execution on dynamic runtime values such as execution labels, flow variables, or environment conditions.
 	When *string `json:"when,omitempty"`
 	Disabled *bool `json:"disabled,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	// Routing requirements (tags + fallback) for this trigger.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	// Identifiers of `enforcement: REFERENCE` governance policies to attach to this trigger and everything nested under it (Enterprise Edition only).
+	PolicyRefs []string `json:"policyRefs,omitempty"`
 	LogLevel *Level `json:"logLevel,omitempty"`
 	Labels *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
 	StopAfter []StateType `json:"stopAfter,omitempty"`
@@ -230,36 +233,68 @@ func (o *AbstractTrigger) SetDisabled(v bool) {
 	o.Disabled = &v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *AbstractTrigger) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.WorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractTrigger) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *AbstractTrigger) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.WorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *AbstractTrigger) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *AbstractTrigger) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *AbstractTrigger) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
+}
+
+// GetPolicyRefs returns the PolicyRefs field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetPolicyRefs() []string {
+	if o == nil || IsNil(o.PolicyRefs) {
+		var ret []string
+		return ret
+	}
+	return o.PolicyRefs
+}
+
+// GetPolicyRefsOk returns a tuple with the PolicyRefs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetPolicyRefsOk() ([]string, bool) {
+	if o == nil || IsNil(o.PolicyRefs) {
+		return nil, false
+	}
+	return o.PolicyRefs, true
+}
+
+// HasPolicyRefs returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasPolicyRefs() bool {
+	if o != nil && !IsNil(o.PolicyRefs) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyRefs gets a reference to the given []string and assigns it to the PolicyRefs field.
+func (o *AbstractTrigger) SetPolicyRefs(v []string) {
+	o.PolicyRefs = v
 }
 
 // GetLogLevel returns the LogLevel field value if set, zero value otherwise.
@@ -510,8 +545,11 @@ func (o AbstractTrigger) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
+	}
+	if !IsNil(o.PolicyRefs) {
+		toSerialize["policyRefs"] = o.PolicyRefs
 	}
 	if !IsNil(o.LogLevel) {
 		toSerialize["logLevel"] = o.LogLevel
@@ -584,7 +622,8 @@ func (o *AbstractTrigger) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "when")
 		delete(additionalProperties, "disabled")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "workerSelector")
+		delete(additionalProperties, "policyRefs")
 		delete(additionalProperties, "logLevel")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "stopAfter")

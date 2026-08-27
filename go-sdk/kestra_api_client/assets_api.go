@@ -10,6 +10,13 @@ func (a *AssetsAPI) CreateAsset(ctx context.Context, tenant, yamlBody string) (*
 	return doJSONWithYAMLBody[*AssetsControllerApiAsset](&a.baseAPI, ctx, "POST", tenantPath(tenant, "assets"), yamlBody, nil)
 }
 
+// UpdateAsset updates an existing asset. Kestra 2.0 stopped letting CreateAsset
+// upsert -- POST now conflicts when the id already exists, so an update has to
+// go through this PUT.
+func (a *AssetsAPI) UpdateAsset(ctx context.Context, id, tenant, yamlBody string) (*AssetsControllerApiAsset, error) {
+	return doJSONWithYAMLBody[*AssetsControllerApiAsset](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "assets", id), yamlBody, nil)
+}
+
 func (a *AssetsAPI) Asset(ctx context.Context, id, tenant string, allowDeleted *bool) (*AssetsControllerApiAsset, error) {
 	params := buildQueryParams("allowDeleted", allowDeleted)
 	return doJSON[*AssetsControllerApiAsset](&a.baseAPI, ctx, "GET", tenantPath(tenant, "assets", id), nil, params)
