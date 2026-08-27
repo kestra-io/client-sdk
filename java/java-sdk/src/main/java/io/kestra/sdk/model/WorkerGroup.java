@@ -31,6 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   WorkerGroup.JSON_PROPERTY_FALLBACK
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+/**
+ * @deprecated Kestra 2.0 replaced worker groups with worker selectors on flows, tasks,
+ *             triggers, namespaces and tenants. Use {@link WorkerSelector}. This type is
+ *             no longer produced or consumed by any endpoint and is kept only so existing
+ *             code keeps linking.
+ */
+@Deprecated
 public class WorkerGroup {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nullable  private String key;

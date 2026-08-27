@@ -14,6 +14,8 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -41,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiUser.JSON_PROPERTY_TENANTS,
   IAMUserControllerApiUser.JSON_PROPERTY_AUTHS,
   IAMUserControllerApiUser.JSON_PROPERTY_GROUPS,
-  IAMUserControllerApiUser.JSON_PROPERTY_SUPER_ADMIN,
+  IAMUserControllerApiUser.JSON_PROPERTY_INSTANCE_OWNER,
   IAMUserControllerApiUser.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiUser")
@@ -74,8 +76,8 @@ public class IAMUserControllerApiUser {
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @jakarta.annotation.Nullable  private List<IAMUserControllerApiGroup> groups = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
   @jakarta.annotation.Nullable  private Boolean restricted;
@@ -323,28 +325,29 @@ public class IAMUserControllerApiUser {
     this.groups = groups;
   }
 
-  public IAMUserControllerApiUser superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMUserControllerApiUser instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public IAMUserControllerApiUser restricted(@jakarta.annotation.Nullable Boolean restricted) {
@@ -371,6 +374,43 @@ public class IAMUserControllerApiUser {
     this.restricted = restricted;
   }
 
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMUserControllerApiUser superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -389,13 +429,13 @@ public class IAMUserControllerApiUser {
         Objects.equals(this.tenants, iaMUserControllerApiUser.tenants) &&
         Objects.equals(this.auths, iaMUserControllerApiUser.auths) &&
         Objects.equals(this.groups, iaMUserControllerApiUser.groups) &&
-        Objects.equals(this.superAdmin, iaMUserControllerApiUser.superAdmin) &&
+        Objects.equals(this.instanceOwner, iaMUserControllerApiUser.instanceOwner) &&
         Objects.equals(this.restricted, iaMUserControllerApiUser.restricted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, displayName, firstName, lastName, email, tenants, auths, groups, superAdmin, restricted);
+    return Objects.hash(id, username, displayName, firstName, lastName, email, tenants, auths, groups, instanceOwner, restricted);
   }
 
   @Override
@@ -411,7 +451,7 @@ public class IAMUserControllerApiUser {
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
     sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    restricted: ").append(toIndentedString(restricted)).append("\n");
     sb.append("}");
     return sb.toString();

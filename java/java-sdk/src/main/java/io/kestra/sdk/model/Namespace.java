@@ -23,12 +23,15 @@ import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.NamespaceAllowedNamespace;
 import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SDKAuth;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import io.kestra.sdk.model.Concurrency;
+import io.kestra.sdk.model.Quota;
+import io.kestra.sdk.model.SecretConfigurationWorkerSecretManagerMode;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -44,14 +47,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Namespace.JSON_PROPERTY_VARIABLES,
   Namespace.JSON_PROPERTY_PLUGIN_DEFAULTS,
   Namespace.JSON_PROPERTY_ALLOWED_NAMESPACES,
-  Namespace.JSON_PROPERTY_WORKER_GROUP,
+  Namespace.JSON_PROPERTY_DEFAULT_WORKER_SELECTOR,
   Namespace.JSON_PROPERTY_STORAGE_TYPE,
   Namespace.JSON_PROPERTY_STORAGE_CONFIGURATION,
   Namespace.JSON_PROPERTY_SECRET_TYPE,
   Namespace.JSON_PROPERTY_SECRET_READ_ONLY,
   Namespace.JSON_PROPERTY_SECRET_CONFIGURATION,
   Namespace.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
-  Namespace.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION
+  Namespace.JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION,
+  Namespace.JSON_PROPERTY_CONCURRENCY,
+  Namespace.JSON_PROPERTY_QUOTAS,
+  Namespace.JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Namespace {
@@ -79,8 +85,8 @@ public class Namespace {
   public static final String JSON_PROPERTY_ALLOWED_NAMESPACES = "allowedNamespaces";
   @jakarta.annotation.Nullable  private List<NamespaceAllowedNamespace> allowedNamespaces = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_DEFAULT_WORKER_SELECTOR = "defaultWorkerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector defaultWorkerSelector;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
   @jakarta.annotation.Nullable  private String storageType;
@@ -102,6 +108,15 @@ public class Namespace {
 
   public static final String JSON_PROPERTY_SDK_DEFAULT_AUTHENTICATION = "sdkDefaultAuthentication";
   @jakarta.annotation.Nullable  private SDKAuth sdkDefaultAuthentication;
+
+  public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
+  @jakarta.annotation.Nullable  private Concurrency concurrency;
+
+  public static final String JSON_PROPERTY_QUOTAS = "quotas";
+  @jakarta.annotation.Nullable  private List<Quota> quotas;
+
+  public static final String JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE = "workerSecretManagerMode";
+  @jakarta.annotation.Nullable  private SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode;
 
   public Namespace() {
   }
@@ -322,28 +337,28 @@ public class Namespace {
     this.allowedNamespaces = allowedNamespaces;
   }
 
-  public Namespace workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public Namespace defaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.defaultWorkerSelector = defaultWorkerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get defaultWorkerSelector
+   * @return defaultWorkerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getDefaultWorkerSelector() {
+    return defaultWorkerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_DEFAULT_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setDefaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
+    this.defaultWorkerSelector = defaultWorkerSelector;
   }
 
   public Namespace storageType(@jakarta.annotation.Nullable String storageType) {
@@ -530,6 +545,86 @@ public class Namespace {
     this.sdkDefaultAuthentication = sdkDefaultAuthentication;
   }
 
+  public Namespace concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    
+    this.concurrency = concurrency;
+    return this;
+  }
+
+  /**
+   * The concurrency limit applying to the executions of every flow inside this namespace and its descendants.
+   * @return concurrency
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Concurrency getConcurrency() {
+    return concurrency;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConcurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    this.concurrency = concurrency;
+  }
+
+  public Namespace quotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    
+    this.quotas = quotas;
+    return this;
+  }
+
+  public Namespace addQuotasItem(Quota quotasItem) {
+    if (this.quotas == null) {
+      this.quotas = new ArrayList<>();
+    }
+    this.quotas.add(quotasItem);
+    return this;
+  }
+
+  /**
+   * Get quotas
+   * @return quotas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Quota> getQuotas() {
+    return quotas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQuotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    this.quotas = quotas;
+  }
+
+  public Namespace workerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    
+    this.workerSecretManagerMode = workerSecretManagerMode;
+    return this;
+  }
+
+  /**
+   * Get workerSecretManagerMode
+   * @return workerSecretManagerMode
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SecretConfigurationWorkerSecretManagerMode getWorkerSecretManagerMode() {
+    return workerSecretManagerMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WORKER_SECRET_MANAGER_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerSecretManagerMode(@jakarta.annotation.Nullable SecretConfigurationWorkerSecretManagerMode workerSecretManagerMode) {
+    this.workerSecretManagerMode = workerSecretManagerMode;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -547,19 +642,22 @@ public class Namespace {
         Objects.equals(this.variables, namespace.variables) &&
         Objects.equals(this.pluginDefaults, namespace.pluginDefaults) &&
         Objects.equals(this.allowedNamespaces, namespace.allowedNamespaces) &&
-        Objects.equals(this.workerGroup, namespace.workerGroup) &&
+        Objects.equals(this.defaultWorkerSelector, namespace.defaultWorkerSelector) &&
         Objects.equals(this.storageType, namespace.storageType) &&
         Objects.equals(this.storageConfiguration, namespace.storageConfiguration) &&
         Objects.equals(this.secretType, namespace.secretType) &&
         Objects.equals(this.secretReadOnly, namespace.secretReadOnly) &&
         Objects.equals(this.secretConfiguration, namespace.secretConfiguration) &&
         Objects.equals(this.outputsInInternalStorage, namespace.outputsInInternalStorage) &&
-        Objects.equals(this.sdkDefaultAuthentication, namespace.sdkDefaultAuthentication);
+        Objects.equals(this.sdkDefaultAuthentication, namespace.sdkDefaultAuthentication) &&
+        Objects.equals(this.concurrency, namespace.concurrency) &&
+        Objects.equals(this.quotas, namespace.quotas) &&
+        Objects.equals(this.workerSecretManagerMode, namespace.workerSecretManagerMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, storageIsolation, secretIsolation, deleted, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage, sdkDefaultAuthentication);
+    return Objects.hash(id, storageIsolation, secretIsolation, deleted, description, variables, pluginDefaults, allowedNamespaces, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage, sdkDefaultAuthentication, concurrency, quotas, workerSecretManagerMode);
   }
 
   @Override
@@ -574,7 +672,7 @@ public class Namespace {
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
     sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
     sb.append("    allowedNamespaces: ").append(toIndentedString(allowedNamespaces)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    defaultWorkerSelector: ").append(toIndentedString(defaultWorkerSelector)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    storageConfiguration: ").append(toIndentedString(storageConfiguration)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
@@ -582,6 +680,9 @@ public class Namespace {
     sb.append("    secretConfiguration: ").append(toIndentedString(secretConfiguration)).append("\n");
     sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
     sb.append("    sdkDefaultAuthentication: ").append(toIndentedString(sdkDefaultAuthentication)).append("\n");
+    sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
+    sb.append("    quotas: ").append(toIndentedString(quotas)).append("\n");
+    sb.append("    workerSecretManagerMode: ").append(toIndentedString(workerSecretManagerMode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

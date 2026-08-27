@@ -17,13 +17,14 @@
 |**disabled** | **Boolean** |  |  |
 |**labels** | [**MapObjectObject**](MapObjectObject.md) |  |  [optional] |
 |**variables** | **Object** |  |  [optional] |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
+|**workerSelector** | [**WorkerSelector**](WorkerSelector.md) |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**tasks** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  |
 |**errors** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  [optional] |
 |**_finally** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  [optional] |
 |**afterExecution** | [**List&lt;TaskForExecution&gt;**](TaskForExecution.md) |  |  [optional] |
 |**triggers** | [**List&lt;AbstractTriggerForExecution&gt;**](AbstractTriggerForExecution.md) |  |  [optional] |
+|**draft** | **Boolean** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. |  |
 
 
 

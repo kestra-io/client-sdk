@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.StateType;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import io.kestra.sdk.model.Label;
@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTrigger.JSON_PROPERTY_DESCRIPTION,
   AbstractTrigger.JSON_PROPERTY_WHEN,
   AbstractTrigger.JSON_PROPERTY_DISABLED,
-  AbstractTrigger.JSON_PROPERTY_WORKER_GROUP,
+  AbstractTrigger.JSON_PROPERTY_WORKER_SELECTOR,
   AbstractTrigger.JSON_PROPERTY_LOG_LEVEL,
   AbstractTrigger.JSON_PROPERTY_LABELS,
   AbstractTrigger.JSON_PROPERTY_STOP_AFTER,
@@ -69,8 +69,8 @@ public class AbstractTrigger {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nullable  private Boolean disabled = false;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
   @jakarta.annotation.Nullable  private Level logLevel;
@@ -240,28 +240,28 @@ public class AbstractTrigger {
     this.disabled = disabled;
   }
 
-  public AbstractTrigger workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public AbstractTrigger workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public AbstractTrigger logLevel(@jakarta.annotation.Nullable Level logLevel) {
@@ -455,7 +455,7 @@ public class AbstractTrigger {
         Objects.equals(this.description, abstractTrigger.description) &&
         Objects.equals(this.when, abstractTrigger.when) &&
         Objects.equals(this.disabled, abstractTrigger.disabled) &&
-        Objects.equals(this.workerGroup, abstractTrigger.workerGroup) &&
+        Objects.equals(this.workerSelector, abstractTrigger.workerSelector) &&
         Objects.equals(this.logLevel, abstractTrigger.logLevel) &&
         Objects.equals(this.labels, abstractTrigger.labels) &&
         Objects.equals(this.stopAfter, abstractTrigger.stopAfter) &&
@@ -467,7 +467,7 @@ public class AbstractTrigger {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, when, disabled, workerGroup, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
+    return Objects.hash(id, type, version, description, when, disabled, workerSelector, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
   }
 
   @Override
@@ -480,7 +480,7 @@ public class AbstractTrigger {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    logLevel: ").append(toIndentedString(logLevel)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    stopAfter: ").append(toIndentedString(stopAfter)).append("\n");

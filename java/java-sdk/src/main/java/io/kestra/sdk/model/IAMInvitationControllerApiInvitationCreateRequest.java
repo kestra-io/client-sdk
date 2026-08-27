@@ -14,6 +14,8 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST,
-  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_SUPER_ADMIN,
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_INSTANCE_OWNER,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_ROLES,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_GROUPS,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_EMAIL
@@ -42,8 +44,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
   public static final String JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST = "createUserIfNotExist";
   @jakarta.annotation.Nullable  private Boolean createUserIfNotExist;
 
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @jakarta.annotation.Nullable  private Boolean superAdmin;
+  public static final String JSON_PROPERTY_INSTANCE_OWNER = "instanceOwner";
+  @jakarta.annotation.Nullable  private Boolean instanceOwner;
 
   public static final String JSON_PROPERTY_ROLES = "roles";
   @jakarta.annotation.Nullable  private List<IAMInvitationControllerApiInvitationRole> roles = new ArrayList<>();
@@ -81,28 +83,29 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
     this.createUserIfNotExist = createUserIfNotExist;
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+  public IAMInvitationControllerApiInvitationCreateRequest instanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     
-    this.superAdmin = superAdmin;
+    this.instanceOwner = instanceOwner;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get instanceOwner
+   * @return instanceOwner
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public Boolean getInstanceOwner() {
+    return instanceOwner;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  @JsonAlias("superAdmin")
+  public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
+    this.instanceOwner = instanceOwner;
   }
 
   public IAMInvitationControllerApiInvitationCreateRequest roles(@jakarta.annotation.Nullable List<IAMInvitationControllerApiInvitationRole> roles) {
@@ -193,6 +196,43 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
     this.email = email;
   }
 
+  /**
+   * The pre-2.0 name for {@link #getInstanceOwner()}. Kestra 2.0 renamed superAdmin to
+   * instanceOwner; this delegates so existing callers keep compiling.
+   *
+   * <p>Annotated {@code @JsonIgnore} so it is not serialised as a second property —
+   * the wire format only has {@code instanceOwner}.
+   *
+   * @return instanceOwner
+   * @deprecated use {@link #getInstanceOwner()}
+   */
+  @Deprecated
+  @JsonIgnore
+  public Boolean getSuperAdmin() {
+    return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -203,7 +243,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
     }
     IAMInvitationControllerApiInvitationCreateRequest iaMInvitationControllerApiInvitationCreateRequest = (IAMInvitationControllerApiInvitationCreateRequest) o;
     return Objects.equals(this.createUserIfNotExist, iaMInvitationControllerApiInvitationCreateRequest.createUserIfNotExist) &&
-        Objects.equals(this.superAdmin, iaMInvitationControllerApiInvitationCreateRequest.superAdmin) &&
+        Objects.equals(this.instanceOwner, iaMInvitationControllerApiInvitationCreateRequest.instanceOwner) &&
         Objects.equals(this.roles, iaMInvitationControllerApiInvitationCreateRequest.roles) &&
         Objects.equals(this.groups, iaMInvitationControllerApiInvitationCreateRequest.groups) &&
         Objects.equals(this.email, iaMInvitationControllerApiInvitationCreateRequest.email);
@@ -211,7 +251,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createUserIfNotExist, superAdmin, roles, groups, email);
+    return Objects.hash(createUserIfNotExist, instanceOwner, roles, groups, email);
   }
 
   @Override
@@ -219,7 +259,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class IAMInvitationControllerApiInvitationCreateRequest {\n");
     sb.append("    createUserIfNotExist: ").append(toIndentedString(createUserIfNotExist)).append("\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("    instanceOwner: ").append(toIndentedString(instanceOwner)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

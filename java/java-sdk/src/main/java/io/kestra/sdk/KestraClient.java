@@ -104,6 +104,8 @@ public class KestraClient {
 
     public CasesApi cases() { return new CasesApi(this.apiClient); }
 
+    public OutputsApi outputs() { return new OutputsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

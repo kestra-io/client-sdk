@@ -23,7 +23,7 @@ import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Cache;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.PropertyDuration;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Task.JSON_PROPERTY_RETRY,
   Task.JSON_PROPERTY_TIMEOUT,
   Task.JSON_PROPERTY_DISABLED,
-  Task.JSON_PROPERTY_WORKER_GROUP,
+  Task.JSON_PROPERTY_WORKER_SELECTOR,
   Task.JSON_PROPERTY_LOG_LEVEL,
   Task.JSON_PROPERTY_ALLOW_FAILURE,
   Task.JSON_PROPERTY_LOG_TO_FILE,
@@ -74,8 +74,8 @@ public class Task {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nullable  private Boolean disabled;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
   @jakarta.annotation.Nullable  private Level logLevel;
@@ -269,28 +269,28 @@ public class Task {
     this.disabled = disabled;
   }
 
-  public Task workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public Task workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public Task logLevel(@jakarta.annotation.Nullable Level logLevel) {
@@ -484,7 +484,7 @@ public class Task {
         Objects.equals(this.retry, task.retry) &&
         Objects.equals(this.timeout, task.timeout) &&
         Objects.equals(this.disabled, task.disabled) &&
-        Objects.equals(this.workerGroup, task.workerGroup) &&
+        Objects.equals(this.workerSelector, task.workerSelector) &&
         Objects.equals(this.logLevel, task.logLevel) &&
         Objects.equals(this.allowFailure, task.allowFailure) &&
         Objects.equals(this.logToFile, task.logToFile) &&
@@ -500,7 +500,7 @@ public class Task {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerGroup, logLevel, allowFailure, logToFile, when, allowWarning, taskCache, hashCodeNullable(assets));
+    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerSelector, logLevel, allowFailure, logToFile, when, allowWarning, taskCache, hashCodeNullable(assets));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -521,7 +521,7 @@ public class Task {
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
     sb.append("    timeout: ").append(toIndentedString(timeout)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    logLevel: ").append(toIndentedString(logLevel)).append("\n");
     sb.append("    allowFailure: ").append(toIndentedString(allowFailure)).append("\n");
     sb.append("    logToFile: ").append(toIndentedString(logToFile)).append("\n");

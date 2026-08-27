@@ -28,7 +28,7 @@ import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SLA;
 import io.kestra.sdk.model.Task;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Flow.JSON_PROPERTY_DISABLED,
   Flow.JSON_PROPERTY_LABELS,
   Flow.JSON_PROPERTY_VARIABLES,
-  Flow.JSON_PROPERTY_WORKER_GROUP,
+  Flow.JSON_PROPERTY_WORKER_SELECTOR,
   Flow.JSON_PROPERTY_DELETED,
   Flow.JSON_PROPERTY_FINALLY,
   Flow.JSON_PROPERTY_TASKS,
@@ -62,7 +62,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Flow.JSON_PROPERTY_CONCURRENCY,
   Flow.JSON_PROPERTY_RETRY,
   Flow.JSON_PROPERTY_SLA,
-  Flow.JSON_PROPERTY_CHECKS
+  Flow.JSON_PROPERTY_CHECKS,
+  Flow.JSON_PROPERTY_DRAFT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Flow {
@@ -96,8 +97,8 @@ public class Flow {
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
@@ -131,6 +132,9 @@ public class Flow {
 
   public static final String JSON_PROPERTY_CHECKS = "checks";
   @jakarta.annotation.Nullable  private List<Check> checks = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nonnull  private Boolean draft;
 
   public Flow() {
   }
@@ -400,28 +404,28 @@ public class Flow {
     this.variables = variables;
   }
 
-  public Flow workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public Flow workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public Flow deleted(@jakarta.annotation.Nonnull Boolean deleted) {
@@ -752,6 +756,30 @@ public class Flow {
     this.checks = checks;
   }
 
+  public Flow draft(@jakarta.annotation.Nonnull Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
+    this.draft = draft;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -771,7 +799,7 @@ public class Flow {
         Objects.equals(this.disabled, flow.disabled) &&
         Objects.equals(this.labels, flow.labels) &&
         Objects.equals(this.variables, flow.variables) &&
-        Objects.equals(this.workerGroup, flow.workerGroup) &&
+        Objects.equals(this.workerSelector, flow.workerSelector) &&
         Objects.equals(this.deleted, flow.deleted) &&
         Objects.equals(this._finally, flow._finally) &&
         Objects.equals(this.tasks, flow.tasks) &&
@@ -782,12 +810,13 @@ public class Flow {
         Objects.equals(this.concurrency, flow.concurrency) &&
         Objects.equals(this.retry, flow.retry) &&
         Objects.equals(this.sla, flow.sla) &&
-        Objects.equals(this.checks, flow.checks);
+        Objects.equals(this.checks, flow.checks) &&
+        Objects.equals(this.draft, flow.draft);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, draft);
   }
 
   @Override
@@ -804,7 +833,7 @@ public class Flow {
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
@@ -816,6 +845,7 @@ public class Flow {
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
     sb.append("}");
     return sb.toString();
   }
