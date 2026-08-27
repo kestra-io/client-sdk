@@ -30,6 +30,8 @@ def create_test_user(client):
         first_name="Group",
         last_name="Member",
         password="TestPass!1234",
+        # 2.0: adding a user to a group no longer auto-grants tenant access
+        tenants=[TENANT],
     )
     return client.users.create_user(request)
 
