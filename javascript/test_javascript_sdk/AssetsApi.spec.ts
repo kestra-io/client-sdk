@@ -106,8 +106,8 @@ describe('AssetsApi', () => {
 
         await Assets.lockAsset({ id: assetId });
 
-        // re-upserting the same asset is an update, not a create; the lock's own owner is allowed through.
-        const updated = await Assets.createAsset({ body: assetYaml(id) });
+        // updating the asset (not re-creating it) is what allows the lock's own owner through.
+        const updated = await Assets.updateAsset({ id: assetId, body: assetYaml(id) });
         expect(updated.id).toBe(assetId);
 
         await Assets.unlockAsset({ id: assetId });
