@@ -68,6 +68,10 @@ public class KestraClient {
         return new NamespacesApi(this.apiClient);
     }
 
+    public PoliciesApi policies() {
+        return new PoliciesApi(this.apiClient);
+    }
+
     public RolesApi roles() {
         return new RolesApi(this.apiClient);
     }

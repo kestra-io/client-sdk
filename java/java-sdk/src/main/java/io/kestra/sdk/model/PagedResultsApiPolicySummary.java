@@ -1,0 +1,129 @@
+/*
+ * Kestra EE
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
+ */
+
+
+package io.kestra.sdk.model;
+
+import jakarta.annotation.Nonnull;
+import java.util.Objects;
+import java.util.List;
+import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+/**
+ * PagedResultsApiPolicySummary
+ */
+@JsonPropertyOrder({
+  PagedResultsApiPolicySummary.JSON_PROPERTY_RESULTS,
+  PagedResultsApiPolicySummary.JSON_PROPERTY_TOTAL
+})
+public class PagedResultsApiPolicySummary {
+  public static final String JSON_PROPERTY_RESULTS = "results";
+  @Nonnull  private List<PolicySummary> results = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  @Nonnull  private Long total;
+
+  public PagedResultsApiPolicySummary() {
+  }
+
+  public PagedResultsApiPolicySummary results(@Nonnull List<PolicySummary> results) {
+    
+    this.results = results;
+    return this;
+  }
+
+  public PagedResultsApiPolicySummary addResultsItem(PolicySummary resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
+    return this;
+  }
+
+  /**
+   * Get results
+   * @return results
+   */
+  @Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PolicySummary> getResults() {
+    return results;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@Nonnull List<PolicySummary> results) {
+    this.results = results;
+  }
+
+  public PagedResultsApiPolicySummary total(@Nonnull Long total) {
+    
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   * @return total
+   */
+  @Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@Nonnull Long total) {
+    this.total = total;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PagedResultsApiPolicySummary pagedResultsApiPolicySummary = (PagedResultsApiPolicySummary) o;
+    return Objects.equals(this.results, pagedResultsApiPolicySummary.results) &&
+        Objects.equals(this.total, pagedResultsApiPolicySummary.total);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(results, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PagedResultsApiPolicySummary {\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
