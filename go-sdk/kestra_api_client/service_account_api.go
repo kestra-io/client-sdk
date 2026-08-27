@@ -24,6 +24,15 @@ func (a *ServiceAccountAPI) DeleteServiceAccount(ctx context.Context, id string)
 	return a.doVoidJSON(ctx, "DELETE", superadminPath("service-accounts", id), nil, nil)
 }
 
+// PatchServiceAccountInstanceOwner grants or revokes instance-owner status.
+func (a *ServiceAccountAPI) PatchServiceAccountInstanceOwner(ctx context.Context, id string, request interface{}) error {
+	return a.doVoidJSON(ctx, "PATCH", superadminPath("service-accounts", id, "instanceowner"), request, nil)
+}
+
+// PatchServiceAccountSuperAdmin targets the pre-2.0 /superadmin route, which the
+// server still accepts. Use PatchServiceAccountInstanceOwner instead.
+//
+// Deprecated: superAdmin was renamed to instanceOwner in Kestra 2.0.
 func (a *ServiceAccountAPI) PatchServiceAccountSuperAdmin(ctx context.Context, id string, request interface{}) error {
 	return a.doVoidJSON(ctx, "PATCH", superadminPath("service-accounts", id, "superadmin"), request, nil)
 }

@@ -157,15 +157,36 @@ func TestServiceAccountAPI_All(t *testing.T) {
 		require.Equal(t, "new", patched.GetDescription())
 	})
 
-	t.Run("patchServiceAccountSuperAdminTest", func(t *testing.T) {
+	t.Run("patchServiceAccountInstanceOwnerTest", func(t *testing.T) {
 		ctx := context.Background()
 
-		fullName := "test-patch-service-account-super-admin-" + randomId()
+		fullName := "test-patch-service-account-instance-owner-" + randomId()
 		name := truncateServiceAccountName(fullName)
 		req := map[string]interface{}{
 			"name": name,
 		}
 		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, req)
+		require.NoError(t, err)
+
+		patch := map[string]interface{}{"instanceOwner": true}
+		err = KestraTestClient().ServiceAccount().PatchServiceAccountInstanceOwner(ctx, created.GetId(), patch)
+		require.NoError(t, err)
+
+		fetched, err := KestraTestClient().ServiceAccount().ServiceAccount(ctx, created.GetId())
+		require.NoError(t, err)
+		require.True(t, fetched.GetInstanceOwner())
+	})
+
+	// The pre-2.0 /superadmin route and its `superAdmin` body are kept server-side
+	// for consumers still on an older SDK. Pin that, so dropping it is a decision
+	// rather than an accident.
+	t.Run("patchServiceAccountSuperAdminLegacyRouteTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		name := truncateServiceAccountName("test-patch-sa-super-admin-legacy-" + randomId())
+		created, err := KestraTestClient().ServiceAccount().CreateServiceAccount(ctx, map[string]interface{}{
+			"name": name,
+		})
 		require.NoError(t, err)
 
 		patch := map[string]interface{}{"superAdmin": true}
@@ -174,7 +195,7 @@ func TestServiceAccountAPI_All(t *testing.T) {
 
 		fetched, err := KestraTestClient().ServiceAccount().ServiceAccount(ctx, created.GetId())
 		require.NoError(t, err)
-		require.True(t, fetched.GetSuperAdmin())
+		require.True(t, fetched.GetInstanceOwner())
 	})
 
 	t.Run("updateServiceAccountTest", func(t *testing.T) {

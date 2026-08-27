@@ -53,15 +53,3 @@ func (a *NamespacesAPI) InheritedVariables(ctx context.Context, id, tenant strin
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", id, "inherited-variables"), nil, nil)
 }
 
-func (a *NamespacesAPI) InheritedPluginDefaults(ctx context.Context, id, tenant string) ([]NamespaceControllerApiInheritedPluginDefaultFromNamespace, error) {
-	return doJSON[[]NamespaceControllerApiInheritedPluginDefaultFromNamespace](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", id, "inherited-plugindefaults"), nil, nil)
-}
-
-func (a *NamespacesAPI) ExportPluginDefaults(ctx context.Context, id, tenant string) ([]byte, error) {
-	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "namespaces", id, "plugindefaults", "export"), nil, nil)
-}
-
-func (a *NamespacesAPI) ImportPluginDefaults(ctx context.Context, id, tenant, filePath string) ([]string, error) {
-	return doMultipartUpload[[]string](&a.baseAPI, ctx, "POST", tenantPath(tenant, "namespaces", id, "plugindefaults", "import"), nil, "fileUpload", filePath)
-}
-

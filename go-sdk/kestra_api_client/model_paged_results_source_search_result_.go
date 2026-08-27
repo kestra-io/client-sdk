@@ -15,41 +15,41 @@ import (
 	"fmt"
 )
 
-// checks if the PagedResultsSearchResultFlow type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PagedResultsSearchResultFlow{}
+// checks if the PagedResultsSourceSearchResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PagedResultsSourceSearchResult{}
 
-// PagedResultsSearchResultFlow struct for PagedResultsSearchResultFlow
-type PagedResultsSearchResultFlow struct {
-	Results []SearchResultFlow `json:"results"`
+// PagedResultsSourceSearchResult struct for PagedResultsSourceSearchResult
+type PagedResultsSourceSearchResult struct {
+	Results []SourceSearchResult `json:"results"`
 	Total int64 `json:"total"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _PagedResultsSearchResultFlow PagedResultsSearchResultFlow
+type _PagedResultsSourceSearchResult PagedResultsSourceSearchResult
 
-// NewPagedResultsSearchResultFlow instantiates a new PagedResultsSearchResultFlow object
+// NewPagedResultsSourceSearchResult instantiates a new PagedResultsSourceSearchResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPagedResultsSearchResultFlow(results []SearchResultFlow, total int64) *PagedResultsSearchResultFlow {
-	this := PagedResultsSearchResultFlow{}
+func NewPagedResultsSourceSearchResult(results []SourceSearchResult, total int64) *PagedResultsSourceSearchResult {
+	this := PagedResultsSourceSearchResult{}
 	this.Results = results
 	this.Total = total
 	return &this
 }
 
-// NewPagedResultsSearchResultFlowWithDefaults instantiates a new PagedResultsSearchResultFlow object
+// NewPagedResultsSourceSearchResultWithDefaults instantiates a new PagedResultsSourceSearchResult object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPagedResultsSearchResultFlowWithDefaults() *PagedResultsSearchResultFlow {
-	this := PagedResultsSearchResultFlow{}
+func NewPagedResultsSourceSearchResultWithDefaults() *PagedResultsSourceSearchResult {
+	this := PagedResultsSourceSearchResult{}
 	return &this
 }
 
 // GetResults returns the Results field value
-func (o *PagedResultsSearchResultFlow) GetResults() []SearchResultFlow {
+func (o *PagedResultsSourceSearchResult) GetResults() []SourceSearchResult {
 	if o == nil {
-		var ret []SearchResultFlow
+		var ret []SourceSearchResult
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *PagedResultsSearchResultFlow) GetResults() []SearchResultFlow {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *PagedResultsSearchResultFlow) GetResultsOk() ([]SearchResultFlow, bool) {
+func (o *PagedResultsSourceSearchResult) GetResultsOk() ([]SourceSearchResult, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,12 +66,12 @@ func (o *PagedResultsSearchResultFlow) GetResultsOk() ([]SearchResultFlow, bool)
 }
 
 // SetResults sets field value
-func (o *PagedResultsSearchResultFlow) SetResults(v []SearchResultFlow) {
+func (o *PagedResultsSourceSearchResult) SetResults(v []SourceSearchResult) {
 	o.Results = v
 }
 
 // GetTotal returns the Total field value
-func (o *PagedResultsSearchResultFlow) GetTotal() int64 {
+func (o *PagedResultsSourceSearchResult) GetTotal() int64 {
 	if o == nil {
 		var ret int64
 		return ret
@@ -82,7 +82,7 @@ func (o *PagedResultsSearchResultFlow) GetTotal() int64 {
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *PagedResultsSearchResultFlow) GetTotalOk() (*int64, bool) {
+func (o *PagedResultsSourceSearchResult) GetTotalOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,11 +90,11 @@ func (o *PagedResultsSearchResultFlow) GetTotalOk() (*int64, bool) {
 }
 
 // SetTotal sets field value
-func (o *PagedResultsSearchResultFlow) SetTotal(v int64) {
+func (o *PagedResultsSourceSearchResult) SetTotal(v int64) {
 	o.Total = v
 }
 
-func (o PagedResultsSearchResultFlow) MarshalJSON() ([]byte, error) {
+func (o PagedResultsSourceSearchResult) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -102,7 +102,7 @@ func (o PagedResultsSearchResultFlow) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PagedResultsSearchResultFlow) ToMap() (map[string]interface{}, error) {
+func (o PagedResultsSourceSearchResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["results"] = o.Results
 	toSerialize["total"] = o.Total
@@ -114,7 +114,7 @@ func (o PagedResultsSearchResultFlow) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PagedResultsSearchResultFlow) UnmarshalJSON(data []byte) (err error) {
+func (o *PagedResultsSourceSearchResult) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -137,15 +137,15 @@ func (o *PagedResultsSearchResultFlow) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPagedResultsSearchResultFlow := _PagedResultsSearchResultFlow{}
+	varPagedResultsSourceSearchResult := _PagedResultsSourceSearchResult{}
 
-	err = json.Unmarshal(data, &varPagedResultsSearchResultFlow)
+	err = json.Unmarshal(data, &varPagedResultsSourceSearchResult)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PagedResultsSearchResultFlow(varPagedResultsSearchResultFlow)
+	*o = PagedResultsSourceSearchResult(varPagedResultsSourceSearchResult)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -158,38 +158,38 @@ func (o *PagedResultsSearchResultFlow) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullablePagedResultsSearchResultFlow struct {
-	value *PagedResultsSearchResultFlow
+type NullablePagedResultsSourceSearchResult struct {
+	value *PagedResultsSourceSearchResult
 	isSet bool
 }
 
-func (v NullablePagedResultsSearchResultFlow) Get() *PagedResultsSearchResultFlow {
+func (v NullablePagedResultsSourceSearchResult) Get() *PagedResultsSourceSearchResult {
 	return v.value
 }
 
-func (v *NullablePagedResultsSearchResultFlow) Set(val *PagedResultsSearchResultFlow) {
+func (v *NullablePagedResultsSourceSearchResult) Set(val *PagedResultsSourceSearchResult) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePagedResultsSearchResultFlow) IsSet() bool {
+func (v NullablePagedResultsSourceSearchResult) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePagedResultsSearchResultFlow) Unset() {
+func (v *NullablePagedResultsSourceSearchResult) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePagedResultsSearchResultFlow(val *PagedResultsSearchResultFlow) *NullablePagedResultsSearchResultFlow {
-	return &NullablePagedResultsSearchResultFlow{value: val, isSet: true}
+func NewNullablePagedResultsSourceSearchResult(val *PagedResultsSourceSearchResult) *NullablePagedResultsSourceSearchResult {
+	return &NullablePagedResultsSourceSearchResult{value: val, isSet: true}
 }
 
-func (v NullablePagedResultsSearchResultFlow) MarshalJSON() ([]byte, error) {
+func (v NullablePagedResultsSourceSearchResult) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePagedResultsSearchResultFlow) UnmarshalJSON(src []byte) error {
+func (v *NullablePagedResultsSourceSearchResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

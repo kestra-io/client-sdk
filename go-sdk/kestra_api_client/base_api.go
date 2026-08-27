@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 )
 
@@ -94,7 +95,17 @@ func buildQueryParams(keyValues ...interface{}) url.Values {
 		case bool:
 			params.Set(key, fmt.Sprintf("%t", v))
 		default:
-			params.Set(key, fmt.Sprintf("%v", v))
+			// Named types (enums such as SourceSearchScope) reach this branch. A
+			// typed nil pointer is not == nil as an interface, so deref here rather
+			// than formatting the pointer itself into the query string.
+			rv := reflect.ValueOf(v)
+			if rv.Kind() == reflect.Ptr {
+				if rv.IsNil() {
+					continue
+				}
+				rv = rv.Elem()
+			}
+			params.Set(key, fmt.Sprintf("%v", rv.Interface()))
 		}
 	}
 	return params

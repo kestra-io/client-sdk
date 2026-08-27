@@ -25,7 +25,7 @@ type IAMTenantAccessControllerApiTenantAccess struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	Groups []IAMTenantAccessControllerApiGroup `json:"groups,omitempty"`
 	Roles []IAMTenantAccessControllerApiRoleAssignment `json:"roles,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -240,36 +240,36 @@ func (o *IAMTenantAccessControllerApiTenantAccess) SetRoles(v []IAMTenantAccessC
 	o.Roles = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMTenantAccessControllerApiTenantAccess) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMTenantAccessControllerApiTenantAccess) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMTenantAccessControllerApiTenantAccess) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiTenantAccess) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMTenantAccessControllerApiTenantAccess) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMTenantAccessControllerApiTenantAccess) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 func (o IAMTenantAccessControllerApiTenantAccess) MarshalJSON() ([]byte, error) {
@@ -300,8 +300,8 @@ func (o IAMTenantAccessControllerApiTenantAccess) ToMap() (map[string]interface{
 	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -331,7 +331,7 @@ func (o *IAMTenantAccessControllerApiTenantAccess) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "roles")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		o.AdditionalProperties = additionalProperties
 	}
 

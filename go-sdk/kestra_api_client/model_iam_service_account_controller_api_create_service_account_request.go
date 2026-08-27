@@ -22,7 +22,7 @@ var _ MappedNullable = &IAMServiceAccountControllerApiCreateServiceAccountReques
 type IAMServiceAccountControllerApiCreateServiceAccountRequest struct {
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	Description *string `json:"description,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	Tenants []string `json:"tenants,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -103,36 +103,36 @@ func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetDescripti
 	o.Description = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 // GetTenants returns the Tenants field value if set, zero value otherwise.
@@ -181,8 +181,8 @@ func (o IAMServiceAccountControllerApiCreateServiceAccountRequest) ToMap() (map[
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 	if !IsNil(o.Tenants) {
 		toSerialize["tenants"] = o.Tenants
@@ -232,7 +232,7 @@ func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) UnmarshalJSO
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		delete(additionalProperties, "tenants")
 		o.AdditionalProperties = additionalProperties
 	}

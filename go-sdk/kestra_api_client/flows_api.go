@@ -150,12 +150,14 @@ func (a *FlowsAPI) SearchFlows(ctx context.Context, tenant string, page, size *i
 	return &result, nil
 }
 
-// SearchFlowsBySourceCode searches flows by their source code content.
-func (a *FlowsAPI) SearchFlowsBySourceCode(ctx context.Context, tenant string, page, size *int, sort []string, q, namespace *string) (*PagedResultsSearchResultFlow, error) {
+// SearchFlowsBySourceCode searches flows by their source code content. Each hit
+// is a flat SourceSearchResult carrying the matching lines, not the flow itself.
+func (a *FlowsAPI) SearchFlowsBySourceCode(ctx context.Context, tenant string, page, size *int, sort []string, q, namespace *string, caseSensitive, wholeWord, regex *bool, scope *SourceSearchScope) (*PagedResultsSourceSearchResult, error) {
 	path := tenantPath(tenant, "flows", "source")
-	params := buildQueryParams("page", page, "size", size, "q", q, "namespace", namespace)
+	params := buildQueryParams("page", page, "size", size, "q", q, "namespace", namespace,
+		"caseSensitive", caseSensitive, "wholeWord", wholeWord, "regex", regex, "scope", scope)
 	appendRepeatedParam(params, "sort", sort)
-	result, err := doJSON[PagedResultsSearchResultFlow](&a.baseAPI, ctx, "GET", path, nil, params)
+	result, err := doJSON[PagedResultsSourceSearchResult](&a.baseAPI, ctx, "GET", path, nil, params)
 	if err != nil {
 		return nil, err
 	}

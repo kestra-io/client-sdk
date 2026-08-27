@@ -20,7 +20,7 @@ var _ MappedNullable = &MeControllerApiMe{}
 // MeControllerApiMe struct for MeControllerApiMe
 type MeControllerApiMe struct {
 	Id *string `json:"id,omitempty"`
-	SuperAdmin *bool `json:"superAdmin,omitempty"`
+	InstanceOwner *bool `json:"instanceOwner,omitempty"`
 	Restricted *bool `json:"restricted,omitempty"`
 	Profile *MeControllerApiProfile `json:"profile,omitempty"`
 	Auths []IAMTenantAccessControllerApiAuthentication `json:"auths,omitempty"`
@@ -79,36 +79,36 @@ func (o *MeControllerApiMe) SetId(v string) {
 	o.Id = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
-func (o *MeControllerApiMe) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+// GetInstanceOwner returns the InstanceOwner field value if set, zero value otherwise.
+func (o *MeControllerApiMe) GetInstanceOwner() bool {
+	if o == nil || IsNil(o.InstanceOwner) {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+	return *o.InstanceOwner
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetInstanceOwnerOk returns a tuple with the InstanceOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MeControllerApiMe) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+func (o *MeControllerApiMe) GetInstanceOwnerOk() (*bool, bool) {
+	if o == nil || IsNil(o.InstanceOwner) {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return o.InstanceOwner, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
+// HasInstanceOwner returns a boolean if a field has been set.
+func (o *MeControllerApiMe) HasInstanceOwner() bool {
+	if o != nil && !IsNil(o.InstanceOwner) {
 		return true
 	}
 
 	return false
 }
 
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
-func (o *MeControllerApiMe) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+// SetInstanceOwner gets a reference to the given bool and assigns it to the InstanceOwner field.
+func (o *MeControllerApiMe) SetInstanceOwner(v bool) {
+	o.InstanceOwner = &v
 }
 
 // GetRestricted returns the Restricted field value if set, zero value otherwise.
@@ -252,8 +252,8 @@ func (o MeControllerApiMe) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.InstanceOwner) {
+		toSerialize["instanceOwner"] = o.InstanceOwner
 	}
 	if !IsNil(o.Restricted) {
 		toSerialize["restricted"] = o.Restricted
@@ -290,7 +290,7 @@ func (o *MeControllerApiMe) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "instanceOwner")
 		delete(additionalProperties, "restricted")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "auths")

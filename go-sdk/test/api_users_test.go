@@ -308,14 +308,37 @@ func TestUsersAPI_All(t *testing.T) {
 		_ = KestraTestClient().Users().DeleteUser(ctx, created.GetId())
 	})
 
-	t.Run("patchUserSuperAdminTest", func(t *testing.T) {
+	t.Run("patchUserInstanceOwnerTest", func(t *testing.T) {
 		ctx := context.Background()
 
-		base := "testpatchusersuperadmin" + randomId()
+		base := "testpatchuserinstanceowner" + randomId()
 		userReq := map[string]interface{}{
 			"email": base + "@kestra.io",
 		}
 		created, err := KestraTestClient().Users().CreateUser(ctx, userReq)
+		require.NoError(t, err)
+
+		patch := map[string]interface{}{"instanceOwner": true}
+		err = KestraTestClient().Users().PatchUserInstanceOwner(ctx, created.GetId(), patch)
+		require.NoError(t, err)
+
+		fetched, err := KestraTestClient().Users().User(ctx, created.GetId())
+		require.NoError(t, err)
+		assert.True(t, fetched.GetInstanceOwner())
+
+		_ = KestraTestClient().Users().DeleteUser(ctx, created.GetId())
+	})
+
+	// The pre-2.0 /superadmin route and its `superAdmin` body are kept server-side
+	// for consumers still on an older SDK. Pin that, so dropping it is a decision
+	// rather than an accident.
+	t.Run("patchUserSuperAdminLegacyRouteTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		base := "testpatchusersuperadminlegacy" + randomId()
+		created, err := KestraTestClient().Users().CreateUser(ctx, map[string]interface{}{
+			"email": base + "@kestra.io",
+		})
 		require.NoError(t, err)
 
 		patch := map[string]interface{}{"superAdmin": true}
@@ -324,7 +347,7 @@ func TestUsersAPI_All(t *testing.T) {
 
 		fetched, err := KestraTestClient().Users().User(ctx, created.GetId())
 		require.NoError(t, err)
-		assert.True(t, fetched.GetSuperAdmin())
+		assert.True(t, fetched.GetInstanceOwner())
 
 		_ = KestraTestClient().Users().DeleteUser(ctx, created.GetId())
 	})
