@@ -224,7 +224,6 @@ __all__ = [
     "IAMUserGroupControllerApiUpdateUserGroupsRequest",
     "IdWithNamespace",
     "IdentityProvider",
-    "ImportPluginDefaultsRequest",
     "InputObject",
     "InputType",
     "InstanceControllerApiActiveService",
@@ -281,7 +280,6 @@ __all__ = [
     "Name",
     "Namespace",
     "NamespaceAllowedNamespace",
-    "NamespaceControllerApiInheritedPluginDefaultFromNamespace",
     "NamespaceFileRevision",
     "NamespaceLight",
     "Output",
@@ -329,7 +327,6 @@ __all__ = [
     "PluginArtifact",
     "PluginArtifactMetadata",
     "PluginControllerApiPluginVersions",
-    "PluginDefault",
     "PluginIcon",
     "PluginPluginElementMetadata",
     "PluginSchema",
@@ -349,6 +346,7 @@ __all__ = [
     "Relation",
     "Relation1",
     "RelationType",
+    "Resource",
     "ResourceType",
     "ResourceType1",
     "ResourceTypeSchemaExtensionConfiguration",
@@ -655,7 +653,6 @@ from kestrapy.models.iam_user_controller_api_user_summary import IAMUserControll
 from kestrapy.models.iam_user_group_controller_api_update_user_groups_request import IAMUserGroupControllerApiUpdateUserGroupsRequest as IAMUserGroupControllerApiUpdateUserGroupsRequest
 from kestrapy.models.id_with_namespace import IdWithNamespace as IdWithNamespace
 from kestrapy.models.identity_provider import IdentityProvider as IdentityProvider
-from kestrapy.models.import_plugin_defaults_request import ImportPluginDefaultsRequest as ImportPluginDefaultsRequest
 from kestrapy.models.input_object import InputObject as InputObject
 from kestrapy.models.input_type import InputType as InputType
 from kestrapy.models.instance_controller_api_active_service import InstanceControllerApiActiveService as InstanceControllerApiActiveService
@@ -712,7 +709,6 @@ from kestrapy.models.model_schema import ModelSchema as ModelSchema
 from kestrapy.models.name import Name as Name
 from kestrapy.models.namespace import Namespace as Namespace
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace as NamespaceAllowedNamespace
-from kestrapy.models.namespace_controller_api_inherited_plugin_default_from_namespace import NamespaceControllerApiInheritedPluginDefaultFromNamespace as NamespaceControllerApiInheritedPluginDefaultFromNamespace
 from kestrapy.models.namespace_file_revision import NamespaceFileRevision as NamespaceFileRevision
 from kestrapy.models.namespace_light import NamespaceLight as NamespaceLight
 from kestrapy.models.output import Output as Output
@@ -760,7 +756,6 @@ from kestrapy.models.plugin import Plugin as Plugin
 from kestrapy.models.plugin_artifact import PluginArtifact as PluginArtifact
 from kestrapy.models.plugin_artifact_metadata import PluginArtifactMetadata as PluginArtifactMetadata
 from kestrapy.models.plugin_controller_api_plugin_versions import PluginControllerApiPluginVersions as PluginControllerApiPluginVersions
-from kestrapy.models.plugin_default import PluginDefault as PluginDefault
 from kestrapy.models.plugin_icon import PluginIcon as PluginIcon
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata as PluginPluginElementMetadata
 from kestrapy.models.plugin_schema import PluginSchema as PluginSchema
@@ -780,6 +775,7 @@ from kestrapy.models.rbac_service_role_assignment_role_origin import RBACService
 from kestrapy.models.relation import Relation as Relation
 from kestrapy.models.relation1 import Relation1 as Relation1
 from kestrapy.models.relation_type import RelationType as RelationType
+from kestrapy.models.resource import Resource as Resource
 from kestrapy.models.resource_type import ResourceType as ResourceType
 from kestrapy.models.resource_type1 import ResourceType1 as ResourceType1
 from kestrapy.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration as ResourceTypeSchemaExtensionConfiguration

@@ -17,9 +17,12 @@ class TriggersApi(BaseApi):
         size: Optional[int] = None,
         sort: Optional[List[str]] = None,
         filters: Optional[List[QueryFilter]] = None,
+        date_filter: Optional[str] = None,
     ) -> dict:
+        """`date_filter` selects which trigger date the time interval applies to:
+        ``NEXT_EXECUTION_DATE`` or ``LAST_TRIGGERED_DATE``."""
         path = self._tenant_path(tenant, "triggers", "search")
-        params = list(self._build_query_params(page=page, size=size).items())
+        params = list(self._build_query_params(page=page, size=size, dateFilter=date_filter).items())
         self._append_repeated_param(params, "sort", sort)
         self._append_filter_params(params, filters)
         return self._raw_json_request("GET", path, params=params)

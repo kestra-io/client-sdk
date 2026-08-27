@@ -6,7 +6,6 @@ from kestrapy.models.api_secret_list_response_api_secret_meta import ApiSecretLi
 from kestrapy.models.api_secret_meta_ee import ApiSecretMetaEE
 from kestrapy.models.api_secret_value import ApiSecretValue
 from kestrapy.models.namespace import Namespace
-from kestrapy.models.namespace_controller_api_inherited_plugin_default_from_namespace import NamespaceControllerApiInheritedPluginDefaultFromNamespace
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace
 from kestrapy.models.query_filter import QueryFilter
 
@@ -36,15 +35,16 @@ class NamespacesApi(BaseApi):
     def search_namespaces(
         self,
         tenant: str,
-        q: Optional[str] = None,
         page: Optional[int] = None,
         size: Optional[int] = None,
         sort: Optional[List[str]] = None,
         existing: Optional[bool] = None,
+        filters: Optional[List[QueryFilter]] = None,
     ) -> PagedResultsNamespace:
         path = self._tenant_path(tenant, "namespaces", "search")
-        params = list(self._build_query_params(q=q, page=page, size=size, existing=existing).items())
+        params = list(self._build_query_params(page=page, size=size, existing=existing).items())
         self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
         return self._json_request("GET", path, PagedResultsNamespace, params=params)
 
     def autocomplete_namespaces(self, tenant: str, request: ApiAutocomplete) -> List[str]:
@@ -74,20 +74,6 @@ class NamespacesApi(BaseApi):
     def inherited_variables(self, id: str, tenant: str) -> Dict[str, Any]:
         path = self._tenant_path(tenant, "namespaces", id, "inherited-variables")
         return self._raw_json_request("GET", path)
-
-    # ---- Plugin Defaults ----
-
-    def inherited_plugin_defaults(self, id: str, tenant: str) -> List[NamespaceControllerApiInheritedPluginDefaultFromNamespace]:
-        path = self._tenant_path(tenant, "namespaces", id, "inherited-plugindefaults")
-        return self._json_list_request("GET", path, NamespaceControllerApiInheritedPluginDefaultFromNamespace)
-
-    def export_plugin_defaults(self, id: str, tenant: str) -> bytes:
-        path = self._tenant_path(tenant, "namespaces", id, "plugindefaults", "export")
-        return self._download_request("POST", path, accept=self.OCTET)
-
-    def import_plugin_defaults(self, id: str, tenant: str, file_content: Any = None) -> List[str]:
-        path = self._tenant_path(tenant, "namespaces", id, "plugindefaults", "import")
-        return self._multipart_upload_list("POST", path, str, field_name="fileUpload", file_content=file_content, file_name="fileUpload")
 
     # ---- Credentials ----
 
