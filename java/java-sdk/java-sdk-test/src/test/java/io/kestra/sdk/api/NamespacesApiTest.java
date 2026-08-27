@@ -103,7 +103,9 @@ public class NamespacesApiTest {
         String id = randomId();
         api().createNamespace(TENANT, new Namespace().id(id));
 
-        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, true, List.of(queryFilter(id)));
+        // existing=true routes to the namespace repository, which has no QUERY-filter
+        // support; NAMESPACE maps to the id column and works on both search paths.
+        PagedResultsNamespace result = api().searchNamespaces(TENANT, 1, 10, null, true, List.of(nsFilter(id)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull().isNotEmpty();
