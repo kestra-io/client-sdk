@@ -12,6 +12,7 @@ from kestrapy.api.triggers_api import TriggersApi
 from kestrapy.api.flows_api import FlowsApi
 from kestrapy.api.executions_api import ExecutionsApi
 from kestrapy.api.invitations_api import InvitationsApi
+from kestrapy.api.tenant_access_api import TenantAccessApi
 from kestrapy.api.logs_api import LogsApi
 from kestrapy.api.files_api import FilesApi
 from kestrapy.api.assets_api import AssetsApi
@@ -93,6 +94,8 @@ class KestraClient:
     def service_account(self): return self._get_api(ServiceAccountApi)
     @property
     def invitations(self): return self._get_api(InvitationsApi)
+    @property
+    def tenant_access(self): return self._get_api(TenantAccessApi)
 
     def close(self):
         self._session.close()

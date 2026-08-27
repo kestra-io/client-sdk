@@ -19,11 +19,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		createdGroup, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := map[string]interface{}{
-			"email": "test_add_user_to_group_" + randomId() + "@kestra.io",
-		}
-		createdUser, err := KestraTestClient().Users().CreateUser(ctx, userReq)
-		require.NoError(t, err)
+		createdUser := createTenantUser(ctx, t, "test_add_user_to_group_"+randomId()+"@kestra.io")
 
 		member, err := KestraTestClient().Groups().AddUserToGroup(ctx, createdGroup.GetId(), createdUser.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
@@ -105,11 +101,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := map[string]interface{}{
-			"email": "test_delete_user_from_group_" + randomId() + "@kestra.io",
-		}
-		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
-		require.NoError(t, err)
+		user := createTenantUser(ctx, t, "test_delete_user_from_group_"+randomId()+"@kestra.io")
 
 		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
@@ -173,11 +165,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := map[string]interface{}{
-			"email": "test_search_group_members_" + randomId() + "@kestra.io",
-		}
-		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
-		require.NoError(t, err)
+		user := createTenantUser(ctx, t, "test_search_group_members_"+randomId()+"@kestra.io")
 
 		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)
@@ -247,11 +235,7 @@ func TestGroupsAPI_All(t *testing.T) {
 		group, err := KestraTestClient().Groups().CreateGroup(ctx, MAIN_TENANT, groupReq)
 		require.NoError(t, err)
 
-		userReq := map[string]interface{}{
-			"email": "test_set_user_membership_for_group_" + randomId() + "@kestra.io",
-		}
-		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
-		require.NoError(t, err)
+		user := createTenantUser(ctx, t, "test_set_user_membership_for_group_"+randomId()+"@kestra.io")
 
 		_, err = KestraTestClient().Groups().AddUserToGroup(ctx, group.GetId(), user.GetId(), MAIN_TENANT)
 		require.NoError(t, err)

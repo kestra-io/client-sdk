@@ -244,13 +244,23 @@ public class GroupsApiTest {
     }
 
     static IAMUserControllerApiUser createTestUser() throws ApiException {
+        String email = "grp-" + randomId() + "@test.com";
         IAMUserControllerApiCreateOrUpdateUserRequest request =
                 new IAMUserControllerApiCreateOrUpdateUserRequest()
-                        .email("grp-" + randomId() + "@test.com")
+                        .email(email)
                         .firstName("Group")
                         .lastName("Member")
                         .password("TestPass!1234");
-        return usersApi().createUser(request);
+        IAMUserControllerApiUser user = usersApi().createUser(request);
+
+        // Users created through /api/v1/users exist instance-wide but hold no tenant
+        // access, and the tenant-scoped group endpoints reject them with 404
+        // "User does not exist for id" until it is granted.
+        client().tenantAccess().createTenantAccess(
+                TENANT,
+                new IAMTenantAccessControllerApiCreateTenantAccessRequest().email(email));
+
+        return user;
     }
 
     @Test

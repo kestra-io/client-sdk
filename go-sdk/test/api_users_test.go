@@ -19,12 +19,7 @@ func TestUsersAPI_All(t *testing.T) {
 
 		// Create user
 		email := "test_autocomplete_users_" + randomId() + "@kestra.io"
-		userReq := map[string]interface{}{
-			"email": email,
-		}
-		createdUser, err := KestraTestClient().Users().CreateUser(ctx, userReq)
-		require.NoError(t, err)
-		require.NotNil(t, createdUser)
+		createdUser := createTenantUser(ctx, t, email)
 
 		// Create group and add user
 		groupReq := map[string]interface{}{

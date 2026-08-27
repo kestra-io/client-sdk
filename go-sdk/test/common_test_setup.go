@@ -2,6 +2,7 @@ package test
 
 import (
 	"bytes"
+	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
@@ -14,9 +15,11 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"testing"
 	"time"
 
 	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
+	"github.com/stretchr/testify/require"
 )
 
 // StaticFilter injects the signed CSRF token the UI uses into a meta tag.
@@ -249,4 +252,21 @@ func get(filePath string) string {
 		panic(err)
 	}
 	return string(b)
+}
+
+// createTenantUser creates an instance-wide user and grants it access to tenant.
+// Both steps are required before the user can be referenced by the tenant-scoped
+// IAM endpoints (group members, autocomplete), which otherwise reject it with
+// 404 "User does not exist for id".
+func createTenantUser(ctx context.Context, t *testing.T, email string) *kestra_api_client.IAMUserControllerApiUser {
+	t.Helper()
+
+	user, err := KestraTestClient().Users().CreateUser(ctx, map[string]interface{}{"email": email})
+	require.NoError(t, err)
+	require.NotNil(t, user)
+
+	err = KestraTestClient().TenantAccess().CreateTenantAccess(ctx, MAIN_TENANT, map[string]interface{}{"email": email})
+	require.NoError(t, err)
+
+	return user
 }

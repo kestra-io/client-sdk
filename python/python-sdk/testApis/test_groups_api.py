@@ -4,6 +4,7 @@ from kestrapy import (
     IAMGroupControllerApiCreateGroupRequest,
     IAMGroupControllerApiUpdateGroupRequest,
     IAMUserControllerApiCreateOrUpdateUserRequest,
+    IAMTenantAccessControllerApiCreateTenantAccessRequest,
     ApiAutocomplete,
     ApiIds,
     GroupIdentifierMembership,
@@ -25,13 +26,24 @@ def create_test_group(client, name):
 
 
 def create_test_user(client):
+    email = "grp-" + random_id() + "@test.com"
     request = IAMUserControllerApiCreateOrUpdateUserRequest(
-        email="grp-" + random_id() + "@test.com",
+        email=email,
         first_name="Group",
         last_name="Member",
         password="TestPass!1234",
     )
-    return client.users.create_user(request)
+    user = client.users.create_user(request)
+
+    # Users created through /api/v1/users exist instance-wide but hold no tenant
+    # access, and the tenant-scoped group endpoints reject them with 404
+    # "User does not exist for id" until it is granted.
+    client.tenant_access.create_tenant_access(
+        TENANT,
+        IAMTenantAccessControllerApiCreateTenantAccessRequest(email=email),
+    )
+
+    return user
 
 
 # ========================================================================
