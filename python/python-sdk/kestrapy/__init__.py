@@ -312,7 +312,7 @@ __all__ = [
     "PagedResultsMapStringObject",
     "PagedResultsMetricEntry",
     "PagedResultsNamespace",
-    "PagedResultsSearchResultFlow",
+    "PagedResultsSourceSearchResult",
     "PagedResultsTenant",
     "PagedResultsTestSuite",
     "PagedResultsTestSuiteRunResult",
@@ -369,11 +369,6 @@ __all__ = [
     "ScimResourceWithOptionalId",
     "ScimUser",
     "SearchRequest",
-    "SearchResultFlow",
-    "SourceMatch",
-    "SourceSearchResult",
-    "PagedResultsSourceSearchResult",
-    "SourceSearchScope",
     "SecurityIntegrationType",
     "ServerConfig",
     "ServerConfigLiveness",
@@ -394,6 +389,9 @@ __all__ = [
     "SoftDeletableFlowInterface",
     "SortOrder",
     "SortRequest",
+    "SourceMatch",
+    "SourceSearchResult",
+    "SourceSearchScope",
     "State",
     "StateHistory",
     "StateType",
@@ -741,7 +739,7 @@ from kestrapy.models.paged_results_log_entry import PagedResultsLogEntry as Page
 from kestrapy.models.paged_results_map_string_object import PagedResultsMapStringObject as PagedResultsMapStringObject
 from kestrapy.models.paged_results_metric_entry import PagedResultsMetricEntry as PagedResultsMetricEntry
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace as PagedResultsNamespace
-from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow as PagedResultsSearchResultFlow
+from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult as PagedResultsSourceSearchResult
 from kestrapy.models.paged_results_tenant import PagedResultsTenant as PagedResultsTenant
 from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite as PagedResultsTestSuite
 from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult as PagedResultsTestSuiteRunResult
@@ -798,11 +796,6 @@ from kestrapy.models.scim_resource import ScimResource as ScimResource
 from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptionalId as ScimResourceWithOptionalId
 from kestrapy.models.scim_user import ScimUser as ScimUser
 from kestrapy.models.search_request import SearchRequest as SearchRequest
-from kestrapy.models.search_result_flow import SearchResultFlow as SearchResultFlow
-from kestrapy.models.source_match import SourceMatch as SourceMatch
-from kestrapy.models.source_search_result import SourceSearchResult as SourceSearchResult
-from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult as PagedResultsSourceSearchResult
-from kestrapy.models.source_search_scope import SourceSearchScope as SourceSearchScope
 from kestrapy.models.security_integration_type import SecurityIntegrationType as SecurityIntegrationType
 from kestrapy.models.server_config import ServerConfig as ServerConfig
 from kestrapy.models.server_config_liveness import ServerConfigLiveness as ServerConfigLiveness
@@ -823,6 +816,9 @@ from kestrapy.models.setup_configuration import SetupConfiguration as SetupConfi
 from kestrapy.models.soft_deletable_flow_interface import SoftDeletableFlowInterface as SoftDeletableFlowInterface
 from kestrapy.models.sort_order import SortOrder as SortOrder
 from kestrapy.models.sort_request import SortRequest as SortRequest
+from kestrapy.models.source_match import SourceMatch as SourceMatch
+from kestrapy.models.source_search_result import SourceSearchResult as SourceSearchResult
+from kestrapy.models.source_search_scope import SourceSearchScope as SourceSearchScope
 from kestrapy.models.state import State as State
 from kestrapy.models.state_history import StateHistory as StateHistory
 from kestrapy.models.state_type import StateType as StateType

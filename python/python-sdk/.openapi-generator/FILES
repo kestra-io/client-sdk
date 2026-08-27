@@ -275,7 +275,7 @@ docs/PagedResultsLogEntry.md
 docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
-docs/PagedResultsSearchResultFlow.md
+docs/PagedResultsSourceSearchResult.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -332,7 +332,6 @@ docs/ScimResource.md
 docs/ScimResourceWithOptionalId.md
 docs/ScimUser.md
 docs/SearchRequest.md
-docs/SearchResultFlow.md
 docs/SecurityIntegrationType.md
 docs/ServerConfig.md
 docs/ServerConfigLiveness.md
@@ -354,6 +353,9 @@ docs/SetupConfiguration.md
 docs/SoftDeletableFlowInterface.md
 docs/SortOrder.md
 docs/SortRequest.md
+docs/SourceMatch.md
+docs/SourceSearchResult.md
+docs/SourceSearchScope.md
 docs/State.md
 docs/StateHistory.md
 docs/StateType.md
@@ -685,7 +687,7 @@ kestrapy/models/paged_results_log_entry.py
 kestrapy/models/paged_results_map_string_object.py
 kestrapy/models/paged_results_metric_entry.py
 kestrapy/models/paged_results_namespace.py
-kestrapy/models/paged_results_search_result_flow.py
+kestrapy/models/paged_results_source_search_result.py
 kestrapy/models/paged_results_tenant.py
 kestrapy/models/paged_results_test_suite.py
 kestrapy/models/paged_results_test_suite_run_result.py
@@ -737,7 +739,6 @@ kestrapy/models/scim_resource_with_optional_id.py
 kestrapy/models/scim_user.py
 kestrapy/models/sdk_auth.py
 kestrapy/models/search_request.py
-kestrapy/models/search_result_flow.py
 kestrapy/models/security_integration_type.py
 kestrapy/models/server_config.py
 kestrapy/models/server_config_liveness.py
@@ -762,6 +763,9 @@ kestrapy/models/sla_type.py
 kestrapy/models/soft_deletable_flow_interface.py
 kestrapy/models/sort_order.py
 kestrapy/models/sort_request.py
+kestrapy/models/source_match.py
+kestrapy/models/source_search_result.py
+kestrapy/models/source_search_scope.py
 kestrapy/models/state.py
 kestrapy/models/state_history.py
 kestrapy/models/state_type.py

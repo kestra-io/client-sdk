@@ -1577,7 +1577,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_flows_by_source_code**
-> PagedResultsSearchResultFlow search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace)
+> PagedResultsSourceSearchResult search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace, case_sensitive=case_sensitive, whole_word=whole_word, regex=regex, scope=scope)
 
 Search for flows source code
 
@@ -1604,10 +1604,14 @@ with KestraClient(configuration) as kestra_client:
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
     q = 'q_example' # str | A string filter (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    case_sensitive = True # bool | Whether the match is case sensitive (optional)
+    whole_word = True # bool | Whether to match whole words only (optional)
+    regex = True # bool | Whether the query is a regular expression (optional)
+    scope = kestrapy.SourceSearchScope() # SourceSearchScope | Restricts matches to a top-level section of the flow YAML (optional)
 
     try:
         # Search for flows source code
-        api_response = kestra_client.flows.search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace)
+        api_response = kestra_client.flows.search_flows_by_source_code(tenant, page=page, size=size, sort=sort, q=q, namespace=namespace, case_sensitive=case_sensitive, whole_word=whole_word, regex=regex, scope=scope)
         print("The response of FlowsApi->search_flows_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -1627,10 +1631,14 @@ Name | Type | Description  | Notes
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **q** | **str**| A string filter | [optional] 
  **namespace** | **str**| A namespace filter prefix | [optional] 
+ **case_sensitive** | **bool**| Whether the match is case sensitive | [optional] 
+ **whole_word** | **bool**| Whether to match whole words only | [optional] 
+ **regex** | **bool**| Whether the query is a regular expression | [optional] 
+ **scope** | [**SourceSearchScope**](SourceSearchScope.md)| Restricts matches to a top-level section of the flow YAML | [optional] 
 
 ### Return type
 
-[**PagedResultsSearchResultFlow**](PagedResultsSearchResultFlow.md)
+[**PagedResultsSourceSearchResult**](PagedResultsSourceSearchResult.md)
 
 ### Authorization
 

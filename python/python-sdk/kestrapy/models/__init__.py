@@ -281,7 +281,7 @@ from kestrapy.models.paged_results_log_entry import PagedResultsLogEntry
 from kestrapy.models.paged_results_map_string_object import PagedResultsMapStringObject
 from kestrapy.models.paged_results_metric_entry import PagedResultsMetricEntry
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace
-from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
+from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
 from kestrapy.models.paged_results_tenant import PagedResultsTenant
 from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite
 from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
@@ -338,11 +338,6 @@ from kestrapy.models.scim_resource import ScimResource
 from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptionalId
 from kestrapy.models.scim_user import ScimUser
 from kestrapy.models.search_request import SearchRequest
-from kestrapy.models.search_result_flow import SearchResultFlow
-from kestrapy.models.source_match import SourceMatch
-from kestrapy.models.source_search_result import SourceSearchResult
-from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
-from kestrapy.models.source_search_scope import SourceSearchScope
 from kestrapy.models.security_integration_type import SecurityIntegrationType
 from kestrapy.models.server_config import ServerConfig
 from kestrapy.models.server_config_liveness import ServerConfigLiveness
@@ -363,6 +358,9 @@ from kestrapy.models.setup_configuration import SetupConfiguration
 from kestrapy.models.soft_deletable_flow_interface import SoftDeletableFlowInterface
 from kestrapy.models.sort_order import SortOrder
 from kestrapy.models.sort_request import SortRequest
+from kestrapy.models.source_match import SourceMatch
+from kestrapy.models.source_search_result import SourceSearchResult
+from kestrapy.models.source_search_scope import SourceSearchScope
 from kestrapy.models.state import State
 from kestrapy.models.state_history import StateHistory
 from kestrapy.models.state_type import StateType
