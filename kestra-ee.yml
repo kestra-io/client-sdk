@@ -14598,7 +14598,7 @@ paths:
       tags:
       - Groups
       summary: Add a user to a group
-      description: "Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically."
+      description: "Adds the specified user, by id or username, to the given group. The user must already have access to the tenant."
       operationId: addUserToGroup
       parameters:
       - name: id
@@ -14609,7 +14609,7 @@ paths:
           type: string
       - name: userId
         in: path
-        description: The ID of the user to add to the group
+        description: The ID or username of the user to add to the group
         required: true
         schema:
           type: string
