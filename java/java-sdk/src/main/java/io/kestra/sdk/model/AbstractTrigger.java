@@ -22,10 +22,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AssetsDeclaration;
 import io.kestra.sdk.model.Level;
 import io.kestra.sdk.model.StateType;
-import io.kestra.sdk.model.TheLabelsToPassToTheExecutionCreated;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
+import io.kestra.sdk.model.Label;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -76,7 +76,7 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  private Level logLevel;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private TheLabelsToPassToTheExecutionCreated labels;
+  @jakarta.annotation.Nullable  private List<Label> labels;
 
   public static final String JSON_PROPERTY_STOP_AFTER = "stopAfter";
   @jakarta.annotation.Nullable  private List<StateType> stopAfter = new ArrayList<>();
@@ -288,7 +288,7 @@ public class AbstractTrigger {
     this.logLevel = logLevel;
   }
 
-  public AbstractTrigger labels(@jakarta.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
+  public AbstractTrigger labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -301,14 +301,14 @@ public class AbstractTrigger {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public TheLabelsToPassToTheExecutionCreated getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
