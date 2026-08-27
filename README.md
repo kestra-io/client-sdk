@@ -251,9 +251,9 @@ await new Promise((resolve, reject) =>
 );
 ```
 
-### Go (`github.com/kestra-io/client-sdk/go-sdk`)
+### Go (`github.com/kestra-io/client-sdk/go-sdk/v2`)
 
-- Pull the module into your project with `go get github.com/kestra-io/client-sdk/go-sdk@latest`.
+- Pull the module into your project with `go get github.com/kestra-io/client-sdk/go-sdk/v2@latest`.
 - Build a `KestraClient` with `NewClient`, pointing it at your Kestra host.
 - Authenticate with Basic credentials via `WithBasicAuth`, or with a service-account token via `WithTokenAuth`.
 
@@ -267,7 +267,7 @@ import (
 	"fmt"
 	"log"
 
-	kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	kestra "github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 )
 
 func main() {

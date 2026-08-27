@@ -63,6 +63,14 @@ Consumers then pull that exact version with:
 go get github.com/kestra-io/client-sdk/go-sdk@v1.1.0
 ```
 
+For a `v2.0.0` and later tag, Go modules require the module path itself to carry
+the major version suffix (`go.mod`'s `module` line becomes
+`github.com/kestra-io/client-sdk/go-sdk/v2`), so the pull command becomes:
+
+```bash
+go get github.com/kestra-io/client-sdk/go-sdk/v2@v2.0.0
+```
+
 On the first request for a new version, `proxy.golang.org` fetches this repo,
 finds the matching tag, zips the source, and caches it immutably (its checksum is
 also recorded in `sum.golang.org`). Nothing is published by CI — the tag *is* the
