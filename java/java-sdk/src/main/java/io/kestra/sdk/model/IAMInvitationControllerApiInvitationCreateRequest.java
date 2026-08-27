@@ -14,6 +14,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -102,6 +103,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
   @JsonProperty(JSON_PROPERTY_INSTANCE_OWNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonAlias("superAdmin")
   public void setInstanceOwner(@jakarta.annotation.Nullable Boolean instanceOwner) {
     this.instanceOwner = instanceOwner;
   }
@@ -208,6 +210,27 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
   @JsonIgnore
   public Boolean getSuperAdmin() {
     return getInstanceOwner();
+  }
+
+  /**
+   * The pre-2.0 name for {@link #instanceOwner}.
+   *
+   * @deprecated use {@link #instanceOwner}
+   */
+  @Deprecated
+  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    return instanceOwner(superAdmin);
+  }
+
+  /**
+   * The pre-2.0 name for {@link #setInstanceOwner}.
+   *
+   * @deprecated use {@link #setInstanceOwner}
+   */
+  @Deprecated
+  @JsonIgnore
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
+    setInstanceOwner(superAdmin);
   }
 
   @Override
