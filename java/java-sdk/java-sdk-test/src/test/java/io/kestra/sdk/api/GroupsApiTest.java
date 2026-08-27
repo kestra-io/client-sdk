@@ -246,6 +246,8 @@ public class GroupsApiTest {
     static IAMUserControllerApiUser createTestUser() throws ApiException {
         IAMUserControllerApiCreateOrUpdateUserRequest request =
                 new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        // 2.0: adding a user to a group no longer auto-grants tenant access
+                        .tenants(List.of(TENANT))
                         .email("grp-" + randomId() + "@test.com")
                         .firstName("Group")
                         .lastName("Member")

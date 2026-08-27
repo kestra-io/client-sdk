@@ -21,6 +21,8 @@ func TestGroupsAPI_All(t *testing.T) {
 
 		userReq := map[string]interface{}{
 			"email": "test_add_user_to_group_" + randomId() + "@kestra.io",
+			// 2.0: adding a user to a group no longer auto-grants tenant access
+			"tenants": []string{MAIN_TENANT},
 		}
 		createdUser, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
@@ -107,6 +109,8 @@ func TestGroupsAPI_All(t *testing.T) {
 
 		userReq := map[string]interface{}{
 			"email": "test_delete_user_from_group_" + randomId() + "@kestra.io",
+			// 2.0: adding a user to a group no longer auto-grants tenant access
+			"tenants": []string{MAIN_TENANT},
 		}
 		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
@@ -175,6 +179,8 @@ func TestGroupsAPI_All(t *testing.T) {
 
 		userReq := map[string]interface{}{
 			"email": "test_search_group_members_" + randomId() + "@kestra.io",
+			// 2.0: adding a user to a group no longer auto-grants tenant access
+			"tenants": []string{MAIN_TENANT},
 		}
 		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
@@ -249,6 +255,8 @@ func TestGroupsAPI_All(t *testing.T) {
 
 		userReq := map[string]interface{}{
 			"email": "test_set_user_membership_for_group_" + randomId() + "@kestra.io",
+			// 2.0: adding a user to a group no longer auto-grants tenant access
+			"tenants": []string{MAIN_TENANT},
 		}
 		user, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)
