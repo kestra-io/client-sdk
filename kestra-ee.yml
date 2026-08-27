@@ -25579,6 +25579,15 @@ components:
           nullable: true
           items:
             $ref: "#/components/schemas/Label"
+        scheduleDate:
+          type: string
+          format: date-time
+          nullable: true
+        breakpoints:
+          type: array
+          nullable: true
+          items:
+            type: string
     CasesController.StatusRequest:
       required:
       - status
