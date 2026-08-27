@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.NamespaceAllowedNamespace;
-import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SDKAuth;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Namespace.JSON_PROPERTY_DELETED,
   Namespace.JSON_PROPERTY_DESCRIPTION,
   Namespace.JSON_PROPERTY_VARIABLES,
-  Namespace.JSON_PROPERTY_PLUGIN_DEFAULTS,
   Namespace.JSON_PROPERTY_ALLOWED_NAMESPACES,
   Namespace.JSON_PROPERTY_WORKER_GROUP,
   Namespace.JSON_PROPERTY_STORAGE_TYPE,
@@ -72,9 +70,6 @@ public class Namespace {
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
-
-  public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @jakarta.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ALLOWED_NAMESPACES = "allowedNamespaces";
   @jakarta.annotation.Nullable  private List<NamespaceAllowedNamespace> allowedNamespaces = new ArrayList<>();
@@ -256,38 +251,6 @@ public class Namespace {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVariables(@jakarta.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
-  }
-
-  public Namespace pluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    
-    this.pluginDefaults = pluginDefaults;
-    return this;
-  }
-
-  public Namespace addPluginDefaultsItem(PluginDefault pluginDefaultsItem) {
-    if (this.pluginDefaults == null) {
-      this.pluginDefaults = new ArrayList<>();
-    }
-    this.pluginDefaults.add(pluginDefaultsItem);
-    return this;
-  }
-
-  /**
-   * Get pluginDefaults
-   * @return pluginDefaults
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginDefault> getPluginDefaults() {
-    return pluginDefaults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    this.pluginDefaults = pluginDefaults;
   }
 
   public Namespace allowedNamespaces(@jakarta.annotation.Nullable List<NamespaceAllowedNamespace> allowedNamespaces) {
@@ -545,7 +508,6 @@ public class Namespace {
         Objects.equals(this.deleted, namespace.deleted) &&
         Objects.equals(this.description, namespace.description) &&
         Objects.equals(this.variables, namespace.variables) &&
-        Objects.equals(this.pluginDefaults, namespace.pluginDefaults) &&
         Objects.equals(this.allowedNamespaces, namespace.allowedNamespaces) &&
         Objects.equals(this.workerGroup, namespace.workerGroup) &&
         Objects.equals(this.storageType, namespace.storageType) &&
@@ -559,7 +521,7 @@ public class Namespace {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, storageIsolation, secretIsolation, deleted, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage, sdkDefaultAuthentication);
+    return Objects.hash(id, storageIsolation, secretIsolation, deleted, description, variables, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage, sdkDefaultAuthentication);
   }
 
   @Override
@@ -572,7 +534,6 @@ public class Namespace {
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
     sb.append("    allowedNamespaces: ").append(toIndentedString(allowedNamespaces)).append("\n");
     sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
