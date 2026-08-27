@@ -25,7 +25,6 @@ import io.kestra.sdk.model.Concurrency;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
-import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SLA;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.WorkerSelector;
@@ -58,7 +57,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowWithSource.JSON_PROPERTY_ERRORS,
   FlowWithSource.JSON_PROPERTY_AFTER_EXECUTION,
   FlowWithSource.JSON_PROPERTY_TRIGGERS,
-  FlowWithSource.JSON_PROPERTY_PLUGIN_DEFAULTS,
   FlowWithSource.JSON_PROPERTY_CONCURRENCY,
   FlowWithSource.JSON_PROPERTY_RETRY,
   FlowWithSource.JSON_PROPERTY_SLA,
@@ -118,9 +116,6 @@ public class FlowWithSource {
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nullable  private List<AbstractTrigger> triggers = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @jakarta.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
   @jakarta.annotation.Nullable  private Concurrency concurrency;
@@ -616,38 +611,6 @@ public class FlowWithSource {
     this.triggers = triggers;
   }
 
-  public FlowWithSource pluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    
-    this.pluginDefaults = pluginDefaults;
-    return this;
-  }
-
-  public FlowWithSource addPluginDefaultsItem(PluginDefault pluginDefaultsItem) {
-    if (this.pluginDefaults == null) {
-      this.pluginDefaults = new ArrayList<>();
-    }
-    this.pluginDefaults.add(pluginDefaultsItem);
-    return this;
-  }
-
-  /**
-   * Get pluginDefaults
-   * @return pluginDefaults
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginDefault> getPluginDefaults() {
-    return pluginDefaults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    this.pluginDefaults = pluginDefaults;
-  }
-
   public FlowWithSource concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
     
     this.concurrency = concurrency;
@@ -834,7 +797,6 @@ public class FlowWithSource {
         Objects.equals(this.errors, flowWithSource.errors) &&
         Objects.equals(this.afterExecution, flowWithSource.afterExecution) &&
         Objects.equals(this.triggers, flowWithSource.triggers) &&
-        Objects.equals(this.pluginDefaults, flowWithSource.pluginDefaults) &&
         Objects.equals(this.concurrency, flowWithSource.concurrency) &&
         Objects.equals(this.retry, flowWithSource.retry) &&
         Objects.equals(this.sla, flowWithSource.sla) &&
@@ -845,7 +807,7 @@ public class FlowWithSource {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, source, draft);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, concurrency, retry, sla, checks, source, draft);
   }
 
   @Override
@@ -869,7 +831,6 @@ public class FlowWithSource {
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
-    sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");

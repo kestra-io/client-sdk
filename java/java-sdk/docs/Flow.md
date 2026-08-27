@@ -24,7 +24,6 @@
 |**errors** | [**List&lt;Task&gt;**](Task.md) |  |  [optional] |
 |**afterExecution** | [**List&lt;Task&gt;**](Task.md) |  |  [optional] |
 |**triggers** | [**List&lt;AbstractTrigger&gt;**](AbstractTrigger.md) |  |  [optional] |
-|**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  [optional] |
 |**concurrency** | [**Concurrency**](Concurrency.md) |  |  [optional] |
 |**retry** | **Object** | Retry policy applied when the flow fails. |  [optional] |
 |**sla** | [**List&lt;SLA&gt;**](SLA.md) |  |  [optional] |

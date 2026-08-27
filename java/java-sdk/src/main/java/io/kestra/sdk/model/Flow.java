@@ -25,7 +25,6 @@ import io.kestra.sdk.model.Concurrency;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
-import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SLA;
 import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.WorkerSelector;
@@ -58,7 +57,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Flow.JSON_PROPERTY_ERRORS,
   Flow.JSON_PROPERTY_AFTER_EXECUTION,
   Flow.JSON_PROPERTY_TRIGGERS,
-  Flow.JSON_PROPERTY_PLUGIN_DEFAULTS,
   Flow.JSON_PROPERTY_CONCURRENCY,
   Flow.JSON_PROPERTY_RETRY,
   Flow.JSON_PROPERTY_SLA,
@@ -117,9 +115,6 @@ public class Flow {
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nullable  private List<AbstractTrigger> triggers = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @jakarta.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
   @jakarta.annotation.Nullable  private Concurrency concurrency;
@@ -612,38 +607,6 @@ public class Flow {
     this.triggers = triggers;
   }
 
-  public Flow pluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    
-    this.pluginDefaults = pluginDefaults;
-    return this;
-  }
-
-  public Flow addPluginDefaultsItem(PluginDefault pluginDefaultsItem) {
-    if (this.pluginDefaults == null) {
-      this.pluginDefaults = new ArrayList<>();
-    }
-    this.pluginDefaults.add(pluginDefaultsItem);
-    return this;
-  }
-
-  /**
-   * Get pluginDefaults
-   * @return pluginDefaults
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginDefault> getPluginDefaults() {
-    return pluginDefaults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    this.pluginDefaults = pluginDefaults;
-  }
-
   public Flow concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
     
     this.concurrency = concurrency;
@@ -806,7 +769,6 @@ public class Flow {
         Objects.equals(this.errors, flow.errors) &&
         Objects.equals(this.afterExecution, flow.afterExecution) &&
         Objects.equals(this.triggers, flow.triggers) &&
-        Objects.equals(this.pluginDefaults, flow.pluginDefaults) &&
         Objects.equals(this.concurrency, flow.concurrency) &&
         Objects.equals(this.retry, flow.retry) &&
         Objects.equals(this.sla, flow.sla) &&
@@ -816,7 +778,7 @@ public class Flow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, draft);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, concurrency, retry, sla, checks, draft);
   }
 
   @Override
@@ -840,7 +802,6 @@ public class Flow {
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
-    sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
