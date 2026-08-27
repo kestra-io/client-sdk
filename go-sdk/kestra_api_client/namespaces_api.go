@@ -22,10 +22,10 @@ func (a *NamespacesAPI) DeleteNamespace(ctx context.Context, id, tenant string) 
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "namespaces", id), nil, nil)
 }
 
-func (a *NamespacesAPI) SearchNamespaces(ctx context.Context, tenant string, q *string, page, size *int, sort []string, existing *bool) (*PagedResultsNamespace, error) {
+func (a *NamespacesAPI) SearchNamespaces(ctx context.Context, tenant string, q *string, page, size *int, sort []string, existing *bool, filters []SearchFilter) (*PagedResultsNamespace, error) {
 	params := buildQueryParams("page", page, "size", size, "existing", existing)
 	appendRepeatedParam(params, "sort", sort)
-	appendFilterParams(params, appendStringFilter(nil, FilterQuery, q))
+	appendFilterParams(params, appendStringFilter(filters, FilterQuery, q))
 	return doJSON[*PagedResultsNamespace](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", "search"), nil, params)
 }
 

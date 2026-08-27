@@ -12,8 +12,8 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
 
 // checks if the Flow type satisfies the MappedNullable interface at compile time
@@ -21,33 +21,32 @@ var _ MappedNullable = &Flow{}
 
 // Flow struct for Flow
 type Flow struct {
-	Id string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Id        string `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
 	Namespace string `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision *int32 `json:"revision,omitempty"`
+	Revision  *int32 `json:"revision,omitempty"`
 	// The timestamp when this revision was created or last updated.
-	Updated *time.Time `json:"updated,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Inputs []InputObject `json:"inputs,omitempty"`
+	Updated     *time.Time    `json:"updated,omitempty"`
+	Description *string       `json:"description,omitempty"`
+	Inputs      []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-	Outputs []Output `json:"outputs,omitempty"`
-	Disabled bool `json:"disabled"`
+	Outputs  []Output `json:"outputs,omitempty"`
+	Disabled bool     `json:"disabled"`
 	// Labels as a list of Label (key/value pairs) or as a map of string to string.
-	Labels *MapObjectObject `json:"labels,omitempty"`
-	Variables map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
-	Deleted bool `json:"deleted"`
-	Finally []Task `json:"finally,omitempty"`
-	Tasks []Task `json:"tasks"`
-	Errors []Task `json:"errors,omitempty"`
-	AfterExecution []Task `json:"afterExecution,omitempty"`
-	Triggers []AbstractTrigger `json:"triggers,omitempty"`
-	PluginDefaults []FlowPluginDefault `json:"pluginDefaults,omitempty"`
-	Concurrency *Concurrency `json:"concurrency,omitempty"`
+	Labels         *MapObjectObject       `json:"labels,omitempty"`
+	Variables      map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup    *WorkerGroup           `json:"workerGroup,omitempty"`
+	Deleted        bool                   `json:"deleted"`
+	Finally        []Task                 `json:"finally,omitempty"`
+	Tasks          []Task                 `json:"tasks"`
+	Errors         []Task                 `json:"errors,omitempty"`
+	AfterExecution []Task                 `json:"afterExecution,omitempty"`
+	Triggers       []AbstractTrigger      `json:"triggers,omitempty"`
+	Concurrency    *Concurrency           `json:"concurrency,omitempty"`
 	// Retry policy applied when the flow fails.
 	Retry map[string]interface{} `json:"retry,omitempty"`
-	Sla []SLA `json:"sla,omitempty"`
+	Sla   []SLA                  `json:"sla,omitempty"`
 	// A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally.
-	Checks []Check `json:"checks,omitempty"`
+	Checks               []Check `json:"checks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -579,38 +578,6 @@ func (o *Flow) SetTriggers(v []AbstractTrigger) {
 	o.Triggers = v
 }
 
-// GetPluginDefaults returns the PluginDefaults field value if set, zero value otherwise.
-func (o *Flow) GetPluginDefaults() []FlowPluginDefault {
-	if o == nil || IsNil(o.PluginDefaults) {
-		var ret []FlowPluginDefault
-		return ret
-	}
-	return o.PluginDefaults
-}
-
-// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Flow) GetPluginDefaultsOk() ([]FlowPluginDefault, bool) {
-	if o == nil || IsNil(o.PluginDefaults) {
-		return nil, false
-	}
-	return o.PluginDefaults, true
-}
-
-// HasPluginDefaults returns a boolean if a field has been set.
-func (o *Flow) HasPluginDefaults() bool {
-	if o != nil && !IsNil(o.PluginDefaults) {
-		return true
-	}
-
-	return false
-}
-
-// SetPluginDefaults gets a reference to the given []FlowPluginDefault and assigns it to the PluginDefaults field.
-func (o *Flow) SetPluginDefaults(v []FlowPluginDefault) {
-	o.PluginDefaults = v
-}
-
 // GetConcurrency returns the Concurrency field value if set, zero value otherwise.
 func (o *Flow) GetConcurrency() Concurrency {
 	if o == nil || IsNil(o.Concurrency) {
@@ -740,7 +707,7 @@ func (o *Flow) SetChecks(v []Check) {
 }
 
 func (o Flow) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -790,9 +757,6 @@ func (o Flow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Triggers) {
 		toSerialize["triggers"] = o.Triggers
 	}
-	if !IsNil(o.PluginDefaults) {
-		toSerialize["pluginDefaults"] = o.PluginDefaults
-	}
 	if !IsNil(o.Concurrency) {
 		toSerialize["concurrency"] = o.Concurrency
 	}
@@ -830,10 +794,10 @@ func (o *Flow) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -869,7 +833,6 @@ func (o *Flow) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "errors")
 		delete(additionalProperties, "afterExecution")
 		delete(additionalProperties, "triggers")
-		delete(additionalProperties, "pluginDefaults")
 		delete(additionalProperties, "concurrency")
 		delete(additionalProperties, "retry")
 		delete(additionalProperties, "sla")
@@ -915,5 +878,3 @@ func (v *NullableFlow) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

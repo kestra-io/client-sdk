@@ -600,7 +600,6 @@ model_iam_user_controller_api_user_summary.go
 model_iam_user_group_controller_api_update_user_groups_request.go
 model_id_with_namespace.go
 model_identity_provider.go
-model_import_plugin_defaults_request.go
 model_input_object_.go
 model_input_type.go
 model_instance_controller_api_active_service.go
@@ -656,7 +655,6 @@ model_misc_controller_tenant_configuration_info.go
 model_name.go
 model_namespace.go
 model_namespace_allowed_namespace.go
-model_namespace_controller_api_inherited_plugin_default_from_namespace.go
 model_namespace_file_revision.go
 model_namespace_light.go
 model_output.go
@@ -704,7 +702,6 @@ model_plugin.go
 model_plugin_artifact.go
 model_plugin_artifact_metadata.go
 model_plugin_controller_api_plugin_versions.go
-model_plugin_default.go
 model_plugin_icon.go
 model_plugin_plugin_element_metadata.go
 model_plugin_schema.go

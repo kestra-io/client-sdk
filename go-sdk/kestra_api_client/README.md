@@ -197,9 +197,6 @@ Class | Method | HTTP request | Description
 *NamespacesAPI* | [**CreateNamespace**](docs/NamespacesAPI.md#createnamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesAPI* | [**DeleteNamespace**](docs/NamespacesAPI.md#deletenamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesAPI* | [**DeleteSecret**](docs/NamespacesAPI.md#deletesecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-*NamespacesAPI* | [**ExportPluginDefaults**](docs/NamespacesAPI.md#exportplugindefaults) | **Post** /api/v1/{tenant}/namespaces/{id}/plugindefaults/export | Export this namespace plugin defaults
-*NamespacesAPI* | [**ImportPluginDefaults**](docs/NamespacesAPI.md#importplugindefaults) | **Post** /api/v1/{tenant}/namespaces/{id}/plugindefaults/import | Import plugin defaults in this namespace
-*NamespacesAPI* | [**InheritedPluginDefaults**](docs/NamespacesAPI.md#inheritedplugindefaults) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesAPI* | [**InheritedSecrets**](docs/NamespacesAPI.md#inheritedsecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesAPI* | [**InheritedVariables**](docs/NamespacesAPI.md#inheritedvariables) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesAPI* | [**ListNamespaceSecrets**](docs/NamespacesAPI.md#listnamespacesecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -468,7 +465,6 @@ Class | Method | HTTP request | Description
  - [IAMUserGroupControllerApiUpdateUserGroupsRequest](docs/IAMUserGroupControllerApiUpdateUserGroupsRequest.md)
  - [IdWithNamespace](docs/IdWithNamespace.md)
  - [IdentityProvider](docs/IdentityProvider.md)
- - [ImportPluginDefaultsRequest](docs/ImportPluginDefaultsRequest.md)
  - [InputObject](docs/InputObject.md)
  - [InputType](docs/InputType.md)
  - [InstanceControllerApiActiveService](docs/InstanceControllerApiActiveService.md)
@@ -524,7 +520,6 @@ Class | Method | HTTP request | Description
  - [Name](docs/Name.md)
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
- - [NamespaceControllerApiInheritedPluginDefaultFromNamespace](docs/NamespaceControllerApiInheritedPluginDefaultFromNamespace.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
@@ -572,7 +567,6 @@ Class | Method | HTTP request | Description
  - [PluginArtifact](docs/PluginArtifact.md)
  - [PluginArtifactMetadata](docs/PluginArtifactMetadata.md)
  - [PluginControllerApiPluginVersions](docs/PluginControllerApiPluginVersions.md)
- - [PluginDefault](docs/PluginDefault.md)
  - [PluginIcon](docs/PluginIcon.md)
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)

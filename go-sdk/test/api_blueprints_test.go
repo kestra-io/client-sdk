@@ -24,7 +24,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("searchBlueprints_flow", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(5))
+		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(5), nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotNil(t, result.Results)
@@ -33,7 +33,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("searchBlueprints_withQuery", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, kestra_api_client.PtrString("hello"), nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(5))
+		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, kestra_api_client.PtrString("hello"), nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(5), nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 	})
@@ -41,7 +41,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("searchBlueprints_withSort", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, []string{"title:asc"}, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10))
+		result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, []string{"title:asc"}, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotNil(t, result.Results)
@@ -51,13 +51,13 @@ func TestBlueprintsAPI_All(t *testing.T) {
 		ctx := context.Background()
 
 		// First get a result to find a tag
-		allResults, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1))
+		allResults, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil)
 		require.NoError(t, err)
 
 		if len(allResults.Results) > 0 && len(allResults.Results[0].Tags) > 0 {
 			tag := allResults.Results[0].Tags[0]
 
-			result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, []string{tag}, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10))
+			result, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, []string{tag}, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
 			require.NoError(t, err)
 			require.NotEmpty(t, result.Results)
 		}
@@ -66,7 +66,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("blueprint_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1))
+		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil)
 		require.NoError(t, err)
 
 		if len(search.Results) > 0 {
@@ -82,7 +82,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("blueprintGraph_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1))
+		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil)
 		require.NoError(t, err)
 
 		if len(search.Results) > 0 {
@@ -97,7 +97,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("blueprintSource_basic", func(t *testing.T) {
 		ctx := context.Background()
 
-		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1))
+		search, err := KestraTestClient().Blueprints().SearchBlueprints(ctx, string(kestra_api_client.BLUEPRINTCONTROLLERKIND_FLOW), MAIN_TENANT, nil, nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(1), nil)
 		require.NoError(t, err)
 
 		if len(search.Results) > 0 {
@@ -185,7 +185,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Blueprints().CreateFlowBlueprint(ctx, MAIN_TENANT, request)
 		require.NoError(t, err)
 
-		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, kestra_api_client.PtrString(created.GetTitle()), nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
+		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, kestra_api_client.PtrString(created.GetTitle()), nil, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotEmpty(t, result.Results)
@@ -194,7 +194,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 	t.Run("searchInternalBlueprints_withSort", func(t *testing.T) {
 		ctx := context.Background()
 
-		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, nil, []string{"title:asc"}, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
+		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, nil, []string{"title:asc"}, nil, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
 		require.NoError(t, err)
 		require.NotEmpty(t, result.Results)
 	})
@@ -211,7 +211,7 @@ func TestBlueprintsAPI_All(t *testing.T) {
 		_, err = KestraTestClient().Blueprints().CreateFlowBlueprint(ctx, MAIN_TENANT, createFlowBlueprintRequest("untagged-bp-"+randomId()))
 		require.NoError(t, err)
 
-		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, nil, nil, []string{tag}, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil)
+		result, err := KestraTestClient().Blueprints().SearchInternalBlueprints(ctx, MAIN_TENANT, nil, nil, []string{tag}, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, nil)
 		require.NoError(t, err)
 		require.NotEmpty(t, result.Results)
 		for _, bp := range result.Results {

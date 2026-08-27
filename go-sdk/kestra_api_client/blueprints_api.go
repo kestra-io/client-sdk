@@ -20,10 +20,12 @@ func (a *BlueprintsAPI) BlueprintSource(ctx context.Context, id, kind, tenant st
 	return a.doText(ctx, "GET", tenantPath(tenant, "blueprints", "community", kind, id, "source"), nil, "application/yaml")
 }
 
-func (a *BlueprintsAPI) SearchBlueprints(ctx context.Context, kind, tenant string, q *string, sort []string, tags []string, page, size *int) (*PagedResultsBlueprintControllerApiBlueprintItem, error) {
-	params := buildQueryParams("q", q, "page", page, "size", size)
+func (a *BlueprintsAPI) SearchBlueprints(ctx context.Context, kind, tenant string, q *string, sort []string, tags []string, page, size *int, filters []SearchFilter) (*PagedResultsBlueprintControllerApiBlueprintItem, error) {
+	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)
-	appendRepeatedParam(params, "tags", tags)
+	filters = appendStringFilter(filters, FilterQuery, q)
+	filters = appendSliceFilter(filters, FilterTags, tags)
+	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsBlueprintControllerApiBlueprintItem](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "community", kind), nil, params)
 }
 
@@ -75,10 +77,10 @@ func (a *BlueprintsAPI) DeleteInternalBlueprints(ctx context.Context, id, tenant
 	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "blueprints", "custom", id), nil, nil)
 }
 
-func (a *BlueprintsAPI) SearchInternalBlueprints(ctx context.Context, tenant string, q *string, sort, tags []string, page, size *int, source *string) (*PagedResultsBlueprint, error) {
+func (a *BlueprintsAPI) SearchInternalBlueprints(ctx context.Context, tenant string, q *string, sort, tags []string, page, size *int, source *string, filters []SearchFilter) (*PagedResultsBlueprint, error) {
 	params := buildQueryParams("page", page, "size", size, "source", source)
 	appendRepeatedParam(params, "sort", sort)
-	filters := appendStringFilter(nil, FilterQuery, q)
+	filters = appendStringFilter(filters, FilterQuery, q)
 	filters = appendSliceFilter(filters, FilterTags, tags)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsBlueprint](&a.baseAPI, ctx, "GET", tenantPath(tenant, "blueprints", "custom"), nil, params)

@@ -22,23 +22,22 @@ var _ MappedNullable = &Namespace{}
 type Namespace struct {
 	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
 	// Deprecated
-	AllowedTriggers []NamespaceAllowedTrigger `json:"allowedTriggers,omitempty"`
-	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
-	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
-	Deleted bool `json:"deleted"`
-	Description *string `json:"description,omitempty"`
-	Variables map[string]interface{} `json:"variables,omitempty"`
-	PluginDefaults []PluginDefault `json:"pluginDefaults,omitempty"`
-	AllowedNamespaces []NamespaceAllowedNamespace `json:"allowedNamespaces,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
-	StorageType *string `json:"storageType,omitempty"`
-	StorageConfiguration map[string]interface{} `json:"storageConfiguration,omitempty"`
-	SecretType *string `json:"secretType,omitempty"`
-	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
-	SecretConfiguration map[string]interface{} `json:"secretConfiguration,omitempty"`
-	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
-	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AllowedTriggers          []NamespaceAllowedTrigger   `json:"allowedTriggers,omitempty"`
+	StorageIsolation         *Isolation                  `json:"storageIsolation,omitempty"`
+	SecretIsolation          *Isolation                  `json:"secretIsolation,omitempty"`
+	Deleted                  bool                        `json:"deleted"`
+	Description              *string                     `json:"description,omitempty"`
+	Variables                map[string]interface{}      `json:"variables,omitempty"`
+	AllowedNamespaces        []NamespaceAllowedNamespace `json:"allowedNamespaces,omitempty"`
+	WorkerGroup              *WorkerGroup                `json:"workerGroup,omitempty"`
+	StorageType              *string                     `json:"storageType,omitempty"`
+	StorageConfiguration     map[string]interface{}      `json:"storageConfiguration,omitempty"`
+	SecretType               *string                     `json:"secretType,omitempty"`
+	SecretReadOnly           *bool                       `json:"secretReadOnly,omitempty"`
+	SecretConfiguration      map[string]interface{}      `json:"secretConfiguration,omitempty"`
+	OutputsInInternalStorage *bool                       `json:"outputsInInternalStorage,omitempty"`
+	SdkDefaultAuthentication *SDKAuth                    `json:"sdkDefaultAuthentication,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _Namespace Namespace
@@ -271,38 +270,6 @@ func (o *Namespace) HasVariables() bool {
 // SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
 func (o *Namespace) SetVariables(v map[string]interface{}) {
 	o.Variables = v
-}
-
-// GetPluginDefaults returns the PluginDefaults field value if set, zero value otherwise.
-func (o *Namespace) GetPluginDefaults() []PluginDefault {
-	if o == nil || IsNil(o.PluginDefaults) {
-		var ret []PluginDefault
-		return ret
-	}
-	return o.PluginDefaults
-}
-
-// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Namespace) GetPluginDefaultsOk() ([]PluginDefault, bool) {
-	if o == nil || IsNil(o.PluginDefaults) {
-		return nil, false
-	}
-	return o.PluginDefaults, true
-}
-
-// HasPluginDefaults returns a boolean if a field has been set.
-func (o *Namespace) HasPluginDefaults() bool {
-	if o != nil && !IsNil(o.PluginDefaults) {
-		return true
-	}
-
-	return false
-}
-
-// SetPluginDefaults gets a reference to the given []PluginDefault and assigns it to the PluginDefaults field.
-func (o *Namespace) SetPluginDefaults(v []PluginDefault) {
-	o.PluginDefaults = v
 }
 
 // GetAllowedNamespaces returns the AllowedNamespaces field value if set, zero value otherwise.
@@ -594,7 +561,7 @@ func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth) {
 }
 
 func (o Namespace) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -619,9 +586,6 @@ func (o Namespace) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
-	}
-	if !IsNil(o.PluginDefaults) {
-		toSerialize["pluginDefaults"] = o.PluginDefaults
 	}
 	if !IsNil(o.AllowedNamespaces) {
 		toSerialize["allowedNamespaces"] = o.AllowedNamespaces
@@ -672,10 +636,10 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -701,7 +665,6 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "variables")
-		delete(additionalProperties, "pluginDefaults")
 		delete(additionalProperties, "allowedNamespaces")
 		delete(additionalProperties, "workerGroup")
 		delete(additionalProperties, "storageType")
@@ -752,5 +715,3 @@ func (v *NullableNamespace) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
