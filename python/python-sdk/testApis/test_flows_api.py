@@ -592,7 +592,7 @@ class TestSearchFlowsBySourceCode:
         result = client.flows.search_flows_by_source_code(TENANT, page=1, size=10, q=f.id)
 
         assert result.total >= 1
-        assert any(r.model is not None and r.model.id == f.id for r in result.results)
+        assert any(r.id == f.id for r in result.results)
 
     def test_with_namespace(self, client):
         ns = random_namespace()
@@ -615,7 +615,7 @@ class TestSearchFlowsBySourceCode:
         )
         assert result.total >= 1
         for r in result.results:
-            assert r.model is not None
+            assert r.id is not None
 
     def test_with_sort(self, client):
         ns = random_namespace()
@@ -628,7 +628,7 @@ class TestSearchFlowsBySourceCode:
             TENANT, page=1, size=10, sort=["id:asc"], namespace=ns
         )
         assert len(result.results) >= 2
-        ids = [r.model.id for r in result.results]
+        ids = [r.id for r in result.results]
         idx1 = ids.index(id1)
         idx2 = ids.index(id2)
         assert idx1 >= 0

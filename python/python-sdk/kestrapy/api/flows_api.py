@@ -12,7 +12,7 @@ from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.models.id_with_namespace import IdWithNamespace
 from kestrapy.models.paged_results_concurrency_limit import PagedResultsConcurrencyLimit
 from kestrapy.models.paged_results_flow import PagedResultsFlow
-from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
+from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.task import Task
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
@@ -132,11 +132,16 @@ class FlowsApi(BaseApi):
         sort: Optional[List[str]] = None,
         q: Optional[str] = None,
         namespace: Optional[str] = None,
-    ) -> PagedResultsSearchResultFlow:
+    ) -> PagedResultsSourceSearchResult:
+        """Search flows by their source code content.
+
+        2.0: each hit is a flat SourceSearchResult carrying the matching lines,
+        not a wrapper around the flow itself.
+        """
         path = self._tenant_path(tenant, "flows", "source")
         params = list(self._build_query_params(page=page, size=size, q=q, namespace=namespace).items())
         self._append_repeated_param(params, "sort", sort)
-        return self._json_request("GET", path, PagedResultsSearchResultFlow, params=params)
+        return self._json_request("GET", path, PagedResultsSourceSearchResult, params=params)
 
     def list_flows_by_namespace(self, namespace: str, tenant: str) -> List[Flow]:
         path = self._tenant_path(tenant, "flows", namespace)
