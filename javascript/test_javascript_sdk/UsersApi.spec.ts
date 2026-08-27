@@ -200,15 +200,15 @@ describe('UsersApi', () => {
         await Users.deleteUser({ id: created.id });
     });
 
-    it('patch_user_super_admin: Update user superadmin privileges', async () => {
-        const base = `test_patch_user_super_admin_${randomId()}`;
+    it('patch_user_instance_owner: Update user instance owner privileges', async () => {
+        const base = `test_patch_user_instance_owner_${randomId()}`;
         const created = await Users.createUser({ email: `${base}@kestra.io` });
 
-        await Users.patchUserSuperAdmin({ id: created.id, superAdmin: true });
+        await Users.patchUserInstanceOwner({ id: created.id, instanceOwner: true });
 
         const fetched =
             (await Users.user?.({ id: created.id }));
-        expect(Boolean(fetched.superAdmin)).toBe(true);
+        expect(Boolean(fetched.instanceOwner)).toBe(true);
 
         await Users.deleteUser({ id: created.id });
     });

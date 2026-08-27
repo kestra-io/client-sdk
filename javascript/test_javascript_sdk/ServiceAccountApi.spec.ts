@@ -110,20 +110,18 @@ describe('ServiceAccountApi', () => {
         expect(patched?.description).toBe('new');
     });
 
-    it('patch_service_account_super_admin', async () => {
-        const name = randomIdWith('test-patch-service-account-super-admin');
+    it('patch_service_account_instance_owner', async () => {
+        const name = randomIdWith('test-patch-service-account-instance-owner');
 
         const created = await ServiceAccount.createServiceAccount({ name });
         if (!created.id) {
             throw new Error('Failed to create service account');
         }
 
-        // In Python you had a small typo in the method name; fixed here.
-        await ServiceAccount.patchServiceAccountSuperAdmin({ id: created.id, superAdmin: true });
+        await ServiceAccount.patchServiceAccountInstanceOwner({ id: created.id, instanceOwner: true });
 
         const fetched = await ServiceAccount.serviceAccount({ id: created.id });
-        // Depending on the SDK, the property could be super_admin or superAdmin
-        expect(fetched.superAdmin).toBe(true);
+        expect(fetched.instanceOwner).toBe(true);
     });
 
     it('update_service_account', async () => {
