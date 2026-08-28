@@ -127,6 +127,10 @@ func (c *KestraClient) Triggers() *TriggersAPI {
 	return &TriggersAPI{baseAPI{client: c}}
 }
 
+func (c *KestraClient) TenantAccess() *TenantAccessAPI {
+	return &TenantAccessAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Users() *UsersAPI {
 	return &UsersAPI{baseAPI{client: c}}
 }
