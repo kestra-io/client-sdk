@@ -1,9 +1,12 @@
 import { client } from "./openapi/client.gen"
 import { formDataBodySerializer } from "./openapi/client"
 import type { ResolvedRequestOptions } from "./openapi/client"
-import { createConfigureClient } from "@kestra-io/hey-api-plugin/runtime"
+import { createConfigureClient, EnterpriseFeatureError, SdkVersionMismatchError } from "@kestra-io/hey-api-plugin/runtime"
+import type { EnterpriseFeatureConfig } from "@kestra-io/hey-api-plugin/runtime"
+import { ENTERPRISE_ONLY_ROUTES_JSON } from "./openapi/sdk/enterpriseOnlyRoutes.gen"
 
 export * from "./openapi/index"
+export { EnterpriseFeatureError, SdkVersionMismatchError }
 
 declare global {
     interface Window {
@@ -141,7 +144,69 @@ const axiosLikeClient = {
     patch: <T = any>(url: string, data?: any, config?: AxiosLikeConfig) => axiosLikeRequest<T>("PATCH", url, data, config),
 } as const
 
-export const configureClient = createConfigureClient(client, formDataBodySerializer)
+// Route registry baked in at generation time from the EE spec's x-kestra tags; see
+// enterprise-only-routes-plugin.ts.
+const enterpriseOnlyRoutes: Record<string, { feature: string }> = JSON.parse(ENTERPRISE_ONLY_ROUTES_JSON)
+
+// Exported for the exhaustiveness test (registry features ⊆ this map's keys), not for consumer use.
+export const featureToSlugMap: Record<string, string> = {
+    "audit-logs": "/governance/audit-logs",
+    "bindings": "/auth/rbac",
+    "auths": "/auth/authentication",
+    "banners": "/instance/announcements",
+    "cluster": "/instance/maintenance-mode",
+    "mcp": "",
+    "services": "",
+    "policies": "/governance",
+    "plugins": "/instance/versioned-plugins",
+    "worker-groups": "/scalability/worker-group",
+    "worker-queues": "",
+    "worker-auth": "/auth/credentials",
+    "kill-switches": "/instance/kill-switch",
+    "misc": "",
+    "invitations": "/auth/invitations",
+    "users": "/auth/rbac",
+    "notifications": "",
+    "service-account": "/auth/service-accounts",
+    "tenants": "/governance/tenants",
+    "ai": "",
+    "apps": "/scalability/apps",
+    "assets": "/governance/assets",
+    "blueprints": "/governance/custom-blueprints",
+    "blueprint-tags": "/governance/custom-blueprints",
+    "flows": "/governance",
+    "groups": "/auth/rbac",
+    "scim-groups": "/auth/scim",
+    "scim-configuration": "/auth/scim",
+    "scim-users": "/auth/scim",
+    "namespaces": "/governance/namespace-management",
+    "reusable-inputs": "",
+    "quotas": "",
+    "roles": "/auth/rbac",
+    "security-integrations": "/auth/sso",
+    "tenant-access": "/auth/rbac",
+    "test-suites": "/governance/unit-tests",
+    "login": "/auth/authentication",
+}
+
+// Same UTM convention the app already uses on its own kestra.io links, with utm_source=sdk. An
+// EnterpriseFeatureError is the only thing we get to say to someone at the moment they hit an
+// Enterprise boundary, so the links are tagged to tell whether they lead anywhere. utm_content
+// carries the feature key, which is what keeps the features falling back to the bare
+// /docs/enterprise page distinguishable from one another.
+const UTM_CAMPAIGN = "utm_source=sdk&utm_medium=referral&utm_campaign=ee-feature-error"
+
+function withUtm(url: string, feature: string): string {
+    return `${url}?${UTM_CAMPAIGN}&utm_content=${encodeURIComponent(feature)}`
+}
+
+const enterpriseFeature: EnterpriseFeatureConfig = {
+    matchRoute: (method, path) => enterpriseOnlyRoutes[`${method} ${path}`],
+    docsUrl: (feature) => withUtm(`https://kestra.io/docs/enterprise${featureToSlugMap[feature] ?? ""}`, feature),
+    contactSalesUrl: (feature) => withUtm("https://kestra.io/demo", feature),
+}
+
+export const configureClient = createConfigureClient(client, formDataBodySerializer, enterpriseFeature)
 
 /**
  * Set a mock client instance controlled in tests
