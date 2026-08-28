@@ -20,6 +20,7 @@ def test_flow_decodes_input_with_form_type():
         "namespace": "ns",
         "disabled": False,
         "deleted": False,
+        "draft": False,
         "tasks": [{"id": "t", "type": "io.kestra.plugin.core.log.Log"}],
         "inputs": [{"id": "myform", "type": "FORM"}],
     })
