@@ -1,11 +1,13 @@
 # ApiPatchSuperAdminRequest
 
+Request body for the deprecated `/superadmin` endpoints, kept for backward-compatibility. It accepts both the current `instanceOwner` field and the legacy `superAdmin` field.   The legacy field cannot be expressed as a `@JsonAlias` on ApiPatchInstanceOwnerRequest because Micronaut's `BeanIntrospectionModule` does not honor Jackson aliases when binding an HTTP request body, so it must be bound as its own property and merged in #resolveInstanceOwner().
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**super_admin** | **bool** |  | 
+**instance_owner** | **bool** |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
 
 ## Example
 

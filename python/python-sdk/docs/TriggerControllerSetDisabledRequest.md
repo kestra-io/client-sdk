@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**triggers** | [**List[Trigger]**](Trigger.md) |  | 
+**triggers** | [**List[TriggerControllerApiTriggerId]**](TriggerControllerApiTriggerId.md) |  | 
 **disabled** | **bool** |  | 
+**recover_missed_schedules** | **bool** |  | [optional] 
 
 ## Example
 

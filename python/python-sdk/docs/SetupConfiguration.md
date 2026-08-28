@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **queue_type** | **str** |  | [optional] 
 **storage_type** | **str** |  | [optional] 
 **secret_type** | **str** |  | [optional] 
-**password_regexp** | **str** |  | [optional] 
+**password_configuration** | [**PasswordConfiguration**](PasswordConfiguration.md) |  | [optional] 
 **have_auth_not_basic** | **bool** |  | [optional] 
 
 ## Example

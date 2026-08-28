@@ -5,10 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
 **is_default** | **bool** |  | [optional] 
 **is_managed** | **bool** |  | [optional] 
+**permission_count** | **int** |  | [optional] 
 
 ## Example
 

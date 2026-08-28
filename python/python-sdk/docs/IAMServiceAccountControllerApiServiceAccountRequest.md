@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **groups** | [**List[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 
 ## Example
 

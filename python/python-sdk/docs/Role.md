@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **is_managed** | **bool** |  | 
-**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
+**permissions** | [**ListPermissions200Response**](ListPermissions200Response.md) |  | [optional] 
 **id** | **str** |  | [optional] 
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 

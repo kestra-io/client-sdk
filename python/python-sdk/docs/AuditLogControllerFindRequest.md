@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resource** | [**ResourceType**](ResourceType.md) |  | [optional] 
-**type** | [**CrudEventType**](CrudEventType.md) |  | [optional] 
+**resource** | [**Resource**](Resource.md) |  | [optional] 
+**type** | [**AuditableAction**](AuditableAction.md) |  | [optional] 
 **detail** | **Dict[str, object]** |  | [optional] 
 
 ## Example

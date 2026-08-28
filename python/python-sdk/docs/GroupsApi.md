@@ -31,7 +31,6 @@ Adds the specified user to the given group. If the user does not already have ac
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -47,7 +46,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Add a user to a group
-        api_response = kestra_client.groups.add_user_to_group(id, user_id, tenant)
+        api_response = kestra_client.GroupsApi.add_user_to_group(id, user_id, tenant)
         print("The response of GroupsApi->add_user_to_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -89,7 +88,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **autocomplete_groups**
-> List[ApiGroupSummary] autocomplete_groups(tenant, api_autocomplete)
+> List[ApiGroupSummary] autocomplete_groups(tenant, api_autocomplete, filters=filters)
 
 List groups for autocomplete
 
@@ -100,7 +99,6 @@ List groups for autocomplete
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -112,10 +110,11 @@ configuration.password = "Root!1234"
 with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # List groups for autocomplete
-        api_response = kestra_client.groups.autocomplete_groups(tenant, api_autocomplete)
+        api_response = kestra_client.GroupsApi.autocomplete_groups(tenant, api_autocomplete, filters=filters)
         print("The response of GroupsApi->autocomplete_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -131,6 +130,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **api_autocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -165,7 +165,6 @@ Create a group
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -180,7 +179,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a group
-        api_response = kestra_client.groups.create_group(tenant, iam_group_controller_api_create_group_request)
+        api_response = kestra_client.GroupsApi.create_group(tenant, iam_group_controller_api_create_group_request)
         print("The response of GroupsApi->create_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -231,7 +230,6 @@ Delete a group
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -246,7 +244,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a group
-        kestra_client.groups.delete_group(id, tenant)
+        kestra_client.GroupsApi.delete_group(id, tenant)
     except Exception as e:
         print("Exception when calling GroupsApi->delete_group: %s\n" % e)
 ```
@@ -297,7 +295,6 @@ Removes the specified user from the given group. If the user has no other group 
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -313,7 +310,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Remove a user from a group
-        api_response = kestra_client.groups.delete_user_from_group(id, user_id, tenant)
+        api_response = kestra_client.GroupsApi.delete_user_from_group(id, user_id, tenant)
         print("The response of GroupsApi->delete_user_from_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -368,7 +365,6 @@ Retrieves details of a specific group by its ID within the current tenant.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -383,7 +379,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a group
-        api_response = kestra_client.groups.group(id, tenant)
+        api_response = kestra_client.GroupsApi.group(id, tenant)
         print("The response of GroupsApi->group:\n")
         pprint(api_response)
     except Exception as e:
@@ -434,7 +430,6 @@ List groups by ids
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -449,7 +444,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List groups by ids
-        api_response = kestra_client.groups.list_group_ids(tenant, api_ids)
+        api_response = kestra_client.GroupsApi.list_group_ids(tenant, api_ids)
         print("The response of GroupsApi->list_group_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -499,7 +494,6 @@ Search for users in a group
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -510,15 +504,15 @@ configuration.password = "Root!1234"
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
     id = 'id_example' # str | The group id
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
     tenant = 'tenant_example' # str | 
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Search for users in a group
-        api_response = kestra_client.groups.search_group_members(id, tenant, page=page, size=size, sort=sort, filters=filters)
+        api_response = kestra_client.GroupsApi.search_group_members(id, tenant, page=page, size=size, sort=sort, filters=filters)
         print("The response of GroupsApi->search_group_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -533,11 +527,11 @@ with KestraClient(configuration) as kestra_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The group id | 
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
  **tenant** | **str**|  | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -561,7 +555,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_groups**
-> PagedResultsApiGroupSummary search_groups(tenant, page=page, size=size, sort=sort)
+> PagedResultsApiGroupSummary search_groups(tenant, page=page, size=size, sort=sort, filters=filters)
 
 Search for groups
 
@@ -572,7 +566,6 @@ Search for groups
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -582,15 +575,15 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
-    q = 'q_example' # str | A string filter (optional)
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Search for groups
-        api_response = kestra_client.groups.search_groups(tenant, page=page, size=size, sort=sort)
+        api_response = kestra_client.GroupsApi.search_groups(tenant, page=page, size=size, sort=sort, filters=filters)
         print("The response of GroupsApi->search_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -604,11 +597,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
  **tenant** | **str**|  | 
- **q** | **str**| A string filter | [optional] 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -645,7 +638,6 @@ Allows a group owner or an authorized user to change the role of a user within a
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -662,7 +654,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user's membership type in a group
-        api_response = kestra_client.groups.set_user_membership_for_group(id, user_id, membership, tenant)
+        api_response = kestra_client.GroupsApi.set_user_membership_for_group(id, user_id, membership, tenant)
         print("The response of GroupsApi->set_user_membership_for_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -716,7 +708,6 @@ Update a group
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -732,7 +723,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a group
-        api_response = kestra_client.groups.update_group(id, tenant, iam_group_controller_api_update_group_request)
+        api_response = kestra_client.GroupsApi.update_group(id, tenant, iam_group_controller_api_update_group_request)
         print("The response of GroupsApi->update_group:\n")
         pprint(api_response)
     except Exception as e:

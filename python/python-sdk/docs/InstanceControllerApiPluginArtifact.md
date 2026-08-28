@@ -6,10 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **str** |  | [optional] 
-**icon** | **str** |  | [optional] 
+**icon** | [**InstanceControllerApiPluginIcon**](InstanceControllerApiPluginIcon.md) |  | [optional] 
 **group_id** | **str** |  | [optional] 
 **artifact_id** | **str** |  | [optional] 
 **versions** | **List[str]** |  | [optional] 
+**release_notes_url** | **str** |  | [optional] 
 
 ## Example
 

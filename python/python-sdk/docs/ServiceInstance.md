@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **created_at** | **datetime** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
 **events** | [**List[ServiceInstanceTimestampedEvent]**](ServiceInstanceTimestampedEvent.md) |  | [optional] 
-**config** | [**ServerConfig**](ServerConfig.md) |  | [optional] 
 **props** | **Dict[str, object]** |  | [optional] 
 **seq_id** | **int** |  | [optional] 
 

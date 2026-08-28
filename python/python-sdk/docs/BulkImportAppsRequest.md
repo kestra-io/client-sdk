@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file_upload** | **bytearray** | The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
+**file_upload** | **bytes** | The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
 
 ## Example
 

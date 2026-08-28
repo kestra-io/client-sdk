@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **enable_auto** | [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
 **inputs** | [**PropertyListAssetIdentifier**](PropertyListAssetIdentifier.md) |  | [optional] 
 **outputs** | [**PropertyListAsset**](PropertyListAsset.md) |  | [optional] 
+**asset_failure_behavior** | [**PropertyAssetFailureBehavior**](PropertyAssetFailureBehavior.md) | Behavior applied to the task state when a declared asset fails to render, emit, or be persisted (e.g. a lock conflict): FAIL escalates it to FAILED, WARN (default) warns it if it would otherwise succeed, IGNORE leaves the state untouched. | [optional] 
 
 ## Example
 

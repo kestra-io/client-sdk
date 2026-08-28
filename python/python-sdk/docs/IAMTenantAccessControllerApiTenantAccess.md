@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **display_name** | **str** |  | [optional] 
 **groups** | [**List[IAMTenantAccessControllerApiGroup]**](IAMTenantAccessControllerApiGroup.md) |  | [optional] 
 **roles** | [**List[IAMTenantAccessControllerApiRoleAssignment]**](IAMTenantAccessControllerApiRoleAssignment.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 
 ## Example
 

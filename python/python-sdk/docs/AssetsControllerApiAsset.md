@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **created** | **datetime** |  | [optional] 
 **updated** | **datetime** |  | [optional] 
 **deleted** | **bool** |  | [optional] 
+**lock** | [**AssetsControllerApiAssetLock**](AssetsControllerApiAssetLock.md) |  | [optional] 
 
 ## Example
 

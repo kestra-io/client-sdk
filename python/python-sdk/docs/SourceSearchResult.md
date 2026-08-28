@@ -28,3 +28,5 @@ source_search_result_dict = source_search_result_instance.to_dict()
 source_search_result_from_dict = SourceSearchResult.from_dict(source_search_result_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

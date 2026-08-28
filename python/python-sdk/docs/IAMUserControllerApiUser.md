@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
 **auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
 **groups** | [**List[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **restricted** | **bool** |  | [optional] 
 
 ## Example

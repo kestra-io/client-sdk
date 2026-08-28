@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **version** | **str** |  | [optional] 
 **metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | [optional] 
+**release_notes_url** | **str** |  | [optional] 
 
 ## Example
 

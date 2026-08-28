@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tenant_id** | **str** |  | [optional] 
 **id** | **str** |  | 
-**type** | [**CrudEventType**](CrudEventType.md) |  | 
+**type** | [**AuditableAction**](AuditableAction.md) |  | 
 **detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **var_date** | **datetime** |  | 
 **user_id** | **str** |  | 

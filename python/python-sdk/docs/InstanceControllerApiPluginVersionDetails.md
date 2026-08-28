@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **version** | **str** |  | [optional] 
 **title** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**icon** | **str** |  | [optional] 
+**icon** | [**InstanceControllerApiPluginIcon**](InstanceControllerApiPluginIcon.md) |  | [optional] 
 **classes** | [**List[InstanceControllerApiPluginVersionDetailsApiPluginClasses]**](InstanceControllerApiPluginVersionDetailsApiPluginClasses.md) |  | [optional] 
 
 ## Example

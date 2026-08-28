@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **aliases** | **List[str]** |  | [optional] 
 **tasks** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **triggers** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
-**conditions** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **controllers** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **storages** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **secrets** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 

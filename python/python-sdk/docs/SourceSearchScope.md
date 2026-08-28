@@ -1,6 +1,5 @@
 # SourceSearchScope
 
-Restricts matches to a top-level section of the flow YAML.
 
 ## Enum
 
@@ -13,3 +12,5 @@ Restricts matches to a top-level section of the flow YAML.
 * `INPUTS` (value: `'INPUTS'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

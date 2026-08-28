@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **name** | **str** | the name of this service account. | 
 **description** | **str** | the description of this service account. | [optional] 
 **groups** | [**List[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 
 ## Example
 

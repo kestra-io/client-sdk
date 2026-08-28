@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **str** |  | [optional] 
-**invalids** | **object** |  | [optional] 
+**message** | **str** | The error message | [optional] 
+**invalids** | **object** | The list of items that failed validation | [optional] 
 
 ## Example
 

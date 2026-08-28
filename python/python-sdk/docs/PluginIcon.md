@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **icon** | **str** |  | [optional] 
 **flowable** | **bool** |  | [optional] 
+**monochrome** | **bool** |  | [optional] 
+**hash** | **str** |  | [optional] 
 
 ## Example
 

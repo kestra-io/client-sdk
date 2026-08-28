@@ -10,7 +10,6 @@ Method | HTTP request | Description
 [**delete_secret**](NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**inherited_secrets**](NamespacesApi.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**inherited_variables**](NamespacesApi.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
-[**list_secrets**](NamespacesApi.md#list_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
 [**namespace**](NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**patch_secret**](NamespacesApi.md#patch_secret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 [**put_secrets**](NamespacesApi.md#put_secrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
@@ -32,7 +31,6 @@ Returns a list of namespaces for use in autocomplete fields, optionally allowing
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -47,7 +45,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List namespaces for autocomplete
-        api_response = kestra_client.namespaces.autocomplete_namespaces(tenant, api_autocomplete)
+        api_response = kestra_client.NamespacesApi.autocomplete_namespaces(tenant, api_autocomplete)
         print("The response of NamespacesApi->autocomplete_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -97,7 +95,6 @@ Create a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -112,7 +109,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a namespace
-        api_response = kestra_client.namespaces.create_namespace(tenant, namespace)
+        api_response = kestra_client.NamespacesApi.create_namespace(tenant, namespace)
         print("The response of NamespacesApi->create_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -162,7 +159,6 @@ Delete a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -177,7 +173,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a namespace
-        kestra_client.namespaces.delete_namespace(id, tenant)
+        kestra_client.NamespacesApi.delete_namespace(id, tenant)
     except Exception as e:
         print("Exception when calling NamespacesApi->delete_namespace: %s\n" % e)
 ```
@@ -225,7 +221,6 @@ Delete a secret for a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -241,7 +236,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a secret for a namespace
-        kestra_client.namespaces.delete_secret(namespace, key, tenant)
+        kestra_client.NamespacesApi.delete_secret(namespace, key, tenant)
     except Exception as e:
         print("Exception when calling NamespacesApi->delete_secret: %s\n" % e)
 ```
@@ -290,7 +285,6 @@ List inherited secrets
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -305,7 +299,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited secrets
-        api_response = kestra_client.namespaces.inherited_secrets(namespace, tenant)
+        api_response = kestra_client.NamespacesApi.inherited_secrets(namespace, tenant)
         print("The response of NamespacesApi->inherited_secrets:\n")
         pprint(api_response)
     except Exception as e:
@@ -355,7 +349,6 @@ List inherited variables
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -370,7 +363,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited variables
-        api_response = kestra_client.namespaces.inherited_variables(id, tenant)
+        api_response = kestra_client.NamespacesApi.inherited_variables(id, tenant)
         print("The response of NamespacesApi->inherited_variables:\n")
         pprint(api_response)
     except Exception as e:
@@ -408,79 +401,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_secrets**
-> ApiSecretListResponseApiSecretMeta list_secrets(tenant, page=page, size=size, sort=sort, filters=filters)
-
-Get secrets for a namespace
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-from pprint import pprint
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace id
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
-    tenant = 'tenant_example' # str | 
-    sort = ['sort_example'] # List[str] | The sort of current page (optional)
-
-    try:
-        # Get secrets for a namespace
-        api_response = kestra_client.namespaces.list_secrets(tenant, page=page, size=size, sort=sort, filters=filters)
-        print("The response of NamespacesApi->list_secrets:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling NamespacesApi->list_secrets: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace id | 
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
- **tenant** | **str**|  | 
- **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
-
-### Return type
-
-[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | listNamespaceSecrets 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **namespace**
 > Namespace namespace(id, tenant)
 
@@ -493,7 +413,6 @@ Get a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -508,7 +427,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a namespace
-        api_response = kestra_client.namespaces.namespace(id, tenant)
+        api_response = kestra_client.NamespacesApi.namespace(id, tenant)
         print("The response of NamespacesApi->namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -558,7 +477,6 @@ Patch a secret metadata for a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -575,7 +493,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Patch a secret metadata for a namespace
-        api_response = kestra_client.namespaces.patch_secret(namespace, key, tenant, api_secret_meta_ee)
+        api_response = kestra_client.NamespacesApi.patch_secret(namespace, key, tenant, api_secret_meta_ee)
         print("The response of NamespacesApi->patch_secret:\n")
         pprint(api_response)
     except Exception as e:
@@ -627,7 +545,6 @@ Update secrets for a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -643,7 +560,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update secrets for a namespace
-        api_response = kestra_client.namespaces.put_secrets(namespace, tenant, api_secret_value)
+        api_response = kestra_client.NamespacesApi.put_secrets(namespace, tenant, api_secret_value)
         print("The response of NamespacesApi->put_secrets:\n")
         pprint(api_response)
     except Exception as e:
@@ -694,7 +611,6 @@ Search for namespaces
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -704,16 +620,16 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    existing = False # bool | Return only existing namespace (default to False)
     tenant = 'tenant_example' # str | 
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    existing = False # bool | Return only existing namespace (optional) (default to False)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | A list of query filters (optional)
 
     try:
         # Search for namespaces
-        api_response = kestra_client.namespaces.search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
+        api_response = kestra_client.NamespacesApi.search_namespaces(tenant, page=page, size=size, sort=sort, existing=existing, filters=filters)
         print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -727,11 +643,11 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **existing** | **bool**| Return only existing namespace | [default to False]
  **tenant** | **str**|  | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **existing** | **bool**| Return only existing namespace | [optional] [default to False]
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| A list of query filters | [optional] 
 
 ### Return type
@@ -767,7 +683,6 @@ Update a namespace
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -783,7 +698,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a namespace
-        api_response = kestra_client.namespaces.update_namespace(id, tenant, namespace)
+        api_response = kestra_client.NamespacesApi.update_namespace(id, tenant, namespace)
         print("The response of NamespacesApi->update_namespace:\n")
         pprint(api_response)
     except Exception as e:

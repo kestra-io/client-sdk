@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file_content** | **bytearray** | The file to upload | [optional] 
+**file_content** | **bytes** | The file to upload | [optional] 
 
 ## Example
 

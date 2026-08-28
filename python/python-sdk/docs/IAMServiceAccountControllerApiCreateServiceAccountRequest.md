@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **tenants** | **List[str]** |  | [optional] 
 
 ## Example
