@@ -6560,7 +6560,7 @@ paths:
       tags:
       - Misc
       summary: Configure basic authentication for the instance.
-      description: Sets up basic authentication credentials.
+      description: "Sets up basic authentication credentials. Once credentials already exist, the request must also carry the current password."
       operationId: createBasicAuth
       parameters:
       - name: tenant
@@ -24759,6 +24759,8 @@ components:
         username:
           type: string
         password:
+          type: string
+        currentPassword:
           type: string
     Binding:
       required:
