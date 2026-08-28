@@ -10,15 +10,20 @@ _FIELD_MAP = {
 
 
 def _to_camel_case(s: str) -> str:
-    """Convert UPPER_SNAKE or snake_case to lowerCamelCase.
+    """Normalize a filter field name to the server-side @JsonValue.
 
-    FLOW_ID -> flowId, START_DATE -> startDate, LABELS -> labels
+    Only legacy UPPER_SNAKE names are converted (FLOW_ID -> flowId,
+    SEVERITY -> severity). Anything with lowercase in it is already the
+    server-side @JsonValue (startDate, external_id, q) and must pass
+    through verbatim — lowercasing 'startDate' would corrupt it to
+    'startdate', which the server rejects.
     """
     if s is None:
         return s
-    parts = str(s).lower().split('_')
-    if not parts:
+    s = str(s)
+    if not s.isupper():
         return s
+    parts = s.lower().split('_')
     return parts[0] + ''.join(p.capitalize() for p in parts[1:])
 
 

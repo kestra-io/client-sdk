@@ -8,7 +8,6 @@ import pytest
 from kestrapy import (
     ApiException,
     ConcurrencyLimit,
-    FlowControllerTaskValidationType,
     IdWithNamespace,
     QueryFilter,
     QueryFilterField,
@@ -1086,7 +1085,7 @@ class TestValidation:
             "message": "Hello",
         }
 
-        result = client.flows.validate_task(FlowControllerTaskValidationType.TASKS, TENANT, task_dict)
+        result = client.flows.validate_task("TASKS", TENANT, task_dict)
 
         assert result is not None
         assert result.constraints is None or len(result.constraints) == 0
@@ -1097,7 +1096,7 @@ class TestValidation:
             "type": "io.kestra.plugin.nonexistent.BadTask",
         }
 
-        result = client.flows.validate_task(FlowControllerTaskValidationType.TASKS, TENANT, task_dict)
+        result = client.flows.validate_task("TASKS", TENANT, task_dict)
 
         assert result is not None
         assert result.constraints is not None and len(result.constraints) > 0

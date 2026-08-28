@@ -11,7 +11,7 @@ from test_helpers import (
     flow_id_filter,
 )
 from kestrapy import (
-    Trigger,
+    TriggerControllerApiTriggerId,
     TriggerControllerSetDisabledRequest,
     DeleteTriggersByQueryRequest,
     ApiException,
@@ -34,7 +34,7 @@ def schedule_flow_yaml(flow_id, ns):
 
 
 def trigger_id_dict(ns, flow_id):
-    return Trigger.model_construct(
+    return TriggerControllerApiTriggerId.model_construct(
         namespace=ns,
         flow_id=flow_id,
         trigger_id="schedule_trigger",

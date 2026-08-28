@@ -2,7 +2,7 @@ import pytest
 
 from kestrapy import (
     IAMRoleControllerApiRoleCreateOrUpdateRequest,
-    IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions,
+    ListPermissions200Response,
     ApiAutocomplete,
     ApiIds,
 )
@@ -18,7 +18,7 @@ def create_test_role(client, name):
     request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
         name=name,
         description="Test role: " + name,
-        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(flow=["READ"]),
+        permissions=ListPermissions200Response(flow=["READ"]),
     )
     return client.roles.create_role(TENANT, request)
 
@@ -60,7 +60,7 @@ def test_update_role_change_name(client):
     update = IAMRoleControllerApiRoleCreateOrUpdateRequest(
         name=new_name,
         description="Updated description",
-        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(flow=["READ"]),
+        permissions=ListPermissions200Response(flow=["READ"]),
     )
 
     updated = client.roles.update_role(created.id, TENANT, update)
@@ -187,7 +187,7 @@ def test_create_role_with_write_permission(client):
     request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
         name=name,
         description="role with write permission",
-        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(
+        permissions=ListPermissions200Response(
             flow=["READ", "CREATE", "UPDATE", "DELETE"],
         ),
     )
@@ -203,7 +203,7 @@ def test_create_role_with_execution_and_namespace_permissions(client):
     request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
         name=name,
         description="role spanning multiple permission domains",
-        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(
+        permissions=ListPermissions200Response(
             flow=["READ"],
             execution=["READ", "UPDATE"],
             namespace=["READ"],
@@ -225,7 +225,7 @@ def test_create_role_duplicate_name_does_not_uniqueness_check(client):
     request = IAMRoleControllerApiRoleCreateOrUpdateRequest(
         name=name,
         description="duplicate test",
-        permissions=IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(flow=["READ"]),
+        permissions=ListPermissions200Response(flow=["READ"]),
     )
     first = client.roles.create_role(TENANT, request)
     second = client.roles.create_role(TENANT, request)
