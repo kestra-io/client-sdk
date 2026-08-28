@@ -3877,6 +3877,40 @@ paths:
       - basicAuth: []
       x-kestra:
         edition: ee
+  /api/v1/users/by-ids:
+    delete:
+      tags:
+      - Users
+      summary: Delete multiple users
+      description: "Instance-owner-only. Delete users including all their access. The whole request is rejected if any identifier does not resolve to a user, or if it contains the caller's own identifier."
+      operationId: deleteUsersByIds
+      requestBody:
+        description: The users to delete
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IAMUserController.ApiDeleteUsersRequest"
+        required: true
+      responses:
+        "200":
+          description: Users successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkResponse"
+        "400":
+          description: Invalid bulk delete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkErrorResponse"
+        "404":
+          description: User not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/users/{id}:
     get:
       tags:
@@ -27797,6 +27831,16 @@ components:
           type: boolean
         restricted:
           type: boolean
+    IAMUserController.ApiDeleteUsersRequest:
+      required:
+      - ids
+      type: object
+      properties:
+        ids:
+          minItems: 1
+          type: array
+          items:
+            type: string
     IAMUserController.ApiGroup:
       type: object
       properties:
