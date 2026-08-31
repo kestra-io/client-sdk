@@ -35272,9 +35272,12 @@ components:
       - FAIL
       - WARN
     AssetIdentifier:
+      required:
+      - id
       type: object
       properties:
         id:
+          minLength: 1
           type: string
         type:
           type: string
