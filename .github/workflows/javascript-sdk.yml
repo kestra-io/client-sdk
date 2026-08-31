@@ -195,8 +195,10 @@ jobs:
           # v1.0.13-javascript -> 1.0.13
           VERSION=${GITHUB_REF_NAME#v}
           VERSION=${VERSION%-javascript}
-          # moving dist-tag for the minor line, e.g. v1.0
-          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+          # moving dist-tag for the minor line, e.g. v1-0. Dash, not dot: npm
+          # rejects a dist-tag that parses as a valid SemVer range (e.g.
+          # "v1.0" or "1.0.x"), which "v$MAJOR.$MINOR" would be.
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2 | tr '.' '-')
           echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
           echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
 
