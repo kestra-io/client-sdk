@@ -95,6 +95,10 @@ func WithLogger(w io.Writer) ClientOption {
 	}
 }
 
+func (c *KestraClient) Cases() *CasesAPI {
+	return &CasesAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Executions() *ExecutionsAPI {
 	return &ExecutionsAPI{baseAPI{client: c}}
 }
