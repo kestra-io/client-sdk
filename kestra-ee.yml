@@ -29999,6 +29999,8 @@ components:
           type: string
         pluginTitle:
           type: string
+        pluginGroupTitle:
+          type: string
         description:
           type: string
         group:
