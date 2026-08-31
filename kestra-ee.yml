@@ -43905,6 +43905,15 @@ components:
         totalInflight:
           type: integer
           format: int32
+        totalThreads:
+          type: integer
+          format: int32
+        totalRunning:
+          type: integer
+          format: int32
+        totalPending:
+          type: integer
+          format: int32
         subscriptions:
           type: array
           items:
