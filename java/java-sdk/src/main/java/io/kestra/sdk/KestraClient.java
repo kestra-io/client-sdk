@@ -106,6 +106,10 @@ public class KestraClient {
 
     public OutputsApi outputs() { return new OutputsApi(this.apiClient); }
 
+    public QuotasApi quotas() { return new QuotasApi(this.apiClient); }
+
+    public TenantsApi tenants() { return new TenantsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**
