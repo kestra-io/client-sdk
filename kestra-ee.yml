@@ -36681,6 +36681,7 @@ components:
         flowId:
           type: string
         running:
+          minimum: 0
           type: integer
           format: int32
     Condition:
