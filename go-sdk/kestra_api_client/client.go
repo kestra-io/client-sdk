@@ -178,3 +178,11 @@ func (c *KestraClient) Invitations() *InvitationsAPI {
 func (c *KestraClient) Outputs() *OutputsAPI {
 	return &OutputsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Quotas() *QuotasAPI {
+	return &QuotasAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Tenants() *TenantsAPI {
+	return &TenantsAPI{baseAPI{client: c}}
+}
