@@ -16231,8 +16231,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
     post:
       tags:
       - Mcp
@@ -16261,8 +16259,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/{tenant}/mcp-servers/{id}:
     get:
       tags:
@@ -16291,8 +16287,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
     put:
       tags:
       - Mcp
@@ -16327,8 +16321,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
     delete:
       tags:
       - Mcp
@@ -16352,8 +16344,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/{tenant}/mcp-servers/{id}/toggle:
     patch:
       tags:
@@ -16382,8 +16372,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/{tenant}/mcp-servers/{id}/tools:
     get:
       tags:
@@ -16414,8 +16402,6 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      x-kestra:
-        edition: ee
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
     get:
       tags:
