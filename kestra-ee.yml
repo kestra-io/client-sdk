@@ -27616,6 +27616,10 @@ components:
           type: array
           items:
             type: string
+        username:
+          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+          nullable: true
       description: Request payload for updating service account details
     IAMServiceAccountController.ApiGroup:
       type: object
@@ -27654,6 +27658,8 @@ components:
             $ref: "#/components/schemas/ApiTenantSummary"
         instanceOwner:
           type: boolean
+        username:
+          type: string
       description: A User Service Account.
     IAMServiceAccountController.ApiServiceAccountRequest:
       required:
@@ -27671,6 +27677,10 @@ components:
           type: string
         instanceOwner:
           type: boolean
+        username:
+          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+          nullable: true
       description: A User Service Account.
     IAMServiceAccountController.ApiServiceAccountResponse:
       required:
@@ -27693,6 +27703,8 @@ components:
             $ref: "#/components/schemas/IAMServiceAccountController.ApiGroup"
         instanceOwner:
           type: boolean
+        username:
+          type: string
       description: A User Service Account.
     IAMTenantAccessController.ApiAuthentication:
       type: object
