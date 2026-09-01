@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
@@ -347,5 +348,27 @@ func TestAppsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Greater(t, len(result), 0)
+	})
+}
+
+func TestAppsAPI_Streams(t *testing.T) {
+	// The server answers a stream subscription with 200 and an SSE body, so a bad
+	// path is what surfaces as an error here. An app with no such stream simply
+	// yields nothing and the channel closes; the assertion is that the call opens
+	// the stream and terminates rather than hanging.
+	t.Run("streamAppEvents_closesWhenStreamHasNoEvents", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+		defer cancel()
+
+		ch, err := KestraTestClient().Apps().StreamAppEvents(ctx, randomId(), randomId(), MAIN_TENANT)
+		require.NoError(t, err)
+		require.NotNil(t, ch)
+
+		select {
+		case _, open := <-ch:
+			require.False(t, open, "expected the stream to close without yielding an event")
+		case <-time.After(10 * time.Second):
+			t.Fatal("stream neither yielded an event nor closed")
+		}
 	})
 }

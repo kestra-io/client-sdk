@@ -485,6 +485,38 @@ func (a *ExecutionsAPI) ReplayExecution(
 	return &result, nil
 }
 
+// ReplayExecutionWithInputs replays an execution from a specific task run, supplying
+// fresh inputs. The inputs go out as multipart form fields, which is what the endpoint
+// expects; use ReplayExecution when the original inputs should be reused.
+func (a *ExecutionsAPI) ReplayExecutionWithInputs(
+	ctx context.Context,
+	executionId, tenant string,
+	taskRunId *string,
+	revision *int,
+	breakpoints *string,
+	inputs map[string]string,
+) (*Execution, error) {
+	path := tenantPath(tenant, "executions", executionId, "actions", "replay-with-inputs")
+	params := buildQueryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints)
+
+	formParams := make(map[string]interface{}, len(inputs))
+	for k, v := range inputs {
+		formParams[k] = v
+	}
+
+	resp, err := a.doMultipartJSON(ctx, "POST", path, params, formParams)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result Execution
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
 // ReplayExecutionsByIds replays multiple executions by their IDs.
 func (a *ExecutionsAPI) ReplayExecutionsByIds(
 	ctx context.Context,

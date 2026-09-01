@@ -581,6 +581,19 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.EqualValues(t, kestra_api_client.STATETYPE_CREATED, res.State.Current)
 		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
 	})
+	t.Run("replayExecutionWithInputsTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := context.Background()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		exec := createExecution(t, ctx, flowId, namespace)
+
+		res, err := KestraTestClient().Executions().ReplayExecutionWithInputs(ctx, exec.Id, MAIN_TENANT, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotEmpty(t, res.Id)
+		require.NotEqual(t, exec.Id, res.Id)
+	})
 	t.Run("replayExecutionsByIdsTest", func(t *testing.T) {
 		namespace := randomId()
 		flowId := randomId()

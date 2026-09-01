@@ -280,4 +280,17 @@ public class BlueprintsApiTest {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(created.getId());
     }
+
+    // ========================================================================
+    // Validation
+    // ========================================================================
+
+    @Test
+    void validateFlowBlueprint_acceptsValidSource() throws ApiException {
+        ValidateConstraintViolation result = api().validateFlowBlueprint(TENANT,
+                logFlowYaml(randomId(), randomId()));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getConstraints()).isNull();
+    }
 }

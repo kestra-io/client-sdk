@@ -16,6 +16,7 @@ import io.kestra.sdk.model.BlueprintWithFlowEntity;
 import io.kestra.sdk.model.PagedResultsBlueprintControllerApiBlueprintItem;
 import io.kestra.sdk.model.PagedResultsBlueprint;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.ValidateConstraintViolation;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class BlueprintsApi extends BaseApi {
 
     private static final String YAML_ACCEPT = "application/yaml";
+    private static final String YAML = "application/x-yaml";
 
     public BlueprintsApi() {
         super(Configuration.getDefaultApiClient());
@@ -88,6 +90,16 @@ public class BlueprintsApi extends BaseApi {
     // ========================================================================
     // Flow Blueprints
     // ========================================================================
+
+    public ValidateConstraintViolation validateFlowBlueprint(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String yamlBody) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "blueprints", "flows", "validate"),
+                yamlBody, null, null,
+                JSON, YAML,
+                new TypeReference<>() {});
+    }
 
     public BlueprintControllerApiFlowBlueprint createFlowBlueprint(
             @jakarta.annotation.Nonnull String tenant,

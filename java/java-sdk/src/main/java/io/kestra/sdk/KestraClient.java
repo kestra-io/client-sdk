@@ -110,6 +110,8 @@ public class KestraClient {
 
     public TenantsApi tenants() { return new TenantsApi(this.apiClient); }
 
+    public MiscApi misc() { return new MiscApi(this.apiClient); }
+
     // END -- Individual API
 
     /**
