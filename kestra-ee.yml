@@ -30004,7 +30004,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IAMServiceAccountController.ApiServiceAccountRequest'
+              $ref: '#/components/schemas/IAMServiceAccountController.ApiUpdateServiceAccountRequest'
         required: true
       responses:
         '404':
@@ -38665,6 +38665,23 @@ components:
         username:
           type: string
       description: A User Service Account.
+    IAMServiceAccountController.ApiUpdateServiceAccountRequest:
+      required:
+      - name
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IAMServiceAccountController.ApiGroup'
+        name:
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
+          type: string
+        description:
+          type: string
+        instanceOwner:
+          type: boolean
+      description: 'Update payload for a service account. It carries no `username`: the login is chosen at creation and is immutable, so exposing it here would let a caller send a value that is silently dropped.'
     IAMTenantAccessController.ApiAuthentication:
       type: object
       properties:
