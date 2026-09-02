@@ -42,90 +42,15 @@ paths:
       summary: Export all audit logs as a streamed CSV file
       operationId: exportAuditLogsForAllTenants
       parameters:
-      - name: q
+      - name: filters
         in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: namespace
-        in: query
-        description: A namespace filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: flowId
-        in: query
-        description: A flow id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: executionId
-        in: query
-        description: An execution filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: userId
-        in: query
-        description: A user id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: id
-        in: query
-        description: A id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: resources
-        in: query
-        description: A resource filter
+        description: A list of query filters
         explode: false
         schema:
           type: array
           nullable: true
           items:
-            $ref: '#/components/schemas/Resource'
-      - name: startDate
-        in: query
-        description: The start datetime
-        explode: false
-        schema:
-          type: string
-          format: date-time
-          nullable: true
-      - name: endDate
-        in: query
-        description: The end datetime
-        explode: false
-        schema:
-          type: string
-          format: date-time
-          nullable: true
-      - name: details
-        in: query
-        description: A list of auditLog details
-        explode: false
-        schema:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-      - name: type
-        in: query
-        description: The action that created the audit log
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/AuditableAction'
+            $ref: '#/components/schemas/QueryFilter'
       responses:
         '200':
           description: Ok
@@ -10158,90 +10083,15 @@ paths:
       summary: Export all audit logs as a streamed CSV file
       operationId: exportAuditLogs
       parameters:
-      - name: q
+      - name: filters
         in: query
-        description: A string filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: namespace
-        in: query
-        description: A namespace filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: flowId
-        in: query
-        description: A flow id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: executionId
-        in: query
-        description: An execution filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: userId
-        in: query
-        description: A user id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: id
-        in: query
-        description: A id filter
-        explode: false
-        schema:
-          type: string
-          nullable: true
-      - name: resources
-        in: query
-        description: A resource filter
+        description: A list of query filters
         explode: false
         schema:
           type: array
           nullable: true
           items:
-            $ref: '#/components/schemas/Resource'
-      - name: startDate
-        in: query
-        description: The start datetime
-        explode: false
-        schema:
-          type: string
-          format: date-time
-          nullable: true
-      - name: endDate
-        in: query
-        description: The end datetime
-        explode: false
-        schema:
-          type: string
-          format: date-time
-          nullable: true
-      - name: details
-        in: query
-        description: A list of auditLog details
-        explode: false
-        schema:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-      - name: type
-        in: query
-        description: The action that created the audit log
-        explode: false
-        schema:
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/AuditableAction'
+            $ref: '#/components/schemas/QueryFilter'
       - name: tenant
         in: path
         required: true
