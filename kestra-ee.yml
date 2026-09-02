@@ -35319,6 +35319,11 @@ components:
       enum:
       - ASSET
       - FLOW
+    AssetUsage.Direction:
+      type: string
+      enum:
+      - INPUT
+      - OUTPUT
     AssetsController.ApiAsset:
       type: object
       properties:
@@ -35424,6 +35429,8 @@ components:
           type: string
         taskRunId:
           type: string
+        direction:
+          $ref: '#/components/schemas/AssetUsage.Direction'
         created:
           type: string
           format: date-time
