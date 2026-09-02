@@ -38172,6 +38172,7 @@ components:
           items:
             type: string
         email:
+          minLength: 1
           type: string
     IAMInvitationController.ApiInvitationDetail:
       type: object
