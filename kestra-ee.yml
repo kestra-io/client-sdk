@@ -38798,6 +38798,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/DependsOn'
         required:
+          title: Whether the input is required.
           type: boolean
         defaults:
           title: The default value to use if no value is specified.
