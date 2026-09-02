@@ -853,6 +853,11 @@ Authentication schemes defined for the API:
 
 - **Type**: HTTP Bearer Token authentication (Bearer)
 
+Both are optional: the `KestraClient` builder sends no `Authorization` header unless
+`basicAuth(username, password)` or `tokenAuth(token)` is called, so an unsecured Kestra API can
+be reached with `KestraClient.builder().url("http://localhost:8080").build()`. `noAuth()` states
+this explicitly and resets any previously configured authentication.
+
 
 ## Configuring timeouts
 
@@ -865,7 +870,7 @@ import java.time.Duration;
 
 var client = KestraClient.builder()
     .url("https://kestra.example.com")
-    .token("your-api-token")
+    .tokenAuth("your-api-token")
     .connectTimeout(Duration.ofSeconds(10))   // 0 = infinite (default)
     .readTimeout(Duration.ofMinutes(30))       // 0 = infinite (default)
     .build();

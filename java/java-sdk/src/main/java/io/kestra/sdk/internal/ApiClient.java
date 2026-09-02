@@ -425,6 +425,15 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
+   * Get the default headers sent with every request.
+   *
+   * @return An immutable snapshot of the default headers
+   */
+  public Map<String, String> getDefaultHeaders() {
+    return Map.copyOf(defaultHeaderMap);
+  }
+
+  /**
    * Add a default cookie.
    *
    * @param key The cookie's key
@@ -508,7 +517,7 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the date format used to parse/format date parameters.
-   * @param dateFormat Date format
+   * @param newDateFormat Date format
    * @return API client
    */
   public ApiClient setDateFormat(DateFormat newDateFormat) {
