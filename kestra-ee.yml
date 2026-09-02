@@ -9366,23 +9366,11 @@ paths:
           type: string
       responses:
         '200':
-          description: Number of deleted assets
+          description: Number of deleted assets, locked ones excluded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BulkResponse'
-        '400':
-          description: If any assetId didn't match an existing asset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
-        '423':
-          description: Asset locked
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
