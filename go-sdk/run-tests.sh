@@ -17,6 +17,8 @@ fi
 
 LOCAL_CI_VERSION_TO_TEST="local-ci-version"
 
+source "$(dirname "$0")/../test-utils/resolve-kestra-image-suffix.sh"
+
 echo "/n------------------------------------------------"
 echo "Build local SDK and test it in a docker Kestra instance"
 
@@ -28,6 +30,7 @@ for KESTRA_VERSION in $versions; do
   echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 
   export KESTRA_VERSION=$KESTRA_VERSION
+  export KESTRA_IMAGE_SUFFIX=$(resolve_kestra_image_suffix "$KESTRA_VERSION")
 
   echo "start Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down

@@ -1,7 +1,7 @@
 services:
   kestra:
     container_name: go-sdk-test-kestra
-    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:${KESTRA_VERSION}-slim"
+    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:${KESTRA_VERSION}${KESTRA_IMAGE_SUFFIX}"
     pull_policy: always
     user: "root"
     command: server standalone

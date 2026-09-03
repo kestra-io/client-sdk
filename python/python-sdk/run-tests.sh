@@ -25,6 +25,8 @@ log_and_run pip install -e . --break-system-packages
 echo "run model unit tests (no Kestra container needed)"
 log_and_run python3 -m pytest tests/ -v
 
+source "$(dirname "$0")/../../test-utils/resolve-kestra-image-suffix.sh"
+
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then
     continue
@@ -33,6 +35,7 @@ for KESTRA_VERSION in $versions; do
   echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 
   export KESTRA_VERSION=$KESTRA_VERSION
+  export KESTRA_IMAGE_SUFFIX=$(resolve_kestra_image_suffix "$KESTRA_VERSION")
 
   echo "start Kestra container"
   log_and_run docker compose -f docker-compose-ci.yml down
