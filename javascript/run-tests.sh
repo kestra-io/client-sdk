@@ -26,6 +26,8 @@ if [[ "$@" != *"--no-build"* ]]; then
     log_and_run sh -c 'npm run build'
 fi
 
+. "$(dirname "$0")/../test-utils/resolve-kestra-image-suffix.sh"
+
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then
     continue
@@ -34,6 +36,7 @@ for KESTRA_VERSION in $versions; do
   echo "docker KESTRA_VERSION used: $KESTRA_VERSION"
 
   export KESTRA_VERSION=$KESTRA_VERSION
+  export KESTRA_IMAGE_SUFFIX=$(resolve_kestra_image_suffix "$KESTRA_VERSION")
 
   echo ""
   echo "stop probable Kestra container"

@@ -44,6 +44,10 @@ export default defineConfig({
         // to the failing test's source on GitHub.
         includeTaskLocation: true,
         retry: 3,
+        // The suite authenticates with HTTP Basic on every request, which EE verifies with
+        // bcrypt (cost 12). On the current develop image that path got slow enough for the
+        // bulk/query tests to overrun vitest's 5s default, so give them room.
+        testTimeout: 20000,
         // All spec files share a single Kestra instance (docker-compose-ci.yml starts one
         // container), so unbounded file parallelism has every file's HTTP calls and
         // executions contending for the same worker threads and queue. Cap it to reduce
