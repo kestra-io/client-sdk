@@ -1994,7 +1994,7 @@ func (a *ExecutionsAPIService) ForceRunExecutionExecute(r ApiForceRunExecutionRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/force-run"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/force-run"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -2237,7 +2237,7 @@ func (a *ExecutionsAPIService) KillExecutionExecute(r ApiKillExecutionRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/kill"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/kill"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -2721,7 +2721,7 @@ func (a *ExecutionsAPIService) PauseExecutionExecute(r ApiPauseExecutionRequest)
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/pause"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/pause"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3105,7 +3105,7 @@ func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/replay"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/replay"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3264,7 +3264,7 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/replay-with-inputs"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3704,7 +3704,7 @@ func (a *ExecutionsAPIService) RestartExecutionExecute(r ApiRestartExecutionRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/restart"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/restart"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -4077,7 +4077,7 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/resume"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/resume"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -4817,7 +4817,7 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionExecute(r ApiSetLab
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/labels"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/labels"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -5337,7 +5337,7 @@ func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/unqueue"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/unqueue"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -5741,7 +5741,7 @@ func (a *ExecutionsAPIService) UpdateExecutionStatusExecute(r ApiUpdateExecution
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/change-status"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/change-status"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -6156,7 +6156,7 @@ func (a *ExecutionsAPIService) UpdateTaskRunStateExecute(r ApiUpdateTaskRunState
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/state"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/state"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
