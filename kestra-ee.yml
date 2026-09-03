@@ -32989,9 +32989,6 @@ paths:
       operationId: login_1
       requestBody:
         content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UsernamePasswordCredentials'
           application/json:
             schema:
               $ref: '#/components/schemas/UsernamePasswordCredentials'
@@ -34843,14 +34840,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
-      properties:
-        auths:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiAuth'
-      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
+      - type: object
+        properties:
+          auths:
+            type: array
+            items:
+              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
