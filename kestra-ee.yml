@@ -35274,7 +35274,10 @@ components:
       type: object
       properties:
         ttl:
-          type: string
+          description: How long the lock is held before it expires.
+          allOf:
+          - $ref: '#/components/schemas/Duration'
+          default: PT5M
         executionId:
           type: string
           nullable: true
@@ -36812,7 +36815,6 @@ components:
         schema:
           $ref: '#/components/schemas/PluginSchema'
     Duration:
-      title: Duration before expiry when the token should be refreshed.
       type: object
       properties:
         units:
@@ -36831,7 +36833,8 @@ components:
         nano:
           type: integer
           format: int32
-      description: The duration is a string in ISO 8601 Duration format, e.g. `PT1M` for 1 minute, `PT30S` for 30 seconds.
+      description: How long the lock is held before it expires.
+      default: PT5M
     EditionProvider.Edition:
       type: string
       enum:
