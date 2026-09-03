@@ -36737,7 +36737,6 @@ components:
       type: object
       properties:
         tenantId:
-          pattern: ^[a-z0-9][a-z0-9_-]*
           type: string
         id:
           minLength: 1
@@ -42965,7 +42964,6 @@ components:
         secretIsolation:
           $ref: '#/components/schemas/Isolation'
         id:
-          pattern: ^[a-z0-9][a-z0-9_-]*
           type: string
         name:
           type: string
