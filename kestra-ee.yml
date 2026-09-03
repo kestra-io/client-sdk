@@ -3722,7 +3722,7 @@ paths:
       tags:
       - Users
       summary: Update authenticated user password
-      description: Changes the login password for the authenticated user.
+      description: Changes the login password for the authenticated user. This revokes every other session for this user; the current device is re-authenticated so it stays logged in.
       operationId: updateCurrentUserPassword
       requestBody:
         content:
@@ -6957,6 +6957,7 @@ paths:
       tags:
       - Users
       summary: Delete a user refresh token
+      description: Instance-owner-only. Deletes the user's refresh token and revokes their existing sessions, so any live JWT cookie stops authenticating immediately.
       operationId: deleteRefreshToken
       parameters:
       - name: id
@@ -6967,7 +6968,7 @@ paths:
           type: string
       responses:
         '204':
-          description: Refresh token successfully deleted
+          description: User sessions successfully revoked
         '404':
           description: User not found
           content:
@@ -34840,14 +34841,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiAuth'
+      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
