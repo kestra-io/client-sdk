@@ -26,7 +26,7 @@ if [[ "$@" != *"--no-build"* ]]; then
     log_and_run sh -c 'npm run build'
 fi
 
-source "$(dirname "$0")/../test-utils/resolve-kestra-image-suffix.sh"
+. "$(dirname "$0")/../test-utils/resolve-kestra-image-suffix.sh"
 
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then

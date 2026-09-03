@@ -17,7 +17,7 @@ fi
 
 LOCAL_CI_VERSION_TO_TEST="local-ci-version"
 
-source "$(dirname "$0")/../../test-utils/resolve-kestra-image-suffix.sh"
+. "$(dirname "$0")/../../test-utils/resolve-kestra-image-suffix.sh"
 
 echo "/n------------------------------------------------"
 echo "Build local SDK and test it in a docker Kestra instance"

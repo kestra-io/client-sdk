@@ -25,7 +25,7 @@ log_and_run pip install -e . --break-system-packages
 echo "run model unit tests (no Kestra container needed)"
 log_and_run python3 -m pytest tests/ -v
 
-source "$(dirname "$0")/../../test-utils/resolve-kestra-image-suffix.sh"
+. "$(dirname "$0")/../../test-utils/resolve-kestra-image-suffix.sh"
 
 for KESTRA_VERSION in $versions; do
   if [ -z "$KESTRA_VERSION" ]; then
