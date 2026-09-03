@@ -93,7 +93,7 @@ namespace: ${ns}
 tasks:
   - id: pause_flow
     type: io.kestra.plugin.core.flow.Pause
-    pauseDuration: PT2S
+    pauseDuration: PT1M
 `;
 
 const PAUSE_FLOW_WITH_RESUME_INPUT = (id: string, ns: string): string => `
@@ -103,7 +103,7 @@ namespace: ${ns}
 tasks:
   - id: pause_flow
     type: io.kestra.plugin.core.flow.Pause
-    pauseDuration: PT2S
+    pauseDuration: PT1M
     onResume:
       - id: reason
         type: STRING
