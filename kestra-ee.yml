@@ -7373,7 +7373,7 @@ paths:
     post:
       tags:
       - AI
-      summary: Generate or regenerate a dashboard based on a prompt
+      summary: Generate or regenerate a dashboard based on a prompt (EE only)
       operationId: generateDashboard
       parameters:
       - name: tenant
@@ -14664,6 +14664,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/charts/export:
     post:
       tags:
@@ -14845,6 +14847,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/validate:
     post:
       tags:
@@ -14892,6 +14896,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/validate/chart:
     post:
       tags:
@@ -14939,6 +14945,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/{id}:
     get:
       tags:
@@ -15043,6 +15051,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
     delete:
       tags:
       - Dashboards
@@ -15084,6 +15094,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/{id}/charts/{chartId}:
     post:
       tags:
@@ -15143,6 +15155,8 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-kestra:
+        edition: ee
   /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export:
     post:
       tags:
@@ -34841,14 +34855,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
-      properties:
-        auths:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiAuth'
-      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
+      - type: object
+        properties:
+          auths:
+            type: array
+            items:
+              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
@@ -40663,6 +40677,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PebbleFunction.Argument'
+        deprecated:
+          type: boolean
+        replacement:
+          type: string
+          nullable: true
     PebbleFunction.Argument:
       type: object
       properties:
