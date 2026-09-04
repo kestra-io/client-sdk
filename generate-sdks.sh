@@ -22,54 +22,11 @@ if [ -z "$VERSION" ]; then
   echo "No version provided, using default: $VERSION"
 fi
 
-# Cross-platform sed in-place with extended regex
-sed_inplace() {
-  local cmd="$1"
-  shift
-  if [[ "$(uname)" == "Darwin" ]]; then
-    sed -i '' -E "$cmd" "$@"
-  else
-    sed -i -E "$cmd" "$@"
-  fi
-}
-
 # cleanup previous generated files listed by OpenAPI Generator
-# Deletes the previous output listed in .openapi-generator/FILES. Callers pass the
-# generator config as well: cleanup is destructive and irreversible, so refuse to
-# run at all when the config it is clearing the way for is missing — otherwise a
-# generator that cannot start takes the whole checked-in SDK with it.
-cleanup_openapi_generated_files() {
-  local sdk_path="$1"
-  local config_file="$2"
-  local files_list_file="$sdk_path/.openapi-generator/FILES"
-
-  if [ ! -f "$config_file" ]; then
-    echo "generator config $config_file not found; refusing to delete $sdk_path" >&2
-    exit 1
-  fi
-
-  echo "cleanup previous generated files in $files_list_file"
-
-  if [ ! -f "$files_list_file" ]; then
-    echo "No OpenAPI generated files list found at $files_list_file (nothing to cleanup)"
-    return 0
-  fi
-
-  # Print the file list for visibility
-  ls "$files_list_file"
-
-  while IFS= read -r file; do
-    # Skip empty lines
-    [ -z "$file" ] && continue
-
-    echo "removing file: $sdk_path/$file"
-    rm "$sdk_path/$file" || true
-  done < "$files_list_file"
-}
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
-  echo "No language specified. Please provide a language. Possible languages are: 'python' and 'javascript' (the Java and Go SDKs are hand-written and not generated)"
+  echo "No language specified. The only generated SDK is 'javascript' (Java, Go and Python are hand-written)"
   exit 1
 fi
 
@@ -96,6 +53,18 @@ if [[ ",$LANGUAGES," == *",go,"* ]]; then
   exit 1
 fi
 
+# Python SDK is hand-written and no longer generated
+if [[ ",$LANGUAGES," == *",python,"* ]]; then
+  echo "ERROR: the Python SDK is hand-written (since #237) and is no longer generated."
+  echo "Unlike Java and Go the generator would still RUN, which is worse: the 10 API"
+  echo "classes it lists in python/python-sdk/.openapi-generator/FILES are hand-written,"
+  echo ".openapi-generator-ignore has no active rules, and the config's tag FILTER covers"
+  echo "9 of the SDK's 20 API modules — so it deleted and overwrote hand-written code."
+  echo "Edit the sources under python/python-sdk directly instead."
+  echo "(Doc examples are validated by scripts/validate_doc_examples.py, run in CI.)"
+  exit 1
+fi
+
 BASE_PKG=io.kestra.sdk
 
 # Disabled for now
@@ -116,27 +85,6 @@ sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run
 
 
 
-# Generate Python SDK
-if [[ ",$LANGUAGES," == *",python,"* ]]; then
-cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk" "./python/configuration/python-config.yml"
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/python/configuration/python-config.yml \
-    --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/python/template
-
-sed_inplace '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python/python-sdk/kestrapy/api/executions_api.py
-sed_inplace 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python/python-sdk/kestrapy/models/kv_controller_kv_detail.py
-echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python/python-sdk/kestrapy/__init__.py
-
-# Since #237 the Python API classes are hand-written, so the generated docs no
-# longer match the SDK (wrong accessor/arg order/renamed methods — issue #144).
-# Rather than patch the generated examples with brittle sed (the previous loop
-# even had the wrong path and silently no-op'd), validate every docs/*.md
-# example against the live signatures and fail generation if any has drifted.
-# See design/examples-as-source-of-truth.md.
-python3 python/python-sdk/scripts/validate_doc_examples.py --check
-fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
