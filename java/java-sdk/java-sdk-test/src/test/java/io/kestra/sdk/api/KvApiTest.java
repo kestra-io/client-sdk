@@ -195,6 +195,17 @@ public class KvApiTest {
         List<KVEntry> keys = api().listKeysWithInheritance(childNs, TENANT);
         assertThat(keys).isNotNull();
         assertThat(keys).anyMatch(k -> "parent_key".equals(k.getKey()));
+
+        // The server reports the entry's revision under "revision"; a freshly written key
+        // is at revision 1. This also guards the field mapping — a stale `version` JSON
+        // property would silently leave it null.
+        assertThat(keys)
+                .filteredOn(k -> "parent_key".equals(k.getKey()))
+                .singleElement()
+                .satisfies(k -> {
+                    assertThat(k.getNamespace()).isEqualTo(parentNs);
+                    assertThat(k.getRevision()).isEqualTo(1);
+                });
     }
 
     @Test

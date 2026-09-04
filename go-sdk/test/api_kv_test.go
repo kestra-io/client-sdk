@@ -138,7 +138,39 @@ func TestKVAPI_All(t *testing.T) {
 	})
 
 	t.Run("listKeysWithInheritenceTest", func(t *testing.T) {
-		t.Skip("re-enable when new Kestra EE is available")
+		ctx := context.Background()
+
+		parentKey := "test_inherited_parent_" + randomId()
+		childKey := "test_inherited_child_" + randomId()
+
+		require.NoError(t, KestraTestClient().Kv().SetKeyValue(ctx, parentNamespace, parentKey, MAIN_TENANT, "\"from-parent\""))
+		require.NoError(t, KestraTestClient().Kv().SetKeyValue(ctx, childNamespace, childKey, MAIN_TENANT, "\"from-child\""))
+		// parentNamespace/childNamespace are shared with the other subtests, so don't
+		// leave keys behind in them for repeat runs against a persistent instance.
+		defer KestraTestClient().Kv().DeleteKeyValue(ctx, parentNamespace, parentKey, MAIN_TENANT)
+		defer KestraTestClient().Kv().DeleteKeyValue(ctx, childNamespace, childKey, MAIN_TENANT)
+
+		entries, err := KestraTestClient().Kv().ListKeysWithInheritance(ctx, childNamespace, MAIN_TENANT)
+		require.NoError(t, err)
+
+		// The endpoint lists what the namespace *inherits* from its ancestors, so the
+		// parent's key shows up (attributed to the parent) and the child's own key
+		// does not — that is the whole difference from a plain namespace listing.
+		owners := make(map[string]string, len(entries))
+		for _, e := range entries {
+			owners[e.GetKey()] = e.GetNamespace()
+		}
+		require.Equal(t, parentNamespace, owners[parentKey])
+		require.NotContains(t, owners, childKey)
+
+		// The server reports the entry's revision under "revision"; a freshly written
+		// key is at revision 1. This also guards the field mapping — a stale
+		// `json:"version"` tag would silently leave it at zero.
+		for _, e := range entries {
+			if e.GetKey() == parentKey {
+				require.EqualValues(t, 1, e.GetRevision())
+			}
+		}
 	})
 
 	t.Run("deleteKeyValueTest", func(t *testing.T) {

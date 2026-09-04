@@ -155,7 +155,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by flowId — expected app missing from results")
     void searchApps_withFlowId() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -172,7 +171,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by 'q' — returns all apps")
     void searchApps_withQuery() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -266,7 +264,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side — empty-result query still returns apps")
     void searchApps_noResults() throws ApiException {
         PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
 
