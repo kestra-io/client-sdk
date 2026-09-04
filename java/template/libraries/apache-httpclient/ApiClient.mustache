@@ -636,10 +636,14 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
     private String convertValueToString(Object value){
+        // Filter values land in the query string via buildUrl, which escapes only the
+        // parameter *name* and takes the value as already-escaped. Escape here, or any
+        // value holding a space, '&', '=' or '#' produces a malformed URI. A multi-value
+        // filter joins on a literal ',' separator, so each element is escaped on its own.
         if (value instanceof List<?> list) {
-            return list.stream().map(Object::toString).collect(Collectors.joining(","));
+            return list.stream().map(item -> escapeString(item.toString())).collect(Collectors.joining(","));
         } else {
-            return value.toString();
+            return escapeString(value.toString());
         }
     }
                                                 /**
