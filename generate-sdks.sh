@@ -34,9 +34,19 @@ sed_inplace() {
 }
 
 # cleanup previous generated files listed by OpenAPI Generator
+# Deletes the previous output listed in .openapi-generator/FILES. Callers pass the
+# generator config as well: cleanup is destructive and irreversible, so refuse to
+# run at all when the config it is clearing the way for is missing — otherwise a
+# generator that cannot start takes the whole checked-in SDK with it.
 cleanup_openapi_generated_files() {
   local sdk_path="$1"
+  local config_file="$2"
   local files_list_file="$sdk_path/.openapi-generator/FILES"
+
+  if [ ! -f "$config_file" ]; then
+    echo "generator config $config_file not found; refusing to delete $sdk_path" >&2
+    exit 1
+  fi
 
   echo "cleanup previous generated files in $files_list_file"
 
@@ -59,7 +69,7 @@ cleanup_openapi_generated_files() {
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
-  echo "No language specified. Please provide a language. Possible languages are: 'python', 'go' and 'javascript' (the Java SDK is hand-written and not generated)"
+  echo "No language specified. Please provide a language. Possible languages are: 'python' and 'javascript' (the Java and Go SDKs are hand-written and not generated)"
   exit 1
 fi
 
@@ -73,6 +83,16 @@ if [[ ",$LANGUAGES," == *",java,"* ]]; then
   echo "ERROR: the Java SDK is hand-written (since #222) and is no longer generated."
   echo "Running the generator would delete java/java-sdk/src/main/java/io/kestra/sdk entirely."
   echo "Edit the sources under java/java-sdk directly instead."
+  exit 1
+fi
+
+# Go SDK is hand-written and no longer generated
+if [[ ",$LANGUAGES," == *",go,"* ]]; then
+  echo "ERROR: the Go SDK is hand-written (since #230) and is no longer generated."
+  echo "#230 deleted go-sdk/configuration/ and go-sdk/template/, so the generator could"
+  echo "never run again — but it cleaned up first, so invoking it deleted all 417 files"
+  echo "listed in go-sdk/kestra_api_client/.openapi-generator/FILES before failing."
+  echo "Edit the sources under go-sdk directly instead."
   exit 1
 fi
 
@@ -98,7 +118,7 @@ sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run
 
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
-cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk"
+cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk" "./python/configuration/python-config.yml"
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/python/configuration/python-config.yml \
     --skip-validate-spec \
@@ -127,17 +147,3 @@ npm run build
 cd ..
 fi
 
-# Generate GoLang SDK
-if [[ ",$LANGUAGES," == *",go,"* ]]; then
-cleanup_openapi_generated_files "./go-sdk/kestra_api_client"
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/go-sdk/configuration/go-config.yml \
-    --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/go-sdk/template
-
-cp -R ./go-sdk/template-files/* ./go-sdk/kestra_api_client/
-
-# this will do go fmt and either auto add missing imports or remove unused ones
-go run golang.org/x/tools/cmd/goimports@latest -w ./go-sdk
-fi

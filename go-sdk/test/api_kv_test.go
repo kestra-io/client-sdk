@@ -158,6 +158,15 @@ func TestKVAPI_All(t *testing.T) {
 		}
 		require.Equal(t, parentNamespace, owners[parentKey])
 		require.NotContains(t, owners, childKey)
+
+		// The server reports the entry's revision under "revision"; a freshly written
+		// key is at revision 1. This also guards the field mapping — a stale
+		// `json:"version"` tag would silently leave it at zero.
+		for _, e := range entries {
+			if e.GetKey() == parentKey {
+				require.EqualValues(t, 1, e.GetRevision())
+			}
+		}
 	})
 
 	t.Run("deleteKeyValueTest", func(t *testing.T) {

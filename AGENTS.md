@@ -43,12 +43,16 @@ Tests require a running Kestra instance at `http://localhost:9903` with credenti
 
 ## Generating SDKs
 
+Only JavaScript and Python are generated:
+
 ```bash
 ./generate-sdks.sh javascript   # JavaScript only
-./generate-sdks.sh java         # Java only
 ./generate-sdks.sh python       # Python only
-./generate-sdks.sh go           # Go only
 ```
+
+Java (since #222) and Go (since #230) are hand-written — their generator configs and
+templates were deleted along with the switch. `./generate-sdks.sh java` and
+`./generate-sdks.sh go` refuse to run and tell you to edit the sources directly.
 
 ## Signature Changes — Notify, Don't Block
 
