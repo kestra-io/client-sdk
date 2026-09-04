@@ -190,3 +190,7 @@ func (c *KestraClient) Quotas() *QuotasAPI {
 func (c *KestraClient) Tenants() *TenantsAPI {
 	return &TenantsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) ReusableInputs() *ReusableInputsAPI {
+	return &ReusableInputsAPI{baseAPI{client: c}}
+}
