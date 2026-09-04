@@ -34855,14 +34855,14 @@ components:
         `apiToken` may be omitted; the service retains the stored token in that case.
     ApiUser:
       type: object
+      properties:
+        auths:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiAuth'
+      description: The acting user, when it can still be resolved
       allOf:
       - $ref: '#/components/schemas/AbstractUser'
-      - type: object
-        properties:
-          auths:
-            type: array
-            items:
-              $ref: '#/components/schemas/ApiAuth'
     AppGenerationPrompt:
       type: object
       properties:
@@ -43276,6 +43276,8 @@ components:
           - $ref: '#/components/schemas/Duration'
       description: Token caching configuration
     TriggerController.ApiCreateBackfillRequest:
+      required:
+      - backfill
       type: object
       properties:
         namespace:
