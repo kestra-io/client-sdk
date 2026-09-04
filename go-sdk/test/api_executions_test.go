@@ -633,19 +633,26 @@ func TestExecutionsAPI_All(t *testing.T) {
 		exec := createExecution(t, ctx, flowId, namespace)
 
 		require.EqualValues(t, kestra_api_client.STATETYPE_FAILED, exec.State.Current)
+		historiesBeforeRestart := len(exec.State.Histories)
 
 		res, err := KestraTestClient().Executions().RestartExecution(ctx, exec.Id, MAIN_TENANT, nil)
 		require.NoError(t, err)
-		// A restart reuses the same execution rather than creating a new one, and takes
-		// it back out of its terminal state. Which non-terminal state the response is
-		// caught in is a race: RESTARTED goes straight to the executor and becomes
-		// RUNNING, so pinning RESTARTED passes locally and fails on slower CI.
+		// A restart reuses the same execution rather than creating a new one.
 		require.Equal(t, exec.Id, res.Id)
-		require.Contains(t,
-			[]kestra_api_client.StateType{kestra_api_client.STATETYPE_RESTARTED, kestra_api_client.STATETYPE_RUNNING},
-			res.State.Current)
-		// FAILED_FLOW always fails, so the restarted run settles back into FAILED.
-		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_FAILED), 10*time.Second, 200*time.Millisecond)
+
+		// Asserting the state the response is caught in is a race — RESTARTED goes
+		// straight to the executor, so it may already read RUNNING or even FAILED again
+		// for this single-task flow. State history only ever grows, so wait for the
+		// restart to add to it: a plain "eventually FAILED" would be satisfied by the
+		// pre-restart FAILED and would still pass if the restart never re-ran anything.
+		require.Eventually(t, func() bool {
+			current, err := KestraTestClient().Executions().Execution(ctx, exec.Id, MAIN_TENANT)
+			if err != nil {
+				return false
+			}
+			return len(current.State.Histories) > historiesBeforeRestart &&
+				current.State.Current == kestra_api_client.STATETYPE_FAILED
+		}, 10*time.Second, 200*time.Millisecond, "restart should re-run the flow and land back in FAILED")
 	})
 	t.Run("restartExecutionsByIdsTest", func(t *testing.T) {
 		namespace := randomId()
@@ -859,6 +866,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		res, err := KestraTestClient().Executions().TriggerExecutionByGetWebhook(ctx, MAIN_TENANT, namespace, flowId, key)
 		require.NoError(t, err)
+		// Fail this subtest rather than panicking the whole test binary if the webhook
+		// answers without an execution id.
+		require.NotNil(t, res.Id)
 
 		require.Eventually(t, executionInState(ctx, *res.Id, kestra_api_client.STATETYPE_SUCCESS), 5*time.Second, 100*time.Millisecond)
 	})
@@ -974,6 +984,8 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		exec := createExecutionUntil(t, ctx, flowId, namespace, kestra_api_client.STATETYPE_SUCCESS)
 
+		require.NotEmpty(t, exec.TaskRunList)
+
 		res, err := KestraTestClient().Executions().UpdateTaskRunState(ctx, exec.Id, MAIN_TENANT,
 			kestra_api_client.ExecutionControllerStateRequest{
 				TaskRunId: exec.TaskRunList[0].Id,
@@ -981,6 +993,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 			},
 		)
 		require.NoError(t, err)
+		require.NotEmpty(t, res.TaskRunList)
 		require.EqualValues(t, kestra_api_client.STATETYPE_FAILED, res.TaskRunList[0].State.Current)
 	})
 

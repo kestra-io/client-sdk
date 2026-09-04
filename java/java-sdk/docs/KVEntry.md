@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**namespace** | **String** |  |  [optional] |
 |**key** | **String** |  |  [optional] |
-|**version** | **Integer** |  |  [optional] |
+|**revision** | **Integer** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
 |**creationDate** | **OffsetDateTime** |  |  [optional] |
 |**updateDate** | **OffsetDateTime** |  |  [optional] |

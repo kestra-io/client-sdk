@@ -145,6 +145,10 @@ func TestKVAPI_All(t *testing.T) {
 
 		require.NoError(t, KestraTestClient().Kv().SetKeyValue(ctx, parentNamespace, parentKey, MAIN_TENANT, "\"from-parent\""))
 		require.NoError(t, KestraTestClient().Kv().SetKeyValue(ctx, childNamespace, childKey, MAIN_TENANT, "\"from-child\""))
+		// parentNamespace/childNamespace are shared with the other subtests, so don't
+		// leave keys behind in them for repeat runs against a persistent instance.
+		defer KestraTestClient().Kv().DeleteKeyValue(ctx, parentNamespace, parentKey, MAIN_TENANT)
+		defer KestraTestClient().Kv().DeleteKeyValue(ctx, childNamespace, childKey, MAIN_TENANT)
 
 		entries, err := KestraTestClient().Kv().ListKeysWithInheritance(ctx, childNamespace, MAIN_TENANT)
 		require.NoError(t, err)

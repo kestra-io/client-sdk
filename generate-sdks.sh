@@ -22,8 +22,6 @@ if [ -z "$VERSION" ]; then
   echo "No version provided, using default: $VERSION"
 fi
 
-# cleanup previous generated files listed by OpenAPI Generator
-
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
   echo "No language specified. The only generated SDK is 'javascript' (Java, Go and Python are hand-written)"
@@ -64,8 +62,6 @@ if [[ ",$LANGUAGES," == *",python,"* ]]; then
   echo "(Doc examples are validated by scripts/validate_doc_examples.py, run in CI.)"
   exit 1
 fi
-
-BASE_PKG=io.kestra.sdk
 
 # Disabled for now
 #OPENAPI_GITHUB_LOCATION="/repos/kestra-io/kestra-ee/contents/kestra-ee.yml"

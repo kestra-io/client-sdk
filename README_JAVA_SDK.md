@@ -2,6 +2,11 @@
 
 ## Steps to generate the SDK
 
+> **This SDK is no longer generated.** It has been hand-written since #222, and
+> `./generate-sdks.sh` now refuses to run for it — generating would delete and
+> overwrite hand-written code. Edit the sources under `java/java-sdk` directly.
+> The steps below are kept for historical context only.
+
 1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
 
    - As of 09/06/25, a custom `kestra-ee.yml` is used to generate the Java SDK, where we did set the tenant as mandatory instead of optional.
