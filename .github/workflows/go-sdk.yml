@@ -44,7 +44,7 @@ jobs:
         id: version
         uses: ./.github/actions/compute-version
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
 
       - name: build
         id: build

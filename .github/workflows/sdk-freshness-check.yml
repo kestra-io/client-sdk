@@ -51,7 +51,7 @@ jobs:
 
       - name: Set up Go
         if: matrix.sdk == 'go'
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
 
       - name: Set up JDK
         if: matrix.sdk == 'java'
