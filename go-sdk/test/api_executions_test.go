@@ -632,9 +632,20 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		exec := createExecution(t, ctx, flowId, namespace)
 
+		require.EqualValues(t, kestra_api_client.STATETYPE_FAILED, exec.State.Current)
+
 		res, err := KestraTestClient().Executions().RestartExecution(ctx, exec.Id, MAIN_TENANT, nil)
 		require.NoError(t, err)
-		require.EqualValues(t, kestra_api_client.STATETYPE_RESTARTED, res.State.Current)
+		// A restart reuses the same execution rather than creating a new one, and takes
+		// it back out of its terminal state. Which non-terminal state the response is
+		// caught in is a race: RESTARTED goes straight to the executor and becomes
+		// RUNNING, so pinning RESTARTED passes locally and fails on slower CI.
+		require.Equal(t, exec.Id, res.Id)
+		require.Contains(t,
+			[]kestra_api_client.StateType{kestra_api_client.STATETYPE_RESTARTED, kestra_api_client.STATETYPE_RUNNING},
+			res.State.Current)
+		// FAILED_FLOW always fails, so the restarted run settles back into FAILED.
+		require.Eventually(t, executionInState(ctx, exec.Id, kestra_api_client.STATETYPE_FAILED), 10*time.Second, 200*time.Millisecond)
 	})
 	t.Run("restartExecutionsByIdsTest", func(t *testing.T) {
 		namespace := randomId()
