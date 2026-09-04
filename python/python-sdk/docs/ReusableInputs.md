@@ -10,6 +10,12 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **description** | **str** |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | 
+**source** | **str** | The block&#39;s YAML source, as written in the editor. | [optional] [readonly] 
+**revision** | **int** | The revision of the block, bumped on every save. | [readonly] 
+**last** | **bool** | Whether this is the block&#39;s current revision. | [optional] [readonly] 
+**created** | **datetime** | When the block was first created. | [optional] [readonly] 
+**updated** | **datetime** | When this revision was created. | [optional] [readonly] 
+**deleted** | **bool** | Whether the block is soft-deleted. | [optional] [readonly] 
 
 ## Example
 
