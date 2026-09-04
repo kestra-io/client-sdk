@@ -23,6 +23,7 @@ __all__ = [
     "KVApi",
     "NamespacesApi",
     "QuotasApi",
+    "ReusableInputsApi",
     "RolesApi",
     "ServiceAccountApi",
     "TenantsApi",
@@ -697,6 +698,7 @@ from kestrapy.api.groups_api import GroupsApi as GroupsApi
 from kestrapy.api.kv_api import KVApi as KVApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.quotas_api import QuotasApi as QuotasApi
+from kestrapy.api.reusable_inputs_api import ReusableInputsApi as ReusableInputsApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
 from kestrapy.api.tenants_api import TenantsApi as TenantsApi

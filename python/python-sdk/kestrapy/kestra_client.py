@@ -20,6 +20,7 @@ from kestrapy.api.dashboards_api import DashboardsApi
 from kestrapy.api.apps_api import AppsApi
 from kestrapy.api.test_suites_api import TestSuitesApi
 from kestrapy.api.quotas_api import QuotasApi
+from kestrapy.api.reusable_inputs_api import ReusableInputsApi
 from kestrapy.api.tenants_api import TenantsApi
 
 
@@ -99,6 +100,8 @@ class KestraClient:
     def quotas(self): return self._get_api(QuotasApi)
     @property
     def tenants(self): return self._get_api(TenantsApi)
+    @property
+    def reusable_inputs(self): return self._get_api(ReusableInputsApi)
 
     def close(self):
         self._session.close()
