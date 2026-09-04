@@ -14,6 +14,7 @@ from kestrapy.api.kv_api import KVApi
 from kestrapy.api.logs_api import LogsApi
 from kestrapy.api.namespaces_api import NamespacesApi
 from kestrapy.api.quotas_api import QuotasApi
+from kestrapy.api.reusable_inputs_api import ReusableInputsApi
 from kestrapy.api.roles_api import RolesApi
 from kestrapy.api.tenants_api import TenantsApi
 from kestrapy.api.service_account_api import ServiceAccountApi
