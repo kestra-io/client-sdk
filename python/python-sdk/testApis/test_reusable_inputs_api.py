@@ -33,6 +33,11 @@ def test_create_or_update_reusable_inputs(client):
     assert created.namespace == namespace
     assert created.description == "shared inputs"
     assert [i.id for i in created.inputs] == ["name", "count"]
+    assert created.source == reusable_inputs_source(namespace, block_id)
+    assert created.revision == 1
+    assert created.last is True
+    assert created.deleted is False
+    assert created.created is not None
 
 
 def test_create_or_update_reusable_inputs_fail_if_exists(client):
@@ -90,12 +95,18 @@ def test_list_reusable_inputs_revisions(client):
 
     revisions = client.reusable_inputs.list_reusable_inputs_revisions(namespace, block_id, TENANT)
     assert len(revisions) == 2
+    assert [r.revision for r in revisions] == [1, 2], "revisions come back oldest first"
 
     latest = client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT)
     assert latest.description == "updated inputs"
+    assert latest.revision == 2
+    assert latest.source == reusable_inputs_source(namespace, block_id, description="updated inputs")
+    assert latest.last is True
 
     first = client.reusable_inputs.reusable_inputs(namespace, block_id, TENANT, revision=1)
     assert first.description == "shared inputs"
+    assert first.revision == 1
+    assert first.last is False, "a pinned older revision is no longer the current one"
 
 
 def test_delete_reusable_inputs(client):

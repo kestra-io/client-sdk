@@ -29,13 +29,19 @@ func TestReusableInputsAPI_All(t *testing.T) {
 		namespace := randomId()
 		id := randomId()
 
-		created, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, reusableInputsSource(namespace, id), nil)
+		source := reusableInputsSource(namespace, id)
+		created, err := KestraTestClient().ReusableInputs().CreateOrUpdateReusableInputs(ctx, namespace, id, MAIN_TENANT, source, nil)
 		require.NoError(t, err)
 		require.Equal(t, id, created.GetId())
 		require.Equal(t, namespace, created.GetNamespace())
 		require.Equal(t, "shared inputs", created.GetDescription())
 		require.Len(t, created.GetInputs(), 2)
 		require.Equal(t, "name", created.GetInputs()[0].GetId())
+		require.Equal(t, source, created.GetSource(), "the stored source must round-trip verbatim")
+		require.Equal(t, int32(1), created.GetRevision())
+		require.True(t, created.GetLast())
+		require.False(t, created.GetDeleted())
+		require.False(t, created.GetCreated().IsZero())
 	})
 
 	t.Run("createOrUpdateReusableInputsTest_failIfExists", func(t *testing.T) {
@@ -125,14 +131,21 @@ inputs:
 		revisions, err := KestraTestClient().ReusableInputs().ListReusableInputsRevisions(ctx, namespace, id, MAIN_TENANT)
 		require.NoError(t, err)
 		require.Len(t, revisions, 2)
+		require.Equal(t, int32(1), revisions[0].GetRevision(), "revisions come back oldest first")
+		require.Equal(t, int32(2), revisions[1].GetRevision())
 
 		latest, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, nil)
 		require.NoError(t, err)
 		require.Equal(t, "updated inputs", latest.GetDescription())
+		require.Equal(t, int32(2), latest.GetRevision())
+		require.Equal(t, updated, latest.GetSource())
+		require.True(t, latest.GetLast())
 
 		first, err := KestraTestClient().ReusableInputs().ReusableInputs(ctx, namespace, id, MAIN_TENANT, kestra_api_client.PtrInt(1))
 		require.NoError(t, err)
 		require.Equal(t, "shared inputs", first.GetDescription())
+		require.Equal(t, int32(1), first.GetRevision())
+		require.False(t, first.GetLast(), "a pinned older revision is no longer the current one")
 	})
 
 	t.Run("deleteReusableInputsTest", func(t *testing.T) {

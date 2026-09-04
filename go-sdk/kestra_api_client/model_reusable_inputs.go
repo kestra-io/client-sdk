@@ -13,6 +13,7 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the ReusableInputs type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,18 @@ type ReusableInputs struct {
 	Id string `json:"id"`
 	Description *string `json:"description,omitempty"`
 	Inputs []InputObject `json:"inputs"`
+	// The block's YAML source, as written in the editor.
+	Source *string `json:"source,omitempty"`
+	// The revision of the block, bumped on every save.
+	Revision int32 `json:"revision"`
+	// Whether this is the block's current revision.
+	Last *bool `json:"last,omitempty"`
+	// When the block was first created.
+	Created NullableTime `json:"created,omitempty"`
+	// When this revision was created.
+	Updated NullableTime `json:"updated,omitempty"`
+	// Whether the block is soft-deleted.
+	Deleted *bool `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,11 +47,12 @@ type _ReusableInputs ReusableInputs
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReusableInputs(namespace string, id string, inputs []InputObject) *ReusableInputs {
+func NewReusableInputs(namespace string, id string, inputs []InputObject, revision int32) *ReusableInputs {
 	this := ReusableInputs{}
 	this.Namespace = namespace
 	this.Id = id
 	this.Inputs = inputs
+	this.Revision = revision
 	return &this
 }
 
@@ -154,6 +168,210 @@ func (o *ReusableInputs) SetInputs(v []InputObject) {
 	o.Inputs = v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *ReusableInputs) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReusableInputs) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *ReusableInputs) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *ReusableInputs) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetRevision returns the Revision field value
+func (o *ReusableInputs) GetRevision() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Revision
+}
+
+// GetRevisionOk returns a tuple with the Revision field value
+// and a boolean to check if the value has been set.
+func (o *ReusableInputs) GetRevisionOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Revision, true
+}
+
+// SetRevision sets field value
+func (o *ReusableInputs) SetRevision(v int32) {
+	o.Revision = v
+}
+
+// GetLast returns the Last field value if set, zero value otherwise.
+func (o *ReusableInputs) GetLast() bool {
+	if o == nil || IsNil(o.Last) {
+		var ret bool
+		return ret
+	}
+	return *o.Last
+}
+
+// GetLastOk returns a tuple with the Last field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReusableInputs) GetLastOk() (*bool, bool) {
+	if o == nil || IsNil(o.Last) {
+		return nil, false
+	}
+	return o.Last, true
+}
+
+// HasLast returns a boolean if a field has been set.
+func (o *ReusableInputs) HasLast() bool {
+	if o != nil && !IsNil(o.Last) {
+		return true
+	}
+
+	return false
+}
+
+// SetLast gets a reference to the given bool and assigns it to the Last field.
+func (o *ReusableInputs) SetLast(v bool) {
+	o.Last = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ReusableInputs) GetCreated() time.Time {
+	if o == nil || IsNil(o.Created.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Created.Get()
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ReusableInputs) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Created.Get(), o.Created.IsSet()
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *ReusableInputs) HasCreated() bool {
+	if o != nil && o.Created.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given NullableTime and assigns it to the Created field.
+func (o *ReusableInputs) SetCreated(v time.Time) {
+	o.Created.Set(&v)
+}
+// SetCreatedNil sets the value for Created to be an explicit nil
+func (o *ReusableInputs) SetCreatedNil() {
+	o.Created.Set(nil)
+}
+
+// UnsetCreated ensures that no value is present for Created, not even an explicit nil
+func (o *ReusableInputs) UnsetCreated() {
+	o.Created.Unset()
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ReusableInputs) GetUpdated() time.Time {
+	if o == nil || IsNil(o.Updated.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Updated.Get()
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ReusableInputs) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Updated.Get(), o.Updated.IsSet()
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *ReusableInputs) HasUpdated() bool {
+	if o != nil && o.Updated.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given NullableTime and assigns it to the Updated field.
+func (o *ReusableInputs) SetUpdated(v time.Time) {
+	o.Updated.Set(&v)
+}
+// SetUpdatedNil sets the value for Updated to be an explicit nil
+func (o *ReusableInputs) SetUpdatedNil() {
+	o.Updated.Set(nil)
+}
+
+// UnsetUpdated ensures that no value is present for Updated, not even an explicit nil
+func (o *ReusableInputs) UnsetUpdated() {
+	o.Updated.Unset()
+}
+
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *ReusableInputs) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReusableInputs) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *ReusableInputs) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *ReusableInputs) SetDeleted(v bool) {
+	o.Deleted = &v
+}
+
 func (o ReusableInputs) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -170,6 +388,22 @@ func (o ReusableInputs) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["inputs"] = o.Inputs
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	toSerialize["revision"] = o.Revision
+	if !IsNil(o.Last) {
+		toSerialize["last"] = o.Last
+	}
+	if o.Created.IsSet() {
+		toSerialize["created"] = o.Created.Get()
+	}
+	if o.Updated.IsSet() {
+		toSerialize["updated"] = o.Updated.Get()
+	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -186,6 +420,7 @@ func (o *ReusableInputs) UnmarshalJSON(data []byte) (err error) {
 		"namespace",
 		"id",
 		"inputs",
+		"revision",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -219,6 +454,12 @@ func (o *ReusableInputs) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "last")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "deleted")
 		o.AdditionalProperties = additionalProperties
 	}
 

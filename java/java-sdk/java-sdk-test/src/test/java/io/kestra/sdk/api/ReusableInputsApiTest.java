@@ -52,6 +52,11 @@ public class ReusableInputsApiTest {
         assertThat(created.getNamespace()).isEqualTo(namespace);
         assertThat(created.getDescription()).isEqualTo("shared inputs");
         assertThat(created.getInputs()).extracting(InputObject::getId).containsExactly("name", "count");
+        assertThat(created.getSource()).isEqualTo(source(namespace, id));
+        assertThat(created.getRevision()).isEqualTo(1);
+        assertThat(created.getLast()).isTrue();
+        assertThat(created.getDeleted()).isFalse();
+        assertThat(created.getCreated()).isNotNull();
     }
 
     @Test
@@ -137,9 +142,18 @@ public class ReusableInputsApiTest {
 
         List<ReusableInputs> revisions = api().listReusableInputsRevisions(namespace, id, TENANT);
         assertThat(revisions).hasSize(2);
+        assertThat(revisions).extracting(ReusableInputs::getRevision).containsExactly(1, 2);
 
-        assertThat(api().reusableInputs(namespace, id, TENANT, null).getDescription()).isEqualTo("updated inputs");
-        assertThat(api().reusableInputs(namespace, id, TENANT, 1).getDescription()).isEqualTo("shared inputs");
+        ReusableInputs latest = api().reusableInputs(namespace, id, TENANT, null);
+        assertThat(latest.getDescription()).isEqualTo("updated inputs");
+        assertThat(latest.getRevision()).isEqualTo(2);
+        assertThat(latest.getSource()).isEqualTo(source(namespace, id, "updated inputs"));
+        assertThat(latest.getLast()).isTrue();
+
+        ReusableInputs first = api().reusableInputs(namespace, id, TENANT, 1);
+        assertThat(first.getDescription()).isEqualTo("shared inputs");
+        assertThat(first.getRevision()).isEqualTo(1);
+        assertThat(first.getLast()).as("a pinned older revision is no longer the current one").isFalse();
     }
 
     @Test
