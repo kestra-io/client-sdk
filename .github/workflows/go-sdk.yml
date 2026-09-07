@@ -9,6 +9,11 @@ on:
       - 'go-sdk/**'
       - 'README.md'
       - 'test-utils/**'
+      # The suite's own definition, so a change to the Kestra version it targets
+      # (or to the shared composites it calls) is exercised by this workflow
+      # rather than merging unvalidated.
+      - '.github/workflows/go-sdk.yml'
+      - '.github/actions/**'
   pull_request:
     branches:
       - main
@@ -17,6 +22,11 @@ on:
       - 'go-sdk/**'
       - 'README.md'
       - 'test-utils/**'
+      # The suite's own definition, so a change to the Kestra version it targets
+      # (or to the shared composites it calls) is exercised by this workflow
+      # rather than merging unvalidated.
+      - '.github/workflows/go-sdk.yml'
+      - '.github/actions/**'
   workflow_dispatch:
     inputs:
       skip-test:
