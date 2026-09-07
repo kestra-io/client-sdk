@@ -5,8 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**description** | **str** |  | [optional] 
+**security_integration_name** | **str** |  | [optional] 
 
 ## Example
 

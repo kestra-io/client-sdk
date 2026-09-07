@@ -23,7 +23,7 @@ import io.kestra.sdk.model.AbstractTriggerForExecution;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,13 +46,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowForExecution.JSON_PROPERTY_DISABLED,
   FlowForExecution.JSON_PROPERTY_LABELS,
   FlowForExecution.JSON_PROPERTY_VARIABLES,
-  FlowForExecution.JSON_PROPERTY_WORKER_GROUP,
+  FlowForExecution.JSON_PROPERTY_WORKER_SELECTOR,
   FlowForExecution.JSON_PROPERTY_DELETED,
   FlowForExecution.JSON_PROPERTY_TASKS,
   FlowForExecution.JSON_PROPERTY_ERRORS,
   FlowForExecution.JSON_PROPERTY_FINALLY,
   FlowForExecution.JSON_PROPERTY_AFTER_EXECUTION,
-  FlowForExecution.JSON_PROPERTY_TRIGGERS
+  FlowForExecution.JSON_PROPERTY_TRIGGERS,
+  FlowForExecution.JSON_PROPERTY_DRAFT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowForExecution {
@@ -86,8 +87,8 @@ public class FlowForExecution {
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
@@ -106,6 +107,9 @@ public class FlowForExecution {
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nullable  private List<AbstractTriggerForExecution> triggers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nonnull  private Boolean draft;
 
   public FlowForExecution() {
   }
@@ -367,28 +371,28 @@ public class FlowForExecution {
     this.variables = variables;
   }
 
-  public FlowForExecution workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public FlowForExecution workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public FlowForExecution deleted(@jakarta.annotation.Nonnull Boolean deleted) {
@@ -575,6 +579,30 @@ public class FlowForExecution {
     this.triggers = triggers;
   }
 
+  public FlowForExecution draft(@jakarta.annotation.Nonnull Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
+    this.draft = draft;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -594,18 +622,19 @@ public class FlowForExecution {
         Objects.equals(this.disabled, flowForExecution.disabled) &&
         Objects.equals(this.labels, flowForExecution.labels) &&
         Objects.equals(this.variables, flowForExecution.variables) &&
-        Objects.equals(this.workerGroup, flowForExecution.workerGroup) &&
+        Objects.equals(this.workerSelector, flowForExecution.workerSelector) &&
         Objects.equals(this.deleted, flowForExecution.deleted) &&
         Objects.equals(this.tasks, flowForExecution.tasks) &&
         Objects.equals(this.errors, flowForExecution.errors) &&
         Objects.equals(this._finally, flowForExecution._finally) &&
         Objects.equals(this.afterExecution, flowForExecution.afterExecution) &&
-        Objects.equals(this.triggers, flowForExecution.triggers);
+        Objects.equals(this.triggers, flowForExecution.triggers) &&
+        Objects.equals(this.draft, flowForExecution.draft);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, tasks, errors, _finally, afterExecution, triggers);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, tasks, errors, _finally, afterExecution, triggers, draft);
   }
 
   @Override
@@ -622,13 +651,14 @@ public class FlowForExecution {
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
     sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
     sb.append("}");
     return sb.toString();
   }

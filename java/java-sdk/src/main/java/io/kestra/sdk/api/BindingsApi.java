@@ -51,6 +51,15 @@ public class BindingsApi extends BaseApi {
     // CRUD
     // ========================================================================
 
+    public List<IAMBindingControllerApiBindingDetail> bulkCreateBindings(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<IAMBindingControllerApiCreateBindingRequest> requests) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "bindings", "bulk"),
+                requests, Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
     public IAMBindingControllerApiBindingDetail createBinding(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull IAMBindingControllerApiCreateBindingRequest request) throws ApiException {

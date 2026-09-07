@@ -13,7 +13,7 @@
 |**lastName** | **String** |  |  [optional] |
 |**email** | **String** |  |  |
 |**password** | **String** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**restricted** | **Boolean** |  |  [optional] |
 
 

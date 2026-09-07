@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**condition** | **str** |  | 
+**when** | **str** |  | 
 **message** | **str** |  | 
 **style** | [**CheckStyle**](CheckStyle.md) |  | [optional] 
 **behavior** | [**CheckBehavior**](CheckBehavior.md) |  | [optional] 

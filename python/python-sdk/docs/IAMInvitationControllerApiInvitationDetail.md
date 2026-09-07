@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **sent_at** | **datetime** |  | [optional] 
 **expired_at** | **datetime** |  | [optional] 
 **accepted_at** | **datetime** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **link** | **str** |  | [optional] 
 
 ## Example

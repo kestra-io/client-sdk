@@ -19,7 +19,7 @@
 |**acceptedAt** | **OffsetDateTime** |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**userType** | **UserType** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**link** | **String** |  |  [optional] |
 
 

@@ -12,19 +12,19 @@ Name | Type | Description | Notes
 **flow_revision** | **int** |  | 
 **task_run_list** | [**List[TaskRun]**](TaskRun.md) |  | [optional] 
 **inputs** | **object** |  | [optional] 
-**outputs** | **object** |  | [optional] 
 **variables** | **object** |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **parent_id** | **str** |  | [optional] 
-**original_id** | **str** |  | [optional] 
+**original_id** | **str** |  | 
 **trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
 **deleted** | **bool** |  | 
-**metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | [optional] 
+**metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | 
 **schedule_date** | **datetime** |  | [optional] 
 **trace_parent** | **str** |  | [optional] 
 **fixtures** | [**List[TaskFixture]**](TaskFixture.md) |  | [optional] 
 **kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 **breakpoints** | [**List[Breakpoint]**](Breakpoint.md) |  | [optional] 
+**loop_run** | [**LoopRun**](LoopRun.md) |  | [optional] 
 
 ## Example
 

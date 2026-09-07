@@ -31,7 +31,10 @@ type Task struct {
 	Retry map[string]interface{} `json:"retry,omitempty"`
 	Timeout *string `json:"timeout,omitempty"`
 	Disabled *bool `json:"disabled,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	// Routing requirements (tags + fallback) for this task.
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
+	// Identifiers of `enforcement: REFERENCE` governance policies to attach to this task and everything nested under it (Enterprise Edition only).
+	PolicyRefs []string `json:"policyRefs,omitempty"`
 	LogLevel *Level `json:"logLevel,omitempty"`
 	AllowFailure *bool `json:"allowFailure,omitempty"`
 	LogToFile *bool `json:"logToFile,omitempty"`
@@ -306,36 +309,68 @@ func (o *Task) SetDisabled(v bool) {
 	o.Disabled = &v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *Task) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *Task) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.WorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *Task) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.WorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *Task) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *Task) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *Task) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *Task) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
+}
+
+// GetPolicyRefs returns the PolicyRefs field value if set, zero value otherwise.
+func (o *Task) GetPolicyRefs() []string {
+	if o == nil || IsNil(o.PolicyRefs) {
+		var ret []string
+		return ret
+	}
+	return o.PolicyRefs
+}
+
+// GetPolicyRefsOk returns a tuple with the PolicyRefs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetPolicyRefsOk() ([]string, bool) {
+	if o == nil || IsNil(o.PolicyRefs) {
+		return nil, false
+	}
+	return o.PolicyRefs, true
+}
+
+// HasPolicyRefs returns a boolean if a field has been set.
+func (o *Task) HasPolicyRefs() bool {
+	if o != nil && !IsNil(o.PolicyRefs) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyRefs gets a reference to the given []string and assigns it to the PolicyRefs field.
+func (o *Task) SetPolicyRefs(v []string) {
+	o.PolicyRefs = v
 }
 
 // GetLogLevel returns the LogLevel field value if set, zero value otherwise.
@@ -602,8 +637,11 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
+	}
+	if !IsNil(o.PolicyRefs) {
+		toSerialize["policyRefs"] = o.PolicyRefs
 	}
 	if !IsNil(o.LogLevel) {
 		toSerialize["logLevel"] = o.LogLevel
@@ -678,7 +716,8 @@ func (o *Task) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "retry")
 		delete(additionalProperties, "timeout")
 		delete(additionalProperties, "disabled")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "workerSelector")
+		delete(additionalProperties, "policyRefs")
 		delete(additionalProperties, "logLevel")
 		delete(additionalProperties, "allowFailure")
 		delete(additionalProperties, "logToFile")

@@ -183,20 +183,15 @@ public class AppsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
-            @jakarta.annotation.Nullable String q,
-            @jakarta.annotation.Nullable String namespace,
-            @jakarta.annotation.Nullable String flowId,
             @jakarta.annotation.Nullable List<String> sort,
-            @jakarta.annotation.Nullable List<String> tags,
             @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         List<Pair> collectionParams = new ArrayList<>();
         collectionParams.addAll(csvParams("sort", sort));
-        collectionParams.addAll(csvParams("tags", tags));
         collectionParams.addAll(filterParams(filters));
         return invoke("GET",
                 tenantPath(tenant, "apps", "search"),
                 null,
-                queryParams("page", page, "size", size, "q", q, "namespace", namespace, "flowId", flowId),
+                queryParams("page", page, "size", size),
                 collectionParams,
                 JSON, null,
                 new TypeReference<>() {});

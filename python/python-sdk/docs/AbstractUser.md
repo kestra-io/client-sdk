@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **groups** | **List[object]** |  | [optional] 
 **username** | **str** |  | 
 **email** | **str** |  | 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **id** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 

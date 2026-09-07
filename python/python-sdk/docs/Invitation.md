@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **accepted_at** | **datetime** |  | [optional] 
 **deleted** | **bool** |  | 
 **user_type** | [**UserType**](UserType.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **link** | **str** |  | [optional] 
 
 ## Example

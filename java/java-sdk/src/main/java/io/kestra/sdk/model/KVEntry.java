@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   KVEntry.JSON_PROPERTY_NAMESPACE,
   KVEntry.JSON_PROPERTY_KEY,
-  KVEntry.JSON_PROPERTY_VERSION,
+  KVEntry.JSON_PROPERTY_REVISION,
   KVEntry.JSON_PROPERTY_DESCRIPTION,
   KVEntry.JSON_PROPERTY_CREATION_DATE,
   KVEntry.JSON_PROPERTY_UPDATE_DATE,
@@ -47,8 +47,8 @@ public class KVEntry {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nullable  private String key;
 
-  public static final String JSON_PROPERTY_VERSION = "version";
-  @jakarta.annotation.Nullable  private Integer version;
+  public static final String JSON_PROPERTY_REVISION = "revision";
+  @jakarta.annotation.Nullable  private Integer revision;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private JsonNullable<String> description = JsonNullable.<String>undefined();
@@ -113,28 +113,28 @@ public class KVEntry {
     this.key = key;
   }
 
-  public KVEntry version(@jakarta.annotation.Nullable Integer version) {
+  public KVEntry revision(@jakarta.annotation.Nullable Integer revision) {
     
-    this.version = version;
+    this.revision = revision;
     return this;
   }
 
   /**
-   * Get version
-   * @return version
+   * Get revision
+   * @return revision
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getVersion() {
-    return version;
+  public Integer getRevision() {
+    return revision;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@jakarta.annotation.Nullable Integer version) {
-    this.version = version;
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
+    this.revision = revision;
   }
 
   public KVEntry description(@jakarta.annotation.Nullable String description) {
@@ -258,7 +258,7 @@ public class KVEntry {
     KVEntry kvEntry = (KVEntry) o;
     return Objects.equals(this.namespace, kvEntry.namespace) &&
         Objects.equals(this.key, kvEntry.key) &&
-        Objects.equals(this.version, kvEntry.version) &&
+        Objects.equals(this.revision, kvEntry.revision) &&
         equalsNullable(this.description, kvEntry.description) &&
         Objects.equals(this.creationDate, kvEntry.creationDate) &&
         Objects.equals(this.updateDate, kvEntry.updateDate) &&
@@ -271,7 +271,7 @@ public class KVEntry {
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, key, version, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
+    return Objects.hash(namespace, key, revision, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -287,7 +287,7 @@ public class KVEntry {
     sb.append("class KVEntry {\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    updateDate: ").append(toIndentedString(updateDate)).append("\n");

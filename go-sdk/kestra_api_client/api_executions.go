@@ -1832,7 +1832,7 @@ func (r ApiForceRunByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiForceRunByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiForceRunByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.ForceRunByIdsExecute(r)
 }
 
@@ -1853,13 +1853,13 @@ func (a *ExecutionsAPIService) ForceRunByIds(ctx context.Context, tenant string)
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) ForceRunByIdsExecute(r ApiForceRunByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) ForceRunByIdsExecute(r ApiForceRunByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ForceRunByIds")
@@ -1994,7 +1994,7 @@ func (a *ExecutionsAPIService) ForceRunExecutionExecute(r ApiForceRunExecutionRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/force-run"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/force-run"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -2237,7 +2237,7 @@ func (a *ExecutionsAPIService) KillExecutionExecute(r ApiKillExecutionRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/kill"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/kill"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -2323,7 +2323,7 @@ func (r ApiKillExecutionsByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiKillExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiKillExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.KillExecutionsByIdsExecute(r)
 }
 
@@ -2344,13 +2344,13 @@ func (a *ExecutionsAPIService) KillExecutionsByIds(ctx context.Context, tenant s
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) KillExecutionsByIdsExecute(r ApiKillExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) KillExecutionsByIdsExecute(r ApiKillExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.KillExecutionsByIds")
@@ -2721,7 +2721,7 @@ func (a *ExecutionsAPIService) PauseExecutionExecute(r ApiPauseExecutionRequest)
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/pause"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/pause"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -2794,7 +2794,7 @@ func (r ApiPauseExecutionsByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiPauseExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiPauseExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.PauseExecutionsByIdsExecute(r)
 }
 
@@ -2815,13 +2815,13 @@ func (a *ExecutionsAPIService) PauseExecutionsByIds(ctx context.Context, tenant 
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) PauseExecutionsByIdsExecute(r ApiPauseExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) PauseExecutionsByIdsExecute(r ApiPauseExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.PauseExecutionsByIds")
@@ -3105,7 +3105,7 @@ func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/replay"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/replay"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3264,7 +3264,7 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/replay-with-inputs"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/replay-with-inputs"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3395,7 +3395,7 @@ func (r ApiReplayExecutionsByIdsRequest) GetLatestRevision() *bool {
 	return r.latestRevision
 }
 
-func (r ApiReplayExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiReplayExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.ReplayExecutionsByIdsExecute(r)
 }
 
@@ -3417,13 +3417,13 @@ func (a *ExecutionsAPIService) ReplayExecutionsByIds(ctx context.Context, tenant
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ReplayExecutionsByIds")
@@ -3704,7 +3704,7 @@ func (a *ExecutionsAPIService) RestartExecutionExecute(r ApiRestartExecutionRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/restart"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/restart"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -3789,7 +3789,7 @@ func (r ApiRestartExecutionsByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiRestartExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiRestartExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.RestartExecutionsByIdsExecute(r)
 }
 
@@ -3810,13 +3810,13 @@ func (a *ExecutionsAPIService) RestartExecutionsByIds(ctx context.Context, tenan
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) RestartExecutionsByIdsExecute(r ApiRestartExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) RestartExecutionsByIdsExecute(r ApiRestartExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.RestartExecutionsByIds")
@@ -4077,7 +4077,7 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/resume"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/resume"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -4188,7 +4188,7 @@ func (r ApiResumeExecutionsByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiResumeExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiResumeExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.ResumeExecutionsByIdsExecute(r)
 }
 
@@ -4209,13 +4209,13 @@ func (a *ExecutionsAPIService) ResumeExecutionsByIds(ctx context.Context, tenant
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) ResumeExecutionsByIdsExecute(r ApiResumeExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) ResumeExecutionsByIdsExecute(r ApiResumeExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ResumeExecutionsByIds")
@@ -4817,7 +4817,7 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionExecute(r ApiSetLab
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/labels"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/labels"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -4904,7 +4904,7 @@ func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) GetExecutionControllerSe
 	return r.executionControllerSetLabelsByIdsRequest
 }
 
-func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.SetLabelsOnTerminatedExecutionsByIdsExecute(r)
 }
 
@@ -4925,13 +4925,13 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIds(ctx context.
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIdsExecute(r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByIdsExecute(r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.SetLabelsOnTerminatedExecutionsByIds")
@@ -5337,7 +5337,7 @@ func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/unqueue"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/unqueue"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -5433,7 +5433,7 @@ func (r ApiUnqueueExecutionsByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiUnqueueExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiUnqueueExecutionsByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionsByIdsExecute(r)
 }
 
@@ -5454,13 +5454,13 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByIds(ctx context.Context, tenan
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecutionsByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecutionsByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UnqueueExecutionsByIds")
@@ -5741,7 +5741,7 @@ func (a *ExecutionsAPIService) UpdateExecutionStatusExecute(r ApiUpdateExecution
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/change-status"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/change-status"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
@@ -5837,7 +5837,7 @@ func (r ApiUpdateExecutionsStatusByIdsRequest) GetRequestBody() *[]string {
 	return r.requestBody
 }
 
-func (r ApiUpdateExecutionsStatusByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiUpdateExecutionsStatusByIdsRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.UpdateExecutionsStatusByIdsExecute(r)
 }
 
@@ -5858,13 +5858,13 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByIds(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) UpdateExecutionsStatusByIdsExecute(r ApiUpdateExecutionsStatusByIdsRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) UpdateExecutionsStatusByIdsExecute(r ApiUpdateExecutionsStatusByIdsRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateExecutionsStatusByIds")
@@ -5982,7 +5982,7 @@ func (r ApiUpdateExecutionsStatusByQueryRequest) GetFilters() *[]QueryFilter {
 	return r.filters
 }
 
-func (r ApiUpdateExecutionsStatusByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
+func (r ApiUpdateExecutionsStatusByQueryRequest) Execute() (*ApiAsyncOperationResponse, *http.Response, error) {
 	return r.ApiService.UpdateExecutionsStatusByQueryExecute(r)
 }
 
@@ -6003,13 +6003,13 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQuery(ctx context.Context
 
 // Execute executes the request
 //
-//	@return BulkResponse
-func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateExecutionsStatusByQueryRequest) (*BulkResponse, *http.Response, error) {
+//	@return ApiAsyncOperationResponse
+func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateExecutionsStatusByQueryRequest) (*ApiAsyncOperationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BulkResponse
+		localVarReturnValue *ApiAsyncOperationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.UpdateExecutionsStatusByQuery")
@@ -6156,7 +6156,7 @@ func (a *ExecutionsAPIService) UpdateTaskRunStateExecute(r ApiUpdateTaskRunState
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/state"
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/actions/state"
 	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 

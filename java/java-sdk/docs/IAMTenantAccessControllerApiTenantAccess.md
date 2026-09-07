@@ -13,7 +13,7 @@
 |**displayName** | **String** |  |  [optional] |
 |**groups** | [**List&lt;IAMTenantAccessControllerApiGroup&gt;**](IAMTenantAccessControllerApiGroup.md) |  |  [optional] |
 |**roles** | [**List&lt;IAMTenantAccessControllerApiRoleAssignment&gt;**](IAMTenantAccessControllerApiRoleAssignment.md) |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 
 
 

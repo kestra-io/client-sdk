@@ -191,6 +191,13 @@ def query_filter(q):
     return QueryFilter(var_field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": q})
 
 
+# TAGS only supports IN, NOT_IN, PREFIX, CONTAINS, STARTS_WITH and ENDS_WITH
+# server-side (QueryFilter.Field.TAGS#supportedOp), so a tag list goes out as
+# filters[tags][IN]=a,b - the request binder splits it back into a list.
+def tags_filter(tags):
+    return QueryFilter(var_field=QueryFilterField.TAGS, operation=QueryFilterOp.IN, value={"value": tags})
+
+
 def flow_id_filter(flow_id):
     return QueryFilter(var_field=QueryFilterField.FLOW_ID, operation=QueryFilterOp.EQUALS, value={"value": flow_id})
 
@@ -208,7 +215,7 @@ def labels_filter(labels):
 
 
 def min_level_filter(level):
-    return QueryFilter(var_field=QueryFilterField.MIN_LEVEL, operation=QueryFilterOp.EQUALS, value={"value": level})
+    return QueryFilter(var_field=QueryFilterField.LEVEL, operation=QueryFilterOp.EQUALS, value={"value": level})
 
 
 def execution_id_filter(exec_id):

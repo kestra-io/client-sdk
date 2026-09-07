@@ -12,7 +12,7 @@
 |**displayName** | **String** |  |  [optional] |
 |**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  [optional] |
 |**auths** | [**List&lt;IAMUserControllerApiUserAuth&gt;**](IAMUserControllerApiUserAuth.md) |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 
 
 

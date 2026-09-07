@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total** | **int** |  | [optional] 
-**results** | [**List[ApiToken]**](ApiToken.md) |  | [optional] 
+**results** | [**List[ApiToken]**](ApiToken.md) |  | 
 
 ## Example
 

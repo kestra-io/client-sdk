@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**old_password** | **str** |  | [optional] 
-**new_password** | **str** |  | [optional] 
+**old_password** | **str** |  | 
+**new_password** | **str** |  | 
 
 ## Example
 

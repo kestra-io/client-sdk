@@ -296,6 +296,16 @@ public class TestUtils {
                 .value(q);
     }
 
+    // TAGS only supports IN, NOT_IN, PREFIX, CONTAINS, STARTS_WITH and ENDS_WITH
+    // server-side (QueryFilter.Field.TAGS#supportedOp), so a tag list goes out as
+    // filters[tags][IN]=a,b — the request binder splits it back into a list.
+    public static QueryFilter tagsFilter(java.util.List<String> tags) {
+        return new QueryFilter()
+                .field(QueryFilterField.TAGS)
+                .operation(QueryFilterOp.IN)
+                .value(tags);
+    }
+
     public static QueryFilter flowIdFilter(String flowId) {
         return new QueryFilter()
                 .field(QueryFilterField.FLOW_ID)

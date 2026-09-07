@@ -95,6 +95,10 @@ func WithLogger(w io.Writer) ClientOption {
 	}
 }
 
+func (c *KestraClient) Cases() *CasesAPI {
+	return &CasesAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Executions() *ExecutionsAPI {
 	return &ExecutionsAPI{baseAPI{client: c}}
 }
@@ -125,6 +129,10 @@ func (c *KestraClient) Bindings() *BindingsAPI {
 
 func (c *KestraClient) Triggers() *TriggersAPI {
 	return &TriggersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) TenantAccess() *TenantAccessAPI {
+	return &TenantAccessAPI{baseAPI{client: c}}
 }
 
 func (c *KestraClient) Users() *UsersAPI {
@@ -169,4 +177,16 @@ func (c *KestraClient) Blueprints() *BlueprintsAPI {
 
 func (c *KestraClient) Invitations() *InvitationsAPI {
 	return &InvitationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Outputs() *OutputsAPI {
+	return &OutputsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Quotas() *QuotasAPI {
+	return &QuotasAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Tenants() *TenantsAPI {
+	return &TenantsAPI{baseAPI{client: c}}
 }

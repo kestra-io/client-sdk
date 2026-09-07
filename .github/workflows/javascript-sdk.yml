@@ -195,8 +195,10 @@ jobs:
           # v1.0.13-javascript -> 1.0.13
           VERSION=${GITHUB_REF_NAME#v}
           VERSION=${VERSION%-javascript}
-          # moving dist-tag for the minor line, e.g. v1.0
-          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+          # moving dist-tag for the minor line, e.g. v1-0. Dash, not dot: npm
+          # rejects a dist-tag that parses as a valid SemVer range (e.g.
+          # "v1.0" or "1.0.x"), which "v$MAJOR.$MINOR" would be.
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2 | tr '.' '-')
           echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
           echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
 
@@ -212,9 +214,20 @@ jobs:
           ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
           javascript
 
-      - name: Publish to npm with latest tag
+      - name: Publish to npm
         working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public
+        # npm refuses a bare `publish` for a prerelease version (e.g. `-rc1`) —
+        # it won't guess whether that should move the `latest` dist-tag, so an
+        # explicit --tag is required. Stable versions still get `latest`;
+        # prereleases get a tag matching their prerelease identifier (e.g. `rc1`).
+        run: |
+          VERSION="${{ steps.resolveVersion.outputs.kestra_version }}"
+          if [[ "$VERSION" == *-* ]]; then
+            NPM_TAG="${VERSION#*-}"
+          else
+            NPM_TAG="latest"
+          fi
+          npm publish --access public --tag "$NPM_TAG"
 
       - name: Add version tag
         working-directory: ./javascript/javascript-sdk

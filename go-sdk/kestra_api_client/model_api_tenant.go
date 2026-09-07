@@ -25,17 +25,20 @@ type ApiTenant struct {
 	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
 	Name string `json:"name"`
 	Deleted bool `json:"deleted"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	DefaultWorkerSelector *WorkerSelector `json:"defaultWorkerSelector,omitempty"`
+	Concurrency *Concurrency `json:"concurrency,omitempty"`
 	StorageType *string `json:"storageType,omitempty"`
 	StorageConfiguration map[string]interface{} `json:"storageConfiguration,omitempty"`
 	SecretType *string `json:"secretType,omitempty"`
 	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
 	SecretConfiguration map[string]interface{} `json:"secretConfiguration,omitempty"`
+	WorkerSecretManagerMode *SecretConfigurationWorkerSecretManagerMode `json:"workerSecretManagerMode,omitempty"`
 	RequireExistingNamespace *bool `json:"requireExistingNamespace,omitempty"`
 	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
 	AppCatalogConfig *TenantAppCatalogConfig `json:"appCatalogConfig,omitempty"`
 	Settings *TenantPreferencesSettings `json:"settings,omitempty"`
 	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	Quotas []Quota `json:"quotas,omitempty"`
 	Logo *string `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -198,36 +201,68 @@ func (o *ApiTenant) SetDeleted(v bool) {
 	o.Deleted = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *ApiTenant) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetDefaultWorkerSelector returns the DefaultWorkerSelector field value if set, zero value otherwise.
+func (o *ApiTenant) GetDefaultWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.DefaultWorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetDefaultWorkerSelectorOk returns a tuple with the DefaultWorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiTenant) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *ApiTenant) GetDefaultWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.DefaultWorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *ApiTenant) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasDefaultWorkerSelector returns a boolean if a field has been set.
+func (o *ApiTenant) HasDefaultWorkerSelector() bool {
+	if o != nil && !IsNil(o.DefaultWorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *ApiTenant) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetDefaultWorkerSelector gets a reference to the given WorkerSelector and assigns it to the DefaultWorkerSelector field.
+func (o *ApiTenant) SetDefaultWorkerSelector(v WorkerSelector) {
+	o.DefaultWorkerSelector = &v
+}
+
+// GetConcurrency returns the Concurrency field value if set, zero value otherwise.
+func (o *ApiTenant) GetConcurrency() Concurrency {
+	if o == nil || IsNil(o.Concurrency) {
+		var ret Concurrency
+		return ret
+	}
+	return *o.Concurrency
+}
+
+// GetConcurrencyOk returns a tuple with the Concurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTenant) GetConcurrencyOk() (*Concurrency, bool) {
+	if o == nil || IsNil(o.Concurrency) {
+		return nil, false
+	}
+	return o.Concurrency, true
+}
+
+// HasConcurrency returns a boolean if a field has been set.
+func (o *ApiTenant) HasConcurrency() bool {
+	if o != nil && !IsNil(o.Concurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetConcurrency gets a reference to the given Concurrency and assigns it to the Concurrency field.
+func (o *ApiTenant) SetConcurrency(v Concurrency) {
+	o.Concurrency = &v
 }
 
 // GetStorageType returns the StorageType field value if set, zero value otherwise.
@@ -390,6 +425,38 @@ func (o *ApiTenant) SetSecretConfiguration(v map[string]interface{}) {
 	o.SecretConfiguration = v
 }
 
+// GetWorkerSecretManagerMode returns the WorkerSecretManagerMode field value if set, zero value otherwise.
+func (o *ApiTenant) GetWorkerSecretManagerMode() SecretConfigurationWorkerSecretManagerMode {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		var ret SecretConfigurationWorkerSecretManagerMode
+		return ret
+	}
+	return *o.WorkerSecretManagerMode
+}
+
+// GetWorkerSecretManagerModeOk returns a tuple with the WorkerSecretManagerMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTenant) GetWorkerSecretManagerModeOk() (*SecretConfigurationWorkerSecretManagerMode, bool) {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		return nil, false
+	}
+	return o.WorkerSecretManagerMode, true
+}
+
+// HasWorkerSecretManagerMode returns a boolean if a field has been set.
+func (o *ApiTenant) HasWorkerSecretManagerMode() bool {
+	if o != nil && !IsNil(o.WorkerSecretManagerMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSecretManagerMode gets a reference to the given SecretConfigurationWorkerSecretManagerMode and assigns it to the WorkerSecretManagerMode field.
+func (o *ApiTenant) SetWorkerSecretManagerMode(v SecretConfigurationWorkerSecretManagerMode) {
+	o.WorkerSecretManagerMode = &v
+}
+
 // GetRequireExistingNamespace returns the RequireExistingNamespace field value if set, zero value otherwise.
 func (o *ApiTenant) GetRequireExistingNamespace() bool {
 	if o == nil || IsNil(o.RequireExistingNamespace) {
@@ -550,6 +617,38 @@ func (o *ApiTenant) SetSdkDefaultAuthentication(v SDKAuth) {
 	o.SdkDefaultAuthentication = &v
 }
 
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *ApiTenant) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTenant) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *ApiTenant) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *ApiTenant) SetQuotas(v []Quota) {
+	o.Quotas = v
+}
+
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ApiTenant) GetLogo() string {
 	if o == nil || IsNil(o.Logo) {
@@ -601,8 +700,11 @@ func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["deleted"] = o.Deleted
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.DefaultWorkerSelector) {
+		toSerialize["defaultWorkerSelector"] = o.DefaultWorkerSelector
+	}
+	if !IsNil(o.Concurrency) {
+		toSerialize["concurrency"] = o.Concurrency
 	}
 	if !IsNil(o.StorageType) {
 		toSerialize["storageType"] = o.StorageType
@@ -619,6 +721,9 @@ func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecretConfiguration) {
 		toSerialize["secretConfiguration"] = o.SecretConfiguration
 	}
+	if !IsNil(o.WorkerSecretManagerMode) {
+		toSerialize["workerSecretManagerMode"] = o.WorkerSecretManagerMode
+	}
 	if !IsNil(o.RequireExistingNamespace) {
 		toSerialize["requireExistingNamespace"] = o.RequireExistingNamespace
 	}
@@ -633,6 +738,9 @@ func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SdkDefaultAuthentication) {
 		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
 	}
 	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
@@ -687,17 +795,20 @@ func (o *ApiTenant) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "deleted")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "defaultWorkerSelector")
+		delete(additionalProperties, "concurrency")
 		delete(additionalProperties, "storageType")
 		delete(additionalProperties, "storageConfiguration")
 		delete(additionalProperties, "secretType")
 		delete(additionalProperties, "secretReadOnly")
 		delete(additionalProperties, "secretConfiguration")
+		delete(additionalProperties, "workerSecretManagerMode")
 		delete(additionalProperties, "requireExistingNamespace")
 		delete(additionalProperties, "outputsInInternalStorage")
 		delete(additionalProperties, "appCatalogConfig")
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "sdkDefaultAuthentication")
+		delete(additionalProperties, "quotas")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -740,5 +851,3 @@ func (v *NullableApiTenant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

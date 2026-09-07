@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -112,6 +112,33 @@ func TestAssetsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.NotEmpty(t, result.GetId())
+	})
+
+	// Kestra 2.0 stopped letting POST upsert an asset -- it now conflicts on an
+	// existing id, so updates have to go through the new PUT endpoint.
+	t.Run("updateAsset_basic", func(t *testing.T) {
+		ctx := context.Background()
+		id := randomId()
+
+		created, err := KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.NoError(t, err)
+
+		_, err = KestraTestClient().Assets().CreateAsset(ctx, MAIN_TENANT, assetYaml(id))
+		require.Error(t, err, "creating the same asset id twice should conflict rather than upsert")
+
+		updatedYaml := fmt.Sprintf(`
+id: %s
+name: Test Asset %s
+type: TABLE
+description: updated by the sdk
+`, id, id)
+		updated, err := KestraTestClient().Assets().UpdateAsset(ctx, created.GetId(), MAIN_TENANT, updatedYaml)
+		require.NoError(t, err)
+		require.Equal(t, "updated by the sdk", updated.GetDescription())
+
+		read, err := KestraTestClient().Assets().Asset(ctx, created.GetId(), MAIN_TENANT, nil)
+		require.NoError(t, err)
+		require.Equal(t, "updated by the sdk", read.GetDescription())
 	})
 
 	t.Run("asset_getById", func(t *testing.T) {

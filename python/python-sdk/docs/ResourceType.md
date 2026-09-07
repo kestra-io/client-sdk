@@ -1,70 +1,40 @@
 # ResourceType
 
 
-## Enum
+## Properties
 
-* `AUDITLOG` (value: `'AUDITLOG'`)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**schemas** | **List[str]** |  | [optional] 
+**base_urn** | **str** |  | [optional] 
+**extensions** | [**Dict[str, ScimExtension]**](ScimExtension.md) |  | [optional] 
+**meta** | [**Meta**](Meta.md) |  | 
+**id** | **str** |  | [optional] 
+**external_id** | **str** |  | [optional] 
+**resource_type** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**endpoint** | **str** |  | [optional] 
+**schema_urn** | **str** |  | [optional] 
+**schema_extensions** | [**List[ResourceTypeSchemaExtensionConfiguration]**](ResourceTypeSchemaExtensionConfiguration.md) |  | [optional] 
 
-* `APP` (value: `'APP'`)
+## Example
 
-* `ASSET` (value: `'ASSET'`)
+```python
+from kestrapy.models.resource_type import ResourceType
 
-* `APP_EXECUTION` (value: `'APP_EXECUTION'`)
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ResourceType from a JSON string
+resource_type_instance = ResourceType.from_json(json)
+# print the JSON string representation of the object
+print(ResourceType.to_json())
 
-* `BLUEPRINT` (value: `'BLUEPRINT'`)
-
-* `BINDING` (value: `'BINDING'`)
-
-* `DASHBOARD` (value: `'DASHBOARD'`)
-
-* `EXECUTION` (value: `'EXECUTION'`)
-
-* `FLOW` (value: `'FLOW'`)
-
-* `KILL_SWITCH` (value: `'KILL_SWITCH'`)
-
-* `KV_STORE` (value: `'KV_STORE'`)
-
-* `GROUP` (value: `'GROUP'`)
-
-* `INVITATION` (value: `'INVITATION'`)
-
-* `NAMESPACE` (value: `'NAMESPACE'`)
-
-* `NAMESPACE_FILE` (value: `'NAMESPACE_FILE'`)
-
-* `ROLE` (value: `'ROLE'`)
-
-* `SECURITY_INTEGRATION` (value: `'SECURITY_INTEGRATION'`)
-
-* `SECRET` (value: `'SECRET'`)
-
-* `SETTING` (value: `'SETTING'`)
-
-* `TEMPLATE` (value: `'TEMPLATE'`)
-
-* `TRIGGER` (value: `'TRIGGER'`)
-
-* `TENANT` (value: `'TENANT'`)
-
-* `TENANT_ACCESS` (value: `'TENANT_ACCESS'`)
-
-* `TESTSUITE` (value: `'TESTSUITE'`)
-
-* `TESTSUITE_RUN` (value: `'TESTSUITE_RUN'`)
-
-* `VERSIONED_PLUGIN` (value: `'VERSIONED_PLUGIN'`)
-
-* `USER` (value: `'USER'`)
-
-* `CREDENTIAL` (value: `'CREDENTIAL'`)
-
-* `WORKER_GROUP` (value: `'WORKER_GROUP'`)
-
-* `INSTANCE` (value: `'INSTANCE'`)
-
-* `UNKNOWN` (value: `'UNKNOWN'`)
-
+# convert the object into a dict
+resource_type_dict = resource_type_instance.to_dict()
+# create an instance of ResourceType from a dict
+resource_type_from_dict = ResourceType.from_dict(resource_type_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

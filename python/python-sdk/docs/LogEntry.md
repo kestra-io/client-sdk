@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **thread** | **str** |  | [optional] 
 **message** | **str** |  | [optional] 
 **execution_kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
+**progress** | **str** |  | [optional] 
 
 ## Example
 

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -252,7 +252,7 @@ func TestTriggersAPI_All(t *testing.T) {
 				Value:     namespace,
 			},
 		}
-		page, err := KestraTestClient().Triggers().SearchTriggers(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters)
+		page, err := KestraTestClient().Triggers().SearchTriggers(ctx, MAIN_TENANT, kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, filters, nil)
 		require.NoError(t, err)
 		require.NotNil(t, page)
 	})

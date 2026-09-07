@@ -26,12 +26,14 @@ type FlowInterface struct {
 	Deleted *bool `json:"deleted,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Disabled *bool `json:"disabled,omitempty"`
+	Draft *bool `json:"draft,omitempty"`
 	Labels []Label `json:"labels,omitempty"`
 	Inputs []InputObject `json:"inputs,omitempty"`
 	Outputs []Output `json:"outputs,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	WorkerSelector *WorkerSelector `json:"workerSelector,omitempty"`
 	Concurrency *Concurrency `json:"concurrency,omitempty"`
+	Quotas []Quota `json:"quotas,omitempty"`
 	Sla []SLA `json:"sla,omitempty"`
 	Source *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -280,6 +282,38 @@ func (o *FlowInterface) SetDisabled(v bool) {
 	o.Disabled = &v
 }
 
+// GetDraft returns the Draft field value if set, zero value otherwise.
+func (o *FlowInterface) GetDraft() bool {
+	if o == nil || IsNil(o.Draft) {
+		var ret bool
+		return ret
+	}
+	return *o.Draft
+}
+
+// GetDraftOk returns a tuple with the Draft field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowInterface) GetDraftOk() (*bool, bool) {
+	if o == nil || IsNil(o.Draft) {
+		return nil, false
+	}
+	return o.Draft, true
+}
+
+// HasDraft returns a boolean if a field has been set.
+func (o *FlowInterface) HasDraft() bool {
+	if o != nil && !IsNil(o.Draft) {
+		return true
+	}
+
+	return false
+}
+
+// SetDraft gets a reference to the given bool and assigns it to the Draft field.
+func (o *FlowInterface) SetDraft(v bool) {
+	o.Draft = &v
+}
+
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *FlowInterface) GetLabels() []Label {
 	if o == nil || IsNil(o.Labels) {
@@ -408,36 +442,36 @@ func (o *FlowInterface) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *FlowInterface) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetWorkerSelector returns the WorkerSelector field value if set, zero value otherwise.
+func (o *FlowInterface) GetWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.WorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.WorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetWorkerSelectorOk returns a tuple with the WorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowInterface) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *FlowInterface) GetWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.WorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.WorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *FlowInterface) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasWorkerSelector returns a boolean if a field has been set.
+func (o *FlowInterface) HasWorkerSelector() bool {
+	if o != nil && !IsNil(o.WorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *FlowInterface) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetWorkerSelector gets a reference to the given WorkerSelector and assigns it to the WorkerSelector field.
+func (o *FlowInterface) SetWorkerSelector(v WorkerSelector) {
+	o.WorkerSelector = &v
 }
 
 // GetConcurrency returns the Concurrency field value if set, zero value otherwise.
@@ -470,6 +504,38 @@ func (o *FlowInterface) HasConcurrency() bool {
 // SetConcurrency gets a reference to the given Concurrency and assigns it to the Concurrency field.
 func (o *FlowInterface) SetConcurrency(v Concurrency) {
 	o.Concurrency = &v
+}
+
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *FlowInterface) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowInterface) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *FlowInterface) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *FlowInterface) SetQuotas(v []Quota) {
+	o.Quotas = v
 }
 
 // GetSla returns the Sla field value if set, zero value otherwise.
@@ -567,6 +633,9 @@ func (o FlowInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
+	if !IsNil(o.Draft) {
+		toSerialize["draft"] = o.Draft
+	}
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
@@ -579,11 +648,14 @@ func (o FlowInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.WorkerSelector) {
+		toSerialize["workerSelector"] = o.WorkerSelector
 	}
 	if !IsNil(o.Concurrency) {
 		toSerialize["concurrency"] = o.Concurrency
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
 	}
 	if !IsNil(o.Sla) {
 		toSerialize["sla"] = o.Sla
@@ -620,12 +692,14 @@ func (o *FlowInterface) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "draft")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")
 		delete(additionalProperties, "variables")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "workerSelector")
 		delete(additionalProperties, "concurrency")
+		delete(additionalProperties, "quotas")
 		delete(additionalProperties, "sla")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
@@ -669,5 +743,3 @@ func (v *NullableFlowInterface) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **fixtures** | [**Fixtures**](Fixtures.md) |  | [optional] 
 **assertions** | [**List[Assertion]**](Assertion.md) |  | 
+**expected_state** | [**StateType**](StateType.md) |  | [optional] 
 
 ## Example
 

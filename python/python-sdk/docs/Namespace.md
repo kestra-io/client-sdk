@@ -11,16 +11,18 @@ Name | Type | Description | Notes
 **deleted** | **bool** |  | 
 **description** | **str** |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
-**plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **allowed_namespaces** | [**List[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | [optional] 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**default_worker_selector** | [**WorkerSelector**](WorkerSelector.md) |  | [optional] 
+**concurrency** | [**Concurrency**](Concurrency.md) | The concurrency limit applying to the executions of every flow inside this namespace and its descendants. | [optional] 
 **storage_type** | **str** |  | [optional] 
 **storage_configuration** | **Dict[str, object]** |  | [optional] 
 **secret_type** | **str** |  | [optional] 
 **secret_read_only** | **bool** |  | [optional] 
 **secret_configuration** | **Dict[str, object]** |  | [optional] 
+**worker_secret_manager_mode** | [**SecretConfigurationWorkerSecretManagerMode**](SecretConfigurationWorkerSecretManagerMode.md) |  | [optional] 
 **outputs_in_internal_storage** | **bool** |  | [optional] 
 **sdk_default_authentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
+**quotas** | [**List[Quota]**](Quota.md) |  | [optional] 
 
 ## Example
 

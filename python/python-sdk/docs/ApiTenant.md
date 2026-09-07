@@ -10,16 +10,20 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **name** | **str** |  | 
 **deleted** | **bool** |  | 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**default_worker_selector** | [**WorkerSelector**](WorkerSelector.md) |  | [optional] 
+**concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **storage_type** | **str** |  | [optional] 
 **storage_configuration** | **Dict[str, object]** |  | [optional] 
 **secret_type** | **str** |  | [optional] 
 **secret_read_only** | **bool** |  | [optional] 
 **secret_configuration** | **Dict[str, object]** |  | [optional] 
+**worker_secret_manager_mode** | [**SecretConfigurationWorkerSecretManagerMode**](SecretConfigurationWorkerSecretManagerMode.md) |  | [optional] 
 **require_existing_namespace** | **bool** |  | [optional] 
 **outputs_in_internal_storage** | **bool** |  | [optional] 
 **app_catalog_config** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
+**settings** | [**TenantPreferencesSettings**](TenantPreferencesSettings.md) |  | [optional] 
 **sdk_default_authentication** | [**SDKAuth**](SDKAuth.md) |  | [optional] 
+**quotas** | [**List[Quota]**](Quota.md) |  | [optional] 
 **logo** | **str** |  | [optional] 
 
 ## Example

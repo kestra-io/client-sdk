@@ -19,6 +19,8 @@ from kestrapy.api.blueprints_api import BlueprintsApi
 from kestrapy.api.dashboards_api import DashboardsApi
 from kestrapy.api.apps_api import AppsApi
 from kestrapy.api.test_suites_api import TestSuitesApi
+from kestrapy.api.quotas_api import QuotasApi
+from kestrapy.api.tenants_api import TenantsApi
 
 
 class KestraClient:
@@ -93,6 +95,10 @@ class KestraClient:
     def service_account(self): return self._get_api(ServiceAccountApi)
     @property
     def invitations(self): return self._get_api(InvitationsApi)
+    @property
+    def quotas(self): return self._get_api(QuotasApi)
+    @property
+    def tenants(self): return self._get_api(TenantsApi)
 
     def close(self):
         self._session.close()

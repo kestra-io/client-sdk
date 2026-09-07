@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**flow_id** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
-**start_date** | **datetime** |  | [optional] 
-**status** | [**StateType**](StateType.md) |  | [optional] 
+**id** | **str** |  | 
+**flow_id** | **str** |  | 
+**namespace** | **str** |  | 
+**start_date** | **datetime** |  | 
+**status** | [**StateType**](StateType.md) |  | 
 
 ## Example
 

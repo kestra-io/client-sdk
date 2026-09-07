@@ -425,6 +425,15 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
+   * Get the default headers sent with every request.
+   *
+   * @return An immutable snapshot of the default headers
+   */
+  public Map<String, String> getDefaultHeaders() {
+    return Map.copyOf(defaultHeaderMap);
+  }
+
+  /**
    * Add a default cookie.
    *
    * @param key The cookie's key
@@ -508,7 +517,7 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Set the date format used to parse/format date parameters.
-   * @param dateFormat Date format
+   * @param newDateFormat Date format
    * @return API client
    */
   public ApiClient setDateFormat(DateFormat newDateFormat) {
@@ -695,10 +704,14 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
     private String convertValueToString(Object value){
+        // Filter values land in the query string via buildUrl, which escapes only the
+        // parameter *name* and takes the value as already-escaped. Escape here, or any
+        // value holding a space, '&', '=' or '#' produces a malformed URI. A multi-value
+        // filter joins on a literal ',' separator, so each element is escaped on its own.
         if (value instanceof List<?> list) {
-            return list.stream().map(Object::toString).collect(Collectors.joining(","));
+            return list.stream().map(item -> escapeString(item.toString())).collect(Collectors.joining(","));
         } else {
-            return value.toString();
+            return escapeString(value.toString());
         }
     }
                                                 /**

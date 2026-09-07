@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**logo** | **bytearray** | The logo file | [optional] 
+**logo** | **bytes** | The logo file | [optional] 
 
 ## Example
 

@@ -8,6 +8,7 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.ApiPatchInstanceOwnerRequest;
 import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
 import io.kestra.sdk.model.ApiTokenList;
 import io.kestra.sdk.model.CreateApiTokenRequest;
@@ -141,6 +142,22 @@ public class UsersApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    public void patchUserInstanceOwner(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull ApiPatchInstanceOwnerRequest request) throws ApiException {
+        invoke("PATCH",
+                path("users", id, "instanceowner"),
+                request, null, null,
+                null, JSON, null);
+    }
+
+    /**
+     * Targets the pre-2.0 {@code /superadmin} route, which the server still accepts.
+     *
+     * @deprecated superAdmin was renamed to instanceOwner in Kestra 2.0; use
+     *             {@link #patchUserInstanceOwner}.
+     */
+    @Deprecated
     public void patchUserSuperAdmin(
             @jakarta.annotation.Nonnull String id,
             @jakarta.annotation.Nonnull ApiPatchSuperAdminRequest request) throws ApiException {

@@ -419,7 +419,7 @@ describe('CasesApi', () => {
 
     // Enabling auto-attach makes the server write a generated system flow whose task is
     // `io.kestra.plugin.kestra.ee.cases.CreateCase`. That task ships in a downstream plugin
-    // repo, so on the `-no-plugins` image the tests run against the flow fails validation and
+    // repo, so on the `-slim` image the tests run against the flow fails validation and
     // the endpoint answers 422 "Invalid type: io.kestra.plugin.kestra.ee.cases.CreateCase".
     // Nothing the SDK can pass avoids it — unskip once the test instance ships plugin-kestra.
     it.skip('enableAutoAttach: starts auto-attaching matching executions', async () => {

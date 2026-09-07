@@ -123,7 +123,7 @@ public class AppsApiTest {
 
     @Test
     void searchApps_basic() throws ApiException {
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, null, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -146,7 +146,7 @@ public class AppsApiTest {
 
         AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -155,7 +155,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by flowId — expected app missing from results")
     void searchApps_withFlowId() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -163,7 +162,7 @@ public class AppsApiTest {
 
         AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, ns, flowId, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns), flowIdFilter(flowId)));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -172,7 +171,6 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side by 'q' — returns all apps")
     void searchApps_withQuery() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
@@ -183,8 +181,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(appId1, ns, flowId));
         api().createApp(TENANT, appYaml(appId2, ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, "Test App " + appId1, ns, null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(queryFilter("Test App " + appId1), nsFilter(ns)));
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(app ->
@@ -202,8 +199,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(appId2, ns, flowId));
         api().createApp(TENANT, appYaml(appId1, ns, flowId));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, null, ns, null, List.of("id:asc"), null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, List.of("id:asc"), List.of(nsFilter(ns)));
 
         assertThat(result.getResults()).hasSizeGreaterThanOrEqualTo(2);
         List<String> ids = result.getResults().stream().map(AppsControllerApiApp::getId).toList();
@@ -215,7 +211,7 @@ public class AppsApiTest {
 
     @Test
     void searchApps_withTags() throws ApiException {
-        PagedResultsAppsControllerApiApp all = api().searchApps(TENANT, 1, 10, null, null, null, null, null, null);
+        PagedResultsAppsControllerApiApp all = api().searchApps(TENANT, 1, 10, null, null);
 
         if (all.getResults() != null && !all.getResults().isEmpty()) {
             AppsControllerApiApp first = all.getResults().stream()
@@ -225,8 +221,7 @@ public class AppsApiTest {
             if (first != null) {
                 String tag = first.getTags().get(0);
 
-                PagedResultsAppsControllerApiApp result = api().searchApps(
-                        TENANT, 1, 10, null, null, null, null, List.of(tag), null);
+                PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(tagsFilter(List.of(tag))));
 
                 assertThat(result.getResults()).isNotEmpty();
                 assertThat(result.getResults()).allSatisfy(app ->
@@ -247,8 +242,7 @@ public class AppsApiTest {
         api().createApp(TENANT, appYaml(randomId(), ns1, flowId1));
         api().createApp(TENANT, appYaml(randomId(), ns2, flowId2));
 
-        PagedResultsAppsControllerApiApp result = api().searchApps(
-                TENANT, 1, 10, null, null, null, null, null, List.of(nsFilter(ns1)));
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter(ns1)));
 
         assertThat(result.getResults()).isNotEmpty();
         assertThat(result.getResults()).allSatisfy(app ->
@@ -270,9 +264,8 @@ public class AppsApiTest {
     }
 
     @Test
-    @Disabled("Kestra 2.0: app search no longer filters server-side — empty-result query still returns apps")
     void searchApps_noResults() throws ApiException {
-        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, "nonexistent_ns_" + randomId(), null, null, null, null);
+        PagedResultsAppsControllerApiApp result = api().searchApps(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())));
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isEmpty();

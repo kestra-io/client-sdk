@@ -24,12 +24,13 @@ import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.SLA;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import io.kestra.sdk.model.Quota;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -48,10 +49,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowInterface.JSON_PROPERTY_INPUTS,
   FlowInterface.JSON_PROPERTY_OUTPUTS,
   FlowInterface.JSON_PROPERTY_VARIABLES,
-  FlowInterface.JSON_PROPERTY_WORKER_GROUP,
+  FlowInterface.JSON_PROPERTY_WORKER_SELECTOR,
   FlowInterface.JSON_PROPERTY_CONCURRENCY,
   FlowInterface.JSON_PROPERTY_SLA,
-  FlowInterface.JSON_PROPERTY_SOURCE
+  FlowInterface.JSON_PROPERTY_SOURCE,
+  FlowInterface.JSON_PROPERTY_DRAFT,
+  FlowInterface.JSON_PROPERTY_QUOTAS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowInterface {
@@ -88,8 +91,8 @@ public class FlowInterface {
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
   @jakarta.annotation.Nullable  private Concurrency concurrency;
@@ -99,6 +102,12 @@ public class FlowInterface {
 
   public static final String JSON_PROPERTY_SOURCE = "source";
   @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nullable  private Boolean draft;
+
+  public static final String JSON_PROPERTY_QUOTAS = "quotas";
+  @jakarta.annotation.Nullable  private List<Quota> quotas;
 
   public FlowInterface() {
   }
@@ -399,28 +408,28 @@ public class FlowInterface {
     this.variables = variables;
   }
 
-  public FlowInterface workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public FlowInterface workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public FlowInterface concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
@@ -503,6 +512,62 @@ public class FlowInterface {
     this.source = source;
   }
 
+  public FlowInterface draft(@jakarta.annotation.Nullable Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDraft(@jakarta.annotation.Nullable Boolean draft) {
+    this.draft = draft;
+  }
+
+  public FlowInterface quotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    
+    this.quotas = quotas;
+    return this;
+  }
+
+  public FlowInterface addQuotasItem(Quota quotasItem) {
+    if (this.quotas == null) {
+      this.quotas = new ArrayList<>();
+    }
+    this.quotas.add(quotasItem);
+    return this;
+  }
+
+  /**
+   * Get quotas
+   * @return quotas
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Quota> getQuotas() {
+    return quotas;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUOTAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQuotas(@jakarta.annotation.Nullable List<Quota> quotas) {
+    this.quotas = quotas;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -523,15 +588,17 @@ public class FlowInterface {
         Objects.equals(this.inputs, flowInterface.inputs) &&
         Objects.equals(this.outputs, flowInterface.outputs) &&
         Objects.equals(this.variables, flowInterface.variables) &&
-        Objects.equals(this.workerGroup, flowInterface.workerGroup) &&
+        Objects.equals(this.workerSelector, flowInterface.workerSelector) &&
         Objects.equals(this.concurrency, flowInterface.concurrency) &&
         Objects.equals(this.sla, flowInterface.sla) &&
-        Objects.equals(this.source, flowInterface.source);
+        Objects.equals(this.source, flowInterface.source) &&
+        Objects.equals(this.draft, flowInterface.draft) &&
+        Objects.equals(this.quotas, flowInterface.quotas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, tenantId, deleted, description, disabled, labels, inputs, outputs, variables, workerGroup, concurrency, sla, source);
+    return Objects.hash(id, namespace, revision, tenantId, deleted, description, disabled, labels, inputs, outputs, variables, workerSelector, concurrency, sla, source, draft, quotas);
   }
 
   @Override
@@ -549,10 +616,12 @@ public class FlowInterface {
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("    quotas: ").append(toIndentedString(quotas)).append("\n");
     sb.append("}");
     return sb.toString();
   }

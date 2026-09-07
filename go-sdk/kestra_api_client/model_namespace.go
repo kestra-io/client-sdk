@@ -21,23 +21,24 @@ var _ MappedNullable = &Namespace{}
 // Namespace struct for Namespace
 type Namespace struct {
 	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	// Deprecated
-	AllowedTriggers []NamespaceAllowedTrigger `json:"allowedTriggers,omitempty"`
 	StorageIsolation *Isolation `json:"storageIsolation,omitempty"`
 	SecretIsolation *Isolation `json:"secretIsolation,omitempty"`
 	Deleted bool `json:"deleted"`
 	Description *string `json:"description,omitempty"`
 	Variables map[string]interface{} `json:"variables,omitempty"`
-	PluginDefaults []PluginDefault `json:"pluginDefaults,omitempty"`
 	AllowedNamespaces []NamespaceAllowedNamespace `json:"allowedNamespaces,omitempty"`
-	WorkerGroup *WorkerGroup `json:"workerGroup,omitempty"`
+	DefaultWorkerSelector *WorkerSelector `json:"defaultWorkerSelector,omitempty"`
+	// The concurrency limit applying to the executions of every flow inside this namespace and its descendants.
+	Concurrency *Concurrency `json:"concurrency,omitempty"`
 	StorageType *string `json:"storageType,omitempty"`
 	StorageConfiguration map[string]interface{} `json:"storageConfiguration,omitempty"`
 	SecretType *string `json:"secretType,omitempty"`
 	SecretReadOnly *bool `json:"secretReadOnly,omitempty"`
 	SecretConfiguration map[string]interface{} `json:"secretConfiguration,omitempty"`
+	WorkerSecretManagerMode *SecretConfigurationWorkerSecretManagerMode `json:"workerSecretManagerMode,omitempty"`
 	OutputsInInternalStorage *bool `json:"outputsInInternalStorage,omitempty"`
 	SdkDefaultAuthentication *SDKAuth `json:"sdkDefaultAuthentication,omitempty"`
+	Quotas []Quota `json:"quotas,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -84,41 +85,6 @@ func (o *Namespace) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *Namespace) SetId(v string) {
 	o.Id = v
-}
-
-// GetAllowedTriggers returns the AllowedTriggers field value if set, zero value otherwise.
-// Deprecated
-func (o *Namespace) GetAllowedTriggers() []NamespaceAllowedTrigger {
-	if o == nil || IsNil(o.AllowedTriggers) {
-		var ret []NamespaceAllowedTrigger
-		return ret
-	}
-	return o.AllowedTriggers
-}
-
-// GetAllowedTriggersOk returns a tuple with the AllowedTriggers field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *Namespace) GetAllowedTriggersOk() ([]NamespaceAllowedTrigger, bool) {
-	if o == nil || IsNil(o.AllowedTriggers) {
-		return nil, false
-	}
-	return o.AllowedTriggers, true
-}
-
-// HasAllowedTriggers returns a boolean if a field has been set.
-func (o *Namespace) HasAllowedTriggers() bool {
-	if o != nil && !IsNil(o.AllowedTriggers) {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowedTriggers gets a reference to the given []NamespaceAllowedTrigger and assigns it to the AllowedTriggers field.
-// Deprecated
-func (o *Namespace) SetAllowedTriggers(v []NamespaceAllowedTrigger) {
-	o.AllowedTriggers = v
 }
 
 // GetStorageIsolation returns the StorageIsolation field value if set, zero value otherwise.
@@ -273,38 +239,6 @@ func (o *Namespace) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetPluginDefaults returns the PluginDefaults field value if set, zero value otherwise.
-func (o *Namespace) GetPluginDefaults() []PluginDefault {
-	if o == nil || IsNil(o.PluginDefaults) {
-		var ret []PluginDefault
-		return ret
-	}
-	return o.PluginDefaults
-}
-
-// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Namespace) GetPluginDefaultsOk() ([]PluginDefault, bool) {
-	if o == nil || IsNil(o.PluginDefaults) {
-		return nil, false
-	}
-	return o.PluginDefaults, true
-}
-
-// HasPluginDefaults returns a boolean if a field has been set.
-func (o *Namespace) HasPluginDefaults() bool {
-	if o != nil && !IsNil(o.PluginDefaults) {
-		return true
-	}
-
-	return false
-}
-
-// SetPluginDefaults gets a reference to the given []PluginDefault and assigns it to the PluginDefaults field.
-func (o *Namespace) SetPluginDefaults(v []PluginDefault) {
-	o.PluginDefaults = v
-}
-
 // GetAllowedNamespaces returns the AllowedNamespaces field value if set, zero value otherwise.
 func (o *Namespace) GetAllowedNamespaces() []NamespaceAllowedNamespace {
 	if o == nil || IsNil(o.AllowedNamespaces) {
@@ -337,36 +271,68 @@ func (o *Namespace) SetAllowedNamespaces(v []NamespaceAllowedNamespace) {
 	o.AllowedNamespaces = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
-func (o *Namespace) GetWorkerGroup() WorkerGroup {
-	if o == nil || IsNil(o.WorkerGroup) {
-		var ret WorkerGroup
+// GetDefaultWorkerSelector returns the DefaultWorkerSelector field value if set, zero value otherwise.
+func (o *Namespace) GetDefaultWorkerSelector() WorkerSelector {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
+		var ret WorkerSelector
 		return ret
 	}
-	return *o.WorkerGroup
+	return *o.DefaultWorkerSelector
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// GetDefaultWorkerSelectorOk returns a tuple with the DefaultWorkerSelector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Namespace) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil || IsNil(o.WorkerGroup) {
+func (o *Namespace) GetDefaultWorkerSelectorOk() (*WorkerSelector, bool) {
+	if o == nil || IsNil(o.DefaultWorkerSelector) {
 		return nil, false
 	}
-	return o.WorkerGroup, true
+	return o.DefaultWorkerSelector, true
 }
 
-// HasWorkerGroup returns a boolean if a field has been set.
-func (o *Namespace) HasWorkerGroup() bool {
-	if o != nil && !IsNil(o.WorkerGroup) {
+// HasDefaultWorkerSelector returns a boolean if a field has been set.
+func (o *Namespace) HasDefaultWorkerSelector() bool {
+	if o != nil && !IsNil(o.DefaultWorkerSelector) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
-func (o *Namespace) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = &v
+// SetDefaultWorkerSelector gets a reference to the given WorkerSelector and assigns it to the DefaultWorkerSelector field.
+func (o *Namespace) SetDefaultWorkerSelector(v WorkerSelector) {
+	o.DefaultWorkerSelector = &v
+}
+
+// GetConcurrency returns the Concurrency field value if set, zero value otherwise.
+func (o *Namespace) GetConcurrency() Concurrency {
+	if o == nil || IsNil(o.Concurrency) {
+		var ret Concurrency
+		return ret
+	}
+	return *o.Concurrency
+}
+
+// GetConcurrencyOk returns a tuple with the Concurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetConcurrencyOk() (*Concurrency, bool) {
+	if o == nil || IsNil(o.Concurrency) {
+		return nil, false
+	}
+	return o.Concurrency, true
+}
+
+// HasConcurrency returns a boolean if a field has been set.
+func (o *Namespace) HasConcurrency() bool {
+	if o != nil && !IsNil(o.Concurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetConcurrency gets a reference to the given Concurrency and assigns it to the Concurrency field.
+func (o *Namespace) SetConcurrency(v Concurrency) {
+	o.Concurrency = &v
 }
 
 // GetStorageType returns the StorageType field value if set, zero value otherwise.
@@ -529,6 +495,38 @@ func (o *Namespace) SetSecretConfiguration(v map[string]interface{}) {
 	o.SecretConfiguration = v
 }
 
+// GetWorkerSecretManagerMode returns the WorkerSecretManagerMode field value if set, zero value otherwise.
+func (o *Namespace) GetWorkerSecretManagerMode() SecretConfigurationWorkerSecretManagerMode {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		var ret SecretConfigurationWorkerSecretManagerMode
+		return ret
+	}
+	return *o.WorkerSecretManagerMode
+}
+
+// GetWorkerSecretManagerModeOk returns a tuple with the WorkerSecretManagerMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetWorkerSecretManagerModeOk() (*SecretConfigurationWorkerSecretManagerMode, bool) {
+	if o == nil || IsNil(o.WorkerSecretManagerMode) {
+		return nil, false
+	}
+	return o.WorkerSecretManagerMode, true
+}
+
+// HasWorkerSecretManagerMode returns a boolean if a field has been set.
+func (o *Namespace) HasWorkerSecretManagerMode() bool {
+	if o != nil && !IsNil(o.WorkerSecretManagerMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerSecretManagerMode gets a reference to the given SecretConfigurationWorkerSecretManagerMode and assigns it to the WorkerSecretManagerMode field.
+func (o *Namespace) SetWorkerSecretManagerMode(v SecretConfigurationWorkerSecretManagerMode) {
+	o.WorkerSecretManagerMode = &v
+}
+
 // GetOutputsInInternalStorage returns the OutputsInInternalStorage field value if set, zero value otherwise.
 func (o *Namespace) GetOutputsInInternalStorage() bool {
 	if o == nil || IsNil(o.OutputsInInternalStorage) {
@@ -593,6 +591,38 @@ func (o *Namespace) SetSdkDefaultAuthentication(v SDKAuth) {
 	o.SdkDefaultAuthentication = &v
 }
 
+// GetQuotas returns the Quotas field value if set, zero value otherwise.
+func (o *Namespace) GetQuotas() []Quota {
+	if o == nil || IsNil(o.Quotas) {
+		var ret []Quota
+		return ret
+	}
+	return o.Quotas
+}
+
+// GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Namespace) GetQuotasOk() ([]Quota, bool) {
+	if o == nil || IsNil(o.Quotas) {
+		return nil, false
+	}
+	return o.Quotas, true
+}
+
+// HasQuotas returns a boolean if a field has been set.
+func (o *Namespace) HasQuotas() bool {
+	if o != nil && !IsNil(o.Quotas) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuotas gets a reference to the given []Quota and assigns it to the Quotas field.
+func (o *Namespace) SetQuotas(v []Quota) {
+	o.Quotas = v
+}
+
 func (o Namespace) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -604,9 +634,6 @@ func (o Namespace) MarshalJSON() ([]byte, error) {
 func (o Namespace) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	if !IsNil(o.AllowedTriggers) {
-		toSerialize["allowedTriggers"] = o.AllowedTriggers
-	}
 	if !IsNil(o.StorageIsolation) {
 		toSerialize["storageIsolation"] = o.StorageIsolation
 	}
@@ -620,14 +647,14 @@ func (o Namespace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.PluginDefaults) {
-		toSerialize["pluginDefaults"] = o.PluginDefaults
-	}
 	if !IsNil(o.AllowedNamespaces) {
 		toSerialize["allowedNamespaces"] = o.AllowedNamespaces
 	}
-	if !IsNil(o.WorkerGroup) {
-		toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.DefaultWorkerSelector) {
+		toSerialize["defaultWorkerSelector"] = o.DefaultWorkerSelector
+	}
+	if !IsNil(o.Concurrency) {
+		toSerialize["concurrency"] = o.Concurrency
 	}
 	if !IsNil(o.StorageType) {
 		toSerialize["storageType"] = o.StorageType
@@ -644,11 +671,17 @@ func (o Namespace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecretConfiguration) {
 		toSerialize["secretConfiguration"] = o.SecretConfiguration
 	}
+	if !IsNil(o.WorkerSecretManagerMode) {
+		toSerialize["workerSecretManagerMode"] = o.WorkerSecretManagerMode
+	}
 	if !IsNil(o.OutputsInInternalStorage) {
 		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
 	}
 	if !IsNil(o.SdkDefaultAuthentication) {
 		toSerialize["sdkDefaultAuthentication"] = o.SdkDefaultAuthentication
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -695,22 +728,23 @@ func (o *Namespace) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "allowedTriggers")
 		delete(additionalProperties, "storageIsolation")
 		delete(additionalProperties, "secretIsolation")
 		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "variables")
-		delete(additionalProperties, "pluginDefaults")
 		delete(additionalProperties, "allowedNamespaces")
-		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "defaultWorkerSelector")
+		delete(additionalProperties, "concurrency")
 		delete(additionalProperties, "storageType")
 		delete(additionalProperties, "storageConfiguration")
 		delete(additionalProperties, "secretType")
 		delete(additionalProperties, "secretReadOnly")
 		delete(additionalProperties, "secretConfiguration")
+		delete(additionalProperties, "workerSecretManagerMode")
 		delete(additionalProperties, "outputsInInternalStorage")
 		delete(additionalProperties, "sdkDefaultAuthentication")
+		delete(additionalProperties, "quotas")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -752,5 +786,3 @@ func (v *NullableNamespace) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

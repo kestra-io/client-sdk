@@ -10,14 +10,14 @@ Method | HTTP request | Description
 [**delete_api_token_for_user**](UsersApi.md#delete_api_token_for_user) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 [**delete_refresh_token**](UsersApi.md#delete_refresh_token) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 [**delete_user**](UsersApi.md#delete_user) | **DELETE** /api/v1/users/{id} | Delete a user
-[**delete_user_auth_method**](UsersApi.md#delete_user_auth_method) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-[**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
+[**delete_user_auth_method**](UsersApi.md#delete_user_auth_method) | **DELETE** /api/v1/users/{id}/auths/{auth} | Delete user auth method
 [**list_api_tokens_for_user**](UsersApi.md#list_api_tokens_for_user) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 [**list_users**](UsersApi.md#list_users) | **GET** /api/v1/users | Retrieve users
 [**patch_user**](UsersApi.md#patch_user) | **PATCH** /api/v1/users/{id} | Update user details
 [**patch_user_demo**](UsersApi.md#patch_user_demo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
+[**patch_user_instance_owner**](UsersApi.md#patch_user_instance_owner) | **PATCH** /api/v1/users/{id}/instanceowner | Update user instance-owner privileges
+[**patch_user_instance_owner_legacy**](UsersApi.md#patch_user_instance_owner_legacy) | **PATCH** /api/v1/users/{id}/superadmin | Update user instance-owner privileges (deprecated)
 [**patch_user_password**](UsersApi.md#patch_user_password) | **PATCH** /api/v1/users/{id}/password | Update user password
-[**patch_user_super_admin**](UsersApi.md#patch_user_super_admin) | **PATCH** /api/v1/users/{id}/superadmin | Update user superadmin privileges
 [**update_current_user_password**](UsersApi.md#update_current_user_password) | **PUT** /api/v1/me/password | Update authenticated user password
 [**update_user**](UsersApi.md#update_user) | **PUT** /api/v1/users/{id} | Update a user account
 [**update_user_groups**](UsersApi.md#update_user_groups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
@@ -36,7 +36,6 @@ List users for autocomplete
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -51,7 +50,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List users for autocomplete
-        api_response = kestra_client.users.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+        api_response = kestra_client.UsersApi.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
         print("The response of UsersApi->autocomplete_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -94,7 +93,7 @@ Name | Type | Description  | Notes
 
 Create new API Token for a specific user
 
-Superadmin-only. Create a new API token for a user.
+Instance-owner-only. Create a new API token for a user.
 
 ### Example
 
@@ -103,7 +102,6 @@ Superadmin-only. Create a new API token for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -118,7 +116,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific user
-        api_response = kestra_client.users.create_api_tokens_for_user(id, create_api_token_request)
+        api_response = kestra_client.UsersApi.create_api_tokens_for_user(id, create_api_token_request)
         print("The response of UsersApi->create_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -162,7 +160,7 @@ Name | Type | Description  | Notes
 
 Create a new user account
 
-Superadmin-only. Create a new user account with an optional password based authentication method.
+Instance-owner-only. Create a new user account with an optional password based authentication method.
 
 ### Example
 
@@ -171,7 +169,6 @@ Superadmin-only. Create a new user account with an optional password based authe
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -185,7 +182,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new user account
-        api_response = kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.UsersApi.create_user(iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->create_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -228,7 +225,7 @@ Name | Type | Description  | Notes
 
 Delete an API Token for specific user and token id
 
-Superadmin-only. Delete an API token for a user.
+Instance-owner-only. Delete an API token for a user.
 
 ### Example
 
@@ -237,7 +234,6 @@ Superadmin-only. Delete an API token for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -252,7 +248,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific user and token id
-        kestra_client.users.delete_api_token_for_user(id, token_id)
+        kestra_client.UsersApi.delete_api_token_for_user(id, token_id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_api_token_for_user: %s\n" % e)
 ```
@@ -301,7 +297,6 @@ Delete a user refresh token
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -315,7 +310,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user refresh token
-        kestra_client.users.delete_refresh_token(id)
+        kestra_client.UsersApi.delete_refresh_token(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_refresh_token: %s\n" % e)
 ```
@@ -356,7 +351,7 @@ void (empty response body)
 
 Delete a user
 
-Superadmin-only. Delete a user including all its access.
+Instance-owner-only. Delete a user including all its access.
 
 ### Example
 
@@ -365,7 +360,6 @@ Superadmin-only. Delete a user including all its access.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -379,7 +373,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user
-        kestra_client.users.delete_user(id)
+        kestra_client.UsersApi.delete_user(id)
     except Exception as e:
         print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
@@ -418,9 +412,9 @@ void (empty response body)
 # **delete_user_auth_method**
 > IAMUserControllerApiUser delete_user_auth_method(id, auth)
 
-Update user password
+Delete user auth method
 
-Superadmin-only. Updates whether a user is a superadmin.
+Instance-owner-only. Deletes a specific authentication method from a user.
 
 ### Example
 
@@ -429,7 +423,6 @@ Superadmin-only. Updates whether a user is a superadmin.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -443,8 +436,8 @@ with KestraClient(configuration) as kestra_client:
     auth = 'auth_example' # str | The user auth method id
 
     try:
-        # Update user password
-        api_response = kestra_client.users.delete_user_auth_method(id, auth)
+        # Delete user auth method
+        api_response = kestra_client.UsersApi.delete_user_auth_method(id, auth)
         print("The response of UsersApi->delete_user_auth_method:\n")
         pprint(api_response)
     except Exception as e:
@@ -483,78 +476,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **impersonate**
-> object impersonate(id)
-
-Impersonate a user
-
-Superadmin-only. Allows an admin to impersonate another user.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-from pprint import pprint
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-
-    try:
-        # Impersonate a user
-        api_response = kestra_client.users.impersonate(id)
-        print("The response of UsersApi->impersonate:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling UsersApi->impersonate: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
-
-### Return type
-
-**object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | impersonate 200 response |  -  |
-**404** | User not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **list_api_tokens_for_user**
 > ApiTokenList list_api_tokens_for_user(id)
 
 List API tokens for a specific user
 
-Superadmin-only. Get all API token existing for a user.
+Instance-owner-only. Get all API token existing for a user.
 
 ### Example
 
@@ -563,7 +490,6 @@ Superadmin-only. Get all API token existing for a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -577,7 +503,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific user
-        api_response = kestra_client.users.list_api_tokens_for_user(id)
+        api_response = kestra_client.UsersApi.list_api_tokens_for_user(id)
         print("The response of UsersApi->list_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -616,7 +542,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> PagedResultsIAMUserControllerApiUserSummary list_users(page, size, sort=sort, filters=filters)
+> PagedResultsIAMUserControllerApiUserSummary list_users(page=page, size=size, sort=sort, filters=filters)
 
 Retrieve users
 
@@ -627,7 +553,6 @@ Retrieve users
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -637,14 +562,14 @@ configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
 with KestraClient(configuration) as kestra_client:
-    page = 1 # int | The current page (default to 1)
-    size = 10 # int | The current page size (default to 10)
-    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters
+    page = 1 # int | The current page (optional) (default to 1)
+    size = 10 # int | The current page size (optional) (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Retrieve users
-        api_response = kestra_client.users.list_users(page, size, sort=sort, filters=filters)
+        api_response = kestra_client.UsersApi.list_users(page=page, size=size, sort=sort, filters=filters)
         print("The response of UsersApi->list_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -658,10 +583,10 @@ with KestraClient(configuration) as kestra_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The current page | [default to 1]
- **size** | **int**| The current page size | [default to 10]
- **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | 
+ **page** | **int**| The current page | [optional] [default to 1]
+ **size** | **int**| The current page size | [optional] [default to 10]
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -689,7 +614,7 @@ Name | Type | Description  | Notes
 
 Update user details
 
-Superadmin-only. Updates the the details of a user.
+Instance-owner-only. Updates the the details of a user.
 
 ### Example
 
@@ -698,7 +623,6 @@ Superadmin-only. Updates the the details of a user.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -713,7 +637,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user details
-        api_response = kestra_client.users.patch_user(id, me_controller_api_user_details_request)
+        api_response = kestra_client.UsersApi.patch_user(id, me_controller_api_user_details_request)
         print("The response of UsersApi->patch_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -756,7 +680,7 @@ Name | Type | Description  | Notes
 
 Update user demo
 
-Superadmin-only. Updates whether a user is for demo.
+Instance-owner-only. Updates whether a user is for demo.
 
 ### Example
 
@@ -765,7 +689,6 @@ Superadmin-only. Updates whether a user is for demo.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -780,7 +703,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user demo
-        kestra_client.users.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+        kestra_client.UsersApi.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
     except Exception as e:
         print("Exception when calling UsersApi->patch_user_demo: %s\n" % e)
 ```
@@ -817,12 +740,12 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **patch_user_password**
-> IAMUserControllerApiUser patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+# **patch_user_instance_owner**
+> patch_user_instance_owner(id, api_patch_instance_owner_request)
 
-Update user password
+Update user instance-owner privileges
 
-Superadmin-only. Updates whether a user is a superadmin.
+Instance-owner-only. Updates whether a user is an instance owner.
 
 ### Example
 
@@ -831,7 +754,136 @@ Superadmin-only. Updates whether a user is a superadmin.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The user id
+    api_patch_instance_owner_request = kestrapy.ApiPatchInstanceOwnerRequest() # ApiPatchInstanceOwnerRequest | 
+
+    try:
+        # Update user instance-owner privileges
+        kestra_client.UsersApi.patch_user_instance_owner(id, api_patch_instance_owner_request)
+    except Exception as e:
+        print("Exception when calling UsersApi->patch_user_instance_owner: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **api_patch_instance_owner_request** | [**ApiPatchInstanceOwnerRequest**](ApiPatchInstanceOwnerRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | User successfully updated |  -  |
+**404** | User not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_user_instance_owner_legacy**
+> patch_user_instance_owner_legacy(id, api_patch_super_admin_request)
+
+Update user instance-owner privileges (deprecated)
+
+Deprecated: use PATCH {id}/instanceowner instead.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The user id
+    api_patch_super_admin_request = kestrapy.ApiPatchSuperAdminRequest() # ApiPatchSuperAdminRequest | 
+
+    try:
+        # Update user instance-owner privileges (deprecated)
+        kestra_client.UsersApi.patch_user_instance_owner_legacy(id, api_patch_super_admin_request)
+    except Exception as e:
+        print("Exception when calling UsersApi->patch_user_instance_owner_legacy: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **api_patch_super_admin_request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | User successfully updated |  -  |
+**404** | User not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_user_password**
+> IAMUserControllerApiUser patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+
+Update user password
+
+Instance-owner-only. Updates the password of a user.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
 
 configuration = Configuration()
 
@@ -846,7 +898,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.users.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+        api_response = kestra_client.UsersApi.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
         print("The response of UsersApi->patch_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -885,72 +937,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **patch_user_super_admin**
-> patch_user_super_admin(id, api_patch_super_admin_request)
-
-Update user superadmin privileges
-
-Superadmin-only. Updates whether a user is a superadmin.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-from pprint import pprint
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-    api_patch_super_admin_request = kestrapy.ApiPatchSuperAdminRequest() # ApiPatchSuperAdminRequest | 
-
-    try:
-        # Update user superadmin privileges
-        kestra_client.users.patch_user_super_admin(id, api_patch_super_admin_request)
-    except Exception as e:
-        print("Exception when calling UsersApi->patch_user_super_admin: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
- **api_patch_super_admin_request** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | User successfully updated |  -  |
-**404** | User not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **update_current_user_password**
 > object update_current_user_password(me_controller_api_update_password_request)
 
@@ -965,7 +951,6 @@ Changes the login password for the authenticated user.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -979,7 +964,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update authenticated user password
-        api_response = kestra_client.users.update_current_user_password(me_controller_api_update_password_request)
+        api_response = kestra_client.UsersApi.update_current_user_password(me_controller_api_update_password_request)
         print("The response of UsersApi->update_current_user_password:\n")
         pprint(api_response)
     except Exception as e:
@@ -1021,7 +1006,7 @@ Name | Type | Description  | Notes
 
 Update a user account
 
-Superadmin-only. Update an existing user account with an optional password based authentication method.
+Instance-owner-only. Update an existing user account with an optional password based authentication method.
 
 ### Example
 
@@ -1030,7 +1015,6 @@ Superadmin-only. Update an existing user account with an optional password based
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -1045,7 +1029,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user account
-        api_response = kestra_client.users.update_user(id, iam_user_controller_api_create_or_update_user_request)
+        api_response = kestra_client.UsersApi.update_user(id, iam_user_controller_api_create_or_update_user_request)
         print("The response of UsersApi->update_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -1096,7 +1080,6 @@ Update the list of groups a user belongs to for the given tenant
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -1112,7 +1095,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update the list of groups a user belongs to for the given tenant
-        kestra_client.users.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+        kestra_client.UsersApi.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
     except Exception as e:
         print("Exception when calling UsersApi->update_user_groups: %s\n" % e)
 ```
@@ -1156,7 +1139,7 @@ void (empty response body)
 
 Get a user
 
-Superadmin-only. Get user account details.
+Instance-owner-only. Get user account details.
 
 ### Example
 
@@ -1165,7 +1148,6 @@ Superadmin-only. Get user account details.
 
 ```python
 from kestrapy import KestraClient, Configuration
-from pprint import pprint
 
 configuration = Configuration()
 
@@ -1179,7 +1161,7 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a user
-        api_response = kestra_client.users.user(id)
+        api_response = kestra_client.UsersApi.user(id)
         print("The response of UsersApi->user:\n")
         pprint(api_response)
     except Exception as e:

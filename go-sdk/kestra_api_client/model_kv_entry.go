@@ -22,7 +22,7 @@ var _ MappedNullable = &KVEntry{}
 type KVEntry struct {
 	Namespace *string `json:"namespace,omitempty"`
 	Key *string `json:"key,omitempty"`
-	Version *int32 `json:"version,omitempty"`
+	Revision *int32 `json:"revision,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	CreationDate *time.Time `json:"creationDate,omitempty"`
 	UpdateDate *time.Time `json:"updateDate,omitempty"`
@@ -113,36 +113,36 @@ func (o *KVEntry) SetKey(v string) {
 	o.Key = &v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *KVEntry) GetVersion() int32 {
-	if o == nil || IsNil(o.Version) {
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *KVEntry) GetRevision() int32 {
+	if o == nil || IsNil(o.Revision) {
 		var ret int32
 		return ret
 	}
-	return *o.Version
+	return *o.Revision
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KVEntry) GetVersionOk() (*int32, bool) {
-	if o == nil || IsNil(o.Version) {
+func (o *KVEntry) GetRevisionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Revision) {
 		return nil, false
 	}
-	return o.Version, true
+	return o.Revision, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *KVEntry) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
+// HasRevision returns a boolean if a field has been set.
+func (o *KVEntry) HasRevision() bool {
+	if o != nil && !IsNil(o.Revision) {
 		return true
 	}
 
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *KVEntry) SetVersion(v int32) {
-	o.Version = &v
+// SetRevision gets a reference to the given int32 and assigns it to the Revision field.
+func (o *KVEntry) SetRevision(v int32) {
+	o.Revision = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -309,8 +309,8 @@ func (o KVEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
+	if !IsNil(o.Revision) {
+		toSerialize["revision"] = o.Revision
 	}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
@@ -348,7 +348,7 @@ func (o *KVEntry) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "key")
-		delete(additionalProperties, "version")
+		delete(additionalProperties, "revision")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "creationDate")
 		delete(additionalProperties, "updateDate")

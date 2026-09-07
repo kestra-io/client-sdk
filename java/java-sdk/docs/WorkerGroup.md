@@ -2,6 +2,9 @@
 
 # WorkerGroup
 
+> **Deprecated.** Kestra 2.0 replaced worker groups with worker selectors. Use [WorkerSelector](WorkerSelector.md).
+
+
 
 ## Properties
 

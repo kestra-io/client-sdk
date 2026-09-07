@@ -5,7 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | 
+**var_field** | **str** |  | 
+**operator** | [**AbstractFilterFilterType**](AbstractFilterFilterType.md) |  | 
+**value** | **object** |  | [optional] 
 
 ## Example
 

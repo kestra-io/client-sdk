@@ -12,6 +12,8 @@ describe('UsersApi', () => {
         // create user
         const createdUser = await Users.createUser({
             email,
+            // 2.0: adding a user to a group no longer auto-grants tenant access
+            tenants: [tenantId],
         });
 
         // create group to grant tenant access, then add user to group

@@ -3,69 +3,117 @@
 
 ## Enum
 
-* `QUERY` (value: `'QUERY'`)
+* `QUERY` (value: `'q'`)
 
-* `SCOPE` (value: `'SCOPE'`)
+* `SCOPE` (value: `'scope'`)
 
-* `NAMESPACE` (value: `'NAMESPACE'`)
+* `NAMESPACE` (value: `'namespace'`)
 
-* `KIND` (value: `'KIND'`)
+* `KIND` (value: `'kind'`)
 
-* `LABELS` (value: `'LABELS'`)
+* `POLICY_SCOPE` (value: `'POLICY_SCOPE'`)
 
-* `METADATA` (value: `'METADATA'`)
+* `ENFORCEMENT` (value: `'ENFORCEMENT'`)
 
-* `FLOW_ID` (value: `'FLOW_ID'`)
+* `LABELS` (value: `'labels'`)
 
-* `FLOW_REVISION` (value: `'FLOW_REVISION'`)
+* `TAGS` (value: `'tags'`)
 
-* `ID` (value: `'ID'`)
+* `METADATA` (value: `'metadata'`)
 
-* `ASSET_ID` (value: `'ASSET_ID'`)
+* `FLOW_ID` (value: `'flowId'`)
 
-* `TYPE` (value: `'TYPE'`)
+* `FLOW_REVISION` (value: `'flowRevision'`)
 
-* `CREATED` (value: `'CREATED'`)
+* `ID` (value: `'id'`)
 
-* `UPDATED` (value: `'UPDATED'`)
+* `ASSET_ID` (value: `'assetId'`)
 
-* `START_DATE` (value: `'START_DATE'`)
+* `TYPE` (value: `'type'`)
 
-* `END_DATE` (value: `'END_DATE'`)
+* `ACTION` (value: `'action'`)
 
-* `EXPIRATION_DATE` (value: `'EXPIRATION_DATE'`)
+* `CREATED` (value: `'created'`)
 
-* `STATE` (value: `'STATE'`)
+* `UPDATED` (value: `'updated'`)
 
-* `TIME_RANGE` (value: `'TIME_RANGE'`)
+* `START_DATE` (value: `'startDate'`)
 
-* `TRIGGER_EXECUTION_ID` (value: `'TRIGGER_EXECUTION_ID'`)
+* `END_DATE` (value: `'endDate'`)
 
-* `TRIGGER_ID` (value: `'TRIGGER_ID'`)
+* `EXPIRATION_DATE` (value: `'expirationDate'`)
 
-* `TRIGGER_STATE` (value: `'TRIGGER_STATE'`)
+* `STATE` (value: `'state'`)
 
-* `EXECUTION_ID` (value: `'EXECUTION_ID'`)
+* `STATUS` (value: `'status'`)
 
-* `TASK_ID` (value: `'TASK_ID'`)
+* `SEVERITY` (value: `'SEVERITY'`)
 
-* `TASK_RUN_ID` (value: `'TASK_RUN_ID'`)
+* `ASSIGNEE` (value: `'ASSIGNEE'`)
 
-* `CHILD_FILTER` (value: `'CHILD_FILTER'`)
+* `EMAIL` (value: `'email'`)
 
-* `WORKER_ID` (value: `'WORKER_ID'`)
+* `TIME_RANGE` (value: `'timeRange'`)
 
-* `EXISTING_ONLY` (value: `'EXISTING_ONLY'`)
+* `PARENT_ID` (value: `'parentId'`)
 
-* `MIN_LEVEL` (value: `'MIN_LEVEL'`)
+* `TRIGGER_EXECUTION_ID` (value: `'triggerExecutionId'`)
 
-* `PATH` (value: `'PATH'`)
+* `TRIGGER_ID` (value: `'triggerId'`)
 
-* `PARENT_PATH` (value: `'PARENT_PATH'`)
+* `TRIGGER_STATE` (value: `'triggerState'`)
 
-* `VERSION` (value: `'VERSION'`)
+* `EXECUTION_ID` (value: `'executionId'`)
 
-* `USERNAME` (value: `'USERNAME'`)
+* `TASK_ID` (value: `'taskId'`)
+
+* `TASK_RUN_ID` (value: `'taskRunId'`)
+
+* `ATTEMPT_NUMBER` (value: `'attemptNumber'`)
+
+* `CHILD_FILTER` (value: `'childFilter'`)
+
+* `WORKER_ID` (value: `'workerId'`)
+
+* `EXISTING_ONLY` (value: `'existingOnly'`)
+
+* `USER_ID` (value: `'userId'`)
+
+* `RESOURCES` (value: `'resources'`)
+
+* `DETAILS` (value: `'details'`)
+
+* `LEVEL` (value: `'level'`)
+
+* `PATH` (value: `'path'`)
+
+* `PARENT_PATH` (value: `'parentPath'`)
+
+* `VERSION` (value: `'version'`)
+
+* `ENABLED` (value: `'enabled'`)
+
+* `USERNAME` (value: `'username'`)
+
+* `NAME` (value: `'name'`)
+
+* `GROUP` (value: `'groupList'`)
+
+* `EXTERNAL_ID` (value: `'external_id'`)
+
+* `EXPIRED_AT` (value: `'expired_at'`)
+
+* `INSTANCE_OWNER` (value: `'instance_owner'`)
+
+* `SOURCE` (value: `'source'`)
+
+* `LOCKED` (value: `'locked'`)
+
+* `LAST_TRIGGERED_DATE` (value: `'lastTriggeredDate'`)
+
+* `NEXT_EXECUTION_DATE` (value: `'nextExecutionDate'`)
+
+* `ARTIFACT_ID` (value: `'artifactId'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

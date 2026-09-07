@@ -25,6 +25,12 @@
 
 * `CONTAINS` (value: `'CONTAINS'`)
 
+* `NOT_CONTAINS` (value: `'NOT_CONTAINS'`)
+
+* `IS_NULL` (value: `'IS_NULL'`)
+
+* `IS_NOT_NULL` (value: `'IS_NOT_NULL'`)
+
 * `REGEX` (value: `'REGEX'`)
 
 * `PREFIX` (value: `'PREFIX'`)

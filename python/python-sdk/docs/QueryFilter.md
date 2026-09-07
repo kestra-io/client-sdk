@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **var_field** | [**QueryFilterField**](QueryFilterField.md) |  | [optional] 
 **operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | [optional] 
 **value** | **object** |  | [optional] 
+**logical** | [**QueryFilterLogical**](QueryFilterLogical.md) |  | [optional] 
+**children** | [**List[QueryFilter]**](QueryFilter.md) |  | [optional] 
 
 ## Example
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,6 +29,50 @@ func TestNamespacesAPI_All(t *testing.T) {
 			}
 		}
 		require.True(t, found, "autocomplete should include the created namespace id")
+	})
+
+	// Namespace-level concurrency limits and quotas are Kestra 2.0 features; the
+	// Go models predated them, so a limit set through the SDK used to be dropped
+	// on the way out and never read back.
+	t.Run("namespaceConcurrencyAndQuotasTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_namespace_concurrency_" + randomId()
+		ns := kestra_api_client.Namespace{
+			Id:      nsId,
+			Deleted: false,
+			Concurrency: &kestra_api_client.Concurrency{
+				Limit:    3,
+				Behavior: kestra_api_client.CONCURRENCYBEHAVIOR_QUEUE,
+			},
+			Quotas: []kestra_api_client.Quota{{
+				Duration: "PT1H",
+				Limit:    10,
+				Behavior: kestra_api_client.QUOTABEHAVIOR_FAIL,
+			}},
+		}
+
+		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
+		require.NoError(t, err)
+		require.Equal(t, int32(3), created.GetConcurrency().Limit)
+		require.Equal(t, kestra_api_client.CONCURRENCYBEHAVIOR_QUEUE, created.GetConcurrency().Behavior)
+		require.Len(t, created.GetQuotas(), 1)
+		require.Equal(t, int64(10), created.GetQuotas()[0].Limit)
+
+		read, err := KestraTestClient().Namespaces().Namespace(ctx, nsId, MAIN_TENANT)
+		require.NoError(t, err)
+		require.Equal(t, int32(3), read.GetConcurrency().Limit)
+		require.Len(t, read.GetQuotas(), 1)
+		require.Equal(t, kestra_api_client.QUOTABEHAVIOR_FAIL, read.GetQuotas()[0].Behavior)
+
+		read.SetConcurrency(kestra_api_client.Concurrency{
+			Limit:    7,
+			Behavior: kestra_api_client.CONCURRENCYBEHAVIOR_CANCEL,
+		})
+		updated, err := KestraTestClient().Namespaces().UpdateNamespace(ctx, nsId, MAIN_TENANT, *read)
+		require.NoError(t, err)
+		require.Equal(t, int32(7), updated.GetConcurrency().Limit)
+		require.Equal(t, kestra_api_client.CONCURRENCYBEHAVIOR_CANCEL, updated.GetConcurrency().Behavior)
 	})
 
 	t.Run("createNamespaceTest", func(t *testing.T) {
@@ -168,7 +212,7 @@ func TestNamespacesAPI_All(t *testing.T) {
 		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
 		require.NoError(t, err)
 
-		results, err := KestraTestClient().Namespaces().SearchNamespaces(ctx, MAIN_TENANT, kestra_api_client.PtrString(nsId), kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrBool(false))
+		results, err := KestraTestClient().Namespaces().SearchNamespaces(ctx, MAIN_TENANT, kestra_api_client.PtrString(nsId), kestra_api_client.PtrInt(1), kestra_api_client.PtrInt(10), nil, kestra_api_client.PtrBool(false), nil)
 		require.NoError(t, err)
 		require.NotNil(t, results)
 		require.NotNil(t, results.GetResults())

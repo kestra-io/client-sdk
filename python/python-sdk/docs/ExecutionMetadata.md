@@ -6,7 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **attempt_number** | **int** |  | [optional] 
-**original_created_date** | **datetime** |  | [optional] 
+**original_created_date** | **datetime** |  | 
+**concurrency_scopes** | **List[str]** |  | [optional] 
+**execution_depth** | **int** |  | [optional] 
 
 ## Example
 

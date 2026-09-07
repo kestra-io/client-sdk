@@ -39,7 +39,7 @@ public class KestraClient {
         this.apiClient = apiClient;
     }
 
-    /** Exposed for testing timeout propagation without a live server. */
+    /** Exposed for testing the client configuration without a live server. */
     ApiClient apiClient() {
         return apiClient;
     }
@@ -104,6 +104,14 @@ public class KestraClient {
 
     public CasesApi cases() { return new CasesApi(this.apiClient); }
 
+    public OutputsApi outputs() { return new OutputsApi(this.apiClient); }
+
+    public QuotasApi quotas() { return new QuotasApi(this.apiClient); }
+
+    public TenantsApi tenants() { return new TenantsApi(this.apiClient); }
+
+    public MiscApi misc() { return new MiscApi(this.apiClient); }
+
     // END -- Individual API
 
     /**
@@ -111,7 +119,7 @@ public class KestraClient {
      */
     public static class KestraClientBuilder {
         private String url = "http://localhost:8080";
-        private Auth auth = Auth.BASIC;
+        private Auth auth = Auth.NONE;
         private String token;
         private String username;
         private String password;
@@ -144,6 +152,18 @@ public class KestraClient {
             this.username = Objects.requireNonNull(username);
             this.password = Objects.requireNonNull(password);
             this.auth = Auth.BASIC;
+
+            return this;
+        }
+
+        /**
+         * Disable authentication and reset any previously set credentials. This is the default.
+         */
+        public KestraClientBuilder noAuth() {
+            this.token = null;
+            this.username = null;
+            this.password = null;
+            this.auth = Auth.NONE;
 
             return this;
         }

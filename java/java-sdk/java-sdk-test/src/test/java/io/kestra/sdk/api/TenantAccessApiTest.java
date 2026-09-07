@@ -18,6 +18,10 @@ public class TenantAccessApiTest {
         return client().users();
     }
 
+    static GroupsApi groupsApi() {
+        return client().groups();
+    }
+
     static IAMUserControllerApiUser createTestUser() throws ApiException {
         IAMUserControllerApiCreateOrUpdateUserRequest req =
                 new IAMUserControllerApiCreateOrUpdateUserRequest()
@@ -52,6 +56,50 @@ public class TenantAccessApiTest {
                 new IAMTenantAccessControllerApiCreateTenantAccessRequest().email(user.getEmail()));
 
         assertThatCode(() -> api().deleteTenantAccess(user.getId(), TENANT))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void createTenantAccessById_grantsAccess() throws ApiException {
+        IAMUserControllerApiUser user = createTestUser();
+
+        api().createTenantAccessById(user.getId(), TENANT);
+
+        IAMTenantAccessControllerApiTenantAccess access = api().tenantAccess(user.getId(), TENANT);
+        assertThat(access).isNotNull();
+        assertThat(access.getUserId()).isEqualTo(user.getId());
+        assertThat(access.getTenantId()).isEqualTo(TENANT);
+    }
+
+    @Test
+    void tenantAccess_unknownUser() throws ApiException {
+        assertThatThrownBy(() -> api().tenantAccess(randomId(), TENANT))
+                .isInstanceOf(ApiException.class)
+                .extracting(e -> ((ApiException) e).getCode())
+                .isEqualTo(404);
+    }
+
+    /**
+     * Pins the reason this API exists: since Kestra 2.0 a group add resolves the user
+     * through a {@code hasTenantAccess} filter, so it fails for a user created without
+     * tenant access and succeeds once the access is granted.
+     */
+    @Test
+    void createTenantAccessById_isPrerequisiteForGroupMembership() throws ApiException {
+        IAMUserControllerApiUser user = createTestUser();
+        IAMGroupControllerApiGroupDetail group = groupsApi().createGroup(TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                        .name("ta-group-" + randomId())
+                        .description("tenant-access prerequisite test"));
+
+        assertThatThrownBy(() -> groupsApi().addUserToGroup(group.getId(), user.getId(), TENANT))
+                .isInstanceOf(ApiException.class)
+                .extracting(e -> ((ApiException) e).getCode())
+                .isEqualTo(404);
+
+        api().createTenantAccessById(user.getId(), TENANT);
+
+        assertThatCode(() -> groupsApi().addUserToGroup(group.getId(), user.getId(), TENANT))
                 .doesNotThrowAnyException();
     }
 

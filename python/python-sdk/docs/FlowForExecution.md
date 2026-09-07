@@ -12,10 +12,11 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 
-**disabled** | **bool** |  | 
-**labels** | [**MapObjectObject**](MapObjectObject.md) |  | [optional] 
+**disabled** | **bool** | A disabled flow does not run: its triggers are paused and new executions are rejected. | 
+**draft** | **bool** | Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly. | 
+**labels** | [**MapObjectObject**](MapObjectObject.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
 **variables** | **object** |  | [optional] 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**worker_selector** | [**WorkerSelector**](WorkerSelector.md) | Routing requirements (tags + fallback) for this flow. | [optional] 
 **deleted** | **bool** |  | 
 **tasks** | [**List[TaskForExecution]**](TaskForExecution.md) |  | 
 **errors** | [**List[TaskForExecution]**](TaskForExecution.md) |  | [optional] 

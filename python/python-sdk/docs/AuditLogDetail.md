@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permission** | [**Permission**](Permission.md) |  | [optional] 
-**resource_type** | [**ResourceType**](ResourceType.md) |  | [optional] 
+**resource** | [**Resource**](Resource.md) |  | [optional] 
+**resource_type** | [**Resource**](Resource.md) |  | [optional] 
 **type** | **str** |  | 
 **id** | **str** |  | [optional] 
 

@@ -9,7 +9,10 @@ Name | Type | Description | Notes
 **start_date** | **datetime** |  | [optional] [readonly] 
 **end_date** | **datetime** |  | [optional] [readonly] 
 **current** | [**StateType**](StateType.md) |  | 
-**histories** | [**List[StateHistory]**](StateHistory.md) |  | [optional] 
+**histories** | [**List[StateHistory]**](StateHistory.md) |  | 
+**get_duration** | **str** |  | [readonly] 
+**get_start_date** | **datetime** |  | [readonly] 
+**get_end_date** | **datetime** |  | [readonly] 
 
 ## Example
 

@@ -5,15 +5,11 @@
 
 * `STRING` (value: `'STRING'`)
 
-* `ENUM` (value: `'ENUM'`)
-
 * `SELECT` (value: `'SELECT'`)
 
 * `INT` (value: `'INT'`)
 
 * `FLOAT` (value: `'FLOAT'`)
-
-* `BOOLEAN` (value: `'BOOLEAN'`)
 
 * `BOOL` (value: `'BOOL'`)
 
@@ -29,6 +25,8 @@
 
 * `JSON` (value: `'JSON'`)
 
+* `ION` (value: `'ION'`)
+
 * `URI` (value: `'URI'`)
 
 * `SECRET` (value: `'SECRET'`)
@@ -40,6 +38,10 @@
 * `YAML` (value: `'YAML'`)
 
 * `EMAIL` (value: `'EMAIL'`)
+
+* `FORM` (value: `'FORM'`)
+
+* `REUSABLE_INPUTS` (value: `'REUSABLE_INPUTS'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

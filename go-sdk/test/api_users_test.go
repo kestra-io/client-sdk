@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -21,6 +21,8 @@ func TestUsersAPI_All(t *testing.T) {
 		email := "test_autocomplete_users_" + randomId() + "@kestra.io"
 		userReq := map[string]interface{}{
 			"email": email,
+			// 2.0: adding a user to a group no longer auto-grants tenant access
+			"tenants": []string{MAIN_TENANT},
 		}
 		createdUser, err := KestraTestClient().Users().CreateUser(ctx, userReq)
 		require.NoError(t, err)

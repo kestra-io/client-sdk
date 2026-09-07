@@ -25,10 +25,9 @@ import io.kestra.sdk.model.Concurrency;
 import io.kestra.sdk.model.InputObject;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
-import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.SLA;
 import io.kestra.sdk.model.Task;
-import io.kestra.sdk.model.WorkerGroup;
+import io.kestra.sdk.model.WorkerSelector;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,19 +50,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowWithSource.JSON_PROPERTY_DISABLED,
   FlowWithSource.JSON_PROPERTY_LABELS,
   FlowWithSource.JSON_PROPERTY_VARIABLES,
-  FlowWithSource.JSON_PROPERTY_WORKER_GROUP,
+  FlowWithSource.JSON_PROPERTY_WORKER_SELECTOR,
   FlowWithSource.JSON_PROPERTY_DELETED,
   FlowWithSource.JSON_PROPERTY_FINALLY,
   FlowWithSource.JSON_PROPERTY_TASKS,
   FlowWithSource.JSON_PROPERTY_ERRORS,
   FlowWithSource.JSON_PROPERTY_AFTER_EXECUTION,
   FlowWithSource.JSON_PROPERTY_TRIGGERS,
-  FlowWithSource.JSON_PROPERTY_PLUGIN_DEFAULTS,
   FlowWithSource.JSON_PROPERTY_CONCURRENCY,
   FlowWithSource.JSON_PROPERTY_RETRY,
   FlowWithSource.JSON_PROPERTY_SLA,
   FlowWithSource.JSON_PROPERTY_CHECKS,
-  FlowWithSource.JSON_PROPERTY_SOURCE
+  FlowWithSource.JSON_PROPERTY_SOURCE,
+  FlowWithSource.JSON_PROPERTY_DRAFT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowWithSource {
@@ -97,8 +96,8 @@ public class FlowWithSource {
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
 
-  public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
+  public static final String JSON_PROPERTY_WORKER_SELECTOR = "workerSelector";
+  @jakarta.annotation.Nullable  private WorkerSelector workerSelector;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
@@ -118,9 +117,6 @@ public class FlowWithSource {
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nullable  private List<AbstractTrigger> triggers = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @jakarta.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
-
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
   @jakarta.annotation.Nullable  private Concurrency concurrency;
 
@@ -135,6 +131,9 @@ public class FlowWithSource {
 
   public static final String JSON_PROPERTY_SOURCE = "source";
   @jakarta.annotation.Nullable  private String source;
+
+  public static final String JSON_PROPERTY_DRAFT = "draft";
+  @jakarta.annotation.Nonnull  private Boolean draft;
 
   public FlowWithSource() {
   }
@@ -404,28 +403,28 @@ public class FlowWithSource {
     this.variables = variables;
   }
 
-  public FlowWithSource workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
+  public FlowWithSource workerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
     
-    this.workerGroup = workerGroup;
+    this.workerSelector = workerSelector;
     return this;
   }
 
   /**
-   * Get workerGroup
-   * @return workerGroup
+   * Get workerSelector
+   * @return workerSelector
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WorkerGroup getWorkerGroup() {
-    return workerGroup;
+  public WorkerSelector getWorkerSelector() {
+    return workerSelector;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(JSON_PROPERTY_WORKER_SELECTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
-    this.workerGroup = workerGroup;
+  public void setWorkerSelector(@jakarta.annotation.Nullable WorkerSelector workerSelector) {
+    this.workerSelector = workerSelector;
   }
 
   public FlowWithSource deleted(@jakarta.annotation.Nonnull Boolean deleted) {
@@ -612,38 +611,6 @@ public class FlowWithSource {
     this.triggers = triggers;
   }
 
-  public FlowWithSource pluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    
-    this.pluginDefaults = pluginDefaults;
-    return this;
-  }
-
-  public FlowWithSource addPluginDefaultsItem(PluginDefault pluginDefaultsItem) {
-    if (this.pluginDefaults == null) {
-      this.pluginDefaults = new ArrayList<>();
-    }
-    this.pluginDefaults.add(pluginDefaultsItem);
-    return this;
-  }
-
-  /**
-   * Get pluginDefaults
-   * @return pluginDefaults
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginDefault> getPluginDefaults() {
-    return pluginDefaults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginDefaults(@jakarta.annotation.Nullable List<PluginDefault> pluginDefaults) {
-    this.pluginDefaults = pluginDefaults;
-  }
-
   public FlowWithSource concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
     
     this.concurrency = concurrency;
@@ -780,6 +747,30 @@ public class FlowWithSource {
     this.source = source;
   }
 
+  public FlowWithSource draft(@jakarta.annotation.Nonnull Boolean draft) {
+    
+    this.draft = draft;
+    return this;
+  }
+
+  /**
+   * Whether this flow revision is a draft. Draft revisions are skipped when an execution starts without an explicit revision (webhooks, schedules, subflows, manual triggers). Executions can still target a draft by passing the revision explicitly.
+   * @return draft
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getDraft() {
+    return draft;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraft(@jakarta.annotation.Nonnull Boolean draft) {
+    this.draft = draft;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -799,24 +790,24 @@ public class FlowWithSource {
         Objects.equals(this.disabled, flowWithSource.disabled) &&
         Objects.equals(this.labels, flowWithSource.labels) &&
         Objects.equals(this.variables, flowWithSource.variables) &&
-        Objects.equals(this.workerGroup, flowWithSource.workerGroup) &&
+        Objects.equals(this.workerSelector, flowWithSource.workerSelector) &&
         Objects.equals(this.deleted, flowWithSource.deleted) &&
         Objects.equals(this._finally, flowWithSource._finally) &&
         Objects.equals(this.tasks, flowWithSource.tasks) &&
         Objects.equals(this.errors, flowWithSource.errors) &&
         Objects.equals(this.afterExecution, flowWithSource.afterExecution) &&
         Objects.equals(this.triggers, flowWithSource.triggers) &&
-        Objects.equals(this.pluginDefaults, flowWithSource.pluginDefaults) &&
         Objects.equals(this.concurrency, flowWithSource.concurrency) &&
         Objects.equals(this.retry, flowWithSource.retry) &&
         Objects.equals(this.sla, flowWithSource.sla) &&
         Objects.equals(this.checks, flowWithSource.checks) &&
-        Objects.equals(this.source, flowWithSource.source);
+        Objects.equals(this.source, flowWithSource.source) &&
+        Objects.equals(this.draft, flowWithSource.draft);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, source);
+    return Objects.hash(id, namespace, revision, updated, description, inputs, outputs, disabled, labels, variables, workerSelector, deleted, _finally, tasks, errors, afterExecution, triggers, concurrency, retry, sla, checks, source, draft);
   }
 
   @Override
@@ -833,19 +824,19 @@ public class FlowWithSource {
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
+    sb.append("    workerSelector: ").append(toIndentedString(workerSelector)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
-    sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
     sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
     sb.append("}");
     return sb.toString();
   }
