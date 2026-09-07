@@ -229,12 +229,6 @@ jobs:
           fi
           npm publish --access public --tag "$NPM_TAG"
 
-      - name: Add version tag
-        working-directory: ./javascript/javascript-sdk
-        run: npm dist-tag add @kestra-io/kestra-sdk@${{
-          steps.resolveVersion.outputs.kestra_version }} --tag ${{
-          steps.resolveVersion.outputs.kestra_tag }} --access public
-
       - name: Slack notification
         if: success()
         uses: kestra-io/actions/composite/slack-status@main
