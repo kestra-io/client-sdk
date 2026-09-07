@@ -34,6 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+      # The Kestra release the Go SDK is tested against on `main`. Bump it when the
+      # SDK starts targeting a newer Kestra release; see the resolve step below for
+      # why main does not test against `develop` any more.
+      KESTRA_GA_TARGET: v2.0.0
     defaults:
       run:
         working-directory: ./go-sdk
@@ -43,6 +47,28 @@ jobs:
       - name: Compute Kestra version
         id: version
         uses: ./.github/actions/compute-version
+
+      # compute-version answers `develop` whenever no releases/v* branch matched,
+      # i.e. on main and on feature branches targeting it. `develop` is the moving
+      # 2.x bleeding edge, which is the wrong thing to certify the SDK's own 2.0.0
+      # release against: a green run there says nothing about the server users
+      # actually run. Pin those runs to KESTRA_GA_TARGET instead. Release branches
+      # keep resolving to their own version, untouched.
+      #
+      # Drift against the bleeding edge is still watched -- sdk-freshness-check.yml
+      # runs this same suite against `develop` daily and alerts without gating.
+      - name: Resolve the Kestra version under test
+        id: target
+        env:
+          COMPUTED: ${{ steps.version.outputs.kestra_version }}
+        run: |
+          if [ "$COMPUTED" = "develop" ]; then
+            resolved="$KESTRA_GA_TARGET"
+          else
+            resolved="$COMPUTED"
+          fi
+          echo "Testing against Kestra $resolved (compute-version said '$COMPUTED')"
+          echo "kestra_version=$resolved" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-go@v5
 
@@ -75,16 +101,14 @@ jobs:
         id: license
         uses: ./.github/actions/set-license-file
         with:
-          kestra_version: ${{ steps.version.outputs.kestra_version }}
+          kestra_version: ${{ steps.target.outputs.kestra_version }}
           license_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_FILE }}
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Build local SDK and test it in an example project
         if: inputs.skip-test != 'true'
         env:
-          # Target Kestra 2.0: 'develop' is the 2.0-ee line. Release branches (releases/v*)
-          # still resolve to their own version via compute-version.
-          KESTRA_VERSION: ${{ steps.version.outputs.kestra_version }}
+          KESTRA_VERSION: ${{ steps.target.outputs.kestra_version }}
         run: |
           echo "${{ steps.license.outputs.license }}" | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           sh run-tests.sh $KESTRA_VERSION
