@@ -340,6 +340,16 @@ func (a *FlowsAPI) SearchConcurrencyLimits(ctx context.Context, tenant string) (
 	return &result, nil
 }
 
+// GetConcurrencyLimit retrieves the concurrency limit of a flow.
+func (a *FlowsAPI) GetConcurrencyLimit(ctx context.Context, namespace, flowId, tenant string) (*ConcurrencyLimit, error) {
+	path := tenantPath(tenant, "concurrency-limit", namespace, flowId)
+	result, err := doJSON[ConcurrencyLimit](&a.baseAPI, ctx, "GET", path, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
 // UpdateConcurrencyLimit updates a concurrency limit for a flow.
 func (a *FlowsAPI) UpdateConcurrencyLimit(ctx context.Context, namespace, flowId, tenant string, limit ConcurrencyLimit) (*ConcurrencyLimit, error) {
 	path := tenantPath(tenant, "concurrency-limit", namespace, flowId)

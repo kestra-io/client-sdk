@@ -180,7 +180,6 @@ __all__ = [
     "BlueprintTemplate",
     "BlueprintWithFlowEntity",
     "Breakpoint",
-    "BulkErrorResponse",
     "BulkImportAppsRequest",
     "BulkResponse",
     "Cache",
@@ -336,6 +335,7 @@ __all__ = [
     "IAMTenantAccessControllerApiUserTenantAccess",
     "IAMTenantAccessControllerUserApiAutocomplete",
     "IAMUserControllerApiCreateOrUpdateUserRequest",
+    "IAMUserControllerApiDeleteUsersRequest",
     "IAMUserControllerApiGroup",
     "IAMUserControllerApiPatchRestrictedRequest",
     "IAMUserControllerApiPatchUserPasswordRequest",
@@ -859,7 +859,6 @@ from kestrapy.models.blueprint_controller_use_blueprint_template_response import
 from kestrapy.models.blueprint_template import BlueprintTemplate as BlueprintTemplate
 from kestrapy.models.blueprint_with_flow_entity import BlueprintWithFlowEntity as BlueprintWithFlowEntity
 from kestrapy.models.breakpoint import Breakpoint as Breakpoint
-from kestrapy.models.bulk_error_response import BulkErrorResponse as BulkErrorResponse
 from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest as BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse as BulkResponse
 from kestrapy.models.cache import Cache as Cache
@@ -1015,6 +1014,7 @@ from kestrapy.models.iam_tenant_access_controller_api_user_permission import IAM
 from kestrapy.models.iam_tenant_access_controller_api_user_tenant_access import IAMTenantAccessControllerApiUserTenantAccess as IAMTenantAccessControllerApiUserTenantAccess
 from kestrapy.models.iam_tenant_access_controller_user_api_autocomplete import IAMTenantAccessControllerUserApiAutocomplete as IAMTenantAccessControllerUserApiAutocomplete
 from kestrapy.models.iam_user_controller_api_create_or_update_user_request import IAMUserControllerApiCreateOrUpdateUserRequest as IAMUserControllerApiCreateOrUpdateUserRequest
+from kestrapy.models.iam_user_controller_api_delete_users_request import IAMUserControllerApiDeleteUsersRequest as IAMUserControllerApiDeleteUsersRequest
 from kestrapy.models.iam_user_controller_api_group import IAMUserControllerApiGroup as IAMUserControllerApiGroup
 from kestrapy.models.iam_user_controller_api_patch_restricted_request import IAMUserControllerApiPatchRestrictedRequest as IAMUserControllerApiPatchRestrictedRequest
 from kestrapy.models.iam_user_controller_api_patch_user_password_request import IAMUserControllerApiPatchUserPasswordRequest as IAMUserControllerApiPatchUserPasswordRequest

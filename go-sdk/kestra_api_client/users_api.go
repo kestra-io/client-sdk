@@ -22,6 +22,13 @@ func (a *UsersAPI) DeleteUser(ctx context.Context, id string) error {
 	return a.doVoidJSON(ctx, "DELETE", superadminPath("users", id), nil, nil)
 }
 
+// DeleteUsersByIds deletes several users at once. The whole request is rejected
+// if any identifier does not resolve to a user, or if it contains the caller's
+// own identifier.
+func (a *UsersAPI) DeleteUsersByIds(ctx context.Context, request interface{}) (*BulkResponse, error) {
+	return doJSON[*BulkResponse](&a.baseAPI, ctx, "DELETE", superadminPath("users", "by-ids"), request, nil)
+}
+
 func (a *UsersAPI) ListUsers(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsIAMUserControllerApiUserSummary, error) {
 	params := buildQueryParams("page", page, "size", size)
 	appendRepeatedParam(params, "sort", sort)

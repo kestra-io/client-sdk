@@ -364,7 +364,6 @@ Class | Method | HTTP request | Description
  - [BlueprintTemplate](docs/BlueprintTemplate.md)
  - [BlueprintWithFlowEntity](docs/BlueprintWithFlowEntity.md)
  - [Breakpoint](docs/Breakpoint.md)
- - [BulkErrorResponse](docs/BulkErrorResponse.md)
  - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [Cache](docs/Cache.md)

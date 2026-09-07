@@ -96,7 +96,6 @@ docs/BlueprintTemplate.md
 docs/BlueprintWithFlowEntity.md
 docs/BlueprintsApi.md
 docs/Breakpoint.md
-docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
 docs/BulkResponse.md
 docs/Cache.md
@@ -206,6 +205,7 @@ docs/IAMTenantAccessControllerApiUserPermission.md
 docs/IAMTenantAccessControllerApiUserTenantAccess.md
 docs/IAMTenantAccessControllerUserApiAutocomplete.md
 docs/IAMUserControllerApiCreateOrUpdateUserRequest.md
+docs/IAMUserControllerApiDeleteUsersRequest.md
 docs/IAMUserControllerApiGroup.md
 docs/IAMUserControllerApiPatchRestrictedRequest.md
 docs/IAMUserControllerApiPatchUserPasswordRequest.md
@@ -595,7 +595,6 @@ src/main/java/io/kestra/sdk/model/BlueprintControllerUseBlueprintTemplateRespons
 src/main/java/io/kestra/sdk/model/BlueprintTemplate.java
 src/main/java/io/kestra/sdk/model/BlueprintWithFlowEntity.java
 src/main/java/io/kestra/sdk/model/Breakpoint.java
-src/main/java/io/kestra/sdk/model/BulkErrorResponse.java
 src/main/java/io/kestra/sdk/model/BulkImportAppsRequest.java
 src/main/java/io/kestra/sdk/model/BulkResponse.java
 src/main/java/io/kestra/sdk/model/Cache.java
@@ -700,6 +699,7 @@ src/main/java/io/kestra/sdk/model/IAMTenantAccessControllerApiUserPermission.jav
 src/main/java/io/kestra/sdk/model/IAMTenantAccessControllerApiUserTenantAccess.java
 src/main/java/io/kestra/sdk/model/IAMTenantAccessControllerUserApiAutocomplete.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiCreateOrUpdateUserRequest.java
+src/main/java/io/kestra/sdk/model/IAMUserControllerApiDeleteUsersRequest.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiGroup.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiPatchRestrictedRequest.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiPatchUserPasswordRequest.java

@@ -310,6 +310,10 @@ class FlowsApi(BaseApi):
         path = self._tenant_path(tenant, "concurrency-limit", "search")
         return self._json_request("GET", path, PagedResultsConcurrencyLimit)
 
+    def get_concurrency_limit(self, namespace: str, flow_id: str, tenant: str) -> ConcurrencyLimit:
+        path = self._tenant_path(tenant, "concurrency-limit", namespace, flow_id)
+        return self._json_request("GET", path, ConcurrencyLimit)
+
     def update_concurrency_limit(
         self,
         namespace: str,

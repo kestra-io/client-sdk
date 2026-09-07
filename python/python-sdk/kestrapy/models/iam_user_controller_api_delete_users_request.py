@@ -17,18 +17,18 @@ import regex as re
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BulkErrorResponse(BaseModel):
+class IAMUserControllerApiDeleteUsersRequest(BaseModel):
     """
-    BulkErrorResponse
+    IAMUserControllerApiDeleteUsersRequest
     """ # noqa: E501
-    message: Optional[StrictStr] = Field(default=None, description="The error message")
-    invalids: Optional[Dict[str, Any]] = Field(default=None, description="The list of items that failed validation")
+    ids: Annotated[List[StrictStr], Field(min_length=1)]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["message", "invalids"]
+    __properties: ClassVar[List[str]] = ["ids"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,7 +48,7 @@ class BulkErrorResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BulkErrorResponse from a JSON string"""
+        """Create an instance of IAMUserControllerApiDeleteUsersRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -80,7 +80,7 @@ class BulkErrorResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BulkErrorResponse from a dict"""
+        """Create an instance of IAMUserControllerApiDeleteUsersRequest from a dict"""
         if obj is None:
             return None
 
@@ -88,8 +88,7 @@ class BulkErrorResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "invalids": obj.get("invalids")
+            "ids": obj.get("ids")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
@@ -97,5 +96,4 @@ class BulkErrorResponse(BaseModel):
                 _obj.additional_properties[_key] = obj.get(_key)
 
         return _obj
-
 

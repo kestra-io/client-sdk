@@ -147,7 +147,6 @@ docs/BlueprintControllerUseBlueprintTemplateResponse.md
 docs/BlueprintTemplate.md
 docs/BlueprintWithFlowEntity.md
 docs/Breakpoint.md
-docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
 docs/BulkResponse.md
 docs/Cache.md
@@ -306,6 +305,7 @@ docs/IAMTenantAccessControllerApiUserPermission.md
 docs/IAMTenantAccessControllerApiUserTenantAccess.md
 docs/IAMTenantAccessControllerUserApiAutocomplete.md
 docs/IAMUserControllerApiCreateOrUpdateUserRequest.md
+docs/IAMUserControllerApiDeleteUsersRequest.md
 docs/IAMUserControllerApiGroup.md
 docs/IAMUserControllerApiPatchRestrictedRequest.md
 docs/IAMUserControllerApiPatchUserPasswordRequest.md
@@ -825,7 +825,6 @@ kestrapy/models/blueprint_controller_use_blueprint_template_response.py
 kestrapy/models/blueprint_template.py
 kestrapy/models/blueprint_with_flow_entity.py
 kestrapy/models/breakpoint.py
-kestrapy/models/bulk_error_response.py
 kestrapy/models/bulk_import_apps_request.py
 kestrapy/models/bulk_response.py
 kestrapy/models/cache.py
@@ -981,6 +980,7 @@ kestrapy/models/iam_tenant_access_controller_api_user_permission.py
 kestrapy/models/iam_tenant_access_controller_api_user_tenant_access.py
 kestrapy/models/iam_tenant_access_controller_user_api_autocomplete.py
 kestrapy/models/iam_user_controller_api_create_or_update_user_request.py
+kestrapy/models/iam_user_controller_api_delete_users_request.py
 kestrapy/models/iam_user_controller_api_group.py
 kestrapy/models/iam_user_controller_api_patch_restricted_request.py
 kestrapy/models/iam_user_controller_api_patch_user_password_request.py

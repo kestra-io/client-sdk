@@ -3,11 +3,13 @@ from typing import Any, Dict, List, Optional
 from kestrapy.base_api import BaseApi
 from kestrapy.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest
 from kestrapy.models.api_token_list import ApiTokenList
+from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.models.iam_tenant_access_controller_api_user_tenant_access import IAMTenantAccessControllerApiUserTenantAccess
 from kestrapy.models.iam_tenant_access_controller_user_api_autocomplete import IAMTenantAccessControllerUserApiAutocomplete
 from kestrapy.models.iam_user_controller_api_create_or_update_user_request import IAMUserControllerApiCreateOrUpdateUserRequest
+from kestrapy.models.iam_user_controller_api_delete_users_request import IAMUserControllerApiDeleteUsersRequest
 from kestrapy.models.iam_user_controller_api_patch_restricted_request import IAMUserControllerApiPatchRestrictedRequest
 from kestrapy.models.iam_user_controller_api_patch_user_password_request import IAMUserControllerApiPatchUserPasswordRequest
 from kestrapy.models.iam_user_controller_api_user import IAMUserControllerApiUser
@@ -37,6 +39,15 @@ class UsersApi(BaseApi):
     def delete_user(self, id: str) -> None:
         path = self._superadmin_path("users", id)
         self._void_request("DELETE", path)
+
+    def delete_users_by_ids(self, request: IAMUserControllerApiDeleteUsersRequest) -> BulkResponse:
+        """Instance-owner-only. Delete several users at once, including all their access.
+
+        The whole request is rejected if any identifier does not resolve to a user,
+        or if it contains the caller's own identifier.
+        """
+        path = self._superadmin_path("users", "by-ids")
+        return self._json_request("DELETE", path, BulkResponse, body=request)
 
     # ---- Listing & search (Superadmin-scoped) ----
 
