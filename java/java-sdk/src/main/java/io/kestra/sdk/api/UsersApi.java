@@ -11,11 +11,13 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.ApiPatchInstanceOwnerRequest;
 import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
 import io.kestra.sdk.model.ApiTokenList;
+import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.CreateApiTokenRequest;
 import io.kestra.sdk.model.CreateApiTokenResponse;
 import io.kestra.sdk.model.IAMTenantAccessControllerApiUserTenantAccess;
 import io.kestra.sdk.model.IAMTenantAccessControllerUserApiAutocomplete;
 import io.kestra.sdk.model.IAMUserControllerApiCreateOrUpdateUserRequest;
+import io.kestra.sdk.model.IAMUserControllerApiDeleteUsersRequest;
 import io.kestra.sdk.model.IAMUserControllerApiPatchRestrictedRequest;
 import io.kestra.sdk.model.IAMUserControllerApiPatchUserPasswordRequest;
 import io.kestra.sdk.model.IAMUserControllerApiUser;
@@ -86,6 +88,20 @@ public class UsersApi extends BaseApi {
                 path("users", id),
                 null, null, null,
                 null, null, null);
+    }
+
+    /**
+     * Instance-owner-only. Deletes several users at once, including all their access.
+     * The whole request is rejected if any identifier does not resolve to a user, or
+     * if it contains the caller's own identifier.
+     */
+    public BulkResponse deleteUsersByIds(
+            @jakarta.annotation.Nonnull IAMUserControllerApiDeleteUsersRequest request) throws ApiException {
+        return invoke("DELETE",
+                path("users", "by-ids"),
+                request, null, null,
+                JSON, JSON,
+                new TypeReference<>() {});
     }
 
     // ========================================================================

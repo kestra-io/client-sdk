@@ -448,6 +448,16 @@ public class FlowsApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
+    public ConcurrencyLimit getConcurrencyLimit(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String flowId,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return get(
+                tenantPath(tenant, "concurrency-limit", namespace, flowId),
+                Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
     public ConcurrencyLimit updateConcurrencyLimit(
             @jakarta.annotation.Nonnull String namespace,
             @jakarta.annotation.Nonnull String flowId,

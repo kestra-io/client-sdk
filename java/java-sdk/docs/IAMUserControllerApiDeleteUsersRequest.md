@@ -1,14 +1,11 @@
-
-
-# BulkErrorResponse
+# IAMUserControllerApiDeleteUsersRequest
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**message** | **String** |  |  [optional] |
-|**invalids** | **Object** |  |  [optional] |
+|**ids** | **List&lt;String&gt;** |  |  |
 
 
 
