@@ -211,24 +211,30 @@ export function sanitizeOpenAPI(
     // 5) Remove get from method name, temporary while its done on core side
     normalizeGetOperationIds(spec)
 
-    // 6) Replace Flow.labels property schema
+    // 6) Camel-case the asInstanceOwner suffix concatenated onto some operationIds
+    normalizeInstanceOwnerOperationIds(spec)
+
+    // 7) Model java.time.Duration as an ISO-8601 string instead of its reflected shape
+    scalarizeDurationSchema(spec)
+
+    // 8) Replace Flow.labels property schema
     replaceFlowLabelsSpec(spec)
 
-    // 7) Normalize QueryFilter array query params to prevent broken querySerializer generation
+    // 9) Normalize QueryFilter array query params to prevent broken querySerializer generation
     normalizeQueryFilterParams(spec)
 
-    // 8) Widen QueryFilter.value from `type: object` to any-value, since it carries
+    // 10) Widen QueryFilter.value from `type: object` to any-value, since it carries
     //    strings, numbers, booleans, and arrays depending on the operator.
     widenQueryFilterValue(spec)
 
-    // 9) Unwrap Micronaut Event<X> wrapper schemas on SSE endpoints so the
+    // 11) Unwrap Micronaut Event<X> wrapper schemas on SSE endpoints so the
     //    stream type is the inner Execution/X type, not the envelope type.
     unwrapSseEventResponses(spec)
 
-    // 10) Fix parameters declared as `in: query` that actually appear as {param} in the path template.
+    // 12) Fix parameters declared as `in: query` that actually appear as {param} in the path template.
     fixMisclassifiedPathParams(spec)
 
-    // 11) Add missing security schemes to SCIM endpoints (upstream spec bug). Without a
+    // 13) Add missing security schemes to SCIM endpoints (upstream spec bug). Without a
     //     `security` block, the generated hey-api client never attaches credentials, so
     //     every SCIM call returns 401. TODO: fix at the source (Kestra EE) and drop this.
     addMissingScimSecurity(spec)
@@ -373,6 +379,52 @@ export function normalizeGetOperationIds(spec: any): number {
     }
 
     return renamed;
+}
+
+/**
+ * Camel-case the `asInstanceOwner` suffix a few operationIds concatenate onto the
+ * operation name (`searchConcurrencyLimitsasInstanceOwner`). TODO: fix in Kestra EE.
+ */
+export function normalizeInstanceOwnerOperationIds(spec: any): number {
+    if (!spec?.paths || typeof spec.paths !== "object") return 0;
+    let renamed = 0;
+
+    for (const p of Object.keys(spec.paths)) {
+        const pathItem = spec.paths[p];
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const key of Object.keys(pathItem)) {
+            const op = pathItem[key];
+            const id = op?.operationId;
+            if (typeof id !== "string") continue;
+
+            const cased = id.replace(/asInstanceOwner$/, "AsInstanceOwner");
+            if (cased === id) continue;
+
+            op.operationId = cased;
+            renamed += 1;
+            console.debug(`normalized operationId: ${id} -> ${cased} (path: ${p}, key: ${key})`);
+        }
+    }
+
+    return renamed;
+}
+
+/**
+ * Replace the reflected `java.time.Duration` schema (units/seconds/nano/...) with the
+ * ISO-8601 string the API actually accepts and returns. TODO: fix in Kestra EE.
+ */
+export function scalarizeDurationSchema(spec: any): boolean {
+    const duration = spec?.components?.schemas?.Duration;
+    if (!duration || duration.type !== "object") return false;
+
+    spec.components.schemas.Duration = {
+        type: "string",
+        format: "duration",
+        description: "An ISO-8601 duration, e.g. `PT5M` for 5 minutes or `PT30S` for 30 seconds.",
+    };
+    console.debug("scalarizeDurationSchema: Duration set to an ISO-8601 string");
+    return true;
 }
 
 /**

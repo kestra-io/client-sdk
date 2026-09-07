@@ -402,7 +402,7 @@ tasks:
 describe('FlowsApi — long tail', () => {
     // Search for flow concurrency limits
     it('search_concurrency_limits', async () => {
-        const resp = await Flows.searchConcurrencyLimits({});
+        const resp = await Flows.searchConcurrencyLimitsAsInstanceOwner({});
         expect(resp).toBeDefined();
         expect(Array.isArray(resp.results)).toBe(true);
     });
@@ -416,7 +416,7 @@ describe('FlowsApi — long tail', () => {
         await Flows.createFlow({ body: flowBody });
 
         try {
-            const resp = await Flows.updateConcurrencyLimit({
+            const resp = await Flows.updateConcurrencyLimitAsInstanceOwner({
                 namespace: flowNamespace,
                 flowId,
                 tenantId,
@@ -428,6 +428,35 @@ describe('FlowsApi — long tail', () => {
             const status = (err as any)?.status ?? (err as any)?.response?.status;
             expect(status).toBeGreaterThanOrEqual(400);
         }
+    });
+
+    // Get the concurrency limit of a flow
+    // Behind the same feature gate as the PUT above, so the read is only asserted when
+    // the write went through; a gated image must at least fail the write with an HTTP error.
+    it('get_concurrency_limit', async () => {
+        const { flowBody, flowNamespace, flowId } = getSimpleFlowAndId();
+        await Flows.createFlow({ body: flowBody });
+
+        let limitWasSet = false;
+        try {
+            await Flows.updateConcurrencyLimitAsInstanceOwner({
+                namespace: flowNamespace,
+                flowId,
+                tenantId,
+                running: 3,
+            });
+            limitWasSet = true;
+        } catch (err: unknown) {
+            const status = (err as any)?.status ?? (err as any)?.response?.status;
+            expect(status).toBeGreaterThanOrEqual(400);
+        }
+
+        if (!limitWasSet) return;
+
+        const resp = await Flows.concurrencyLimit({ namespace: flowNamespace, flowId });
+        expect(resp.namespace).toBe(flowNamespace);
+        expect(resp.flowId).toBe(flowId);
+        expect(resp.running).toBe(3);
     });
 
     // List flows containing deprecated tasks
