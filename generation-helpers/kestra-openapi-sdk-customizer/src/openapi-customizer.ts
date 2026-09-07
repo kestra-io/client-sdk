@@ -211,7 +211,7 @@ export function sanitizeOpenAPI(
     // 5) Remove get from method name, temporary while its done on core side
     normalizeGetOperationIds(spec)
 
-    // 6) Strip the Java method-name suffix leaking into some operationIds
+    // 6) Camel-case the asInstanceOwner suffix concatenated onto some operationIds
     normalizeInstanceOwnerOperationIds(spec)
 
     // 7) Model java.time.Duration as an ISO-8601 string instead of its reflected shape
@@ -382,8 +382,8 @@ export function normalizeGetOperationIds(spec: any): number {
 }
 
 /**
- * Drop the `asInstanceOwner` suffix that the Java controller method name leaks into a
- * few operationIds (`searchConcurrencyLimitsasInstanceOwner`). TODO: fix in Kestra EE.
+ * Camel-case the `asInstanceOwner` suffix a few operationIds concatenate onto the
+ * operation name (`searchConcurrencyLimitsasInstanceOwner`). TODO: fix in Kestra EE.
  */
 export function normalizeInstanceOwnerOperationIds(spec: any): number {
     if (!spec?.paths || typeof spec.paths !== "object") return 0;
@@ -398,12 +398,12 @@ export function normalizeInstanceOwnerOperationIds(spec: any): number {
             const id = op?.operationId;
             if (typeof id !== "string") continue;
 
-            const stripped = id.replace(/[aA]sInstanceOwner$/, "");
-            if (stripped === id || stripped.length === 0) continue;
+            const cased = id.replace(/asInstanceOwner$/, "AsInstanceOwner");
+            if (cased === id) continue;
 
-            op.operationId = stripped;
+            op.operationId = cased;
             renamed += 1;
-            console.debug(`normalized operationId: ${id} -> ${stripped} (path: ${p}, key: ${key})`);
+            console.debug(`normalized operationId: ${id} -> ${cased} (path: ${p}, key: ${key})`);
         }
     }
 

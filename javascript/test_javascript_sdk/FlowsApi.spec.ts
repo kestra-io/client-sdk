@@ -402,7 +402,7 @@ tasks:
 describe('FlowsApi — long tail', () => {
     // Search for flow concurrency limits
     it('search_concurrency_limits', async () => {
-        const resp = await Flows.searchConcurrencyLimits({});
+        const resp = await Flows.searchConcurrencyLimitsAsInstanceOwner({});
         expect(resp).toBeDefined();
         expect(Array.isArray(resp.results)).toBe(true);
     });
@@ -416,7 +416,7 @@ describe('FlowsApi — long tail', () => {
         await Flows.createFlow({ body: flowBody });
 
         try {
-            const resp = await Flows.updateConcurrencyLimit({
+            const resp = await Flows.updateConcurrencyLimitAsInstanceOwner({
                 namespace: flowNamespace,
                 flowId,
                 tenantId,
