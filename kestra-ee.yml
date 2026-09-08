@@ -8182,7 +8182,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -14697,7 +14697,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -15201,7 +15201,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -25958,7 +25958,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
