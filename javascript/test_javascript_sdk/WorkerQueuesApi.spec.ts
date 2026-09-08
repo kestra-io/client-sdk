@@ -17,29 +17,42 @@ describe('WorkerQueuesApi', () => {
         expect(result.groups ?? []).toEqual([]);
     });
 
+    // A created queue's tags surface in `workerSelectorTags`, so each test that
+    // creates one deletes it again in a `finally` — otherwise the leaked tags
+    // break MiscApi's `workerSelectorTags: … equals []` expectation.
     it('list: lists all worker queues', async () => {
         const id = `test-wq-${randomId()}`;
         await WorkerQueuesAdmin.create({ id, tags: [id] });
-
-        const result = await WorkerQueuesAdmin.list();
-        expect((result.workerQueues ?? []).some((q) => q.id === id)).toBe(true);
+        try {
+            const result = await WorkerQueuesAdmin.list();
+            expect((result.workerQueues ?? []).some((q) => q.id === id)).toBe(true);
+        } finally {
+            await WorkerQueuesAdmin.deleteWorkerQueues({ id }).catch(() => undefined);
+        }
     });
 
     it('get: retrieves a worker queue by id', async () => {
         const id = `test-wq-${randomId()}`;
         await WorkerQueuesAdmin.create({ id, tags: [id] });
-
-        const result = await WorkerQueuesAdmin.get({ id });
-        expect(result.id).toBe(id);
+        try {
+            const result = await WorkerQueuesAdmin.get({ id });
+            expect(result.id).toBe(id);
+        } finally {
+            await WorkerQueuesAdmin.deleteWorkerQueues({ id }).catch(() => undefined);
+        }
     });
 
     it('update: updates a worker queue', async () => {
         const id = `test-wq-${randomId()}`;
         await WorkerQueuesAdmin.create({ id, tags: [id] });
-
-        const result = await WorkerQueuesAdmin.update({ id, tags: [id, 'updated'], description: 'updated queue' });
-        expect(result.id).toBe(id);
-        expect(result.tags ?? []).toContain('updated');
+        try {
+            const updatedTag = `${id}-updated`;
+            const result = await WorkerQueuesAdmin.update({ id, tags: [id, updatedTag], description: 'updated queue' });
+            expect(result.id).toBe(id);
+            expect(result.tags ?? []).toContain(updatedTag);
+        } finally {
+            await WorkerQueuesAdmin.deleteWorkerQueues({ id }).catch(() => undefined);
+        }
     });
 
     it('deleteWorkerQueues: deletes a worker queue', async () => {

@@ -61,8 +61,12 @@ describe('MiscApi', () => {
 
     it('workerSelectorTags: returns available worker selector tags', async () => {
         const result = await Misc.workerSelectorTags();
-        // No worker selector tags are configured in the test environment.
-        expect(result.tags).toEqual([]);
+        // The environment configures no selector tags of its own, but the
+        // WorkerQueues/WorkerGroups suites create queues whose `test-wq-*` tags
+        // surface here while they run in parallel — ignore those and assert none
+        // of the environment's own tags leaked in.
+        expect(Array.isArray(result.tags)).toBe(true);
+        expect((result.tags ?? []).filter((t) => !t.startsWith('test-wq-'))).toEqual([]);
     });
 
     it('listPermissions: returns available permissions', async () => {

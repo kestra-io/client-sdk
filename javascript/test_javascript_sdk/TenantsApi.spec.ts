@@ -12,15 +12,12 @@ function makeTenant(id: string): Tenant {
     };
 }
 
-// A minimal valid 1x1 transparent PNG, enough for the logo upload endpoints to
-// accept a real image body without shipping a fixture file.
-const PNG_1X1 = Buffer.from(
-    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
-    'base64',
-);
+// The logo upload endpoints reject anything but SVG ("422 Logo must be a SVG
+// file"), so ship a minimal valid SVG rather than a raster image.
+const SVG_LOGO = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect width="1" height="1"/></svg>';
 
 function makeLogo(): Blob {
-    return new Blob([PNG_1X1], { type: 'image/png' });
+    return new Blob([SVG_LOGO], { type: 'image/svg+xml' });
 }
 
 describe('TenantsApi', () => {
