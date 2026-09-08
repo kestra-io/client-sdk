@@ -16,4 +16,39 @@ describe('WorkerQueuesApi', () => {
         const result = await WorkerQueues.subscribers({ id });
         expect(result.groups ?? []).toEqual([]);
     });
+
+    it('list: lists all worker queues', async () => {
+        const id = `test-wq-${randomId()}`;
+        await WorkerQueuesAdmin.create({ id, tags: ['test'] });
+
+        const result = await WorkerQueuesAdmin.list();
+        expect((result.workerQueues ?? []).some((q) => q.id === id)).toBe(true);
+    });
+
+    it('get: retrieves a worker queue by id', async () => {
+        const id = `test-wq-${randomId()}`;
+        await WorkerQueuesAdmin.create({ id, tags: ['test'] });
+
+        const result = await WorkerQueuesAdmin.get({ id });
+        expect(result.id).toBe(id);
+    });
+
+    it('update: updates a worker queue', async () => {
+        const id = `test-wq-${randomId()}`;
+        await WorkerQueuesAdmin.create({ id, tags: ['test'] });
+
+        const result = await WorkerQueuesAdmin.update({ id, tags: ['test', 'updated'], description: 'updated queue' });
+        expect(result.id).toBe(id);
+        expect(result.tags ?? []).toContain('updated');
+    });
+
+    it('deleteWorkerQueues: deletes a worker queue', async () => {
+        const id = `test-wq-${randomId()}`;
+        await WorkerQueuesAdmin.create({ id, tags: ['test'] });
+
+        await WorkerQueuesAdmin.deleteWorkerQueues({ id });
+
+        const result = await WorkerQueuesAdmin.list();
+        expect((result.workerQueues ?? []).some((q) => q.id === id)).toBe(false);
+    });
 });
