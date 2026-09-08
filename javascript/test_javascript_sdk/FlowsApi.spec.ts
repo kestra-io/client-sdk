@@ -634,22 +634,26 @@ describe('FlowsApi — hashes & source search/replace', () => {
         const replacement = `NEW${randomId()}`;
         await Flows.createFlow({ body: tokenFlowYaml(id, namespace, token) });
 
-        // Locate the matching line via a preview first.
+        // Locate the matching line via a preview first. The /replace/line endpoint
+        // matches the WHOLE line, so the request's `query`/`replacement` must be the
+        // full original/replacement line text the preview reports (`before`/`after`),
+        // not just the token — passing the bare token yields NO_MATCH.
         const preview = await Flows.previewReplaceBySourceCode({
             query: token,
             replacement,
             namespace,
             scope: 'ALL',
         });
-        const line = (preview.flows ?? []).find((f) => f.id === id)?.matches?.[0]?.line;
-        expect(typeof line).toBe('number');
+        const match = (preview.flows ?? []).find((f) => f.id === id)?.matches?.[0];
+        expect(match).toBeDefined();
+        expect(typeof match!.line).toBe('number');
 
         const resp = await Flows.replaceLineBySourceCode({
-            query: token,
-            replacement,
+            query: match!.before ?? '',
+            replacement: match!.after ?? '',
             namespace,
             id,
-            line,
+            line: match!.line,
         });
 
         const updated = resp.updated ?? [];

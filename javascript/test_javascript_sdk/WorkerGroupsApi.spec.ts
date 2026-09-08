@@ -76,7 +76,7 @@ describe('WorkerGroupsApi', () => {
     // every subscription test first creates a queue to route to.
     async function createWorkerQueue() {
         const wqId = `test-wq-${randomId()}`;
-        await WorkerQueuesAdmin.create({ id: wqId, tags: ['test'] });
+        await WorkerQueuesAdmin.create({ id: wqId, tags: [wqId] });
         return wqId;
     }
 
