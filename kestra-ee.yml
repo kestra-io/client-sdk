@@ -18748,11 +18748,11 @@ paths:
       - name: maxRows
         in: query
         description: The max row returns
-        required: true
         explode: false
         schema:
           type: integer
           format: int32
+          nullable: true
       - name: encoding
         in: query
         description: The file encoding as Java charset name. Defaults to UTF-8
