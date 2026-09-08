@@ -12,6 +12,17 @@ function makeTenant(id: string): Tenant {
     };
 }
 
+// A minimal valid 1x1 transparent PNG, enough for the logo upload endpoints to
+// accept a real image body without shipping a fixture file.
+const PNG_1X1 = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+    'base64',
+);
+
+function makeLogo(): Blob {
+    return new Blob([PNG_1X1], { type: 'image/png' });
+}
+
 describe('TenantsApi', () => {
     it('find: lists all tenants', async () => {
         const result = await Tenants.find({ page: 1, size: 10 });
@@ -95,6 +106,23 @@ describe('TenantsApi', () => {
 
         const result = await Tenants.setAppsCatalogConfig({ id, title: 'Test Title' });
         expect(result).toBeDefined();
+    });
+
+    it('setLogo: sets a tenant logo', async () => {
+        const id = randomId();
+        await TenantsAdmin.create(makeTenant(id));
+
+        const result = await Tenants.setLogo({ id, logo: makeLogo() });
+        expect((result as any).id).toBe(id);
+        expect(typeof (result as any).logo).toBe('string');
+    });
+
+    it('setAppsCatalogLogo: sets the apps catalog logo for a tenant', async () => {
+        const id = randomId();
+        await TenantsAdmin.create(makeTenant(id));
+
+        const result = await Tenants.setAppsCatalogLogo({ id, logo: makeLogo() });
+        expect(typeof (result as any).logo).toBe('string');
     });
 
     it('deleteAppsCatalogLogo: deletes apps catalog logo for a tenant', async () => {

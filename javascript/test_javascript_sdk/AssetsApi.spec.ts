@@ -79,6 +79,24 @@ describe('AssetsApi', () => {
         await Assets.deleteAsset({ id: created.id ?? "" });
     });
 
+    it('deleteAssetsByIds: deletes a created asset by its id', async () => {
+        const id = randomId();
+        const created = await Assets.createAsset({ body: assetYaml(id) });
+        const assetId = created.id ?? "";
+
+        const result = await Assets.deleteAssetsByIds({ body: [assetId] });
+        expect(result.count).toBe(1);
+    });
+
+    it('deleteAssetsByQuery: a query matching no assets deletes nothing', async () => {
+        // A filter on a namespace no asset uses keeps this non-destructive to other
+        // suites while still exercising the endpoint and asserting a real count.
+        const result = await Assets.deleteAssetsByQuery({
+            filters: [{ field: 'namespace', operation: 'EQUALS', value: `no-such-ns-${randomId()}` }],
+        });
+        expect(result.count).toBe(0);
+    });
+
     it('assetDependencies: retrieves dependencies for an asset', async () => {
         const id = randomId();
         const created = await Assets.createAsset({ body: assetYaml(id) });

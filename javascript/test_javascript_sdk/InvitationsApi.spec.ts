@@ -42,6 +42,27 @@ describe('InvitationsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('invitation + deleteInvitation: gets then deletes an invitation by id', async () => {
+        const email = randomEmail();
+        await Invitations.createInvitation({ email, createUserIfNotExist: true });
+
+        // createInvitation returns no body, so resolve the id via the by-email listing.
+        const list = await Invitations.listInvitationsByEmail({ email });
+        expect(list.length).toBeGreaterThanOrEqual(1);
+        const id = list[0].id;
+        expect(id).toBeTruthy();
+
+        const fetched = await Invitations.invitation({ id: id! });
+        expect(fetched.id).toBe(id);
+        expect(fetched.email).toBe(email);
+
+        await Invitations.deleteInvitation({ id: id! });
+
+        // Once deleted, the invitation no longer appears for that email.
+        const after = await Invitations.listInvitationsByEmail({ email });
+        expect(after.some((i) => i.id === id)).toBe(false);
+    });
+
     it('deleteInvitation: deletes an invitation', async () => {
         // Try to get a real invitation ID; fall back to fake to cover the function
         let id: string | undefined;
