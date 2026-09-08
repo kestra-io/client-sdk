@@ -35288,7 +35288,7 @@ components:
       type: object
       properties:
         ttl:
-          description: How long the lock is held before it expires.
+          description: How long the lock is held before it expires. Must be positive and at most P3650D.
           allOf:
           - $ref: '#/components/schemas/Duration'
           default: PT5M
@@ -36847,7 +36847,7 @@ components:
         nano:
           type: integer
           format: int32
-      description: How long the lock is held before it expires.
+      description: How long the lock is held before it expires. Must be positive and at most P3650D.
       default: PT5M
     EditionProvider.Edition:
       type: string
