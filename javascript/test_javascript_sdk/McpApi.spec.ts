@@ -29,8 +29,13 @@ describe('McpApi', () => {
     });
 
     it('listAllMcpServers: lists MCP servers across the instance', async () => {
+        const req = makeMcpServer();
+        await Mcp.createMcp(req);
+
+        // Instance-wide paged listing (PagedResultsApiInstanceMcpServer); the
+        // server we just created must be among the results.
         const result = await Mcp.listAllMcpServers();
-        expect(result).toBeDefined();
+        expect((result.results ?? []).some((s) => s.id === req.id)).toBe(true);
     });
 
     it('updateMcp: updates an MCP server', async () => {

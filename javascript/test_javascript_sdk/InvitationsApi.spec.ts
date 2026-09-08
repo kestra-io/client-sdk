@@ -32,16 +32,6 @@ describe('InvitationsApi', () => {
         expect(Array.isArray(result)).toBe(true);
     });
 
-    it.skip('invitation: retrieves an invitation by id', async () => {
-        // Try to get a real invitation ID; fall back to a fake one to cover the function
-        let id = 'non-existent-id';
-        const search = await Invitations.searchInvitations({ page: 1, size: 1 });
-        id = search.results?.[0]?.id ?? 'non-existent-id';
-
-        const result = await Invitations.invitation({ id });
-        expect(result).toBeDefined();
-    });
-
     it('invitation + deleteInvitation: gets then deletes an invitation by id', async () => {
         const email = randomEmail();
         await Invitations.createInvitation({ email, createUserIfNotExist: true });
@@ -69,25 +59,6 @@ describe('InvitationsApi', () => {
             expect(after.some((i) => i.id === id)).toBe(false);
         } catch (err) {
             expect((err as { status?: number }).status).toBe(404);
-        }
-    });
-
-    it('deleteInvitation: deletes an invitation', async () => {
-        // Try to get a real invitation ID; fall back to fake to cover the function
-        let id: string | undefined;
-        try {
-            const search = await Invitations.searchInvitations({ page: 1, size: 1 });
-            id = (search as any)?.results?.[0]?.id;
-        } catch {
-            // searchInvitations not available
-        }
-        if (!id) return; // nothing to delete and we covered the function in the invitation test
-        try {
-            await Invitations.deleteInvitation({ id });
-        } catch (err: any) {
-            const status = err?.response?.status ?? err?.status;
-            if (status === 404) return;
-            throw err;
         }
     });
 });
