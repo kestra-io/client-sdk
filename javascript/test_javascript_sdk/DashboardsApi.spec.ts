@@ -188,6 +188,55 @@ describe('DashboardsApi', () => {
         expect(result).toBeDefined();
     });
 
+    it('defaultDashboardDefinitions: returns the built-in default dashboard definitions', async () => {
+        const result = await Dashboards.defaultDashboardDefinitions();
+
+        // The endpoint returns a map of built-in definition name -> yaml source.
+        const definitions = result as Record<string, string>;
+        const names = Object.keys(definitions);
+        expect(names.length).toBeGreaterThan(0);
+        expect(typeof definitions[names[0]]).toBe('string');
+    });
+
+    it('validateChart: a well-formed chart yaml validates with no constraint violations', async () => {
+        const namespace = randomId();
+        const result = await Dashboards.validateChart({
+            body: executionsTableChartYaml('validate-chart', namespace),
+        });
+
+        // A valid chart yields a violation record with no `constraints` string.
+        expect((result as any).constraints == null).toBe(true);
+    });
+
+    it('previewChart: previews an ad-hoc chart over a namespace with one execution', async () => {
+        const { namespace, executionId } = await createFlowAndWaitForExecution();
+
+        const result = await Dashboards.previewChart({
+            chart: executionsTableChartYaml('preview-chart', namespace),
+        });
+
+        expect((result as any).total).toBeGreaterThanOrEqual(1);
+        expect(Array.isArray((result as any).results)).toBe(true);
+        // The namespace filter is deterministic, so our own execution must be in the rows.
+        expect(JSON.stringify((result as any).results)).toContain(executionId);
+    });
+
+    it('dashboardChartData: generates data for a saved dashboard chart', async () => {
+        const { namespace, executionId } = await createFlowAndWaitForExecution();
+        const chartId = 'recent_executions';
+
+        const created = await Dashboards.createDashboard({
+            body: executionsTableDashboardYaml(randomId(), `chart-data-${randomId()}`, chartId, namespace),
+        });
+        const id = (created as any).id;
+
+        const result = await Dashboards.dashboardChartData({ id, chartId });
+
+        expect((result as any).total).toBeGreaterThanOrEqual(1);
+        expect(Array.isArray((result as any).results)).toBe(true);
+        expect(JSON.stringify((result as any).results)).toContain(executionId);
+    });
+
     it('exportChart: exports an ad-hoc chart to CSV', async () => {
         const { namespace, flowId, executionId } = await createFlowAndWaitForExecution();
 

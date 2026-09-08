@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { randomId } from './_utils.js';
 import * as ReusableInputs from '@kestra-io/kestra-sdk/reusable-inputs';
+import * as ReusableInputsAdmin from '@kestra-io/kestra-sdk/reusable-inputs-admin';
 
 describe('ReusableInputsApi', () => {
     it('namespacesWithBlocks: lists namespaces defining reusable inputs', async () => {
@@ -34,5 +35,24 @@ describe('ReusableInputsApi', () => {
         expect(Array.isArray(result)).toBe(true);
         expect(result).toHaveLength(1);
         expect(result[0]).toMatchObject({ id, namespace });
+    });
+
+    it('admin list/get/delete: manages reusable inputs by namespace', async () => {
+        const namespace = randomId();
+        const id = randomId();
+        const body = `id: ${id}\nnamespace: ${namespace}\ninputs:\n  - id: in\n    type: STRING\n`;
+        await ReusableInputs.createOrUpdate({ namespace, id, body });
+
+        const listed = await ReusableInputsAdmin.list({ namespace });
+        expect((listed.results ?? []).some((r) => r.id === id)).toBe(true);
+
+        const fetched = await ReusableInputsAdmin.get({ namespace, id });
+        expect(fetched.id).toBe(id);
+        expect(fetched.namespace).toBe(namespace);
+
+        await ReusableInputsAdmin.deleteReusableInputs({ namespace, id });
+
+        const after = await ReusableInputsAdmin.list({ namespace });
+        expect((after.results ?? []).some((r) => r.id === id)).toBe(false);
     });
 });

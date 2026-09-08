@@ -12,6 +12,14 @@ function makeTenant(id: string): Tenant {
     };
 }
 
+// The logo upload endpoints reject anything but SVG ("422 Logo must be a SVG
+// file"), so ship a minimal valid SVG rather than a raster image.
+const SVG_LOGO = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect width="1" height="1"/></svg>';
+
+function makeLogo(): Blob {
+    return new Blob([SVG_LOGO], { type: 'image/svg+xml' });
+}
+
 describe('TenantsApi', () => {
     it('find: lists all tenants', async () => {
         const result = await Tenants.find({ page: 1, size: 10 });
@@ -95,6 +103,23 @@ describe('TenantsApi', () => {
 
         const result = await Tenants.setAppsCatalogConfig({ id, title: 'Test Title' });
         expect(result).toBeDefined();
+    });
+
+    it('setLogo: sets a tenant logo', async () => {
+        const id = randomId();
+        await TenantsAdmin.create(makeTenant(id));
+
+        const result = await Tenants.setLogo({ id, logo: makeLogo() });
+        expect((result as any).id).toBe(id);
+        expect(typeof (result as any).logo).toBe('string');
+    });
+
+    it('setAppsCatalogLogo: sets the apps catalog logo for a tenant', async () => {
+        const id = randomId();
+        await TenantsAdmin.create(makeTenant(id));
+
+        const result = await Tenants.setAppsCatalogLogo({ id, logo: makeLogo() });
+        expect(typeof (result as any).logo).toBe('string');
     });
 
     it('deleteAppsCatalogLogo: deletes apps catalog logo for a tenant', async () => {
