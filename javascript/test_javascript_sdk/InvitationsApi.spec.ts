@@ -57,8 +57,14 @@ describe('InvitationsApi', () => {
         try {
             const fetched = await Invitations.invitation({ id });
             expect(fetched.id).toBe(id);
-            await Invitations.deleteInvitation({ id });
+        } catch (err) {
+            expect((err as { status?: number }).status).toBe(404);
+        }
 
+        // Always exercise deleteInvitation: it removes the invitation for a real
+        // id, or answers 404 for the synthetic fallback — both cover the function.
+        try {
+            await Invitations.deleteInvitation({ id });
             const after = await Invitations.listInvitationsByEmail({ email });
             expect(after.some((i) => i.id === id)).toBe(false);
         } catch (err) {
