@@ -28328,9 +28328,16 @@ paths:
     post:
       tags:
       - Promote
-      summary: Test connectivity to an unsaved SERVER-mode promotion target definition
+      summary: Test connectivity to an unsaved SERVER-mode promotion target definition, or to edits of a saved one
       operationId: testPromotionTarget
       parameters:
+      - name: id
+        in: query
+        description: The saved promotion target being edited; its stored token is used when the definition omits one
+        explode: false
+        schema:
+          type: string
+          nullable: true
       - name: tenant
         in: path
         required: true
