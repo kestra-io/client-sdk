@@ -31442,6 +31442,12 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: If the backfill end date is not after its start date
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
