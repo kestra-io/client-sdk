@@ -30115,7 +30115,7 @@ paths:
       parameters:
       - name: from
         in: query
-        description: The start date
+        description: The start date, defaulting to the current month when omitted
         schema:
           type: string
           format: date
