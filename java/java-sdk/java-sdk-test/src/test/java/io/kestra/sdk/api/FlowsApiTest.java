@@ -1327,4 +1327,169 @@ public class FlowsApiTest {
 
         assertThat(result).isNotNull();
     }
+
+    // ========================================================================
+    // Export by query
+    // ========================================================================
+
+    @Test
+    void exportFlows_basic() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        byte[] result = api().exportFlows(TENANT, List.of(nsFilter(f.getNamespace())));
+
+        assertThat(result).isNotEmpty();
+    }
+
+    // ========================================================================
+    // Hashes
+    // ========================================================================
+
+    @Test
+    void flowHashesByIds_basic() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().flowHashesByIds(TENANT,
+                List.of(new IdWithNamespace().id(f.getId()).namespace(f.getNamespace())));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> hashes = (List<Map<String, Object>>) result.get("hashes");
+        assertThat(hashes).hasSize(1);
+        assertThat(hashes.get(0).get("hash")).isNotNull();
+    }
+
+    // ========================================================================
+    // Governance policies (EE)
+    // ========================================================================
+
+    @Test
+    void previewPolicies_noPoliciesConfigured_returnsSourceUnchanged() throws ApiException {
+        FlowFixture fixture = simpleFlowFixture();
+
+        Map<String, Object> result = api().previewPolicies(TENANT,
+                Map.of("namespace", fixture.namespace(), "source", fixture.body()));
+
+        assertThat(result.get("resolvedSource")).isEqualTo(fixture.body());
+    }
+
+    // ========================================================================
+    // Promotion (EE) — negative paths: no promotion target is configured
+    // ========================================================================
+
+    @Test
+    void promote_unknownTarget_reportsFailure() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        // promote never throws for a per-target problem: it reports success/failure
+        // per target in the response body instead of failing the whole HTTP call.
+        Map<String, Object> result = api().promote(f.getNamespace(), f.getId(), TENANT,
+                Map.of("sourceRevision", f.getRevision(), "targets", List.of(Map.of("targetId", "nonexistent-target"))));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> results = (List<Map<String, Object>>) result.get("results");
+        assertThat(results).hasSize(1);
+        assertThat(results.get(0).get("success")).isEqualTo(false);
+        assertThat(results.get(0).get("error")).isEqualTo("Promote target not found");
+    }
+
+    @Test
+    void promoteByIds_unknownTarget_reportsFailure() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().promoteByIds(TENANT, Map.of(
+                "flows", List.of(Map.of("id", f.getId(), "namespace", f.getNamespace())),
+                "targetIds", List.of("nonexistent-target")));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> flowResults = (List<Map<String, Object>>) result.get("results");
+        assertThat(flowResults).hasSize(1);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> perTarget = (List<Map<String, Object>>) flowResults.get(0).get("results");
+        assertThat(perTarget.get(0).get("success")).isEqualTo(false);
+    }
+
+    @Test
+    void listPromotions_noPromotionsYet_empty() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().listPromotions(f.getNamespace(), f.getId(), TENANT, 1, 10, null);
+
+        assertThat(((Number) result.get("total")).longValue()).isEqualTo(0L);
+    }
+
+    @Test
+    void reportPromote_unknownTarget_throws() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        // unlike promote/promoteByIds (which soft-fail per target in the response body),
+        // reportPromote validates the target exists and 404s outright.
+        assertThatThrownBy(() -> api().reportPromote(f.getNamespace(), f.getId(), TENANT, Map.of(
+                "promotionId", randomId(),
+                "targetId", "manual-target",
+                "gateOutcome", "NONE",
+                "state", "SUCCESS")))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @Test
+    void promoteDiff_unknownAudit_throws() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        assertThatThrownBy(() -> api().promoteDiff(f.getNamespace(), f.getId(), "nonexistent-audit", TENANT))
+                .isInstanceOf(ApiException.class);
+    }
+
+    // ========================================================================
+    // Source search & replace
+    // ========================================================================
+
+    @Test
+    void previewReplaceBySourceCode_findsMatch() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().previewReplaceBySourceCode(TENANT,
+                Map.of("query", "Hello World!", "replacement", "Hi World!", "namespace", f.getNamespace()));
+
+        assertThat(((Number) result.get("totalMatches")).intValue()).isGreaterThanOrEqualTo(1);
+    }
+
+    @Test
+    void applyReplaceBySourceCode_updatesFlow() throws ApiException {
+        FlowWithSource f = createLogFlow();
+
+        Map<String, Object> result = api().applyReplaceBySourceCode(TENANT, Map.of(
+                "query", "Hello World!",
+                "replacement", "Hi World!",
+                "flows", List.of(Map.of("id", f.getId(), "namespace", f.getNamespace()))));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> updated = (List<Map<String, Object>>) result.get("updated");
+        assertThat(updated).extracting(u -> u.get("id")).contains(f.getId());
+    }
+
+    @Test
+    void replaceLineBySourceCode_updatesSingleFlow() throws ApiException {
+        FlowWithSource f = createLogFlow();
+        FlowWithSource withSource = api().flow(f.getNamespace(), f.getId(), TENANT, true, null, null);
+        List<String> lines = withSource.getSource().lines().toList();
+        // line is 1-indexed; column is the 0-indexed offset of the match start on that
+        // line — both must be exact, or the endpoint reports NO_MATCH (confirmed against
+        // a live server: unlike replace/preview and replace/apply, replace/line does not
+        // just search the line text for the query).
+        int lineIndex = lines.indexOf(lines.stream().filter(l -> l.contains("Hello World!")).findFirst().orElseThrow());
+        int line = lineIndex + 1;
+        int column = lines.get(lineIndex).indexOf("Hello World!");
+
+        Map<String, Object> result = api().replaceLineBySourceCode(TENANT, Map.of(
+                "id", f.getId(),
+                "namespace", f.getNamespace(),
+                "query", "Hello World!",
+                "replacement", "Hi World!",
+                "line", line,
+                "column", column));
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> updated = (List<Map<String, Object>>) result.get("updated");
+        assertThat(updated).extracting(u -> u.get("id")).contains(f.getId());
+    }
 }

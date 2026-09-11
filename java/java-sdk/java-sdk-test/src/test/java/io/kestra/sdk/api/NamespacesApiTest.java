@@ -6,9 +6,11 @@ import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.awaitility.Awaitility.await;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class NamespacesApiTest {
@@ -214,4 +216,125 @@ public class NamespacesApiTest {
 
         assertThat(result).isNotNull();
     }
+
+    // ========================================================================
+    // Policies (EE)
+    // ========================================================================
+
+    private static String policyYaml(String id) {
+        return """
+                id: %s
+                enforcement: EVALUATE
+                rules:
+                  - type: io.kestra.plugin.ee.rules.Deny
+                    on: PLUGIN
+                """.formatted(id);
+    }
+
+    @Test
+    void createNamespacePolicy_thenGetThenDelete() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+
+        Map<String, Object> created = api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+        assertThat(created.get("id")).isEqualTo(policyId);
+        assertThat(created.get("enforcement")).isEqualTo("EVALUATE");
+
+        Map<String, Object> fetched = api().getNamespacePolicy(ns, policyId, TENANT);
+        assertThat(fetched.get("id")).isEqualTo(policyId);
+
+        assertThatCode(() -> api().deleteNamespacePolicy(ns, policyId, TENANT)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void updateNamespacePolicy_changesEnforcement() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        String updatedYaml = """
+                id: %s
+                enforcement: ACTIVE
+                rules:
+                  - type: io.kestra.plugin.ee.rules.Deny
+                    on: PLUGIN
+                """.formatted(policyId);
+        Map<String, Object> updated = api().updateNamespacePolicy(ns, policyId, TENANT, updatedYaml);
+
+        assertThat(updated.get("enforcement")).isEqualTo("ACTIVE");
+    }
+
+    @Test
+    void searchNamespacePolicies_findsCreatedPolicy() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        await().atMost(30, TimeUnit.SECONDS).pollInterval(500, TimeUnit.MILLISECONDS).untilAsserted(() -> {
+            Map<String, Object> result = api().searchNamespacePolicies(ns, TENANT, 1, 10, null);
+            assertThat(((Number) result.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        });
+    }
+
+    @Test
+    void deleteNamespacePoliciesByIds_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        BulkResponse result = api().deleteNamespacePoliciesByIds(ns, TENANT, List.of(policyId));
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void validateNamespacePolicy_missingRequiredFields_reportsViolation() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+
+        ValidateConstraintViolation result = api().validateNamespacePolicy(ns, TENANT, "id: incomplete-policy");
+
+        assertThat(result.getConstraints()).isNotBlank();
+    }
+
+    @Test
+    void exportNamespacePolicies_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        api().createNamespacePolicy(ns, TENANT, policyYaml(randomId()));
+
+        byte[] result = api().exportNamespacePolicies(ns, TENANT);
+
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    void exportNamespacePoliciesByIds_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        byte[] result = api().exportNamespacePoliciesByIds(ns, TENANT, List.of(policyId));
+
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    void evaluateNamespacePolicy_basic() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new Namespace().id(ns));
+        String policyId = randomId();
+        api().createNamespacePolicy(ns, TENANT, policyYaml(policyId));
+
+        Map<String, Object> result = api().evaluateNamespacePolicy(ns, policyId, TENANT, 1, 10);
+
+        assertThat(result).isNotNull();
+    }
+
+    // Reusable inputs (EE) are covered by ReusableInputsApiTest, not here.
 }

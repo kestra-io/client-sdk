@@ -90,6 +90,23 @@ public class UsersApiTest {
                 .doesNotThrowAnyException();
     }
 
+    @Test
+    void deleteUsersByIds_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("bulk-delete-" + randomId() + "@test.com")
+                        .firstName("Bulk")
+                        .lastName("Delete")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser created = api().createUser(request);
+
+        BulkResponse result = api().deleteUsersByIds(List.of(created.getId()));
+
+        assertThat(result).isNotNull();
+        assertThatThrownBy(() -> api().user(created.getId())).isInstanceOf(ApiException.class);
+    }
+
     // ========================================================================
     // Search
     // ========================================================================
