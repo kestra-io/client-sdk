@@ -2,6 +2,8 @@ package io.kestra.sdk.internal;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import io.kestra.sdk.model.QueryFilter;
+
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
@@ -75,7 +77,53 @@ public abstract class BaseApi {
     if (filters == null || filters.isEmpty()) {
       return Collections.emptyList();
     }
-    return apiClient.parameterToPairs("csv", "filters", filters);
+    // The server binds filters in PHP-style nested form: filters[<field>][<operation>] or
+    // filters[<field>][<operation>][<key>] for map-like values such as labels (see Kestra's
+    // QueryFilterFormatBinder). Serializing the filter objects as a CSV query value silently
+    // drops them server-side - the binder only looks at "filters["-prefixed parameter names -
+    // which makes every filtered endpoint operate on the full, unfiltered result set.
+    List<Pair> params = new ArrayList<>();
+    for (Object filter : filters) {
+      if (!(filter instanceof QueryFilter queryFilter)) {
+        continue;
+      }
+      if (queryFilter.getField() == null || queryFilter.getOperation() == null) {
+        continue;
+      }
+      String field = toFilterFieldName(queryFilter.getField().getValue());
+      String operation = queryFilter.getOperation().getValue();
+      Object value = queryFilter.getValue();
+      if (value instanceof Map<?, ?> mapValue) {
+        // Map-like values (e.g. labels) expand to filters[<field>][<op>][<key>]=<value>
+        for (Map.Entry<?, ?> entry : mapValue.entrySet()) {
+          params.add(new Pair(
+              "filters[" + field + "][" + operation + "][" + entry.getKey() + "]",
+              apiClient.escapeString(apiClient.parameterToString(entry.getValue()))));
+        }
+      } else {
+        params.add(new Pair(
+            "filters[" + field + "][" + operation + "]",
+            apiClient.escapeString(apiClient.parameterToString(value))));
+      }
+    }
+    return params;
+  }
+
+  /**
+   * Maps a QueryFilter field to the parameter name the server expects: SCREAMING_CASE enum
+   * values become camelCase (NAMESPACE to namespace, FLOW_ID to flowId), and QUERY shortens to
+   * "q", matching the values of Kestra's QueryFilter.Field.
+   */
+  private static String toFilterFieldName(String fieldValue) {
+    String[] parts = fieldValue.toLowerCase(java.util.Locale.ROOT).split("_");
+    StringBuilder sb = new StringBuilder(parts[0]);
+    for (int i = 1; i < parts.length; i++) {
+      if (!parts[i].isEmpty()) {
+        sb.append(Character.toUpperCase(parts[i].charAt(0))).append(parts[i].substring(1));
+      }
+    }
+    String camel = sb.toString();
+    return "query".equals(camel) ? "q" : camel;
   }
 
   protected List<Pair> csvParams(String name, @jakarta.annotation.Nullable List<String> values) {
