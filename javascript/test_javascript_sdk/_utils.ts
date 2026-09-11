@@ -1,3 +1,4 @@
+import { expect } from 'vitest';
 import * as path from "node:path";
 import { readFileSync } from "node:fs";
 import * as Executions from '@kestra-io/kestra-sdk/executions';
@@ -133,4 +134,21 @@ tasks:
 `;
 
     return { flowBody, flowNamespace: namespace, flowId };
+}
+
+// Export endpoints are declared `format: binary`, so the SDK types them as Blob | File; some
+// deployments still hand back a plain string. Normalise before asserting on the payload.
+export async function asText(payload: string | Blob | File): Promise<string> {
+    return typeof payload === "string" ? payload : await payload.text();
+}
+
+// 0 stands for success: throwing from inside the try would be caught below.
+export async function expectStatus(call: Promise<unknown>, expected: number) {
+    let status: unknown = 0;
+    try {
+        await call;
+    } catch (err: unknown) {
+        status = (err as any)?.status ?? (err as any)?.code ?? (err as any)?.response?.status;
+    }
+    expect(status, `expected a ${expected} response`).toBe(expected);
 }

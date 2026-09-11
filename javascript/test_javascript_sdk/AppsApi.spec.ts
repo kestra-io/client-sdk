@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getSimpleFlowAndId } from './_utils.js';
+import { randomId, getSimpleFlowAndId, asText } from './_utils.js';
 import * as Flows from '@kestra-io/kestra-sdk/flows';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
 import * as Apps from '@kestra-io/kestra-sdk/apps';
@@ -234,9 +234,7 @@ describe('AppsApi', () => {
     it('bulkExportApps: exports selected apps as a ZIP payload', async () => {
         const { uid } = await createAppWithSource();
 
-        // The wrapper parses the ZIP response as text; a real export is non-empty.
-        const exported = await Apps.bulkExportApps({ uids: [uid] });
-        expect(typeof exported).toBe('string');
+        const exported = await asText(await Apps.bulkExportApps({ uids: [uid] }));
         expect(exported.length).toBeGreaterThan(0);
     });
 

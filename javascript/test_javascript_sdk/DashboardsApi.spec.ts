@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { randomId, getExecutableFlowAndId, waitForExecutionSuccess } from './_utils.js';
+import { randomId, getExecutableFlowAndId, waitForExecutionSuccess, asText } from './_utils.js';
 import * as Dashboards from '@kestra-io/kestra-sdk/dashboards';
 import * as DashboardsAdmin from '@kestra-io/kestra-sdk/dashboards-admin';
 import * as Executions from '@kestra-io/kestra-sdk/executions';
@@ -240,10 +240,10 @@ describe('DashboardsApi', () => {
     it('exportChart: exports an ad-hoc chart to CSV', async () => {
         const { namespace, flowId, executionId } = await createFlowAndWaitForExecution();
 
-        const csv = await Dashboards.exportChart({
+        const csv = await asText(await Dashboards.exportChart({
             chart: executionsTableChartYaml('adhoc-chart', namespace),
             format: 'CSV',
-        });
+        }));
 
         expect(csv).toContain(namespace);
         expect(csv).toContain(flowId);
@@ -254,10 +254,10 @@ describe('DashboardsApi', () => {
     it('exportChart: exports an ad-hoc chart to ION', async () => {
         const { namespace, flowId, executionId } = await createFlowAndWaitForExecution();
 
-        const ion = await Dashboards.exportChart({
+        const ion = await asText(await Dashboards.exportChart({
             chart: executionsTableChartYaml('adhoc-chart', namespace),
             format: 'ION',
-        });
+        }));
 
         expect(ion).toContain(namespace);
         expect(ion).toContain(flowId);
@@ -274,7 +274,7 @@ describe('DashboardsApi', () => {
         });
         const id = (created as any).id;
 
-        const csv = await Dashboards.exportDashboardChart({ id, chartId, format: 'CSV' });
+        const csv = await asText(await Dashboards.exportDashboardChart({ id, chartId, format: 'CSV' }));
 
         expect(csv).toContain(namespace);
         expect(csv).toContain(flowId);
@@ -291,7 +291,7 @@ describe('DashboardsApi', () => {
         });
         const id = (created as any).id;
 
-        const ion = await Dashboards.exportDashboardChart({ id, chartId, format: 'ION' });
+        const ion = await asText(await Dashboards.exportDashboardChart({ id, chartId, format: 'ION' }));
 
         expect(ion).toContain(namespace);
         expect(ion).toContain(flowId);
