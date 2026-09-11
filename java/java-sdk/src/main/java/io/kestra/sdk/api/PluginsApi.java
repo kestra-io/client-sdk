@@ -20,7 +20,6 @@ import io.kestra.sdk.model.TaskWithVersion;
 import io.kestra.sdk.model.Type;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
