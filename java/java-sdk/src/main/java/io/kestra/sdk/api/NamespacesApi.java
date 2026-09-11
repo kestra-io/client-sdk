@@ -310,65 +310,7 @@ public class NamespacesApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    // ========================================================================
-    // Reusable inputs (EE)
-    // ========================================================================
-
-    public Map<String, Object> listReusableInputs(
-            @jakarta.annotation.Nonnull String namespace,
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable Integer page,
-            @jakarta.annotation.Nullable Integer size) throws ApiException {
-        return get(
-                tenantPath(tenant, "namespaces", namespace, "reusable-inputs"),
-                queryParams("page", page, "size", size), Collections.emptyList(),
-                new TypeReference<>() {});
-    }
-
-    public Map<String, Object> getReusableInputs(
-            @jakarta.annotation.Nonnull String namespace,
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nullable Integer revision) throws ApiException {
-        return get(
-                tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id),
-                queryParams("revision", revision), Collections.emptyList(),
-                new TypeReference<>() {});
-    }
-
-    /**
-     * The server accepts the reusable-inputs source as YAML, JSON or plain text (all
-     * declared as a raw {@code string} body); {@code body} is sent as-is as YAML, matching
-     * the same raw-string convention as {@link #createNamespacePolicy}.
-     */
-    public Map<String, Object> createOrUpdateReusableInputs(
-            @jakarta.annotation.Nonnull String namespace,
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant,
-            @jakarta.annotation.Nonnull String body,
-            @jakarta.annotation.Nullable Boolean failIfExists) throws ApiException {
-        return invoke("PUT",
-                tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id),
-                body, queryParams("failIfExists", failIfExists), Collections.emptyList(),
-                JSON, YAML,
-                new TypeReference<>() {});
-    }
-
-    public void deleteReusableInputs(
-            @jakarta.annotation.Nonnull String namespace,
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
-        delete(tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id));
-    }
-
-    public List<Object> listReusableInputsRevisions(
-            @jakarta.annotation.Nonnull String namespace,
-            @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull String tenant) throws ApiException {
-        return get(
-                tenantPath(tenant, "namespaces", namespace, "reusable-inputs", id, "revisions"),
-                Collections.emptyList(), Collections.emptyList(),
-                new TypeReference<>() {});
-    }
+    // Reusable inputs (EE) are wrapped in the dedicated ReusableInputsApi (added
+    // independently on main), not here.
 
 }

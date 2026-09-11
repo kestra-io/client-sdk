@@ -336,57 +336,5 @@ public class NamespacesApiTest {
         assertThat(result).isNotNull();
     }
 
-    // ========================================================================
-    // Reusable inputs (EE)
-    // ========================================================================
-
-    private static String reusableInputsBody(String id) {
-        return """
-                id: %s
-                inputs:
-                  - id: name
-                    type: STRING
-                    required: true
-                """.formatted(id);
-    }
-
-    @Test
-    void createOrUpdateReusableInputs_thenGetThenDelete() throws ApiException {
-        String ns = randomId();
-        api().createNamespace(TENANT, new Namespace().id(ns));
-        String id = randomId();
-
-        Map<String, Object> created = api().createOrUpdateReusableInputs(ns, id, TENANT, reusableInputsBody(id), null);
-        assertThat(created.get("id")).isEqualTo(id);
-
-        Map<String, Object> fetched = api().getReusableInputs(ns, id, TENANT, null);
-        assertThat(fetched.get("id")).isEqualTo(id);
-        assertThat(fetched.get("namespace")).isEqualTo(ns);
-
-        assertThatCode(() -> api().deleteReusableInputs(ns, id, TENANT)).doesNotThrowAnyException();
-    }
-
-    @Test
-    void listReusableInputs_findsCreatedBlock() throws ApiException {
-        String ns = randomId();
-        api().createNamespace(TENANT, new Namespace().id(ns));
-        String id = randomId();
-        api().createOrUpdateReusableInputs(ns, id, TENANT, reusableInputsBody(id), null);
-
-        Map<String, Object> result = api().listReusableInputs(ns, TENANT, 1, 10);
-
-        assertThat(((Number) result.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
-    }
-
-    @Test
-    void listReusableInputsRevisions_afterUpdate() throws ApiException {
-        String ns = randomId();
-        api().createNamespace(TENANT, new Namespace().id(ns));
-        String id = randomId();
-        api().createOrUpdateReusableInputs(ns, id, TENANT, reusableInputsBody(id), null);
-
-        List<Object> result = api().listReusableInputsRevisions(ns, id, TENANT);
-
-        assertThat(result).isNotEmpty();
-    }
+    // Reusable inputs (EE) are covered by ReusableInputsApiTest, not here.
 }
