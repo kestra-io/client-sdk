@@ -47,6 +47,8 @@ public enum Type {
   
   JSON("JSON"),
   
+  ION("ION"),
+  
   URI("URI"),
   
   SECRET("SECRET"),
@@ -60,6 +62,8 @@ public enum Type {
   EMAIL("EMAIL"),
 
   FORM("FORM"),
+
+  REUSABLE_INPUTS("REUSABLE_INPUTS"),
 
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
