@@ -18,15 +18,15 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List
-from kestrapy.models.reusable_inputs import ReusableInputs
+from kestrapy.models.reusable_inputs_with_source import ReusableInputsWithSource
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PagedResultsReusableInputs(BaseModel):
+class PagedResultsReusableInputsWithSource(BaseModel):
     """
-    PagedResultsReusableInputs
+    PagedResultsReusableInputsWithSource
     """ # noqa: E501
-    results: List[ReusableInputs]
+    results: List[ReusableInputsWithSource]
     total: StrictInt
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["results", "total"]
@@ -49,7 +49,7 @@ class PagedResultsReusableInputs(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PagedResultsReusableInputs from a JSON string"""
+        """Create an instance of PagedResultsReusableInputsWithSource from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -88,7 +88,7 @@ class PagedResultsReusableInputs(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PagedResultsReusableInputs from a dict"""
+        """Create an instance of PagedResultsReusableInputsWithSource from a dict"""
         if obj is None:
             return None
 
@@ -96,7 +96,7 @@ class PagedResultsReusableInputs(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "results": [ReusableInputs.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
+            "results": [ReusableInputsWithSource.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
             "total": obj.get("total")
         })
         # store additional fields in additional_properties
