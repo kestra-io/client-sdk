@@ -31,6 +31,7 @@ const (
 	TYPE_DURATION Type = "DURATION"
 	TYPE_FILE Type = "FILE"
 	TYPE_JSON Type = "JSON"
+	TYPE_ION Type = "ION"
 	TYPE_URI Type = "URI"
 	TYPE_SECRET Type = "SECRET"
 	TYPE_ARRAY Type = "ARRAY"
@@ -38,6 +39,7 @@ const (
 	TYPE_YAML Type = "YAML"
 	TYPE_EMAIL Type = "EMAIL"
 	TYPE_FORM Type = "FORM"
+	TYPE_REUSABLE_INPUTS Type = "REUSABLE_INPUTS"
 )
 
 // All allowed values of Type enum
@@ -53,6 +55,7 @@ var AllowedTypeEnumValues = []Type{
 	"DURATION",
 	"FILE",
 	"JSON",
+	"ION",
 	"URI",
 	"SECRET",
 	"ARRAY",
@@ -60,6 +63,7 @@ var AllowedTypeEnumValues = []Type{
 	"YAML",
 	"EMAIL",
 	"FORM",
+	"REUSABLE_INPUTS",
 }
 
 func (v *Type) UnmarshalJSON(src []byte) error {
