@@ -23,6 +23,7 @@ __all__ = [
     "KVApi",
     "NamespacesApi",
     "QuotasApi",
+    "ReusableInputsApi",
     "RolesApi",
     "ServiceAccountApi",
     "TenantsApi",
@@ -469,7 +470,7 @@ __all__ = [
     "PagedResultsNamespace",
     "PagedResultsPlugin",
     "PagedResultsPluginControllerApiTriggerPlugin",
-    "PagedResultsReusableInputs",
+    "PagedResultsReusableInputsWithSource",
     "PagedResultsSecurityIntegration",
     "PagedResultsSourceSearchResult",
     "PagedResultsTenant",
@@ -542,7 +543,7 @@ __all__ = [
     "Resource",
     "ResourceType",
     "ResourceTypeSchemaExtensionConfiguration",
-    "ReusableInputs",
+    "ReusableInputsWithSource",
     "RightSidebarConfiguration",
     "RightSidebarConfigurationCustomLink",
     "Role",
@@ -697,6 +698,7 @@ from kestrapy.api.groups_api import GroupsApi as GroupsApi
 from kestrapy.api.kv_api import KVApi as KVApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.quotas_api import QuotasApi as QuotasApi
+from kestrapy.api.reusable_inputs_api import ReusableInputsApi as ReusableInputsApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
 from kestrapy.api.tenants_api import TenantsApi as TenantsApi
@@ -1148,7 +1150,7 @@ from kestrapy.models.paged_results_metric_entry import PagedResultsMetricEntry a
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace as PagedResultsNamespace
 from kestrapy.models.paged_results_plugin import PagedResultsPlugin as PagedResultsPlugin
 from kestrapy.models.paged_results_plugin_controller_api_trigger_plugin import PagedResultsPluginControllerApiTriggerPlugin as PagedResultsPluginControllerApiTriggerPlugin
-from kestrapy.models.paged_results_reusable_inputs import PagedResultsReusableInputs as PagedResultsReusableInputs
+from kestrapy.models.paged_results_reusable_inputs_with_source import PagedResultsReusableInputsWithSource as PagedResultsReusableInputsWithSource
 from kestrapy.models.paged_results_security_integration import PagedResultsSecurityIntegration as PagedResultsSecurityIntegration
 from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult as PagedResultsSourceSearchResult
 from kestrapy.models.paged_results_tenant import PagedResultsTenant as PagedResultsTenant
@@ -1221,7 +1223,7 @@ from kestrapy.models.resolution import Resolution as Resolution
 from kestrapy.models.resource import Resource as Resource
 from kestrapy.models.resource_type import ResourceType as ResourceType
 from kestrapy.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration as ResourceTypeSchemaExtensionConfiguration
-from kestrapy.models.reusable_inputs import ReusableInputs as ReusableInputs
+from kestrapy.models.reusable_inputs_with_source import ReusableInputsWithSource as ReusableInputsWithSource
 from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration as RightSidebarConfiguration
 from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink as RightSidebarConfigurationCustomLink
 from kestrapy.models.role import Role as Role

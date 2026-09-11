@@ -441,7 +441,7 @@ docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsPlugin.md
 docs/PagedResultsPluginControllerApiTriggerPlugin.md
-docs/PagedResultsReusableInputs.md
+docs/PagedResultsReusableInputsWithSource.md
 docs/PagedResultsSecurityIntegration.md
 docs/PagedResultsSourceSearchResult.md
 docs/PagedResultsTenant.md
@@ -514,7 +514,7 @@ docs/Resolution.md
 docs/Resource.md
 docs/ResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
-docs/ReusableInputs.md
+docs/ReusableInputsWithSource.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
@@ -1114,7 +1114,7 @@ kestrapy/models/paged_results_metric_entry.py
 kestrapy/models/paged_results_namespace.py
 kestrapy/models/paged_results_plugin.py
 kestrapy/models/paged_results_plugin_controller_api_trigger_plugin.py
-kestrapy/models/paged_results_reusable_inputs.py
+kestrapy/models/paged_results_reusable_inputs_with_source.py
 kestrapy/models/paged_results_security_integration.py
 kestrapy/models/paged_results_source_search_result.py
 kestrapy/models/paged_results_tenant.py
@@ -1187,7 +1187,7 @@ kestrapy/models/resolution.py
 kestrapy/models/resource.py
 kestrapy/models/resource_type.py
 kestrapy/models/resource_type_schema_extension_configuration.py
-kestrapy/models/reusable_inputs.py
+kestrapy/models/reusable_inputs_with_source.py
 kestrapy/models/right_sidebar_configuration.py
 kestrapy/models/right_sidebar_configuration_custom_link.py
 kestrapy/models/role.py
