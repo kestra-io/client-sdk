@@ -112,6 +112,8 @@ public class KestraClient {
 
     public MiscApi misc() { return new MiscApi(this.apiClient); }
 
+    public ReusableInputsApi reusableInputs() { return new ReusableInputsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**
