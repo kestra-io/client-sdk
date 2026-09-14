@@ -11,6 +11,7 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.ApiPatchInstanceOwnerRequest;
 import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
 import io.kestra.sdk.model.ApiTokenList;
+import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.CreateApiTokenRequest;
 import io.kestra.sdk.model.CreateApiTokenResponse;
 import io.kestra.sdk.model.IAMTenantAccessControllerApiUserTenantAccess;
@@ -27,6 +28,7 @@ import io.kestra.sdk.model.QueryFilter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UsersApi extends BaseApi {
 
@@ -41,11 +43,7 @@ public class UsersApi extends BaseApi {
     // ---- Path builders ----
 
     private String path(String... segments) {
-        StringBuilder sb = new StringBuilder("/api/v1");
-        for (String s : segments) {
-            sb.append("/").append(esc(s));
-        }
-        return sb.toString();
+        return apiPath(segments);
     }
 
     // ========================================================================
@@ -86,6 +84,15 @@ public class UsersApi extends BaseApi {
                 path("users", id),
                 null, null, null,
                 null, null, null);
+    }
+
+    public BulkResponse deleteUsersByIds(
+            @jakarta.annotation.Nonnull List<String> ids) throws ApiException {
+        return invoke("DELETE",
+                path("users", "by-ids"),
+                Map.of("ids", ids), null, null,
+                JSON, JSON,
+                new TypeReference<>() {});
     }
 
     // ========================================================================

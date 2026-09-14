@@ -39,6 +39,7 @@ public class FlowsApi extends BaseApi {
     private static final String YAML = "application/x-yaml";
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
+    private static final String TEXT_CSV = "text/csv";
 
     public FlowsApi() {
         super(Configuration.getDefaultApiClient());
@@ -504,6 +505,137 @@ public class FlowsApi extends BaseApi {
                 tenantPath(tenant, "flows", "expressions"),
                 body,
                 queryParams("taskId", taskId),
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Export by query
+    // ========================================================================
+
+    public byte[] exportFlows(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "flows", "export", "by-query", "csv"),
+                null, Collections.emptyList(), filterParams(filters),
+                TEXT_CSV, null,
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Hashes
+    // ========================================================================
+
+    public Map<String, Object> flowHashesByIds(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<IdWithNamespace> ids) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "hashes", "by-ids"),
+                ids, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Governance policies (EE)
+    // ========================================================================
+
+    public Map<String, Object> previewPolicies(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "policies", "preview"),
+                request, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Promotion (EE)
+    // ========================================================================
+
+    public Map<String, Object> promoteByIds(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "promote", "by-ids"),
+                request, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> promote(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", namespace, id, "promote"),
+                request, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> listPromotions(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<String> sort) throws ApiException {
+        return get(
+                tenantPath(tenant, "flows", namespace, id, "promotions"),
+                queryParams("page", page, "size", size),
+                csvParams("sort", sort),
+                new TypeReference<>() {});
+    }
+
+    public void reportPromote(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        invoke("POST",
+                tenantPath(tenant, "flows", namespace, id, "promotions"),
+                request, Collections.emptyList(), Collections.emptyList(),
+                null, JSON, null);
+    }
+
+    public Map<String, Object> promoteDiff(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String auditId,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return get(
+                tenantPath(tenant, "flows", namespace, id, "promotions", auditId, "diff"),
+                Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Source search & replace
+    // ========================================================================
+
+    public Map<String, Object> previewReplaceBySourceCode(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "source", "replace", "preview"),
+                request, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> applyReplaceBySourceCode(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "source", "replace", "apply"),
+                request, Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> replaceLineBySourceCode(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "flows", "source", "replace", "line"),
+                request, Collections.emptyList(),
                 new TypeReference<>() {});
     }
 

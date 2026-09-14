@@ -24,6 +24,7 @@ import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.PagedResultsApiLightExecution;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
 import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.ExecutionStatusEvent;
 import io.kestra.sdk.model.WebhookResponse;
@@ -43,6 +44,7 @@ public class ExecutionsApi extends BaseApi {
 
     private static final String TEXT_JSON = "text/json";
     private static final String TEXT_PLAIN = "text/plain";
+    private static final String TEXT_CSV = "text/csv";
     private static final String OCTET_STREAM = "application/octet-stream";
     private static final String MULTIPART = "multipart/form-data";
 
@@ -706,6 +708,137 @@ public class ExecutionsApi extends BaseApi {
                 null,
                 ExecutionStatusEvent.class
         );
+    }
+
+    // ========================================================================
+    // Distinct values & namespaces
+    // ========================================================================
+
+    public List<Object> findDistinctFieldValues(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull QueryFilterField field,
+            @jakarta.annotation.Nonnull List<QueryFilter> filters,
+            @jakarta.annotation.Nullable Integer size) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", "distinct-field-values"),
+                null, queryParams("field", field, "size", size), filterParams(filters),
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public List<String> listExecutableDistinctNamespaces(
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", "namespaces"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public List<FlowForExecution> listFlowExecutionsByNamespace(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", "namespaces", namespace, "flows"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> getExecutionAverageDuration(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String flowId,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", "namespaces", namespace, "flows", flowId, "average-duration"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Export
+    // ========================================================================
+
+    public byte[] exportExecutions(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", "export", "by-query", "csv"),
+                null, null, filterParams(filters),
+                TEXT_CSV, null,
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Task run eval, resume-from-breakpoint & validation
+    // ========================================================================
+
+    public ExecutionControllerEvalResult evalTaskRunExpression(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String taskRunId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String expression) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "executions", executionId, "actions", "eval", taskRunId),
+                expression, null, null,
+                JSON, TEXT_PLAIN,
+                new TypeReference<>() {});
+    }
+
+    public Execution resumeExecutionFromBreakpoint(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable String breakpoints) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "executions", executionId, "actions", "resume-from-breakpoint"),
+                null, queryParams("breakpoints", breakpoints), null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> validateResumeExecutionInputs(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "executions", executionId, "actions", "resume", "validate"),
+                null, null, null,
+                JSON, MULTIPART,
+                inputs != null ? inputs : new HashMap<>(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> validateNewExecutionInputs(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull List<String> labels,
+            @jakarta.annotation.Nullable Integer revision,
+            @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "executions", namespace, id, "validate"),
+                null, queryParams("revision", revision), multiParams("labels", labels),
+                JSON, MULTIPART,
+                inputs != null ? inputs : new HashMap<>(),
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // File preview
+    // ========================================================================
+
+    public Map<String, Object> previewFileFromExecution(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull URI path,
+            @jakarta.annotation.Nonnull Integer maxRows,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable String encoding) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "executions", executionId, "file", "preview"),
+                null, queryParams("path", path, "maxRows", maxRows, "encoding", encoding), null,
+                JSON, null,
+                new TypeReference<>() {});
     }
 
 }
