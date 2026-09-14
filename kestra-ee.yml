@@ -39570,6 +39570,8 @@ components:
         commitDate:
           type: string
           format: date-time
+        versionUpgrade:
+          $ref: '#/components/schemas/VersionService.VersionUpgrade'
         isCustomDashboardsEnabled:
           type: boolean
         isAnonymousUsageEnabled:
@@ -43629,6 +43631,16 @@ components:
           $ref: '#/components/schemas/AttributeReference'
         attributeExpression:
           $ref: '#/components/schemas/FilterExpression'
+    VersionService.VersionUpgrade:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        at:
+          type: string
+          format: date-time
     WebhookResponse:
       type: object
       properties:
