@@ -25050,7 +25050,7 @@ paths:
     delete:
       tags:
       - Namespaces
-      summary: Delete a namespace
+      summary: Delete a namespace and its child namespaces
       operationId: deleteNamespace
       parameters:
       - name: id
@@ -25067,6 +25067,18 @@ paths:
       responses:
         '204':
           description: On success
+        '404':
+          description: If neither the namespace nor any of its child namespaces exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: If the namespace or one of its child namespaces contains flows
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
