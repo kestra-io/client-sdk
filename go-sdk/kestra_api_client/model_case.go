@@ -275,7 +275,7 @@ type CaseRunActionRequest struct {
 	Namespace    string                 `json:"namespace"`
 	FlowId       string                 `json:"flowId"`
 	Inputs       map[string]interface{} `json:"inputs,omitempty"`
-	Labels       []interface{}          `json:"labels,omitempty"`
+	Labels       []Label                `json:"labels,omitempty"`
 	ScheduleDate *time.Time             `json:"scheduleDate,omitempty"`
 	Breakpoints  []string               `json:"breakpoints,omitempty"`
 }

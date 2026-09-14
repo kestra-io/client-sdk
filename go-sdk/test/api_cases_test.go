@@ -20,6 +20,10 @@ func newCase(t *testing.T, ctx context.Context, namespace, title string) *kestra
 	require.NoError(t, err)
 	require.NotNil(t, c)
 	require.NotEmpty(t, c.Id)
+	// Clean up so repeated runs against a shared CI tenant don't accumulate
+	// orphaned cases that inflate search/counts result sets. Ignore the error:
+	// a test that deletes the case itself would otherwise fail cleanup here.
+	t.Cleanup(func() { _ = KestraTestClient().Cases().DeleteCase(ctx, MAIN_TENANT, c.Id) })
 	return c
 }
 
@@ -97,6 +101,9 @@ func TestCasesAPI_CRUDAndSearch(t *testing.T) {
 		res, err := client.Cases().CaseAssignees(ctx, MAIN_TENANT, nil, nil)
 		require.NoError(t, err)
 		require.NotNil(t, res)
+		// Total is authoritative even when no cases have assignees yet.
+		require.GreaterOrEqual(t, res.Total, int64(0))
+		require.Len(t, res.Results, int(res.Total))
 	})
 
 	t.Run("delete", func(t *testing.T) {
@@ -145,11 +152,11 @@ func TestCasesAPI_Lifecycle(t *testing.T) {
 		c := newCase(t, ctx, namespace, "to follow")
 		followed, err := client.Cases().FollowCase(ctx, MAIN_TENANT, c.Id)
 		require.NoError(t, err)
-		require.NotNil(t, followed)
+		require.Equal(t, c.Id, followed.Id)
 
 		unfollowed, err := client.Cases().UnfollowCase(ctx, MAIN_TENANT, c.Id)
 		require.NoError(t, err)
-		require.NotNil(t, unfollowed)
+		require.Equal(t, c.Id, unfollowed.Id)
 	})
 
 	t.Run("bulkAcknowledgeAndDeleteByIds", func(t *testing.T) {
@@ -230,9 +237,27 @@ func TestCasesAPI_Executions(t *testing.T) {
 	})
 
 	t.Run("byExecutions", func(t *testing.T) {
-		res, err := client.Cases().CasesByExecutions(ctx, MAIN_TENANT, []string{exec.Id})
+		// Self-contained: link a fresh execution to a case, then assert the
+		// reverse lookup maps that execution id to the case. (exec is unlinked
+		// by the linkListUnlink subtest, so it can't be relied on here.)
+		exec3 := createExecution(t, ctx, flowId, namespace)
+		c := newCase(t, ctx, namespace, "reverse-lookup case")
+		_, err := client.Cases().LinkCaseExecutions(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseLinkExecutionsRequest{
+			ExecutionIds: []string{exec3.Id},
+		})
 		require.NoError(t, err)
-		require.NotNil(t, res)
+
+		res, err := client.Cases().CasesByExecutions(ctx, MAIN_TENANT, []string{exec3.Id})
+		require.NoError(t, err)
+		summaries, ok := res[exec3.Id]
+		require.True(t, ok, "execution should map to its linked case")
+		found := false
+		for _, s := range summaries {
+			if s.Id == c.Id {
+				found = true
+			}
+		}
+		require.True(t, found, "linked case should appear for the execution")
 	})
 }
 
@@ -312,5 +337,6 @@ func TestCasesAPI_Assets(t *testing.T) {
 		page, err := client.Cases().CasesByAsset(ctx, MAIN_TENANT, randomId())
 		require.NoError(t, err)
 		require.NotNil(t, page)
+		require.Equal(t, int64(0), page.Total)
 	})
 }
