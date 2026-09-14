@@ -300,15 +300,8 @@ func TestCasesAPI_Executions(t *testing.T) {
 }
 
 // namespaceBodyFilter builds a body QueryFilter matching a namespace.
-//
-// NOTE: the backend deserializes QueryFilter.field from its lowercase
-// @JsonProperty name ("namespace"), but the SDK's generated QueryFilterField
-// constants are uppercase ("NAMESPACE") and so serialize to a value the server
-// rejects with 422 "Invalid JSON" on filters[0].field. Until that generated
-// model is fixed, pass the lowercase wire value directly. This affects every
-// body-filter (POST/DELETE by-query) endpoint, not just cases.
 func namespaceBodyFilter(namespace string) kestra_api_client.QueryFilter {
-	field := kestra_api_client.QueryFilterField("namespace")
+	field := kestra_api_client.QUERYFILTERFIELD_NAMESPACE
 	op := kestra_api_client.QUERYFILTEROP_EQUALS
 	return kestra_api_client.QueryFilter{Field: &field, Operation: &op, Value: namespace}
 }
