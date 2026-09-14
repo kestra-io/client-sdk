@@ -99,6 +99,10 @@ func (c *KestraClient) Cases() *CasesAPI {
 	return &CasesAPI{baseAPI{client: c}}
 }
 
+func (c *KestraClient) CaseTemplates() *CaseTemplatesAPI {
+	return &CaseTemplatesAPI{baseAPI{client: c}}
+}
+
 func (c *KestraClient) Executions() *ExecutionsAPI {
 	return &ExecutionsAPI{baseAPI{client: c}}
 }
