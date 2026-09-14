@@ -214,3 +214,15 @@ func (c *KestraClient) WorkerGroups() *WorkerGroupsAPI {
 func (c *KestraClient) WorkerQueues() *WorkerQueuesAPI {
 	return &WorkerQueuesAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Policies() *PoliciesAPI {
+	return &PoliciesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) McpServers() *McpServersAPI {
+	return &McpServersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerCredentials() *WorkerCredentialsAPI {
+	return &WorkerCredentialsAPI{baseAPI{client: c}}
+}

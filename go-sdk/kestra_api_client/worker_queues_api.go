@@ -2,9 +2,8 @@ package kestra_api_client
 
 import "context"
 
-// WorkerQueuesAPI covers the read routes of /api/v1/instance/worker-queues.
-// The create/update/delete endpoints are feature-gated (FEATURE_WORKER_QUEUE)
-// and are not wrapped here.
+// WorkerQueuesAPI covers /api/v1/instance/worker-queues. The create, update and
+// delete endpoints require the WORKER_QUEUE license feature.
 type WorkerQueuesAPI struct {
 	baseAPI
 }
@@ -23,4 +22,22 @@ func (a *WorkerQueuesAPI) WorkerQueue(ctx context.Context, id string) (*ApiWorke
 // WorkerQueueSubscribers lists the worker groups subscribed to a worker queue.
 func (a *WorkerQueuesAPI) WorkerQueueSubscribers(ctx context.Context, id string) (*ApiWorkerQueueSubscribers, error) {
 	return doJSON[*ApiWorkerQueueSubscribers](&a.baseAPI, ctx, "GET", superadminPath("instance", "worker-queues", id, "subscribers"), nil, nil)
+}
+
+// CreateWorkerQueue creates a worker queue. Requires the WORKER_QUEUE feature.
+func (a *WorkerQueuesAPI) CreateWorkerQueue(ctx context.Context, request ApiCreateOrUpdateWorkerQueueRequest) (*ApiWorkerQueue, error) {
+	return doJSON[*ApiWorkerQueue](&a.baseAPI, ctx, "POST", superadminPath("instance", "worker-queues"), request, nil)
+}
+
+// UpdateWorkerQueue updates the worker queue with the given id. The id is
+// immutable. Requires the WORKER_QUEUE feature.
+func (a *WorkerQueuesAPI) UpdateWorkerQueue(ctx context.Context, id string, request ApiCreateOrUpdateWorkerQueueRequest) (*ApiWorkerQueue, error) {
+	return doJSON[*ApiWorkerQueue](&a.baseAPI, ctx, "PUT", superadminPath("instance", "worker-queues", id), request, nil)
+}
+
+// DeleteWorkerQueue deletes the worker queue with the given id. The server
+// answers 409 if worker groups are still subscribed. Requires the WORKER_QUEUE
+// feature.
+func (a *WorkerQueuesAPI) DeleteWorkerQueue(ctx context.Context, id string) error {
+	return a.doVoid(ctx, "DELETE", superadminPath("instance", "worker-queues", id), nil, nil)
 }

@@ -1,5 +1,29 @@
 package kestra_api_client
 
+// ApiWorkerQueue is a worker queue as returned by the create and update
+// endpoints.
+type ApiWorkerQueue struct {
+	Id             string   `json:"id"`
+	Name           string   `json:"name,omitempty"`
+	Description    string   `json:"description,omitempty"`
+	Tags           []string `json:"tags,omitempty"`
+	AllowedTenants []string `json:"allowedTenants,omitempty"`
+}
+
+func (o *ApiWorkerQueue) GetId() string     { return o.Id }
+func (o *ApiWorkerQueue) GetName() string   { return o.Name }
+func (o *ApiWorkerQueue) GetTags() []string { return o.Tags }
+
+// ApiCreateOrUpdateWorkerQueueRequest is the body of the worker-queue create and
+// update endpoints. Tags must not be empty; on update the id is immutable.
+type ApiCreateOrUpdateWorkerQueueRequest struct {
+	Id             string   `json:"id"`
+	Name           string   `json:"name,omitempty"`
+	Tags           []string `json:"tags"`
+	Description    string   `json:"description,omitempty"`
+	AllowedTenants []string `json:"allowedTenants,omitempty"`
+}
+
 // ApiWorkerQueueList wraps the worker queues returned by the list endpoint.
 type ApiWorkerQueueList struct {
 	WorkerQueues []ApiWorkerQueueItem `json:"workerQueues,omitempty"`
