@@ -259,6 +259,74 @@ func TestCasesAPI_Executions(t *testing.T) {
 		}
 		require.True(t, found, "linked case should appear for the execution")
 	})
+
+	t.Run("linkByQuery", func(t *testing.T) {
+		exec4 := createExecution(t, ctx, flowId, namespace)
+		c := newCase(t, ctx, namespace, "link-by-query case")
+		linked, err := client.Cases().LinkCaseExecutionsByQuery(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseLinkExecutionsByQueryRequest{
+			Filters: []kestra_api_client.QueryFilter{namespaceBodyFilter(namespace)},
+		})
+		require.NoError(t, err)
+		require.Equal(t, c.Id, linked.Id)
+
+		page, err := client.Cases().CaseExecutions(ctx, MAIN_TENANT, c.Id, intPtr(1), intPtr(50))
+		require.NoError(t, err)
+		found := false
+		for _, e := range page.Results {
+			if e.ExecutionId == exec4.Id {
+				found = true
+			}
+		}
+		require.True(t, found, "execution matched by query should be linked")
+	})
+
+	t.Run("createFromExecutionsByQuery", func(t *testing.T) {
+		// A dedicated namespace so the query matches only this subtest's executions.
+		ns := randomId()
+		fid := randomId()
+		createSimpleFlow(ctx, fid, ns)
+		createExecution(t, ctx, fid, ns)
+		created, err := client.Cases().CreateCaseFromExecutionsByQuery(ctx, MAIN_TENANT, kestra_api_client.CaseFromExecutionsByQueryRequest{
+			Case: &kestra_api_client.CaseCreateRequest{
+				Namespace: ns,
+				Title:     "from executions by query",
+				Severity:  "LOW",
+			},
+			Filters: []kestra_api_client.QueryFilter{namespaceBodyFilter(ns)},
+		})
+		require.NoError(t, err)
+		require.Equal(t, "from executions by query", created.Title)
+	})
+}
+
+// namespaceBodyFilter builds a body QueryFilter matching a namespace.
+//
+// NOTE: the backend deserializes QueryFilter.field from its lowercase
+// @JsonProperty name ("namespace"), but the SDK's generated QueryFilterField
+// constants are uppercase ("NAMESPACE") and so serialize to a value the server
+// rejects with 422 "Invalid JSON" on filters[0].field. Until that generated
+// model is fixed, pass the lowercase wire value directly. This affects every
+// body-filter (POST/DELETE by-query) endpoint, not just cases.
+func namespaceBodyFilter(namespace string) kestra_api_client.QueryFilter {
+	field := kestra_api_client.QueryFilterField("namespace")
+	op := kestra_api_client.QUERYFILTEROP_EQUALS
+	return kestra_api_client.QueryFilter{Field: &field, Operation: &op, Value: namespace}
+}
+
+func TestCasesAPI_DeleteByQuery(t *testing.T) {
+	client := KestraTestClient()
+	ctx := context.Background()
+	// Isolate to a fresh namespace so the by-query delete only affects this test.
+	namespace := randomId()
+	newCase(t, ctx, namespace, "delete-by-query 1")
+	newCase(t, ctx, namespace, "delete-by-query 2")
+
+	del, err := client.Cases().DeleteCasesByQuery(ctx, MAIN_TENANT, []kestra_api_client.SearchFilter{
+		{Field: kestra_api_client.FilterNamespace, Operation: kestra_api_client.OpEquals, Value: namespace},
+	}, nil)
+	require.NoError(t, err)
+	require.NotNil(t, del.Count)
+	require.Equal(t, int32(2), *del.Count)
 }
 
 func TestCasesAPI_AutoAttach(t *testing.T) {
@@ -269,17 +337,46 @@ func TestCasesAPI_AutoAttach(t *testing.T) {
 	createSimpleFlow(ctx, flowId, namespace)
 	c := newCase(t, ctx, namespace, "auto-attach case")
 
+	// EnableCaseAutoAttach makes the server generate an internal system flow for
+	// the case; on the plugin-less kestra-ee CI images (`develop-no-plugins` /
+	// `-slim`) that generator throws
+	//   InvalidTypeConstraintViolationException: Invalid type: io.kestra.plugin.kestra.ee.cases.CreateCase
+	// because the EE cases plugin it needs isn't installed — a server/image
+	// limitation, not an SDK request-shape issue (the body matches the documented
+	// AutoAttachRequest schema exactly). Assert on the *specific* known 422 rather
+	// than swallowing any error, so an unrelated regression still fails this test.
+	// Mirrors the Java SDK's CasesApiTest (commit 216baff0).
 	enabled, err := client.Cases().EnableCaseAutoAttach(ctx, MAIN_TENANT, c.Id, kestra_api_client.CaseAutoAttachRequest{
 		Namespace: namespace,
 		FlowId:    flowId,
 		States:    []string{"SUCCESS"},
 	})
-	require.NoError(t, err)
-	require.NotEmpty(t, enabled.AutoAttach)
+	if err != nil {
+		var apiErr *kestra_api_client.ApiError
+		require.ErrorAs(t, err, &apiErr, "expected an ApiError")
+		require.Equal(t, 422, apiErr.StatusCode)
+		require.Contains(t, string(apiErr.Body), "io.kestra.plugin.kestra.ee.cases.CreateCase")
+	} else {
+		found := false
+		for _, a := range enabled.AutoAttach {
+			if m, ok := a.(map[string]interface{}); ok && m["flowId"] == flowId {
+				found = true
+			}
+		}
+		require.True(t, found, "enabled case should list the auto-attach flow")
+	}
+}
 
+func TestCasesAPI_DisableAutoAttach(t *testing.T) {
+	client := KestraTestClient()
+	ctx := context.Background()
+	namespace := randomId()
+	c := newCase(t, ctx, namespace, "disable auto-attach case")
+
+	// Disabling when nothing is configured is a no-op that must still return the case.
 	disabled, err := client.Cases().DisableCaseAutoAttach(ctx, MAIN_TENANT, c.Id)
 	require.NoError(t, err)
-	require.NotNil(t, disabled)
+	require.Equal(t, c.Id, disabled.Id)
 }
 
 func TestCasesAPI_Actions(t *testing.T) {
