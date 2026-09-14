@@ -12,10 +12,15 @@ import io.kestra.sdk.model.PagedResultsTenant;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Tenant;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TenantsApi extends BaseApi {
+
+    private static final String MULTIPART = "multipart/form-data";
 
     public TenantsApi() {
         super(Configuration.getDefaultApiClient());
@@ -93,6 +98,83 @@ public class TenantsApi extends BaseApi {
                 queryParams("page", page, "size", size),
                 collectionParams,
                 JSON, null,
+                new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // Tenant admin: apps-catalog, logos and default dashboards
+    // (path variable {id} is the tenant id)
+    // ========================================================================
+
+    public Map<String, Object> getAppsCatalogConfig(
+            @jakarta.annotation.Nonnull String id) throws ApiException {
+        return invoke("GET",
+                path("tenants", id, "apps-catalog"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> setAppsCatalogConfig(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return invoke("POST",
+                path("tenants", id, "apps-catalog"),
+                request, null, null,
+                JSON, JSON,
+                new TypeReference<>() {});
+    }
+
+    /** Uploads the apps-catalog logo (an {@code image/svg+xml} file). */
+    public Map<String, Object> setAppsCatalogLogo(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull File logo) throws ApiException {
+        Map<String, Object> formParams = new HashMap<>();
+        formParams.put("logo", logo);
+        return invoke("POST",
+                path("tenants", id, "apps-catalog", "logo"),
+                null, null, null,
+                JSON, MULTIPART, formParams,
+                new TypeReference<>() {});
+    }
+
+    public void deleteAppsCatalogLogo(
+            @jakarta.annotation.Nonnull String id) throws ApiException {
+        invoke("DELETE",
+                path("tenants", id, "apps-catalog", "logo"),
+                null, null, null,
+                null, null, null);
+    }
+
+    /** Uploads the tenant logo (an {@code image/svg+xml} file). */
+    public Map<String, Object> setTenantLogo(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull File logo) throws ApiException {
+        Map<String, Object> formParams = new HashMap<>();
+        formParams.put("logo", logo);
+        return invoke("POST",
+                path("tenants", id, "logo"),
+                null, null, null,
+                JSON, MULTIPART, formParams,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> getDefaultDashboards(
+            @jakarta.annotation.Nonnull String id) throws ApiException {
+        return invoke("GET",
+                path("tenants", id, "settings", "default-dashboards"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> setDefaultDashboards(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return invoke("POST",
+                path("tenants", id, "settings", "default-dashboards"),
+                request, null, null,
+                JSON, JSON,
                 new TypeReference<>() {});
     }
 

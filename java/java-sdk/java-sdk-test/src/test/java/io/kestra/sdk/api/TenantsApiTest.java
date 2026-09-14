@@ -145,4 +145,27 @@ public class TenantsApiTest {
 
         assertThat(results.getResults()).isNotNull();
     }
+
+    // ========================================================================
+    // Tenant admin: apps-catalog & default dashboards
+    // ========================================================================
+
+    @Test
+    void getAppsCatalogConfig_returnsConfig() throws ApiException {
+        // apps-catalog config exists (possibly with default/empty branding) for the
+        // current tenant and is readable by any authenticated user.
+        java.util.Map<String, Object> result = api().getAppsCatalogConfig(TENANT);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void getDefaultDashboards_returnsSettingsOrIsGated() throws ApiException {
+        try {
+            java.util.Map<String, Object> result = api().getDefaultDashboards(TENANT);
+            assertThat(result).isNotNull();
+        } catch (ApiException e) {
+            assertThat(e.getCode()).isIn(403, 404);
+        }
+    }
 }
