@@ -194,3 +194,23 @@ func (c *KestraClient) Tenants() *TenantsAPI {
 func (c *KestraClient) ReusableInputs() *ReusableInputsAPI {
 	return &ReusableInputsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Banners() *BannersAPI {
+	return &BannersAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) KillSwitches() *KillSwitchesAPI {
+	return &KillSwitchesAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Instance() *InstanceAPI {
+	return &InstanceAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerGroups() *WorkerGroupsAPI {
+	return &WorkerGroupsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) WorkerQueues() *WorkerQueuesAPI {
+	return &WorkerQueuesAPI{baseAPI{client: c}}
+}
