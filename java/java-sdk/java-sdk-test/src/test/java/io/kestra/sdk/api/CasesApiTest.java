@@ -4,6 +4,9 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +37,13 @@ public class CasesApiTest {
     static String createCase(String namespace, String title) throws ApiException {
         Map<String, Object> created = api().createCase(TENANT, newCaseRequest(namespace, title));
         return (String) created.get("id");
+    }
+
+    static File tempFile(String name, String content) throws IOException {
+        File f = Files.createTempFile(name, ".txt").toFile();
+        Files.writeString(f.toPath(), content);
+        f.deleteOnExit();
+        return f;
     }
 
     @Test
@@ -143,7 +153,12 @@ public class CasesApiTest {
 
         Object result = api().counts(TENANT, List.of(nsFilter(ns)));
 
-        assertThat(result).isNotNull();
+        // the response is keyed by CaseStatus (OPEN/ACKNOWLEDGED/...); a freshly
+        // created case is always OPEN, and the namespace filter isolates it from
+        // cases created by other tests
+        @SuppressWarnings("unchecked")
+        Map<String, Object> counts = (Map<String, Object>) result;
+        assertThat(((Number) counts.get("OPEN")).intValue()).isEqualTo(1);
     }
 
     @Test
@@ -169,7 +184,7 @@ public class CasesApiTest {
 
         BulkResponse result = api().deleteCasesByIds(TENANT, List.of(id));
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCount()).isEqualTo(1);
     }
 
     @Test
@@ -179,7 +194,7 @@ public class CasesApiTest {
 
         BulkResponse result = api().deleteCasesByQuery(TENANT, List.of(nsFilter(ns)));
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCount()).isEqualTo(1);
     }
 
     @Test
@@ -334,10 +349,16 @@ public class CasesApiTest {
         String flowId = randomId();
         createFlow(logFlowYaml(flowId, ns));
         var execResp = client().executions().createExecution(TENANT, ns, flowId, null, null, null, null, null, null);
+        String executionId = execResp.getId();
+        String caseId = createCase(randomId(), "By executions case");
+        api().linkExecutions(caseId, TENANT, List.of(executionId));
 
-        Object result = api().byExecutions(TENANT, List.of(execResp.getId()));
+        Object result = api().byExecutions(TENANT, List.of(executionId));
 
-        assertThat(result).isNotNull();
+        // response is a map keyed by execution id, valued with the case summaries linked to it
+        @SuppressWarnings("unchecked")
+        Map<String, List<Map<String, Object>>> byExecution = (Map<String, List<Map<String, Object>>>) result;
+        assertThat(byExecution.get(executionId)).extracting(c -> c.get("id")).containsExactly(caseId);
     }
 
     // ========================================================================
@@ -469,5 +490,27 @@ public class CasesApiTest {
         @SuppressWarnings("unchecked")
         List<String> remainingAssetIds = (List<String>) detached.get("assetIds");
         assertThat(remainingAssetIds).doesNotContain(assetId);
+    }
+
+    // ========================================================================
+    // Attachments
+    // ========================================================================
+
+    @Test
+    void downloadAttachment_returnsUploadedFileContent() throws ApiException, IOException {
+        String id = createCase(randomId(), "Attachment case");
+        String content = "hello attachment content";
+        File file = tempFile("attachment", content);
+
+        Map<String, Object> comment = api().addComment(id, TENANT, "a comment with a file", file);
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> attachments = (List<Map<String, Object>>) comment.get("attachments");
+        Map<String, Object> attachment = attachments.get(0);
+        String attachmentId = (String) attachment.get("id");
+
+        byte[] downloaded = api().downloadAttachment(id, attachmentId, TENANT);
+
+        assertThat(new String(downloaded)).isEqualTo(content);
+        assertThat(((Number) attachment.get("size")).longValue()).isEqualTo(downloaded.length);
     }
 }
