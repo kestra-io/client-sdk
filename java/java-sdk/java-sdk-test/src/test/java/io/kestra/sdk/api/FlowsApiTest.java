@@ -386,6 +386,10 @@ public class FlowsApiTest {
                 logFlowYamlWithDescription(id, ns, "after-bulk"));
 
         assertThat(result).isNotEmpty();
+
+        sleep(200);
+        FlowWithSource updated = api().flow(ns, id, TENANT, null, null, null);
+        assertThat(updated.getDescription()).isEqualTo("after-bulk");
     }
 
     @Test
@@ -1297,7 +1301,11 @@ public class FlowsApiTest {
 
         ExpressionContext result = api().expressions(TENANT, withSource.getSource(), null);
 
-        assertThat(result).isNotNull();
+        // every flow exposes the execution context (execution.*, flow.*, …) in its
+        // expression autocomplete, regardless of tasks/inputs — assert it's populated
+        // rather than merely non-null.
+        assertThat(result.getCategories()).isNotNull();
+        assertThat(result.getCategories().getEXECUTIONCONTEXT()).isNotEmpty();
     }
 
     @Test
@@ -1307,7 +1315,8 @@ public class FlowsApiTest {
 
         ExpressionContext result = api().expressions(TENANT, withSource.getSource(), "hello");
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCategories()).isNotNull();
+        assertThat(result.getCategories().getEXECUTIONCONTEXT()).isNotEmpty();
     }
 
     // ========================================================================

@@ -147,7 +147,7 @@ public class NamespacesApiTest {
         ApiAutocomplete request = new ApiAutocomplete().q(id.substring(0, 8));
         List<String> result = api().autocompleteNamespaces(TENANT, request);
 
-        assertThat(result).isNotNull();
+        assertThat(result).contains(id);
     }
 
     // ========================================================================
@@ -162,7 +162,7 @@ public class NamespacesApiTest {
         ApiSecretValue secret = new ApiSecretValue().key("MY_SECRET").value("secret_value");
         List<ApiSecretMetaEE> result = api().putSecrets(ns, TENANT, secret);
 
-        assertThat(result).isNotNull();
+        assertThat(result).extracting(ApiSecretMetaEE::getKey).contains("MY_SECRET");
     }
 
     @Test
@@ -214,7 +214,10 @@ public class NamespacesApiTest {
         ApiSecretMetaEE meta = new ApiSecretMetaEE().description("patched description");
         List<ApiSecretMetaEE> result = api().patchSecret(ns, "PATCH_ME", TENANT, meta);
 
-        assertThat(result).isNotNull();
+        assertThat(result).anySatisfy(m -> {
+            assertThat(m.getKey()).isEqualTo("PATCH_ME");
+            assertThat(m.getDescription()).isEqualTo("patched description");
+        });
     }
 
     // ========================================================================
@@ -288,7 +291,7 @@ public class NamespacesApiTest {
 
         BulkResponse result = api().deleteNamespacePoliciesByIds(ns, TENANT, List.of(policyId));
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCount()).isEqualTo(1);
     }
 
     @Test

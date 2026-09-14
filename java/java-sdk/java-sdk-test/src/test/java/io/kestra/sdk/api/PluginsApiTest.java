@@ -43,7 +43,8 @@ public class PluginsApiTest {
     void listTriggerPlugins_hasResults() throws ApiException {
         Map<String, Object> result = api().listTriggerPlugins();
 
-        assertThat((Number) result.get("total")).isNotNull();
+        // core ships built-in triggers (Schedule, Webhook, …), so this is never empty
+        assertThat(((Number) result.get("total")).intValue()).isGreaterThan(0);
     }
 
     // ========================================================================

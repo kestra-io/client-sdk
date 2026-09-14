@@ -350,7 +350,7 @@ public class ExecutionsApiTest {
 
         BulkResponse result = api().deleteExecutionsByIds(TENANT, List.of(executionId), null, null, null, null);
 
-        assertThat(result).isNotNull();
+        assertThat(result.getCount()).isEqualTo(1);
     }
 
     // ========================================================================
@@ -424,7 +424,12 @@ public class ExecutionsApiTest {
         Label label = new Label().key("env").value("test");
         Execution result = api().setLabelsOnTerminatedExecution(executionId, TENANT, List.of(label));
 
-        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(executionId);
+        assertThat(result.getLabels())
+                .anySatisfy(l -> {
+                    assertThat(l.getKey()).isEqualTo("env");
+                    assertThat(l.getValue()).isEqualTo("test");
+                });
     }
 
     @Test
