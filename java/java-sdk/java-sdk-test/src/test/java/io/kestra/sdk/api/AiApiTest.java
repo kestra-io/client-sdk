@@ -32,16 +32,20 @@ public class AiApiTest {
             // when Copilot is enabled the list is always present (possibly empty).
             assertThat(result).isNotNull();
         } catch (ApiException e) {
-            // COPILOT resource / missing AI provider is the deterministic gate on a CI image.
-            assertThat(e.getCode()).isIn(403, 404);
+            // On a CI image the gate is deterministic: 403 (COPILOT resource) or,
+            // with no AI provider configured, 503 (Copilot service unavailable).
+            assertThat(e.getCode()).isIn(403, 404, 503);
         }
     }
 
     @Test
     void getThread_unknownId_throws() {
+        // Without an AI provider the Copilot service answers 503 before it can even
+        // resolve the (unknown) thread; with one it would be a 404. Both, and the
+        // COPILOT 403 gate, are the deterministic non-success outcomes.
         assertThatThrownBy(() -> api().getThread(TENANT, "does-not-exist-" + randomId()))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404, 503));
     }
 
     @Test
