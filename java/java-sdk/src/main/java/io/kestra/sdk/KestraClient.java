@@ -116,6 +116,20 @@ public class KestraClient {
 
     public PluginsApi plugins() { return new PluginsApi(this.apiClient); }
 
+    public InstanceApi instance() { return new InstanceApi(this.apiClient); }
+
+    public AiApi ai() { return new AiApi(this.apiClient); }
+
+    public PromotionTargetsApi promotionTargets() { return new PromotionTargetsApi(this.apiClient); }
+
+    public AuditLogsApi auditLogs() { return new AuditLogsApi(this.apiClient); }
+
+    public MeApi me() { return new MeApi(this.apiClient); }
+
+    public SecurityIntegrationsApi securityIntegrations() { return new SecurityIntegrationsApi(this.apiClient); }
+
+    public CredentialsApi credentials() { return new CredentialsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

@@ -340,4 +340,19 @@ public class NamespacesApiTest {
     }
 
     // Reusable inputs (EE) are covered by ReusableInputsApiTest, not here.
+
+    // ========================================================================
+    // Namespace credentials (EE, CREDENTIAL resource — licensed on the CI image)
+    // ========================================================================
+
+    @Test
+    void listNamespaceCredentials_returnsPagedEnvelope() throws ApiException {
+        String ns = randomId();
+        api().createNamespace(TENANT, new io.kestra.sdk.model.Namespace().id(ns));
+
+        Map<String, Object> result = api().listNamespaceCredentials(TENANT, ns, 1, 10, null, null);
+
+        assertThat(result).containsKeys("results", "total");
+        assertThat(result.get("results")).isInstanceOf(java.util.List.class);
+    }
 }

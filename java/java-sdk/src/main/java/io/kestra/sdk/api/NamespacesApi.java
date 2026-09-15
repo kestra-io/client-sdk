@@ -313,4 +313,93 @@ public class NamespacesApi extends BaseApi {
     // Reusable inputs (EE) are wrapped in the dedicated ReusableInputsApi (added
     // independently on main), not here.
 
+    // ========================================================================
+    // Namespace credentials (EE, Resource.CREDENTIAL)
+    // The credential path variable is the credential {name}, not an opaque id.
+    // ========================================================================
+
+    public Map<String, Object> listNamespaceCredentials(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<String> sort,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+        List<Pair> collectionParams = new ArrayList<>();
+        collectionParams.addAll(csvParams("sort", sort));
+        collectionParams.addAll(filterParams(filters));
+        return get(
+                tenantPath(tenant, "namespaces", namespace, "credentials"),
+                queryParams("page", page, "size", size), collectionParams,
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> createNamespaceCredential(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "namespaces", namespace, "credentials"),
+                request, new TypeReference<>() {});
+    }
+
+    public Map<String, Object> getInheritedCredentials(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace) throws ApiException {
+        return get(
+                tenantPath(tenant, "namespaces", namespace, "credentials", "inherited"),
+                Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> getNamespaceCredential(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String name) throws ApiException {
+        return get(
+                tenantPath(tenant, "namespaces", namespace, "credentials", name),
+                Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
+    public Map<String, Object> updateNamespaceCredential(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String name,
+            @jakarta.annotation.Nonnull Map<String, Object> request) throws ApiException {
+        return putJson(
+                tenantPath(tenant, "namespaces", namespace, "credentials", name),
+                request, new TypeReference<>() {});
+    }
+
+    public void deleteNamespaceCredential(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String name) throws ApiException {
+        delete(tenantPath(tenant, "namespaces", namespace, "credentials", name));
+    }
+
+    public Map<String, Object> testNamespaceCredential(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String name) throws ApiException {
+        return postJson(
+                tenantPath(tenant, "namespaces", namespace, "credentials", name, "test"),
+                null, new TypeReference<>() {});
+    }
+
+    // ========================================================================
+    // KV store — detailed entry (EE, Resource.KVSTORE)
+    // ========================================================================
+
+    public Map<String, Object> getKeyValueDetail(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String key) throws ApiException {
+        return get(
+                tenantPath(tenant, "namespaces", namespace, "kv", key, "detail"),
+                Collections.emptyList(), Collections.emptyList(),
+                new TypeReference<>() {});
+    }
+
 }
