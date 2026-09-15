@@ -354,4 +354,32 @@ public class AppsApiTest {
         assertThatThrownBy(() -> api().bulkImportApps(TENANT, null))
                 .isInstanceOf(ApiException.class);
     }
+
+    // ========================================================================
+    // App views / states
+    // ========================================================================
+
+    @Test
+    void listAppStates_returnsStates() throws ApiException {
+        List<String> states = api().listAppStates(TENANT);
+
+        assertThat(states).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void openApp_unknownUid_isNotFound() {
+        // The open endpoint answers 404 for a missing app; the EE catch-all 403 a mis-routed
+        // path would give is what this guards against.
+        assertThatThrownBy(() -> api().openApp(TENANT, "does-not-exist-" + randomId()))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
+
+    @Test
+    void downloadFileFromAppExecution_unknownApp_isNotFound() {
+        assertThatThrownBy(() -> api().downloadFileFromAppExecution(
+                TENANT, "does-not-exist-" + randomId(), java.net.URI.create("kestra:///whatever.txt")))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
 }
