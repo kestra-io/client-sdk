@@ -53,3 +53,104 @@ func (a *NamespacesAPI) InheritedVariables(ctx context.Context, id, tenant strin
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", id, "inherited-variables"), nil, nil)
 }
 
+// --- Namespace credentials (NamespaceCredentialController) ---
+
+// NamespaceCredentials lists credentials in a namespace. Backs GET /api/v1/{tenant}/namespaces/{namespace}/credentials.
+func (a *NamespacesAPI) NamespaceCredentials(ctx context.Context, namespace, tenant string, page, size *int, sort []string, filters []SearchFilter) (map[string]interface{}, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	appendFilterParams(params, filters)
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "credentials"), nil, params)
+}
+
+// InheritedNamespaceCredentials returns credentials inherited from parent namespaces. Backs GET /api/v1/{tenant}/namespaces/{namespace}/credentials/inherited.
+func (a *NamespacesAPI) InheritedNamespaceCredentials(ctx context.Context, namespace, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "credentials", "inherited"), nil, nil)
+}
+
+// NamespaceCredential gets a credential by name in a namespace. Backs GET /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}.
+func (a *NamespacesAPI) NamespaceCredential(ctx context.Context, namespace, name, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "credentials", name), nil, nil)
+}
+
+// CreateNamespaceCredential creates a credential in a namespace. Backs POST /api/v1/{tenant}/namespaces/{namespace}/credentials.
+func (a *NamespacesAPI) CreateNamespaceCredential(ctx context.Context, namespace, tenant string, body interface{}) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "namespaces", namespace, "credentials"), body, nil)
+}
+
+// UpdateNamespaceCredential updates a credential in a namespace. Backs PUT /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}.
+func (a *NamespacesAPI) UpdateNamespaceCredential(ctx context.Context, namespace, name, tenant string, body interface{}) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "credentials", name), body, nil)
+}
+
+// DeleteNamespaceCredential deletes a credential from a namespace. Backs DELETE /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}.
+func (a *NamespacesAPI) DeleteNamespaceCredential(ctx context.Context, namespace, name, tenant string) error {
+	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "namespaces", namespace, "credentials", name), nil, nil)
+}
+
+// TestNamespaceCredential tests a credential connection. Backs POST /api/v1/{tenant}/namespaces/{namespace}/credentials/{name}/test.
+func (a *NamespacesAPI) TestNamespaceCredential(ctx context.Context, namespace, name, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "namespaces", namespace, "credentials", name, "test"), nil, nil)
+}
+
+// --- Namespace KV detail (KVController) ---
+
+// NamespaceKvDetail returns the advanced detail of a KV entry. Backs GET /api/v1/{tenant}/namespaces/{namespace}/kv/{key}/detail.
+func (a *NamespacesAPI) NamespaceKvDetail(ctx context.Context, namespace, key, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "kv", key, "detail"), nil, nil)
+}
+
+// --- Namespace-scoped policies (PolicyController) ---
+
+// SearchNamespacePolicies searches the policies applying to a namespace. Backs GET /api/v1/{tenant}/namespaces/{namespace}/policies/search.
+func (a *NamespacesAPI) SearchNamespacePolicies(ctx context.Context, namespace, tenant string, page, size *int, filters []SearchFilter) (map[string]interface{}, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendFilterParams(params, filters)
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "policies", "search"), nil, params)
+}
+
+// NamespacePolicy gets a namespace-scope policy. Backs GET /api/v1/{tenant}/namespaces/{namespace}/policies/{id}.
+func (a *NamespacesAPI) NamespacePolicy(ctx context.Context, namespace, id, tenant string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "policies", id), nil, nil)
+}
+
+// EvaluateNamespacePolicy dry-runs a namespace-scope policy against every flow in its scope. Backs GET /api/v1/{tenant}/namespaces/{namespace}/policies/{id}/evaluate.
+func (a *NamespacesAPI) EvaluateNamespacePolicy(ctx context.Context, namespace, id, tenant string, page, size *int) (map[string]interface{}, error) {
+	params := buildQueryParams("page", page, "size", size)
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "policies", id, "evaluate"), nil, params)
+}
+
+// CreateNamespacePolicy creates a namespace-scope policy from its YAML source. Backs POST /api/v1/{tenant}/namespaces/{namespace}/policies.
+func (a *NamespacesAPI) CreateNamespacePolicy(ctx context.Context, namespace, tenant, source string) (map[string]interface{}, error) {
+	return doJSONWithYAMLBody[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "namespaces", namespace, "policies"), source, nil)
+}
+
+// UpdateNamespacePolicy updates a namespace-scope policy from its YAML source. Backs PUT /api/v1/{tenant}/namespaces/{namespace}/policies/{id}.
+func (a *NamespacesAPI) UpdateNamespacePolicy(ctx context.Context, namespace, id, tenant, source string) (map[string]interface{}, error) {
+	return doJSONWithYAMLBody[map[string]interface{}](&a.baseAPI, ctx, "PUT", tenantPath(tenant, "namespaces", namespace, "policies", id), source, nil)
+}
+
+// ValidateNamespacePolicy validates a namespace-scope policy YAML source without persisting it. Backs POST /api/v1/{tenant}/namespaces/{namespace}/policies/validate.
+func (a *NamespacesAPI) ValidateNamespacePolicy(ctx context.Context, namespace, tenant, source string) (map[string]interface{}, error) {
+	return doJSONWithYAMLBody[map[string]interface{}](&a.baseAPI, ctx, "POST", tenantPath(tenant, "namespaces", namespace, "policies", "validate"), source, nil)
+}
+
+// DeleteNamespacePolicy deletes a namespace-scope policy. Backs DELETE /api/v1/{tenant}/namespaces/{namespace}/policies/{id}.
+func (a *NamespacesAPI) DeleteNamespacePolicy(ctx context.Context, namespace, id, tenant string) error {
+	return a.doVoidJSON(ctx, "DELETE", tenantPath(tenant, "namespaces", namespace, "policies", id), nil, nil)
+}
+
+// DeleteNamespacePoliciesByIds deletes namespace-scope policies by their IDs. Backs DELETE /api/v1/{tenant}/namespaces/{namespace}/policies/delete/by-ids.
+func (a *NamespacesAPI) DeleteNamespacePoliciesByIds(ctx context.Context, namespace, tenant string, ids []string) (map[string]interface{}, error) {
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "DELETE", tenantPath(tenant, "namespaces", namespace, "policies", "delete", "by-ids"), ids, nil)
+}
+
+// ExportNamespacePolicies exports every namespace-scope policy as YAML documents joined by '---'. Backs POST /api/v1/{tenant}/namespaces/{namespace}/policies/export.
+func (a *NamespacesAPI) ExportNamespacePolicies(ctx context.Context, namespace, tenant string) ([]byte, error) {
+	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "namespaces", namespace, "policies", "export"), nil, nil)
+}
+
+// ExportNamespacePoliciesByIds exports namespace-scope policies by their IDs as YAML documents joined by '---'. Backs POST /api/v1/{tenant}/namespaces/{namespace}/policies/export/by-ids.
+func (a *NamespacesAPI) ExportNamespacePoliciesByIds(ctx context.Context, namespace, tenant string, ids []string) ([]byte, error) {
+	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "namespaces", namespace, "policies", "export", "by-ids"), ids, nil)
+}
