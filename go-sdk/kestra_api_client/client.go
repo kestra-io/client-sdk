@@ -234,3 +234,39 @@ func (c *KestraClient) McpServers() *McpServersAPI {
 func (c *KestraClient) WorkerCredentials() *WorkerCredentialsAPI {
 	return &WorkerCredentialsAPI{baseAPI{client: c}}
 }
+
+func (c *KestraClient) Me() *MeAPI {
+	return &MeAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Notifications() *NotificationsAPI {
+	return &NotificationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Credentials() *CredentialsAPI {
+	return &CredentialsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) PromotionTargets() *PromotionTargetsAPI {
+	return &PromotionTargetsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) SecurityIntegrations() *SecurityIntegrationsAPI {
+	return &SecurityIntegrationsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Ai() *AiAPI {
+	return &AiAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) AuditLogs() *AuditLogsAPI {
+	return &AuditLogsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Metrics() *MetricsAPI {
+	return &MetricsAPI{baseAPI{client: c}}
+}
+
+func (c *KestraClient) Mcp() *McpAPI {
+	return &McpAPI{baseAPI{client: c}}
+}
