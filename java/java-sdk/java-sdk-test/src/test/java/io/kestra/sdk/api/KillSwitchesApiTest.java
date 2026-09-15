@@ -41,6 +41,13 @@ public class KillSwitchesApiTest {
         try {
             List<Map<String, Object>> all = api().searchKillSwitches();
             assertThat(all).anySatisfy(k -> assertThat(k.get("id")).isEqualTo(id));
+
+            // update requires the full kill switch with its id unchanged
+            Map<String, Object> toUpdate = new java.util.HashMap<>(created);
+            toUpdate.put("description", "updated by sdk test");
+            Map<String, Object> updated = api().updateKillSwitch(id, toUpdate);
+            assertThat(updated.get("id")).isEqualTo(id);
+            assertThat(updated.get("description")).isEqualTo("updated by sdk test");
         } finally {
             api().deleteKillSwitch(id);
         }

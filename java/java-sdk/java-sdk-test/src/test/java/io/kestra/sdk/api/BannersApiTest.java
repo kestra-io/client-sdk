@@ -34,6 +34,14 @@ public class BannersApiTest {
             List<Map<String, Object>> all = api().searchBanners(null);
             assertThat(all)
                     .anySatisfy(b -> assertThat(b.get("id")).isEqualTo(id));
+
+            // update requires the full banner with its id unchanged
+            String newMessage = message + "-updated";
+            Map<String, Object> toUpdate = new java.util.HashMap<>(created);
+            toUpdate.put("message", newMessage);
+            Map<String, Object> updated = api().updateBanner(id, toUpdate);
+            assertThat(updated.get("id")).isEqualTo(id);
+            assertThat(updated.get("message")).isEqualTo(newMessage);
         } finally {
             api().deleteBanner(id);
         }

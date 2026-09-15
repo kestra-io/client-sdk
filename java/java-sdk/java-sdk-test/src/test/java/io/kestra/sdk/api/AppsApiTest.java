@@ -367,6 +367,17 @@ public class AppsApiTest {
     }
 
     @Test
+    void previewApp_returnsRenderedLayout() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        java.util.Map<String, Object> result = api().previewApp(TENANT, appYaml(randomId(), ns, flowId), null);
+
+        assertThat(result).isNotNull().isNotEmpty();
+    }
+
+    @Test
     void openApp_unknownUid_isNotFound() {
         // The open endpoint answers 404 for a missing app; the EE catch-all 403 a mis-routed
         // path would give is what this guards against.

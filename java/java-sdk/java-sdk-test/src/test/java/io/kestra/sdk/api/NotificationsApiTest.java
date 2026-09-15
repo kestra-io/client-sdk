@@ -43,4 +43,28 @@ public class NotificationsApiTest {
         assertThat(result).containsKey("updated");
         assertThat(((Number) result.get("updated")).intValue()).isGreaterThanOrEqualTo(0);
     }
+
+    @Test
+    void pollSince_returnsNotificationsAndServerTime() throws ApiException {
+        // An epoch-start instant returns everything since the beginning of time (an empty list
+        // for a fresh account) plus a fresh serverTime to pass on the next poll.
+        Map<String, Object> result = api().pollNotificationsSince("1970-01-01T00:00:00Z");
+
+        assertThat(result).containsKeys("notifications", "serverTime");
+        assertThat(result.get("notifications")).isInstanceOf(java.util.List.class);
+    }
+
+    @Test
+    void markRead_unknownId_isNoOp() {
+        // The controller documents these as idempotent: a missing/foreign id is a no-op, not an
+        // error — so the call returns cleanly rather than throwing.
+        assertThatCode(() -> api().markNotificationRead("does-not-exist-" + randomId()))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void markUnread_unknownId_isNoOp() {
+        assertThatCode(() -> api().markNotificationUnread("does-not-exist-" + randomId()))
+                .doesNotThrowAnyException();
+    }
 }
