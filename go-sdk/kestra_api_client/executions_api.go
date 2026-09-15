@@ -817,3 +817,180 @@ func (a *ExecutionsAPI) FollowDependenciesExecution(
 	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
 	return followSSE[ExecutionStatusEvent](&a.baseAPI, ctx, "GET", path, params)
 }
+
+// ========================================================================
+// Distinct field values / namespaces / average duration / export
+// ========================================================================
+
+// FindDistinctExecutionFieldValues lists the distinct values of one executions filter
+// field, optionally narrowed by additional filters. `field` is a QueryFilter.Field enum
+// name (e.g. "NAMESPACE", "FLOW_ID"). Backs GET /api/v1/{tenant}/executions/distinct-field-values.
+func (a *ExecutionsAPI) FindDistinctExecutionFieldValues(
+	ctx context.Context,
+	tenant, field string,
+	filters []SearchFilter,
+	size *int,
+) ([]string, error) {
+	path := tenantPath(tenant, "executions", "distinct-field-values")
+	params := buildQueryParams("field", field, "size", size)
+	appendFilterParams(params, filters)
+	return doJSON[[]string](&a.baseAPI, ctx, "GET", path, nil, params)
+}
+
+// ExportExecutionsByQueryToCsv exports executions matching the given filters as CSV.
+// Backs GET /api/v1/{tenant}/executions/export/by-query/csv.
+func (a *ExecutionsAPI) ExportExecutionsByQueryToCsv(
+	ctx context.Context,
+	tenant string,
+	filters []SearchFilter,
+) (string, error) {
+	path := tenantPath(tenant, "executions", "export", "by-query", "csv")
+	params := url.Values{}
+	appendFilterParams(params, filters)
+	return a.doText(ctx, "GET", path, params, contentCSV)
+}
+
+// ListExecutableNamespaces returns the namespaces that hold executable flows.
+// Backs GET /api/v1/{tenant}/executions/namespaces.
+func (a *ExecutionsAPI) ListExecutableNamespaces(ctx context.Context, tenant string) ([]string, error) {
+	path := tenantPath(tenant, "executions", "namespaces")
+	return doJSON[[]string](&a.baseAPI, ctx, "GET", path, nil, nil)
+}
+
+// ListExecutableFlowsByNamespace returns the executable flows of a namespace as
+// FlowForExecution. Backs GET /api/v1/{tenant}/executions/namespaces/{namespace}/flows.
+func (a *ExecutionsAPI) ListExecutableFlowsByNamespace(
+	ctx context.Context,
+	namespace, tenant string,
+) ([]FlowForExecution, error) {
+	path := tenantPath(tenant, "executions", "namespaces", namespace, "flows")
+	return doJSON[[]FlowForExecution](&a.baseAPI, ctx, "GET", path, nil, nil)
+}
+
+// ExecutionAverageDuration returns the average duration (avgDurationMs) and count of the
+// recent executions of a flow. Backs
+// GET /api/v1/{tenant}/executions/namespaces/{namespace}/flows/{flowId}/average-duration.
+func (a *ExecutionsAPI) ExecutionAverageDuration(
+	ctx context.Context,
+	namespace, flowId, tenant string,
+) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "executions", "namespaces", namespace, "flows", flowId, "average-duration")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", path, nil, nil)
+}
+
+// ========================================================================
+// File preview
+// ========================================================================
+
+// PreviewFileFromExecution returns a rendered preview of a file in an execution's internal
+// storage. `path` is the internal storage URI. Backs
+// GET /api/v1/{tenant}/executions/{executionId}/file/preview.
+func (a *ExecutionsAPI) PreviewFileFromExecution(
+	ctx context.Context,
+	executionId, path, tenant string,
+	maxRows *int,
+	encoding *string,
+) (map[string]interface{}, error) {
+	apiPath := tenantPath(tenant, "executions", executionId, "file", "preview")
+	params := buildQueryParams("path", path, "maxRows", maxRows, "encoding", encoding)
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", apiPath, nil, params)
+}
+
+// ========================================================================
+// Eval for a task run
+// ========================================================================
+
+// EvalTaskRunExpression evaluates a Pebble expression in the context of a specific task run
+// of an execution. Backs POST /api/v1/{tenant}/executions/{executionId}/actions/eval/{taskRunId}.
+func (a *ExecutionsAPI) EvalTaskRunExpression(
+	ctx context.Context,
+	executionId, taskRunId, tenant, expression string,
+) (*ExecutionControllerEvalResult, error) {
+	path := tenantPath(tenant, "executions", executionId, "actions", "eval", taskRunId)
+	result, err := doJSONWithTextBody[ExecutionControllerEvalResult](&a.baseAPI, ctx, "POST", path, expression, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// ========================================================================
+// Resume from breakpoint / validate resume / validate new inputs
+// ========================================================================
+
+// ResumeExecutionFromBreakpoint resumes an execution that is suspended in the BREAKPOINT
+// state. Backs POST /api/v1/{tenant}/executions/{executionId}/actions/resume-from-breakpoint.
+func (a *ExecutionsAPI) ResumeExecutionFromBreakpoint(
+	ctx context.Context,
+	executionId, tenant string,
+	breakpoints *string,
+) (*Execution, error) {
+	path := tenantPath(tenant, "executions", executionId, "actions", "resume-from-breakpoint")
+	params := buildQueryParams("breakpoints", breakpoints)
+
+	result, err := doJSON[Execution](&a.baseAPI, ctx, "POST", path, nil, params)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// ValidateResumeExecutionInputs validates the inputs supplied to resume a paused execution,
+// returning the resolved inputs and any failed checks. The inputs go out as multipart form
+// fields. Backs POST /api/v1/{tenant}/executions/{executionId}/actions/resume/validate.
+func (a *ExecutionsAPI) ValidateResumeExecutionInputs(
+	ctx context.Context,
+	executionId, tenant string,
+	inputs map[string]string,
+) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "executions", executionId, "actions", "resume", "validate")
+
+	formParams := make(map[string]interface{}, len(inputs))
+	for k, v := range inputs {
+		formParams[k] = v
+	}
+
+	resp, err := a.doMultipartJSON(ctx, "POST", path, nil, formParams)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// ValidateNewExecutionInputs validates the inputs and labels for a new execution of a flow
+// without creating it, returning the resolved inputs and any failed checks. The inputs go out
+// as multipart form fields. Backs POST /api/v1/{tenant}/executions/{namespace}/{id}/validate.
+func (a *ExecutionsAPI) ValidateNewExecutionInputs(
+	ctx context.Context,
+	namespace, id, tenant string,
+	labels []string,
+	revision *int,
+	inputs map[string]string,
+) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "executions", namespace, id, "validate")
+	params := buildQueryParams("revision", revision)
+	appendRepeatedParam(params, "labels", labels)
+
+	formParams := make(map[string]interface{}, len(inputs))
+	for k, v := range inputs {
+		formParams[k] = v
+	}
+
+	resp, err := a.doMultipartJSON(ctx, "POST", path, params, formParams)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
