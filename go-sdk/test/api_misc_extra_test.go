@@ -21,6 +21,7 @@ func TestMiscAPI_ConfigsAndPebble(t *testing.T) {
 		filters, err := client.Misc().PebbleFilters(ctx)
 		require.NoError(t, err)
 		require.NotEmpty(t, filters, "the Pebble filter catalogue is a fixed non-empty list")
+		require.Contains(t, filters, "abbreviate", "the built-in Pebble filters include 'abbreviate'")
 	})
 
 	t.Run("pebbleFunctions", func(t *testing.T) {

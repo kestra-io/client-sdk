@@ -23,9 +23,10 @@ func (a *MiscAPI) Ping(ctx context.Context) (map[string]interface{}, error) {
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", superadminPath("configs"), nil, nil)
 }
 
-// PebbleFilters lists the available Pebble template filters. Backs GET /api/v1/pebble/filters.
-func (a *MiscAPI) PebbleFilters(ctx context.Context) ([]map[string]interface{}, error) {
-	return doJSON[[]map[string]interface{}](&a.baseAPI, ctx, "GET", superadminPath("pebble", "filters"), nil, nil)
+// PebbleFilters lists the names of the available Pebble template filters. Backs
+// GET /api/v1/pebble/filters (the backend returns a List<String>).
+func (a *MiscAPI) PebbleFilters(ctx context.Context) ([]string, error) {
+	return doJSON[[]string](&a.baseAPI, ctx, "GET", superadminPath("pebble", "filters"), nil, nil)
 }
 
 // PebbleFunctions lists the available Pebble template functions. Backs GET /api/v1/pebble/functions.
