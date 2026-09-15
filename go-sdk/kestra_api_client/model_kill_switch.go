@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
 )
 
@@ -27,8 +26,8 @@ type KillSwitch struct {
 	Namespace *string `json:"namespace,omitempty"`
 	FlowId *string `json:"flowId,omitempty"`
 	ExecutionIds []string `json:"executionIds,omitempty"`
-	StartDate time.Time `json:"startDate"`
-	EndDate *time.Time `json:"endDate,omitempty"`
+	StartDate LocalDateTime `json:"startDate"`
+	EndDate *LocalDateTime `json:"endDate,omitempty"`
 	Description *string `json:"description,omitempty"`
 	EvaluationType EvaluationType `json:"evaluationType"`
 	Enabled *bool `json:"enabled,omitempty"`
@@ -42,7 +41,7 @@ type _KillSwitch KillSwitch
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKillSwitch(name string, startDate time.Time, evaluationType EvaluationType) *KillSwitch {
+func NewKillSwitch(name string, startDate LocalDateTime, evaluationType EvaluationType) *KillSwitch {
 	this := KillSwitch{}
 	this.Name = name
 	this.StartDate = startDate
@@ -243,9 +242,9 @@ func (o *KillSwitch) SetExecutionIds(v []string) {
 }
 
 // GetStartDate returns the StartDate field value
-func (o *KillSwitch) GetStartDate() time.Time {
+func (o *KillSwitch) GetStartDate() LocalDateTime {
 	if o == nil {
-		var ret time.Time
+		var ret LocalDateTime
 		return ret
 	}
 
@@ -254,7 +253,7 @@ func (o *KillSwitch) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value
 // and a boolean to check if the value has been set.
-func (o *KillSwitch) GetStartDateOk() (*time.Time, bool) {
+func (o *KillSwitch) GetStartDateOk() (*LocalDateTime, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -262,14 +261,14 @@ func (o *KillSwitch) GetStartDateOk() (*time.Time, bool) {
 }
 
 // SetStartDate sets field value
-func (o *KillSwitch) SetStartDate(v time.Time) {
+func (o *KillSwitch) SetStartDate(v LocalDateTime) {
 	o.StartDate = v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *KillSwitch) GetEndDate() time.Time {
+func (o *KillSwitch) GetEndDate() LocalDateTime {
 	if o == nil || IsNil(o.EndDate) {
-		var ret time.Time
+		var ret LocalDateTime
 		return ret
 	}
 	return *o.EndDate
@@ -277,7 +276,7 @@ func (o *KillSwitch) GetEndDate() time.Time {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KillSwitch) GetEndDateOk() (*time.Time, bool) {
+func (o *KillSwitch) GetEndDateOk() (*LocalDateTime, bool) {
 	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
@@ -293,8 +292,8 @@ func (o *KillSwitch) HasEndDate() bool {
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
-func (o *KillSwitch) SetEndDate(v time.Time) {
+// SetEndDate gets a reference to the given LocalDateTime and assigns it to the EndDate field.
+func (o *KillSwitch) SetEndDate(v LocalDateTime) {
 	o.EndDate = &v
 }
 
