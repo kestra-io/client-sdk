@@ -891,7 +891,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -936,7 +936,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -1873,7 +1873,7 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -1976,6 +1976,7 @@ paths:
         in: path
         required: true
         schema:
+          pattern: '[0-9].*'
           type: string
       responses:
         '200':
@@ -4367,7 +4368,7 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -4914,6 +4915,7 @@ paths:
         description: The file path
         required: true
         schema:
+          pattern: .*
           type: string
       responses:
         '200':
@@ -7765,7 +7767,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Object_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Object_'
         '401':
           description: Authentication required
           content:
@@ -7816,7 +7820,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Object_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Object_'
         '401':
           description: Authentication required
           content:
@@ -8822,7 +8828,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_AppResponse_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_AppResponse_'
         '401':
           description: Authentication required
           content:
@@ -18864,7 +18872,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_Execution_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_Execution_'
         '401':
           description: Authentication required
           content:
@@ -18927,7 +18937,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_ExecutionStatusEvent_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_ExecutionStatusEvent_'
         '401':
           description: Authentication required
           content:
@@ -19802,7 +19814,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -19852,7 +19864,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -23921,7 +23933,9 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/Event_FollowLogEvent_'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event_FollowLogEvent_'
         '401':
           description: Authentication required
           content:
@@ -25050,7 +25064,7 @@ paths:
     delete:
       tags:
       - Namespaces
-      summary: Delete a namespace
+      summary: Delete a namespace and its child namespaces
       operationId: deleteNamespace
       parameters:
       - name: id
@@ -25067,6 +25081,18 @@ paths:
       responses:
         '204':
           description: On success
+        '404':
+          description: If neither the namespace nor any of its child namespaces exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '409':
+          description: If the namespace or one of its child namespaces contains flows
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
         '401':
           description: Authentication required
           content:
@@ -26583,7 +26609,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -26639,7 +26665,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -27740,7 +27766,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -27791,7 +27817,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -30115,7 +30141,7 @@ paths:
       parameters:
       - name: from
         in: query
-        description: The start date
+        description: The start date, defaulting to the current month when omitted
         schema:
           type: string
           format: date
@@ -30132,7 +30158,7 @@ paths:
             application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
         '401':
           description: Authentication required
           content:
@@ -31438,6 +31464,12 @@ paths:
                 $ref: '#/components/schemas/ApiTriggerState'
         '409':
           description: If the backfill cannot be created
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: If the backfill end date is not after its start date
           content:
             application/problem+json:
               schema:
@@ -33116,7 +33148,6 @@ components:
           - $ref: '#/components/schemas/Map_Object.Object_'
         variables:
           type: object
-          additionalProperties: false
         workerSelector:
           description: Routing requirements (tags + fallback) for this flow.
           allOf:
@@ -35295,7 +35326,7 @@ components:
       type: object
       properties:
         ttl:
-          description: How long the lock is held before it expires.
+          description: How long the lock is held before it expires. Must be positive and at most P3650D.
           allOf:
           - $ref: '#/components/schemas/Duration'
           default: PT5M
@@ -35358,13 +35389,11 @@ components:
       - type: object
         properties:
           appliedPatch:
-            type: array
-            items:
-              type: object
+            type: object
+            additionalProperties: true
           revertPatch:
-            type: array
-            items:
-              type: object
+            type: object
+            additionalProperties: true
     AuditLogController.ApiAuditLogItem:
       type: object
       properties:
@@ -36854,7 +36883,7 @@ components:
         nano:
           type: integer
           format: int32
-      description: How long the lock is held before it expires.
+      description: How long the lock is held before it expires. Must be positive and at most P3650D.
       default: PT5M
     EditionProvider.Edition:
       type: string
@@ -37436,7 +37465,6 @@ components:
               $ref: '#/components/schemas/Task'
           variables:
             type: object
-            additionalProperties: false
           tasks:
             minItems: 1
             type: array
@@ -37558,7 +37586,6 @@ components:
             - $ref: '#/components/schemas/Map_Object.Object_'
           variables:
             type: object
-            additionalProperties: false
           workerSelector:
             description: Routing requirements (tags + fallback) for this flow.
             allOf:
@@ -37940,7 +37967,6 @@ components:
             type: boolean
           variables:
             type: object
-            additionalProperties: false
           concurrency:
             title: Concurrency
             description: Limits the number of concurrent executions of the flow.
@@ -39534,6 +39560,8 @@ components:
         commitDate:
           type: string
           format: date-time
+        versionUpgrade:
+          $ref: '#/components/schemas/VersionService.VersionUpgrade'
         isCustomDashboardsEnabled:
           type: boolean
         isAnonymousUsageEnabled:
@@ -41682,6 +41710,7 @@ components:
       - UNKNOWN
     ResourceType:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResourceWithOptionalId'
       - $ref: '#/components/schemas/ScimResource'
@@ -42076,25 +42105,17 @@ components:
       - DASHBOARD
       - REUSABLEINPUTS
       - POLICY
-    ScimExtension:
-      type: object
-      properties:
-        urn:
-          type: string
     ScimResource:
       required:
       - meta
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/BaseResource_ScimResource_'
       - type: object
         properties:
           baseUrn:
             type: string
-          extensions:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/ScimExtension'
           meta:
             $ref: '#/components/schemas/Meta'
           id:
@@ -42106,6 +42127,7 @@ components:
             type: string
     ScimResourceWithOptionalId:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResource'
       - $ref: '#/components/schemas/BaseResource_ScimResource_'
@@ -42115,6 +42137,7 @@ components:
             type: string
     ScimUser:
       type: object
+      additionalProperties: true
       description: Scim core schema.
       allOf:
       - $ref: '#/components/schemas/ScimResource'
@@ -42302,6 +42325,7 @@ components:
           $ref: '#/components/schemas/Service.ServiceState'
     ServiceProviderConfiguration:
       type: object
+      additionalProperties: true
       allOf:
       - $ref: '#/components/schemas/ScimResourceWithOptionalId'
       - $ref: '#/components/schemas/ScimResource'
@@ -43588,6 +43612,16 @@ components:
           $ref: '#/components/schemas/AttributeReference'
         attributeExpression:
           $ref: '#/components/schemas/FilterExpression'
+    VersionService.VersionUpgrade:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        at:
+          type: string
+          format: date-time
     WebhookResponse:
       type: object
       properties:
