@@ -376,10 +376,13 @@ public class AppsApiTest {
     }
 
     @Test
-    void downloadFileFromAppExecution_unknownApp_isNotFound() {
+    void downloadFileFromAppExecution_unknownApp_isForbidden() {
+        // The download endpoint runs an ACCESS_FILES access-level check before the not-found
+        // path, so a missing app surfaces as 403 (not 404). Either way it proves the request
+        // reached the controller rather than being mis-routed.
         assertThatThrownBy(() -> api().downloadFileFromAppExecution(
                 TENANT, "does-not-exist-" + randomId(), java.net.URI.create("kestra:///whatever.txt")))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(403));
     }
 }
