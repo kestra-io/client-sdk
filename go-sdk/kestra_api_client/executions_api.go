@@ -803,7 +803,7 @@ func (a *ExecutionsAPI) FollowExecution(
 	executionId, tenant string,
 ) (<-chan *Execution, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow")
-	return followSSE[Execution](&a.baseAPI, ctx, path, nil)
+	return followSSE[Execution](&a.baseAPI, ctx, "GET", path, nil)
 }
 
 // FollowDependenciesExecution opens an SSE stream that emits execution status events
@@ -815,5 +815,5 @@ func (a *ExecutionsAPI) FollowDependenciesExecution(
 ) (<-chan *ExecutionStatusEvent, error) {
 	path := tenantPath(tenant, "executions", executionId, "follow-dependencies")
 	params := buildQueryParams("destinationOnly", destinationOnly, "expandAll", expandAll)
-	return followSSE[ExecutionStatusEvent](&a.baseAPI, ctx, path, params)
+	return followSSE[ExecutionStatusEvent](&a.baseAPI, ctx, "GET", path, params)
 }

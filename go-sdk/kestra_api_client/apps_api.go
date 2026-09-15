@@ -93,5 +93,5 @@ func (a *AppsAPI) LogsFromAppExecution(ctx context.Context, uid, tenant string, 
 // StreamAppEventsFromApp follows an app's event stream. The channel is closed when
 // the stream ends or ctx is cancelled.
 func (a *AppsAPI) StreamAppEvents(ctx context.Context, id, stream, tenant string) (<-chan *EventAppResponse, error) {
-	return followSSE[EventAppResponse](&a.baseAPI, ctx, tenantPath(tenant, "apps", "view", id, "streams", stream), nil)
+	return followSSE[EventAppResponse](&a.baseAPI, ctx, "GET", tenantPath(tenant, "apps", "view", id, "streams", stream), nil)
 }
