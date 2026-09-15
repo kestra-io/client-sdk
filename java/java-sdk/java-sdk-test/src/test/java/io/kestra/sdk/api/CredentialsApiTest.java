@@ -10,9 +10,8 @@ import static org.assertj.core.api.Assertions.*;
 
 /**
  * Live tests for the tenant-level credential endpoints under
- * {@code /api/v1/{tenant}/credentials/**}. Credentials require the {@code CREDENTIAL}
- * resource (an EE feature); on a CI image without it the resource is gated (403), so the
- * read-only tests accept either the real payload or that gate.
+ * {@code /api/v1/{tenant}/credentials/**}. The CI image licenses the {@code CREDENTIAL}
+ * resource, so the list returns a real paged envelope.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CredentialsApiTest {
@@ -22,19 +21,20 @@ public class CredentialsApiTest {
     }
 
     @Test
-    void listCredentials_isPagedOrGated() throws ApiException {
-        try {
-            Map<String, Object> result = api().listCredentials(TENANT, 1, 10, null, null);
-            assertThat(result).containsKey("results");
-        } catch (ApiException e) {
-            assertThat(e.getCode()).isIn(403, 404);
-        }
+    void listCredentials_returnsPagedEnvelope() throws ApiException {
+        Map<String, Object> result = api().listCredentials(TENANT, 1, 10, null, null);
+
+        assertThat(result).containsKeys("results", "total");
+        assertThat(result.get("results")).isInstanceOf(java.util.List.class);
     }
 
     @Test
-    void getCredential_unknownId_throws() {
+    void getCredential_unknownId_isNotFound() {
+        // A correctly-routed endpoint answers 404 for an unknown id; a mis-routed path
+        // would instead hit the EE catch-all 403 — so asserting exactly 404 guards the
+        // binding, not just that *some* error is thrown.
         assertThatThrownBy(() -> api().getCredential(TENANT, "does-not-exist-" + randomId()))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
     }
 }

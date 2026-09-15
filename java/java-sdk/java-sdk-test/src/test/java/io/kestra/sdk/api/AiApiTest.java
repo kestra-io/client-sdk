@@ -29,23 +29,23 @@ public class AiApiTest {
     void listThreads_returnsAListOrIsGated() throws ApiException {
         try {
             List<Map<String, Object>> result = api().listThreads(TENANT);
-            // when Copilot is enabled the list is always present (possibly empty).
+            // Copilot is licensed on the CI image, so the (possibly empty) list is present.
             assertThat(result).isNotNull();
         } catch (ApiException e) {
-            // On a CI image the gate is deterministic: 403 (COPILOT resource) or,
-            // with no AI provider configured, 503 (Copilot service unavailable).
-            assertThat(e.getCode()).isIn(403, 404, 503);
+            // The one deterministic non-200 is 503 when no AI provider is configured; a
+            // mis-routed path would be the EE catch-all 403, so it must NOT be tolerated.
+            assertThat(e.getCode()).isEqualTo(503);
         }
     }
 
     @Test
     void getThread_unknownId_throws() {
-        // Without an AI provider the Copilot service answers 503 before it can even
-        // resolve the (unknown) thread; with one it would be a 404. Both, and the
-        // COPILOT 403 gate, are the deterministic non-success outcomes.
+        // With no AI provider the Copilot service answers 503 before it can resolve the
+        // (unknown) thread; with one it would be 404. A mis-routed path would instead be
+        // the EE catch-all 403, so excluding 403 keeps this test guarding the binding.
         assertThatThrownBy(() -> api().getThread(TENANT, "does-not-exist-" + randomId()))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404, 503));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(404, 503));
     }
 
     @Test

@@ -31,13 +31,14 @@ public class InstanceApiTest {
     // ========================================================================
 
     @Test
-    void listWorkerGroups_returnsAList() throws ApiException {
+    void listWorkerGroups_containsDefaultGroup() throws ApiException {
         InstanceControllerApiWorkerGroupList result = api().listWorkerGroups(null);
 
-        // the list is server-managed and may be empty on a fresh instance, but the
-        // envelope itself is always present.
+        // every Kestra cluster ships a built-in "default" worker group, so this is a
+        // real, deterministic value rather than a mere non-null check.
         assertThat(result).isNotNull();
-        assertThat(result.getWorkerGroups()).isNotNull();
+        assertThat(result.getWorkerGroups())
+                .anySatisfy(group -> assertThat(group.getId()).isEqualTo("default"));
     }
 
     // ========================================================================
@@ -124,9 +125,10 @@ public class InstanceApiTest {
     // ========================================================================
 
     @Test
-    void getWorkerGroup_unknownId_throws() {
+    void getWorkerGroup_unknownId_isNotFound() {
+        // Exactly 404 (not the EE catch-all 403 a mis-routed path would give) guards the binding.
         assertThatThrownBy(() -> api().getWorkerGroup("does-not-exist-" + randomId()))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
     }
 }

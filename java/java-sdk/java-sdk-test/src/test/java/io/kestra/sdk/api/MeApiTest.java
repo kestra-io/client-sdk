@@ -24,16 +24,20 @@ public class MeApiTest {
     void getCurrentUser_returnsTheAuthenticatedUser() throws ApiException {
         Map<String, Object> result = api().getCurrentUser();
 
-        // the test client authenticates as the bootstrap super-admin, so /me is populated.
-        assertThat(result).isNotEmpty();
+        // the test client authenticates as the bootstrap super-admin, so /me carries a
+        // real id and the instance-owner flag.
         assertThat(result).containsKey("id");
+        assertThat(result).containsEntry("instanceOwner", true);
     }
 
     @Test
-    void listApiTokens_returnsAList() throws ApiException {
+    void listApiTokens_returnsPagedEnvelope() throws ApiException {
+        // the CI bootstrap minted the token this very client authenticates with, so the
+        // list is never empty.
         Map<String, Object> result = api().listApiTokens();
 
-        assertThat(result).isNotNull();
+        assertThat(result).containsKeys("results", "total");
+        assertThat(result.get("results")).asInstanceOf(org.assertj.core.api.InstanceOfAssertFactories.LIST).isNotEmpty();
     }
 
     @Test

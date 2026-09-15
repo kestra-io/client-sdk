@@ -10,9 +10,8 @@ import static org.assertj.core.api.Assertions.*;
 
 /**
  * Live tests for the security-integration (SCIM) endpoints under
- * {@code /api/v1/{tenant}/security-integrations/**}. They require the EE
- * {@code FEATURE_SCIM} license feature and instance-owner rights; on a CI image without
- * it the resource is gated (403), so the read-only tests accept either outcome.
+ * {@code /api/v1/{tenant}/security-integrations/**}. The CI image licenses
+ * {@code FEATURE_SCIM}, so the search returns a real paged envelope.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SecurityIntegrationsApiTest {
@@ -22,19 +21,18 @@ public class SecurityIntegrationsApiTest {
     }
 
     @Test
-    void searchSecurityIntegrations_isPagedOrGated() throws ApiException {
-        try {
-            Map<String, Object> result = api().searchSecurityIntegrations(TENANT, 1, 10, null, null);
-            assertThat(result).containsKey("results");
-        } catch (ApiException e) {
-            assertThat(e.getCode()).isIn(403, 404);
-        }
+    void searchSecurityIntegrations_returnsPagedEnvelope() throws ApiException {
+        Map<String, Object> result = api().searchSecurityIntegrations(TENANT, 1, 10, null, null);
+
+        assertThat(result).containsKeys("results", "total");
+        assertThat(result.get("results")).isInstanceOf(java.util.List.class);
     }
 
     @Test
-    void getSecurityIntegration_unknownId_throws() {
+    void getSecurityIntegration_unknownId_isNotFound() {
+        // Exactly 404 (not the EE catch-all 403 a mis-routed path would give) guards the binding.
         assertThatThrownBy(() -> api().getSecurityIntegration(TENANT, "does-not-exist-" + randomId()))
                 .isInstanceOf(ApiException.class)
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isIn(403, 404));
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
     }
 }
