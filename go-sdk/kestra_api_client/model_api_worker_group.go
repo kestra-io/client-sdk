@@ -68,6 +68,35 @@ type ApiGenerateTokenResponse struct {
 func (o *ApiGenerateTokenResponse) GetToken() string                      { return o.Token }
 func (o *ApiGenerateTokenResponse) GetDetails() ApiWorkerGroupTokenSummary { return o.Details }
 
+// ApiCreateWorkerGroupRequest is the body of the worker-group create endpoint.
+// Subscriptions must be non-nil (it may be empty).
+type ApiCreateWorkerGroupRequest struct {
+	Id            string                    `json:"id"`
+	Name          string                    `json:"name"`
+	Description   string                    `json:"description,omitempty"`
+	Subscriptions []ApiSubscriptionRequest  `json:"subscriptions"`
+}
+
+// ApiUpdateWorkerGroupRequest is the body of the worker-group update endpoint.
+type ApiUpdateWorkerGroupRequest struct {
+	Name          string                   `json:"name"`
+	Description   string                   `json:"description,omitempty"`
+	Subscriptions []ApiSubscriptionRequest `json:"subscriptions"`
+}
+
+// ApiSubscriptionRequest subscribes a worker group to a worker queue.
+// ReservedPercent is -1 (unset) or 1..100. Mode is STRICT (default) or ELASTIC.
+type ApiSubscriptionRequest struct {
+	WorkerQueueId   string `json:"workerQueueId"`
+	ReservedPercent int32  `json:"reservedPercent"`
+	Mode            string `json:"mode,omitempty"`
+}
+
+// ApiUpdateSubscriptionRequest changes a subscription's reserved capacity.
+type ApiUpdateSubscriptionRequest struct {
+	ReservedPercent int32 `json:"reservedPercent"`
+}
+
 // ApiSubscriptionResponse is a worker group's subscription to a worker queue.
 type ApiSubscriptionResponse struct {
 	Queue           ApiWorkerQueueSummary `json:"queue"`

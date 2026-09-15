@@ -41,3 +41,27 @@ func (a *InstanceAPI) ListAllMcpServers(ctx context.Context, page, size *int, so
 	appendRepeatedParam(params, "sort", sort)
 	return doJSON[*PagedResultsApiInstanceMcpServer](&a.baseAPI, ctx, "GET", superadminPath("instance", "mcp-servers"), nil, params)
 }
+
+// ListVersionedPlugins returns a page of the installed versioned plugins.
+// Requires plugin management to be enabled on the instance.
+func (a *InstanceAPI) ListVersionedPlugins(ctx context.Context, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiPluginArtifact, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	appendFilterParams(params, filters)
+	return doJSON[*PagedResultsApiPluginArtifact](&a.baseAPI, ctx, "GET", superadminPath("instance", "versioned-plugins"), nil, params)
+}
+
+// ListAvailableVersionedPlugins returns every plugin that can be installed.
+func (a *InstanceAPI) ListAvailableVersionedPlugins(ctx context.Context) (*ApiAvailablePluginList, error) {
+	return doJSON[*ApiAvailablePluginList](&a.baseAPI, ctx, "GET", superadminPath("instance", "versioned-plugins", "available"), nil, nil)
+}
+
+// ListAvailableVersionedPluginsForStorage returns the installable storage plugins.
+func (a *InstanceAPI) ListAvailableVersionedPluginsForStorage(ctx context.Context) (*ApiAvailablePluginList, error) {
+	return doJSON[*ApiAvailablePluginList](&a.baseAPI, ctx, "GET", superadminPath("instance", "versioned-plugins", "available", "storages"), nil, nil)
+}
+
+// ListAvailableVersionedPluginsForSecretManager returns the installable secret-manager plugins.
+func (a *InstanceAPI) ListAvailableVersionedPluginsForSecretManager(ctx context.Context) (*ApiAvailablePluginList, error) {
+	return doJSON[*ApiAvailablePluginList](&a.baseAPI, ctx, "GET", superadminPath("instance", "versioned-plugins", "available", "secrets-managers"), nil, nil)
+}
