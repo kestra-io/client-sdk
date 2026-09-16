@@ -11,6 +11,8 @@ from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.models.id_with_namespace import IdWithNamespace
 from kestrapy.models.paged_results_concurrency_limit import PagedResultsConcurrencyLimit
 from kestrapy.models.paged_results_flow import PagedResultsFlow
+from kestrapy.models.policy_preview_request import PolicyPreviewRequest
+from kestrapy.models.policy_preview_response import PolicyPreviewResponse
 from kestrapy.models.paged_results_source_search_result import PagedResultsSourceSearchResult
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.source_search_scope import SourceSearchScope
@@ -353,3 +355,16 @@ class FlowsApi(BaseApi):
         path = self._tenant_path(tenant, "flows", "expressions")
         params = self._build_query_params(taskId=task_id)
         return self._raw_json_request("POST", path, params=params, body=body, content_type=self.YAML)
+
+    # ========================================================================
+    # Governance policies (EE)
+    # ========================================================================
+
+    def preview_policies(
+        self, tenant: str, body: PolicyPreviewRequest
+    ) -> PolicyPreviewResponse:
+        """Preview the governance policy effects (mutations + violations) on a
+        flow source. Backs POST /api/v1/{tenant}/flows/policies/preview.
+        Requires the FEATURE_POLICIES licence feature."""
+        path = self._tenant_path(tenant, "flows", "policies", "preview")
+        return self._json_request("POST", path, PolicyPreviewResponse, body=body)
