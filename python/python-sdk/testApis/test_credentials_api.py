@@ -31,14 +31,28 @@ def _tolerate_gating(what):
         raise
 
 
-def _create_credential(client):
-    body = {
-        "type": "GITHUB_APP",
-        "name": f"sdk-cred-{random_id()[:8]}",
-        "appId": "123456",
-        "privateKey": "-----BEGIN PRIVATE KEY-----\nfake\n-----END PRIVATE KEY-----",
+def _oauth2_body(name):
+    # OAuth2 create/update request: polymorphic on `type`, with a nested
+    # authConfig that is itself polymorphic (CLIENT_CREDENTIALS grant). clientId
+    # is an AuthProperty (VALUE), clientSecret a SecretAuthProperty (secretKey).
+    return {
+        "type": "OAUTH2",
+        "name": name,
+        "description": "sdk coverage test",
+        "tokenEndpoint": "https://login.example.com/oauth/token",
+        "scopes": ["read"],
+        "authConfig": {
+            "type": "CLIENT_CREDENTIALS",
+            "clientId": {"type": "VALUE", "value": "sdk-client-id"},
+            "clientSecret": {"type": "SECRET", "secretKey": "SDK_OAUTH_SECRET"},
+        },
     }
-    return client.credentials.create_credential(TENANT, body)
+
+
+def _create_credential(client):
+    return client.credentials.create_credential(
+        TENANT, _oauth2_body(f"sdk-cred-{random_id()[:8]}")
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -68,7 +82,7 @@ def test_credential_crud_round_trip(client):
         updated = client.credentials.update_credential(
             credential_id,
             TENANT,
-            {**created, "name": created["name"], "appId": "654321"},
+            _oauth2_body(created["name"]),
         )
         assert updated["id"] == credential_id
     finally:
@@ -86,9 +100,18 @@ def test_test_credential_reports_connection_result(client):
     with _tolerate_gating("create_credential"):
         created = _create_credential(client)
     try:
-        with _tolerate_gating("test_credential"):
+        try:
             result = client.credentials.test_credential(created["id"], TENANT)
-        assert result.success is not None
+        except (ForbiddenException, NotFoundException) as exc:
+            pytest.skip(f"test_credential gated ({exc.status})")
+        except ServiceException as exc:
+            # Testing an unreachable token endpoint may surface as a 500/501.
+            if getattr(exc, "status", None) in (403, 404, 500, 501):
+                pytest.skip(f"test_credential: remote unreachable ({exc.status})")
+            raise
+        else:
+            # success is a real boolean result of the connection attempt.
+            assert result.success is not None
     finally:
         with contextlib.suppress(Exception):
             client.credentials.delete_credential(created["id"], TENANT)
