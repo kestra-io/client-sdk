@@ -35,7 +35,10 @@ public class ScimApiTest {
     /** Creates an enabled SCIM security integration and returns its uid. */
     static String createScimIntegration() throws ApiException {
         Map<String, Object> created = integrations().createSecurityIntegration(
-                TENANT, Map.of("name", "scim-" + randomId(), "type", "SCIM"));
+                TENANT, Map.of(
+                        "name", "scim-" + randomId(),
+                        "type", "SCIM",
+                        "description", "SCIM integration created by sdk test"));
         return (String) created.get("uid");
     }
 
