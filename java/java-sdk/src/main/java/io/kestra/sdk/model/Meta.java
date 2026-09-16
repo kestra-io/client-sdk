@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -39,10 +39,10 @@ public class Meta {
   @jakarta.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_CREATED = "created";
-  @jakarta.annotation.Nullable  private OffsetDateTime created;
+  @jakarta.annotation.Nullable  private LocalDateTime created;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED = "lastModified";
-  @jakarta.annotation.Nullable  private OffsetDateTime lastModified;
+  @jakarta.annotation.Nullable  private LocalDateTime lastModified;
 
   public static final String JSON_PROPERTY_LOCATION = "location";
   @jakarta.annotation.Nullable  private String location;
@@ -77,7 +77,7 @@ public class Meta {
     this.resourceType = resourceType;
   }
 
-  public Meta created(@jakarta.annotation.Nullable OffsetDateTime created) {
+  public Meta created(@jakarta.annotation.Nullable LocalDateTime created) {
     
     this.created = created;
     return this;
@@ -90,18 +90,18 @@ public class Meta {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OffsetDateTime getCreated() {
+  public LocalDateTime getCreated() {
     return created;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreated(@jakarta.annotation.Nullable OffsetDateTime created) {
+  public void setCreated(@jakarta.annotation.Nullable LocalDateTime created) {
     this.created = created;
   }
 
-  public Meta lastModified(@jakarta.annotation.Nullable OffsetDateTime lastModified) {
+  public Meta lastModified(@jakarta.annotation.Nullable LocalDateTime lastModified) {
     
     this.lastModified = lastModified;
     return this;
@@ -114,14 +114,14 @@ public class Meta {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OffsetDateTime getLastModified() {
+  public LocalDateTime getLastModified() {
     return lastModified;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastModified(@jakarta.annotation.Nullable OffsetDateTime lastModified) {
+  public void setLastModified(@jakarta.annotation.Nullable LocalDateTime lastModified) {
     this.lastModified = lastModified;
   }
 
