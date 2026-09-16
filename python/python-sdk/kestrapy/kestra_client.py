@@ -32,6 +32,12 @@ from kestrapy.api.promotion_targets_api import PromotionTargetsApi
 from kestrapy.api.security_integrations_api import SecurityIntegrationsApi
 from kestrapy.api.credentials_api import CredentialsApi
 from kestrapy.api.notifications_api import NotificationsApi
+from kestrapy.api.plugins_api import PluginsApi
+from kestrapy.api.ai_api import AiApi
+from kestrapy.api.mcp_servers_api import McpServersApi
+from kestrapy.api.mcp_api import McpApi
+from kestrapy.api.cases_api import CasesApi
+from kestrapy.api.case_templates_api import CaseTemplatesApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -133,6 +139,18 @@ class KestraClient:
     def credentials(self): return self._get_api(CredentialsApi)
     @property
     def notifications(self): return self._get_api(NotificationsApi)
+    @property
+    def plugins(self): return self._get_api(PluginsApi)
+    @property
+    def ai(self): return self._get_api(AiApi)
+    @property
+    def mcp_servers(self): return self._get_api(McpServersApi)
+    @property
+    def mcp(self): return self._get_api(McpApi)
+    @property
+    def cases(self): return self._get_api(CasesApi)
+    @property
+    def case_templates(self): return self._get_api(CaseTemplatesApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
