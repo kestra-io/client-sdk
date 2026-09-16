@@ -5,8 +5,7 @@ import io.kestra.sdk.model.EvaluationType;
 import io.kestra.sdk.model.KillSwitch;
 import org.junit.jupiter.api.*;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static io.kestra.TestUtils.*;
@@ -27,7 +26,7 @@ public class KillSwitchesApiTest {
     static KillSwitch request(String name) {
         return new KillSwitch()
                 .name(name)
-                .startDate(OffsetDateTime.of(2999, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC))
+                .startDate(LocalDateTime.of(2999, 1, 1, 0, 0))
                 .evaluationType(EvaluationType.KILL);
     }
 
