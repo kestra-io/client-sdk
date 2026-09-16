@@ -399,3 +399,105 @@ func (a *FlowsAPI) Expressions(ctx context.Context, tenant, yamlBody string, tas
 	}
 	return &result, nil
 }
+
+// ========================================================================
+// CSV export
+// ========================================================================
+
+// ExportFlowsByQueryCsv exports all flows matching the given filters as a CSV
+// document. Backs GET /api/v1/{tenant}/flows/export/by-query/csv.
+func (a *FlowsAPI) ExportFlowsByQueryCsv(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
+	path := tenantPath(tenant, "flows", "export", "by-query", "csv")
+	params := url.Values{}
+	appendFilterParams(params, filters)
+	return a.doText(ctx, "GET", path, params)
+}
+
+// ========================================================================
+// Source-search replace
+// ========================================================================
+
+// PreviewReplaceBySourceCode computes matched lines and their proposed replacement
+// for every matching flow without persisting anything. Backs
+// POST /api/v1/{tenant}/flows/source/replace/preview.
+func (a *FlowsAPI) PreviewReplaceBySourceCode(ctx context.Context, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "source", "replace", "preview")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// ApplyReplaceBySourceCode replaces every match in the given flows and persists the
+// new revisions. Backs POST /api/v1/{tenant}/flows/source/replace/apply.
+func (a *FlowsAPI) ApplyReplaceBySourceCode(ctx context.Context, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "source", "replace", "apply")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// ReplaceLineBySourceCode replaces the matches on one line of one flow and persists
+// the new revision. Backs POST /api/v1/{tenant}/flows/source/replace/line.
+func (a *FlowsAPI) ReplaceLineBySourceCode(ctx context.Context, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "source", "replace", "line")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// ========================================================================
+// Drift detection (EE)
+// ========================================================================
+
+// FlowHashesByIds batch-computes source hashes for flows by id (drift detection).
+// Backs POST /api/v1/{tenant}/flows/hashes/by-ids.
+func (a *FlowsAPI) FlowHashesByIds(ctx context.Context, tenant string, ids []IdWithNamespace) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "hashes", "by-ids")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, ids, nil)
+}
+
+// ========================================================================
+// Governance policies (EE)
+// ========================================================================
+
+// PreviewPolicies previews the governance policy effects (mutations + violations) on
+// a flow source. Backs POST /api/v1/{tenant}/flows/policies/preview.
+func (a *FlowsAPI) PreviewPolicies(ctx context.Context, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "policies", "preview")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// ========================================================================
+// Promotions (EE)
+// ========================================================================
+
+// Promote promotes a flow to one or more SERVER-mode targets. Backs
+// POST /api/v1/{tenant}/flows/{namespace}/{id}/promote.
+func (a *FlowsAPI) Promote(ctx context.Context, namespace, id, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", namespace, id, "promote")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// PromoteByIds promotes flows by their ids to one or more SERVER-mode targets. Backs
+// POST /api/v1/{tenant}/flows/promote/by-ids.
+func (a *FlowsAPI) PromoteByIds(ctx context.Context, tenant string, body interface{}) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", "promote", "by-ids")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "POST", path, body, nil)
+}
+
+// ReportPromote reports a CLIENT-mode promote performed by the browser. Backs
+// POST /api/v1/{tenant}/flows/{namespace}/{id}/promotions.
+func (a *FlowsAPI) ReportPromote(ctx context.Context, namespace, id, tenant string, body interface{}) error {
+	path := tenantPath(tenant, "flows", namespace, id, "promotions")
+	return a.doVoidJSON(ctx, "POST", path, body, nil)
+}
+
+// ListPromotions lists a flow's promotion history. Backs
+// GET /api/v1/{tenant}/flows/{namespace}/{id}/promotions.
+func (a *FlowsAPI) ListPromotions(ctx context.Context, namespace, id, tenant string, page, size *int, sort []string) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", namespace, id, "promotions")
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", path, nil, params)
+}
+
+// PromoteDiff recomputes the diff of a past promote from its audit record. Backs
+// GET /api/v1/{tenant}/flows/{namespace}/{id}/promotions/{auditId}/diff.
+func (a *FlowsAPI) PromoteDiff(ctx context.Context, namespace, id, auditId, tenant string) (map[string]interface{}, error) {
+	path := tenantPath(tenant, "flows", namespace, id, "promotions", auditId, "diff")
+	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", path, nil, nil)
+}
