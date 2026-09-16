@@ -38,7 +38,8 @@ public class ScimApiTest {
                 TENANT, Map.of(
                         "name", "scim-" + randomId(),
                         "type", "SCIM",
-                        "description", "SCIM integration created by sdk test"));
+                        "description", "SCIM integration created by sdk test",
+                        "enabled", true));
         return (String) created.get("uid");
     }
 
