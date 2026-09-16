@@ -29,6 +29,9 @@ from kestrapy.api.banners_api import BannersApi
 from kestrapy.api.kill_switches_api import KillSwitchesApi
 from kestrapy.api.policies_api import PoliciesApi
 from kestrapy.api.promotion_targets_api import PromotionTargetsApi
+from kestrapy.api.security_integrations_api import SecurityIntegrationsApi
+from kestrapy.api.credentials_api import CredentialsApi
+from kestrapy.api.notifications_api import NotificationsApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -124,6 +127,12 @@ class KestraClient:
     def policies(self): return self._get_api(PoliciesApi)
     @property
     def promotion_targets(self): return self._get_api(PromotionTargetsApi)
+    @property
+    def security_integrations(self): return self._get_api(SecurityIntegrationsApi)
+    @property
+    def credentials(self): return self._get_api(CredentialsApi)
+    @property
+    def notifications(self): return self._get_api(NotificationsApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
