@@ -32,15 +32,21 @@ public class ScimApiTest {
         return client().securityIntegrations();
     }
 
-    /** Creates an enabled SCIM security integration and returns its uid. */
+    /**
+     * Creates an enabled SCIM security integration and returns its uid. The create request only
+     * accepts name/description/type, so the integration starts disabled; the SCIM v2 endpoints
+     * answer 403 "Access denied" for a disabled integration, so we enable it through the dedicated
+     * endpoint before returning.
+     */
     static String createScimIntegration() throws ApiException {
         Map<String, Object> created = integrations().createSecurityIntegration(
                 TENANT, Map.of(
                         "name", "scim-" + randomId(),
                         "type", "SCIM",
-                        "description", "SCIM integration created by sdk test",
-                        "enabled", true));
-        return (String) created.get("uid");
+                        "description", "SCIM integration created by sdk test"));
+        String uid = (String) created.get("uid");
+        integrations().enableSecurityIntegration(TENANT, uid);
+        return uid;
     }
 
     static void deleteQuietly(String id) {
