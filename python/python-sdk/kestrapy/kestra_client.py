@@ -38,6 +38,11 @@ from kestrapy.api.mcp_servers_api import McpServersApi
 from kestrapy.api.mcp_api import McpApi
 from kestrapy.api.cases_api import CasesApi
 from kestrapy.api.case_templates_api import CaseTemplatesApi
+from kestrapy.api.metrics_api import MetricsApi
+from kestrapy.api.auditlogs_api import AuditLogsApi
+from kestrapy.api.bindings_api import BindingsApi
+from kestrapy.api.tenant_access_api import TenantAccessApi
+from kestrapy.api.outputs_api import OutputsApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -151,6 +156,16 @@ class KestraClient:
     def cases(self): return self._get_api(CasesApi)
     @property
     def case_templates(self): return self._get_api(CaseTemplatesApi)
+    @property
+    def metrics(self): return self._get_api(MetricsApi)
+    @property
+    def auditlogs(self): return self._get_api(AuditLogsApi)
+    @property
+    def bindings(self): return self._get_api(BindingsApi)
+    @property
+    def tenant_access(self): return self._get_api(TenantAccessApi)
+    @property
+    def outputs(self): return self._get_api(OutputsApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
