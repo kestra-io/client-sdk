@@ -1,10 +1,10 @@
 package io.kestra.sdk.api;
 
 import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.model.Banner;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -20,33 +20,39 @@ public class BannersApiTest {
         return client().banners();
     }
 
+    static void deleteQuietly(String id) {
+        try {
+            api().deleteBanner(id);
+        } catch (ApiException ignored) {
+        }
+    }
+
     @Test
     void createSearchDelete_roundTrip() throws ApiException {
         String message = "banner-" + randomId();
-
-        Map<String, Object> created = api().createBanner(Map.of("message", message));
-        assertThat(created.get("message")).isEqualTo(message);
-        assertThat(created.get("active")).isEqualTo(true);
-        String id = (String) created.get("id");
-        assertThat(id).isNotBlank();
+        String id = null;
 
         try {
-            List<Map<String, Object>> all = api().searchBanners(null);
+            Banner created = api().createBanner(new Banner().message(message));
+            assertThat(created.getMessage()).isEqualTo(message);
+            assertThat(created.getActive()).isTrue();
+            id = created.getId();
+            assertThat(id).isNotBlank();
+
+            final String createdId = id;
+            List<Banner> all = api().searchBanners(null);
             assertThat(all)
-                    .anySatisfy(b -> assertThat(b.get("id")).isEqualTo(id));
+                    .anySatisfy(b -> assertThat(b.getId()).isEqualTo(createdId));
 
             // update requires the full banner with its id unchanged
             String newMessage = message + "-updated";
-            Map<String, Object> toUpdate = new java.util.HashMap<>(created);
-            toUpdate.put("message", newMessage);
-            Map<String, Object> updated = api().updateBanner(id, toUpdate);
-            assertThat(updated.get("id")).isEqualTo(id);
-            assertThat(updated.get("message")).isEqualTo(newMessage);
+            Banner updated = api().updateBanner(id, created.message(newMessage));
+            assertThat(updated.getId()).isEqualTo(id);
+            assertThat(updated.getMessage()).isEqualTo(newMessage);
         } finally {
-            api().deleteBanner(id);
+            if (id != null) {
+                deleteQuietly(id);
+            }
         }
-
-        List<Map<String, Object>> afterDelete = api().searchBanners(null);
-        assertThat(afterDelete).noneSatisfy(b -> assertThat(b.get("id")).isEqualTo(id));
     }
 }

@@ -1,10 +1,13 @@
 package io.kestra.sdk.api;
 
 import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.model.EvaluationType;
+import io.kestra.sdk.model.KillSwitch;
 import org.junit.jupiter.api.*;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
-import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -21,35 +24,44 @@ public class KillSwitchesApiTest {
         return client().killSwitches();
     }
 
-    static Map<String, Object> request(String name) {
-        return Map.of(
-                "name", name,
-                "startDate", "2999-01-01T00:00:00",
-                "evaluationType", "KILL");
+    static KillSwitch request(String name) {
+        return new KillSwitch()
+                .name(name)
+                .startDate(OffsetDateTime.of(2999, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC))
+                .evaluationType(EvaluationType.KILL);
+    }
+
+    static void deleteQuietly(String id) {
+        try {
+            api().deleteKillSwitch(id);
+        } catch (ApiException ignored) {
+        }
     }
 
     @Test
     void createSearchDelete_roundTrip() throws ApiException {
         String name = "ks-" + randomId();
-
-        Map<String, Object> created = api().createKillSwitch(request(name));
-        assertThat(created.get("name")).isEqualTo(name);
-        assertThat(created.get("evaluationType")).isEqualTo("KILL");
-        String id = (String) created.get("id");
-        assertThat(id).isNotBlank();
+        String id = null;
 
         try {
-            List<Map<String, Object>> all = api().searchKillSwitches();
-            assertThat(all).anySatisfy(k -> assertThat(k.get("id")).isEqualTo(id));
+            KillSwitch created = api().createKillSwitch(request(name));
+            assertThat(created.getName()).isEqualTo(name);
+            assertThat(created.getEvaluationType()).isEqualTo(EvaluationType.KILL);
+            id = created.getId();
+            assertThat(id).isNotBlank();
+
+            final String createdId = id;
+            List<KillSwitch> all = api().searchKillSwitches();
+            assertThat(all).anySatisfy(k -> assertThat(k.getId()).isEqualTo(createdId));
 
             // update requires the full kill switch with its id unchanged
-            Map<String, Object> toUpdate = new java.util.HashMap<>(created);
-            toUpdate.put("description", "updated by sdk test");
-            Map<String, Object> updated = api().updateKillSwitch(id, toUpdate);
-            assertThat(updated.get("id")).isEqualTo(id);
-            assertThat(updated.get("description")).isEqualTo("updated by sdk test");
+            KillSwitch updated = api().updateKillSwitch(id, created.description("updated by sdk test"));
+            assertThat(updated.getId()).isEqualTo(id);
+            assertThat(updated.getDescription()).isEqualTo("updated by sdk test");
         } finally {
-            api().deleteKillSwitch(id);
+            if (id != null) {
+                deleteQuietly(id);
+            }
         }
     }
 }

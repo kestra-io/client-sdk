@@ -7,8 +7,9 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 
+import io.kestra.sdk.model.KillSwitch;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * Kill-switch endpoints under {@code /api/v1/kill-switches/**}: cluster-wide switches that
@@ -24,8 +25,8 @@ public class KillSwitchesApi extends BaseApi {
         super(apiClient);
     }
 
-    public Map<String, Object> createKillSwitch(
-            @jakarta.annotation.Nonnull Map<String, Object> killSwitch) throws ApiException {
+    public KillSwitch createKillSwitch(
+            @jakarta.annotation.Nonnull KillSwitch killSwitch) throws ApiException {
         return invoke("POST",
                 apiPath("kill-switches"),
                 killSwitch, null, null,
@@ -33,9 +34,9 @@ public class KillSwitchesApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public Map<String, Object> updateKillSwitch(
+    public KillSwitch updateKillSwitch(
             @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull Map<String, Object> killSwitch) throws ApiException {
+            @jakarta.annotation.Nonnull KillSwitch killSwitch) throws ApiException {
         return invoke("PUT",
                 apiPath("kill-switches", id),
                 killSwitch, null, null,
@@ -52,7 +53,7 @@ public class KillSwitchesApi extends BaseApi {
                 null);
     }
 
-    public List<Map<String, Object>> searchKillSwitches() throws ApiException {
+    public List<KillSwitch> searchKillSwitches() throws ApiException {
         return invoke("GET",
                 apiPath("kill-switches", "search"),
                 null, null, null,

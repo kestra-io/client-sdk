@@ -25,6 +25,13 @@ public class McpServersApiTest {
         return "mcp" + randomId();
     }
 
+    static void deleteQuietly(String id) {
+        try {
+            api().deleteMcpServer(TENANT, id);
+        } catch (ApiException ignored) {
+        }
+    }
+
     @Test
     void listMcpServers_returnsPagedEnvelope() throws ApiException {
         Map<String, Object> result = api().listMcpServers(TENANT, 1, 10, null);
@@ -44,11 +51,11 @@ public class McpServersApiTest {
     void mcpServer_createGetToolsUpdateToggleDelete() throws ApiException {
         String id = mcpId();
 
-        Map<String, Object> created = api().createMcpServer(TENANT, Map.of("id", id, "description", "sdk test"));
-        assertThat(created.get("id")).isEqualTo(id);
-        assertThat(created.get("description")).isEqualTo("sdk test");
-
         try {
+            Map<String, Object> created = api().createMcpServer(TENANT, Map.of("id", id, "description", "sdk test"));
+            assertThat(created.get("id")).isEqualTo(id);
+            assertThat(created.get("description")).isEqualTo("sdk test");
+
             Map<String, Object> got = api().getMcpServer(TENANT, id);
             assertThat(got.get("id")).isEqualTo(id);
 
@@ -62,7 +69,7 @@ public class McpServersApiTest {
             Map<String, Object> toggled = api().toggleMcpServer(TENANT, id);
             assertThat(toggled.get("disabled")).isEqualTo(true);
         } finally {
-            api().deleteMcpServer(TENANT, id);
+            deleteQuietly(id);
         }
 
         assertThatThrownBy(() -> api().getMcpServer(TENANT, id))

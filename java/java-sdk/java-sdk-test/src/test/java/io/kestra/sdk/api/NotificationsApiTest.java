@@ -3,6 +3,7 @@ package io.kestra.sdk.api;
 import io.kestra.sdk.internal.ApiException;
 import org.junit.jupiter.api.*;
 
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 import static io.kestra.TestUtils.*;
@@ -48,7 +49,7 @@ public class NotificationsApiTest {
     void pollSince_returnsNotificationsAndServerTime() throws ApiException {
         // An epoch-start instant returns everything since the beginning of time (an empty list
         // for a fresh account) plus a fresh serverTime to pass on the next poll.
-        Map<String, Object> result = api().pollNotificationsSince("1970-01-01T00:00:00Z");
+        Map<String, Object> result = api().pollNotificationsSince(OffsetDateTime.parse("1970-01-01T00:00:00Z"));
 
         assertThat(result).containsKeys("notifications", "serverTime");
         assertThat(result.get("notifications")).isInstanceOf(java.util.List.class);

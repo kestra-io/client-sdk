@@ -7,10 +7,10 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 
+import io.kestra.sdk.model.Banner;
 import io.kestra.sdk.model.QueryFilter;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Announcement-banner endpoints under {@code /api/v1/banners/**}: global banners shown to
@@ -26,8 +26,8 @@ public class BannersApi extends BaseApi {
         super(apiClient);
     }
 
-    public Map<String, Object> createBanner(
-            @jakarta.annotation.Nonnull Map<String, Object> banner) throws ApiException {
+    public Banner createBanner(
+            @jakarta.annotation.Nonnull Banner banner) throws ApiException {
         return invoke("POST",
                 apiPath("banners"),
                 banner, null, null,
@@ -35,9 +35,9 @@ public class BannersApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public Map<String, Object> updateBanner(
+    public Banner updateBanner(
             @jakarta.annotation.Nonnull String id,
-            @jakarta.annotation.Nonnull Map<String, Object> banner) throws ApiException {
+            @jakarta.annotation.Nonnull Banner banner) throws ApiException {
         return invoke("PUT",
                 apiPath("banners", id),
                 banner, null, null,
@@ -54,7 +54,7 @@ public class BannersApi extends BaseApi {
                 null);
     }
 
-    public List<Map<String, Object>> searchBanners(
+    public List<Banner> searchBanners(
             @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         return invoke("GET",
                 apiPath("banners", "search"),

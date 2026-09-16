@@ -7,6 +7,7 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ public class NotificationsApi extends BaseApi {
      * instant), plus a fresh {@code serverTime} to pass as {@code since} on the next poll.
      */
     public Map<String, Object> pollNotificationsSince(
-            @jakarta.annotation.Nonnull String since) throws ApiException {
+            @jakarta.annotation.Nonnull OffsetDateTime since) throws ApiException {
         return invoke("GET",
                 apiPath("notifications", "since"),
                 null, queryParams("since", since), null,

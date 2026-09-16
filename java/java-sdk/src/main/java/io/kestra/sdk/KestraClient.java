@@ -144,6 +144,8 @@ public class KestraClient {
 
     public KillSwitchesApi killSwitches() { return new KillSwitchesApi(this.apiClient); }
 
+    public ScimApi scim() { return new ScimApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

@@ -1,6 +1,8 @@
 package io.kestra.sdk.api;
 
 import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.model.BulkResponse;
+import io.kestra.sdk.model.ValidateConstraintViolation;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -52,6 +54,20 @@ public class PoliciesApiTest {
         return f;
     }
 
+    static void deleteQuietly(String id) {
+        try {
+            api().deletePolicy(TENANT, id);
+        } catch (ApiException ignored) {
+        }
+    }
+
+    static void deleteInstanceQuietly(String id) {
+        try {
+            api().deleteInstancePolicy(id);
+        } catch (ApiException ignored) {
+        }
+    }
+
     // ========================================================================
     // Read / binding guards
     // ========================================================================
@@ -94,16 +110,16 @@ public class PoliciesApiTest {
     void validatePolicy_invalidSource_reportsViolation() throws ApiException {
         // An empty rule list violates @NotEmpty; the validate endpoint surfaces that as a
         // constraint violation payload rather than throwing.
-        Map<String, Object> result = api().validatePolicy(TENANT, "id: bad-" + randomId() + "\nrules: []\n");
+        ValidateConstraintViolation result = api().validatePolicy(TENANT, "id: bad-" + randomId() + "\nrules: []\n");
 
-        assertThat(result.get("constraints")).isNotNull();
+        assertThat(result.getConstraints()).isNotNull();
     }
 
     @Test
     void validateInstancePolicy_validSource_hasNoViolation() throws ApiException {
-        Map<String, Object> result = api().validateInstancePolicy(policySource(policyId(), "valid"));
+        ValidateConstraintViolation result = api().validateInstancePolicy(policySource(policyId(), "valid"));
 
-        assertThat(result.get("constraints")).isNull();
+        assertThat(result.getConstraints()).isNull();
     }
 
     // ========================================================================
@@ -114,11 +130,11 @@ public class PoliciesApiTest {
     void tenantPolicy_createGetUpdateEvaluateExportDelete() throws ApiException {
         String id = policyId();
 
-        Map<String, Object> created = api().createPolicy(TENANT, policySource(id, "sdk test policy"));
-        assertThat(created.get("id")).isEqualTo(id);
-        assertThat(created.get("scope")).isEqualTo("TENANT");
-
         try {
+            Map<String, Object> created = api().createPolicy(TENANT, policySource(id, "sdk test policy"));
+            assertThat(created.get("id")).isEqualTo(id);
+            assertThat(created.get("scope")).isEqualTo("TENANT");
+
             Map<String, Object> got = api().getPolicy(TENANT, id);
             assertThat(got.get("id")).isEqualTo(id);
             assertThat(got.get("description")).isEqualTo("sdk test policy");
@@ -136,7 +152,7 @@ public class PoliciesApiTest {
             byte[] exportByIds = api().exportPoliciesByIds(TENANT, List.of(id));
             assertThat(exportByIds).isNotEmpty();
         } finally {
-            api().deletePolicy(TENANT, id);
+            deleteQuietly(id);
         }
 
         assertThatThrownBy(() -> api().getPolicy(TENANT, id))
@@ -147,22 +163,23 @@ public class PoliciesApiTest {
     @Test
     void tenantPolicy_deleteByIdsAndReimport() throws ApiException, IOException {
         String id = policyId();
-        api().createPolicy(TENANT, policySource(id, "to be re-imported"));
-
-        byte[] exported = api().exportPoliciesByIds(TENANT, List.of(id));
-        assertThat(exported).isNotEmpty();
-
-        Map<String, Object> deleted = api().deletePoliciesByIds(TENANT, List.of(id));
-        assertThat(deleted).isNotNull();
-        assertThatThrownBy(() -> api().getPolicy(TENANT, id))
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
 
         try {
+            api().createPolicy(TENANT, policySource(id, "to be re-imported"));
+
+            byte[] exported = api().exportPoliciesByIds(TENANT, List.of(id));
+            assertThat(exported).isNotEmpty();
+
+            BulkResponse deleted = api().deletePoliciesByIds(TENANT, List.of(id));
+            assertThat(deleted.getCount()).isGreaterThanOrEqualTo(1);
+            assertThatThrownBy(() -> api().getPolicy(TENANT, id))
+                    .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+
             Map<String, Object> imported = api().importPolicies(TENANT, bytesToTempFile(exported));
             assertThat(((Number) imported.get("imported")).intValue()).isGreaterThanOrEqualTo(1);
             assertThat(api().getPolicy(TENANT, id).get("id")).isEqualTo(id);
         } finally {
-            api().deletePolicy(TENANT, id);
+            deleteQuietly(id);
         }
     }
 
@@ -174,11 +191,11 @@ public class PoliciesApiTest {
     void instancePolicy_createGetUpdateEvaluateExportDelete() throws ApiException {
         String id = policyId();
 
-        Map<String, Object> created = api().createInstancePolicy(policySource(id, "instance policy"));
-        assertThat(created.get("id")).isEqualTo(id);
-        assertThat(created.get("scope")).isEqualTo("INSTANCE");
-
         try {
+            Map<String, Object> created = api().createInstancePolicy(policySource(id, "instance policy"));
+            assertThat(created.get("id")).isEqualTo(id);
+            assertThat(created.get("scope")).isEqualTo("INSTANCE");
+
             Map<String, Object> got = api().getInstancePolicy(id, null);
             assertThat(got.get("id")).isEqualTo(id);
 
@@ -191,7 +208,7 @@ public class PoliciesApiTest {
             assertThat(api().exportInstancePolicies()).isNotEmpty();
             assertThat(api().exportInstancePoliciesByIds(List.of(id))).isNotEmpty();
         } finally {
-            api().deleteInstancePolicy(id);
+            deleteInstanceQuietly(id);
         }
 
         assertThatThrownBy(() -> api().getInstancePolicy(id, null))
@@ -201,12 +218,17 @@ public class PoliciesApiTest {
     @Test
     void instancePolicy_deleteByIds() throws ApiException {
         String id = policyId();
-        api().createInstancePolicy(policySource(id, "instance delete-by-ids"));
 
-        Map<String, Object> deleted = api().deleteInstancePoliciesByIds(List.of(id));
-        assertThat(deleted).isNotNull();
+        try {
+            api().createInstancePolicy(policySource(id, "instance delete-by-ids"));
 
-        assertThatThrownBy(() -> api().getInstancePolicy(id, null))
-                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+            BulkResponse deleted = api().deleteInstancePoliciesByIds(List.of(id));
+            assertThat(deleted.getCount()).isGreaterThanOrEqualTo(1);
+
+            assertThatThrownBy(() -> api().getInstancePolicy(id, null))
+                    .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+        } finally {
+            deleteInstanceQuietly(id);
+        }
     }
 }

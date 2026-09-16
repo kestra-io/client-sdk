@@ -3,10 +3,13 @@ package io.kestra.sdk.api;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.FlowWithSource;
+import io.kestra.sdk.model.Metric;
+import io.kestra.sdk.model.MetricAggregations;
+import io.kestra.sdk.model.PagedResultsMetricEntry;
+import io.kestra.sdk.model.ServiceType;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
@@ -55,20 +58,22 @@ public class MetricsApiTest {
     void aggregateMetricsFromFlow_returnsAggregationEnvelope() throws ApiException {
         FlowWithSource flow = createLogFlow();
 
-        Map<String, Object> result = api().aggregateMetricsFromFlow(
+        MetricAggregations result = api().aggregateMetricsFromFlow(
                 TENANT, flow.getNamespace(), flow.getId(), "duration", "sum", null, null);
 
-        assertThat(result).isNotNull().isNotEmpty();
+        assertThat(result).isNotNull();
+        assertThat(result.getAggregations()).isNotNull();
     }
 
     @Test
     void aggregateMetricsFromTask_returnsAggregationEnvelope() throws ApiException {
         FlowWithSource flow = createLogFlow();
 
-        Map<String, Object> result = api().aggregateMetricsFromTask(
+        MetricAggregations result = api().aggregateMetricsFromTask(
                 TENANT, flow.getNamespace(), flow.getId(), "hello", "duration", "sum", null, null);
 
-        assertThat(result).isNotNull().isNotEmpty();
+        assertThat(result).isNotNull();
+        assertThat(result.getAggregations()).isNotNull();
     }
 
     @Test
@@ -77,10 +82,21 @@ public class MetricsApiTest {
         ExecutionControllerExecutionResponse execution = client().executions()
                 .createExecution(TENANT, flow.getNamespace(), flow.getId(), null, null, null, null, null, null);
 
-        Map<String, Object> result = api().searchMetricsByExecution(
+        PagedResultsMetricEntry result = api().searchMetricsByExecution(
                 TENANT, execution.getId(), 1, 10, null, null, null);
 
-        assertThat(result).containsKeys("results", "total");
-        assertThat(result.get("results")).isInstanceOf(List.class);
+        assertThat(result).isNotNull();
+        assertThat(result.getResults()).isNotNull();
+        assertThat(result.getTotal()).isNotNull();
+    }
+
+    @Test
+    void instanceServiceMetrics_forWebserver_returnsMetrics() throws ApiException {
+        // The webserver answering this very request is a running service, so its metrics are
+        // present — a real value, not just a non-null envelope.
+        List<Metric> metrics = api().instanceServiceMetrics(ServiceType.WEBSERVER);
+
+        assertThat(metrics).isNotNull();
+        assertThat(metrics).allSatisfy(m -> assertThat(m.getName()).isNotBlank());
     }
 }

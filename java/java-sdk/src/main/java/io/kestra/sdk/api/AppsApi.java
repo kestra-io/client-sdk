@@ -307,7 +307,7 @@ public class AppsApi extends BaseApi {
         return invoke("GET",
                 tenantPath(tenant, "apps", "view", id, "file", "download"),
                 null, queryParams("path", path), null,
-                OCTET_STREAM, null,
+                JSON, null,
                 new TypeReference<>() {});
     }
 

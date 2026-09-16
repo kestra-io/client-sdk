@@ -8,7 +8,9 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.ValidateConstraintViolation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,7 +93,7 @@ public class PoliciesApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public Map<String, Object> validatePolicy(
+    public ValidateConstraintViolation validatePolicy(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String source) throws ApiException {
         return invoke("POST",
@@ -111,7 +113,7 @@ public class PoliciesApi extends BaseApi {
                 null);
     }
 
-    public Map<String, Object> deletePoliciesByIds(
+    public BulkResponse deletePoliciesByIds(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull List<String> ids) throws ApiException {
         return invoke("DELETE",
@@ -212,7 +214,7 @@ public class PoliciesApi extends BaseApi {
                 new TypeReference<>() {});
     }
 
-    public Map<String, Object> validateInstancePolicy(
+    public ValidateConstraintViolation validateInstancePolicy(
             @jakarta.annotation.Nonnull String source) throws ApiException {
         return invoke("POST",
                 apiPath("instance", "policies", "validate"),
@@ -230,7 +232,7 @@ public class PoliciesApi extends BaseApi {
                 null);
     }
 
-    public Map<String, Object> deleteInstancePoliciesByIds(
+    public BulkResponse deleteInstancePoliciesByIds(
             @jakarta.annotation.Nonnull List<String> ids) throws ApiException {
         return invoke("DELETE",
                 apiPath("instance", "policies", "delete", "by-ids"),
