@@ -724,7 +724,7 @@ Class | Method | HTTP request | Description
  - [Relation1](docs/Relation1.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
- - [ResourceType1](docs/ResourceType1.md)
+ - [ScimResourceType](docs/ScimResourceType.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)

@@ -1,7 +1,7 @@
 package io.kestra.sdk.api;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.ResourceType1;
+import io.kestra.sdk.model.ScimResourceType;
 import io.kestra.sdk.model.Schema;
 import io.kestra.sdk.model.ScimResource;
 import io.kestra.sdk.model.ServiceProviderConfiguration;
@@ -82,7 +82,7 @@ public class ScimApiTest {
         String integration = createScimIntegration();
 
         try {
-            List<ResourceType1> resourceTypes = api().getAllResourceTypes(TENANT, integration);
+            List<ScimResourceType> resourceTypes = api().getAllResourceTypes(TENANT, integration);
             assertThat(resourceTypes).isNotNull().isNotEmpty();
 
             List<Schema> schemas = api().getAllSchemas(TENANT, integration);

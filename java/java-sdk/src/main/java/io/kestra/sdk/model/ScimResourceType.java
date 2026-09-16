@@ -31,25 +31,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * ResourceType1
+ * ScimResourceType
  */
 @JsonPropertyOrder({
-  ResourceType1.JSON_PROPERTY_SCHEMAS,
-  ResourceType1.JSON_PROPERTY_BASE_URN,
-  ResourceType1.JSON_PROPERTY_EXTENSIONS,
-  ResourceType1.JSON_PROPERTY_META,
-  ResourceType1.JSON_PROPERTY_ID,
-  ResourceType1.JSON_PROPERTY_EXTERNAL_ID,
-  ResourceType1.JSON_PROPERTY_RESOURCE_TYPE,
-  ResourceType1.JSON_PROPERTY_NAME,
-  ResourceType1.JSON_PROPERTY_DESCRIPTION,
-  ResourceType1.JSON_PROPERTY_ENDPOINT,
-  ResourceType1.JSON_PROPERTY_SCHEMA_URN,
-  ResourceType1.JSON_PROPERTY_SCHEMA_EXTENSIONS
+  ScimResourceType.JSON_PROPERTY_SCHEMAS,
+  ScimResourceType.JSON_PROPERTY_BASE_URN,
+  ScimResourceType.JSON_PROPERTY_EXTENSIONS,
+  ScimResourceType.JSON_PROPERTY_META,
+  ScimResourceType.JSON_PROPERTY_ID,
+  ScimResourceType.JSON_PROPERTY_EXTERNAL_ID,
+  ScimResourceType.JSON_PROPERTY_RESOURCE_TYPE,
+  ScimResourceType.JSON_PROPERTY_NAME,
+  ScimResourceType.JSON_PROPERTY_DESCRIPTION,
+  ScimResourceType.JSON_PROPERTY_ENDPOINT,
+  ScimResourceType.JSON_PROPERTY_SCHEMA_URN,
+  ScimResourceType.JSON_PROPERTY_SCHEMA_EXTENSIONS
 })
 @JsonTypeName("ResourceType_1")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ResourceType1 {
+public class ScimResourceType {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
@@ -86,16 +86,16 @@ public class ResourceType1 {
   public static final String JSON_PROPERTY_SCHEMA_EXTENSIONS = "schemaExtensions";
   @jakarta.annotation.Nullable  private List<ResourceTypeSchemaExtensionConfiguration> schemaExtensions = new ArrayList<>();
 
-  public ResourceType1() {
+  public ScimResourceType() {
   }
 
-  public ResourceType1 schemas(@jakarta.annotation.Nullable List<String> schemas) {
+  public ScimResourceType schemas(@jakarta.annotation.Nullable List<String> schemas) {
     
     this.schemas = schemas;
     return this;
   }
 
-  public ResourceType1 addSchemasItem(String schemasItem) {
+  public ScimResourceType addSchemasItem(String schemasItem) {
     if (this.schemas == null) {
       this.schemas = new ArrayList<>();
     }
@@ -121,7 +121,7 @@ public class ResourceType1 {
     this.schemas = schemas;
   }
 
-  public ResourceType1 baseUrn(@jakarta.annotation.Nullable String baseUrn) {
+  public ScimResourceType baseUrn(@jakarta.annotation.Nullable String baseUrn) {
     
     this.baseUrn = baseUrn;
     return this;
@@ -145,13 +145,13 @@ public class ResourceType1 {
     this.baseUrn = baseUrn;
   }
 
-  public ResourceType1 extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
+  public ScimResourceType extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
     
     this.extensions = extensions;
     return this;
   }
 
-  public ResourceType1 putExtensionsItem(String key, ScimExtension extensionsItem) {
+  public ScimResourceType putExtensionsItem(String key, ScimExtension extensionsItem) {
     if (this.extensions == null) {
       this.extensions = new HashMap<>();
     }
@@ -177,7 +177,7 @@ public class ResourceType1 {
     this.extensions = extensions;
   }
 
-  public ResourceType1 meta(@jakarta.annotation.Nonnull Meta meta) {
+  public ScimResourceType meta(@jakarta.annotation.Nonnull Meta meta) {
     
     this.meta = meta;
     return this;
@@ -201,7 +201,7 @@ public class ResourceType1 {
     this.meta = meta;
   }
 
-  public ResourceType1 id(@jakarta.annotation.Nullable String id) {
+  public ScimResourceType id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -225,7 +225,7 @@ public class ResourceType1 {
     this.id = id;
   }
 
-  public ResourceType1 externalId(@jakarta.annotation.Nullable String externalId) {
+  public ScimResourceType externalId(@jakarta.annotation.Nullable String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -249,7 +249,7 @@ public class ResourceType1 {
     this.externalId = externalId;
   }
 
-  public ResourceType1 resourceType(@jakarta.annotation.Nullable String resourceType) {
+  public ScimResourceType resourceType(@jakarta.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -273,7 +273,7 @@ public class ResourceType1 {
     this.resourceType = resourceType;
   }
 
-  public ResourceType1 name(@jakarta.annotation.Nullable String name) {
+  public ScimResourceType name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -297,7 +297,7 @@ public class ResourceType1 {
     this.name = name;
   }
 
-  public ResourceType1 description(@jakarta.annotation.Nullable String description) {
+  public ScimResourceType description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -321,7 +321,7 @@ public class ResourceType1 {
     this.description = description;
   }
 
-  public ResourceType1 endpoint(@jakarta.annotation.Nullable String endpoint) {
+  public ScimResourceType endpoint(@jakarta.annotation.Nullable String endpoint) {
     
     this.endpoint = endpoint;
     return this;
@@ -345,7 +345,7 @@ public class ResourceType1 {
     this.endpoint = endpoint;
   }
 
-  public ResourceType1 schemaUrn(@jakarta.annotation.Nullable String schemaUrn) {
+  public ScimResourceType schemaUrn(@jakarta.annotation.Nullable String schemaUrn) {
     
     this.schemaUrn = schemaUrn;
     return this;
@@ -369,13 +369,13 @@ public class ResourceType1 {
     this.schemaUrn = schemaUrn;
   }
 
-  public ResourceType1 schemaExtensions(@jakarta.annotation.Nullable List<ResourceTypeSchemaExtensionConfiguration> schemaExtensions) {
+  public ScimResourceType schemaExtensions(@jakarta.annotation.Nullable List<ResourceTypeSchemaExtensionConfiguration> schemaExtensions) {
     
     this.schemaExtensions = schemaExtensions;
     return this;
   }
 
-  public ResourceType1 addSchemaExtensionsItem(ResourceTypeSchemaExtensionConfiguration schemaExtensionsItem) {
+  public ScimResourceType addSchemaExtensionsItem(ResourceTypeSchemaExtensionConfiguration schemaExtensionsItem) {
     if (this.schemaExtensions == null) {
       this.schemaExtensions = new ArrayList<>();
     }
@@ -409,7 +409,7 @@ public class ResourceType1 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceType1 resourceType1 = (ResourceType1) o;
+    ScimResourceType resourceType1 = (ScimResourceType) o;
     return Objects.equals(this.schemas, resourceType1.schemas) &&
         Objects.equals(this.baseUrn, resourceType1.baseUrn) &&
         Objects.equals(this.extensions, resourceType1.extensions) &&
@@ -432,7 +432,7 @@ public class ResourceType1 {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ResourceType1 {\n");
+    sb.append("class ScimResourceType {\n");
     sb.append("    schemas: ").append(toIndentedString(schemas)).append("\n");
     sb.append("    baseUrn: ").append(toIndentedString(baseUrn)).append("\n");
     sb.append("    extensions: ").append(toIndentedString(extensions)).append("\n");

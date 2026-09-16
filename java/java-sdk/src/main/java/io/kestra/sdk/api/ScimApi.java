@@ -10,7 +10,7 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 
 import io.kestra.sdk.model.PatchRequest;
-import io.kestra.sdk.model.ResourceType1;
+import io.kestra.sdk.model.ScimResourceType;
 import io.kestra.sdk.model.Schema;
 import io.kestra.sdk.model.ScimResource;
 import io.kestra.sdk.model.ScimUser;
@@ -247,10 +247,10 @@ public class ScimApi extends BaseApi {
     // Discovery / configuration (read-only)
     // ========================================================================
 
-    public List<ResourceType1> getAllResourceTypes(
+    public List<ScimResourceType> getAllResourceTypes(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String integration) throws ApiException {
-        return scimList(tenant, integration, "ResourceTypes", ResourceType1.class);
+        return scimList(tenant, integration, "ResourceTypes", ScimResourceType.class);
     }
 
     /**
@@ -274,7 +274,7 @@ public class ScimApi extends BaseApi {
                 mapper.getTypeFactory().constructCollectionType(List.class, itemType));
     }
 
-    public ResourceType1 getResourceType(
+    public ScimResourceType getResourceType(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String integration,
             @jakarta.annotation.Nonnull String name) throws ApiException {
