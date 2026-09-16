@@ -1,6 +1,8 @@
 package io.kestra.sdk.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.kestra.sdk.internal.ApiClient;
 import io.kestra.sdk.internal.ApiException;
@@ -248,11 +250,28 @@ public class ScimApi extends BaseApi {
     public List<ResourceType> getAllResourceTypes(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String integration) throws ApiException {
-        return invoke("GET",
-                tenantPath(tenant, "integrations", integration, "scim", "v2", "ResourceTypes"),
+        return scimList(tenant, integration, "ResourceTypes", ResourceType.class);
+    }
+
+    /**
+     * Fetches a SCIM configuration listing, tolerating both shapes the server may return: a bare
+     * JSON array (per the OpenAPI spec) or a SCIM {@code ListResponse} envelope carrying the items
+     * under {@code Resources}. Keeps the {@code List<T>} public signature either way.
+     */
+    private <T> List<T> scimList(String tenant, String integration, String resource, Class<T> itemType)
+            throws ApiException {
+        JsonNode node = invoke("GET",
+                tenantPath(tenant, "integrations", integration, "scim", "v2", resource),
                 null, null, null,
                 SCIM, null,
-                new TypeReference<>() {});
+                new TypeReference<JsonNode>() {});
+        JsonNode items = node.isArray() ? node : node.get("Resources");
+        if (items == null || items.isNull()) {
+            return java.util.Collections.emptyList();
+        }
+        ObjectMapper mapper = getApiClient().getObjectMapper();
+        return mapper.convertValue(items,
+                mapper.getTypeFactory().constructCollectionType(List.class, itemType));
     }
 
     public ResourceType getResourceType(
@@ -269,11 +288,7 @@ public class ScimApi extends BaseApi {
     public List<Schema> getAllSchemas(
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nonnull String integration) throws ApiException {
-        return invoke("GET",
-                tenantPath(tenant, "integrations", integration, "scim", "v2", "Schemas"),
-                null, null, null,
-                SCIM, null,
-                new TypeReference<>() {});
+        return scimList(tenant, integration, "Schemas", Schema.class);
     }
 
     public Schema getSchema(
