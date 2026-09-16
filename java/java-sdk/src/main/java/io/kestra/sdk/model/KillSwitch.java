@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.EvaluationType;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,10 +65,10 @@ public class KillSwitch {
   @jakarta.annotation.Nullable  private List<String> executionIds = new ArrayList<>();
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @jakarta.annotation.Nonnull  private OffsetDateTime startDate;
+  @jakarta.annotation.Nonnull  private LocalDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @jakarta.annotation.Nullable  private OffsetDateTime endDate;
+  @jakarta.annotation.Nullable  private LocalDateTime endDate;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -237,7 +237,7 @@ public class KillSwitch {
     this.executionIds = executionIds;
   }
 
-  public KillSwitch startDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+  public KillSwitch startDate(@jakarta.annotation.Nonnull LocalDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -250,18 +250,18 @@ public class KillSwitch {
   @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public OffsetDateTime getStartDate() {
+  public LocalDateTime getStartDate() {
     return startDate;
   }
 
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
+  public void setStartDate(@jakarta.annotation.Nonnull LocalDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public KillSwitch endDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+  public KillSwitch endDate(@jakarta.annotation.Nullable LocalDateTime endDate) {
     
     this.endDate = endDate;
     return this;
@@ -274,14 +274,14 @@ public class KillSwitch {
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OffsetDateTime getEndDate() {
+  public LocalDateTime getEndDate() {
     return endDate;
   }
 
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEndDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
+  public void setEndDate(@jakarta.annotation.Nullable LocalDateTime endDate) {
     this.endDate = endDate;
   }
 

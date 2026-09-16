@@ -1,6 +1,6 @@
 
 
-# ResourceType1
+# ScimResourceType
 
 
 ## Properties

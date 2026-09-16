@@ -354,4 +354,66 @@ public class AppsApiTest {
         assertThatThrownBy(() -> api().bulkImportApps(TENANT, null))
                 .isInstanceOf(ApiException.class);
     }
+
+    // ========================================================================
+    // App views / states
+    // ========================================================================
+
+    @Test
+    void listAppStates_returnsStates() throws ApiException {
+        List<String> states = api().listAppStates(TENANT);
+
+        assertThat(states).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void previewApp_returnsRenderedLayout() throws ApiException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+
+        java.util.Map<String, Object> result = api().previewApp(TENANT, appYaml(randomId(), ns, flowId), null);
+
+        assertThat(result).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void openApp_unknownUid_isNotFound() {
+        // The open endpoint answers 404 for a missing app; the EE catch-all 403 a mis-routed
+        // path would give is what this guards against.
+        assertThatThrownBy(() -> api().openApp(TENANT, "does-not-exist-" + randomId()))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
+
+    @Test
+    void downloadFileFromAppExecution_unknownApp_isNotFound() {
+        // For a missing app the access-level check returns empty and the controller answers 404.
+        // (A produces mismatch would mis-route to the EE catch-all 403 before ever reaching it,
+        // so a 404 here proves the request actually hit the controller.)
+        assertThatThrownBy(() -> api().downloadFileFromAppExecution(
+                TENANT, "does-not-exist-" + randomId(), java.net.URI.create("kestra:///whatever.txt")))
+                .isInstanceOf(ApiException.class)
+                .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(404));
+    }
+
+    @Test
+    void downloadFileFromAppExecution_appWithoutOutputs_isBadRequest() throws ApiException {
+        // A real, deployed app whose layout defines no Outputs/TaskOutputs block cannot serve
+        // execution files, so the controller answers 400 — a positive-path assertion that the
+        // request is routed and the byte[] response is deserialized, not rejected at routing.
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(logFlowYaml(flowId, ns));
+        AppsControllerApiAppSource created = api().createApp(TENANT, appYaml(randomId(), ns, flowId));
+
+        try {
+            assertThatThrownBy(() -> api().downloadFileFromAppExecution(
+                    TENANT, created.getUid(), java.net.URI.create("kestra:///whatever.txt")))
+                    .isInstanceOf(ApiException.class)
+                    .satisfies(e -> assertThat(((ApiException) e).getCode()).isEqualTo(400));
+        } finally {
+            api().deleteApp(created.getUid(), TENANT);
+        }
+    }
 }

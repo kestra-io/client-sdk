@@ -355,7 +355,7 @@ docs/Relation.md
 docs/Relation1.md
 docs/RelationType.md
 docs/ResourceType.md
-docs/ResourceType1.md
+docs/ScimResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
@@ -846,7 +846,7 @@ src/main/java/io/kestra/sdk/model/Relation.java
 src/main/java/io/kestra/sdk/model/Relation1.java
 src/main/java/io/kestra/sdk/model/RelationType.java
 src/main/java/io/kestra/sdk/model/ResourceType.java
-src/main/java/io/kestra/sdk/model/ResourceType1.java
+src/main/java/io/kestra/sdk/model/ScimResourceType.java
 src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java
