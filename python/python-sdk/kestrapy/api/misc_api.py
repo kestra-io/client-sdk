@@ -28,6 +28,14 @@ class MiscApi(BaseApi):
         path = self._superadmin_path("auths")
         return self._raw_json_request("GET", path)
 
+    def pebble_filters(self) -> List[str]:
+        path = self._superadmin_path("pebble", "filters")
+        return self._json_list_request("GET", path, str)
+
+    def pebble_functions(self) -> Any:
+        path = self._superadmin_path("pebble", "functions")
+        return self._raw_json_request("GET", path)
+
     def basic_auth_validation_errors(self) -> List[str]:
         path = self._superadmin_path("basicAuthValidationErrors")
         return self._json_list_request("GET", path, str)

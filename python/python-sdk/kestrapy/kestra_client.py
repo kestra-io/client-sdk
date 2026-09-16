@@ -43,6 +43,7 @@ from kestrapy.api.auditlogs_api import AuditLogsApi
 from kestrapy.api.bindings_api import BindingsApi
 from kestrapy.api.tenant_access_api import TenantAccessApi
 from kestrapy.api.outputs_api import OutputsApi
+from kestrapy.api.me_api import MeApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -166,6 +167,8 @@ class KestraClient:
     def tenant_access(self): return self._get_api(TenantAccessApi)
     @property
     def outputs(self): return self._get_api(OutputsApi)
+    @property
+    def me(self): return self._get_api(MeApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
