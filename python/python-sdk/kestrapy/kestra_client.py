@@ -28,6 +28,7 @@ from kestrapy.api.worker_queues_api import WorkerQueuesApi
 from kestrapy.api.banners_api import BannersApi
 from kestrapy.api.kill_switches_api import KillSwitchesApi
 from kestrapy.api.policies_api import PoliciesApi
+from kestrapy.api.promotion_targets_api import PromotionTargetsApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -121,6 +122,8 @@ class KestraClient:
     def kill_switches(self): return self._get_api(KillSwitchesApi)
     @property
     def policies(self): return self._get_api(PoliciesApi)
+    @property
+    def promotion_targets(self): return self._get_api(PromotionTargetsApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
