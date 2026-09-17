@@ -1,7 +1,8 @@
-from typing import List
+from typing import List, Optional
 
 from kestrapy.base_api import BaseApi
 from kestrapy.models.banner import Banner
+from kestrapy.models.query_filter import QueryFilter
 
 
 class BannersApi(BaseApi):
@@ -19,6 +20,8 @@ class BannersApi(BaseApi):
         path = self._superadmin_path("banners", id)
         self._void_request("DELETE", path)
 
-    def search_banners(self) -> List[Banner]:
+    def search_banners(self, filters: Optional[List[QueryFilter]] = None) -> List[Banner]:
         path = self._superadmin_path("banners", "search")
-        return self._json_list_request("GET", path, Banner)
+        params: list = []
+        self._append_filter_params(params, filters)
+        return self._json_list_request("GET", path, Banner, params=params)

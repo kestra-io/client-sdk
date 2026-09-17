@@ -3,12 +3,10 @@ from typing import Any, List, Optional
 from kestrapy.base_api import BaseApi
 from kestrapy.models.api_user import ApiUser
 from kestrapy.models.basic_auth_credentials import BasicAuthCredentials
-from kestrapy.models.metric import Metric
 from kestrapy.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
 from kestrapy.models.misc_controller_license_info import MiscControllerLicenseInfo
 from kestrapy.models.misc_controller_login_configuration import MiscControllerLoginConfiguration
 from kestrapy.models.misc_controller_worker_selector_tags import MiscControllerWorkerSelectorTags
-from kestrapy.models.service_instance import ServiceInstance
 from kestrapy.models.setup_configuration import SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
 
@@ -58,23 +56,13 @@ class MiscApi(BaseApi):
         path = self._superadmin_path("license", "refresh")
         self._void_request("GET", path)
 
-    # ---- Cluster (tenant-scoped) ----
-
-    def cluster_service(self, tenant: str, id: str) -> ServiceInstance:
-        path = self._tenant_path(tenant, "cluster", "services", id)
-        return self._json_request("GET", path, ServiceInstance)
-
-    def cluster_metrics(self, tenant: str, service_type: str) -> List[Metric]:
-        path = self._tenant_path(tenant, "cluster", "metrics", service_type)
-        return self._json_list_request("GET", path, Metric)
-
     # ---- Reporting / tags (tenant-scoped) ----
 
     def worker_selector_tags(self, tenant: str) -> MiscControllerWorkerSelectorTags:
         path = self._tenant_path(tenant, "worker-selectors", "tags")
         return self._json_request("GET", path, MiscControllerWorkerSelectorTags)
 
-    def generate_reports(self, tenant: str, var_from: Optional[str] = None) -> bytes:
+    def generate_reports(self, tenant: str, date_from: Optional[str] = None) -> bytes:
         path = self._tenant_path(tenant, "stats", "generate-reports")
-        params = self._build_query_params(**{"from": var_from})
+        params = self._build_query_params(**{"from": date_from})
         return self._download_request("GET", path, params=params)

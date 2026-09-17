@@ -1,6 +1,7 @@
-from typing import Any
+from typing import List, Optional
 
 from kestrapy.base_api import BaseApi
+from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.worker_group_controller_api_create_worker_group_request import WorkerGroupControllerApiCreateWorkerGroupRequest
 from kestrapy.models.worker_group_controller_api_generate_token_request import WorkerGroupControllerApiGenerateTokenRequest
 from kestrapy.models.worker_group_controller_api_generate_token_response import WorkerGroupControllerApiGenerateTokenResponse
@@ -19,9 +20,14 @@ class WorkerGroupsApi(BaseApi):
 
     # ---- CRUD ----
 
-    def list_worker_groups(self) -> WorkerGroupControllerApiWorkerGroupList:
+    def list_worker_groups(
+        self,
+        filters: Optional[List[QueryFilter]] = None,
+    ) -> WorkerGroupControllerApiWorkerGroupList:
         path = self._superadmin_path("instance", "worker-groups")
-        return self._json_request("GET", path, WorkerGroupControllerApiWorkerGroupList)
+        params: list = []
+        self._append_filter_params(params, filters)
+        return self._json_request("GET", path, WorkerGroupControllerApiWorkerGroupList, params=params)
 
     def worker_group(self, id: str) -> WorkerGroupControllerApiWorkerGroup:
         path = self._superadmin_path("instance", "worker-groups", id)
@@ -35,9 +41,10 @@ class WorkerGroupsApi(BaseApi):
         path = self._superadmin_path("instance", "worker-groups", id)
         return self._json_request("PUT", path, WorkerGroupControllerApiWorkerGroup, body=request)
 
-    def delete_worker_group(self, id: str) -> None:
+    def delete_worker_group(self, id: str, force: Optional[bool] = None) -> None:
         path = self._superadmin_path("instance", "worker-groups", id)
-        self._void_request("DELETE", path)
+        params = self._build_query_params(force=force)
+        self._void_request("DELETE", path, params=params)
 
     # ---- Subscriptions ----
 

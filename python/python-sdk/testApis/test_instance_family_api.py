@@ -30,19 +30,23 @@ from kestrapy.models.worker_group_controller_api_create_worker_group_request imp
 )
 from kestrapy.models.api_patch_instance_owner_request import ApiPatchInstanceOwnerRequest
 
-# Status codes that mean "the endpoint exists but this instance won't serve it"
-# (feature disabled, licence tier, not instance-owner) — skip, don't fail.
-_GATED = (403, 404, 501)
+# 5xx status codes that mean "the endpoint exists but this instance won't serve
+# it" (feature not implemented on this build) — skip, don't fail. A 403 (feature
+# disabled / licence tier / not instance-owner) is handled separately below.
+# 404 is deliberately NOT tolerated: on this instance-owner surface EE answers a
+# disabled feature with 403, so a 404 means the SDK built a wrong path — exactly
+# the bug this live-binding test exists to catch.
+_GATED_5XX = (501,)
 
 
 @contextlib.contextmanager
 def _tolerate_gating(what):
     try:
         yield
-    except (ForbiddenException, NotFoundException) as exc:
+    except ForbiddenException as exc:
         pytest.skip(f"{what}: gated on this instance ({exc.status})")
     except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
+        if getattr(exc, "status", None) in _GATED_5XX:
             pytest.skip(f"{what}: gated on this instance ({exc.status})")
         raise
 
@@ -119,7 +123,7 @@ def test_list_worker_groups_returns_a_list(client):
     with _tolerate_gating("list_worker_groups"):
         result = client.worker_groups.list_worker_groups()
     assert result is not None
-    assert result.worker_groups is None or isinstance(result.worker_groups, list)
+    assert isinstance(result.worker_groups, list)
 
 
 def test_worker_group_create_get_delete_roundtrip(client):
@@ -128,8 +132,9 @@ def test_worker_group_create_get_delete_roundtrip(client):
         created = client.worker_groups.create_worker_group(
             WorkerGroupControllerApiCreateWorkerGroupRequest(id=wg_id, name="SDK WG", subscriptions=[])
         )
-    assert created.id == wg_id
+    # Assert inside the try so a failed post-create check still deletes the group.
     try:
+        assert created.id == wg_id
         fetched = client.worker_groups.worker_group(wg_id)
         assert fetched.id == wg_id
         assert fetched.name == "SDK WG"
@@ -147,7 +152,7 @@ def test_list_worker_queues_returns_a_list(client):
     with _tolerate_gating("list_worker_queues"):
         result = client.worker_queues.list_worker_queues()
     assert result is not None
-    assert result.worker_queues is None or isinstance(result.worker_queues, list)
+    assert isinstance(result.worker_queues, list)
 
 
 def test_worker_queue_create_get_delete_roundtrip(client):
@@ -158,8 +163,8 @@ def test_worker_queue_create_get_delete_roundtrip(client):
                 id=wq_id, tags=["sdk-test"], name="SDK WQ"
             )
         )
-    assert created.id == wq_id
     try:
+        assert created.id == wq_id
         fetched = client.worker_queues.worker_queue(wq_id)
         assert fetched.id == wq_id
         assert "sdk-test" in (fetched.tags or [])
@@ -190,10 +195,10 @@ def test_banner_create_search_update_delete_roundtrip(client):
         if getattr(exc, "status", None) == 500:
             pytest.skip("create_banner: upstream kestra-ee bug (banners.active NOT NULL)")
         raise
-    assert created.id is not None
-    assert created.message.startswith("SDK banner")
     banner_id = created.id
     try:
+        assert banner_id is not None
+        assert created.message.startswith("SDK banner")
         found = client.banners.search_banners()
         assert any(b.id == banner_id for b in found)
 
@@ -227,9 +232,9 @@ def test_kill_switch_create_search_delete_roundtrip(client):
         created = client.kill_switches.create_kill_switch(
             KillSwitch(name=ks_name, startDate=start, evaluationType=EvaluationType.KILL)
         )
-    assert created.name == ks_name
     ks_id = created.id
     try:
+        assert created.name == ks_name
         found = client.kill_switches.search_kill_switches()
         assert any(k.id == ks_id for k in found)
     finally:
@@ -273,6 +278,8 @@ def test_login_configuration_is_returned(client):
     with _tolerate_gating("login_configuration"):
         login_cfg = client.misc.login_configuration()
     assert login_cfg is not None
+    # Server-computed flag, always present in the login configuration payload.
+    assert isinstance(login_cfg.is_basic_auth_initialized, bool)
 
 
 def test_basic_auth_validation_errors_is_a_list(client):
@@ -285,6 +292,8 @@ def test_setup_configuration_is_returned(client):
     with _tolerate_gating("setup_configuration"):
         setup = client.misc.setup_configuration()
     assert setup is not None
+    # An already-running instance always reports its setup as complete.
+    assert isinstance(setup.done, bool)
 
 
 def test_license_info_reports_details(client):
@@ -297,7 +306,7 @@ def test_worker_selector_tags_returns_tags_container(client):
     with _tolerate_gating("worker_selector_tags"):
         tags = client.misc.worker_selector_tags(TENANT)
     assert tags is not None
-    assert tags.tags is None or isinstance(tags.tags, list)
+    assert isinstance(tags.tags, list)
 
 
 # --------------------------------------------------------------------------- #

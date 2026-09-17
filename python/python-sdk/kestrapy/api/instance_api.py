@@ -4,6 +4,7 @@ from kestrapy.base_api import BaseApi
 from kestrapy.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
 from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
 from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_resolution_result import InstanceControllerApiPluginArtifactListPluginResolutionResult
+from kestrapy.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
 from kestrapy.models.instance_controller_api_plugin_version_details import InstanceControllerApiPluginVersionDetails
 from kestrapy.models.instance_controller_api_plugin_versions import InstanceControllerApiPluginVersions
 from kestrapy.models.instance_controller_api_service_instance import InstanceControllerApiServiceInstance
@@ -93,33 +94,48 @@ class InstanceApi(BaseApi):
         path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id)
         return self._json_request("GET", path, InstanceControllerApiPluginVersions)
 
-    def versioned_plugin_icon(self, group_id: str, artifact_id: str) -> bytes:
+    def versioned_plugin_icon(self, group_id: str, artifact_id: str, v: Optional[str] = None) -> bytes:
         path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, "icon.svg")
-        return self._download_request("GET", path, accept="image/svg+xml")
+        params = self._build_query_params(v=v)
+        return self._download_request("GET", path, params=params, accept="image/svg+xml")
 
     def versioned_plugin_details_for_version(self, group_id: str, artifact_id: str, version: str) -> InstanceControllerApiPluginVersionDetails:
         path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, version)
         return self._json_request("GET", path, InstanceControllerApiPluginVersionDetails)
 
-    def versioned_plugin_release_notes(self, group_id: str, artifact_id: str) -> str:
+    def versioned_plugin_release_notes(self, group_id: str, artifact_id: str, version: str) -> str:
         path = self._superadmin_path("instance", "versioned-plugins", group_id, artifact_id, "release-notes")
-        return self._text_request("GET", path)
+        params = self._build_query_params(version=version)
+        return self._text_request("GET", path, params=params)
 
-    def resolve_versioned_plugins(self, artifacts: List[PluginArtifact]) -> InstanceControllerApiPluginArtifactListPluginResolutionResult:
+    def resolve_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginResolutionResult:
         path = self._superadmin_path("instance", "versioned-plugins", "resolve")
-        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginResolutionResult, body=artifacts)
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginResolutionResult, body=body)
 
-    def install_versioned_plugins(self, artifacts: List[PluginArtifact]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
+    def install_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
         path = self._superadmin_path("instance", "versioned-plugins", "install")
-        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=artifacts)
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("POST", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=body)
 
-    def upload_versioned_plugin(self, file_content: Any, file_name: str = "plugin.jar") -> Optional[PluginArtifact]:
+    def upload_versioned_plugin(
+        self,
+        file_content: Any,
+        file_name: str = "plugin.jar",
+        force_install_on_existing_versions: Optional[bool] = None,
+    ) -> Optional[PluginArtifact]:
         path = self._superadmin_path("instance", "versioned-plugins", "upload")
-        return self._multipart_upload("POST", path, PluginArtifact, file_content=file_content, file_name=file_name)
+        params = self._build_query_params(forceInstallOnExistingVersions=force_install_on_existing_versions)
+        return self._multipart_upload(
+            "POST", path, PluginArtifact,
+            params=params, field_name="file",
+            file_content=file_content, file_name=file_name,
+        )
 
-    def uninstall_versioned_plugins(self, artifacts: List[PluginArtifact]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
+    def uninstall_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:
         path = self._superadmin_path("instance", "versioned-plugins", "uninstall")
-        return self._json_request("DELETE", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=artifacts)
+        body = InstanceControllerApiPluginListRequest(plugins=plugins)
+        return self._json_request("DELETE", path, InstanceControllerApiPluginArtifactListPluginArtifact, body=body)
 
     # ---- MCP servers (cross-tenant) ----
 
