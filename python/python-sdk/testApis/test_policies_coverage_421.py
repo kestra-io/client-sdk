@@ -4,26 +4,11 @@ The whole policy controller requires the FEATURE_POLICIES licence feature; on an
 instance without it the backend answers 403/404/501, so read/validate assertions
 skip on those instead of failing (see AGENTS.md).
 """
-import contextlib
-
-import pytest
-
-from test_helpers import TENANT, random_id, random_namespace
-from kestrapy.exceptions import ForbiddenException, NotFoundException, ServiceException
-
-_GATED = (403, 404, 501)
 
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+from test_helpers import TENANT, gating, random_id, random_namespace
+
+_tolerate_gating = gating()
 
 
 # --------------------------------------------------------------------------- #

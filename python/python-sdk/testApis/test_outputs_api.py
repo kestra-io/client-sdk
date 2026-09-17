@@ -4,7 +4,6 @@ Kestra 2.0 dropped the ``outputs`` property from the execution payload, so these
 routes are the only way to read flow- and task-level outputs. They can be
 licence/feature gated, so live calls are wrapped in ``_tolerate_gating``.
 """
-import contextlib
 
 import pytest
 
@@ -17,28 +16,14 @@ from test_helpers import (
     random_namespace,
     wait_for_execution,
 )
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
 from kestrapy.models.output_controller_task_output_information import (
     OutputControllerTaskOutputInformation,
 )
 
-_GATED = (403, 404, 501)
 
+from test_helpers import gating
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 @pytest.fixture(scope="module")
@@ -58,7 +43,7 @@ def test_execution_outputs_returns_dict(client, executed_flow):
     with _tolerate_gating("execution_outputs"):
         result = client.outputs.execution_outputs(executed_flow["execution_id"], TENANT)
     # A flow with no outputs still returns an object (possibly empty), not a raise.
-    assert result is None or isinstance(result, dict)
+    assert isinstance(result, dict)
 
 
 def test_task_outputs_information_returns_list(client, executed_flow):
@@ -80,4 +65,5 @@ def test_task_run_outputs_returns_dict(client, executed_flow):
         result = client.outputs.task_run_outputs(
             executed_flow["execution_id"], task_run_id, TENANT
         )
-    assert result is None or isinstance(result, dict)
+    # A completed task run always resolves to an outputs object (maybe empty).
+    assert isinstance(result, dict)

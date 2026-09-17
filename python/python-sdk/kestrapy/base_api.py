@@ -33,6 +33,13 @@ T = TypeVar('T')
 class BaseApi:
     JSON = "application/json"
     YAML = "application/x-yaml"
+    # Response-direction YAML. The controllers that *return* YAML declare the
+    # literal `produces = "application/yaml"` (AiController, BlueprintController),
+    # which Micronaut treats as a different media type from `application/x-yaml`:
+    # sending the latter in Accept drops the route to the EE catch-all. Use this
+    # for the Accept header whenever YAML is the *response*; keep YAML (x-yaml)
+    # for the request Content-Type, which the source-ingest routes accept.
+    YAML_RESPONSE = "application/yaml"
     TEXT = "text/plain"
     OCTET = "application/octet-stream"
     CSV = "text/csv"
@@ -90,16 +97,19 @@ class BaseApi:
                  content_type: Optional[str] = None,
                  accept: Optional[str] = None,
                  files: Optional[Dict] = None,
+                 headers: Optional[Dict[str, str]] = None,
                  stream: bool = False) -> requests.Response:
         url = self._base_url + path
-        headers = {}
+        # Copy so a caller-supplied mapping (e.g. an MCP-Session-Id passthrough)
+        # is never mutated by the Content-Type/Accept defaults below.
+        headers = dict(headers) if headers else {}
         data = None
         json_body = None
 
         if content_type and not files:
-            headers["Content-Type"] = content_type
+            headers.setdefault("Content-Type", content_type)
         if accept:
-            headers["Accept"] = accept
+            headers.setdefault("Accept", accept)
 
         if body is not None:
             if content_type == self.JSON or content_type is None:

@@ -5,32 +5,17 @@ feature, so on an instance without it the backend answers 403/404/501 rather
 than a payload; the assertions below skip on those instead of failing (an infra
 gap must not look like a coverage regression, see AGENTS.md).
 """
-import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
-    ForbiddenException,
     NotFoundException,
-    ServiceException,
 )
 from kestrapy.models.api_mcp_server import ApiMcpServer
 from kestrapy.models.mcp_server_server_type import McpServerServerType
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating(allow_404=True)
 
 
 def _create_server(client):

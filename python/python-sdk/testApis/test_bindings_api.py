@@ -8,11 +8,10 @@ import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
     ForbiddenException,
     NotFoundException,
-    ServiceException,
 )
 from kestrapy.models.binding_type import BindingType
 from kestrapy.models.iam_binding_controller_api_create_binding_request import (
@@ -25,19 +24,7 @@ from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail imp
     PagedResultsIAMBindingControllerApiBindingDetail,
 )
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def test_search_bindings_returns_paged_results(client):

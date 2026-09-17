@@ -1,24 +1,12 @@
 """Tests for the /api/v1/me (current user) SDK surface added for #421."""
-import contextlib
 
-import pytest
 
-from kestrapy.exceptions import ForbiddenException, NotFoundException, ServiceException
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 
-_GATED = (403, 404, 501)
 
+from test_helpers import gating
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def test_current_user_returns_authenticated_identity(client):

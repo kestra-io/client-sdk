@@ -6,32 +6,17 @@ licence feature. On an instance without that feature the backend answers
 instead of failing — an infra gap must not look like a coverage regression
 (see AGENTS.md).
 """
-import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
-    ForbiddenException,
     NotFoundException,
-    ServiceException,
 )
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 from kestrapy.models.security_integration_type import SecurityIntegrationType
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def _create_integration(client):

@@ -9,7 +9,7 @@ import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
     BadRequestException,
     ForbiddenException,
@@ -18,7 +18,6 @@ from kestrapy.exceptions import (
     UnprocessableEntityException,
 )
 
-_GATED = (403, 404, 501)
 
 _APP_YAML = """
 id: sdk-preview-app
@@ -26,19 +25,7 @@ type: io.kestra.plugin.ee.apps.Form
 displayName: SDK preview app
 """.strip()
 
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except (BadRequestException, UnprocessableEntityException) as exc:
-        pytest.skip(f"{what}: not supported on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating(allow_404=True, state_codes=(400, 422))
 
 
 def test_app_states_returns_list_of_state_names(client):

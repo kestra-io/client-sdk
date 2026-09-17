@@ -12,28 +12,14 @@ import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
     BadRequestException,
-    ForbiddenException,
     NotFoundException,
-    ServiceException,
     UnprocessableEntityException,
 )
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def _create_case(client, **overrides):

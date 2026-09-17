@@ -23,11 +23,6 @@ import contextlib
 import pytest
 
 from kestrapy import IdWithNamespace
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
 from test_helpers import (
     TENANT,
     random_id,
@@ -37,23 +32,15 @@ from test_helpers import (
     ns_filter,
 )
 
-_GATED = (403, 404, 501)
 # Endpoints that mutate/promote need FEATURE_PROMOTE plus real remote-target and
 # promotion state that a single-instance CI can't set up: a 422 (validation) or
 # 500 proves the route is wired and the server processed our request.
 _WIRED = (400, 403, 404, 422, 500, 501)
 
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+from test_helpers import gating
+
+_tolerate_gating = gating()
 
 
 @contextlib.contextmanager

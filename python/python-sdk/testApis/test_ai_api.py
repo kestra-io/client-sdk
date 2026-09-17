@@ -7,14 +7,8 @@ rather than a payload, so the assertions below skip on those instead of failing
 """
 import contextlib
 
-import pytest
 
-from test_helpers import TENANT, random_id
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
+from test_helpers import TENANT, gating, random_id
 from kestrapy.models.agent_mode import AgentMode
 from kestrapy.models.api_create_thread_request import ApiCreateThreadRequest
 from kestrapy.models.api_rename_thread_request import ApiRenameThreadRequest
@@ -22,19 +16,8 @@ from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt
 
 # AI copilot answers 503 when no provider is configured, on top of the usual
 # licence 403 / 404 / 501.
-_GATED = (403, 404, 501, 503)
 
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating(allow_503=True)
 
 
 # --------------------------------------------------------------------------- #
@@ -43,7 +26,7 @@ def _tolerate_gating(what):
 
 def test_list_ai_providers_returns_list(client):
     with _tolerate_gating("list_ai_providers"):
-        result = client.ai.list_ai_providers()
+        result = client.ai.list_ai_providers(TENANT)
     assert isinstance(result, list)
 
 
@@ -88,6 +71,6 @@ def test_generate_flow_returns_yaml(client):
         userPrompt="Create a flow that logs hello world",
     )
     with _tolerate_gating("generate_flow"):
-        result = client.ai.generate_flow(prompt)
+        result = client.ai.generate_flow(TENANT, prompt)
     assert isinstance(result, str)
     assert len(result) > 0

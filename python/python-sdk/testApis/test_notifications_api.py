@@ -5,30 +5,12 @@ They are usually available on any authenticated instance, but the gating helper
 still guards against instances where the feature is disabled — an infra gap
 must not look like a coverage regression (see AGENTS.md).
 """
-import contextlib
 from datetime import datetime, timedelta, timezone
 
-import pytest
 
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
+from test_helpers import gating
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 # --------------------------------------------------------------------------- #
@@ -40,13 +22,13 @@ def test_notifications_since_returns_notifications(client):
     with _tolerate_gating("notifications_since"):
         result = client.notifications.notifications_since(since)
     # A fresh instance has no notifications, so the list may be empty but present.
-    assert result.notifications is None or isinstance(result.notifications, list)
+    assert isinstance(result.notifications, list)
 
 
 def test_notification_history_returns_history(client):
     with _tolerate_gating("notification_history"):
         result = client.notifications.notification_history(limit=10)
-    assert result.notifications is None or isinstance(result.notifications, list)
+    assert isinstance(result.notifications, list)
 
 
 def test_unread_notification_count_returns_int(client):

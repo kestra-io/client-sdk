@@ -4,7 +4,6 @@ The metrics controller is gated by the ``EXECUTION`` resource; on an instance
 without it the backend answers 403/404/501 rather than a payload, so the
 live calls are wrapped in ``_tolerate_gating`` (see AGENTS.md).
 """
-import contextlib
 
 import pytest
 
@@ -17,25 +16,11 @@ from test_helpers import (
     random_namespace,
     wait_for_execution,
 )
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
-
-_GATED = (403, 404, 501)
 
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+from test_helpers import gating
+
+_tolerate_gating = gating()
 
 
 @pytest.fixture(scope="module")

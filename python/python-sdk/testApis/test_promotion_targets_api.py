@@ -10,7 +10,7 @@ import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
     ForbiddenException,
     NotFoundException,
@@ -22,19 +22,7 @@ from kestrapy.models.api_flow_hash_batch_request import ApiFlowHashBatchRequest
 from kestrapy.models.api_update_promotion_target_request import ApiUpdatePromotionTargetRequest
 from kestrapy.models.connection_mode import ConnectionMode
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def _create_target(client):

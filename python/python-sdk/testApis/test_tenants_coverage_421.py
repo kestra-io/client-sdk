@@ -5,37 +5,14 @@ feature (or without instance-owner rights) the backend answers 403/404/501
 rather than a payload; the assertions below skip on those instead of failing so
 an infra gap doesn't look like a coverage regression (see AGENTS.md).
 """
-import contextlib
 
-import pytest
 
-from test_helpers import TENANT, random_id
-from kestrapy.exceptions import (
-    BadRequestException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-    UnprocessableEntityException,
-)
+from test_helpers import TENANT, gating, random_id
 from kestrapy.models.tenant_controller_apps_catalog_config_request import (
     TenantControllerAppsCatalogConfigRequest,
 )
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except (BadRequestException, UnprocessableEntityException) as exc:
-        pytest.skip(f"{what}: not supported on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating(allow_404=True, state_codes=(400, 422))
 
 
 def test_apps_catalog_config_returns_config(client):

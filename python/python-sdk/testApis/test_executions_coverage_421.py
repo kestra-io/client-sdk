@@ -12,45 +12,21 @@ the backend answers 4xx rather than a payload, so the assertions below skip on
 those instead of failing — an infra gap must not look like a coverage
 regression (see AGENTS.md).
 """
-import contextlib
-
 import pytest
 
-from test_helpers import TENANT
+from test_helpers import TENANT, gating
 from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp
-from kestrapy.exceptions import (
-    BadRequestException,
-    ConflictException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-    UnprocessableEntityException,
-)
 
-_GATED = (403, 404, 501)
+# Execution endpoints legitimately address entities by id (executions, files,
+# task runs), so a 404 is entity-not-here, not a wrong path -> allow_404=True.
+_tolerate_gating = gating(allow_404=True)
 # For endpoints whose target must be in a specific state we don't control
 # (e.g. a suspended BREAKPOINT execution, a stored file), a 400/409/422 just
 # means "this instance/execution isn't in that state", not a coverage break.
-_STATE = (400, 403, 404, 409, 422, 501)
+_STATE = (400, 409, 422)
 # Validating resume/new-execution inputs against a non-paused (terminated)
 # execution is an invalid-state error the backend currently surfaces as 500.
 _STATE_500 = _STATE + (500,)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what, codes=_GATED):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except (BadRequestException, ConflictException, UnprocessableEntityException) as exc:
-        if getattr(exc, "status", None) in codes:
-            pytest.skip(f"{what}: not in required state on this instance ({exc.status})")
-        raise
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in codes:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
 
 
 # --------------------------------------------------------------------------- #
@@ -116,7 +92,7 @@ def test_preview_file_from_execution_requires_valid_uri(client, succeeded_execut
     # Without a real stored-file URI the backend rejects the preview; the point
     # here is that the endpoint is wired (path/verb/params), so tolerate the
     # state-dependent error and assert a dict when a payload does come back.
-    with _tolerate_gating("preview_file_from_execution", codes=_STATE):
+    with _tolerate_gating("preview_file_from_execution", state_codes=_STATE):
         preview = client.executions.preview_file_from_execution(
             execution_id, "kestra:///does/not/exist.ion", TENANT,
         )
@@ -160,7 +136,7 @@ def test_eval_task_run_expression_resolves(client, succeeded_execution):
     if not task_runs:
         pytest.skip("eval_task_run_expression: execution has no task runs")
     task_run_id = task_runs[0].id
-    with _tolerate_gating("eval_task_run_expression", codes=_STATE):
+    with _tolerate_gating("eval_task_run_expression", state_codes=_STATE):
         result = client.executions.eval_task_run_expression(
             execution_id, task_run_id, TENANT, "{{ execution.id }}",
         )
@@ -177,7 +153,7 @@ def test_resume_execution_from_breakpoint_wired(client, succeeded_execution):
     execution_id, _, _ = succeeded_execution
     # A terminated execution is not in BREAKPOINT, so the server rejects the
     # resume; tolerate that and only assert on the (unlikely) success payload.
-    with _tolerate_gating("resume_execution_from_breakpoint", codes=_STATE):
+    with _tolerate_gating("resume_execution_from_breakpoint", state_codes=_STATE):
         resumed = client.executions.resume_execution_from_breakpoint(execution_id, TENANT)
     assert resumed.id == execution_id
 
@@ -186,7 +162,7 @@ def test_validate_resume_execution_inputs_wired(client, succeeded_execution):
     execution_id, _, _ = succeeded_execution
     # A terminated execution is not paused; the validator rejects it. Tolerate
     # the state error and assert a dict payload when one is returned.
-    with _tolerate_gating("validate_resume_execution_inputs", codes=_STATE_500):
+    with _tolerate_gating("validate_resume_execution_inputs", state_codes=_STATE_500):
         result = client.executions.validate_resume_execution_inputs(execution_id, TENANT, inputs={})
     assert isinstance(result, dict)
 
@@ -195,6 +171,6 @@ def test_validate_new_execution_inputs_returns_payload(client, shared_flow):
     ns, flow_id = shared_flow
     # The shared log flow declares no required inputs, so validation succeeds
     # and returns the resolved-inputs payload without creating an execution.
-    with _tolerate_gating("validate_new_execution_inputs", codes=_STATE):
+    with _tolerate_gating("validate_new_execution_inputs", state_codes=_STATE):
         result = client.executions.validate_new_execution_inputs(ns, flow_id, TENANT, inputs={})
     assert isinstance(result, dict)

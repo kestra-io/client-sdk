@@ -4,30 +4,12 @@ The audit-log controller is gated by the ``AUDITLOG`` resource plus a licence
 feature, so routes answer 403 (or 404/501) when unavailable. Live calls are
 wrapped in ``_tolerate_gating`` (see AGENTS.md).
 """
-import contextlib
-
 import pytest
 
-from test_helpers import TENANT, random_id
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
+from test_helpers import TENANT, gating, random_id
+from kestrapy.exceptions import NotFoundException
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def test_search_audit_logs_returns_page(client):
@@ -58,26 +40,30 @@ def test_export_all_audit_logs_returns_csv(client):
 
 
 def test_audit_log_diff_unknown_id(client):
-    # An unknown id should be gated or 404, never crash.
+    # An unknown id must 404 (the diff target doesn't exist), not resolve to a
+    # payload — that a wrong id still returns 200 would be the bug worth catching.
     with _tolerate_gating("audit_log_diff"):
-        result = client.auditlogs.audit_log_diff(random_id(), TENANT)
-        assert result is None or isinstance(result, dict)
+        with pytest.raises(NotFoundException):
+            client.auditlogs.audit_log_diff(random_id(), TENANT)
 
 
 def test_global_audit_log_diff_unknown_id(client):
     with _tolerate_gating("global_audit_log_diff"):
-        result = client.auditlogs.global_audit_log_diff(random_id())
-        assert result is None or isinstance(result, dict)
+        with pytest.raises(NotFoundException):
+            client.auditlogs.global_audit_log_diff(random_id())
 
 
 def test_find_audit_log(client):
     body = {"resource": "FLOW"}
     with _tolerate_gating("find_audit_log"):
         result = client.auditlogs.find_audit_log(TENANT, body)
-        assert result is None or isinstance(result, dict)
+    # find returns the same paged envelope as search_audit_logs above.
+    assert isinstance(result, dict)
+    assert "results" in result
+    assert isinstance(result["results"], list)
 
 
 def test_audit_log_history_unknown_id(client):
     with _tolerate_gating("audit_log_history"):
-        result = client.auditlogs.audit_log_history(random_id(), TENANT)
-        assert result is None or isinstance(result, list)
+        with pytest.raises(NotFoundException):
+            client.auditlogs.audit_log_history(random_id(), TENANT)

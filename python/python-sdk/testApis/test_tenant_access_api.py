@@ -4,16 +4,12 @@ Tenant access is an EE/IAM feature; on an instance without it the backend
 answers 403/404/501, so live calls are wrapped in ``_tolerate_gating``
 (see AGENTS.md).
 """
-import contextlib
 
 import pytest
 
-from test_helpers import TENANT, random_id
+from test_helpers import TENANT, gating, random_id
 from kestrapy.exceptions import (
     ConflictException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
 )
 from kestrapy.models.iam_tenant_access_controller_api_create_tenant_access_request import (
     IAMTenantAccessControllerApiCreateTenantAccessRequest,
@@ -28,19 +24,7 @@ from kestrapy.models.paged_results_iam_tenant_access_controller_api_user_tenant_
     PagedResultsIAMTenantAccessControllerApiUserTenantAccess,
 )
 
-_GATED = (403, 404, 501)
-
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating()
 
 
 def test_list_tenant_access_returns_paged_results(client):

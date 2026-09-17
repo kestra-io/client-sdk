@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import requests
 
@@ -18,11 +18,13 @@ from kestrapy.models.test_suite_generation_prompt import TestSuiteGenerationProm
 class AiApi(BaseApi):
     """AI Copilot endpoints.
 
-    Covers the one-shot generators under ``/api/v1/{tenant}/ai/generate/*`` and
-    ``/api/v1/main/ai/*``, plus the conversational thread endpoints under
-    ``/api/v1/{tenant}/ai/threads``. The controllers are gated by the ``COPILOT``
-    resource and require a configured AI provider, so every route answers 403
-    (licence) or 503 (no provider) when the feature is not available.
+    Covers the one-shot generators under ``/api/v1/{tenant}/ai/generate/*``, the
+    provider listing under ``/api/v1/{tenant}/ai/providers``, and the
+    conversational thread endpoints under ``/api/v1/{tenant}/ai/threads``. The
+    controller is mounted at ``@Controller("/api/v1/{tenant}/ai/")``, so every
+    route is tenant-scoped. The endpoints are gated by the ``COPILOT`` resource
+    and require a configured AI provider, so every route answers 403 (licence)
+    or 503 (no provider) when the feature is not available.
     """
 
     # ---- One-shot generators (return a YAML definition as text) ---- #
@@ -31,35 +33,36 @@ class AiApi(BaseApi):
         """Generate an app definition (YAML) from a natural-language prompt.
         Backs POST /api/v1/{tenant}/ai/generate/app."""
         path = self._tenant_path(tenant, "ai", "generate", "app")
-        resp = self._request("POST", path, body=body, accept=self.YAML)
+        resp = self._request("POST", path, body=body, accept=self.YAML_RESPONSE)
         return resp.text
 
     def generate_dashboard(self, tenant: str, body: DashboardGenerationPrompt) -> str:
         """Generate a dashboard definition (YAML).
         Backs POST /api/v1/{tenant}/ai/generate/dashboard."""
         path = self._tenant_path(tenant, "ai", "generate", "dashboard")
-        resp = self._request("POST", path, body=body, accept=self.YAML)
+        resp = self._request("POST", path, body=body, accept=self.YAML_RESPONSE)
         return resp.text
 
     def generate_test(self, tenant: str, body: TestSuiteGenerationPrompt) -> str:
         """Generate a test-suite definition (YAML).
         Backs POST /api/v1/{tenant}/ai/generate/test."""
         path = self._tenant_path(tenant, "ai", "generate", "test")
-        resp = self._request("POST", path, body=body, accept=self.YAML)
+        resp = self._request("POST", path, body=body, accept=self.YAML_RESPONSE)
         return resp.text
 
-    def generate_flow(self, body: FlowGenerationPrompt) -> str:
+    def generate_flow(self, tenant: str, body: FlowGenerationPrompt) -> str:
         """Generate a flow definition (YAML) from a natural-language prompt.
-        Backs POST /api/v1/main/ai/generate/flow."""
-        path = self._superadmin_path("main", "ai", "generate", "flow")
-        resp = self._request("POST", path, body=body, accept=self.YAML)
+        Backs POST /api/v1/{tenant}/ai/generate/flow."""
+        path = self._tenant_path(tenant, "ai", "generate", "flow")
+        resp = self._request("POST", path, body=body, accept=self.YAML_RESPONSE)
         return resp.text
 
     # ---- Providers ---- #
 
-    def list_ai_providers(self) -> List[AiControllerAiProviderResponse]:
-        """List the configured AI providers. Backs GET /api/v1/main/ai/providers."""
-        path = self._superadmin_path("main", "ai", "providers")
+    def list_ai_providers(self, tenant: str) -> List[AiControllerAiProviderResponse]:
+        """List the configured AI providers.
+        Backs GET /api/v1/{tenant}/ai/providers."""
+        path = self._tenant_path(tenant, "ai", "providers")
         return self._json_list_request("GET", path, AiControllerAiProviderResponse)
 
     # ---- Threads ---- #

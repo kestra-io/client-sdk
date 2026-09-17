@@ -9,30 +9,13 @@ The methods return a raw streaming ``requests.Response`` the caller must close.
 import contextlib
 import json
 
-import pytest
 
-from test_helpers import TENANT, random_id
-from kestrapy.exceptions import (
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
+from test_helpers import TENANT, gating, random_id
 
 # The proxy answers 503 when the target server is disabled, on top of the usual
 # licence 403 / 404 / 501.
-_GATED = (403, 404, 501, 503)
 
-
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+_tolerate_gating = gating(allow_404=True, allow_503=True)
 
 
 _INITIALIZE = json.dumps(

@@ -4,25 +4,13 @@ The /api/v1/plugins routes are instance-level and not tenant-scoped. Some are
 OSS-only (install / auto-install) and answer 403 on EE, so those tolerate
 gating; the read-only catalog routes are always available.
 """
-import contextlib
-
-import pytest
-
-from kestrapy.exceptions import ForbiddenException, NotFoundException, ServiceException
-
-_GATED = (403, 404, 501)
 
 
-@contextlib.contextmanager
-def _tolerate_gating(what):
-    try:
-        yield
-    except (ForbiddenException, NotFoundException) as exc:
-        pytest.skip(f"{what}: gated on this instance ({exc.status})")
-    except ServiceException as exc:
-        if getattr(exc, "status", None) in _GATED:
-            pytest.skip(f"{what}: gated on this instance ({exc.status})")
-        raise
+
+
+from test_helpers import gating
+
+_tolerate_gating = gating()
 
 
 def test_list_plugins_returns_catalog(client):
