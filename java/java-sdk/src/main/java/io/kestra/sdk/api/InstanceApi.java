@@ -352,9 +352,12 @@ public class InstanceApi extends BaseApi {
             @jakarta.annotation.Nullable Boolean forceInstallOnExistingVersions) throws ApiException {
         Map<String, Object> formParams = new HashMap<>();
         formParams.put("file", file);
+        if (forceInstallOnExistingVersions != null) {
+            formParams.put("forceInstallOnExistingVersions", forceInstallOnExistingVersions);
+        }
         return invoke("POST",
                 apiPath("instance", "versioned-plugins", "upload"),
-                null, queryParams("forceInstallOnExistingVersions", forceInstallOnExistingVersions), null,
+                null, null, null,
                 JSON, MULTIPART, formParams,
                 new TypeReference<>() {});
     }
