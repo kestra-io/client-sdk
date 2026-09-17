@@ -64,6 +64,9 @@ def test_find_audit_log(client):
 
 
 def test_audit_log_history_unknown_id(client):
+    # History is a revision query, not a fetch: an unknown id has no revisions,
+    # so it resolves to an empty result rather than 404 (asserting emptiness is
+    # the real signal — a non-empty history for a random id would be the bug).
     with _tolerate_gating("audit_log_history"):
-        with pytest.raises(NotFoundException):
-            client.auditlogs.audit_log_history(random_id(), TENANT)
+        result = client.auditlogs.audit_log_history(random_id(), TENANT)
+    assert not result
