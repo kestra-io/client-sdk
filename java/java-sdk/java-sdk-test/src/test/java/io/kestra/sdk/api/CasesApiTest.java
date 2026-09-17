@@ -513,4 +513,42 @@ public class CasesApiTest {
         assertThat(new String(downloaded)).isEqualTo(content);
         assertThat(((Number) attachment.get("size")).longValue()).isEqualTo(downloaded.length);
     }
+
+    // ========================================================================
+    // External ticket
+    // ========================================================================
+
+    @Test
+    void setTicket_replacesAnExistingTicket() throws ApiException {
+        String flowNamespace = randomId();
+        var created = api().createFromTask(TENANT, request(flowNamespace, randomId(), randomId(), false));
+        String caseId = (String) created.get("caseId");
+
+        api().setTicket(caseId, TENANT, new CasesControllerCaseTicketRequest()
+                .system("GitHub").key("acme/ops#412").url("https://github.com/acme/ops/issues/412"));
+
+        var replaced = api().setTicket(caseId, TENANT, new CasesControllerCaseTicketRequest()
+                .system("Atlassian Jira").key("OPS-7").url("https://acme.atlassian.net/browse/OPS-7"));
+
+        assertThat(replaced).extracting("ticket").extracting("key").isEqualTo("OPS-7");
+    }
+
+    @Test
+    void setTicket_failsForAnUnknownCase() {
+        assertThatThrownBy(() -> api().setTicket(randomId(), TENANT, new CasesControllerCaseTicketRequest()
+                .system("GitHub").key("acme/ops#412").url("https://github.com/acme/ops/issues/412")))
+            .isInstanceOf(ApiException.class)
+            .extracting(e -> ((ApiException) e).getCode())
+            .isEqualTo(404);
+    }
+
+    @Test
+    void searchCaseEvents_returnsAPageWithItsResumeCursor() throws ApiException {
+        api().createFromTask(TENANT, request(randomId(), randomId(), randomId(), false));
+
+        var result = api().searchCaseEvents(TENANT, null, null, List.of("CREATED"), List.of("CRITICAL"), null, null, 10);
+
+        assertThat(result).containsKeys("results", "hasMore");
+        assertThat(result.get("results")).isInstanceOf(List.class);
+    }
 }
