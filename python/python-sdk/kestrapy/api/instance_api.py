@@ -137,11 +137,17 @@ class InstanceApi(BaseApi):
         force_install_on_existing_versions: Optional[bool] = None,
     ) -> Optional[PluginArtifact]:
         path = self._superadmin_path("instance", "versioned-plugins", "upload")
-        params = self._build_query_params(forceInstallOnExistingVersions=force_install_on_existing_versions)
+        # `forceInstallOnExistingVersions` binds from the multipart form field,
+        # NOT the query string — verified live against kestra-ee v1.3.39: a
+        # query-string flag is silently dropped and the force never takes effect,
+        # so an install meant to overwrite an existing version quietly no-ops.
+        form_fields = self._build_query_params(
+            forceInstallOnExistingVersions=force_install_on_existing_versions
+        )
         return self._multipart_upload(
             "POST", path, PluginArtifact,
-            params=params, field_name="file",
-            file_content=file_content, file_name=file_name,
+            field_name="file", file_content=file_content, file_name=file_name,
+            form_fields=form_fields or None,
         )
 
     def uninstall_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:

@@ -97,6 +97,7 @@ class BaseApi:
                  content_type: Optional[str] = None,
                  accept: Optional[str] = None,
                  files: Optional[Dict] = None,
+                 form_data: Optional[Dict] = None,
                  headers: Optional[Dict[str, str]] = None,
                  stream: bool = False) -> requests.Response:
         url = self._base_url + path
@@ -134,6 +135,11 @@ class BaseApi:
         if json_body is not None:
             data = json.dumps(json_body, default=_json_default)
             headers["Content-Type"] = self.JSON
+
+        # Extra multipart form fields ride alongside `files`; requests emits each
+        # as its own part. Only used by uploads, which never set a JSON body.
+        if form_data is not None:
+            data = form_data
 
         resp = self._session.request(
             method, url,
@@ -218,11 +224,12 @@ class BaseApi:
 
     def _multipart_upload(self, method: str, path: str, return_type: Optional[Type[T]] = None, *,
                           params: Any = None, field_name: str = "fileContent",
-                          file_content: Any = None, file_name: str = "file") -> Optional[T]:
+                          file_content: Any = None, file_name: str = "file",
+                          form_fields: Optional[Dict] = None) -> Optional[T]:
         if isinstance(file_content, str):
             file_content = file_content.encode("utf-8")
         files = {field_name: (file_name, file_content)}
-        resp = self._request(method, path, params=params, files=files)
+        resp = self._request(method, path, params=params, files=files, form_data=form_fields)
         if return_type is not None and resp.content:
             return self._deserialize(resp.json(), return_type)
         return None
