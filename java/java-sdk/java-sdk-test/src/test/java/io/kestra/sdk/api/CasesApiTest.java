@@ -7,11 +7,14 @@ import org.junit.jupiter.api.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
 import static io.kestra.TestUtils.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.awaitility.Awaitility.await;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CasesApiTest {
@@ -512,5 +515,60 @@ public class CasesApiTest {
 
         assertThat(new String(downloaded)).isEqualTo(content);
         assertThat(((Number) attachment.get("size")).longValue()).isEqualTo(downloaded.length);
+    }
+
+    // ========================================================================
+    // External ticket
+    // ========================================================================
+
+    @Test
+    void setTicket_replacesAnExistingTicket() throws ApiException {
+        String flowNamespace = randomId();
+        var created = api().createFromTask(TENANT, request(flowNamespace, randomId(), randomId(), false));
+        String caseId = (String) created.get("caseId");
+
+        api().setTicket(caseId, TENANT, new CasesControllerCaseTicketRequest()
+                .system("GitHub").key("acme/ops#412").url("https://github.com/acme/ops/issues/412"));
+
+        var replaced = api().setTicket(caseId, TENANT, new CasesControllerCaseTicketRequest()
+                .system("Atlassian Jira").key("OPS-7").url("https://acme.atlassian.net/browse/OPS-7"));
+
+        assertThat(replaced).extracting("ticket").extracting("key").isEqualTo("OPS-7");
+    }
+
+    @Test
+    void setTicket_failsForAnUnknownCase() {
+        assertThatThrownBy(() -> api().setTicket(randomId(), TENANT, new CasesControllerCaseTicketRequest()
+                .system("GitHub").key("acme/ops#412").url("https://github.com/acme/ops/issues/412")))
+            .isInstanceOf(ApiException.class)
+            .extracting(e -> ((ApiException) e).getCode())
+            .isEqualTo(404);
+    }
+
+    @Test
+    void searchCaseEvents_filtersByTypeAndSeverityAndResumesFromTheReturnedCursor() throws ApiException {
+        String namespace = randomId();
+        String since = Instant.now().minusSeconds(5).toString();
+        String caseId = (String) api().createFromTask(TENANT, request(namespace, randomId(), randomId(), false).severity(CaseSeverity.CRITICAL)).get("caseId");
+
+        var page = await().atMost(Duration.ofSeconds(30)).pollInterval(Duration.ofMillis(500))
+            .until(() -> searchEvents(namespace, since, "", List.of("CREATED"), List.of(CaseSeverity.CRITICAL)), found -> containsCase(found, caseId));
+
+        assertThat(containsCase(searchEvents(namespace, since, "", List.of("COMMENTED"), List.of(CaseSeverity.CRITICAL)), caseId)).isFalse();
+        assertThat(containsCase(searchEvents(namespace, since, "", List.of("CREATED"), List.of(CaseSeverity.LOW)), caseId)).isFalse();
+        assertThat(containsCase(
+            searchEvents(namespace, String.valueOf(page.get("nextSinceCreated")), String.valueOf(page.get("nextSinceId")), List.of("CREATED"), List.of(CaseSeverity.CRITICAL)),
+            caseId
+        )).isFalse();
+    }
+
+    private static Map<String, Object> searchEvents(String namespace, String sinceCreated, String sinceId, List<String> events, List<CaseSeverity> severities) throws ApiException {
+        return api().searchCaseEvents(TENANT, sinceCreated, sinceId, events, severities, namespace, null, 1000);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static boolean containsCase(Map<String, Object> page, String caseId) {
+        return ((List<Map<String, Object>>) page.get("results")).stream()
+            .anyMatch(entry -> caseId.equals(((Map<String, Object>) entry.get("case")).get("id")));
     }
 }
