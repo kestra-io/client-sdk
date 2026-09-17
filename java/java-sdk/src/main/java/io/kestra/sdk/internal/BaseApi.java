@@ -94,6 +94,13 @@ public abstract class BaseApi {
     return apiClient.parameterToPairs("csv", name, values);
   }
 
+  protected List<Pair> multiParams(String name, @jakarta.annotation.Nullable List<?> values) {
+    if (values == null || values.isEmpty()) {
+      return Collections.emptyList();
+    }
+    return apiClient.parameterToPairs("multi", name, values);
+  }
+
   // ---- HTTP helpers ----
 
   protected <T> T invoke(String method, String path, Object body,

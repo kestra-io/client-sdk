@@ -10,8 +10,10 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.CaseAction;
+import io.kestra.sdk.model.CaseSeverity;
 import io.kestra.sdk.model.CaseStatus;
 import io.kestra.sdk.model.CasesControllerCaseFromTaskRequest;
+import io.kestra.sdk.model.CasesControllerCaseTicketRequest;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.Subjects;
@@ -61,6 +63,33 @@ public class CasesApi extends BaseApi {
                 tenantPath(tenant, "cases", "from-task"),
                 request, null, null,
                 JSON, JSON,
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Links an external ticket to a case, replacing any ticket already linked.
+     */
+    public Map<String, Object> setTicket(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull CasesControllerCaseTicketRequest request) throws ApiException {
+        return invoke("PUT",
+                tenantPath(tenant, "cases", id, "ticket"),
+                request, null, null,
+                JSON, JSON,
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Removes the external ticket linked to a case.
+     */
+    public Map<String, Object> deleteTicket(
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("DELETE",
+                tenantPath(tenant, "cases", id, "ticket"),
+                null, null, null,
+                JSON, null,
                 new TypeReference<>() {});
     }
 
@@ -446,6 +475,29 @@ public class CasesApi extends BaseApi {
                 JSON, null,
                 new TypeReference<>() {});
     }
+
+    public Map<String, Object> searchCaseEvents(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable String sinceCreated,
+            @jakarta.annotation.Nullable String sinceId,
+            @jakarta.annotation.Nullable List<String> events,
+            @jakarta.annotation.Nullable List<CaseSeverity> severities,
+            @jakarta.annotation.Nullable String namespace,
+            @jakarta.annotation.Nullable List<String> assignees,
+            @jakarta.annotation.Nullable Integer size) throws ApiException {
+        List<Pair> collectionParams = new ArrayList<>();
+        collectionParams.addAll(multiParams("events", events));
+        collectionParams.addAll(multiParams("severities", severities));
+        collectionParams.addAll(multiParams("assignees", assignees));
+        return invoke("GET",
+                tenantPath(tenant, "cases", "events", "search"),
+                null,
+                queryParams("sinceCreated", sinceCreated, "sinceId", sinceId, "namespace", namespace, "size", size),
+                collectionParams,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
 
     // ========================================================================
     // Follow / unfollow
