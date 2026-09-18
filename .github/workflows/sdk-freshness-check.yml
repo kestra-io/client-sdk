@@ -40,18 +40,18 @@ jobs:
     env:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # --- SDK-specific toolchains (only the matching leg's steps run) ---
       - name: Set up Python
         if: matrix.sdk == 'python'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.9.23"
 
       - name: Set up Go
         if: matrix.sdk == 'go'
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
 
       - name: Set up JDK
         if: matrix.sdk == 'java'

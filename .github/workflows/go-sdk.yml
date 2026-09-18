@@ -38,13 +38,13 @@ jobs:
       run:
         working-directory: ./go-sdk
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Compute Kestra version
         id: version
         uses: ./.github/actions/compute-version
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
 
       - name: build
         id: build
