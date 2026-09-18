@@ -9,12 +9,15 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.ApiAutocomplete;
+import io.kestra.sdk.model.ApiSecretListResponseApiSecretMeta;
 import io.kestra.sdk.model.ApiSecretMetaEE;
 import io.kestra.sdk.model.ApiSecretValue;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.Namespace;
 import io.kestra.sdk.model.PagedResultsNamespace;
 import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
+import io.kestra.sdk.model.QueryFilterOp;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 import java.util.ArrayList;
@@ -187,6 +190,53 @@ public class NamespacesApi extends BaseApi {
                 tenantPath(tenant, "namespaces", namespace, "inherited-secrets"),
                 Collections.emptyList(), Collections.emptyList(),
                 new TypeReference<>() {});
+    }
+
+    /**
+     * Lists secrets across all namespaces. Backs {@code GET /api/v1/{tenant}/secrets}
+     * (SecretController.listSecrets). The endpoint requires at least one filter; pass a
+     * {@code namespace EQUALS} filter to scope the results, or use
+     * {@link #listNamespaceSecrets}.
+     */
+    public ApiSecretListResponseApiSecretMeta listSecrets(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<String> sort,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+        List<Pair> collectionParams = new ArrayList<>();
+        collectionParams.addAll(csvParams("sort", sort));
+        collectionParams.addAll(filterParams(filters));
+        return get(
+                tenantPath(tenant, "secrets"),
+                queryParams("page", page, "size", size),
+                collectionParams,
+                new TypeReference<>() {});
+    }
+
+    /**
+     * Lists the secrets of a namespace. Backs {@code GET /api/v1/{tenant}/secrets} with
+     * {@code filters[namespace][EQUALS]=<namespace>}; the former
+     * {@code GET /api/v1/{tenant}/namespaces/{namespace}/secrets} was removed in Kestra 2.0.
+     * For secrets inherited from parent namespaces, use {@link #inheritedSecrets}.
+     */
+    public ApiSecretListResponseApiSecretMeta listNamespaceSecrets(
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable Integer page,
+            @jakarta.annotation.Nullable Integer size,
+            @jakarta.annotation.Nullable List<String> sort,
+            @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+        // Copy the caller's filters so the appended namespace filter never mutates their list.
+        List<QueryFilter> scoped = new ArrayList<>();
+        if (filters != null) {
+            scoped.addAll(filters);
+        }
+        scoped.add(new QueryFilter()
+                .field(QueryFilterField.NAMESPACE)
+                .operation(QueryFilterOp.EQUALS)
+                .value(namespace));
+        return listSecrets(tenant, page, size, sort, scoped);
     }
 
     // ========================================================================

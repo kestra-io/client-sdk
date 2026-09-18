@@ -49,6 +49,28 @@ func (a *NamespacesAPI) InheritedSecrets(ctx context.Context, namespace, tenant 
 	return doJSON[map[string][]string](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", namespace, "inherited-secrets"), nil, nil)
 }
 
+// ListSecrets lists secrets across all namespaces. Backs GET /api/v1/{tenant}/secrets
+// (SecretController.listSecrets). The endpoint requires at least one filter; pass a
+// namespace EQUALS filter to scope the results, or use ListNamespaceSecrets.
+func (a *NamespacesAPI) ListSecrets(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*ApiSecretListResponseApiSecretMeta, error) {
+	params := buildQueryParams("page", page, "size", size)
+	appendRepeatedParam(params, "sort", sort)
+	appendFilterParams(params, filters)
+	return doJSON[*ApiSecretListResponseApiSecretMeta](&a.baseAPI, ctx, "GET", tenantPath(tenant, "secrets"), nil, params)
+}
+
+// ListNamespaceSecrets lists the secrets of a namespace. Backs GET /api/v1/{tenant}/secrets
+// with filters[namespace][EQUALS]=<namespace>; the former GET
+// /api/v1/{tenant}/namespaces/{namespace}/secrets was removed in Kestra 2.0 (removed routes
+// answer 403). For secrets inherited from parent namespaces, use InheritedSecrets.
+func (a *NamespacesAPI) ListNamespaceSecrets(ctx context.Context, namespace, tenant string, page, size *int, sort []string, filters []SearchFilter) (*ApiSecretListResponseApiSecretMeta, error) {
+	// Copy the caller's filters so the appended namespace filter never mutates their slice.
+	scoped := make([]SearchFilter, 0, len(filters)+1)
+	scoped = append(scoped, filters...)
+	scoped = append(scoped, SearchFilter{Field: FilterNamespace, Operation: OpEquals, Value: namespace})
+	return a.ListSecrets(ctx, tenant, page, size, sort, scoped)
+}
+
 func (a *NamespacesAPI) InheritedVariables(ctx context.Context, id, tenant string) (map[string]interface{}, error) {
 	return doJSON[map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "namespaces", id, "inherited-variables"), nil, nil)
 }
