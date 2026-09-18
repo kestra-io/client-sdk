@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 from kestrapy.base_api import BaseApi
 from kestrapy.models.bulk_response import BulkResponse
@@ -71,4 +71,128 @@ class PoliciesApi(BaseApi):
 
     def export_instance_policies_by_ids(self, ids: List[str]) -> bytes:
         path = self._superadmin_path("instance", "policies", "export", "by-ids")
+        return self._download_request("POST", path, body=ids)
+
+    # ======================================================================
+    # Tenant scope: /api/v1/{tenant}/policies
+    # ======================================================================
+
+    def search_tenant_policies(
+        self,
+        tenant: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        filters: Optional[List[QueryFilter]] = None,
+    ) -> PagedResultsApiPolicySummary:
+        path = self._tenant_path(tenant, "policies", "search")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
+        return self._json_request("GET", path, PagedResultsApiPolicySummary, params=params)
+
+    def tenant_policy(self, id: str, tenant: str) -> Policy:
+        path = self._tenant_path(tenant, "policies", id)
+        return self._json_request("GET", path, Policy)
+
+    def create_tenant_policy(self, tenant: str, source: str) -> Policy:
+        path = self._tenant_path(tenant, "policies")
+        return self._json_request("POST", path, Policy, body=source, content_type=self.YAML)
+
+    def update_tenant_policy(self, id: str, tenant: str, source: str) -> Policy:
+        path = self._tenant_path(tenant, "policies", id)
+        return self._json_request("PUT", path, Policy, body=source, content_type=self.YAML)
+
+    def validate_tenant_policy(self, tenant: str, source: str) -> ValidateConstraintViolation:
+        path = self._tenant_path(tenant, "policies", "validate")
+        return self._json_request("POST", path, ValidateConstraintViolation, body=source, content_type=self.YAML)
+
+    def delete_tenant_policy(self, id: str, tenant: str) -> None:
+        path = self._tenant_path(tenant, "policies", id)
+        self._void_request("DELETE", path)
+
+    def delete_tenant_policies_by_ids(self, tenant: str, ids: List[str]) -> BulkResponse:
+        path = self._tenant_path(tenant, "policies", "delete", "by-ids")
+        return self._json_request("DELETE", path, BulkResponse, body=ids)
+
+    def evaluate_tenant_policy(
+        self, id: str, tenant: str, page: Optional[int] = None, size: Optional[int] = None
+    ) -> Any:
+        path = self._tenant_path(tenant, "policies", id, "evaluate")
+        params = self._build_query_params(page=page, size=size)
+        return self._raw_json_request("GET", path, params=params)
+
+    def export_tenant_policies(self, tenant: str) -> bytes:
+        path = self._tenant_path(tenant, "policies", "export")
+        return self._download_request("POST", path)
+
+    def export_tenant_policies_by_ids(self, tenant: str, ids: List[str]) -> bytes:
+        path = self._tenant_path(tenant, "policies", "export", "by-ids")
+        return self._download_request("POST", path, body=ids)
+
+    def import_policies(self, tenant: str, file_content: Any, file_name: str = "policies.yaml") -> Dict[str, Any]:
+        """Import policies from YAML documents of any scope (multipart upload).
+        Returns an ApiPolicyImportResult ({imported, errors})."""
+        path = self._tenant_path(tenant, "policies", "import")
+        return self._multipart_upload(
+            "POST", path, dict, field_name="fileUpload",
+            file_content=file_content, file_name=file_name,
+        )
+
+    # ======================================================================
+    # Namespace scope: /api/v1/{tenant}/namespaces/{namespace}/policies
+    # ======================================================================
+
+    def search_namespace_policies(
+        self,
+        namespace: str,
+        tenant: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
+        sort: Optional[List[str]] = None,
+        filters: Optional[List[QueryFilter]] = None,
+    ) -> PagedResultsApiPolicySummary:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", "search")
+        params = list(self._build_query_params(page=page, size=size).items())
+        self._append_repeated_param(params, "sort", sort)
+        self._append_filter_params(params, filters)
+        return self._json_request("GET", path, PagedResultsApiPolicySummary, params=params)
+
+    def namespace_policy(self, namespace: str, id: str, tenant: str) -> Policy:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", id)
+        return self._json_request("GET", path, Policy)
+
+    def create_namespace_policy(self, namespace: str, tenant: str, source: str) -> Policy:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies")
+        return self._json_request("POST", path, Policy, body=source, content_type=self.YAML)
+
+    def update_namespace_policy(self, namespace: str, id: str, tenant: str, source: str) -> Policy:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", id)
+        return self._json_request("PUT", path, Policy, body=source, content_type=self.YAML)
+
+    def validate_namespace_policy(self, namespace: str, tenant: str, source: str) -> ValidateConstraintViolation:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", "validate")
+        return self._json_request("POST", path, ValidateConstraintViolation, body=source, content_type=self.YAML)
+
+    def delete_namespace_policy(self, namespace: str, id: str, tenant: str) -> None:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", id)
+        self._void_request("DELETE", path)
+
+    def delete_namespace_policies_by_ids(self, namespace: str, tenant: str, ids: List[str]) -> BulkResponse:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", "delete", "by-ids")
+        return self._json_request("DELETE", path, BulkResponse, body=ids)
+
+    def evaluate_namespace_policy(
+        self, namespace: str, id: str, tenant: str, page: Optional[int] = None, size: Optional[int] = None
+    ) -> Any:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", id, "evaluate")
+        params = self._build_query_params(page=page, size=size)
+        return self._raw_json_request("GET", path, params=params)
+
+    def export_namespace_policies(self, namespace: str, tenant: str) -> bytes:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", "export")
+        return self._download_request("POST", path)
+
+    def export_namespace_policies_by_ids(self, namespace: str, tenant: str, ids: List[str]) -> bytes:
+        path = self._tenant_path(tenant, "namespaces", namespace, "policies", "export", "by-ids")
         return self._download_request("POST", path, body=ids)

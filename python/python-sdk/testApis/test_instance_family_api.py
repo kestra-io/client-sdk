@@ -215,7 +215,8 @@ def test_banner_create_search_update_delete_roundtrip(client):
         )
         assert updated.message == "SDK banner updated"
     finally:
-        client.banners.delete_banner(banner_id)
+        if banner_id is not None:
+            client.banners.delete_banner(banner_id)
 
     remaining = client.banners.search_banners()
     assert all(b.id != banner_id for b in remaining)

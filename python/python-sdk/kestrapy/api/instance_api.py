@@ -9,11 +9,12 @@ from kestrapy.models.instance_controller_api_plugin_version_details import Insta
 from kestrapy.models.instance_controller_api_plugin_versions import InstanceControllerApiPluginVersions
 from kestrapy.models.instance_controller_api_service_instance import InstanceControllerApiServiceInstance
 from kestrapy.models.maintenance_status_response import MaintenanceStatusResponse
+from kestrapy.models.metric import Metric
 from kestrapy.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact
 from kestrapy.models.paged_results_instance_controller_api_service_instance import PagedResultsInstanceControllerApiServiceInstance
 from kestrapy.models.plugin_artifact import PluginArtifact
 from kestrapy.models.query_filter import QueryFilter
-from kestrapy.models.service_instance import ServiceInstance
+from kestrapy.models.service_type import ServiceType
 from kestrapy.models.worker_credential_controller_api_worker_credential import WorkerCredentialControllerApiWorkerCredential
 from kestrapy.models.worker_credential_controller_api_worker_list import WorkerCredentialControllerApiWorkerList
 
@@ -48,6 +49,17 @@ class InstanceApi(BaseApi):
     def service(self, id: str) -> InstanceControllerApiServiceInstance:
         path = self._superadmin_path("instance", "services", id)
         return self._json_request("GET", path, InstanceControllerApiServiceInstance)
+
+    def instance_service_metrics(self, service_type: ServiceType) -> List[Metric]:
+        """Metrics for the running services of a given ``service_type`` across the
+        instance. GET /api/v1/instance/metrics/{serviceType}. Instance-owner-only.
+
+        The backend templates ``serviceType`` into the path and also reads it from
+        the query string, so it is sent in both places (matching Java)."""
+        value = service_type.value if isinstance(service_type, ServiceType) else service_type
+        path = self._superadmin_path("instance", "metrics", value)
+        params = self._build_query_params(serviceType=value)
+        return self._json_list_request("GET", path, Metric, params=params)
 
     # ---- Maintenance ----
 
@@ -125,11 +137,17 @@ class InstanceApi(BaseApi):
         force_install_on_existing_versions: Optional[bool] = None,
     ) -> Optional[PluginArtifact]:
         path = self._superadmin_path("instance", "versioned-plugins", "upload")
-        params = self._build_query_params(forceInstallOnExistingVersions=force_install_on_existing_versions)
+        # `forceInstallOnExistingVersions` binds from the multipart form field,
+        # NOT the query string — verified live against kestra-ee v1.3.39: a
+        # query-string flag is silently dropped and the force never takes effect,
+        # so an install meant to overwrite an existing version quietly no-ops.
+        form_fields = self._build_query_params(
+            forceInstallOnExistingVersions=force_install_on_existing_versions
+        )
         return self._multipart_upload(
             "POST", path, PluginArtifact,
-            params=params, field_name="file",
-            file_content=file_content, file_name=file_name,
+            field_name="file", file_content=file_content, file_name=file_name,
+            form_fields=form_fields or None,
         )
 
     def uninstall_versioned_plugins(self, plugins: List[str]) -> InstanceControllerApiPluginArtifactListPluginArtifact:

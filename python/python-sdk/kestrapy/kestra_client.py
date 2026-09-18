@@ -28,6 +28,22 @@ from kestrapy.api.worker_queues_api import WorkerQueuesApi
 from kestrapy.api.banners_api import BannersApi
 from kestrapy.api.kill_switches_api import KillSwitchesApi
 from kestrapy.api.policies_api import PoliciesApi
+from kestrapy.api.promotion_targets_api import PromotionTargetsApi
+from kestrapy.api.security_integrations_api import SecurityIntegrationsApi
+from kestrapy.api.credentials_api import CredentialsApi
+from kestrapy.api.notifications_api import NotificationsApi
+from kestrapy.api.plugins_api import PluginsApi
+from kestrapy.api.ai_api import AiApi
+from kestrapy.api.mcp_servers_api import McpServersApi
+from kestrapy.api.mcp_api import McpApi
+from kestrapy.api.cases_api import CasesApi
+from kestrapy.api.case_templates_api import CaseTemplatesApi
+from kestrapy.api.metrics_api import MetricsApi
+from kestrapy.api.auditlogs_api import AuditLogsApi
+from kestrapy.api.bindings_api import BindingsApi
+from kestrapy.api.tenant_access_api import TenantAccessApi
+from kestrapy.api.outputs_api import OutputsApi
+from kestrapy.api.me_api import MeApi
 from kestrapy.api.misc_api import MiscApi
 
 
@@ -121,6 +137,38 @@ class KestraClient:
     def kill_switches(self): return self._get_api(KillSwitchesApi)
     @property
     def policies(self): return self._get_api(PoliciesApi)
+    @property
+    def promotion_targets(self): return self._get_api(PromotionTargetsApi)
+    @property
+    def security_integrations(self): return self._get_api(SecurityIntegrationsApi)
+    @property
+    def credentials(self): return self._get_api(CredentialsApi)
+    @property
+    def notifications(self): return self._get_api(NotificationsApi)
+    @property
+    def plugins(self): return self._get_api(PluginsApi)
+    @property
+    def ai(self): return self._get_api(AiApi)
+    @property
+    def mcp_servers(self): return self._get_api(McpServersApi)
+    @property
+    def mcp(self): return self._get_api(McpApi)
+    @property
+    def cases(self): return self._get_api(CasesApi)
+    @property
+    def case_templates(self): return self._get_api(CaseTemplatesApi)
+    @property
+    def metrics(self): return self._get_api(MetricsApi)
+    @property
+    def auditlogs(self): return self._get_api(AuditLogsApi)
+    @property
+    def bindings(self): return self._get_api(BindingsApi)
+    @property
+    def tenant_access(self): return self._get_api(TenantAccessApi)
+    @property
+    def outputs(self): return self._get_api(OutputsApi)
+    @property
+    def me(self): return self._get_api(MeApi)
     @property
     def misc(self): return self._get_api(MiscApi)
 
