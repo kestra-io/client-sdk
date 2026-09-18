@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+	"github.com/kestra-io/client-sdk/go-sdk/v2/kestra_api_client"
 )
 
 // StaticFilter injects the signed CSRF token the UI uses into a meta tag.
@@ -26,6 +26,13 @@ const (
 	HOST           = "http://localhost:9904"
 	MAIN_TENANT    = "main"
 	TEST_DATA_PATH = "../../../test-utils"
+
+	// MAX_PAGE_SIZE is the largest `size` any list/search endpoint accepts. The
+	// server enforces it in PageableUtils.from(...) — the choke point every OSS +
+	// EE list/search endpoint routes through — and documents it as
+	// `maximum: 1000` on each `size` query param; above it the request is
+	// rejected with a 422 rather than clamped.
+	MAX_PAGE_SIZE = 1000
 
 	adminUsername = "root@root.com"
 	adminPassword = "Root!1234"

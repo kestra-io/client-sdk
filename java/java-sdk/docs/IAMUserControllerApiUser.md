@@ -16,7 +16,7 @@
 |**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  [optional] |
 |**auths** | [**List&lt;IAMUserControllerApiUserAuth&gt;**](IAMUserControllerApiUserAuth.md) |  |  [optional] |
 |**groups** | [**List&lt;IAMUserControllerApiGroup&gt;**](IAMUserControllerApiGroup.md) |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**restricted** | **Boolean** |  |  [optional] |
 
 

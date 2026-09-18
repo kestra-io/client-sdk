@@ -25,6 +25,15 @@ import java.util.regex.Pattern;
 public class TestUtils {
 
     public static final String TENANT = "main";
+
+    /**
+     * Largest {@code size} any list/search endpoint accepts. The server enforces it in
+     * {@code PageableUtils.from(...)} — the choke point every OSS + EE list/search endpoint
+     * routes through — and documents it as {@code maximum: 1000} on each {@code size} query
+     * param; above it the request is rejected with a 422 rather than clamped.
+     */
+    public static final int MAX_PAGE_SIZE = 1000;
+
     public static final String HOST = "http://localhost:9901";
     public static final String TEST_DATA_PATH = "../../../test-utils";
 
@@ -285,6 +294,16 @@ public class TestUtils {
                 .field(QueryFilterField.QUERY)
                 .operation(QueryFilterOp.EQUALS)
                 .value(q);
+    }
+
+    // TAGS only supports IN, NOT_IN, PREFIX, CONTAINS, STARTS_WITH and ENDS_WITH
+    // server-side (QueryFilter.Field.TAGS#supportedOp), so a tag list goes out as
+    // filters[tags][IN]=a,b — the request binder splits it back into a list.
+    public static QueryFilter tagsFilter(java.util.List<String> tags) {
+        return new QueryFilter()
+                .field(QueryFilterField.TAGS)
+                .operation(QueryFilterOp.IN)
+                .value(tags);
     }
 
     public static QueryFilter flowIdFilter(String flowId) {

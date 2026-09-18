@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**url** | **str** |  | [optional] 
 **api_token** | **str** |  | [optional] 
 **username** | **str** |  | [optional] 
 **password** | **str** |  | [optional] 

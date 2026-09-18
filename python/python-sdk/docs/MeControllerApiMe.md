@@ -6,11 +6,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**instance_owner** | **bool** |  | [optional] 
 **restricted** | **bool** |  | [optional] 
 **profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  | [optional] 
 **auths** | [**List[IAMTenantAccessControllerApiAuthentication]**](IAMTenantAccessControllerApiAuthentication.md) |  | [optional] 
 **tenants** | [**List[MeControllerApiTenant]**](MeControllerApiTenant.md) |  | [optional] 
+**owned_groups** | [**List[MeControllerApiOwnedGroup]**](MeControllerApiOwnedGroup.md) |  | [optional] 
 
 ## Example
 

@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "composite": true
   },
-  "include": ["tsdown.config.ts", "openapi-ts.config.ts", "heyapi-sdk-plugin/**/*.ts"]
+  "include": ["tsdown.config.ts", "openapi-ts.config.ts"]
 }

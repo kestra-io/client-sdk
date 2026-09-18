@@ -16,7 +16,7 @@
 |**sentAt** | **OffsetDateTime** |  |  [optional] |
 |**expiredAt** | **OffsetDateTime** |  |  [optional] |
 |**acceptedAt** | **OffsetDateTime** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**instanceOwner** | **Boolean** |  |  [optional] |
 |**link** | **String** |  |  [optional] |
 
 

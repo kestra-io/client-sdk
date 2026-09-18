@@ -2,40 +2,8 @@
   "removeDeprecatedParameters": true,
   "removeDeprecatedOperations": false,
   "operationIdsToSkip": [
-    "triggerExecutionByPostWebhook",
-    "validateNewExecutionInputs",
-    "validateResumeExecutionInputs",
-    "triggerExecutionByPutWebhook",
-    "triggerExecution",
-    "searchTaskRun",
-    "resumeExecutionFromBreakpoint",
-    "previewFileFromExecution",
-    "listFlowExecutionsByNamespace",
-    "listExecutableDistinctNamespaces",
-    "evalTaskRunExpression",
-    "previewAppTest",
-    "openAppTest",
-    "streamEventsFromApp",
-    "dispatchApp",
-    "downloadFileFromAppExecution",
-    "fileMetaFromAppExecution",
-    "filePreviewFromAppExecution",
-    "logsFromAppExecution",
-    "previewApp",
-    "openApp",
-    "logsFromAppExecutionlogsFromAppExecution",
-    "followLogsFromExecution",
-    "basicAuthConfigErrors", "# seems not useful",
-    "createBasicAuth", "# cannot be used",
-    "refreshLicense", "# seems not useful",
-    "setupKestra", "# seems not useful",
-    "tenantUsage", "# GO deserialization doesnt work",
-    "usages", "# GO deserialization doesnt work",
-    "listPermissions", "# GO deserialization enum clash with 1.1",
-    "exportFlows", "# csv export mainly aimed for UI not working yet in the SDK",
-    "exportExecutions", "# csv export mainly aimed for UI not working yet in the SDK"
+    "impersonate",
+    "# impersonate is a browser-only flow, not a JSON API: it returns 303 -> /ui/ with the impersonation token in a Set-Cookie: JWT header and an empty body. The generated SDK client follows the redirect and yields the UI HTML, and the wrapper only returns the (empty) body while discarding the cookie, so the endpoint is not consumable via the SDK. Entries prefixed with '#' are inline comments (they match no operationId)."
   ],
-  "tagsToSkip": [
-    "Credentials"
-  ]
+  "tagsToSkip": ["Credentials"]
 }

@@ -1,16 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { kestraClient, randomId } from './CommonTestSetup.js';
+import { randomId } from './_utils.js';
+import * as Auths from '@kestra-io/kestra-sdk/auths';
 import type { CreateApiTokenRequest } from '@kestra-io/kestra-sdk';
 
 describe('AuthsApi', () => {
     it('currentUser: returns the authenticated user', async () => {
-        const result = await kestraClient.Auths.currentUser();
+        const result = await Auths.currentUser();
         expect(result).toBeDefined();
         expect((result as any).profile?.email ?? (result as any).email ?? (result as any).username).toBeDefined();
     });
 
     it('listApiTokensForCurrentUser: lists API tokens for the current user', async () => {
-        const result = await kestraClient.Auths.listApiTokensForCurrentUser();
+        const result = await Auths.listApiTokensForCurrentUser();
         expect(result).toBeDefined();
         expect(Array.isArray((result as any).results ?? result)).toBe(true);
     });
@@ -20,7 +21,7 @@ describe('AuthsApi', () => {
             name: `test-token-${randomId()}`,
             description: 'test token',
         };
-        const result = await kestraClient.Auths.createApiTokenForCurrentUser(req);
+        const result = await Auths.createApiTokenForCurrentUser(req);
         expect(result).toBeDefined();
         expect((result as any).fullToken ?? (result as any).id).toBeDefined();
     });
@@ -29,14 +30,14 @@ describe('AuthsApi', () => {
         const req: CreateApiTokenRequest = {
             name: `to-delete-${randomId()}`,
         };
-        const created = await kestraClient.Auths.createApiTokenForCurrentUser(req);
+        const created = await Auths.createApiTokenForCurrentUser(req);
         const tokenId = (created as any).id;
 
-        await kestraClient.Auths.deleteApiTokenForCurrentUser({ tokenId });
+        await Auths.deleteApiTokenForCurrentUser({ tokenId });
     });
 
     it('index: returns auth index info', async () => {
-        const result = await kestraClient.Auths.index();
+        const result = await Auths.index();
         expect(result).toBeDefined();
     });
 });

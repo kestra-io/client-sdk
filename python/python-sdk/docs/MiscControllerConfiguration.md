@@ -10,20 +10,21 @@ Name | Type | Description | Notes
 **edition** | [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **commit_id** | **str** |  | [optional] 
 **chart_default_duration** | **str** |  | [optional] 
+**flow_template** | **str** |  | [optional] 
 **commit_date** | **datetime** |  | [optional] 
 **is_custom_dashboards_enabled** | **bool** |  | [optional] 
 **is_anonymous_usage_enabled** | **bool** |  | [optional] 
 **is_ui_anonymous_usage_enabled** | **bool** |  | [optional] 
-**is_template_enabled** | **bool** |  | [optional] 
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **str** |  | [optional] 
 **preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
 **system_namespace** | **str** |  | [optional] 
 **hidden_labels_prefixes** | **List[str]** |  | [optional] 
 **is_ai_enabled** | **bool** |  | [optional] 
+**is_ai_api_key_configured** | **bool** |  | [optional] 
 **is_basic_auth_initialized** | **bool** |  | [optional] 
 **plugins_hash** | **int** |  | [optional] 
-**is_concurrency_view_enabled** | **bool** |  | [optional] 
+**is_plugin_auto_install_enabled** | **bool** |  | [optional] 
 
 ## Example
 

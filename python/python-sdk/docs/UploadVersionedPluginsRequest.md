@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file** | **bytearray** |  | 
+**file** | **bytes** |  | 
 **force_install_on_existing_versions** | **bool** |  | [optional] 
 
 ## Example

@@ -66,7 +66,7 @@ jobs:
         id: version
         uses: ./.github/actions/compute-version
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: "22.18"
           registry-url: "https://registry.npmjs.org"
@@ -76,7 +76,7 @@ jobs:
       # SDK generation rewrites (and strips) those fields, failing the
       # "fail workflow if there is any difference" check. Matches the publish jobs.
       - name: Upgrade npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - name: extract root version
         id: extract_version
@@ -130,6 +130,7 @@ jobs:
           license_legacy_file: ${{ secrets.KESTRA_EE_UNIT_TEST_LICENSE_LEGACY_FILE }}
 
       - name: Test with vitest
+        id: tests
         if: inputs.skip-test != 'true'
         env:
           KESTRA_VERSION: ${{ steps.extract_version.outputs.root_version }}
@@ -144,13 +145,20 @@ jobs:
           name: coverage-report
           path: ./javascript/coverage
 
-      - name: Comment coverage on PR
+      # Reports failing tests (grouped by spec file, linked to their source) and
+      # uncovered functions. Runs on failure too — that is the case where the
+      # comment matters most.
+      - name: Comment test results and coverage on PR
         if: always() && github.event_name == 'pull_request' && inputs.skip-test != 'true'
         working-directory: .
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json
+          # Link spec files at the PR head, not the ephemeral merge commit.
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
+        run: node .github/scripts/coverage-comment.mjs javascript/coverage/coverage-final.json javascript/coverage/test-results.json javascript/coverage/test-failures.json
 
       - name: Slack - Notify CI failure
         if: failure() && github.event_name != 'pull_request'
@@ -160,83 +168,6 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
           suffix: Javascript SDK
-
-  publish-develop:
-    name: Publish Develop to Npm
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22.18"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Resolve Next Develop Version
-        id: resolveVersion
-        run: |
-          HASH_SPEC=$(cat kestra-ee.yml | sha256sum | head -c 8)
-          HASH_CODE=$(find javascript/javascript-sdk -type f | sort | xargs cat | sha256sum | head -c 8)
-          # a timestamp on 8 characters
-          timestamp=$(date +%s | head -c 8)
-          echo "hash_spec=$HASH_SPEC" >> $GITHUB_OUTPUT
-          echo "hash_code=$HASH_CODE" >> $GITHUB_OUTPUT
-          echo "kestra_version=2.0.0-kdevelop.$timestamp.$HASH_SPEC.$HASH_CODE" >> $GITHUB_OUTPUT
-
-      - name: Generate SDK with develop version
-        working-directory: .
-        run: |
-          ./generate-sdks.sh javascript ${{ steps.resolveVersion.outputs.kestra_version }}
-
-      - name: Check if version already published
-        id: check
-        run: |
-          if npm show @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }} version 2>/dev/null; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "Version ${{ steps.resolveVersion.outputs.kestra_version }} already published — skipping."
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-
-      # Trusted publishing need npm 11.+
-      - name: Upgrade npm
-        run: |
-          npm install -g npm@latest
-          npm version
-
-      - name: Publish to npm with develop tag
-        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
-        working-directory: ./javascript/javascript-sdk
-        run: npm publish --tag develop --access public
-
-      - name: Comment on commit with install instructions
-        if: steps.check.outputs.skip != 'true' && github.ref == 'refs/heads/main'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api repos/${{ github.repository }}/commits/${{ github.sha }}/comments \
-            -f body="$(cat <<'EOF'
-          ### 📦 JavaScript SDK published
-
-          Install this build with:
-          ```sh
-          npm install @kestra-io/kestra-sdk@${{ steps.resolveVersion.outputs.kestra_version }}
-          ```
-          EOF
-          )"
-
-      - name: Slack - Notify publish failure
-        if: failure()
-        uses: kestra-io/actions/composite/slack-status@main
-        with:
-          channel: 'C09FE0QCN2E'
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          users-map: ${{ vars.GITHUB_TO_SLACK_MAP }}
-          suffix: Javascript SDK develop publish
 
   publish-release:
     name: Publish Release to Npm
@@ -253,7 +184,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: "22.18"
           registry-url: "https://registry.npmjs.org"
@@ -264,15 +195,17 @@ jobs:
           # v1.0.13-javascript -> 1.0.13
           VERSION=${GITHUB_REF_NAME#v}
           VERSION=${VERSION%-javascript}
-          # moving dist-tag for the minor line, e.g. v1.0
-          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+          # moving dist-tag for the minor line, e.g. v1-0. Dash, not dot: npm
+          # rejects a dist-tag that parses as a valid SemVer range (e.g.
+          # "v1.0" or "1.0.x"), which "v$MAJOR.$MINOR" would be.
+          MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2 | tr '.' '-')
           echo "kestra_version=$VERSION" >> $GITHUB_OUTPUT
           echo "kestra_tag=v$MAJOR_MINOR" >> $GITHUB_OUTPUT
 
       # Trusted publishing need npm 11.+
       - name: Upgrade npm
         run: |
-          npm install -g npm@latest
+          npm install -g npm@11
           npm version
 
       - name: Generate SDK
@@ -281,15 +214,20 @@ jobs:
           ./generate-sdks.sh ${{ steps.resolveVersion.outputs.kestra_version }} \
           javascript
 
-      - name: Publish to npm with latest tag
+      - name: Publish to npm
         working-directory: ./javascript/javascript-sdk
-        run: npm publish --access public
-
-      - name: Add version tag
-        working-directory: ./javascript/javascript-sdk
-        run: npm dist-tag add @kestra-io/kestra-sdk@${{
-          steps.resolveVersion.outputs.kestra_version }} --tag ${{
-          steps.resolveVersion.outputs.kestra_tag }} --access public
+        # npm refuses a bare `publish` for a prerelease version (e.g. `-rc1`) —
+        # it won't guess whether that should move the `latest` dist-tag, so an
+        # explicit --tag is required. Stable versions still get `latest`;
+        # prereleases get a tag matching their prerelease identifier (e.g. `rc1`).
+        run: |
+          VERSION="${{ steps.resolveVersion.outputs.kestra_version }}"
+          if [[ "$VERSION" == *-* ]]; then
+            NPM_TAG="${VERSION#*-}"
+          else
+            NPM_TAG="latest"
+          fi
+          npm publish --access public --tag "$NPM_TAG"
 
       - name: Slack notification
         if: success()

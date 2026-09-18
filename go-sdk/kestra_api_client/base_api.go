@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 )
 
@@ -94,7 +95,17 @@ func buildQueryParams(keyValues ...interface{}) url.Values {
 		case bool:
 			params.Set(key, fmt.Sprintf("%t", v))
 		default:
-			params.Set(key, fmt.Sprintf("%v", v))
+			// Named types (enums such as SourceSearchScope) reach this branch. A
+			// typed nil pointer is not == nil as an interface, so deref here rather
+			// than formatting the pointer itself into the query string.
+			rv := reflect.ValueOf(v)
+			if rv.Kind() == reflect.Ptr {
+				if rv.IsNil() {
+					continue
+				}
+				rv = rv.Elem()
+			}
+			params.Set(key, fmt.Sprintf("%v", rv.Interface()))
 		}
 	}
 	return params
@@ -369,8 +380,8 @@ func (b *baseAPI) doText(ctx context.Context, method, path string, params url.Va
 	return string(data), nil
 }
 
-func (b *baseAPI) doCSV(ctx context.Context, path string, params url.Values) (string, error) {
-	resp, err := b.doRequest(ctx, "GET", path, nil, params, contentCSV, "")
+func (b *baseAPI) doCSV(ctx context.Context, method, path string, params url.Values) (string, error) {
+	resp, err := b.doRequest(ctx, method, path, nil, params, contentCSV, "")
 	if err != nil {
 		return "", err
 	}
@@ -459,13 +470,13 @@ func (b *baseAPI) doMultipartJSON(ctx context.Context, method, path string, para
 	return b.doRequest(ctx, method, path, &buf, params, contentJSON, writer.FormDataContentType())
 }
 
-func (b *baseAPI) openSSEStream(ctx context.Context, path string, params url.Values) (*http.Response, error) {
+func (b *baseAPI) openSSEStream(ctx context.Context, method, path string, params url.Values) (*http.Response, error) {
 	u := b.client.baseURL + path
 	if len(params) > 0 {
 		u += "?" + params.Encode()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", u, nil)
+	req, err := http.NewRequestWithContext(ctx, method, u, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -501,8 +512,8 @@ func (b *baseAPI) openSSEStream(ctx context.Context, path string, params url.Val
 
 // followSSE opens an SSE stream at path and decodes each event payload into T.
 // The returned channel is closed when the stream ends or the context is cancelled.
-func followSSE[T any](b *baseAPI, ctx context.Context, path string, params url.Values) (<-chan *T, error) {
-	resp, err := b.openSSEStream(ctx, path, params)
+func followSSE[T any](b *baseAPI, ctx context.Context, method, path string, params url.Values) (<-chan *T, error) {
+	resp, err := b.openSSEStream(ctx, method, path, params)
 	if err != nil {
 		return nil, err
 	}

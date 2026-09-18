@@ -33,6 +33,13 @@ T = TypeVar('T')
 class BaseApi:
     JSON = "application/json"
     YAML = "application/x-yaml"
+    # Response-direction YAML. The controllers that *return* YAML declare the
+    # literal `produces = "application/yaml"` (AiController, BlueprintController),
+    # which Micronaut treats as a different media type from `application/x-yaml`:
+    # sending the latter in Accept drops the route to the EE catch-all. Use this
+    # for the Accept header whenever YAML is the *response*; keep YAML (x-yaml)
+    # for the request Content-Type, which the source-ingest routes accept.
+    YAML_RESPONSE = "application/yaml"
     TEXT = "text/plain"
     OCTET = "application/octet-stream"
     CSV = "text/csv"
@@ -90,16 +97,20 @@ class BaseApi:
                  content_type: Optional[str] = None,
                  accept: Optional[str] = None,
                  files: Optional[Dict] = None,
+                 form_data: Optional[Dict] = None,
+                 headers: Optional[Dict[str, str]] = None,
                  stream: bool = False) -> requests.Response:
         url = self._base_url + path
-        headers = {}
+        # Copy so a caller-supplied mapping (e.g. an MCP-Session-Id passthrough)
+        # is never mutated by the Content-Type/Accept defaults below.
+        headers = dict(headers) if headers else {}
         data = None
         json_body = None
 
         if content_type and not files:
-            headers["Content-Type"] = content_type
+            headers.setdefault("Content-Type", content_type)
         if accept:
-            headers["Accept"] = accept
+            headers.setdefault("Accept", accept)
 
         if body is not None:
             if content_type == self.JSON or content_type is None:
@@ -124,6 +135,11 @@ class BaseApi:
         if json_body is not None:
             data = json.dumps(json_body, default=_json_default)
             headers["Content-Type"] = self.JSON
+
+        # Extra multipart form fields ride alongside `files`; requests emits each
+        # as its own part. Only used by uploads, which never set a JSON body.
+        if form_data is not None:
+            data = form_data
 
         resp = self._session.request(
             method, url,
@@ -208,11 +224,12 @@ class BaseApi:
 
     def _multipart_upload(self, method: str, path: str, return_type: Optional[Type[T]] = None, *,
                           params: Any = None, field_name: str = "fileContent",
-                          file_content: Any = None, file_name: str = "file") -> Optional[T]:
+                          file_content: Any = None, file_name: str = "file",
+                          form_fields: Optional[Dict] = None) -> Optional[T]:
         if isinstance(file_content, str):
             file_content = file_content.encode("utf-8")
         files = {field_name: (file_name, file_content)}
-        resp = self._request(method, path, params=params, files=files)
+        resp = self._request(method, path, params=params, files=files, form_data=form_fields)
         if return_type is not None and resp.content:
             return self._deserialize(resp.json(), return_type)
         return None

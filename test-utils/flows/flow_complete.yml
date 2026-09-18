@@ -87,11 +87,6 @@ outputs:
     type: STRING
     value: "{{ tasks.run_if_true.state != 'SKIPPED' ? outputs.run_if_true.value : outputs.fallback.value }}"
 
-pluginDefaults:
-  - type: io.kestra.plugin.core.log.Log
-    values:
-      level: TRACE
-
 triggers:
   - id: monthly
     type: io.kestra.plugin.core.trigger.Schedule

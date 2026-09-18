@@ -9,10 +9,11 @@ Name | Type | Description | Notes
 **type** | **str** |  | 
 **version** | **str** | Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;).  | [optional] 
 **description** | **str** |  | [optional] 
-**retry** | **object** |  | [optional] 
+**retry** | **object** | Retry policy applied when the task fails. | [optional] 
 **timeout** | [**PropertyDuration**](PropertyDuration.md) |  | [optional] 
 **disabled** | **bool** |  | [optional] 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**worker_selector** | [**WorkerSelector**](WorkerSelector.md) | Routing requirements (tags + fallback) for this task. | [optional] 
+**policy_refs** | **List[str]** | Identifiers of &#x60;enforcement: REFERENCE&#x60; governance policies to attach to this task and everything nested under it (Enterprise Edition; ignored in the open-source edition). | [optional] 
 **log_level** | [**Level**](Level.md) |  | [optional] 
 **allow_failure** | **bool** |  | [optional] 
 **log_to_file** | **bool** |  | [optional] 

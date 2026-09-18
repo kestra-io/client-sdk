@@ -10,8 +10,10 @@ type TriggersAPI struct {
 // Search
 // ========================================================================
 
-func (a *TriggersAPI) SearchTriggers(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter) (*PagedResultsApiTriggerAndState, error) {
-	params := buildQueryParams("page", page, "size", size)
+// SearchTriggers lists triggers. dateFilter selects which trigger date the time
+// interval applies to: NEXT_EXECUTION_DATE or LAST_TRIGGERED_DATE.
+func (a *TriggersAPI) SearchTriggers(ctx context.Context, tenant string, page, size *int, sort []string, filters []SearchFilter, dateFilter *string) (*PagedResultsApiTriggerAndState, error) {
+	params := buildQueryParams("page", page, "size", size, "dateFilter", dateFilter)
 	appendRepeatedParam(params, "sort", sort)
 	appendFilterParams(params, filters)
 	return doJSON[*PagedResultsApiTriggerAndState](&a.baseAPI, ctx, "GET", tenantPath(tenant, "triggers", "search"), nil, params)
@@ -26,7 +28,7 @@ func (a *TriggersAPI) SearchTriggersForFlow(ctx context.Context, tenant, namespa
 func (a *TriggersAPI) ExportTriggers(ctx context.Context, tenant string, filters []SearchFilter) (string, error) {
 	params := buildQueryParams()
 	appendFilterParams(params, filters)
-	return a.doCSV(ctx, tenantPath(tenant, "triggers", "export", "by-query", "csv"), params)
+	return a.doCSV(ctx, "GET", tenantPath(tenant, "triggers", "export", "by-query", "csv"), params)
 }
 
 // ========================================================================

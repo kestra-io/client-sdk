@@ -53,6 +53,15 @@ public abstract class BaseApi {
     return sb.toString();
   }
 
+  /** For the small set of endpoints that are NOT tenant-scoped (e.g. {@code /api/v1/plugins}, {@code /api/v1/users}). */
+  protected String apiPath(String... segments) {
+    StringBuilder sb = new StringBuilder("/api/v1");
+    for (String s : segments) {
+      sb.append("/").append(esc(s));
+    }
+    return sb.toString();
+  }
+
   protected String esc(String value) {
     return apiClient.escapeString(apiClient.parameterToString(value));
   }

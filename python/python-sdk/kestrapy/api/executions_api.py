@@ -1,9 +1,11 @@
+import json
 from typing import Any, Dict, Generator, List, Optional
 
 from kestrapy.base_api import BaseApi
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.execution import Execution
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
+from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
@@ -36,7 +38,21 @@ class ExecutionsApi(BaseApi):
         schedule_date: Optional[str] = None,
         breakpoints: Optional[str] = None,
         kind: Optional[ExecutionKind] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> ExecutionControllerExecutionResponse:
+        """Create a new execution for a flow.
+
+        Flow inputs are passed via ``inputs`` as a mapping of input id to value.
+        They are sent as ``multipart/form-data``, one form part per input:
+
+        - ``str`` values are sent verbatim.
+        - ``bytes``/``bytearray`` values are sent as a file part (for ``FILE`` inputs).
+        - a ``(filename, content)`` or ``(filename, content, content_type)`` tuple is
+          sent as a file part with that filename/content type (for ``FILE`` inputs).
+        - any other value (``int``, ``float``, ``bool``, ``dict``, ``list``, ...) is
+          JSON-encoded, so e.g. ``True`` becomes ``"true"`` and ``[1, 2]`` becomes
+          ``"[1, 2]"`` (for ``JSON``/``ARRAY``/... inputs).
+        """
         path = self._tenant_path(tenant, "executions", namespace, id)
         kind_val = kind.value if kind is not None and hasattr(kind, 'value') else kind
         params = list(self._build_query_params(
@@ -44,7 +60,26 @@ class ExecutionsApi(BaseApi):
             breakpoints=breakpoints, kind=kind_val,
         ).items())
         self._append_repeated_param(params, "labels", labels)
-        return self._json_request("POST", path, ExecutionControllerExecutionResponse, params=params)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, params=params, files=files)
+        return self._deserialize(resp.json(), ExecutionControllerExecutionResponse)
+
+    @staticmethod
+    def _build_inputs_multipart(inputs: Optional[Dict[str, Any]]):
+        """Turn a flow-inputs mapping into ``requests``-style multipart file parts."""
+        if not inputs:
+            return None
+        parts = []
+        for key, value in inputs.items():
+            if isinstance(value, (bytes, bytearray)):
+                parts.append((key, (key, value)))
+            elif isinstance(value, tuple):
+                parts.append((key, value))
+            elif isinstance(value, str):
+                parts.append((key, (None, value)))
+            else:
+                parts.append((key, (None, json.dumps(value))))
+        return parts
 
     # ========================================================================
     # Get execution
@@ -247,9 +282,19 @@ class ExecutionsApi(BaseApi):
         self._append_filter_params(params, filters)
         return self._raw_json_request("POST", path, params=params)
 
-    def resume_execution(self, execution_id: str, tenant: str) -> Execution:
+    def resume_execution(
+        self, execution_id: str, tenant: str, inputs: Optional[Dict[str, Any]] = None,
+    ) -> Execution:
+        """Resume a paused execution.
+
+        ``inputs`` supplies the ``onResume`` inputs declared by the ``Pause`` task,
+        encoded as ``multipart/form-data`` (see ``create_execution`` for the value
+        conventions).
+        """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "resume")
-        return self._json_request("POST", path, Execution)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, files=files)
+        return self._deserialize(resp.json(), Execution)
 
     def resume_executions_by_ids(self, tenant: str, ids: List[str]) -> Any:
         path = self._tenant_path(tenant, "executions", "resume", "by-ids")
@@ -311,12 +356,21 @@ class ExecutionsApi(BaseApi):
         task_run_id: Optional[str] = None,
         revision: Optional[int] = None,
         breakpoints: Optional[str] = None,
+        inputs: Optional[Dict[str, Any]] = None,
     ) -> Execution:
+        """Replay an execution, overriding its inputs.
+
+        ``inputs`` is the new set of flow inputs, encoded as ``multipart/form-data``
+        (see ``create_execution`` for the value conventions). Without it this behaves
+        like ``replay_execution``.
+        """
         path = self._tenant_path(tenant, "executions", execution_id, "actions", "replay-with-inputs")
         params = self._build_query_params(
             taskRunId=task_run_id, revision=revision, breakpoints=breakpoints,
         )
-        return self._json_request("POST", path, Execution, params=params)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, params=params, files=files)
+        return self._deserialize(resp.json(), Execution)
 
     def replay_executions_by_ids(
         self, tenant: str, ids: List[str], latest_revision: Optional[bool] = None,
@@ -510,3 +564,185 @@ class ExecutionsApi(BaseApi):
         path = self._tenant_path(tenant, "executions", execution_id, "follow-dependencies")
         params = self._build_query_params(destinationOnly=destination_only, expandAll=expand_all)
         return self._sse_stream(path, ExecutionStatusEvent, params=params)
+
+    # ========================================================================
+    # Distinct field values / namespaces / average duration / export (#421)
+    # ========================================================================
+
+    def find_distinct_execution_field_values(
+        self,
+        tenant: str,
+        field: str,
+        filters: Optional[List[QueryFilter]] = None,
+        size: Optional[int] = None,
+    ) -> Any:
+        """List the distinct values of one executions filter field.
+
+        ``field`` is a ``QueryFilter.Field`` enum name (e.g. ``"NAMESPACE"``,
+        ``"FLOW_ID"``). Backs ``GET /api/v1/{tenant}/executions/distinct-field-values``.
+        """
+        path = self._tenant_path(tenant, "executions", "distinct-field-values")
+        params = list(self._build_query_params(field=field, size=size).items())
+        self._append_filter_params(params, filters)
+        return self._raw_json_request("GET", path, params=params)
+
+    def export_executions_by_query_to_csv(
+        self, tenant: str, filters: Optional[List[QueryFilter]] = None,
+    ) -> str:
+        """Export executions matching ``filters`` as CSV text.
+
+        Backs ``GET /api/v1/{tenant}/executions/export/by-query/csv``.
+        """
+        path = self._tenant_path(tenant, "executions", "export", "by-query", "csv")
+        params: list = []
+        self._append_filter_params(params, filters)
+        return self._text_request("GET", path, params=params, accept=self.CSV)
+
+    def list_executable_namespaces(self, tenant: str) -> Any:
+        """Return the namespaces that hold executable flows.
+
+        Backs ``GET /api/v1/{tenant}/executions/namespaces``.
+        """
+        path = self._tenant_path(tenant, "executions", "namespaces")
+        return self._raw_json_request("GET", path)
+
+    def list_executable_flows_by_namespace(
+        self, namespace: str, tenant: str,
+    ) -> List[FlowForExecution]:
+        """Return the executable flows of a namespace.
+
+        Backs ``GET /api/v1/{tenant}/executions/namespaces/{namespace}/flows``.
+        """
+        path = self._tenant_path(tenant, "executions", "namespaces", namespace, "flows")
+        return self._json_list_request("GET", path, FlowForExecution)
+
+    def execution_average_duration(
+        self, namespace: str, flow_id: str, tenant: str,
+    ) -> Any:
+        """Return the average duration and count of recent executions of a flow.
+
+        Backs ``GET /api/v1/{tenant}/executions/namespaces/{namespace}/flows/{flowId}/average-duration``.
+        """
+        path = self._tenant_path(
+            tenant, "executions", "namespaces", namespace, "flows", flow_id, "average-duration",
+        )
+        return self._raw_json_request("GET", path)
+
+    # ========================================================================
+    # File preview (#421)
+    # ========================================================================
+
+    def preview_file_from_execution(
+        self,
+        execution_id: str,
+        path_uri: str,
+        tenant: str,
+        max_rows: Optional[int] = None,
+        encoding: Optional[str] = None,
+    ) -> Any:
+        """Return a rendered preview of a file in an execution's internal storage.
+
+        ``path_uri`` is the internal storage URI. Backs
+        ``GET /api/v1/{tenant}/executions/{executionId}/file/preview``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "file", "preview")
+        params = self._build_query_params(path=path_uri, maxRows=max_rows, encoding=encoding)
+        return self._raw_json_request("GET", path, params=params)
+
+    # ========================================================================
+    # Follow (SSE) — raw streaming variants counted by the coverage extractor (#421)
+    # ========================================================================
+
+    def follow_execution_raw(self, execution_id: str, tenant: str):
+        """Open the raw SSE stream of execution updates as a streaming response.
+
+        Mirrors :meth:`follow_execution` but returns the raw ``requests.Response``
+        (``stream=True``) so the caller can iterate the event stream itself. Backs
+        ``GET /api/v1/{tenant}/executions/{executionId}/follow``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "follow")
+        return self._request("GET", path, accept="text/event-stream", stream=True)
+
+    def follow_dependencies_execution_raw(
+        self,
+        execution_id: str,
+        tenant: str,
+        destination_only: Optional[bool] = None,
+        expand_all: Optional[bool] = None,
+    ):
+        """Open the raw SSE stream of dependency status events as a streaming response.
+
+        Mirrors :meth:`follow_dependencies_execution` but returns the raw
+        ``requests.Response`` (``stream=True``). Backs
+        ``GET /api/v1/{tenant}/executions/{executionId}/follow-dependencies``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "follow-dependencies")
+        params = self._build_query_params(destinationOnly=destination_only, expandAll=expand_all)
+        return self._request("GET", path, params=params, accept="text/event-stream", stream=True)
+
+    # ========================================================================
+    # Eval for a specific task run (#421)
+    # ========================================================================
+
+    def eval_task_run_expression(
+        self, execution_id: str, task_run_id: str, tenant: str, expression: str,
+    ) -> ExecutionControllerEvalResult:
+        """Evaluate a Pebble expression in the context of a specific task run.
+
+        Backs ``POST /api/v1/{tenant}/executions/{executionId}/actions/eval/{taskRunId}``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "eval", task_run_id)
+        return self._json_request(
+            "POST", path, ExecutionControllerEvalResult, body=expression, content_type=self.TEXT,
+        )
+
+    # ========================================================================
+    # Resume from breakpoint / validate resume / validate new inputs (#421)
+    # ========================================================================
+
+    def resume_execution_from_breakpoint(
+        self, execution_id: str, tenant: str, breakpoints: Optional[str] = None,
+    ) -> Execution:
+        """Resume an execution suspended in the ``BREAKPOINT`` state.
+
+        Backs ``POST /api/v1/{tenant}/executions/{executionId}/actions/resume-from-breakpoint``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "resume-from-breakpoint")
+        params = self._build_query_params(breakpoints=breakpoints)
+        return self._json_request("POST", path, Execution, params=params)
+
+    def validate_resume_execution_inputs(
+        self, execution_id: str, tenant: str, inputs: Optional[Dict[str, Any]] = None,
+    ) -> Any:
+        """Validate the inputs supplied to resume a paused execution without resuming it.
+
+        ``inputs`` are sent as ``multipart/form-data`` (see ``create_execution`` for the
+        value conventions). Backs
+        ``POST /api/v1/{tenant}/executions/{executionId}/actions/resume/validate``.
+        """
+        path = self._tenant_path(tenant, "executions", execution_id, "actions", "resume", "validate")
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, files=files)
+        return resp.json() if resp.content else None
+
+    def validate_new_execution_inputs(
+        self,
+        namespace: str,
+        id: str,
+        tenant: str,
+        labels: Optional[List[str]] = None,
+        revision: Optional[int] = None,
+        inputs: Optional[Dict[str, Any]] = None,
+    ) -> Any:
+        """Validate the inputs and labels for a new execution without creating it.
+
+        ``inputs`` are sent as ``multipart/form-data`` (see ``create_execution`` for the
+        value conventions). Backs
+        ``POST /api/v1/{tenant}/executions/{namespace}/{id}/validate``.
+        """
+        path = self._tenant_path(tenant, "executions", namespace, id, "validate")
+        params = list(self._build_query_params(revision=revision).items())
+        self._append_repeated_param(params, "labels", labels)
+        files = self._build_inputs_multipart(inputs)
+        resp = self._request("POST", path, params=params, files=files)
+        return resp.json() if resp.content else None

@@ -11,6 +11,8 @@
   "exports": {
     ".": "./dist/index.js",
     "./ai": "./dist/ai.js",
+    "./ai-admin": "./dist/ai-admin.js",
+    "./all": "./dist/all.js",
     "./apps": "./dist/apps.js",
     "./assets": "./dist/assets.js",
     "./audit-logs": "./dist/audit-logs.js",
@@ -19,25 +21,34 @@
     "./bindings": "./dist/bindings.js",
     "./blueprint-tags": "./dist/blueprint-tags.js",
     "./blueprints": "./dist/blueprints.js",
+    "./cases": "./dist/cases.js",
+    "./cases-admin": "./dist/cases-admin.js",
     "./client": "./dist/client.js",
     "./cluster": "./dist/cluster.js",
     "./dashboards": "./dist/dashboards.js",
     "./dashboards-admin": "./dist/dashboards-admin.js",
     "./executions": "./dist/executions.js",
+    "./expressions": "./dist/expressions.js",
     "./files": "./dist/files.js",
     "./flows": "./dist/flows.js",
     "./groups": "./dist/groups.js",
     "./invitations": "./dist/invitations.js",
     "./kill-switches": "./dist/kill-switches.js",
     "./kv": "./dist/kv.js",
-    "./login": "./dist/login.js",
+    "./login-admin": "./dist/login-admin.js",
     "./logs": "./dist/logs.js",
     "./mcp": "./dist/mcp.js",
     "./metrics": "./dist/metrics.js",
     "./misc": "./dist/misc.js",
     "./namespaces": "./dist/namespaces.js",
+    "./notifications": "./dist/notifications.js",
     "./outputs": "./dist/outputs.js",
     "./plugins": "./dist/plugins.js",
+    "./policies": "./dist/policies.js",
+    "./promote": "./dist/promote.js",
+    "./quotas": "./dist/quotas.js",
+    "./reusable-inputs": "./dist/reusable-inputs.js",
+    "./reusable-inputs-admin": "./dist/reusable-inputs-admin.js",
     "./roles": "./dist/roles.js",
     "./scim-configuration": "./dist/scim-configuration.js",
     "./scim-groups": "./dist/scim-groups.js",
@@ -70,11 +81,11 @@
     "prepack": "cp ../../README_JAVASCRIPT_SDK.md README.md"
   },
   "dependencies": {
-    "nprogress": "0.2.0",
-    "axios": "1.16.1"
+    "nprogress": "0.2.0"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.97.3",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "@kestra-io/hey-api-plugin": "https://github.com/kestra-io/hey-api-plugin/releases/download/v0.1.0/kestra-io-hey-api-plugin-0.1.0.tgz",
     "@types/node": "^25.9.1",
     "@types/nprogress": "^0.2.3",
     "tsdown": "^0.22.0",
@@ -83,5 +94,8 @@
   "files": [
     "dist/**/*.js",
     "dist/**/*.d.ts"
-  ]
+  ],
+  "inlinedDependencies": {
+    "@kestra-io/hey-api-plugin": "0.1.0"
+  }
 }

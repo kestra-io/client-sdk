@@ -183,20 +183,15 @@ public class AppsApi extends BaseApi {
             @jakarta.annotation.Nonnull String tenant,
             @jakarta.annotation.Nullable Integer page,
             @jakarta.annotation.Nullable Integer size,
-            @jakarta.annotation.Nullable String q,
-            @jakarta.annotation.Nullable String namespace,
-            @jakarta.annotation.Nullable String flowId,
             @jakarta.annotation.Nullable List<String> sort,
-            @jakarta.annotation.Nullable List<String> tags,
             @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
         List<Pair> collectionParams = new ArrayList<>();
         collectionParams.addAll(csvParams("sort", sort));
-        collectionParams.addAll(csvParams("tags", tags));
         collectionParams.addAll(filterParams(filters));
         return invoke("GET",
                 tenantPath(tenant, "apps", "search"),
                 null,
-                queryParams("page", page, "size", size, "q", q, "namespace", namespace, "flowId", flowId),
+                queryParams("page", page, "size", size),
                 collectionParams,
                 JSON, null,
                 new TypeReference<>() {});
@@ -269,6 +264,50 @@ public class AppsApi extends BaseApi {
                 queryParams("executionId", executionId, "minLevel", minLevel),
                 csvParams("taskIds", taskIds),
                 OCTET_STREAM, null,
+                new TypeReference<>() {});
+    }
+
+    /** The distinct execution states apps can render a layout for. */
+    public List<String> listAppStates(
+            @jakarta.annotation.Nonnull String tenant) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "states"),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    /** Open an app by its uid, returning the rendered app layout/response. */
+    public Map<String, Object> openApp(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String uid) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "view", uid),
+                null, null, null,
+                JSON, null,
+                new TypeReference<>() {});
+    }
+
+    /** Render an app layout straight from its YAML {@code source} without persisting it. */
+    public Map<String, Object> previewApp(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String source,
+            @jakarta.annotation.Nullable String state) throws ApiException {
+        return invoke("POST",
+                tenantPath(tenant, "apps", "preview"),
+                source, queryParams("state", state), null,
+                JSON, YAML,
+                new TypeReference<>() {});
+    }
+
+    public byte[] downloadFileFromAppExecution(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nonnull URI path) throws ApiException {
+        return invoke("GET",
+                tenantPath(tenant, "apps", "view", id, "file", "download"),
+                null, queryParams("path", path), null,
+                JSON, null,
                 new TypeReference<>() {});
     }
 

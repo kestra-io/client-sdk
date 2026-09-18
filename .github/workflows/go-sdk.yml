@@ -44,7 +44,7 @@ jobs:
         id: version
         uses: ./.github/actions/compute-version
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
 
       - name: build
         id: build
@@ -52,7 +52,7 @@ jobs:
 
       # JDK for the single-file snippet injector (no build tool needed).
       - name: Set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: "temurin"
           java-version: 21

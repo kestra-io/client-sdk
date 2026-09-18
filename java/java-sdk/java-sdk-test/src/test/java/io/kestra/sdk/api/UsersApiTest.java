@@ -90,6 +90,23 @@ public class UsersApiTest {
                 .doesNotThrowAnyException();
     }
 
+    @Test
+    void deleteUsersByIds_basic() throws ApiException {
+        IAMUserControllerApiCreateOrUpdateUserRequest request =
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                        .email("bulk-delete-" + randomId() + "@test.com")
+                        .firstName("Bulk")
+                        .lastName("Delete")
+                        .password("TestPass!1234");
+
+        IAMUserControllerApiUser created = api().createUser(request);
+
+        BulkResponse result = api().deleteUsersByIds(List.of(created.getId()));
+
+        assertThat(result).isNotNull();
+        assertThatThrownBy(() -> api().user(created.getId())).isInstanceOf(ApiException.class);
+    }
+
     // ========================================================================
     // Search
     // ========================================================================
@@ -126,8 +143,9 @@ public class UsersApiTest {
         PagedResultsIAMUserControllerApiUserSummary result =
                 api().listUsers(1, 10, null, List.of(queryFilter(email)));
 
-        assertThat(result).isNotNull();
-        assertThat(result.getResults()).isNotEmpty();
+        assertThat(result.getResults())
+                .extracting(IAMUserControllerApiUserSummary::getUsername)
+                .contains(email);
     }
 
     @Test
@@ -181,10 +199,10 @@ public class UsersApiTest {
                 .name("test-token-" + randomId());
 
         CreateApiTokenResponse tokenResp = api().createApiTokensForUser(created.getId(), tokenRequest);
-        assertThat(tokenResp).isNotNull();
+        assertThat(tokenResp.getId()).isNotBlank();
 
         ApiTokenList tokens = api().listApiTokensForUser(created.getId());
-        assertThat(tokens).isNotNull();
+        assertThat(tokens.getResults()).extracting(ApiToken::getId).contains(tokenResp.getId());
     }
 
     // ========================================================================
@@ -217,9 +235,10 @@ public class UsersApiTest {
 
     @Test
     void autocompleteUsers_basic() throws ApiException {
+        String email = "auto-" + randomId() + "@test.com";
         IAMUserControllerApiCreateOrUpdateUserRequest request =
                 new IAMUserControllerApiCreateOrUpdateUserRequest()
-                        .email("auto-" + randomId() + "@test.com")
+                        .email(email)
                         .firstName("Auto")
                         .lastName("Complete")
                         .password("TestPass!1234");
@@ -227,11 +246,16 @@ public class UsersApiTest {
         api().createUser(request);
 
         IAMTenantAccessControllerUserApiAutocomplete autocomplete =
-                new IAMTenantAccessControllerUserApiAutocomplete().q("auto");
+                new IAMTenantAccessControllerUserApiAutocomplete().q(email);
 
         List<IAMTenantAccessControllerApiUserTenantAccess> result =
                 api().autocompleteUsers(TENANT, autocomplete);
 
+        // NOTE: this autocomplete is tenant-scoped, but createUser is superadmin-scoped
+        // and grants no tenant access, so the freshly-created user never appears here
+        // (the endpoint returns an empty list). Only a non-null response is assertable
+        // without also wiring up tenant access. Superadmin-scoped visibility of the same
+        // user is covered by listUsers_withQueryFilter.
         assertThat(result).isNotNull();
     }
 
@@ -239,8 +263,11 @@ public class UsersApiTest {
     // User groups (tenant-scoped)
     // ========================================================================
 
+    // Negative path: assigning a user to a group via this endpoint is rejected on this
+    // EE image; assert the documented failure explicitly rather than letting a silent
+    // pass hide a future behavior change.
     @Test
-    void updateUserGroups_basic() throws ApiException {
+    void updateUserGroups_isRejected() throws ApiException {
         IAMUserControllerApiCreateOrUpdateUserRequest userRequest =
                 new IAMUserControllerApiCreateOrUpdateUserRequest()
                         .email("groups-" + randomId() + "@test.com")
@@ -331,11 +358,13 @@ public class UsersApiTest {
 
         assertThatCode(() -> api().patchUserSuperAdmin(created.getId(), patchRequest))
                 .doesNotThrowAnyException();
+        assertThat(api().user(created.getId()).getInstanceOwner()).isTrue();
 
         // Reset back to non-superadmin
         ApiPatchSuperAdminRequest resetRequest = new ApiPatchSuperAdminRequest()
                 .superAdmin(false);
         assertThatCode(() -> api().patchUserSuperAdmin(created.getId(), resetRequest))
                 .doesNotThrowAnyException();
+        assertThat(api().user(created.getId()).getInstanceOwner()).isFalse();
     }
 }

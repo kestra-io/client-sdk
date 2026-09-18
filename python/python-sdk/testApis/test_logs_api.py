@@ -246,8 +246,8 @@ def test_search_logs_with_sort(client, shared_flow):
 
 
 @pytest.mark.xfail(
-    reason="kestra-ee 2.0 rejects the MIN_LEVEL query filter on search_logs with "
-    "400 Bad Request (filter regression)",
+    reason="the LEVEL query filter on search_logs was rejected with 400 Bad Request "
+    "before the field was renamed from MIN_LEVEL; kept non-strict until a run confirms it",
     strict=False,
 )
 def test_search_logs_with_min_level_filter(client, succeeded_execution):

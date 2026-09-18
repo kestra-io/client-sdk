@@ -25,10 +25,12 @@ public class BindingsApiTest {
     }
 
     static IAMRoleControllerApiRoleDetail createTestRole() throws ApiException {
+        // Kestra requires a role to have at least one permission.
         IAMRoleControllerApiRoleCreateOrUpdateRequest req = new IAMRoleControllerApiRoleCreateOrUpdateRequest()
                 .name("binding-role-" + randomId())
                 .description("Role for binding tests")
-                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions());
+                .permissions(new IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions()
+                        .FLOW(List.of("CREATE", "VIEW")));
         return rolesApi().createRole(TENANT, req);
     }
 
@@ -77,6 +79,24 @@ public class BindingsApiTest {
 
         assertThatCode(() -> api().deleteBinding(created.getId(), TENANT))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    void bulkCreateBindings_createsOnePerRequest() throws ApiException {
+        IAMRoleControllerApiRoleDetail role = createTestRole();
+        IAMUserControllerApiUser first = createTestUser();
+        IAMUserControllerApiUser second = createTestUser();
+
+        List<IAMBindingControllerApiBindingDetail> result = api().bulkCreateBindings(TENANT, List.of(
+                new IAMBindingControllerApiCreateBindingRequest()
+                        .type(BindingType.USER).externalId(first.getId()).roleId(role.getId()),
+                new IAMBindingControllerApiCreateBindingRequest()
+                        .type(BindingType.USER).externalId(second.getId()).roleId(role.getId())));
+
+        assertThat(result).hasSize(2);
+        assertThat(result).allSatisfy(b -> assertThat(b.getId()).isNotBlank());
+        assertThat(result).extracting(b -> b.getUser().getId())
+                .containsExactlyInAnyOrder(first.getId(), second.getId());
     }
 
     // ========================================================================

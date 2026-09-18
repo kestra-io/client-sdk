@@ -5,6 +5,12 @@ plugins {
 group 'io.kestra'
 version '1.0-SNAPSHOT'
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -12,7 +18,10 @@ repositories {
 
 dependencies {
     implementation 'io.kestra:kestra-api-client:local-ci-version'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+    // Gradle 9 no longer puts the JUnit Platform launcher on the test runtime
+    // classpath implicitly; without it the test worker fails to start.
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation("org.assertj:assertj-core:3.27.6")
     testImplementation("org.awaitility:awaitility:4.3.0")
     testImplementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")

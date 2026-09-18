@@ -63,7 +63,7 @@ public class TriggersApiTest {
 
     @Test
     void searchTriggers_basic() throws ApiException {
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, null);
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -71,7 +71,7 @@ public class TriggersApiTest {
 
     @Test
     void searchTriggers_withPagination() throws ApiException {
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 2, null, null);
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 2, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotNull();
@@ -85,7 +85,7 @@ public class TriggersApiTest {
         createFlow(scheduleFlowYaml(flowId, ns));
         Thread.sleep(500);
 
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, List.of(nsFilter(ns)));
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, List.of(nsFilter(ns)), null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -100,8 +100,7 @@ public class TriggersApiTest {
         createFlow(scheduleFlowYaml(flowId, ns));
         Thread.sleep(500);
 
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null,
-                List.of(flowIdFilter(flowId), nsFilter(ns)));
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, List.of(flowIdFilter(flowId), nsFilter(ns)), null);
 
         assertThat(result).isNotNull();
         assertThat(result.getResults()).isNotEmpty();
@@ -114,8 +113,7 @@ public class TriggersApiTest {
         createFlow(scheduleFlowYaml(flowId, ns));
         Thread.sleep(500);
 
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null,
-                List.of(nsFilter(ns), flowIdFilter(flowId)));
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, List.of(nsFilter(ns), flowIdFilter(flowId)), null);
 
         assertThat(result).isNotNull();
         assertThat(result.getTotal()).isGreaterThanOrEqualTo(1);
@@ -123,8 +121,7 @@ public class TriggersApiTest {
 
     @Test
     void searchTriggers_noResults() throws ApiException {
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null,
-                List.of(nsFilter("nonexistent_ns_" + randomId())));
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, null, List.of(nsFilter("nonexistent_ns_" + randomId())), null);
 
         assertThat(result).isNotNull();
         assertThat(result.getTotal()).isEqualTo(0);
@@ -139,8 +136,7 @@ public class TriggersApiTest {
         createFlow(scheduleFlowYaml(flowId2, ns));
         Thread.sleep(500);
 
-        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10,
-                List.of("flowId:asc"), List.of(nsFilter(ns)));
+        PagedResultsApiTriggerAndState result = api().searchTriggers(TENANT, 1, 10, List.of("flowId:asc"), List.of(nsFilter(ns)), null);
 
         assertThat(result.getResults()).hasSize(2);
         assertThat(result.getResults().get(0).getState().getFlowId()).isEqualTo(flowId1);

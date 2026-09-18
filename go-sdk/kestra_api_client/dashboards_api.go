@@ -36,12 +36,14 @@ func (a *DashboardsAPI) PreviewChart(ctx context.Context, tenant string, request
 	return doJSON[*PagedResultsMapStringObject](&a.baseAPI, ctx, "POST", tenantPath(tenant, "dashboards", "charts", "preview"), request, nil)
 }
 
-func (a *DashboardsAPI) ExportChartToCsv(ctx context.Context, tenant string, request interface{}) ([]byte, error) {
-	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "dashboards", "charts", "export", "to-csv"), request, nil)
+func (a *DashboardsAPI) ExportChart(ctx context.Context, tenant string, request interface{}, format *string) ([]byte, error) {
+	params := buildQueryParams("format", format)
+	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "dashboards", "charts", "export"), request, params)
 }
 
-func (a *DashboardsAPI) ExportDashboardChartDataToCSV(ctx context.Context, id, chartId, tenant string, filters interface{}) ([]byte, error) {
-	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "dashboards", id, "charts", chartId, "export", "to-csv"), filters, nil)
+func (a *DashboardsAPI) ExportDashboardChart(ctx context.Context, id, chartId, tenant string, filters interface{}, format *string) ([]byte, error) {
+	params := buildQueryParams("format", format)
+	return a.doDownloadBytes(ctx, "POST", tenantPath(tenant, "dashboards", id, "charts", chartId, "export"), filters, params)
 }
 
 func (a *DashboardsAPI) DefaultDashboards(ctx context.Context, tenant string) (*DashboardSettings, error) {

@@ -41,6 +41,15 @@ func (a *UsersAPI) PatchUserPassword(ctx context.Context, id string, request int
 	return doJSON[*IAMUserControllerApiUser](&a.baseAPI, ctx, "PATCH", superadminPath("users", id, "password"), request, nil)
 }
 
+// PatchUserInstanceOwner grants or revokes instance-owner status.
+func (a *UsersAPI) PatchUserInstanceOwner(ctx context.Context, id string, request interface{}) error {
+	return a.doVoidJSON(ctx, "PATCH", superadminPath("users", id, "instanceowner"), request, nil)
+}
+
+// PatchUserSuperAdmin targets the pre-2.0 /superadmin route, which the server
+// still accepts. Use PatchUserInstanceOwner instead.
+//
+// Deprecated: superAdmin was renamed to instanceOwner in Kestra 2.0.
 func (a *UsersAPI) PatchUserSuperAdmin(ctx context.Context, id string, request interface{}) error {
 	return a.doVoidJSON(ctx, "PATCH", superadminPath("users", id, "superadmin"), request, nil)
 }
