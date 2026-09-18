@@ -12,7 +12,7 @@ func TestAiAPI(t *testing.T) {
 	client := KestraTestClient()
 
 	t.Run("listProviders", func(t *testing.T) {
-		providers, err := client.Ai().ListAiProviders(ctx)
+		providers, err := client.Ai().ListAiProviders(ctx, MAIN_TENANT)
 		if skipIfGated(t, err, "the AI Copilot") != nil {
 			require.NoError(t, err)
 		}
