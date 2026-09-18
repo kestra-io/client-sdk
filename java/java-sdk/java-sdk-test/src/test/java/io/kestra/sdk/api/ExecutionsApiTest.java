@@ -208,6 +208,28 @@ public class ExecutionsApiTest {
     }
 
     @Test
+    void createExecution_withFileInput_fromFile() throws ApiException, java.io.IOException {
+        String ns = randomId();
+        String flowId = randomId();
+        createFlow(inputsFlowYaml(flowId, ns));
+
+        java.io.File tmp = java.io.File.createTempFile("attachment", ".txt");
+        tmp.deleteOnExit();
+        java.nio.file.Files.writeString(tmp.toPath(), "file-input-content");
+
+        Map<String, Object> inputs = new java.util.HashMap<>();
+        inputs.put("greeting", "with-file");
+        inputs.put("attachment", tmp);
+
+        ApiExecution exec = createWithInputsAndRead(ns, flowId, inputs);
+
+        assertThat(exec.getInputs()).isNotNull();
+        assertThat(exec.getInputs().get("greeting")).isEqualTo("with-file");
+        // A FILE input is resolved to an internal storage URI, not the raw path.
+        assertThat(exec.getInputs().get("attachment")).asString().startsWith("kestra:///");
+    }
+
+    @Test
     void execution_getById() throws ApiException {
         String ns = randomId();
         String flowId = randomId();
