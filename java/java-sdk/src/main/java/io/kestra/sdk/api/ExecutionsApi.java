@@ -1,5 +1,6 @@
 package io.kestra.sdk.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiClient;
@@ -63,6 +64,43 @@ public class ExecutionsApi extends BaseApi {
         return apiClient.parameterToPairs("multi", name, values);
     }
 
+    /**
+     * Turns a flow-inputs mapping into multipart form parts, one part per input id.
+     *
+     * <p>Flow inputs are dynamically typed, so values are encoded per type:
+     * <ul>
+     *   <li>{@link File} / {@code byte[]} values are passed through untouched and sent as a
+     *       binary part (for {@code FILE} inputs);</li>
+     *   <li>{@link String} values are sent verbatim;</li>
+     *   <li>any other value ({@code Integer}, {@code Boolean}, {@link Map}, {@link List}, ...)
+     *       is JSON-encoded, so {@code true} becomes {@code "true"} and {@code [1, 2]} becomes
+     *       {@code "[1,2]"} (for {@code BOOL}/{@code JSON}/{@code ARRAY}/... inputs);</li>
+     *   <li>{@code null} values are skipped entirely, so the flow's declared defaults apply.</li>
+     * </ul>
+     */
+    private Map<String, Object> toFormParams(@jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
+        Map<String, Object> form = new HashMap<>();
+        if (inputs == null || inputs.isEmpty()) {
+            return form;
+        }
+        for (Map.Entry<String, Object> entry : inputs.entrySet()) {
+            Object value = entry.getValue();
+            if (value == null) {
+                continue;
+            }
+            if (value instanceof File || value instanceof byte[] || value instanceof String) {
+                form.put(entry.getKey(), value);
+            } else {
+                try {
+                    form.put(entry.getKey(), apiClient.getObjectMapper().writeValueAsString(value));
+                } catch (JsonProcessingException e) {
+                    throw new ApiException("Failed to serialize input '" + entry.getKey() + "': " + e.getMessage(), e, 0, null);
+                }
+            }
+        }
+        return form;
+    }
+
     // ========================================================================
     // Create execution
     // ========================================================================
@@ -77,6 +115,27 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nullable OffsetDateTime scheduleDate,
             @jakarta.annotation.Nullable String breakpoints,
             @jakarta.annotation.Nullable ExecutionKind kind) throws ApiException {
+        return createExecution(tenant, namespace, id, labels, wait, revision, scheduleDate, breakpoints, kind, null);
+    }
+
+    /**
+     * Create a new execution for a flow, passing flow inputs.
+     *
+     * <p>{@code inputs} maps each flow input id to its value; the values are sent as
+     * {@code multipart/form-data}, one part per input. See {@link #toFormParams(Map)} for how
+     * each value type is encoded. Pass {@code null} or an empty map for a flow with no inputs.
+     */
+    public ExecutionControllerExecutionResponse createExecution(
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nonnull String namespace,
+            @jakarta.annotation.Nonnull String id,
+            @jakarta.annotation.Nullable List<String> labels,
+            @jakarta.annotation.Nullable Boolean wait,
+            @jakarta.annotation.Nullable Integer revision,
+            @jakarta.annotation.Nullable OffsetDateTime scheduleDate,
+            @jakarta.annotation.Nullable String breakpoints,
+            @jakarta.annotation.Nullable ExecutionKind kind,
+            @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
         return invoke("POST",
                 tenantPath(tenant, "executions", namespace, id),
                 null,
@@ -84,6 +143,7 @@ public class ExecutionsApi extends BaseApi {
                         "scheduleDate", scheduleDate, "breakpoints", breakpoints, "kind", kind),
                 multiParams("labels", labels),
                 JSON, MULTIPART,
+                toFormParams(inputs),
                 new TypeReference<>() {});
     }
 
@@ -357,7 +417,7 @@ public class ExecutionsApi extends BaseApi {
                 tenantPath(tenant, "executions", executionId, "actions", "resume"),
                 null, null, null,
                 JSON, MULTIPART,
-                inputs != null ? inputs : new HashMap<>(),
+                toFormParams(inputs),
                 new TypeReference<>() {});
     }
 
@@ -439,10 +499,29 @@ public class ExecutionsApi extends BaseApi {
             @jakarta.annotation.Nullable String taskRunId,
             @jakarta.annotation.Nullable Integer revision,
             @jakarta.annotation.Nullable String breakpoints) throws ApiException {
+        return replayExecutionWithInputs(executionId, tenant, taskRunId, revision, breakpoints, null);
+    }
+
+    /**
+     * Replay an execution from a specific task run, overriding flow inputs.
+     *
+     * <p>{@code inputs} maps each flow input id to its (possibly new) value; the values are sent
+     * as {@code multipart/form-data}, one part per input. See {@link #toFormParams(Map)} for how
+     * each value type is encoded. Pass {@code null} or an empty map to replay without changing
+     * inputs.
+     */
+    public Execution replayExecutionWithInputs(
+            @jakarta.annotation.Nonnull String executionId,
+            @jakarta.annotation.Nonnull String tenant,
+            @jakarta.annotation.Nullable String taskRunId,
+            @jakarta.annotation.Nullable Integer revision,
+            @jakarta.annotation.Nullable String breakpoints,
+            @jakarta.annotation.Nullable Map<String, Object> inputs) throws ApiException {
         return invoke("POST",
                 tenantPath(tenant, "executions", executionId, "actions", "replay-with-inputs"),
                 null, queryParams("taskRunId", taskRunId, "revision", revision, "breakpoints", breakpoints), null,
                 JSON, MULTIPART,
+                toFormParams(inputs),
                 new TypeReference<>() {});
     }
 
@@ -805,7 +884,7 @@ public class ExecutionsApi extends BaseApi {
                 tenantPath(tenant, "executions", executionId, "actions", "resume", "validate"),
                 null, null, null,
                 JSON, MULTIPART,
-                inputs != null ? inputs : new HashMap<>(),
+                toFormParams(inputs),
                 new TypeReference<>() {});
     }
 
@@ -820,7 +899,7 @@ public class ExecutionsApi extends BaseApi {
                 tenantPath(tenant, "executions", namespace, id, "validate"),
                 null, queryParams("revision", revision), multiParams("labels", labels),
                 JSON, MULTIPART,
-                inputs != null ? inputs : new HashMap<>(),
+                toFormParams(inputs),
                 new TypeReference<>() {});
     }
 
