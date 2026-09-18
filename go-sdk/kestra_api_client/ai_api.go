@@ -9,9 +9,10 @@ import (
 )
 
 // AiAPI covers the AI Copilot endpoints: the one-shot generators under
-// /api/v1/{tenant}/ai/generate/* and /api/v1/main/ai/*, and the conversational
-// thread endpoints under /api/v1/{tenant}/ai/threads. The controllers are gated
-// by the COPILOT resource and require a configured AI provider (503 otherwise).
+// /api/v1/{tenant}/ai/generate/*, the provider listing at
+// /api/v1/{tenant}/ai/providers, and the conversational thread endpoints under
+// /api/v1/{tenant}/ai/threads. Every route is tenant-scoped. The controllers are
+// gated by the COPILOT resource and require a configured AI provider (503 otherwise).
 type AiAPI struct {
 	baseAPI
 }
@@ -58,14 +59,14 @@ func (a *AiAPI) GenerateTest(ctx context.Context, tenant string, body interface{
 }
 
 // GenerateFlow generates a flow definition (YAML) from a natural-language
-// prompt. `body` is a FlowGenerationPrompt. Backs POST /api/v1/main/ai/generate/flow.
-func (a *AiAPI) GenerateFlow(ctx context.Context, body interface{}) (string, error) {
-	return a.postForYAML(ctx, "POST", superadminPath("main", "ai", "generate", "flow"), body)
+// prompt. `body` is a FlowGenerationPrompt. Backs POST /api/v1/{tenant}/ai/generate/flow.
+func (a *AiAPI) GenerateFlow(ctx context.Context, tenant string, body interface{}) (string, error) {
+	return a.postForYAML(ctx, "POST", tenantPath(tenant, "ai", "generate", "flow"), body)
 }
 
-// ListAiProviders lists the configured AI providers. Backs GET /api/v1/main/ai/providers.
-func (a *AiAPI) ListAiProviders(ctx context.Context) ([]map[string]interface{}, error) {
-	return doJSON[[]map[string]interface{}](&a.baseAPI, ctx, "GET", superadminPath("main", "ai", "providers"), nil, nil)
+// ListAiProviders lists the configured AI providers. Backs GET /api/v1/{tenant}/ai/providers.
+func (a *AiAPI) ListAiProviders(ctx context.Context, tenant string) ([]map[string]interface{}, error) {
+	return doJSON[[]map[string]interface{}](&a.baseAPI, ctx, "GET", tenantPath(tenant, "ai", "providers"), nil, nil)
 }
 
 // ListThreads lists the current user's AI threads. Backs GET /api/v1/{tenant}/ai/threads.

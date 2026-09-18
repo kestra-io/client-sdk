@@ -204,6 +204,76 @@ func TestNamespacesAPI_All(t *testing.T) {
 		require.NoError(t, err)
 	})
 
+	t.Run("listNamespaceSecretsTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_list_namespace_secrets_" + randomId()
+		ns := kestra_api_client.Namespace{Id: nsId, Deleted: false}
+		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
+		require.NoError(t, err)
+
+		key := "test_list_secret_key_" + randomId()
+		secret := kestra_api_client.ApiSecretValue{
+			Key:   key,
+			Value: "value-list",
+		}
+		_, err = KestraTestClient().Namespaces().PutSecrets(ctx, created.GetId(), MAIN_TENANT, secret)
+		require.NoError(t, err)
+
+		// Namespace-scoped convenience: filters[namespace][EQUALS]=<ns> under the hood.
+		resp, err := KestraTestClient().Namespaces().ListNamespaceSecrets(ctx, created.GetId(), MAIN_TENANT, nil, nil, nil, nil)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+
+		found := false
+		for _, m := range resp.GetResults() {
+			if m.GetKey() == key {
+				found = true
+				require.Equal(t, created.GetId(), m.GetNamespace(), "secret should be scoped to the created namespace")
+				break
+			}
+		}
+		require.True(t, found, "ListNamespaceSecrets should include the seeded secret key")
+	})
+
+	t.Run("listSecretsTest", func(t *testing.T) {
+		ctx := context.Background()
+
+		nsId := "test_list_secrets_" + randomId()
+		ns := kestra_api_client.Namespace{Id: nsId, Deleted: false}
+		created, err := KestraTestClient().Namespaces().CreateNamespace(ctx, MAIN_TENANT, ns)
+		require.NoError(t, err)
+
+		key := "test_cross_secret_key_" + randomId()
+		secret := kestra_api_client.ApiSecretValue{
+			Key:   key,
+			Value: "value-cross",
+		}
+		_, err = KestraTestClient().Namespaces().PutSecrets(ctx, created.GetId(), MAIN_TENANT, secret)
+		require.NoError(t, err)
+
+		// Cross-namespace list scoped with an explicit namespace filter (the endpoint
+		// requires at least one filter).
+		filters := []kestra_api_client.SearchFilter{{
+			Field:     kestra_api_client.FilterNamespace,
+			Operation: kestra_api_client.OpEquals,
+			Value:     created.GetId(),
+		}}
+		resp, err := KestraTestClient().Namespaces().ListSecrets(ctx, MAIN_TENANT, nil, nil, nil, filters)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+		require.GreaterOrEqual(t, resp.GetTotal(), int64(1), "at least the seeded secret should be counted")
+
+		found := false
+		for _, m := range resp.GetResults() {
+			if m.GetKey() == key {
+				found = true
+				break
+			}
+		}
+		require.True(t, found, "ListSecrets should include the seeded secret key")
+	})
+
 	t.Run("searchNamespacesTest", func(t *testing.T) {
 		ctx := context.Background()
 
