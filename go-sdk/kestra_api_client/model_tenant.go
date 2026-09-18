@@ -25,6 +25,7 @@ type Tenant struct {
 	Id string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
 	Name string `json:"name"`
 	Deleted bool `json:"deleted"`
+	Type *TenantType `json:"type,omitempty"`
 	DefaultWorkerSelector *WorkerSelector `json:"defaultWorkerSelector,omitempty"`
 	Concurrency *Concurrency `json:"concurrency,omitempty"`
 	StorageType *string `json:"storageType,omitempty"`
@@ -53,6 +54,8 @@ func NewTenant(id string, name string, deleted bool) *Tenant {
 	this.Id = id
 	this.Name = name
 	this.Deleted = deleted
+	var type_ TenantType = TENANTTYPE_DEFAULT
+	this.Type = &type_
 	return &this
 }
 
@@ -198,6 +201,38 @@ func (o *Tenant) GetDeletedOk() (*bool, bool) {
 // SetDeleted sets field value
 func (o *Tenant) SetDeleted(v bool) {
 	o.Deleted = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Tenant) GetType() TenantType {
+	if o == nil || IsNil(o.Type) {
+		var ret TenantType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Tenant) GetTypeOk() (*TenantType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Tenant) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given TenantType and assigns it to the Type field.
+func (o *Tenant) SetType(v TenantType) {
+	o.Type = &v
 }
 
 // GetDefaultWorkerSelector returns the DefaultWorkerSelector field value if set, zero value otherwise.
@@ -667,6 +702,9 @@ func (o Tenant) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["deleted"] = o.Deleted
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	if !IsNil(o.DefaultWorkerSelector) {
 		toSerialize["defaultWorkerSelector"] = o.DefaultWorkerSelector
 	}

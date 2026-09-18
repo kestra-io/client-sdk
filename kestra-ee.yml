@@ -43003,6 +43003,8 @@ components:
           type: string
         deleted:
           type: boolean
+        type:
+          $ref: '#/components/schemas/TenantType'
         defaultWorkerSelector:
           $ref: '#/components/schemas/WorkerSelector'
         concurrency:
@@ -43037,6 +43039,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Quota'
+    TenantType:
+      type: string
+      enum:
+      - DEFAULT
+      - INFRASTRUCTURE
+      - UNKNOWN
     Tenant.AppCatalogConfig:
       type: object
       properties:

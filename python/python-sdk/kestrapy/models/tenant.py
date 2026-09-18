@@ -26,6 +26,7 @@ from kestrapy.models.sdk_auth import SDKAuth
 from kestrapy.models.secret_configuration_worker_secret_manager_mode import SecretConfigurationWorkerSecretManagerMode
 from kestrapy.models.tenant_app_catalog_config import TenantAppCatalogConfig
 from kestrapy.models.tenant_preferences_settings import TenantPreferencesSettings
+from kestrapy.models.tenant_type import TenantType
 from kestrapy.models.worker_selector import WorkerSelector
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,6 +40,7 @@ class Tenant(BaseModel):
     id: Annotated[str, Field(strict=True)]
     name: StrictStr
     deleted: StrictBool
+    type: Optional[TenantType] = TenantType.DEFAULT
     default_worker_selector: Optional[WorkerSelector] = Field(default=None, alias="defaultWorkerSelector")
     concurrency: Optional[Concurrency] = None
     storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
@@ -54,7 +56,7 @@ class Tenant(BaseModel):
     sdk_default_authentication: Optional[SDKAuth] = Field(default=None, alias="sdkDefaultAuthentication")
     quotas: Optional[List[Quota]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "defaultWorkerSelector", "concurrency", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "workerSecretManagerMode", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "settings", "sdkDefaultAuthentication", "quotas"]
+    __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "type", "defaultWorkerSelector", "concurrency", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "workerSecretManagerMode", "requireExistingNamespace", "outputsInInternalStorage", "appCatalogConfig", "settings", "sdkDefaultAuthentication", "quotas"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -154,6 +156,7 @@ class Tenant(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "deleted": obj.get("deleted"),
+            "type": obj.get("type"),
             "defaultWorkerSelector": WorkerSelector.from_dict(obj["defaultWorkerSelector"]) if obj.get("defaultWorkerSelector") is not None else None,
             "concurrency": Concurrency.from_dict(obj["concurrency"]) if obj.get("concurrency") is not None else None,
             "storageType": obj.get("storageType"),

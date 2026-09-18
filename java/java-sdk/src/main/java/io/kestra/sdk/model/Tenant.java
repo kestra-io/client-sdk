@@ -43,6 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_ID,
   Tenant.JSON_PROPERTY_NAME,
   Tenant.JSON_PROPERTY_DELETED,
+  Tenant.JSON_PROPERTY_TYPE,
   Tenant.JSON_PROPERTY_DEFAULT_WORKER_SELECTOR,
   Tenant.JSON_PROPERTY_STORAGE_TYPE,
   Tenant.JSON_PROPERTY_STORAGE_CONFIGURATION,
@@ -74,6 +75,9 @@ public class Tenant {
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nonnull  private TenantType type = TenantType.DEFAULT;
 
   public static final String JSON_PROPERTY_DEFAULT_WORKER_SELECTOR = "defaultWorkerSelector";
   @jakarta.annotation.Nullable  private WorkerSelector defaultWorkerSelector;
@@ -238,6 +242,30 @@ public class Tenant {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
+  }
+
+  public Tenant type(@jakarta.annotation.Nonnull TenantType type) {
+
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TenantType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@jakarta.annotation.Nonnull TenantType type) {
+    this.type = type;
   }
 
   public Tenant defaultWorkerSelector(@jakarta.annotation.Nullable WorkerSelector defaultWorkerSelector) {
@@ -614,6 +642,7 @@ public class Tenant {
         Objects.equals(this.id, tenant.id) &&
         Objects.equals(this.name, tenant.name) &&
         Objects.equals(this.deleted, tenant.deleted) &&
+        Objects.equals(this.type, tenant.type) &&
         Objects.equals(this.defaultWorkerSelector, tenant.defaultWorkerSelector) &&
         Objects.equals(this.storageType, tenant.storageType) &&
         Objects.equals(this.storageConfiguration, tenant.storageConfiguration) &&
@@ -632,7 +661,7 @@ public class Tenant {
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, concurrency, quotas, workerSecretManagerMode);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, type, defaultWorkerSelector, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, settings, sdkDefaultAuthentication, concurrency, quotas, workerSecretManagerMode);
   }
 
   @Override
@@ -644,6 +673,7 @@ public class Tenant {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    defaultWorkerSelector: ").append(toIndentedString(defaultWorkerSelector)).append("\n");
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    storageConfiguration: ").append(toIndentedString(storageConfiguration)).append("\n");
