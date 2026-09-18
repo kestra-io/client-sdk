@@ -22,6 +22,13 @@ from kestrapy.api.test_suites_api import TestSuitesApi
 from kestrapy.api.quotas_api import QuotasApi
 from kestrapy.api.reusable_inputs_api import ReusableInputsApi
 from kestrapy.api.tenants_api import TenantsApi
+from kestrapy.api.instance_api import InstanceApi
+from kestrapy.api.worker_groups_api import WorkerGroupsApi
+from kestrapy.api.worker_queues_api import WorkerQueuesApi
+from kestrapy.api.banners_api import BannersApi
+from kestrapy.api.kill_switches_api import KillSwitchesApi
+from kestrapy.api.policies_api import PoliciesApi
+from kestrapy.api.misc_api import MiscApi
 
 
 class KestraClient:
@@ -102,6 +109,20 @@ class KestraClient:
     def tenants(self): return self._get_api(TenantsApi)
     @property
     def reusable_inputs(self): return self._get_api(ReusableInputsApi)
+    @property
+    def instance(self): return self._get_api(InstanceApi)
+    @property
+    def worker_groups(self): return self._get_api(WorkerGroupsApi)
+    @property
+    def worker_queues(self): return self._get_api(WorkerQueuesApi)
+    @property
+    def banners(self): return self._get_api(BannersApi)
+    @property
+    def kill_switches(self): return self._get_api(KillSwitchesApi)
+    @property
+    def policies(self): return self._get_api(PoliciesApi)
+    @property
+    def misc(self): return self._get_api(MiscApi)
 
     def close(self):
         self._session.close()

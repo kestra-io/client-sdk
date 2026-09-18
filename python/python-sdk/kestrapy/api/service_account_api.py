@@ -1,6 +1,7 @@
 from typing import Any, List, Optional
 
 from kestrapy.base_api import BaseApi
+from kestrapy.models.api_patch_instance_owner_request import ApiPatchInstanceOwnerRequest
 from kestrapy.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.iam_service_account_controller_api_create_service_account_request import IAMServiceAccountControllerApiCreateServiceAccountRequest
@@ -36,6 +37,12 @@ class ServiceAccountApi(BaseApi):
 
     def patch_service_account_super_admin(self, id: str, request: ApiPatchSuperAdminRequest) -> None:
         path = self._superadmin_path("service-accounts", id, "superadmin")
+        self._void_request("PATCH", path, body=request, content_type=self.JSON)
+
+    # ---- Instance-owner patch (Instance-owner-only) ----
+
+    def patch_service_account_instance_owner(self, id: str, request: ApiPatchInstanceOwnerRequest) -> None:
+        path = self._superadmin_path("service-accounts", id, "instanceowner")
         self._void_request("PATCH", path, body=request, content_type=self.JSON)
 
     # ---- Listing (Superadmin-scoped) ----
