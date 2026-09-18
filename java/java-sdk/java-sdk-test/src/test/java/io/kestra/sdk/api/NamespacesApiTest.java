@@ -186,6 +186,49 @@ public class NamespacesApiTest {
         assertThat(result).isNotNull();
     }
 
+    @Test
+    void listNamespaceSecrets_returnsSeededSecret() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        String key = "MY_LISTED_SECRET";
+        api().putSecrets(ns, TENANT, new ApiSecretValue().key(key).value("val"));
+
+        ApiSecretListResponseApiSecretMeta result =
+                api().listNamespaceSecrets(ns, TENANT, null, null, null, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getResults())
+                .extracting(ApiSecretMetaEE::getKey)
+                .contains(key);
+        assertThat(result.getResults())
+                .filteredOn(m -> key.equals(m.getKey()))
+                .extracting(ApiSecretMetaEE::getNamespace)
+                .containsOnly(ns);
+    }
+
+    @Test
+    void listSecrets_withNamespaceFilter_returnsSeededSecret() throws ApiException {
+        String ns = randomId();
+        createFlow(logFlowYaml(randomId(), ns));
+
+        String key = "MY_CROSS_SECRET";
+        api().putSecrets(ns, TENANT, new ApiSecretValue().key(key).value("val"));
+
+        List<QueryFilter> filters = List.of(new QueryFilter()
+                .field(QueryFilterField.NAMESPACE)
+                .operation(QueryFilterOp.EQUALS)
+                .value(ns));
+        ApiSecretListResponseApiSecretMeta result =
+                api().listSecrets(TENANT, null, null, null, filters);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getTotal()).isGreaterThanOrEqualTo(1L);
+        assertThat(result.getResults())
+                .extracting(ApiSecretMetaEE::getKey)
+                .contains(key);
+    }
+
     // ========================================================================
     // Variables
     // ========================================================================
